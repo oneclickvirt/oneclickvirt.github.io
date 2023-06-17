@@ -1,0 +1,1 @@
+import{_ as e,c as r,o as t,d as n}from"./app.37329957.js";const f='{"title":"\u81F4\u8C22","description":"","frontmatter":{},"headers":[{"level":2,"title":"\u81F4\u8C22","slug":"\u81F4\u8C22"}],"relativePath":"en_US/guide/lxd_thanks.md"}',o={},a=n("",10),s=[a];function i(c,p,l,h,d,u){return t(),r("div",null,s)}var g=e(o,[["render",i]]);export{f as __pageData,g as default};
