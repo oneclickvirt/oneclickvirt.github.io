@@ -1,10 +1,11 @@
 # oneclickvirt.github.io
 
-Documentation for one-click virtualization
+一键虚拟化(One click virtualization) 
 
-Pre install environment
+Documentation for one-click virtualization
 
 ```
 apt-get install -y nodejs npm
-npm install -g pnpm
+npm i
+npm run dev
 ```
