@@ -14,9 +14,11 @@ features:
   details: Support automatic intranet port forwarding, including TCP and UDP protocols, without manual management
 - title: Batch Virtualization
   details: Support for KVM, LXC, Docker virtualization batch opening of virtual machines/containers
+- title: Multisystem support
+  details: Virtual machines/containers already support multiple systems, covering almost all major systems
 - title: Self-limiting abuse
   details: Partially virtual machines/containers have been masked and loaded with restrictions to avoid being used for abuse
-footer: Copyright © 2022-present Nezhahq
+footer: Copyright © 2023-present Nezhahq
 ---  
 
 Documentation has not been translated yet, waiting for translation.
