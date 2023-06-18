@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: https://raw.githubusercontent.com/spiritlhls/pages/main/logo.jpg
+heroImage: https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png
 heroText: 开发手册
 tagline: 欢迎使用一键虚拟化项目开发手册，欢迎你提出高质量的Pull Request，帮助一键虚拟化项目变得更好！
 actionText: 开始使用 →
