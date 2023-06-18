@@ -22,6 +22,5 @@
   "homepage": "https://github.com/oneclickvirt/oneclickvirt.github.io#readme",
   "devDependencies": {
     "vitepress": "^0.22.4",
-    "vuepress-plugin-clipboard": "workspace:*",
   }
 }
