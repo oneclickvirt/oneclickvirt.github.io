@@ -107,7 +107,7 @@ function getGuideSidebarZhCN() {
       ]
     },
     {
-      text: 'docker',
+      text: 'Docker',
       children: [
         { text: '系统和硬件配置要求', link: '/guide/docker_precheck' },
         { text: '主体安装', link: '/guide/docker_install' },
@@ -182,7 +182,7 @@ function getGuideSidebarEnUS() {
       ]
     },
     {
-      text: 'docker',
+      text: 'Docker',
       children: [
         { text: 'System and hardware configuration requirements', link: '/en_US/guide/docker_precheck' },
         { text: 'Main installation', link: '/en_US/guide/docker_install' },
