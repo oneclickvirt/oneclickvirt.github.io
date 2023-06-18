@@ -1,14 +1,6 @@
 import { defineConfig } from 'vitepress'
 import { clipboardPlugin } from 'vuepress-plugin-clipboard'
 
-export default defineUserConfig({
-  plugins: [
-    clipboardPlugin({
-      staticIcon: true
-    })
-  ]
-})
-
 export default defineConfig({
   lastUpdated: true,
   locales: {
@@ -77,6 +69,11 @@ export default defineConfig({
         lastUpdated: 'Last Updated'
       }
     },
+    plugins: [
+    clipboardPlugin({
+      staticIcon: true
+    })
+    ],
     algolia: {
       appId: '',
       apiKey: '',
