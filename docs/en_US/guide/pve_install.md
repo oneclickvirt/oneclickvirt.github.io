@@ -2,9 +2,9 @@
 
 - 安装的是当下apt源最新的PVE
 - 比如debian10则是pve6.4，debian11则是pve7.x，debian12则是pve8.x
-::tip
+:::tip
 建议debian11而不是debian12，因为后者是beta版本，debian11安装的才是稳定版
-::
+:::
 - /etc/hosts文件修改(修正商家hostname设置错误以及新增PVE所需的内容)
 - 已设置```/etc/hosts```为只读模式，避免重启后文件被覆写，如需修改请使用```chattr -i /etc/hosts```取消只读锁定，修改完毕请执行```chattr +i /etc/hosts```只读锁定
 - 检测```/etc/cloud/cloud.cfg```如果发现```preserve_hostname```是```false```，则改为```true```，同上，也用chattr命令进行了文件锁定避免重启覆盖设置
@@ -50,10 +50,10 @@ bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubus
 
 ### 自动配置宿主机的网关
 
-::warning
+:::warning
 使用前请保证重启过服务器且此时PVE能正常使用WEB端再执行，重启机器后不要立即执行此命令，待WEB端启动成功后至少等5分钟再执行本命令
 这一步是最容易造成SSH断开的，原因是未等待PVE内核启动就修改网络会造成设置冲突，所以至少等几分钟待内核启动也就是WEB端启动成功后再执行
-::
+:::
 - 创建vmbr0，母鸡允许addr和gateway为内网IP或外网IP，已自动识别
 - vmbr0创建支持纯IPV4或双栈服务器，自动识别IPV4地址和IPV6地址，自动识别对应的IP区间
 - 创建vmbr1(NAT网关)
