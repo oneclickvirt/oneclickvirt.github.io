@@ -165,15 +165,11 @@ sudo find /tmp -type f -delete
 sudo find /var/cache/apt/archives -type f -delete
 ```
   
-## 一键脚本老手推荐方便快捷
+## 单独生成一个NAT服务器
 
 - 只生成一个NAT服务器，可自定义限制所有内容
 
-### 只开一个NAT服务器
-
-下载开机脚本
-
-- (***非必须***，如果你使用过一键安装LXD的命令，自动已下载对应的开机脚本，不用下载该脚本)
+下载开机脚本是***非必须***的，如果你使用过一键安装LXD的命令，自动已下载对应的开机脚本，不用下载该脚本
 
 国际
 
@@ -187,7 +183,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxc/mai
 curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
 ```
 
-### 开一个NAT服务器
+### 使用方法
 
 内存大小以MB计算，硬盘大小以GB计算，下载速度上传速度以Mbit计算，是否启用IPV6不一定要填Y或者N，没有这个参数也行
 
