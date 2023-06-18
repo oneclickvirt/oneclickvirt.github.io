@@ -137,7 +137,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 
 开设完毕可执行```cat vmlog```查看信息，或到WEB端对应VM的NOTES中查看
 
-### 删除所有VM
+## 删除所有VM
 
 - 删除所有VM
 - 删除所有nat的端口映射
