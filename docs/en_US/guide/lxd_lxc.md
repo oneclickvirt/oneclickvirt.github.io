@@ -6,9 +6,9 @@
 - 带1个SSH端口，25个外网端口
 - 默认内存和硬盘大小
 
-::tip
+:::tip
 lxc若命令无问题，执行初始化开小鸡，这一步最好放```screen```中后台挂起执行，开小鸡时长与你开几个和母鸡配置相关
-::
+:::
 
 执行下面命令加载开机脚本
 
@@ -40,9 +40,9 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxc/mai
 - 只有一个SSH端口
 - 无法挂载warp
 
-::tip
+:::tip
 lxc若命令无问题，执行初始化开小鸡，这一步最好放```screen```中后台挂起执行，开小鸡时长与你开几个和母鸡配置相关
-::
+:::
 
 加载开机脚本
 
