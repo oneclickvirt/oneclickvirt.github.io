@@ -1,3 +1,5 @@
+# LXC虚拟化
+
 ## 单独开设LXC虚拟化的CT
 
 :::warning
