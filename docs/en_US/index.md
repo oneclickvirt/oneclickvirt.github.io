@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: https://raw.githubusercontent.com/spiritlhls/pages/main/logo.jpg
+heroImage: https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png
 heroText: One Click Virtualization Project
 tagline: Open source, easy to use server virtualization project
 actionText: Learn More →
