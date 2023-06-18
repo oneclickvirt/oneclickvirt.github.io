@@ -1,4 +1,13 @@
 import { defineConfig } from 'vitepress'
+import { clipboardPlugin } from 'vuepress-plugin-clipboard'
+
+export default defineUserConfig({
+  plugins: [
+    clipboardPlugin({
+      staticIcon: true
+    })
+  ]
+})
 
 export default defineConfig({
   lastUpdated: true,
