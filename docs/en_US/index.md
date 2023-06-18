@@ -6,14 +6,16 @@ tagline: Open source, easy to use server virtualization project
 actionText: Learn More →
 actionLink: /en_US/guide/dashboard
 features:
-- title: One-Click Installation
-  details: Support one-click script installation, easy to use; based on Debian, Ubuntu long-term maintenance version development, try to ensure that the host system and development environment consistent
+- title: One Click Use
+  details: Support one-click script installation, easily create virtual machines/containers using each virtualization
+- title: Mainstream Systems
+  details: Based on Debian, Ubuntu long-term maintenance version, if you want to use it, please try to ensure that the host system and the development environment are the same
 - title: Comes with internal and external port forwarding
-  details: Support automatic intranet port forwarding, including TCP and UDP protocols
+  details: Support automatic intranet port forwarding, including TCP and UDP protocols, without manual management
 - title: Batch Virtualization
-  details: Support for KVM, LXC, Docker virtualization batch opening of virtual machines (containers)
+  details: Support for KVM, LXC, Docker virtualization batch opening of virtual machines/containers
 - title: Self-limiting abuse
-  details: Partially virtualized containers/VMs have been masked and loaded with restrictions to avoid being used for abuse
+  details: Partially virtual machines/containers have been masked and loaded with restrictions to avoid being used for abuse
 footer: Copyright © 2022-present Nezhahq
 ---  
 
