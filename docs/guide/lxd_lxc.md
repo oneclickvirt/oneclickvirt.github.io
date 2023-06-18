@@ -68,6 +68,27 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxc/mai
 
 有时候least.sh的运行路径有问题，此时建议前面加上sudo强制根目录执行
 
+## 自定义版本批量生成
+
+- 可自定义内存和硬盘大小
+- 有执行过上面的手动批量生成过也没问题，配置是继承的不覆盖
+
+如果需要多次批量生成小鸡，可使用
+
+国际
+
+```
+curl -L https://github.com/spiritLHLS/lxc/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
+```
+
+国内
+
+```shell
+curl -L https://ghproxy.com/https://github.com/spiritLHLS/lxc/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
+```
+
+可多次运行批量生成小鸡，且继承前面已生成的部分在后面添加，可自定义内存和硬盘大小
+
 ## 查看已批量开设的信息
 
 开完小鸡后，具体信息会生成在当前目录下的log文件中，格式如下
@@ -150,7 +171,7 @@ sudo find /var/cache/apt/archives -type f -delete
 
 ### 只开一个NAT服务器
 
-#### 下载开机脚本
+下载开机脚本
 
 - (***非必须***，如果你使用过一键安装LXD的命令，自动已下载对应的开机脚本，不用下载该脚本)
 
@@ -166,7 +187,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxc/mai
 curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
 ```
 
-#### 开一个NAT服务器
+### 开一个NAT服务器
 
 内存大小以MB计算，硬盘大小以GB计算，下载速度上传速度以Mbit计算，是否启用IPV6不一定要填Y或者N，没有这个参数也行
 
@@ -218,24 +239,3 @@ lxc delete -f test
 rm -rf test
 ls
 ```
-
-#### 自定义版本批量生成
-
-- 可自定义内存和硬盘大小
-- 有执行过上面的手动批量生成过也没问题，配置是继承的不覆盖
-
-如果需要多次批量生成小鸡，可使用
-
-国际
-
-```
-curl -L https://github.com/spiritLHLS/lxc/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://github.com/spiritLHLS/lxc/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
-```
-
-可多次运行批量生成小鸡，且继承前面已生成的部分在后面添加，可自定义内存和硬盘大小
