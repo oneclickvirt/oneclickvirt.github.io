@@ -13,7 +13,9 @@ features:
 - title: 自带内外网端口转发
   details: 支持自动的内网端口转发，含TCP、UDP协议，无需人工管理
 - title: 批量虚拟化
-  details: 支持 KVM、LXC、Docker 虚拟化批量开设虚拟机/容器
+  details: 支持 KVM、LXC、Docker 虚拟化批量开设容器/虚拟机
+- title: 多系统支持
+  details: 开设出的容器/虚拟机已支持多系统，涵盖几乎所有主流系统
 - title: 自限制滥用
   details: 部分虚拟化开设的容器/虚拟机已屏蔽和装载限制，避免被用于滥用
 footer: Copyright © 2023-present oneclickvirt
