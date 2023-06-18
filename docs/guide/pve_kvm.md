@@ -18,7 +18,7 @@
 
 如果强行安装PVE开KVM，启动不了的也可以关闭这个选项试试能不能启动虚拟机
 
-### 单独开设KVM虚拟化的VM
+## 单独开设KVM虚拟化的VM
 
 - 自动开设NAT服务器，默认使用Debian10镜像，因为该镜像占用最小
 - 可在命令中自定义需要使用的镜像，这里有给出配置好的镜像，镜像自带空间设置是2~10G硬盘，日常使用**至少10G以上**即可，除非某些镜像开不起来再增加硬盘大小
@@ -45,7 +45,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm.sh
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm.sh -o buildvm.sh && chmod +x buildvm.sh
 ```
 
-#### 使用方法
+### 使用方法
 
 - 系统支持：详见 [跳转](https://github.com/spiritLHLS/Images/releases/tag/v1.0) 中列出的系统，使用时只需写文件名字，不需要.qcow2尾缀
 
@@ -57,7 +57,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 ./buildvm.sh VMID 用户名 密码 CPU核数 内存 硬盘 SSH端口 80端口 443端口 外网端口起 外网端口止 系统 存储盘
 ```
 
-#### 测试示例
+### 测试示例
 
 * 以下为开设的示例VM的信息：  
 `VMID` - 102
@@ -79,7 +79,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 
 开设完毕可执行```cat vm102```查看信息，或到WEB端对应VM的NOTES中查看
 
-#### 删除示例
+### 删除示例
 
 - 停止VM
 - 删除VM
@@ -97,7 +97,7 @@ systemctl restart networking.service
 rm -rf vm102
 ```
 
-#### 相关qcow2镜像
+## 相关qcow2镜像
 
 - 已预安装开启cloudinit，开启SSH登陆，预设值SSH监听V4和V6的22端口，开启允许密码验证登陆，开启允许ROOT登陆
 
@@ -105,7 +105,7 @@ rm -rf vm102
 
 [https://github.com/spiritLHLS/Images/releases/tag/v1.0](https://github.com/spiritLHLS/Images/releases/tag/v1.0)
 
-### 批量开设NAT的KVM虚拟化的VM
+## 批量开设NAT的KVM虚拟化的VM
 
 :::warning
 初次使用前需要保证当前PVE纯净且宿主机未进行过任何端口映射，否则设置冲突可能出现BUG
@@ -137,7 +137,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 
 开设完毕可执行```cat vmlog```查看信息，或到WEB端对应VM的NOTES中查看
 
-#### 删除所有VM
+### 删除所有VM
 
 - 删除所有VM
 - 删除所有nat的端口映射
@@ -157,7 +157,7 @@ rm -rf vmlog
 PVE修改VM配置前都得停机先，再修改配置，修改完再启动，免得出现配置重载错误
 :::
 
-### 开设独立IPV4地址的VM
+## 开设独立IPV4地址的VM
 
 :::warning
 使用前需要保证当前宿主机的IP段带了至少2个IP，且有空余的IP未配置，该空余的IP未绑定宿主机
@@ -178,7 +178,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_ex
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_extraip.sh -o buildvm_extraip.sh && chmod +x buildvm_extraip.sh
 ```
 
-#### 创建示例
+### 创建示例
 
 ```shell
 ./buildvm_extraip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘
