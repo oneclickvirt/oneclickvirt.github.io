@@ -21,3 +21,9 @@
 [腾讯云](https://curl.qcloud.com/tPrMnfZm) 中的无忧款和特惠款(学生机)
 
 [spectraip](https://my.spectraip.net/aff.php?aff=35) 中的KVM服务器
+
+### 已知无法直接安装PVE的商家
+
+[hetzner](https://hetzner.cloud/?ref=CnWVr0FGneUl) 需要救援系统安装纯净的Debian，默认网络设置有冲突
+
+[hosthatch](https://cloud.hosthatch.com/a/2450) 默认网络设置有问题
