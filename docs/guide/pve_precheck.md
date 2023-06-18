@@ -8,15 +8,14 @@
 
 本项目只适配Debian系统(非Debian无法通过APT源安装，官方只给了Debian的镜像，其他系统只能使用ISO安装)
 
-::tip
+- 系统要求：Debian 8+
+:::tip
 建议debian11而不是debian12，因为后者是beta版本，debian11安装的才是稳定版
-::
-::warning
-内存开点swap免得机器炸了[开SWAP点我跳转](https://github.com/spiritLHLS/addswap)
-::
-
-- 系统要求：Debian 8+ 
+:::
 - 硬件要求：2核2G内存x86_64架构服务器硬盘至少20G
+:::warning
+内存开点swap免得机器炸了[开SWAP点我跳转](https://github.com/spiritLHLS/addswap)
+:::
 - 可开KVM的硬件要求：VM-X或AMD-V支持 (部分VPS和全部独服支持)
 - 如果硬件或系统需求不满足，可使用LXD批量开LXC容器[跳转](https://github.com/spiritLHLS/lxc)
 
@@ -32,7 +31,7 @@
 
 国际
 
-::: v-pre
+:::v-pre
 ```
 bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/check_kernal.sh)
 ```
