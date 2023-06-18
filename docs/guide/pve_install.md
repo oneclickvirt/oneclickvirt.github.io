@@ -50,7 +50,7 @@ bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spirit
 bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/build_backend.sh)
 ```
 
-### 自动配置宿主机的网关
+## 自动配置宿主机的网关
 
 :::warning
 使用前请保证重启过服务器且此时PVE能正常使用WEB端再执行，重启机器后不要立即执行此命令，待WEB端启动成功后至少等5分钟再执行本命令
