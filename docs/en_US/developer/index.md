@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: https://raw.githubusercontent.com/spiritlhls/pages/main/logo.jpg
+heroImage: https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png
 heroText: Development Manual
 tagline: Welcome to the Nezha Monitoring Development Manual.
 actionText: Start Now →
