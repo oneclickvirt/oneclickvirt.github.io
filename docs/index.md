@@ -6,12 +6,14 @@ tagline: 开源、易于使用的服务器虚拟化项目
 actionText: 开始使用 →
 actionLink: /guide/dashboard
 features:
-- title: 一键安装
-  details: 支持一键脚本安装，轻松使用；基于 Debian、Ubuntu 的长期维护版本开发，请尽量保证宿主机系统与开发环境一致
+- title: 一键使用
+  details: 支持一键脚本安装，轻松使用各虚拟化创建虚拟机/容器
+- title: 主流系统
+  details: 基于 Debian、Ubuntu 的长期维护版本开发，如需使用请尽量保证宿主机系统与开发环境一致
 - title: 自带内外网端口转发
-  details: 支持自动的内网端口转发，含TCP、UDP协议
+  details: 支持自动的内网端口转发，含TCP、UDP协议，无需人工管理
 - title: 批量虚拟化
-  details: 支持 KVM、LXC、Docker 虚拟化批量开设虚拟机(容器)
+  details: 支持 KVM、LXC、Docker 虚拟化批量开设虚拟机/容器
 - title: 自限制滥用
   details: 部分虚拟化开设的容器/虚拟机已屏蔽和装载限制，避免被用于滥用
 footer: Copyright © 2023-present oneclickvirt
