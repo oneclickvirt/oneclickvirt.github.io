@@ -3,19 +3,19 @@
 **执行本项目的第一个检测环境的命令**，展示如下
 
 <br/>
-![coode](/images/pve_kvm/pve_kvm_1.png)  
+![coode](./images/pve_kvm/pve_kvm_1.png)  
 <br/>
 
 查询如上的只需使用下面的一键脚本自动创建虚拟机即可，无需手动再修改WEB端设置
 
 <br/>
-![coode](/images/pve_kvm/pve_kvm_2.png)  
+![coode](./images/pve_kvm/pve_kvm_2.png)  
 <br/>
 
 查询如上的在使用后续脚本创建了虚拟机后，**可能**需要手动修改WEB端设置，需要关闭对应每个虚拟机的硬件嵌套虚拟化，如下图
 
 <br/>
-![coode](/images/pve_kvm/pve_kvm_3.png)  
+![coode](./images/pve_kvm/pve_kvm_3.png)  
 <br/>
 
 先停止虚拟机再修改，修改完后再开机才能使用NOVNC，不关闭**可能**导致这个虚拟机有BUG无法使用
@@ -28,9 +28,9 @@
 - 可在命令中自定义需要使用的镜像，这里有给出配置好的镜像，镜像自带空间设置是2~10G硬盘，日常使用**至少10G以上**即可，除非某些镜像开不起来再增加硬盘大小
 - 可在命令中指定存储盘位置，默认不指定时为local盘即系统盘，可指定为PVE中显示的挂载盘
 - 自定义内存大小推荐512MB内存
-::tip
+:::tip
 需要注意的是宿主机内存记得开点swap免得机器炸了[开SWAP点我跳转](https://github.com/spiritLHLS/addswap)
-::
+:::
 - 自动进行内外网端口映射，含22，80，443端口以及其他25个内外网端口号一样的端口
 - 生成后需要等待一段时间虚拟机内部的cloud-init配置好网络以及登陆信息，大概需要5分钟
 - 虚拟机的相关信息将会存储到WEB端对应VM的NOTES中，可在WEB端查看
@@ -50,9 +50,9 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 #### 使用方法
 
 - 系统支持：详见 [跳转](https://github.com/spiritLHLS/Images/releases/tag/v1.0) 中列出的系统，使用时只需写文件名字，不需要.qcow2尾缀
-::tip
+:::tip
 注意这里的用户名不能是纯数字，会造成cloudinit出问题，最好是纯英文或英文开头
-::
+:::
 
 ```shell
 ./buildvm.sh VMID 用户名 密码 CPU核数 内存 硬盘 SSH端口 80端口 443端口 外网端口起 外网端口止 系统 存储盘
@@ -108,10 +108,10 @@ rm -rf vm102
 
 ### 批量开设NAT的KVM虚拟化的VM
 
-::warning
+:::warning
 初次使用前需要保证当前PVE纯净且宿主机未进行过任何端口映射，否则设置冲突可能出现BUG
 开设前请使用screen挂起执行，避免批量开设时间过长，SSH不稳定导致中间执行中断
-::
+:::
 - 可多次运行批量生成VM
 - 自动开设NAT服务器，选项留空默认使用debian11镜像，可自定义使用镜像名字，支持的系统名字详见上文支持的镜像列表
 - 自动进行内外网端口映射，含22，80，443端口以及其他25个内外网端口号一样的端口
@@ -150,16 +150,16 @@ systemctl restart networking.service
 rm -rf vmlog
 ```
 
-::tip
+:::tip
 PVE修改VM配置前都得停机先，再修改配置，修改完再启动，免得出现配置重载错误
-::
+:::
 
 ### 开设独立IPV4地址的VM
 
-::warning
+:::warning
 使用前需要保证当前宿主机的IP段带了至少2个IP，且有空余的IP未配置，该空余的IP未绑定宿主机
 开设前请使用screen挂起执行，避免开设时间过长，SSH不稳定导致中间执行中断
-::
+:::
 - 自动检测可用的IP区间，通过ping检测空余可使用的IP，选取其中之一绑定到虚拟机上
 - 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
 
