@@ -150,16 +150,16 @@ systemctl restart networking.service
 rm -rf vmlog
 ```
 
-::tip
+:::tip
 PVE修改VM配置前都得停机先，再修改配置，修改完再启动，免得出现配置重载错误
-::
+:::
 
 ### 开设独立IPV4地址的VM
 
-::warning
+:::warning
 使用前需要保证当前宿主机的IP段带了至少2个IP，且有空余的IP未配置，该空余的IP未绑定宿主机
 开设前请使用screen挂起执行，避免开设时间过长，SSH不稳定导致中间执行中断
-::
+:::
 - 自动检测可用的IP区间，通过ping检测空余可使用的IP，选取其中之一绑定到虚拟机上
 - 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
 
