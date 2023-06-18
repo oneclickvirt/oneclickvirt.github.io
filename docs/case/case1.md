@@ -36,11 +36,6 @@ https://github.com/spiritLHLS/one-click-installation-script
   * [安装gitea](#安装gitea)
   * [卸载aapanel](#卸载aapanel)
   * [安装docker和docker-compose](#安装docker和docker-compose)
-* [友链](#友链)
-  * [一键测试服务器的融合怪脚本](#一键测试服务器的融合怪脚本)
-  * [一键批量开NAT服务器LXC](#一键批量开NAT服务器LXC)
-  * [一键安装PVE](#一键安装PVE)
-  * [朋友fscarmen的常用一键工具仓库](#朋友fscarmen的常用一键工具仓库)
   
 ## 一键修复脚本
 
