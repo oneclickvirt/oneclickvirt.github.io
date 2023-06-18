@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: https://raw.githubusercontent.com/spiritlhls/pages/main/logo.jpg
+heroImage: https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png
 heroText: Linux相关项目
 tagline: 与Linux相关的一些项目
 actionText: 查看项目 →
