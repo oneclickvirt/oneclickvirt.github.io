@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: https://raw.githubusercontent.com/spiritlhls/pages/main/logo.jpg
+heroImage: https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png
 heroText: 一键虚拟化项目
 tagline: 开源、易于使用的服务器虚拟化项目
 actionText: 开始使用 →
