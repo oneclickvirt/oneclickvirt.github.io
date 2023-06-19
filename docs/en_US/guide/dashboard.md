@@ -1,4 +1,4 @@
-## 准备工作  
+# 准备工作  
 
 需要虚拟化出服务器，你需要：
 1. 一台可以连接公网的服务器( VPS 或 Dedicated Server)，最好能完美访问 Github 的 RAW 页面，部分项目部分组件可能未使用 CDN 加速
@@ -15,12 +15,10 @@
 :::warning  
 PVE项目可能造成宿主机出现问题，如果你不会看Bug和修复系统，那么不建议你在生产环境中使用，使用PVE相关脚本请确保宿主机随时可重装系统  
 :::  
-<br/>
-<br/>
 
 ## 项目仓库
 
-欢迎Star和Fork
+欢迎Star和Fork，如有问题，对应仓库的issues提出，有空会看看与解决，当然仅限脚本相关问题
 
 ### PVE相关的各种一键脚本
 
@@ -33,3 +31,6 @@ PVE项目可能造成宿主机出现问题，如果你不会看Bug和修复系�
 ### 通过docker批量或单独开设NAT服务器
 
 [https://github.com/spiritLHLS/docker](https://github.com/spiritLHLS/docker)
+
+<br/>
+<br/>
