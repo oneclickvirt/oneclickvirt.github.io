@@ -7,7 +7,7 @@ actionText: Learn More →
 actionLink: /en_US/guide/dashboard
 features:
 - title: One Click Use
-  details: Support one-click script installation, easily create virtual machines/containers using each virtualization
+  details: Support one-click script installation and use to easily create virtual machines/containers on servers using each virtualization
 - title: Based on mainstream systems development
   details: Based on Debian, Ubuntu long-term maintenance version, if you want to use it, please try to ensure that the host system and the development environment are the same
 - title: Comes with internal and external port forwarding
