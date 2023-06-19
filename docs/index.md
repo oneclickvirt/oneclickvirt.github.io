@@ -7,7 +7,7 @@ actionText: 开始使用 →
 actionLink: /guide/dashboard
 features:
 - title: 一键使用
-  details: 支持一键脚本安装，轻松使用各虚拟化创建虚拟机/容器
+  details: 支持一键脚本安装使用，轻松使用各虚拟化在服务器上创建虚拟机/容器
 - title: 基于主流系统开发
   details: 基于 Debian、Ubuntu 的长期维护版本开发，如需使用请尽量保证宿主机系统与开发环境一致
 - title: 自带内外网端口转发
