@@ -18,7 +18,7 @@ features:
   details: Virtual machines/containers already support multiple systems, covering almost all major systems
 - title: Self-limiting abuse
   details: Partially virtual machines/containers have been masked and loaded with restrictions to avoid being used for abuse
-footer: Copyright © 2023-present Nezhahq
+footer: Copyright © 2023-present oneclickvirt
 ---  
 
 Documentation has not been translated yet, waiting for translation.
