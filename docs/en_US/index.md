@@ -1,10 +1,19 @@
 ---
-home: true
-heroImage: https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png
-heroText: One Click Virtualization Project
-tagline: Open source, easy to use server virtualization project
-actionText: Learn More →
-actionLink: /en_US/guide/dashboard
+layout: home
+
+title: One Click Virtualization Project
+titleTemplate: Open source, easy to use server virtualization project
+
+hero:
+  name: One Click Virtualization Project
+  text: One Click Virtualization Project
+  tagline: Open source, easy to use server virtualization project
+  image: https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png
+  actions:
+    - theme: brand
+      text: Learn More →
+      link: /en_US/guide/dashboard
+
 features:
 - title: One Click Use
   details: Support one-click script installation and use to easily create virtual machines/containers on servers using each virtualization
@@ -18,8 +27,7 @@ features:
   details: Virtual machines/containers already support multiple systems, covering almost all major systems
 - title: Self-limiting abuse
   details: Partially virtual machines/containers have been masked and loaded with restrictions to avoid being used for abuse
-footer: Copyright © 2023-present oneclickvirt
----  
+---
 
 Documentation has not been translated yet, waiting for translation.
 
