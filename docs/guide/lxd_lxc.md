@@ -146,6 +146,10 @@ lxc delete -f 服务器名字
 lxc exec 服务器名字 /bin/bash
 ```
 
+:::tip
+在alpine中不用/bin/bash而是用/bin/sh，常规的系统都是/bin/bash
+:::
+
 退出则输入```exit```回车即可
 
 删除所有LXC容器
