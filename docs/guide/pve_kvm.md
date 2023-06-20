@@ -59,7 +59,9 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 
 ### 测试示例
 
-* 以下为开设的示例VM的信息：  
+* 以下为开设的示例VM的信息：
+
+```
 `VMID` - 102
 `SSH登录的用户名` - test1
 `SSH登录的密码` - 1234567
@@ -72,6 +74,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 `内外网映射端口一致的区间` - 50000到50025
 `系统` - ubuntu20
 `宿主机的存储盘` - local
+```
 
 ```shell
 ./buildvm.sh 102 test1 1234567 1 512 10 40001 40002 40003 50000 50025 ubuntu20 local
