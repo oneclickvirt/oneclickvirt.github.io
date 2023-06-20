@@ -146,6 +146,10 @@ lxc delete -f 服务器名字
 lxc exec 服务器名字 /bin/bash
 ```
 
+:::tip
+在alpine中不用/bin/bash而是用/bin/sh，常规的系统都是/bin/bash
+:::
+
 退出则输入```exit```回车即可
 
 删除所有LXC容器
@@ -189,7 +193,19 @@ curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.co
 
 如果```外网起端口```和```外网止端口```都设置为0则不做区间外网端口映射了，只映射基础的SSH端口，注意```不能为空```，不进行映射需要设置为0
 
-支持自定义小鸡的系统，注意传入参数为系统名字+版本号，如：debian11、ubuntu20，centos8，注意都是小写字母+数字的组合
+支持自定义小鸡的系统，注意传入参数为系统名字+版本号，如：
+
+- debian10，debian11, debian12
+- ubuntu20，ubuntu22
+- centos7，centos8
+- alpine3.15，alpine3.16，alpine3.17，alpine3.18
+
+* 注意都是小写字母+数字的组合，自行尝试，如果搜索无该系统则会自动退出脚本
+* 版本号可以带英文小数点，为了适配alpine的版本号已支持
+
+:::tip
+版本号中已结束长期维护的一般不再有官方镜像了，暂时未找到历史镜像的存档地址，如果有找到欢迎留言我会添加支持
+:::
 
 ```
 ./buildone.sh 小鸡名称 内存大小 硬盘大小 SSH端口 外网起端口 外网止端口 下载速度 上传速度 是否启用IPV6(Y or N) 系统(留空则为debian11)

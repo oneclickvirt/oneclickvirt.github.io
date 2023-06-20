@@ -162,10 +162,18 @@ PVE修改VM配置前都得停机先，再修改配置，修改完再启动，免
 
 ## 开设独立IPV4地址的VM
 
+两个版本，各取所需
+
+### 自动选择IPV4地址无需手动指定的版本
+
 :::warning
 使用前需要保证当前宿主机的IP段带了至少2个IP，且有空余的IP未配置，该空余的IP未绑定宿主机
+:::
+
+:::tip
 开设前请使用screen挂起执行，避免开设时间过长，SSH不稳定导致中间执行中断
 :::
+
 - 自动检测可用的IP区间，通过ping检测空余可使用的IP，选取其中之一绑定到虚拟机上
 - 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
 
@@ -181,7 +189,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_ex
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_extraip.sh -o buildvm_extraip.sh && chmod +x buildvm_extraip.sh
 ```
 
-### 创建示例
+#### 创建示例
 
 ```shell
 ./buildvm_extraip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘
@@ -191,7 +199,42 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 ./buildvm_extraip.sh 152 test1 1234567 1 1024 10 ubuntu20 local
 ```
 
-上述命令意义为开设一个带独立IPV4地址的虚拟机，VMID是152，用户名是test1，密码是1234567，CPU是1核，内存是1024MB，硬盘是10G，系统是Ubuntu20，存储盘是local盘也就是系统盘
+上述命令意义为开设一个带独立IPV4地址的虚拟机，VMID是152，用户名是```test1```，密码是```1234567```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```Ubuntu20```，存储盘是```local```盘也就是系统盘
+
+### 需要手动指定IPV4地址的版本
+
+:::tip
+开设前请使用screen挂起执行，避免开设时间过长，SSH不稳定导致中间执行中断
+:::
+
+- 需要手动在命令中指定IPV4地址，且带上子网长度
+- 如果商家有给IPV4地址和子网长度，请仔细比对，按照下面示例的命令写参数
+- 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
+
+国际
+
+```shell
+curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_manual_ip.sh -o buildvm_manual_ip.sh && chmod +x buildvm_manual_ip.sh
+```
+
+国内
+
+```shell
+curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_manual_ip.sh -o buildvm_manual_ip.sh && chmod +x buildvm_manual_ip.sh
+```
+
+#### 创建示例
+
+```shell
+./buildvm_manual_ip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 IPV4地址
+```
+
+```shell
+./buildvm_manual_ip.sh 152 test1 1234567 1 1024 10 ubuntu20 local a.b.c.d/24
+```
+
+上述命令意义为开设一个带独立IPV4地址的虚拟机，VMID是152，用户名是```test1```，密码是```1234567```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```Ubuntu20```，存储盘是```local```盘也就是系统盘，IPV4地址为```a.b.c.d```，子网为```/24```子网
+
 
 ### 删除示例
 
