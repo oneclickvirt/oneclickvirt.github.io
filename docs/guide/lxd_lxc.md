@@ -191,11 +191,15 @@ curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.co
 
 支持自定义小鸡的系统，注意传入参数为系统名字+版本号，如：
 
-- debian11
-- ubuntu20
+- debian10，debian11, debian12
+- ubuntu20，ubuntu22
 - centos7，centos8
 
 * 注意都是小写字母+数字的组合，自行尝试，如果搜索无该系统则会自动退出脚本
+
+:::tip
+版本号中已结束长期维护的一般不再有官方镜像了，暂时未找到历史镜像的存档地址，如果有找到欢迎留言我会添加支持
+:::
 
 ```
 ./buildone.sh 小鸡名称 内存大小 硬盘大小 SSH端口 外网起端口 外网止端口 下载速度 上传速度 是否启用IPV6(Y or N) 系统(留空则为debian11)
