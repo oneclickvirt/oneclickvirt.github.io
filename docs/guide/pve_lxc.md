@@ -89,6 +89,9 @@ systemctl restart networking.service
 
 :::warning
 初次使用前需要保证当前PVE纯净且宿主机未进行过任何端口映射，否则设置冲突可能出现BUG
+:::
+
+:::tip
 开设前请使用screen挂起执行，避免批量开设时间过长，SSH不稳定导致中间执行中断
 :::
 
