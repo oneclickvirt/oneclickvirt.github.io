@@ -201,7 +201,9 @@ curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.co
 ./buildone.sh test 256 2 20001 20002 20025 300 300 N
 ```
 
-* 以下为开设的示例小鸡的信息：  
+* 以下为开设的示例小鸡的信息：
+
+```
 `小鸡名字` - test
 `SSH登录的用户名` - root
 `SSH登录的密码` - 随机生成
@@ -213,6 +215,7 @@ curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.co
 `下载带宽` - 300Mbit
 `自动设置外网IPV6地址` - N
 `系统` - debian11
+```
 
 需要查看信息则执行
 
