@@ -44,7 +44,9 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 
 #### 测试示例
 
-* 以下为开设的示例CT的信息：  
+* 以下为开设的示例CT的信息：
+
+```
 `VMID` - 102
 `SSH登录的用户名` - root
 `SSH登录的密码` - 1234567
@@ -57,6 +59,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 `内外网映射端口一致的区间` - 30000到30025
 `系统` - debian11
 `宿主机的存储盘` - local
+```
 
 ```shell
 ./buildct.sh 102 1234567 1 512 5 20001 20002 20003 30000 30025 debian11 local
