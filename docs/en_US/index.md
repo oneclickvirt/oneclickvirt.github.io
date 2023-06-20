@@ -7,6 +7,7 @@ titleTemplate: Open source, easy to use server virtualization project
 hero:
   name: One Click Virtualization
   text: Open source, easy to use server virtualization project
+  tagline: Documentation has not been translated yet, waiting for translation.
   image: https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png
   actions:
     - theme: brand
@@ -27,5 +28,3 @@ features:
 - title: Self-limiting abuse
   details: Partially virtual machines/containers have been masked and loaded with restrictions to avoid being used for abuse
 ---
-
-Documentation has not been translated yet, waiting for translation.
