@@ -194,8 +194,10 @@ curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.co
 - debian10，debian11, debian12
 - ubuntu20，ubuntu22
 - centos7，centos8
+- alpine3.15，alpine3.16，alpine3.17，alpine3.18
 
 * 注意都是小写字母+数字的组合，自行尝试，如果搜索无该系统则会自动退出脚本
+* 版本号可以带英文小数点，为了适配alpine的版本号已支持
 
 :::tip
 版本号中已结束长期维护的一般不再有官方镜像了，暂时未找到历史镜像的存档地址，如果有找到欢迎留言我会添加支持
