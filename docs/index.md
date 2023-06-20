@@ -28,5 +28,3 @@ features:
 - title: 自限制滥用
   details: 部分虚拟化开设的容器/虚拟机已屏蔽和装载限制，避免被用于滥用
 ---
-
-<br />本项目采用 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a> 进行许可。
