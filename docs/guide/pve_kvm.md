@@ -207,7 +207,8 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 开设前请使用screen挂起执行，避免开设时间过长，SSH不稳定导致中间执行中断
 :::
 
-- 需要手动在命令中指定IPV4地址
+- 需要手动在命令中指定IPV4地址，且带上子网长度
+- 如果商家有给IPV4地址和子网长度，请仔细比对，按照下面示例的命令写参数
 - 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
 
 国际
