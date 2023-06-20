@@ -189,7 +189,13 @@ curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.co
 
 如果```外网起端口```和```外网止端口```都设置为0则不做区间外网端口映射了，只映射基础的SSH端口，注意```不能为空```，不进行映射需要设置为0
 
-支持自定义小鸡的系统，注意传入参数为系统名字+版本号，如：debian11、ubuntu20，centos8，注意都是小写字母+数字的组合
+支持自定义小鸡的系统，注意传入参数为系统名字+版本号，如：
+
+- debian11
+- ubuntu20
+- centos7，centos8
+
+* 注意都是小写字母+数字的组合，自行尝试，如果搜索无该系统则会自动退出脚本
 
 ```
 ./buildone.sh 小鸡名称 内存大小 硬盘大小 SSH端口 外网起端口 外网止端口 下载速度 上传速度 是否启用IPV6(Y or N) 系统(留空则为debian11)
