@@ -33,10 +33,18 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 
 #### 使用方法
 
-- 系统支持：debian10，debian11，ubuntu18，ubuntu20，ubuntu22，centos8，almalinux9等
-- 系统参数一律是小写的系统名字拼接版本号，具体可执行```pveam available --section system```查看可用的系统名字和版本号(注意脚本使用的参数只有小写的英文系统名字拼接版本号)
+* 系统支持：
+- debian10，debian11
+- ubuntu18，ubuntu20，ubuntu22
+- centos8，almalinux9
 - 其他系统可能支持可能不支持，自行测试
-- 默认用户名是root
+
+:::tip
+系统参数一律是小写的系统名字拼接版本号，具体可执行```pveam available --section system```查看可用的系统名字和版本号。
+(注意脚本使用的参数只有小写的英文系统名字拼接版本号)
+:::
+
+所有系统的CT默认用户名是root
 
 ```shell
 ./buildct.sh CTID 密码 CPU核数 内存 硬盘 SSH端口 80端口 443端口 外网端口起 外网端口止 系统 存储盘
