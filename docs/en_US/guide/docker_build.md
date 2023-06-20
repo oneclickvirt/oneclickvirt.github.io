@@ -1,5 +1,3 @@
-# Docker虚拟化
-
 ## 单独开设
 
 下载脚本
@@ -24,7 +22,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/
 
 目前system仅支持选择alpine或debian，默认是debian
 
-## 示例
+### 示例
 
 * 以下为开设的示例容器的信息：  
 `容器名字` - test
@@ -56,7 +54,7 @@ docker exec -it test /bin/bash
 
 要退出容器就执行```exit```退出。
 
-## 查询信息
+### 查询信息
 
 ```shell
 cat 容器名字

@@ -1,9 +1,15 @@
+# LXC虚拟化
+
 ## 单独开设LXC虚拟化的CT
 
 :::warning
 初次使用前需要保证当前PVE纯净且宿主机未进行过任何端口映射，否则设置冲突可能出现BUG
+:::
+
+:::tip
 开设前请使用screen挂起执行，避免批量开设时间过长，SSH不稳定导致中间执行中断
 :::
+
 - 自动开设NAT服务器，默认使用Debian11镜像，也可自定义系统
 - 自动进行内外网端口映射，含22，80，443端口以及其他25个内外网端口号一样的端口
 - 生成后需要等待一段时间虚拟机内部配置好网络以及登陆信息，大概需要3分钟
@@ -38,7 +44,9 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 
 #### 测试示例
 
-* 以下为开设的示例CT的信息：  
+* 以下为开设的示例CT的信息：
+
+```
 `VMID` - 102
 `SSH登录的用户名` - root
 `SSH登录的密码` - 1234567
@@ -51,6 +59,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 `内外网映射端口一致的区间` - 30000到30025
 `系统` - debian11
 `宿主机的存储盘` - local
+```
 
 ```shell
 ./buildct.sh 102 1234567 1 512 5 20001 20002 20003 30000 30025 debian11 local
@@ -80,8 +89,12 @@ systemctl restart networking.service
 
 :::warning
 初次使用前需要保证当前PVE纯净且宿主机未进行过任何端口映射，否则设置冲突可能出现BUG
+:::
+
+:::tip
 开设前请使用screen挂起执行，避免批量开设时间过长，SSH不稳定导致中间执行中断
 :::
+
 - 可多次运行批量生成CT容器，但需要注意的是母鸡内存记得开点swap免得机器炸了[开SWAP点我跳转](https://github.com/spiritLHLS/addswap)
 - 每个容器创建之间有间隔等待60秒避免突发性能不足
 - 可自定义批量开设的核心数，内存大小，硬盘大小，使用宿主机哪个存储盘，记得自己计算好空闲资源开设
