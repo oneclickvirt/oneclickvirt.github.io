@@ -42,7 +42,7 @@ export default defineConfig({
       en_US: {
         lang: 'en-US',
         label: 'English',
-        title: 'One Click Virtualization Project',
+        title: 'One Click Virtualization',
         description: 'Open source, easy to use server virtualization project',
         link: '/en_US/',
         themeConfig: {

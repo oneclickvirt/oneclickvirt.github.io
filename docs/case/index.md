@@ -2,12 +2,11 @@
 layout: home
 
 title: Linux相关项目
-titleTemplate: 与Linux相关的一些项目
+titleTemplate: 与Linux相关的一些一键脚本项目
 
 hero:
   name: Linux相关项目
-  text: Linux相关项目
-  tagline: 与Linux相关的一些项目
+  text: 与Linux相关的一些一键脚本项目
   image: https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png
   actions:
     - theme: brand

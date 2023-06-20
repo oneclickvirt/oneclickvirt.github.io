@@ -1,13 +1,12 @@
 ---
 layout: home
 
-title: One Click Virtualization Project
+title: One Click Virtualization
 titleTemplate: Open source, easy to use server virtualization project
 
 hero:
-  name: One Click Virtualization Project
-  text: One Click Virtualization Project
-  tagline: Open source, easy to use server virtualization project
+  name: One Click Virtualization
+  text: Open source, easy to use server virtualization project
   image: https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png
   actions:
     - theme: brand
