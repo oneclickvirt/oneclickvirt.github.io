@@ -7,7 +7,7 @@
 export PATH=$PATH:/snap/bin
 ```
 
-执行这个脚本后尝试
+执行这个命令后尝试
 
 ```
 lxc -h
