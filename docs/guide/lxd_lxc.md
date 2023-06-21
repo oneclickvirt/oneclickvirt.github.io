@@ -81,7 +81,8 @@ cat test
 删除测试小鸡
 
 ```shell
-lxc delete -f test
+lxc stop test
+lxc delete test
 rm -rf test
 ls
 ```
