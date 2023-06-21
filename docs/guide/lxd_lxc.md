@@ -20,6 +20,10 @@ curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.co
 
 ### 使用方法
 
+```
+./buildone.sh 小鸡名称 内存大小 硬盘大小 SSH端口 外网起端口 外网止端口 下载速度 上传速度 是否启用IPV6(Y or N) 系统(留空则为debian11)
+```
+
 内存大小以MB计算，硬盘大小以GB计算，下载速度上传速度以Mbit计算，是否启用IPV6不一定要填Y或者N，没有这个参数也行
 
 如果```外网起端口```和```外网止端口```都设置为0则不做区间外网端口映射了，只映射基础的SSH端口，注意```不能为空```，不进行映射需要设置为0
@@ -38,11 +42,7 @@ curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.co
 版本号中已结束长期维护的一般不再有官方镜像了，暂时未找到历史镜像的存档地址，如果有找到欢迎留言我会添加支持
 :::
 
-```
-./buildone.sh 小鸡名称 内存大小 硬盘大小 SSH端口 外网起端口 外网止端口 下载速度 上传速度 是否启用IPV6(Y or N) 系统(留空则为debian11)
-```
-
-示例
+#### 示例
 
 ```
 ./buildone.sh test 256 2 20001 20002 20025 500 500 N
@@ -78,7 +78,7 @@ cat test
 
 如果已通过以上方法生成过小鸡，还需要批量生成小鸡，可使用自定义批量生成版本的脚本，但注意先删除测试小鸡再进行批量生成小鸡
 
-删除测试小鸡
+#### 删除测试小鸡
 
 ```shell
 lxc stop test
@@ -86,7 +86,6 @@ lxc delete test
 rm -rf test
 ls
 ```
-
 
 ## 普通版本批量生成
 
