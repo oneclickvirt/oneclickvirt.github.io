@@ -45,7 +45,7 @@ curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.co
 示例
 
 ```
-./buildone.sh test 256 2 20001 20002 20025 300 300 N
+./buildone.sh test 256 2 20001 20002 20025 500 500 N
 ```
 
 * 以下为开设的示例小鸡的信息：
@@ -58,8 +58,8 @@ curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.co
 `内存大小` - 256MB
 `磁盘大小` - 2G   
 `内外网映射端口一致的区间` - 20002到20025
-`上传带宽` - 300Mbit
-`下载带宽` - 300Mbit
+`上传带宽` - 500Mbit
+`下载带宽` - 500Mbit
 `自动设置外网IPV6地址` - N
 `系统` - debian11
 ```
@@ -92,7 +92,7 @@ ls
 
 开出的小鸡配置：
 
-- 1核256MB内存1GB硬盘限速250Mbps带宽
+- 1核256MB内存1GB硬盘限速300Mbit带宽
 - 带1个SSH端口，25个外网端口
 - 默认内存和硬盘大小
 
@@ -126,7 +126,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxc/mai
 
 开出的小鸡配置：
 
-- 1核128MB内存300MB硬盘限速200Mbps带宽
+- 1核128MB内存300MB硬盘限速300Mbit带宽
 - 只有一个SSH端口
 - 无法挂载warp
 
