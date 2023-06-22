@@ -60,10 +60,11 @@ bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubus
 这一步是最容易造成SSH断开的，原因是未等待PVE内核启动就修改网络会造成设置冲突，所以至少等几分钟待内核启动也就是WEB端启动成功后再执行
 :::
 
-- 创建vmbr0，母鸡允许addr和gateway为内网IP或外网IP，已自动识别
+- 创建vmbr0(独立IP网关)，宿主机允许addr和gateway为内网IP或外网IP，已自动识别
 - vmbr0创建支持纯IPV4或双栈服务器，自动识别IPV4地址和IPV6地址，自动识别对应的IP区间
-- 创建vmbr1(NAT网关)
-- 开NAT虚拟机时网关（IPV4）使用```172.16.1.1```，IPV4/CIDR使用```172.16.1.x/24```，这里的x不能是1，当然如果后续使用本套脚本无需关注这点细枝末节的东西
+- 开独立IPV4的虚拟机时使用vmbr0，使用同宿主机一致的gateway，使用宿主机未绑定的IPV4地址做IPV4/CIDR，当然如果后续使用本套脚本无需关注这点细枝末节的东西
+- 创建vmbr1(NAT网关)，暂不支持开设带独立IPV6地址的NAT的IPV4虚拟机
+- 开NAT虚拟机时使用vmbr1，gateway使用```172.16.1.1```，IPV4/CIDR使用```172.16.1.x/24```，这里的x不能是1，当然如果后续使用本套脚本无需关注这点细枝末节的东西
 - 想查看完整设置可以执行```cat /etc/network/interfaces```查看
 - 加载iptables并设置回源且允许NAT端口转发
 
