@@ -24,6 +24,8 @@
 
 [spectraip](https://my.spectraip.net/aff.php?aff=35) 中的KVM服务器
 
+[Linode](https://www.linode.com/lp/refer/?r=9296554d01ecacaa0be56892fd969b557722becd) 中美国专用CPU的最低配
+
 ### 已知无法直接安装PVE的商家
 
 [hetzner](https://hetzner.cloud/?ref=CnWVr0FGneUl) 需要救援系统安装纯净的Debian，默认网络设置有冲突
