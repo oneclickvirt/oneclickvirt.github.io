@@ -1,5 +1,7 @@
 ## 目前已验证的VPS商家
 
+[hetzner](https://hetzner.cloud/?ref=CnWVr0FGneUl) 的cloud服务器，可安装主体，但不能自动设置网关
+
 ### 可开设KVM虚拟化的NAT的商家
 
 [nocix](https://www.nocix.net/) 中的特价最低配15美元独服 (IPV6不自带，需要找客服要)
@@ -28,6 +30,6 @@
 
 ### 已知无法直接安装PVE的商家
 
-[hetzner](https://hetzner.cloud/?ref=CnWVr0FGneUl) 需要救援系统安装纯净的Debian，默认网络设置有冲突
+[hetzner](https://hetzner.cloud/?ref=CnWVr0FGneUl) Debian11需要救援系统安装纯净的Debian，默认网络设置有冲突
 
 [hosthatch](https://cloud.hosthatch.com/a/2450) 默认网络设置有问题
