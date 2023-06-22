@@ -16,6 +16,8 @@
 
 [hostaris](https://deploy.hostaris.com/) 中的 德国款 (商家的系统模板有问题，IPV6已失效和Github的连通稳定性很差)
 
+[adtaq](https://www.adtaq.com/) 中的最低配存储KVM服务器
+
 ### 只可开设LXC虚拟化的NAT的商家
 
 [腾讯云](https://curl.qcloud.com/tPrMnfZm) 中的无忧款和特惠款(学生机)
