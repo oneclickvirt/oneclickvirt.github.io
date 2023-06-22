@@ -68,9 +68,9 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/oneclickvirt/oneclickvirt.github.io' }
     ],
     algolia: {
-      appId: '',
-      apiKey: '',
-      indexName: ''
+      appId: 'K1R85MDU0C',
+      apiKey: '9375787ec1c00e2b813683fbbde25ae2',
+      indexName: 'virt-spiritlhl'
     },
     footer: {
       message: 'This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License',
