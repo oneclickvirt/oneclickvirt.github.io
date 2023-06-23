@@ -59,6 +59,12 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 
 ### 测试示例
 
+```shell
+./buildvm.sh 102 test1 1234567 1 512 10 40001 40002 40003 50000 50025 debian11 local
+```
+
+开设完毕可执行```cat vm102```查看信息，或到WEB端对应VM的NOTES中查看
+
 * 以下为开设的示例VM的信息：
 
 ```
@@ -72,15 +78,9 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 `80端口` - 40002
 `443端口` - 40003
 `内外网映射端口一致的区间` - 50000到50025
-`系统` - ubuntu20
+`系统` - debian11
 `宿主机的存储盘` - local
 ```
-
-```shell
-./buildvm.sh 102 test1 1234567 1 512 10 40001 40002 40003 50000 50025 ubuntu20 local
-```
-
-开设完毕可执行```cat vm102```查看信息，或到WEB端对应VM的NOTES中查看
 
 ### 删除示例
 
