@@ -29,6 +29,12 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/install_pv
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/install_pve.sh -o install_pve.sh && chmod +x install_pve.sh && bash install_pve.sh
 ```
 
+或
+
+```shell
+bash install_pve.sh
+```
+
 ## 预配置环境
 
 - 创建资源池mypool
