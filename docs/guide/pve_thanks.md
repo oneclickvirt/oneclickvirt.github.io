@@ -14,4 +14,6 @@ https://github.com/roacn/pve/blob/main/pve.sh
 
 https://github.com/spiritLHLS/lxc
 
+https://github.com/leitbogioro/Tools
+
 感谢 [@Ella-Alinda](https://github.com/Ella-Alinda) 提供的PVE指导
