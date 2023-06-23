@@ -52,6 +52,12 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 
 #### 测试示例
 
+```shell
+./buildct.sh 102 1234567 1 512 5 20001 20002 20003 30000 30025 debian11 local
+```
+
+开设完毕可执行```cat ct102```查看信息，或在web端的NOTES查看
+
 * 以下为开设的示例CT的信息：
 
 ```
@@ -68,12 +74,6 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 `系统` - debian11
 `宿主机的存储盘` - local
 ```
-
-```shell
-./buildct.sh 102 1234567 1 512 5 20001 20002 20003 30000 30025 debian11 local
-```
-
-开设完毕可执行```cat ct102```查看信息，或在web端的NOTES查看
 
 #### 删除示例
 
