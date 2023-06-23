@@ -32,10 +32,8 @@
 wget --no-check-certificate -qO InstallNET.sh 'https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh' && chmod a+x InstallNET.sh && bash InstallNET.sh -pwd 'oneclickvirt'
 ```
 
-重置为debian12系统再安装就没问题了，重置后密码为```oneclickvirt```
+重置为debian12系统再安装就没问题了，重置后密码为```oneclickvirt```，登录后记得自己执行passwd修改密码，别一直用默认的
 
 ### 已知无法直接安装PVE的商家
-
-[hetzner](https://hetzner.cloud/?ref=CnWVr0FGneUl) Debian11需要救援系统安装纯净的Debian，默认网络设置有冲突
 
 [hosthatch](https://cloud.hosthatch.com/a/2450) 默认网络设置有问题
