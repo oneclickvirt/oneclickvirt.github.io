@@ -1,7 +1,5 @@
 ## 目前已验证的VPS商家
 
-[hetzner](https://hetzner.cloud/?ref=CnWVr0FGneUl) 的cloud服务器，可安装主体，但不能自动设置网关
-
 ### 可开设KVM虚拟化的NAT的商家
 
 [nocix](https://www.nocix.net/) 中的特价最低配15美元独服 (IPV6不自带，需要找客服要)
@@ -27,6 +25,14 @@
 [spectraip](https://my.spectraip.net/aff.php?aff=35) 中的KVM服务器
 
 [Linode](https://www.linode.com/lp/refer/?r=9296554d01ecacaa0be56892fd969b557722becd) 中美国专用CPU的最低配
+
+[hetzner](https://hetzner.cloud/?ref=CnWVr0FGneUl) 的cloud服务器，需要使用
+
+```shell
+wget --no-check-certificate -qO InstallNET.sh 'https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh' && chmod a+x InstallNET.sh && bash InstallNET.sh -pwd 'oneclickvirt'
+```
+
+重置为debian12系统再安装就没问题了，重置后密码为```oneclickvirt```
 
 ### 已知无法直接安装PVE的商家
 
