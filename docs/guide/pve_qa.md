@@ -26,6 +26,8 @@
 
 [Linode](https://www.linode.com/lp/refer/?r=9296554d01ecacaa0be56892fd969b557722becd) 中美国专用CPU的最低配
 
+[hosthatch](https://cloud.hosthatch.com/a/2450) 中的特价高配服务器
+
 [hetzner](https://hetzner.cloud/?ref=CnWVr0FGneUl) 的cloud服务器，需要使用
 
 ```shell
@@ -34,6 +36,4 @@ wget --no-check-certificate -qO InstallNET.sh 'https://raw.githubusercontent.com
 
 重置为debian12系统再安装就没问题了，重置后密码为```oneclickvirt```，登录后记得自己执行passwd修改密码，别一直用默认的
 
-### 已知无法直接安装PVE的商家
 
-[hosthatch](https://cloud.hosthatch.com/a/2450) 默认网络设置有问题
