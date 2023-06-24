@@ -5,7 +5,7 @@
 - 安装的是当下apt源最新的PVE
 - 比如debian10则是pve6.4，debian11则是pve7.x，debian12则是pve8.x
 :::tip
-建议debian11而不是debian12，因为后者是beta版本，debian11安装的才是稳定版
+建议debian11而不是debian12，因为后者虽然是stable版本但不知道是否有未发现的BUG，debian11安装的目前稳定点
 :::
 - /etc/hosts文件修改(修正商家hostname设置错误以及新增PVE所需的内容)
 - 已设置```/etc/hosts```为只读模式，避免重启后文件被覆写，如需修改请使用```chattr -i /etc/hosts```取消只读锁定，修改完毕请执行```chattr +i /etc/hosts```只读锁定
