@@ -1,5 +1,7 @@
 ## 致谢
 
+https://forum.proxmox.com/
+
 https://blog.ilolicon.com/archives/615
 
 https://github.com/Ella-Alinda/somescripts/blob/main/nat.sh
