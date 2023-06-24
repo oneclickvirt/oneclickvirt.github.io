@@ -35,6 +35,10 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 bash install_pve.sh
 ```
 
+:::tip
+安装成功后打开网页可能提示不安全，点击高级或更多选项，坚持访问即可
+:::
+
 ## 预配置环境
 
 - 创建资源池mypool
