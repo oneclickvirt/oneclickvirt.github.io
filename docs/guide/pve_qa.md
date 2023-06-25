@@ -30,4 +30,6 @@
 
 [hetzner](https://hetzner.cloud/?ref=CnWVr0FGneUl) 的cloud服务器
 
+[rackdog](https://cloud.rackdog.com/referral/bx8fms) 的浮动IP的服务器
+
 
