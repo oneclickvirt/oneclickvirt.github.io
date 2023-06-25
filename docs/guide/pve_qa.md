@@ -28,12 +28,6 @@
 
 [hosthatch](https://cloud.hosthatch.com/a/2450) 中的特价高配服务器
 
-[hetzner](https://hetzner.cloud/?ref=CnWVr0FGneUl) 的cloud服务器，需要使用
-
-```shell
-wget --no-check-certificate -qO InstallNET.sh 'https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh' && chmod a+x InstallNET.sh && bash InstallNET.sh -pwd 'oneclickvirt'
-```
-
-重置为debian12系统再安装就没问题了，重置后密码为```oneclickvirt```，登录后记得自己执行passwd修改密码，别一直用默认的
+[hetzner](https://hetzner.cloud/?ref=CnWVr0FGneUl) 的cloud服务器
 
 
