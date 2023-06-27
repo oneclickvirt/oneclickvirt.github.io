@@ -2,23 +2,27 @@
 
 https://github.com/spiritLHLS/ecs
 
-## 前言
+### 前言
 
 支持系统：
 
-Ubuntu 18+, Debian 8+, centos 7+, Fedora 22+, Almalinux 8.5+, OracleLinux 8+, RockyLinux 8+, AstraLinux CE, Arch, FreeBSD(前提已执行```pkg install -y curl bash```)
+Ubuntu 18+, Debian 8+, centos 7+, Fedora 22+, Almalinux 8.5+, OracleLinux 8+, RockyLinux 8+, AstraLinux CE, Arch,
 
-# 目录
- * [融合怪测评脚本](#融合怪测评脚本)
-    * [交互形式](#交互形式)
-    * [无交互形式](#无交互形式)
-    * [说明](#说明)
- * [纯测IP质量](#纯测IP质量)
- * [部分服务器运行测试有各类bug一键修复后再测试](#部分服务器运行测试有各类bug一键修复后再测试)
- * [功能](#功能)
- * [脚本概况](#脚本概况)
+半支持系统：
 
-## 融合怪测评脚本
+FreeBSD(前提已执行```pkg install -y curl bash```)，Armbian
+
+# 融合怪测评脚本
+
+## 部分服务器运行测试有各类bug一键修复后再测试
+
+一键修复各种系统原生bug的仓库：
+
+https://github.com/spiritLHLS/one-click-installation-script
+
+如若还有系统bug请到上面仓库的issues反映，脚本原生BUG该仓库issues反映
+
+## 融合怪命令
 
 ### 交互形式
 
@@ -56,7 +60,28 @@ echo 1 | bash <(wget -qO- --no-check-certificate https://github.com/spiritLHLS/e
 echo 1 | bash <(wget -qO- bash.spiritlhl.net/ecs)
 ```
 
-### 说明
+## 纯测IP质量
+
+- IP黑 ```OR``` 白
+- 含IPV4 ```AND``` IPV6
+
+```bash
+bash <(wget -qO- --no-check-certificate https://gitlab.com/spiritysdx/za/-/raw/main/qzcheck.sh)
+```
+
+或
+
+```bash
+bash <(wget -qO- bash.spiritlhl.net/ecs-ipcheck)
+```
+
+或
+
+```bash
+bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spiritLHLS/ecs/main/qzcheck.sh)
+```
+
+## 融合怪说明
 
 融合怪的执行结果保存在当前路径下的test_result.txt中，运行完毕可用```cat test_result.txt```查看记录
 
@@ -68,9 +93,7 @@ echo 1 | bash <(wget -qO- bash.spiritlhl.net/ecs)
 
 使用**CDN**加速已支持**国内**和**国外**服务器测试，但国内受CDN连通性或国内机器带宽大小的限制加载会慢很多
 
-### 初次使用推荐查看
-
-#### 融合怪测试说明以及部分测试结果的内容解释
+融合怪测试说明以及部分测试结果的内容解释(初次使用推荐查看)：
 
 除了已标注的原创内容，其余所有分区均为借鉴并进行优化修改后的版本，与原始对应的脚本不一样
 
@@ -102,28 +125,7 @@ IP质量检测纯原创，如有bug或者更多数据库来源可在issues中提
 
 VPS测试，VPS测速，VPS综合性能测试，VPS回程线路测试，VPS流媒体测试等所有测试融合的脚本，本脚本能融合的都融合了
 
-### 纯测IP质量
-
-- IP黑 ```OR``` 白
-- 含IPV4 ```AND``` IPV6
-
-```bash
-bash <(wget -qO- --no-check-certificate https://gitlab.com/spiritysdx/za/-/raw/main/qzcheck.sh)
-```
-
-或
-
-```bash
-bash <(wget -qO- bash.spiritlhl.net/ecs-ipcheck)
-```
-
-或
-
-```bash
-bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spiritLHLS/ecs/main/qzcheck.sh)
-```
-
-### 功能
+## 融合怪功能
 
 - [x] 自由组合测试方向和单项测试以及合集收录第三方脚本
 - [x] 基础系统信息--感谢teddysun和superbench和yabs开源，本人整理修改优化
@@ -138,8 +140,19 @@ bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spirit
 - [x] 回程路由以及带宽类型检测(商宽/家宽/数据中心)--由fscarmen的PR以及本人的技术思路提供，本人整理修改优化
 - [x] IP质量检测(检测IP白不白)(含IPV4和IPV6)--本脚本独创，感谢互联网提供的查询资源
 - [x] speedtest测速--使用自写[ecsspeed](https://github.com/spiritLHLS/ecsspeed)仓库，自动更新测速服务器ID，一劳永逸解决老是要手动更新测速ID的问题
+- [ ] 端口检测(检测是否被墙)--由fscarmen的PR以及本人的技术思路提供 - 待修复
 
-### 脚本概况
+# 友链
+
+测评频道
+
+https://t.me/vps_reviews
+
+自动更新测速服务器节点列表的网络基准测试脚本
+
+https://github.com/spiritLHLS/ecsspeed
+
+# 脚本概况
 
 主界面：
 
@@ -150,7 +163,7 @@ bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spirit
 ![图片](https://user-images.githubusercontent.com/103393591/233967406-d2b74a20-8d95-4c18-8df1-254b97942f7d.png)
 ![图片](https://user-images.githubusercontent.com/103393591/233968402-135c3f5e-def7-4f6e-a113-06d627780323.png)
 ![图片](https://user-images.githubusercontent.com/103393591/233968486-60ccc9b7-2e4f-4cac-838f-fb4617eb118d.png)
-![图片](https://user-images.githubusercontent.com/103393591/233968544-b9d6f9ae-416a-4832-a516-8afb3846e33e.png)
+![图片](https://github.com/spiritLHLS/ecs/assets/103393591/621226bd-66fc-4ec3-a9c1-55c7d9a3e04d)
 ![图片](https://user-images.githubusercontent.com/103393591/233968662-f6174bed-1c72-4385-8716-8e1f9b9c4dce.png)
 ![图片](https://user-images.githubusercontent.com/103393591/233968669-f58624ba-2611-4232-9326-0ce3e9d02d44.png)
 ![图片](https://user-images.githubusercontent.com/103393591/233968819-f25086df-b3cd-4103-995a-8cc8512fe89d.png)
@@ -159,13 +172,14 @@ bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spirit
 
 ![图片](https://user-images.githubusercontent.com/103393591/233969037-17d3d8e9-e42e-4314-ab89-13f76ea9fd98.png)
 
+# 致谢
 
-## 致谢
-
-感谢 ipinfo.io ip.sb ipip.net cip.cc cheervision.co 等网站提供的检测API
+感谢 ipinfo.io ip.sb cheervision.co ipip.net cip.cc 等网站提供的检测API
 
 感谢所有开源项目提供的原始测试脚本
 
 同时感谢以下平台提供编辑和测试支持
 
 ![PyCharm logo](https://resources.jetbrains.com/storage/products/company/brand/logos/PyCharm.png)
+
+**[返回顶部](https://github.com/spiritLHLS/ecs#top)**
