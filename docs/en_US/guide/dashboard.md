@@ -23,13 +23,19 @@ PVE项目可能造成宿主机出现问题，如果你不会看Bug和修复系�
 
 ### PVE相关的各种一键脚本
 
+可开设KVM虚拟化的虚拟机、LXC虚拟化的容器
+
 [https://github.com/spiritLHLS/pve](https://github.com/spiritLHLS/pve)
 
 ### 通过LXD/LXC命令批量或单独开设NAT服务器以及维护
 
+可开设LXC虚拟化的容器
+
 [https://github.com/spiritLHLS/lxc](https://github.com/spiritLHLS/lxc)
 
 ### 通过docker批量或单独开设NAT服务器
+
+可开设Docker虚拟化的容器
 
 [https://github.com/spiritLHLS/docker](https://github.com/spiritLHLS/docker)
 

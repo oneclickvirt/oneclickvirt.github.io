@@ -1,10 +1,97 @@
 # LXC虚拟化
 
+## 单独生成一个NAT服务器
+
+- 只生成一个NAT服务器，可自定义限制所有内容
+
+下载开机脚本是**非必须**的，如果你使用过一键安装LXD的命令，自动已下载对应的开机脚本，不需要重复下载该脚本
+
+国际
+
+```shell
+curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
+```
+
+国内
+
+```shell
+curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
+```
+
+### 使用方法
+
+```
+./buildone.sh 小鸡名称 内存大小 硬盘大小 SSH端口 外网起端口 外网止端口 下载速度 上传速度 是否启用IPV6(Y or N) 系统(留空则为debian11)
+```
+
+内存大小以MB计算，硬盘大小以GB计算，下载速度上传速度以Mbit计算，是否启用IPV6不一定要填Y或者N，没有这个参数也行
+
+如果```外网起端口```和```外网止端口```都设置为0则不做区间外网端口映射了，只映射基础的SSH端口，注意```不能为空```，不进行映射需要设置为0
+
+支持自定义小鸡的系统，注意传入参数为系统名字+版本号，如：
+
+- debian10，debian11, debian12
+- ubuntu20，ubuntu22
+- centos7，centos8
+- alpine3.15，alpine3.16，alpine3.17，alpine3.18
+
+* 注意都是小写字母+数字的组合，自行尝试，如果搜索无该系统则会自动退出脚本
+* 版本号可以带英文小数点，为了适配alpine的版本号已支持
+
+:::tip
+版本号中已结束长期维护的一般不再有官方镜像了，暂时未找到历史镜像的存档地址，如果有找到欢迎留言我会添加支持
+:::
+
+#### 示例
+
+```
+./buildone.sh test 256 2 20001 20002 20025 500 500 N
+```
+
+* 以下为开设的示例小鸡的信息：
+
+```
+`小鸡名字` - test
+`SSH登录的用户名` - root
+`SSH登录的密码` - 随机生成
+`CPU核数` - 1   
+`内存大小` - 256MB
+`磁盘大小` - 2G   
+`内外网映射端口一致的区间` - 20002到20025
+`上传带宽` - 500Mbit
+`下载带宽` - 500Mbit
+`自动设置外网IPV6地址` - N
+`系统` - debian11
+```
+
+需要查看信息则执行
+
+```shell
+cat 小鸡名字
+```
+
+比如查询示例的信息就是
+
+```shell
+cat test
+```
+
+如果已通过以上方法生成过小鸡，还需要批量生成小鸡，可使用自定义批量生成版本的脚本，但注意先删除测试小鸡再进行批量生成小鸡
+
+#### 删除测试小鸡
+
+```shell
+lxc stop test
+lxc delete test
+rm -rf test
+ls
+```
+
 ## 普通版本批量生成
 
 开出的小鸡配置：
 
-- 1核256MB内存1GB硬盘限速250Mbps带宽
+- 1核256MB内存1GB硬盘限速300Mbit带宽
 - 带1个SSH端口，25个外网端口
 - 默认内存和硬盘大小
 
@@ -38,7 +125,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxc/mai
 
 开出的小鸡配置：
 
-- 1核128MB内存300MB硬盘限速200Mbps带宽
+- 1核128MB内存300MB硬盘限速300Mbit带宽
 - 只有一个SSH端口
 - 无法挂载warp
 
@@ -68,7 +155,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxc/mai
 
 有时候least.sh的运行路径有问题，此时建议前面加上sudo强制根目录执行
 
-## 自定义版本批量生成
+## 自定义批量生成版本
 
 - 可自定义内存和硬盘大小
 - 有执行过上面的手动批量生成过也没问题，配置是继承的不覆盖
@@ -167,90 +254,4 @@ sudo find /var/log -type f -delete
 sudo find /var/tmp -type f -delete
 sudo find /tmp -type f -delete
 sudo find /var/cache/apt/archives -type f -delete
-```
-  
-## 单独生成一个NAT服务器
-
-- 只生成一个NAT服务器，可自定义限制所有内容
-
-下载开机脚本是***非必须***的，如果你使用过一键安装LXD的命令，自动已下载对应的开机脚本，不用下载该脚本
-
-国际
-
-```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
-```
-
-### 使用方法
-
-内存大小以MB计算，硬盘大小以GB计算，下载速度上传速度以Mbit计算，是否启用IPV6不一定要填Y或者N，没有这个参数也行
-
-如果```外网起端口```和```外网止端口```都设置为0则不做区间外网端口映射了，只映射基础的SSH端口，注意```不能为空```，不进行映射需要设置为0
-
-支持自定义小鸡的系统，注意传入参数为系统名字+版本号，如：
-
-- debian10，debian11, debian12
-- ubuntu20，ubuntu22
-- centos7，centos8
-- alpine3.15，alpine3.16，alpine3.17，alpine3.18
-
-* 注意都是小写字母+数字的组合，自行尝试，如果搜索无该系统则会自动退出脚本
-* 版本号可以带英文小数点，为了适配alpine的版本号已支持
-
-:::tip
-版本号中已结束长期维护的一般不再有官方镜像了，暂时未找到历史镜像的存档地址，如果有找到欢迎留言我会添加支持
-:::
-
-```
-./buildone.sh 小鸡名称 内存大小 硬盘大小 SSH端口 外网起端口 外网止端口 下载速度 上传速度 是否启用IPV6(Y or N) 系统(留空则为debian11)
-```
-
-示例
-
-```
-./buildone.sh test 256 2 20001 20002 20025 300 300 N
-```
-
-* 以下为开设的示例小鸡的信息：
-
-```
-`小鸡名字` - test
-`SSH登录的用户名` - root
-`SSH登录的密码` - 随机生成
-`CPU核数` - 1   
-`内存大小` - 256MB
-`磁盘大小` - 2G   
-`内外网映射端口一致的区间` - 20002到20025
-`上传带宽` - 300Mbit
-`下载带宽` - 300Mbit
-`自动设置外网IPV6地址` - N
-`系统` - debian11
-```
-
-需要查看信息则执行
-
-```shell
-cat 小鸡名字
-```
-
-比如查询示例的信息就是
-
-```shell
-cat test
-```
-
-如果已通过以上方法生成过小鸡，还需要批量生成小鸡，可使用手动安装部分的脚本，但注意先删除测试小鸡再进行批量生成小鸡
-
-删除测试小鸡
-
-```shell
-lxc delete -f test
-rm -rf test
-ls
 ```

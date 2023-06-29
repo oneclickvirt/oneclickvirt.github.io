@@ -1,5 +1,7 @@
 # 系统和硬件配置要求
 
+如果有未适配的商家或机器欢迎联系[@spiritlhl_bot](https://t.me/spiritlhl_bot)，有空会尝试支持一下
+
 ## 各种要求
 
 建议debian在使用前尽量使用最新的稳定版本的系统
@@ -15,13 +17,26 @@
 :::
 
 - 硬件要求：2核2G内存x86_64架构服务器硬盘至少20G
+- 可开KVM的硬件要求：VM-X或AMD-V支持 (部分VPS和全部独服支持)
+- 如果硬件或系统需求不满足，可使用LXD批量开LXC容器[跳转](https://github.com/spiritLHLS/lxc)
 
 :::warning
 内存开点swap免得机器炸了[开SWAP点我跳转](https://github.com/spiritLHLS/addswap)
 :::
 
-- 可开KVM的硬件要求：VM-X或AMD-V支持 (部分VPS和全部独服支持)
-- 如果硬件或系统需求不满足，可使用LXD批量开LXC容器[跳转](https://github.com/spiritLHLS/lxc)
+开设虚拟内存(SWAP)
+
+国际
+
+```shell
+curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
+```
+
+国内
+
+```shell
+curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
+```
 
 **遇到选项不会选的可无脑回车安装，本项目所有脚本内置国内外IP自动判断，使用的是不同的安装源与配置文件，有使用CDN加速镜像下载**
 

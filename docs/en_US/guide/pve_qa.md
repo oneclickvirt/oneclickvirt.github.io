@@ -16,14 +16,25 @@
 
 [hostaris](https://deploy.hostaris.com/) 中的 德国款 (商家的系统模板有问题，IPV6已失效和Github的连通稳定性很差)
 
+[adtaq](https://www.adtaq.com/) 中的最低配存储KVM服务器
+
 ### 只可开设LXC虚拟化的NAT的商家
 
 [腾讯云](https://curl.qcloud.com/tPrMnfZm) 中的无忧款和特惠款(学生机)
 
 [spectraip](https://my.spectraip.net/aff.php?aff=35) 中的KVM服务器
 
-### 已知无法直接安装PVE的商家
+[Linode](https://www.linode.com/lp/refer/?r=9296554d01ecacaa0be56892fd969b557722becd) 中美国专用CPU的最低配
 
-[hetzner](https://hetzner.cloud/?ref=CnWVr0FGneUl) 需要救援系统安装纯净的Debian，默认网络设置有冲突
+[hosthatch](https://cloud.hosthatch.com/a/2450) 中的特价高配服务器
 
-[hosthatch](https://cloud.hosthatch.com/a/2450) 默认网络设置有问题
+[hetzner](https://hetzner.cloud/?ref=CnWVr0FGneUl) 的cloud服务器
+
+[rackdog](https://cloud.rackdog.com/referral/bx8fms) 的浮动IP的服务器
+
+### 已知暂时不可用未适配的商家
+
+OVH
+
+
+

@@ -1,5 +1,9 @@
 # KVM虚拟化
 
+:::tip
+KVM虚拟化开设出的虚拟机SSH登录默认都不是root作用户名，你需要执行```sudo -i```切换为root用户
+:::
+
 ## 部分注意事项
 
 **执行本项目的第一个检测环境的命令**，展示如下
@@ -18,7 +22,7 @@
 
 如果强行安装PVE开KVM，启动不了的也可以关闭这个选项试试能不能启动虚拟机
 
-## 单独开设KVM虚拟化的VM
+## 单独开设NAT的KVM虚拟化的VM
 
 - 自动开设NAT服务器，默认使用Debian10镜像，因为该镜像占用最小
 - 可在命令中自定义需要使用的镜像，这里有给出配置好的镜像，镜像自带空间设置是2~10G硬盘，日常使用**至少10G以上**即可，除非某些镜像开不起来再增加硬盘大小
@@ -59,6 +63,12 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 
 ### 测试示例
 
+```shell
+./buildvm.sh 102 test1 1234567 1 512 10 40001 40002 40003 50000 50025 debian11 local
+```
+
+开设完毕可执行```cat vm102```查看信息，或到WEB端对应VM的NOTES中查看
+
 * 以下为开设的示例VM的信息：
 
 ```
@@ -72,15 +82,9 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 `80端口` - 40002
 `443端口` - 40003
 `内外网映射端口一致的区间` - 50000到50025
-`系统` - ubuntu20
+`系统` - debian11
 `宿主机的存储盘` - local
 ```
-
-```shell
-./buildvm.sh 102 test1 1234567 1 512 10 40001 40002 40003 50000 50025 ubuntu20 local
-```
-
-开设完毕可执行```cat vm102```查看信息，或到WEB端对应VM的NOTES中查看
 
 ### 删除示例
 
