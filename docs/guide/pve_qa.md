@@ -32,6 +32,8 @@
 
 [rackdog](https://cloud.rackdog.com/referral/bx8fms) 的浮动IP的服务器
 
+[vultr](https://www.vultr.com/?ref=9124520-8H) 的Cloud普通服务器
+
 ### 已知暂时不可用未适配的商家
 
 OVH
