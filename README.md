@@ -8,22 +8,16 @@ Documentation for one-click virtualization
 
 [https://github.com/spiritLHLS/pve](https://github.com/spiritLHLS/pve)
 
-### Stargazers over time
-
-[![Stargazers over time](https://starchart.cc/spiritLHLS/pve.svg)](https://starchart.cc/spiritLHLS/pve)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2Fpve&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 ## 通过LXD/LXC命令批量或单独开设NAT服务器以及维护
 
 [https://github.com/spiritLHLS/lxc](https://github.com/spiritLHLS/lxc)
 
-### Stargazers over time
-
-[![Stargazers over time](https://starchart.cc/spiritLHLS/lxc.svg)](https://starchart.cc/spiritLHLS/lxc)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2Flxc&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 ## 通过docker批量或单独开设NAT服务器
 
 [https://github.com/spiritLHLS/docker](https://github.com/spiritLHLS/docker)
 
-### Stargazers over time
-
-[![Stargazers over time](https://starchart.cc/spiritLHLS/docker.svg)](https://starchart.cc/spiritLHLS/docker)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2Fdocker&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
