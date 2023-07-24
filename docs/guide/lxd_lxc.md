@@ -30,8 +30,8 @@ curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.co
 
 支持自定义小鸡的系统，注意传入参数为系统名字+版本号，如：
 
-- debian10，debian11, debian12
-- ubuntu20，ubuntu22
+- debian10，debian11，debian12
+- ubuntu18, ubuntu20，ubuntu22
 - centos7，centos8
 - alpine3.15，alpine3.16，alpine3.17，alpine3.18
 
@@ -255,3 +255,30 @@ sudo find /var/tmp -type f -delete
 sudo find /tmp -type f -delete
 sudo find /var/cache/apt/archives -type f -delete
 ```
+
+## 更新脚本的版本
+
+删除原始配置脚本
+
+```bash
+rm -rf /usr/local/bin/alpinessh.sh
+rm -rf /usr/local/bin/config.sh
+rm -rf /usr/local/bin/ssh.sh
+rm -rf /usr/local/bin/check-dns.sh
+rm -rf /root/alpinessh.sh
+rm -rf /root/config.sh
+rm -rf /root/ssh.sh
+rm -rf /root/buildone.sh
+rm -rf /root/add_more.sh
+```
+
+下载回新版本的相关配置脚本
+
+```bash
+wget https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/check-dns.sh -O /usr/local/bin/check-dns.sh && chmod +x /usr/local/bin/check-dns.sh
+wget https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/config.sh -O /usr/local/bin/config.sh && chmod +x /usr/local/bin/config.sh
+wget https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/ssh.sh -O /usr/local/bin/ssh.sh && chmod +x /usr/local/bin/ssh.sh
+wget https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/alpinessh.sh -O /usr/local/bin/alpinessh.sh && chmod +x /usr/local/bin/alpinessh.sh
+```
+
+其他一键脚本自己对应下载回来就行了
