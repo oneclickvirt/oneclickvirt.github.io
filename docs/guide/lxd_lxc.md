@@ -256,7 +256,7 @@ sudo find /tmp -type f -delete
 sudo find /var/cache/apt/archives -type f -delete
 ```
 
-## 更新脚本的版本
+## 更新上述所有一键脚本的相关命令
 
 删除原始配置脚本
 
