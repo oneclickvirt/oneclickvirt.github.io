@@ -34,9 +34,20 @@
 
 [vultr](https://www.vultr.com/?ref=9124520-8H) 的Cloud普通服务器
 
+[azure](https://portal.azure.com/#create/Microsoft.VirtualMachine-ARM) 的普通机器
+
 ### 已知暂时不可用未适配的商家
 
 OVH
 
+### 如果有什么机器安装不了，着急的可以尝试使用以下仓库的脚本先重装为debian11先
+
+```
+bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh) -debian 11 -pwd 'oneclickvirt139'
+```
+
+此时dd后的系统用户名为```root```，密码为```oneclickvirt139```
+
+如果有空或者还是不行，请联系 [@spiritlhl_bot](https://t.me/spiritlhl_bot) 尝试
 
 
