@@ -24,15 +24,15 @@ curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.co
 ./buildone.sh 小鸡名称 内存大小 硬盘大小 SSH端口 外网起端口 外网止端口 下载速度 上传速度 是否启用IPV6(Y or N) 系统(留空则为debian11)
 ```
 
-内存大小以MB计算，硬盘大小以GB计算，下载速度上传速度以Mbit计算，是否启用IPV6不一定要填Y或者N，没有这个参数也行
+内存大小以MB计算，硬盘大小以GB计算，下载速度上传速度以Mbit计算，是否启用IPV6不一定要填Y或者N，没有这个参数也行，留空默认不开启IPV6
 
 如果```外网起端口```和```外网止端口```都设置为0则不做区间外网端口映射了，只映射基础的SSH端口，注意```不能为空```，不进行映射需要设置为0
 
-支持自定义小鸡的系统，注意传入参数为系统名字+版本号，如：
+支持自定义小鸡的系统，不填写留空时默认使用debian11，注意传入参数为系统名字+版本号，如：
 
-- debian10，debian11, debian12
-- ubuntu20，ubuntu22
-- centos7，centos8
+- debian10，debian11，debian12
+- ubuntu18，ubuntu20，ubuntu22
+- centos8，centos9 (实际开设出来都是Stream版本)
 - alpine3.15，alpine3.16，alpine3.17，alpine3.18
 
 * 注意都是小写字母+数字的组合，自行尝试，如果搜索无该系统则会自动退出脚本
@@ -255,3 +255,30 @@ sudo find /var/tmp -type f -delete
 sudo find /tmp -type f -delete
 sudo find /var/cache/apt/archives -type f -delete
 ```
+
+## 更新上述所有一键脚本的相关命令
+
+删除原始配置脚本
+
+```bash
+rm -rf /usr/local/bin/alpinessh.sh
+rm -rf /usr/local/bin/config.sh
+rm -rf /usr/local/bin/ssh.sh
+rm -rf /usr/local/bin/check-dns.sh
+rm -rf /root/alpinessh.sh
+rm -rf /root/config.sh
+rm -rf /root/ssh.sh
+rm -rf /root/buildone.sh
+rm -rf /root/add_more.sh
+```
+
+下载回新版本的相关配置脚本
+
+```bash
+wget https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/check-dns.sh -O /usr/local/bin/check-dns.sh && chmod +x /usr/local/bin/check-dns.sh
+wget https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/config.sh -O /usr/local/bin/config.sh && chmod +x /usr/local/bin/config.sh
+wget https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/ssh.sh -O /usr/local/bin/ssh.sh && chmod +x /usr/local/bin/ssh.sh
+wget https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/alpinessh.sh -O /usr/local/bin/alpinessh.sh && chmod +x /usr/local/bin/alpinessh.sh
+```
+
+其他一键脚本自己对应下载回来就行了
