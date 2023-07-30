@@ -16,7 +16,7 @@ hero:
 
 features:
 - title: One Click Use
-  details: Support one-click script installation and use to easily create virtual machines/containers on servers using each virtualization
+  details: Supports one-click script installation for easy creation of virtual machines/containers on servers of X86_64 and ARM architectures
 - title: Based on mainstream systems development
   details: Based on Debian, Ubuntu long-term maintenance version, if you want to use it, please try to ensure that the host system and the development environment are the same
 - title: Comes with internal and external port forwarding
