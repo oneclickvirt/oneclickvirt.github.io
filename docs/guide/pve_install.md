@@ -10,7 +10,7 @@
 - /etc/hosts文件修改(修正商家hostname设置错误以及新增PVE所需的内容)
 - 已设置```/etc/hosts```为只读模式，避免重启后文件被覆写，如需修改请使用```chattr -i /etc/hosts```取消只读锁定，修改完毕请执行```chattr +i /etc/hosts```只读锁定
 - 检测```/etc/cloud/cloud.cfg```如果发现```preserve_hostname```是```false```，则改为```true```，同上，也用chattr命令进行了文件锁定避免重启覆盖设置
-- 检测是否为中国IP，如果为中国IP使用清华镜像源，否则使用官方源
+- 检测是否为中国IP，如果为中国IP使用清华镜像源，否则使用官方源，同时处理apt的源和对应的nameserver，避免断网
 - 安装PVE开虚拟机需要的必备工具包
 - 替换apt源中的企业订阅为社区源
 - 打印查询Linux系统内核和PVE内核是否已安装
