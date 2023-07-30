@@ -16,7 +16,7 @@
 建议debian11而不是debian12，因为后者是beta版本，debian11安装的才是稳定版
 :::
 
-- 硬件要求：2核2G内存x86_64架构服务器硬盘至少20G
+- 硬件要求：2核2G内存```x86_64```或```arm```架构服务器硬盘至少20G
 - 可开KVM的硬件要求：VM-X或AMD-V支持 (部分VPS和全部独服支持)
 - 如果硬件或系统需求不满足，可使用LXD批量开LXC容器[跳转](https://github.com/spiritLHLS/lxc)
 
