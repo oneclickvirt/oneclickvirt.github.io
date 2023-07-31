@@ -1,12 +1,12 @@
-### 仓库
+## 仓库
 
 https://github.com/spiritLHLS/ecs
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2Fecs&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
-### 融合怪测评脚本
+## 融合怪测评脚本
 
-### 前言
+## 前言
 
 支持系统：
 
@@ -32,7 +32,7 @@ FreeBSD系统的分享链接的预处理部分sed命令存在问题未删除部�
 
 能连得上网都支持
 
-### 部分服务器运行测试有各类bug一键修复后再测试
+## 部分服务器运行测试有各类bug一键修复后再测试
 
 一键修复各种系统原生bug的仓库：
 
@@ -40,10 +40,10 @@ https://github.com/spiritLHLS/one-click-installation-script
 
 如若还有系统bug请到上面仓库的issues反映，脚本原生BUG该仓库issues反映
 
-### 融合怪命令
+## 融合怪命令
 
 
-### 交互形式
+## 交互形式
 
 ```bash
 curl -L https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh
@@ -61,7 +61,7 @@ curl -L https://github.com/spiritLHLS/ecs/raw/main/ecs.sh -o ecs.sh && chmod +x 
 bash <(wget -qO- bash.spiritlhl.net/ecs)
 ```
 
-### 无交互形式
+## 无交互形式
 
 ```bash
 echo 1 | bash <(wget -qO- --no-check-certificate https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh)
@@ -79,7 +79,7 @@ echo 1 | bash <(wget -qO- --no-check-certificate https://github.com/spiritLHLS/e
 echo 1 | bash <(wget -qO- bash.spiritlhl.net/ecs)
 ```
 
-### IP质量检测
+## IP质量检测
 
 - IP质量检测，含多家数据库查询，含黑名单查询
 - 含 ```IPV4``` 和 ```IPV6``` 检测，含ASN和地址查询
@@ -101,7 +101,7 @@ bash <(wget -qO- bash.spiritlhl.net/ecs-ipcheck)
 bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spiritLHLS/ecs/main/qzcheck.sh)
 ```
 
-### 融合怪说明
+## 融合怪说明
 
 融合怪脚本最好在 /root 路径下执行，避免各种奇奇怪怪的问题
 
@@ -149,7 +149,7 @@ IP质量检测纯原创，如有bug或者更多数据库来源可在issues中提
 
 VPS测试，VPS测速，VPS综合性能测试，VPS回程线路测试，VPS流媒体测试等所有测试融合的脚本，本脚本能融合的都融合了
 
-### 融合怪功能
+## 融合怪功能
 
 - [x] 自由组合测试方向和单项测试以及合集收录第三方脚本
 - [x] 基础信息查询--感谢[bench.sh](https://github.com/teddysun/across/blob/master/bench.sh)、[superbench.sh](https://www.oldking.net/350.html)、[yabs](https://github.com/masonr/yet-another-bench-script)、[lemonbench](https://github.com/LemonBench/LemonBench)开源，本人整理修改优化，同原版均不一致
@@ -166,17 +166,17 @@ VPS测试，VPS测速，VPS综合性能测试，VPS回程线路测试，VPS流�
 - [x] speedtest测速--使用自写[ecsspeed](https://github.com/spiritLHLS/ecsspeed)仓库，自动更新测速服务器ID，一劳永逸解决老是要手动更新测速ID的问题
 - [ ] 端口检测(检测是否被墙)--由fscarmen的PR以及本人的技术思路提供 - 待修复
 
-### 友链
+## 友链
 
-### 测评频道
+## 测评频道
 
-### https://t.me/vps_reviews
+## https://t.me/vps_reviews
 
-### 自动更新测速服务器节点列表的网络基准测试脚本
+## 自动更新测速服务器节点列表的网络基准测试脚本
 
-### https://github.com/spiritLHLS/ecsspeed
+## https://github.com/spiritLHLS/ecsspeed
 
-### 脚本概况
+## 脚本概况
 
 主界面：
 
@@ -196,7 +196,7 @@ VPS测试，VPS测速，VPS综合性能测试，VPS回程线路测试，VPS流�
 
 ![图片](https://github.com/spiritLHLS/ecs/assets/103393591/393db695-5c94-41a9-9b02-812ad9d64967)
 
-### 致谢
+## 致谢
 
 感谢 ipinfo.io ip.sb cheervision.co ipip.net cip.cc 等网站提供的检测API，感谢互联网各网站提供的查询资源
 
