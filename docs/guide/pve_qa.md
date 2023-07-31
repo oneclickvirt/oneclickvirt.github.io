@@ -40,7 +40,9 @@
 
 OVH
 
-### 如果什么机器安装成功后WEB可用，但重启失联，请重启前执行以下命令
+### 安装PVE成功但重启后失联
+
+如果什么机器安装PVE成功后WEB可用，但重启失联，请安装成功PVE后，重启前执行以下命令再重启
 
 ```bash
 auto_interface=$(grep '^auto ' /etc/network/interfaces | grep -v '^auto lo' | awk '{print $2}' | head -n 1)
@@ -53,7 +55,9 @@ fi
 
 然后将重启失联的机器报给 [@spiritlhl_bot](https://t.me/spiritlhl_bot) 待更新脚本自动修复
 
-### 如果有什么机器安装不了，着急的可以尝试使用以下仓库的脚本先重装为debian11先
+### 安装PVE失败
+
+如果有什么机器安装不了，着急的可以尝试使用以下仓库的脚本先重装为debian11先
 
 ```
 bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh) -debian 11 -pwd 'oneclickvirt139'
