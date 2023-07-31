@@ -45,6 +45,8 @@ bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linu
 
 [adtaq](https://www.adtaq.com/) 中的最低配存储KVM服务器
 
+[nocix](https://www.nocix.net/) 中的独立服务器
+
 ## 只可开设LXC虚拟化的NAT的商家
 
 [腾讯云](https://curl.qcloud.com/tPrMnfZm) 中的无忧款和特惠款(学生机)
