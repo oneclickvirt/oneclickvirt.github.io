@@ -40,7 +40,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 - 其他系统可能支持可能不支持，自行测试
 
 :::tip
-系统参数一律是小写的系统名字拼接版本号，具体可执行```pveam available --section system```查看可用的系统名字和版本号。
+系统参数一律是小写的系统名字拼接版本号，x86_64的具体可执行```pveam available --section system```查看可用的系统名字和版本号，arm的可在[https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/](https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/)中查看支持的系统，版本号类同执行```pveam available --section system```查看到的版本号。
 (注意脚本使用的参数只有小写的英文系统名字拼接版本号)
 :::
 
