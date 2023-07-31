@@ -40,6 +40,19 @@
 
 OVH
 
+### 如果什么机器安装成功后WEB可用，但重启失联，请重启前执行以下命令
+
+```bash
+auto_interface=$(grep '^auto ' /etc/network/interfaces | grep -v '^auto lo' | awk '{print $2}' | head -n 1)
+if ! grep -q "^post-up /sbin/ethtool" /etc/network/interfaces; then
+    chattr -i /etc/network/interfaces
+    echo "post-up /sbin/ethtool -K $auto_interface tx off rx off" >> /etc/network/interfaces
+    chattr +i /etc/network/interfaces
+fi
+```
+
+然后将重启失联的机器报给 [@spiritlhl_bot](https://t.me/spiritlhl_bot) 待更新脚本自动修复
+
 ### 如果有什么机器安装不了，着急的可以尝试使用以下仓库的脚本先重装为debian11先
 
 ```
