@@ -29,7 +29,11 @@ bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linu
 
 ## 可开设KVM虚拟化的NAT的商家
 
-[nocix](https://www.nocix.net/) 中的特价最低配15美元独服 (IPV6不自带，需要找客服要)
+[interserver](https://www.interserver.net/r/802990) 中的独立服务器
+
+[frantech](https://my.frantech.ca/aff.php?aff=5522) 中的拉斯维加斯第二档
+
+[eugamehost](https://www.eugamehost.com/clients/aff.php?aff=194) 中的美国凤凰城黑五促销款
 
 [amhost](http://amhost.net/vps/?cid=29317) 中的测试款
 
