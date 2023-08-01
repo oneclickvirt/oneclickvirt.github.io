@@ -1,8 +1,39 @@
+## 安装PVE成功但重启后失联
+
+如果什么机器安装PVE成功后WEB可用，但重启失联，请安装成功PVE后，重启前执行以下命令再重启
+
+```bash
+auto_interface=$(grep '^auto ' /etc/network/interfaces | grep -v '^auto lo' | awk '{print $2}' | head -n 1)
+if ! grep -q "^post-up /sbin/ethtool" /etc/network/interfaces; then
+    chattr -i /etc/network/interfaces
+    echo "post-up /sbin/ethtool -K $auto_interface tx off rx off" >> /etc/network/interfaces
+    chattr +i /etc/network/interfaces
+fi
+```
+
+然后将重启失联的机器报给 [@spiritlhl_bot](https://t.me/spiritlhl_bot) 待更新脚本自动修复
+
+## 安装PVE失败
+
+如果有什么机器安装不了，着急的可以尝试使用以下仓库的脚本先重装为debian11先
+
+```
+bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh) -debian 11 -pwd 'oneclickvirt139'
+```
+
+此时dd后的系统用户名为```root```，密码为```oneclickvirt139```
+
+如果有空或者还是不行，请联系 [@spiritlhl_bot](https://t.me/spiritlhl_bot) 尝试
+
 ## 目前已验证的VPS商家
 
-### 可开设KVM虚拟化的NAT的商家
+## 可开设KVM虚拟化的NAT的商家
 
-[nocix](https://www.nocix.net/) 中的特价最低配15美元独服 (IPV6不自带，需要找客服要)
+[interserver](https://www.interserver.net/r/802990) 中的独立服务器
+
+[frantech](https://my.frantech.ca/aff.php?aff=5522) 中的拉斯维加斯第二档
+
+[eugamehost](https://www.eugamehost.com/clients/aff.php?aff=194) 中的美国凤凰城黑五促销款
 
 [amhost](http://amhost.net/vps/?cid=29317) 中的测试款
 
@@ -18,7 +49,9 @@
 
 [adtaq](https://www.adtaq.com/) 中的最低配存储KVM服务器
 
-### 只可开设LXC虚拟化的NAT的商家
+[nocix](https://www.nocix.net/) 中的独立服务器
+
+## 只可开设LXC虚拟化的NAT的商家
 
 [腾讯云](https://curl.qcloud.com/tPrMnfZm) 中的无忧款和特惠款(学生机)
 
@@ -36,18 +69,6 @@
 
 [azure](https://portal.azure.com/#create/Microsoft.VirtualMachine-ARM) 的普通机器
 
-### 已知暂时不可用未适配的商家
+## 已知暂时不可用未适配的商家
 
 OVH
-
-### 如果有什么机器安装不了，着急的可以尝试使用以下仓库的脚本先重装为debian11先
-
-```
-bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh) -debian 11 -pwd 'oneclickvirt139'
-```
-
-此时dd后的系统用户名为```root```，密码为```oneclickvirt139```
-
-如果有空或者还是不行，请联系 [@spiritlhl_bot](https://t.me/spiritlhl_bot) 尝试
-
-

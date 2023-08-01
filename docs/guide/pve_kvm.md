@@ -28,11 +28,6 @@ KVM虚拟化开设出的虚拟机SSH登录默认都不是root作用户名，你�
 - 可在命令中自定义需要使用的镜像，这里有给出配置好的镜像，镜像自带空间设置是2~10G硬盘，日常使用**至少10G以上**即可，除非某些镜像开不起来再增加硬盘大小
 - 可在命令中指定存储盘位置，默认不指定时为local盘即系统盘，可指定为PVE中显示的挂载盘
 - 自定义内存大小推荐512MB内存
-
-:::tip
-需要注意的是宿主机内存记得开点swap免得机器炸了[开SWAP点我跳转](https://github.com/spiritLHLS/addswap)
-:::
-
 - 自动进行内外网端口映射，含22，80，443端口以及其他25个内外网端口号一样的端口
 - 生成后需要等待一段时间虚拟机内部的cloud-init配置好网络以及登陆信息，大概需要5分钟
 - 虚拟机的相关信息将会存储到WEB端对应VM的NOTES中，可在WEB端查看
@@ -52,7 +47,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 ### 使用方法
 
 - 系统支持：
-  - x86_64架构的详见 [跳转](https://github.com/spiritLHLS/Images/releases/tag/v1.0) 中列出的系统，使用时只需写文件名字，不需要.qcow2尾缀
+  - x86_64架构的详见 [跳转](https://github.com/oneclickvirt/kvm_images/releases/tag/v1.0) 中列出的系统，使用时只需写文件名字，不需要.qcow2尾缀
   - arm架构的详见 [跳转](http://cloud-images.ubuntu.com/) 中列出的系统，使用时只需要写系统名字+系统版本号，如ubuntu20、ubutnu22这种
 
 :::tip
@@ -112,7 +107,7 @@ rm -rf vm102
 
 目前使用的镜像列表为
 
-[https://github.com/spiritLHLS/Images/releases/tag/v1.0](https://github.com/spiritLHLS/Images/releases/tag/v1.0)
+[https://github.com/oneclickvirt/kvm_images/releases/tag/v1.0](https://github.com/oneclickvirt/kvm_images/releases/tag/v1.0)
 
 ## 批量开设NAT的KVM虚拟化的VM
 
