@@ -39,7 +39,7 @@ bash <(curl -sSL https://ghproxy.com/https://raw.githubusercontent.com/fscarmen/
 
 如果强行安装PVE开KVM，启动不了的也可以关闭这个选项试试能不能启动虚拟机
 
-## 开设出的KVM虚拟机支持的镜像
+## 开设KVM虚拟机可使用的镜像
 
 - 已预安装开启cloudinit
 - 开启SSH登陆
