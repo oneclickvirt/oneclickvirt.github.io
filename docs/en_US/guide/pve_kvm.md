@@ -1,8 +1,25 @@
 # KVM虚拟化
 
-:::tip
-KVM虚拟化开设出的虚拟机SSH登录默认都不是root作用户名，你需要执行```sudo -i```切换为root用户
-:::
+## SSH登录说明
+
+KVM虚拟化开设出的虚拟机，默认生成的用户名不是```root```，你需要执行```sudo -i```切换为root用户
+
+**当然部分模板实际支持用户名```root```登录，默认的root密码是```password```，你也可以先试试**
+
+登录SSH切换为root权限后，一定要修改root密码，可以使用以下命令修改
+
+国际
+
+```bash
+bash <(curl -sSL https://raw.githubusercontent.com/fscarmen/tools/main/root.sh) [PASSWORD]
+```
+
+国内
+
+
+```bash
+bash <(curl -sSL https://ghproxy.com/https://raw.githubusercontent.com/fscarmen/tools/main/root.sh) [PASSWORD]
+```
 
 ## 部分注意事项
 
@@ -21,6 +38,19 @@ KVM虚拟化开设出的虚拟机SSH登录默认都不是root作用户名，你�
 先停止虚拟机再修改，修改完后再开机才能使用NOVNC，不关闭**可能**导致这个虚拟机有BUG无法使用
 
 如果强行安装PVE开KVM，启动不了的也可以关闭这个选项试试能不能启动虚拟机
+
+## 开设出的KVM虚拟机支持的镜像
+
+- 已预安装开启cloudinit
+- 开启SSH登陆
+- 预设置SSH监听V4和V6的22端口
+- 开启允许密码验证登陆
+- 开启允许root登陆
+- 部分预安装Qemu-guest-agent
+
+目前可使用的镜像名字的列表为
+
+[https://github.com/oneclickvirt/kvm_images/blob/main/list.text](https://github.com/oneclickvirt/kvm_images/blob/main/list.text)
 
 ## 单独开设NAT的KVM虚拟化的VM
 
@@ -100,14 +130,6 @@ service networking restart
 systemctl restart networking.service
 rm -rf vm102
 ```
-
-## 相关qcow2镜像
-
-- 已预安装开启cloudinit，开启SSH登陆，预设值SSH监听V4和V6的22端口，开启允许密码验证登陆，开启允许ROOT登陆
-
-目前使用的镜像列表为
-
-[https://github.com/oneclickvirt/kvm_images/releases/tag/v1.0](https://github.com/oneclickvirt/kvm_images/releases/tag/v1.0)
 
 ## 批量开设NAT的KVM虚拟化的VM
 
