@@ -150,7 +150,7 @@ systemctl restart networking.service
 
 ## 开设纯IPV6地址的虚拟机
 
-前提是宿主机给的是IPV6子网而不是单独一个IPV6地址
+前提是宿主机给的是IPV6子网而不是单独一个IPV6地址，且宿主机未开启MAC地址校验
 
 ### 自动选择IPV6地址无需手动指定
 

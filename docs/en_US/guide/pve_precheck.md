@@ -47,6 +47,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/addswap
 ## 检测环境
 
 - 本项目相关脚本执行前务必执行本脚本检测环境，如果不符合安装PVE的要求则无法使用后续的脚本
+- 检测本机IPV6的网络配置情况(有无IPV6都可安装，只是查询一下罢了)
 - 检测硬件配置是否满足最低要求
 - 检测硬件环境是否可嵌套虚拟化KVM类型的服务器
 - 检测系统环境是否可嵌套虚拟化KVM类型的服务器
@@ -54,14 +55,20 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/addswap
 
 国际
 
-```
+```bash
 bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/check_kernal.sh)
 ```
 
 国内
 
-```
+```bash
 bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/check_kernal.sh)
+```
+
+如果你需要更新IPV6信息再查询，那么执行以下命令后再查询
+
+```bash
+rm -rf /usr/local/bin/pve_ipv6*
 ```
 
 <br/>

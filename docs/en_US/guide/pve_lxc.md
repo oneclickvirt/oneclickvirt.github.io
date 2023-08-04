@@ -24,6 +24,10 @@ outline: deep
 - 容器的相关信息将会存储到对应的容器的NOTE中，可在WEB端查看
 - 如果宿主机自带IPV6子网将自动附加上IPV6网络，但无公网IPV6地址
 
+### 使用方法
+
+下载脚本
+
 国际
 
 ```shell
@@ -35,8 +39,6 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct.sh
 ```shell
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct.sh -o buildct.sh && chmod +x buildct.sh
 ```
-
-### 使用方法
 
 * 系统支持：
 - debian10，debian11
@@ -130,7 +132,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 开设完毕可执行```cat ctlog```查看信息，或在web端的NOTES查看
 
 
-## 删除所有CT
+### 删除所有CT
 
 - 删除所有CT
 - 删除所有nat的端口映射
@@ -148,7 +150,7 @@ systemctl restart networking.service
 
 ## 开设纯IPV6地址的虚拟机
 
-前提是宿主机给的是IPV6子网而不是单独一个IPV6地址
+前提是宿主机给的是IPV6子网而不是单独一个IPV6地址，且宿主机未开启MAC地址校验
 
 ### 自动选择IPV6地址无需手动指定
 
