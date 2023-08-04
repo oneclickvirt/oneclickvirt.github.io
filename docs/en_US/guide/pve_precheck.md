@@ -1,3 +1,7 @@
+---
+outline: deep
+---
+
 # 系统和硬件配置要求
 
 如果有未适配的商家或机器欢迎联系[@spiritlhl_bot](https://t.me/spiritlhl_bot)，有空会尝试支持一下

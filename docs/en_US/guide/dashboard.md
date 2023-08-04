@@ -1,3 +1,7 @@
+---
+outline: deep
+---
+
 ## 准备工作  
 
 需要虚拟化出服务器，你需要：
@@ -21,7 +25,7 @@ PVE项目可能造成宿主机出现问题，如果你不会看Bug和修复系�
 
 欢迎Star和Fork
 
-### PVE相关的各种一键脚本
+### PVE
 
 可开设KVM虚拟化的虚拟机、LXC虚拟化的容器
 
@@ -29,7 +33,7 @@ PVE项目可能造成宿主机出现问题，如果你不会看Bug和修复系�
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2Fpve&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
-### 通过LXD/LXC命令批量或单独开设NAT服务器以及维护
+### LXD
 
 可开设LXC虚拟化的容器
 
@@ -37,7 +41,7 @@ PVE项目可能造成宿主机出现问题，如果你不会看Bug和修复系�
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2Flxc&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
-### 通过docker批量或单独开设NAT服务器
+### Docker
 
 可开设Docker虚拟化的容器
 
