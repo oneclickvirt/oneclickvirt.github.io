@@ -130,7 +130,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 开设完毕可执行```cat ctlog```查看信息，或在web端的NOTES查看
 
 
-## 删除所有CT
+### 删除所有CT
 
 - 删除所有CT
 - 删除所有nat的端口映射
