@@ -166,14 +166,14 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 #### 创建示例
 
 ```shell
-./buildct_onlyv6.sh CTID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘
+./buildct_onlyv6.sh CTID 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘
 ```
 
 ```shell
-./buildct_onlyv6.sh 152 test1 oneclick123 1 1024 10 debian12 local
+./buildct_onlyv6.sh 152 oneclick123 1 1024 10 debian12 local
 ```
 
-上述命令意义为开设一个纯IPV6地址的CT容器，CTID是152，用户名是```test1```，密码是```oneclick123```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```debian12```，存储盘是```local```盘也就是系统盘
+上述命令意义为开设一个纯IPV6地址的CT容器，CTID是152，用户名是```root```，密码是```oneclick123```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```debian12```，存储盘是```local```盘也就是系统盘
 
 #### 删除示例
 
