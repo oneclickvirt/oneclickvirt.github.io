@@ -1,3 +1,9 @@
+---
+outline: deep
+---
+
+# 解惑
+
 ## 安装PVE成功但重启后失联
 
 如果什么机器安装PVE成功后WEB可用，但重启失联，请安装成功PVE后，重启前执行以下命令再重启
@@ -27,7 +33,7 @@ bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linu
 
 ## 目前已验证的VPS商家
 
-## 可开设KVM虚拟化的NAT的商家
+### 可开设KVM虚拟化的NAT的商家
 
 [interserver](https://www.interserver.net/r/802990) 中的独立服务器
 
@@ -51,7 +57,7 @@ bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linu
 
 [nocix](https://www.nocix.net/) 中的独立服务器
 
-## 只可开设LXC虚拟化的NAT的商家
+### 只可开设LXC虚拟化的NAT的商家
 
 [腾讯云](https://curl.qcloud.com/tPrMnfZm) 中的无忧款和特惠款(学生机)
 
@@ -69,6 +75,6 @@ bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linu
 
 [azure](https://portal.azure.com/#create/Microsoft.VirtualMachine-ARM) 的普通机器
 
-## 已知暂时不可用未适配的商家
+### 已知暂时不可用未适配的商家
 
 OVH

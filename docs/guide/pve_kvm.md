@@ -1,3 +1,7 @@
+---
+outline: deep
+---
+
 # KVM虚拟化
 
 ## SSH登录说明
@@ -23,7 +27,7 @@ bash <(curl -sSL https://ghproxy.com/https://raw.githubusercontent.com/fscarmen/
 
 ## 部分注意事项
 
-**执行本项目的第一个检测环境的命令**，展示如下
+**执行本项目的检测环境的命令**，展示如下
 
 ![图片](https://github.com/oneclickvirt/oneclickvirt.github.io/blob/main/docs/images/pve_kvm/pve_kvm_1.png?raw=true)
 
@@ -39,6 +43,10 @@ bash <(curl -sSL https://ghproxy.com/https://raw.githubusercontent.com/fscarmen/
 
 如果强行安装PVE开KVM，启动不了的也可以关闭这个选项试试能不能启动虚拟机
 
+:::tip
+开设虚拟机前请使用screen挂起执行，避免开设时间过长，SSH不稳定导致中间执行中断
+:::
+
 ## 开设KVM虚拟机可使用的镜像
 
 - 已预安装开启cloudinit
@@ -52,7 +60,7 @@ bash <(curl -sSL https://ghproxy.com/https://raw.githubusercontent.com/fscarmen/
 
 [https://github.com/oneclickvirt/kvm_images/blob/main/list.text](https://github.com/oneclickvirt/kvm_images/blob/main/list.text)
 
-## 单独开设NAT的KVM虚拟化的VM
+## 单独开设NAT的KVM虚拟化的虚拟机
 
 - 自动开设NAT服务器，默认使用Debian10镜像，因为该镜像占用最小
 - 可在命令中自定义需要使用的镜像，这里有给出配置好的镜像，镜像自带空间设置是2~10G硬盘，日常使用**至少10G以上**即可，除非某些镜像开不起来再增加硬盘大小
@@ -74,7 +82,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm.sh
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm.sh -o buildvm.sh && chmod +x buildvm.sh
 ```
 
-## 使用方法
+### 使用方法
 
 - 系统支持：
   - x86_64架构的详见 [跳转](https://github.com/oneclickvirt/kvm_images/releases/tag/v1.0) 中列出的系统，使用时只需写文件名字，不需要.qcow2尾缀
@@ -88,10 +96,10 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 ./buildvm.sh VMID 用户名 密码 CPU核数 内存 硬盘 SSH端口 80端口 443端口 外网端口起 外网端口止 系统 存储盘
 ```
 
-## 测试示例
+### 测试示例
 
 ```shell
-./buildvm.sh 102 test1 1234567 1 512 10 40001 40002 40003 50000 50025 debian11 local
+./buildvm.sh 102 test1 oneclick123 1 512 10 40001 40002 40003 50000 50025 debian11 local
 ```
 
 开设完毕可执行```cat vm102```查看信息，或到WEB端对应VM的NOTES中查看
@@ -101,7 +109,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 ```
 `VMID` - 102
 `SSH登录的用户名` - test1
-`SSH登录的密码` - 1234567
+`SSH登录的密码` - oneclick123
 `CPU核数` - 1   
 `内存大小` - 512MB
 `磁盘大小` - 10G   
@@ -131,7 +139,7 @@ systemctl restart networking.service
 rm -rf vm102
 ```
 
-## 批量开设NAT的KVM虚拟化的VM
+## 批量开设NAT的KVM虚拟化的虚拟机
 
 :::warning
 初次使用前需要保证当前PVE纯净且宿主机未进行过任何端口映射，否则设置冲突可能出现BUG
@@ -163,7 +171,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 
 开设完毕可执行```cat vmlog```查看信息，或到WEB端对应VM的NOTES中查看
 
-## 删除所有VM
+## 删除所有虚拟机
 
 - 删除所有VM
 - 删除所有nat的端口映射
@@ -177,13 +185,14 @@ iptables -t filter -F
 service networking restart
 systemctl restart networking.service
 rm -rf vmlog
+rm -rf vm*
 ```
 
 :::tip
 PVE修改VM配置前都得停机先，再修改配置，修改完再启动，免得出现配置重载错误
 :::
 
-## 开设独立IPV4地址的VM
+## 开设独立IPV4地址的虚拟机
 
 两个版本，各取所需
 
@@ -191,10 +200,6 @@ PVE修改VM配置前都得停机先，再修改配置，修改完再启动，免
 
 :::warning
 使用前需要保证当前宿主机的IP段带了至少2个IP，且有空余的IP未配置，该空余的IP未绑定宿主机
-:::
-
-:::tip
-开设前请使用screen挂起执行，避免开设时间过长，SSH不稳定导致中间执行中断
 :::
 
 - 自动检测可用的IP区间，通过ping检测空余可使用的IP，选取其中之一绑定到虚拟机上
@@ -219,16 +224,12 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 ```
 
 ```shell
-./buildvm_extraip.sh 152 test1 1234567 1 1024 10 ubuntu20 local
+./buildvm_extraip.sh 152 test1 oneclick123 1 1024 10 debian12 local
 ```
 
-上述命令意义为开设一个带独立IPV4地址的虚拟机，VMID是152，用户名是```test1```，密码是```1234567```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```Ubuntu20```，存储盘是```local```盘也就是系统盘
+上述命令意义为开设一个带独立IPV4地址的虚拟机，VMID是152，用户名是```test1```，密码是```oneclick123```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```debian12```，存储盘是```local```盘也就是系统盘
 
 ### 需要手动指定IPV4地址的版本
-
-:::tip
-开设前请使用screen挂起执行，避免开设时间过长，SSH不稳定导致中间执行中断
-:::
 
 - 需要手动在命令中指定IPV4地址，且带上子网长度
 - 如果商家有给IPV4地址和子网长度，请仔细比对，按照下面示例的命令写参数
@@ -253,10 +254,10 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 ```
 
 ```shell
-./buildvm_manual_ip.sh 152 test1 1234567 1 1024 10 ubuntu20 local a.b.c.d/24
+./buildvm_manual_ip.sh 152 test1 oneclick123 1 1024 10 debian12 local a.b.c.d/24
 ```
 
-上述命令意义为开设一个带独立IPV4地址的虚拟机，VMID是152，用户名是```test1```，密码是```1234567```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```Ubuntu20```，存储盘是```local```盘也就是系统盘，IPV4地址为```a.b.c.d```，子网为```/24```子网
+上述命令意义为开设一个带独立IPV4地址的虚拟机，VMID是152，用户名是```test1```，密码是```oneclick123```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```debian12```，存储盘是```local```盘也就是系统盘，IPV4地址为```a.b.c.d```，子网为```/24```子网
 
 
 ### 删除示例
@@ -266,3 +267,34 @@ qm stop 152
 qm destroy 152
 rm -rf vm152
 ```
+
+## 开设纯IPV6地址的虚拟机
+
+### 自动选择IPV6地址无需手动指定
+
+- 自动检测可用的IPV6区间，对应虚拟机编号的V6地址绑定到虚拟机上
+- 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
+
+国际
+
+```shell
+curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_onlyv6.sh -o buildvm_onlyv6.sh && chmod +x buildvm_onlyv6.sh
+```
+
+国内
+
+```shell
+curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_onlyv6.sh -o buildvm_onlyv6.sh && chmod +x buildvm_onlyv6.sh
+```
+
+#### 创建示例
+
+```shell
+./buildvm_onlyv6.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘
+```
+
+```shell
+./buildvm_onlyv6.sh 152 test1 oneclick123 1 1024 10 debian12 local
+```
+
+上述命令意义为开设一个纯IPV6地址的虚拟机，VMID是152，用户名是```test1```，密码是```oneclick123```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```debian12```，存储盘是```local```盘也就是系统盘

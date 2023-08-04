@@ -1,3 +1,7 @@
+---
+outline: deep
+---
+
 # LXC虚拟化
 
 ## 单独开设LXC虚拟化的CT
@@ -31,7 +35,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct.sh
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct.sh -o buildct.sh && chmod +x buildct.sh
 ```
 
-#### 使用方法
+### 使用方法
 
 * 系统支持：
 - debian10，debian11
@@ -50,10 +54,10 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 ./buildct.sh CTID 密码 CPU核数 内存 硬盘 SSH端口 80端口 443端口 外网端口起 外网端口止 系统 存储盘
 ```
 
-#### 测试示例
+### 测试示例
 
 ```shell
-./buildct.sh 102 1234567 1 512 5 20001 20002 20003 30000 30025 debian11 local
+./buildct.sh 102 oneclick123 1 512 5 20001 20002 20003 30000 30025 debian11 local
 ```
 
 开设完毕可执行```cat ct102```查看信息，或在web端的NOTES查看
@@ -63,7 +67,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 ```
 `VMID` - 102
 `SSH登录的用户名` - root
-`SSH登录的密码` - 1234567
+`SSH登录的密码` - oneclick123
 `CPU核数` - 1   
 `内存大小` - 512MB
 `磁盘大小` - 5G   
@@ -75,7 +79,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 `宿主机的存储盘` - local
 ```
 
-#### 删除示例
+### 删除示例
 
 - 停止CT
 - 删除CT
@@ -124,7 +128,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 开设完毕可执行```cat ctlog```查看信息，或在web端的NOTES查看
 
 
-#### 删除所有CT
+## 删除所有CT
 
 - 删除所有CT
 - 删除所有nat的端口映射
@@ -139,3 +143,34 @@ iptables -t filter -F
 service networking restart
 systemctl restart networking.service
 ```
+
+## 开设纯IPV6地址的虚拟机
+
+### 自动选择IPV6地址无需手动指定
+
+- 自动检测可用的IPV6区间，对应容器编号的V6地址绑定到容器上
+- 系统的相关信息将会存储到对应的容器的NOTE中，可在WEB端查看
+
+国际
+
+```shell
+curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct_onlyv6.sh -o buildct_onlyv6.sh && chmod +x buildct_onlyv6.sh
+```
+
+国内
+
+```shell
+curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct_onlyv6.sh -o buildct_onlyv6.sh && chmod +x buildct_onlyv6.sh
+```
+
+#### 创建示例
+
+```shell
+./buildct_onlyv6.sh CTID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘
+```
+
+```shell
+./buildct_onlyv6.sh 152 test1 oneclick123 1 1024 10 debian12 local
+```
+
+上述命令意义为开设一个纯IPV6地址的CT容器，CTID是152，用户名是```test1```，密码是```oneclick123```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```debian12```，存储盘是```local```盘也就是系统盘

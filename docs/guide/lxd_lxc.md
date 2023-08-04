@@ -1,3 +1,7 @@
+---
+outline: deep
+---
+
 # LXC虚拟化
 
 ## 单独生成一个NAT服务器

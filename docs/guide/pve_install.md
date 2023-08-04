@@ -1,3 +1,7 @@
+---
+outline: deep
+---
+
 # PVE主体安装
 
 ## 一键安装PVE
@@ -8,15 +12,19 @@
 
 - 安装的是当下apt源最新的PVE
 - 比如debian10则是pve6.4，debian11则是pve7.x，debian12则是pve8.x
-- /etc/hosts文件修改(修正商家hostname设置错误以及新增PVE所需的内容)
-- 已设置```/etc/hosts```为只读模式，避免重启后文件被覆写，如需修改请使用```chattr -i /etc/hosts```取消只读锁定，修改完毕请执行```chattr +i /etc/hosts```只读锁定
-- 检测```/etc/cloud/cloud.cfg```如果发现```preserve_hostname```是```false```，则改为```true```，同上，也用chattr命令进行了文件锁定避免重启覆盖设置
+- ```/etc/hosts```文件修改(修正商家hostname设置错误以及新增PVE所需的内容)
+- ```/etc/cloud/cloud.cfg```文件修改(避免覆写已修改的hostname等配置)
+- ```/etc/network/interfaces```文件修改(修复auto、dhcp类型为static、增加vmbr0网关)
 - 检测是否为中国IP，如果为中国IP使用清华镜像源，否则使用官方源，同时处理apt的源和对应的nameserver，避免断网
 - 安装PVE开虚拟机需要的必备工具包
 - x86_64的替换apt源中的企业订阅为社区源，arm的使用第三方修复的补丁构建的源
 - 打印查询Linux系统内核和PVE内核是否已安装
-- 检测```/etc/resolv.conf```是否为空，为空则设置检测```8.8.8.8```的开机自启添加DNS的systemd服务
+- 设置DNS检测```8.8.8.8```的开机自启添加DNS的systemd服务
 - 新增PVE的APT源链接后，下载PVE并打印输出登陆信息
+
+所有修改过的文件均已设置为只读模式，避免重启后文件被覆写
+
+如需修改请使用```chattr -i 文件路径```取消只读锁定，修改完毕请执行```chattr +i 文件路径```进行只读锁定
 
 国际
 
@@ -46,8 +54,7 @@ bash install_pve.sh
 - 移除订阅弹窗
 - 尝试开启硬件直通
 - 对AppArmor模块检测和自动安装
-- 重启系统前推荐挂上[nezha探针](https://github.com/naiba/nezha)方便在后台不通过SSH使用命令行，避免SSH可能因为商家奇葩的预设导致重启后root密码丢失
-- **执行完毕建议等待一分钟后再重启服务器**
+- 重启系统前推荐挂上[nezha探针](https://github.com/naiba/nezha)方便在后台不通过SSH使用命令行，避免SSH可能因为商家奇葩的预设可能导致重启后root密码丢失
 - 执行```reboot```前需要等待后台任务执行完毕，一些宿主机的系统apt命令执行很慢，得等一会才能执行完毕，当然大部分的机器没这么烂
 
 国际
@@ -73,12 +80,16 @@ bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubus
 :::
 
 - 创建vmbr0(独立IP网关)，宿主机允许addr和gateway为内网IP或外网IP，已自动识别
-- vmbr0创建支持纯IPV4或双栈服务器，自动识别IPV4地址和IPV6地址，自动识别对应的IP区间
-- 开独立IPV4的虚拟机时使用vmbr0，使用同宿主机一致的gateway，使用宿主机未绑定的IPV4地址做IPV4/CIDR，当然如果后续使用本套脚本无需关注这点细枝末节的东西
+- vmbr0创建支持开设纯IPV4、纯IPV6、双栈虚拟机，自动识别IPV4地址和IPV6地址，自动识别对应的IP区间
 - 创建vmbr1(NAT网关)，暂不支持开设带独立IPV6地址的NAT的IPV4虚拟机
-- 开NAT虚拟机时使用vmbr1，gateway使用```172.16.1.1```，IPV4/CIDR使用```172.16.1.x/24```，这里的x不能是1，当然如果后续使用本套脚本无需关注这点细枝末节的东西
 - 想查看完整设置可以执行```cat /etc/network/interfaces```查看，如需修改网关需要修改该文件，web端已经无法修改
 - 加载iptables并设置回源且允许NAT端口转发
+
+简单的说，```vmbr0```负责v4/v6的独立IP，```vmbr1```复杂v4/v6的NAT
+
+开独立IPV4的虚拟机时使用的vmbr0，gateway同宿主机，IPV4/CIDR使用同一网段的地址和相同的子网掩码，使用宿主机未绑定的IPV4地址做IPV4/CIDR，当然如果后续使用本套脚本无需关注这点细枝末节的东西
+
+开NAT的IPV4的虚拟机时使用vmbr1，gateway使用```172.16.1.1```，IPV4/CIDR使用```172.16.1.x/24```，这里的x不能是1，当然如果后续使用本套脚本无需关注这点细枝末节的东西
 
 国际
 
