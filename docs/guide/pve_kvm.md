@@ -261,15 +261,6 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 
 上述命令意义为开设一个带独立IPV4地址的虚拟机，VMID是152，用户名是```test1```，密码是```oneclick123```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```debian12```，存储盘是```local```盘也就是系统盘，IPV4地址为```a.b.c.d```，子网为```/24```子网
 
-
-### 删除示例
-
-```shell
-qm stop 152
-qm destroy 152
-rm -rf vm152
-```
-
 ## 开设纯IPV6地址的虚拟机
 
 ### 自动选择IPV6地址无需手动指定
@@ -300,3 +291,12 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 ```
 
 上述命令意义为开设一个纯IPV6地址的虚拟机，VMID是152，用户名是```test1```，密码是```oneclick123```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```debian12```，存储盘是```local```盘也就是系统盘
+
+
+## 删除vm152示例
+
+```shell
+qm stop 152
+qm destroy 152
+rm -rf vm152
+```

@@ -174,3 +174,11 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 ```
 
 上述命令意义为开设一个纯IPV6地址的CT容器，CTID是152，用户名是```test1```，密码是```oneclick123```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```debian12```，存储盘是```local```盘也就是系统盘
+
+#### 删除示例
+
+```shell
+rm -rf ct*
+pct stop 152 
+pct destroy 152
+```
