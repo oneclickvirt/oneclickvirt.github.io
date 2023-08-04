@@ -22,6 +22,7 @@ outline: deep
 - 可在命令中指定存储盘位置，默认不指定时为local盘即系统盘，可指定为PVE中显示的挂载盘
 - 开设的CT默认已启用SSH且允许root登陆，且已设置支持使用docker的嵌套虚拟化
 - 容器的相关信息将会存储到对应的容器的NOTE中，可在WEB端查看
+- 如果宿主机自带IPV6子网将自动附加上IPV6网络，但无公网IPV6地址
 
 国际
 
@@ -112,6 +113,7 @@ systemctl restart networking.service
 - 可自定义批量开设的核心数，内存大小，硬盘大小，使用宿主机哪个存储盘，记得自己计算好空闲资源开设
 - 开设的CT默认已启用SSH且允许root登陆，且已设置支持使用docker的嵌套虚拟化
 - 容器的相关信息将会存储到对应的容器的NOTE中，可在WEB端查看
+- 如果宿主机自带IPV6子网将自动附加上IPV6网络，但无公网IPV6地址
 
 国际
 
@@ -145,6 +147,8 @@ systemctl restart networking.service
 ```
 
 ## 开设纯IPV6地址的虚拟机
+
+前提是宿主机给的是IPV6子网而不是单独一个IPV6地址
 
 ### 自动选择IPV6地址无需手动指定
 

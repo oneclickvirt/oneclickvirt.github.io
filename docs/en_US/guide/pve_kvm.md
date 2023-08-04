@@ -69,6 +69,7 @@ bash <(curl -sSL https://ghproxy.com/https://raw.githubusercontent.com/fscarmen/
 - 自动进行内外网端口映射，含22，80，443端口以及其他25个内外网端口号一样的端口
 - 生成后需要等待一段时间虚拟机内部的cloud-init配置好网络以及登陆信息，大概需要5分钟
 - 虚拟机的相关信息将会存储到WEB端对应VM的NOTES中，可在WEB端查看
+- 如果宿主机自带IPV6子网将自动附加上IPV6网络，但无公网IPV6地址
 
 国际
 
@@ -156,6 +157,7 @@ rm -rf vm102
 - 默认批量开设的虚拟机网络配置为：22，80，443端口及一个25个端口区间的内外网映射
 - 可自定义批量开设的核心数，内存大小，硬盘大小，使用宿主机哪个存储盘，记得自己计算好空闲资源开设
 - 虚拟机的相关信息将会存储到WEB端对应VM的NOTES中，可在WEB端查看
+- 如果宿主机自带IPV6子网将自动附加上IPV6网络，但无公网IPV6地址
 
 国际
 
@@ -203,7 +205,7 @@ PVE修改VM配置前都得停机先，再修改配置，修改完再启动，免
 :::
 
 - 自动检测可用的IP区间，通过ping检测空余可使用的IP，选取其中之一绑定到虚拟机上
-- 如果宿主机自带IPV6子网将自动附加上IPV6地址
+- 如果宿主机自带IPV6子网将可选择是否附加上IPV6地址
 - 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
 
 国际
@@ -221,19 +223,19 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 #### 创建示例
 
 ```shell
-./buildvm_extraip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘
+./buildvm_extraip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 是否附加IPV6(默认为N)
 ```
 
 ```shell
-./buildvm_extraip.sh 152 test1 oneclick123 1 1024 10 debian12 local
+./buildvm_extraip.sh 152 test1 oneclick123 1 1024 10 debian12 local N
 ```
 
-上述命令意义为开设一个带独立IPV4地址的虚拟机，VMID是152，用户名是```test1```，密码是```oneclick123```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```debian12```，存储盘是```local```盘也就是系统盘
+上述命令意义为开设一个带独立IPV4地址的虚拟机，VMID是152，用户名是```test1```，密码是```oneclick123```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```debian12```，存储盘是```local```盘也就是系统盘，默认不附加IPV6
 
 ### 需要手动指定IPV4地址的版本
 
 - 需要手动在命令中指定IPV4地址，且带上子网长度
-- 如果宿主机自带IPV6子网将自动附加上IPV6地址
+- 如果宿主机自带IPV6子网将可选择是否附加上IPV6地址
 - 如果商家有给IPV4地址和子网长度，请仔细比对，按照下面示例的命令写参数
 - 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
 
@@ -252,25 +254,18 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 #### 创建示例
 
 ```shell
-./buildvm_manual_ip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 IPV4地址
+./buildvm_manual_ip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 IPV4地址 是否附加IPV6(默认为N)
 ```
 
 ```shell
-./buildvm_manual_ip.sh 152 test1 oneclick123 1 1024 10 debian12 local a.b.c.d/24
+./buildvm_manual_ip.sh 152 test1 oneclick123 1 1024 10 debian12 local a.b.c.d/24 N
 ```
 
-上述命令意义为开设一个带独立IPV4地址的虚拟机，VMID是152，用户名是```test1```，密码是```oneclick123```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```debian12```，存储盘是```local```盘也就是系统盘，IPV4地址为```a.b.c.d```，子网为```/24```子网
-
-
-### 删除示例
-
-```shell
-qm stop 152
-qm destroy 152
-rm -rf vm152
-```
+上述命令意义为开设一个带独立IPV4地址的虚拟机，VMID是152，用户名是```test1```，密码是```oneclick123```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```debian12```，存储盘是```local```盘也就是系统盘，IPV4地址为```a.b.c.d```，子网为```/24```子网，默认不附加IPV6
 
 ## 开设纯IPV6地址的虚拟机
+
+前提是宿主机给的是IPV6子网而不是单独一个IPV6地址
 
 ### 自动选择IPV6地址无需手动指定
 
@@ -300,3 +295,12 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 ```
 
 上述命令意义为开设一个纯IPV6地址的虚拟机，VMID是152，用户名是```test1```，密码是```oneclick123```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```debian12```，存储盘是```local```盘也就是系统盘
+
+
+## 删除vm152示例
+
+```shell
+qm stop 152
+qm destroy 152
+rm -rf vm152
+```
