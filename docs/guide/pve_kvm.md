@@ -74,7 +74,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm.sh
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm.sh -o buildvm.sh && chmod +x buildvm.sh
 ```
 
-### 使用方法
+## 使用方法
 
 - 系统支持：
   - x86_64架构的详见 [跳转](https://github.com/oneclickvirt/kvm_images/releases/tag/v1.0) 中列出的系统，使用时只需写文件名字，不需要.qcow2尾缀
@@ -88,7 +88,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 ./buildvm.sh VMID 用户名 密码 CPU核数 内存 硬盘 SSH端口 80端口 443端口 外网端口起 外网端口止 系统 存储盘
 ```
 
-### 测试示例
+## 测试示例
 
 ```shell
 ./buildvm.sh 102 test1 1234567 1 512 10 40001 40002 40003 50000 50025 debian11 local
