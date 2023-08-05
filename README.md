@@ -14,9 +14,9 @@ Documentation for one-click virtualization
 
 ## 通过LXD/LXC命令批量或单独开设NAT服务器以及维护
 
-[https://github.com/spiritLHLS/lxc](https://github.com/spiritLHLS/lxc)
+[https://github.com/spiritLHLS/lxd](https://github.com/spiritLHLS/lxd)
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2Flxc&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2Flxd&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 ## 通过docker批量或单独开设NAT服务器
 

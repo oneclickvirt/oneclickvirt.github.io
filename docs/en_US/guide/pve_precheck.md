@@ -22,7 +22,7 @@ outline: deep
 
 - 硬件要求：2核2G内存```x86_64```或```arm```架构服务器硬盘至少20G
 - 可开KVM的硬件要求：VM-X或AMD-V支持 (部分VPS和全部独服支持)
-- 如果硬件或系统需求不满足，可使用LXD批量开LXC容器[跳转](https://github.com/spiritLHLS/lxc)
+- 如果硬件或系统需求不满足，可使用LXD批量开LXC容器[跳转](https://github.com/spiritLHLS/lxd)
 
 :::warning
 内存开点swap免得机器炸了[开SWAP点我跳转](https://github.com/spiritLHLS/addswap)
@@ -53,7 +53,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/addswap
 - 检测硬件配置是否满足最低要求
 - 检测硬件环境是否可嵌套虚拟化KVM类型的服务器
 - 检测系统环境是否可嵌套虚拟化KVM类型的服务器
-- 不可嵌套虚拟化KVM类型的服务器也可以开LXC虚拟化的服务器，但不推荐安装PVE，不如使用[LXD](https://github.com/spiritLHLS/lxc)
+- 不可嵌套虚拟化KVM类型的服务器也可以开LXC虚拟化的服务器，但不推荐安装PVE，不如使用[LXD](https://github.com/spiritLHLS/lxd)
 
 国际
 
