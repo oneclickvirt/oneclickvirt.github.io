@@ -35,7 +35,7 @@ PVE项目可能造成宿主机出现问题，如果你不会看Bug和修复系�
 
 ### LXD
 
-可开设LXD虚拟化的容器
+可开设LXC虚拟化的容器
 
 [https://github.com/spiritLHLS/lxd](https://github.com/spiritLHLS/lxd)
 
