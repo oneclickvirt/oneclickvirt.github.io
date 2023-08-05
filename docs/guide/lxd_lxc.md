@@ -89,6 +89,7 @@ cat test
 lxc stop test
 lxc delete test
 rm -rf test
+rm -rf test_v6
 ls
 ```
 
