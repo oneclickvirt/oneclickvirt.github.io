@@ -25,13 +25,13 @@ ufw disable
 国际
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/swap.sh -o swap.sh && chmod +x swap.sh && bash swap.sh
+curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/swap.sh -o swap.sh && chmod +x swap.sh && bash swap.sh
 ```
 
 国内
 
 ```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/swap.sh -o swap.sh && chmod +x swap.sh && bash swap.sh
+curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/swap.sh -o swap.sh && chmod +x swap.sh && bash swap.sh
 ```
 
 ### 安装LXD
@@ -102,13 +102,13 @@ export PATH=$PATH:/snap/bin
 国际
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/lxdinstall.sh -o lxdinstall.sh && chmod +x lxdinstall.sh && bash lxdinstall.sh
+curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/lxdinstall.sh -o lxdinstall.sh && chmod +x lxdinstall.sh && bash lxdinstall.sh
 ```
 
 国内
 
 ```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/lxdinstall.sh -o lxdinstall.sh && chmod +x lxdinstall.sh && bash lxdinstall.sh
+curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/lxdinstall.sh -o lxdinstall.sh && chmod +x lxdinstall.sh && bash lxdinstall.sh
 ```
 
 例子：

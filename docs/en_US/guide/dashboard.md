@@ -35,11 +35,11 @@ PVE项目可能造成宿主机出现问题，如果你不会看Bug和修复系�
 
 ### LXD
 
-可开设LXC虚拟化的容器
+可开设LXD虚拟化的容器
 
-[https://github.com/spiritLHLS/lxc](https://github.com/spiritLHLS/lxc)
+[https://github.com/spiritLHLS/lxd](https://github.com/spiritLHLS/lxd)
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2Flxc&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2Flxd&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 ### Docker
 

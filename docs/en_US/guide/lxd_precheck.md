@@ -31,7 +31,7 @@ PS: 如果硬件资源更烂，虚拟化不支持，可使用docker版本的，�
 
 - 保证你要开的盘为默认的系统盘(sda或者sda1)而不是挂载的盘(sdb之类的)，不确定的使用```fdisk -l```和```df```查看
 
-- 挂载其他盘的详看 [其他说明](https://github.com/spiritLHLS/lxc/blob/main/README_other.md)
+- 挂载其他盘的详看 [其他说明](https://github.com/spiritLHLS/lxd/blob/main/README_other.md)
 
 - 一键脚本支持自定义限制所有内容，普通版本支持多次运行批量生成不覆盖先前生成的配置
 
@@ -42,11 +42,11 @@ PS: 如果硬件资源更烂，虚拟化不支持，可使用docker版本的，�
 国际
 
 ```
-bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/pre_check.sh)
+bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/pre_check.sh)
 ```
 
 国内
 
 ```
-bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/pre_check.sh)
+bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/pre_check.sh)
 ```

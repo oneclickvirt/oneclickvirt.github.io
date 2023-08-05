@@ -13,13 +13,13 @@ outline: deep
 国际
 
 ```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
+curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
 ```
 
 国内
 
 ```shell
-curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
+curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
 ```
 
 ### 使用方法
@@ -110,13 +110,13 @@ lxc若命令无问题，执行初始化开小鸡，这一步最好放```screen``
 国际
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/init.sh -o init.sh && chmod +x init.sh && dos2unix init.sh
+curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/init.sh -o init.sh && chmod +x init.sh && dos2unix init.sh
 ```
 
 国内
 
 ```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/init.sh -o init.sh && chmod +x init.sh && dos2unix init.sh
+curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/init.sh -o init.sh && chmod +x init.sh && dos2unix init.sh
 ```
 
 下面命令为开小鸡名字前缀为**tj**的**10**个小鸡
@@ -144,13 +144,13 @@ lxc若命令无问题，执行初始化开小鸡，这一步最好放```screen``
 国际
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/least.sh -o least.sh && chmod +x least.sh && dos2unix least.sh
+curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/least.sh -o least.sh && chmod +x least.sh && dos2unix least.sh
 ```
 
 国内
 
 ```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/least.sh -o least.sh && chmod +x least.sh && dos2unix least.sh
+curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/least.sh -o least.sh && chmod +x least.sh && dos2unix least.sh
 ```
 
 下列命令最后一行为开小鸡名字前缀为**tj**的**10**个小鸡
@@ -171,13 +171,13 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxc/mai
 国际
 
 ```
-curl -L https://github.com/spiritLHLS/lxc/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
+curl -L https://github.com/spiritLHLS/lxd/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
 ```
 
 国内
 
 ```shell
-curl -L https://ghproxy.com/https://github.com/spiritLHLS/lxc/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
+curl -L https://ghproxy.com/https://github.com/spiritLHLS/lxd/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
 ```
 
 可多次运行批量生成小鸡，且继承前面已生成的部分在后面添加，可自定义内存和硬盘大小
@@ -281,10 +281,10 @@ rm -rf /root/add_more.sh
 下载回新版本的相关配置脚本
 
 ```bash
-wget https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/check-dns.sh -O /usr/local/bin/check-dns.sh && chmod +x /usr/local/bin/check-dns.sh
-wget https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/config.sh -O /usr/local/bin/config.sh && chmod +x /usr/local/bin/config.sh
-wget https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/ssh.sh -O /usr/local/bin/ssh.sh && chmod +x /usr/local/bin/ssh.sh
-wget https://raw.githubusercontent.com/spiritLHLS/lxc/main/scripts/alpinessh.sh -O /usr/local/bin/alpinessh.sh && chmod +x /usr/local/bin/alpinessh.sh
+wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/check-dns.sh -O /usr/local/bin/check-dns.sh && chmod +x /usr/local/bin/check-dns.sh
+wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/config.sh -O /usr/local/bin/config.sh && chmod +x /usr/local/bin/config.sh
+wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/ssh.sh -O /usr/local/bin/ssh.sh && chmod +x /usr/local/bin/ssh.sh
+wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/alpinessh.sh -O /usr/local/bin/alpinessh.sh && chmod +x /usr/local/bin/alpinessh.sh
 ```
 
 其他一键脚本自己对应下载回来就行了
