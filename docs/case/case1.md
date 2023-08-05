@@ -1,12 +1,16 @@
+---
+outline: deep
+---
+
 # 仓库
 
 https://github.com/spiritLHLS/one-click-installation-script
 
-## 前言
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2Fone-click-installation-script&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 所有脚本如需在国内服务器使用，请在链接前加上```https://ghproxy.com/```确保命令可以下载本仓库的shell脚本执行
 
-## 目录
+# 目录
 
 * [一键修复脚本](#一键修复脚本)
   * [一键尝试修复apt源](#一键尝试修复apt源)
@@ -36,6 +40,12 @@ https://github.com/spiritLHLS/one-click-installation-script
   * [安装gitea](#安装gitea)
   * [卸载aapanel](#卸载aapanel)
   * [安装docker和docker-compose](#安装docker和docker-compose)
+  * [通过docker安装code-server](#通过docker安装code-server)
+* [友链](#友链)
+  * [一键测试服务器的融合怪脚本](#一键测试服务器的融合怪脚本)
+  * [一键批量开NAT服务器LXC](#一键批量开NAT服务器LXC)
+  * [一键安装PVE](#一键安装PVE)
+  * [朋友fscarmen的常用一键工具仓库](#朋友fscarmen的常用一键工具仓库)
   
 ## 一键修复脚本
 
@@ -126,26 +136,19 @@ sudo sed -i 's/.*precedence ::ffff:0:0\/96.*/precedence ::ffff:0:0\/96  100/g' /
 
 - **本脚本尝试使用Miniconda3安装虚拟环境jupyter-env再进行jupyter和jupyterlab的安装，如若安装机器不纯净勿要轻易使用本脚本！**
 - **本脚本为实验性脚本可能会有各种bug，勿要轻易尝试！**
-- **安装前需要保证 sudo wget curl 已安装**
 - 验证已支持的系统：
   - Ubuntu 18/20/22 - 推荐，脚本自动挂起到后台
   - Debian 9/10/11 - 还行，需要手动挂起到后台，详看脚本运行安装完毕的后续提示
 - 可能支持的系统(未验证)：centos 7+，Fedora，Almalinux 8.5+
 - 执行脚本，之前有用本脚本安装过则直接打印设置的登陆信息，没安装过则进行安装再打印信息，如果已安装但未启动则自动启动后再打印信息
 - 如果是初次安装无脑输入y回车即可，按照提示进行操作即可，安装完毕将在后台常驻运行
-- 安装完毕后，如果需要在lab中安装第三方库需要在lab中使用terminal并使用conda进行下载而不是pip下载，这是需要注意的
+- 安装完毕后，如果需要在lab中安装第三方库需要在lab中使用terminal并使用conda进行下载而不是pip3下载，这是需要注意的
+- 安装过程中有判断是否为中国IP，可选择是否使用中国镜像
 
 原始用途是方便快捷的在按小时计费的超大型服务器上部署python环境进行科学计算，充分利用时间别浪费在构建环境上。
 
 ```bash
 curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/install_scripts/jupyter.sh -o jupyter.sh && chmod +x jupyter.sh && bash jupyter.sh
-```
-
-安装后记得开放 13692 端口
-
-```bash
-apt install ufw -y
-ufw allow 13692
 ```
 
 #### 一键安装R语言环境
@@ -334,4 +337,49 @@ curl -sSL https://get.docker.com/ | sh
 curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-linux-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 docker-compose --version
+```
+
+卸载所有docker镜像和容器
+
+```
+docker rm -f $(docker ps -aq); docker rmi $(docker images -aq)
+```
+
+### 通过docker安装code-server
+
+安装
+
+```shell
+mkdir -p ~/.config
+docker run --restart=always --name code-server -p 0.0.0.0:8886:8080 \
+  -v "$HOME/.config:/home/coder/.config" \
+  -v "$PWD:/home/coder/project" \
+  -u "$(id -u):$(id -g)" \
+  -e "DOCKER_USER=$USER" \
+  codercom/code-server:latest
+```
+
+新窗口
+
+```shell
+docker exec code-server cat /root/.config/code-server/config.yaml
+```
+
+或
+
+```
+curl -fsSL https://code-server.dev/install.sh | sh -s -- --dry-run
+sudo systemctl enable --now code-server@root
+sed -i '1s/127.0.0.1:8080/0.0.0.0:8536/' ~/.config/code-server/config.yaml
+sudo systemctl restart code-server@root
+cat .config/code-server/config.yaml
+```
+
+卸载需要
+
+```
+sudo systemctl stop code-server@root
+sudo systemctl disable code-server@root
+rm -rf ~/.cache/coder
+sudo apt remove coder -y
 ```

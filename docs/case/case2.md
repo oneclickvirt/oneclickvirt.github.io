@@ -1,16 +1,18 @@
-## 仓库
+---
+outline: deep
+---
+
+# 仓库
 
 https://github.com/spiritLHLS/ecs
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2Fecs&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
-## 融合怪测评脚本
-
-## 前言
+# 融合怪测评脚本
 
 支持系统：
 
-Ubuntu 18+, Debian 8+, Centos 7+, Fedora 22+, Almalinux 8.5+, OracleLinux 8+, RockyLinux 8+, AstraLinux CE, Arch
+Ubuntu 18+, Debian 8+, Centos 7+, Fedora 33+, Almalinux 8.5+, OracleLinux 8+, RockyLinux 8+, AstraLinux CE, Arch
 
 半支持系统：
 
@@ -43,7 +45,7 @@ https://github.com/spiritLHLS/one-click-installation-script
 ## 融合怪命令
 
 
-## 交互形式
+### 交互形式
 
 ```bash
 curl -L https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh
@@ -61,7 +63,7 @@ curl -L https://github.com/spiritLHLS/ecs/raw/main/ecs.sh -o ecs.sh && chmod +x 
 bash <(wget -qO- bash.spiritlhl.net/ecs)
 ```
 
-## 无交互形式
+### 无交互形式
 
 ```bash
 echo 1 | bash <(wget -qO- --no-check-certificate https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh)
@@ -166,17 +168,17 @@ VPS测试，VPS测速，VPS综合性能测试，VPS回程线路测试，VPS流�
 - [x] speedtest测速--使用自写[ecsspeed](https://github.com/spiritLHLS/ecsspeed)仓库，自动更新测速服务器ID，一劳永逸解决老是要手动更新测速ID的问题
 - [ ] 端口检测(检测是否被墙)--由fscarmen的PR以及本人的技术思路提供 - 待修复
 
-## 友链
+# 友链
 
 ## 测评频道
 
-## https://t.me/vps_reviews
+### https://t.me/vps_reviews
 
 ## 自动更新测速服务器节点列表的网络基准测试脚本
 
-## https://github.com/spiritLHLS/ecsspeed
+### https://github.com/spiritLHLS/ecsspeed
 
-## 脚本概况
+# 脚本概况
 
 主界面：
 
@@ -195,14 +197,3 @@ VPS测试，VPS测速，VPS综合性能测试，VPS回程线路测试，VPS流�
 选项6原创区：
 
 ![图片](https://github.com/spiritLHLS/ecs/assets/103393591/393db695-5c94-41a9-9b02-812ad9d64967)
-
-## 致谢
-
-感谢 ipinfo.io ip.sb cheervision.co ipip.net cip.cc 等网站提供的检测API，感谢互联网各网站提供的查询资源
-
-感谢所有开源项目提供的原始测试脚本
-
-同时感谢以下平台提供编辑和测试支持
-
-![PyCharm logo](https://resources.jetbrains.com/storage/products/company/brand/logos/PyCharm.png)
-

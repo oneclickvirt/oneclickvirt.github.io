@@ -1,3 +1,7 @@
+---
+outline: deep
+---
+
 # 仓库
 
 https://github.com/spiritLHLS/convoypanel-scripts

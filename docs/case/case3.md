@@ -1,3 +1,7 @@
+---
+outline: deep
+---
+
 # 仓库
 
 https://github.com/spiritLHLS/ecsspeed
@@ -105,15 +109,3 @@ bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubus
 ## .net数据
 
 仓库：https://github.com/spiritLHLS/speedtest.net-CN-ID
-
-### 交流
-
-admin@spiritlhl.net
-
-### 致谢
-
-感谢 [@fscarmen](https://github.com/fscarmen) 提供的并发测ping支持
-
-感谢 [speedtest-go](https://github.com/showwin/speedtest-go) 提供的第三方测速内核
-
-感谢 [speedtest.net](https://www.speedtest.net/) 和 [speedtest.cn](https://www.speedtest.cn/) 提供的测速服务器
