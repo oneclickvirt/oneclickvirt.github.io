@@ -97,7 +97,9 @@ export PATH=$PATH:/snap/bin
 
 环境安装过程中**可能需要重启服务器以加载含zfs的内核，然后再次执行安装命令，一切以运行后命令行的提示为准**
 
-如果第二次执行安装命令仍提示重启系统加载内核，那么意味着内核在上一次加载中失败了，最好重装宿主机系统为ubuntu系解决这个问题
+如果脚本提示重启系统后需要再次执行脚本，第二次执行安装脚本仍提示重启系统加载内核，那么意味着内核在上一次加载中失败了，最好重装宿主机系统为ubuntu系解决这个问题
+
+每次执行脚本都需要输入一次初始化的配置，所以遇到脚本提示需重启系统再次执行，那么就得再次输入初始化的配置
 
 国际
 
@@ -111,6 +113,6 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/lxdinstall
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/lxdinstall.sh -o lxdinstall.sh && chmod +x lxdinstall.sh && bash lxdinstall.sh
 ```
 
-例子：
+初始化配置的例子：
 
 如果系统盘除去已占用空间还有18G硬盘空余，想开2G虚拟内存(2048MB的SWAP)，15G的存储池，按照命令行的提示则依次输入```2048```和```15```
