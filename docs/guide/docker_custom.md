@@ -50,7 +50,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/
 
 命令执行后按照提示输入即可，安装完毕后打开```本机IPV4+80端口```可登录
 
-如果需要查询过去生成的信息，可执行```cat /root/android_info```可查询信息
+如果需要查询生成的安卓信息和web登录信息，执行```cat /root/android_info```可查询信息
 
 默认的用户名 ```onea```
 
