@@ -25,7 +25,7 @@ outline: deep
 - 如果硬件或系统需求不满足，可使用LXD批量开LXC容器[跳转](https://github.com/spiritLHLS/lxd)
 
 :::warning
-内存开点swap免得机器炸了[开SWAP点我跳转](https://github.com/spiritLHLS/addswap)
+内存开点swap免得机器炸了
 :::
 
 开设虚拟内存(SWAP)
