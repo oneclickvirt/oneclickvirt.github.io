@@ -48,7 +48,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/
 
 命令执行后按照提示输入即可，安装完毕后打开```本机IPV4+80端口```可登录
 
-如果需要查询过去生成的信息，可执行```cat android```可查询信息
+如果需要查询过去生成的信息，可执行```cat /root/android_info```可查询信息
 
 **暂时只支持生成一个安卓容器，勿要重复生成，如需替换版本请执行后续命令删除后再次开设**
 
@@ -57,4 +57,6 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/
 ```
 docker rm -f android
 docker rm -f scrcpy_web
+rm -rf /etc/nginx/sites-enabled/reverse-proxy
+rm -rf /etc/nginx/sites-available/reverse-proxy
 ```
