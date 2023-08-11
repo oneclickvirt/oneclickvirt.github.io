@@ -59,4 +59,6 @@ docker rm -f android
 docker rm -f scrcpy_web
 rm -rf /etc/nginx/sites-enabled/reverse-proxy
 rm -rf /etc/nginx/sites-available/reverse-proxy
+rm -rf /etc/nginx/passwd_scrcpy_web
+rm -rf /root/android_info
 ```
