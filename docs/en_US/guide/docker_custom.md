@@ -8,7 +8,9 @@ outline: deep
 - 自动创建带校验的web网站
 - 自动进行nginx和反向代理的配置
 
-**宿主机的配置至少要有2核4G内存30G硬盘，否则开设可能会导致宿主机卡死！**
+**宿主机的配置至少要有1核2G内存15G硬盘，否则开设可能会导致宿主机卡死！**
+
+安卓版本越新占用越大，以上的配置要求是最低版本安卓的配置要求
 
 :::warning
 内存开点swap免得机器炸了
@@ -48,7 +50,13 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/
 
 命令执行后按照提示输入即可，安装完毕后打开```本机IPV4+80端口```可登录
 
-如果需要查询过去生成的信息，可执行```cat android```可查询信息
+如果需要查询生成的安卓信息和web登录信息，执行```cat /root/android_info```可查询信息
+
+默认的用户名 ```onea```
+
+默认密码 ```oneclick```
+
+远程的桌面点击```H264 Converter```跳转就是了
 
 **暂时只支持生成一个安卓容器，勿要重复生成，如需替换版本请执行后续命令删除后再次开设**
 
@@ -57,4 +65,8 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/
 ```
 docker rm -f android
 docker rm -f scrcpy_web
+rm -rf /etc/nginx/sites-enabled/reverse-proxy
+rm -rf /etc/nginx/sites-available/reverse-proxy
+rm -rf /etc/nginx/passwd_scrcpy_web
+rm -rf /root/android_info
 ```
