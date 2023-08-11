@@ -18,6 +18,8 @@ outline: deep
 - ```/etc/cloud/cloud.cfg```文件修改(避免覆写已修改的hostname等配置)
 - ```/etc/network/interfaces```文件修改(修复auto、dhcp类型为static、增加vmbr0网关)
 - 检测是否为中国IP，如果为中国IP使用清华镜像源，否则使用官方源，同时处理apt的源和对应的nameserver，避免断网
+- 创建vmbr0(独立IP网关)，宿主机允许addr和gateway为内网IP或外网IP，已自动识别
+- vmbr0创建支持开设纯IPV4、纯IPV6、双栈虚拟机，自动识别IPV4地址和IPV6地址，自动识别对应的IP区间
 - 安装PVE开虚拟机需要的必备工具包
 - x86_64的替换apt源中的企业订阅为社区源，arm的使用第三方修复的补丁构建的源
 - 打印查询Linux系统内核和PVE内核是否已安装
@@ -74,15 +76,13 @@ bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubus
 ## 自动配置宿主机的网关
 
 :::warning
-使用前请保证重启过服务器且此时PVE能正常使用WEB端再执行，重启机器后不要立即执行此命令，待WEB端启动成功后至少等5分钟再执行本命令
+使用前请保证重启过服务器且此时PVE能正常使用WEB端再执行，重启机器后不要立即执行此命令，待WEB端启动成功后至少等1分钟再执行本命令
 :::
 
 :::tip
 这一步是最容易造成SSH断开的，原因是未等待PVE内核启动就修改网络会造成设置冲突，所以至少等几分钟待内核启动也就是WEB端启动成功后再执行
 :::
 
-- 创建vmbr0(独立IP网关)，宿主机允许addr和gateway为内网IP或外网IP，已自动识别
-- vmbr0创建支持开设纯IPV4、纯IPV6、双栈虚拟机，自动识别IPV4地址和IPV6地址，自动识别对应的IP区间
 - 创建vmbr1(NAT网关)，暂不支持开设带独立IPV6地址的NAT的IPV4虚拟机
 - 想查看完整设置可以执行```cat /etc/network/interfaces```查看，如需修改网关需要修改该文件，web端已经无法修改
 - 加载iptables并设置回源且允许NAT端口转发
