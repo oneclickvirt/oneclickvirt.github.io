@@ -1,0 +1,49 @@
+---
+outline: deep
+---
+
+# 解惑
+
+## 常见的一些docker命令
+
+清理 Docker 缓存，清理未使用的资源，包括镜像、容器、网络等
+
+```
+docker system prune -a
+```
+
+卸载所以docker的镜像和容器
+
+```
+docker rm -f $(docker ps -aq); docker rmi $(docker images -aq)
+```
+
+查看对应容器日志
+
+```
+docker logs 容器名字或ID
+```
+
+查看所有容器
+
+```
+docker ps -a
+```
+
+查看所有镜像
+
+```
+docker images list
+```
+
+删除某个特定容器
+
+```
+docker rm -f 容器名字或ID
+```
+
+删除某个特定镜像
+
+```
+docker rmi 镜像名字或ID
+```
