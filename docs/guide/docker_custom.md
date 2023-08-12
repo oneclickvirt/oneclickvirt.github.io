@@ -2,7 +2,11 @@
 outline: deep
 ---
 
-## 一键使用Docker开设安卓系统的容器
+# 使用Docker一键安装某些容器的脚本
+
+每个容器都有对应的配置要求，自行查看
+
+## 一键开设安卓系统的容器
 
 - 自定义安卓版本
 - 自动创建带校验的web网站
@@ -76,13 +80,15 @@ rm -rf /etc/nginx/passwd_scrcpy_web
 rm -rf /root/android_info
 ```
 
-## 一键使用Docker安装guacamole
+## 一键安装guacamole
 
 默认用户： ```guacadmin```
 
 默认密码： ```guacadmin ```
 
 安装完毕登录后自行修改
+
+**宿主机的配置至少要有1核2G内存10G硬盘，否则开设可能会导致宿主机卡死！**
 
 国际
 
