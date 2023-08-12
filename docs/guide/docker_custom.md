@@ -69,7 +69,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/
 ```
 docker rm -f android
 docker rm -f scrcpy_web
-docker rmi $(docker images | grep "android" | awk '{print $3}')
+docker rmi $(docker images | grep "redroid" | awk '{print $3}')
 rm -rf /etc/nginx/sites-enabled/reverse-proxy
 rm -rf /etc/nginx/sites-available/reverse-proxy
 rm -rf /etc/nginx/passwd_scrcpy_web
