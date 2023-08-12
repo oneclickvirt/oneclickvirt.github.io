@@ -11,3 +11,7 @@ https://blog.imoeq.com/oracle-arm-run-android-by-docker
 https://blog.imoeq.com/scrcpy-run-a-android-web-page
 
 https://www.howtoforge.com/how-to-install-apache-guacamole-as-docker-container-on-ubuntu/
+
+https://releases.hashicorp.com/vagrant/
+
+https://medium.com/axon-technologies/installing-a-windows-virtual-machine-in-a-linux-docker-container-c78e4c3f9ba1
