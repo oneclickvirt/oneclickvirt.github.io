@@ -86,7 +86,7 @@ rm -rf /root/android_info
 
 默认用户： ```guacadmin```
 
-默认密码： ```guacadmin ```
+默认密码： ```guacadmin```
 
 安装完毕登录后自行修改
 
