@@ -35,7 +35,7 @@ bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linu
 
 ### 可开设KVM虚拟化的NAT的商家
 
-[interserver](https://www.interserver.net/r/802990) 中的独立服务器
+[interserver](https://www.interserver.net/r/802990) 中的VPS或独立服务器
 
 [frantech](https://my.frantech.ca/aff.php?aff=5522) 中的拉斯维加斯第二档
 
