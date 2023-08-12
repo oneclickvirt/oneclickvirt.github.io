@@ -62,9 +62,14 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/
 
 ### 删除
 
+- 删除容器
+- 删除容器对应镜像
+- 删除配置文件
+
 ```
 docker rm -f android
 docker rm -f scrcpy_web
+docker rmi $(docker images | grep "android" | awk '{print $3}')
 rm -rf /etc/nginx/sites-enabled/reverse-proxy
 rm -rf /etc/nginx/sites-available/reverse-proxy
 rm -rf /etc/nginx/passwd_scrcpy_web
