@@ -33,7 +33,7 @@ docker ps -a
 查看所有镜像
 
 ```
-docker images list
+docker images
 ```
 
 删除某个特定容器
