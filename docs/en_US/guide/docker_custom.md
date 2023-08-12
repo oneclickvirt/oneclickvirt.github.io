@@ -10,7 +10,7 @@ outline: deep
 
 **宿主机的配置至少要有1核2G内存15G硬盘，否则开设可能会导致宿主机卡死！**
 
-安卓版本越新占用越大，以上的配置要求是最低版本安卓的配置要求
+安卓版本越新占用越大，以上的配置要求是最低版本安卓的配置要求 (个人测试到 12.0.0-latest 的tag可用，更高版本映射白屏了，自己测试哪个能用吧)
 
 :::warning
 内存开点swap免得机器炸了
@@ -48,7 +48,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/create_
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/create_android.sh -o create_android.sh && chmod +x create_android.sh && bash create_android.sh
 ```
 
-命令执行后按照提示输入即可，安装完毕后打开```本机IPV4+80端口```可登录
+命令执行后按照提示输入即可，注意选择版本输入的是序号，对应选项的数字序号，安装完毕后打开```本机IPV4+80端口```可登录
 
 如果需要查询生成的安卓信息和web登录信息，执行```cat /root/android_info```可查询信息
 
@@ -62,9 +62,14 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/
 
 ### 删除
 
+- 删除容器
+- 删除容器对应镜像
+- 删除配置文件
+
 ```
 docker rm -f android
 docker rm -f scrcpy_web
+docker rmi $(docker images | grep "redroid" | awk '{print $3}')
 rm -rf /etc/nginx/sites-enabled/reverse-proxy
 rm -rf /etc/nginx/sites-available/reverse-proxy
 rm -rf /etc/nginx/passwd_scrcpy_web
