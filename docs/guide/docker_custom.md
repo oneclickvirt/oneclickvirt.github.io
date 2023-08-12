@@ -82,6 +82,8 @@ rm -rf /root/android_info
 
 ## 一键安装guacamole
 
+网址：```http://你的IPV4地址:80/guacamole```
+
 默认用户： ```guacadmin```
 
 默认密码： ```guacadmin ```
