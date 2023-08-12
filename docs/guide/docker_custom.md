@@ -75,3 +75,23 @@ rm -rf /etc/nginx/sites-available/reverse-proxy
 rm -rf /etc/nginx/passwd_scrcpy_web
 rm -rf /root/android_info
 ```
+
+## 一键使用Docker安装guacamole
+
+默认用户： ```guacadmin```
+
+默认密码： ```guacadmin ```
+
+安装完毕登录后自行修改
+
+国际
+
+```shell
+curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/extra_scripts/guacamole.sh -o guacamole.sh && chmod +x guacamole.sh && bash guacamole.sh
+```
+
+国内
+
+```shell
+curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/main/extra_scripts/guacamole.sh -o guacamole.sh && chmod +x guacamole.sh && bash guacamole.sh
+```
