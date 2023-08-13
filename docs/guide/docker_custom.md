@@ -80,7 +80,21 @@ rm -rf /etc/nginx/passwd_scrcpy_web
 rm -rf /root/android_info
 ```
 
+## 一键安装windows
+
+需要先设置docker切换使用v1版cgroup启动
+
+```
+sed -i 's/GRUB_CMDLINE_LINUX="\(.*\)"/GRUB_CMDLINE_LINUX="\1 systemd.unified_cgroup_hierarchy=0"/' /etc/default/grub
+update-grub
+ls
+```
+
+如果执行都无报错，重启系统以使得设置生效
+
 ## 一键安装guacamole
+
+一个网页端连接SSH或RDP等协议控制服务器的玩意
 
 网址：```http://你的IPV4地址:80/guacamole```
 
