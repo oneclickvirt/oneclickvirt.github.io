@@ -21,3 +21,5 @@ https://medium.com/axon-technologies/installing-a-windows-virtual-machine-in-a-l
 https://forum.garudalinux.org/t/error-while-attempting-to-create-a-virtual-machine-with-virt-manager/18534/4
 
 https://github.com/hashicorp/vagrant/issues/12807#issuecomment-1186393412
+
+https://github.com/hashicorp/vagrant/issues/13211#issuecomment-1601665940
