@@ -6,6 +6,12 @@ outline: deep
 
 ## 常见的一些docker命令
 
+进入某个容器
+
+```
+docker exec -it 容器名字 /bin/bash
+```
+
 清理 Docker 缓存，清理未使用的资源，包括镜像、容器、网络等
 
 ```
