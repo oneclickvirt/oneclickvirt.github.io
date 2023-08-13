@@ -1,5 +1,7 @@
 ## 致谢
 
+https://hub.docker.com/_/debian
+
 https://hub.docker.com/r/redroid/redroid
 
 https://github.com/NetrisTV/ws-scrcpy
