@@ -105,22 +105,22 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 
 开设完毕可执行```cat vm102```查看信息，或到WEB端对应VM的NOTES中查看
 
-* 以下为开设的示例VM的信息：
+以下为开设的示例VM的信息：
 
-```
-`VMID` - 102
-`SSH登录的用户名` - test1
-`SSH登录的密码` - oneclick123
-`CPU核数` - 1   
-`内存大小` - 512MB
-`磁盘大小` - 10G   
-`SSH端口` - 40001
-`80端口` - 40002
-`443端口` - 40003
-`内外网映射端口一致的区间` - 50000到50025
-`系统` - debian11
-`宿主机的存储盘` - local
-```
+| 属性                     | 值             |
+|-------------------------|----------------|
+| VMID                    | 102            |
+| SSH登录的用户名          | test1          |
+| SSH登录的密码            | oneclick123    |
+| CPU核数                  | 1              |
+| 内存大小                 | 512MB          |
+| 磁盘大小                 | 10G            |
+| SSH端口                  | 40001          |
+| 80端口                   | 40002          |
+| 443端口                  | 40003          |
+| 内外网映射端口一致的区间 | 50000到50025   |
+| 系统                     | debian11       |
+| 宿主机的存储盘           | local          |
 
 ### 删除示例
 
@@ -230,7 +230,19 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 ./buildvm_extraip.sh 152 test1 oneclick123 1 1024 10 debian12 local N
 ```
 
-上述命令意义为开设一个带独立IPV4地址的虚拟机，VMID是152，用户名是```test1```，密码是```oneclick123```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```debian12```，存储盘是```local```盘也就是系统盘，默认不附加IPV6
+上述命令意义为开设一个带独立IPV4地址的虚拟机
+
+| 属性       | 值             |
+|------------|----------------|
+| VMID       | 152            |
+| 用户名     | test1          |
+| 密码       | oneclick123    |
+| CPU        | 1核            |
+| 内存       | 1024MB         |
+| 硬盘       | 10G            |
+| 系统       | debian12       |
+| 存储盘     | local盘        |
+| IPV6附加   | 默认不附加     |
 
 ### 需要手动指定IPV4地址的版本
 
@@ -261,7 +273,21 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 ./buildvm_manual_ip.sh 152 test1 oneclick123 1 1024 10 debian12 local a.b.c.d/24 N
 ```
 
-上述命令意义为开设一个带独立IPV4地址的虚拟机，VMID是152，用户名是```test1```，密码是```oneclick123```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```debian12```，存储盘是```local```盘也就是系统盘，IPV4地址为```a.b.c.d```，子网为```/24```子网，默认不附加IPV6
+上述命令意义为开设一个带独立IPV4地址的虚拟机
+
+| 属性         | 值                |
+|--------------|-------------------|
+| VMID         | 152               |
+| 用户名       | test1             |
+| 密码         | oneclick123       |
+| CPU          | 1核              |
+| 内存         | 1024MB            |
+| 硬盘         | 10G               |
+| 系统         | debian12          |
+| 存储盘       | local盘 (系统盘)  |
+| IPV4地址     | a.b.c.d           |
+| 子网         | /24 子网          |
+| IPV6         | 无                |
 
 ## 开设纯IPV6地址的虚拟机
 
@@ -294,7 +320,18 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 ./buildvm_onlyv6.sh 152 test1 oneclick123 1 1024 10 debian12 local
 ```
 
-上述命令意义为开设一个纯IPV6地址的虚拟机，VMID是152，用户名是```test1```，密码是```oneclick123```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```debian12```，存储盘是```local```盘也就是系统盘
+上述命令意义为开设一个纯IPV6地址的虚拟机
+
+| 参数         | 值               |
+|--------------|------------------|
+| VMID         | 152              |
+| 用户名       | test1            |
+| 密码         | oneclick123      |
+| CPU          | 1核              |
+| 内存         | 1024MB           |
+| 硬盘         | 10G              |
+| 系统         | debian12         |
+| 存储盘       | local            |
 
 
 ## 删除vm152示例

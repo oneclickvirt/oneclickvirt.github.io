@@ -65,22 +65,22 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 
 开设完毕可执行```cat ct102```查看信息，或在web端的NOTES查看
 
-* 以下为开设的示例CT的信息：
+以下为开设的示例CT的信息：
 
-```
-`VMID` - 102
-`SSH登录的用户名` - root
-`SSH登录的密码` - oneclick123
-`CPU核数` - 1   
-`内存大小` - 512MB
-`磁盘大小` - 5G   
-`SSH端口` - 20001
-`80端口` - 20002
-`443端口` - 20003
-`内外网映射端口一致的区间` - 30000到30025
-`系统` - debian11
-`宿主机的存储盘` - local
-```
+| 属性                       | 值          |
+|---------------------------|-------------|
+| VMID                      | 102         |
+| SSH登录的用户名            | root        |
+| SSH登录的密码              | oneclick123 |
+| CPU核数                    | 1           |
+| 内存大小                  | 512MB       |
+| 磁盘大小                  | 5G          |
+| SSH端口                    | 20001       |
+| 80端口                     | 20002       |
+| 443端口                    | 20003       |
+| 内外网映射端口一致的区间    | 30000到30025|
+| 系统                       | debian11    |
+| 宿主机的存储盘              | local       |
 
 ### 删除示例
 
@@ -179,7 +179,19 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 ./buildct_onlyv6.sh 152 oneclick123 1 1024 10 debian12 local
 ```
 
-上述命令意义为开设一个纯IPV6地址的CT容器，CTID是152，用户名是```root```，密码是```oneclick123```，CPU是```1```核，内存是```1024MB```，硬盘是```10G```，系统是```debian12```，存储盘是```local```盘也就是系统盘
+上述命令意义为开设一个纯IPV6地址的容器
+
+| 属性         | 值               |
+|--------------|-----------------|
+| 容器类型       | CT              |
+| CTID         | 152             |
+| 用户名         | root            |
+| 密码          | oneclick123     |
+| CPU核心数     | 1               |
+| 内存          | 1024MB          |
+| 硬盘          | 10G             |
+| 系统          | debian12        |
+| 存储盘         | local盘 (系统盘) |
 
 #### 删除示例
 

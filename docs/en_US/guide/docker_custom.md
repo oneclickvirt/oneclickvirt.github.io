@@ -2,7 +2,11 @@
 outline: deep
 ---
 
-## 一键使用Docker开设安卓系统的容器
+# 使用Docker一键安装某些容器的脚本
+
+每个容器都有对应的配置要求，自行查看
+
+## 一键开设Android系统的容器
 
 - 自定义安卓版本
 - 自动创建带校验的web网站
@@ -16,7 +20,7 @@ outline: deep
 内存开点swap免得机器炸了
 :::
 
-开设虚拟内存(SWAP)
+**开设虚拟内存(SWAP)**
 
 单位换算：输入 1024 产生 1G SWAP-虚拟内存，虚拟内存占用硬盘空间，当实际内存不够用时将自动使用虚拟内存做内存使用，但随之带来IO高占用以及CPU性能占用
 
@@ -34,7 +38,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
 ```
 
-### 开设
+**开设**
 
 国际
 
@@ -60,7 +64,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/
 
 **暂时只支持生成一个安卓容器，勿要重复生成，如需替换版本请执行后续命令删除后再次开设**
 
-### 删除
+**删除**
 
 - 删除容器
 - 删除容器对应镜像
@@ -74,4 +78,99 @@ rm -rf /etc/nginx/sites-enabled/reverse-proxy
 rm -rf /etc/nginx/sites-available/reverse-proxy
 rm -rf /etc/nginx/passwd_scrcpy_web
 rm -rf /root/android_info
+```
+
+## 一键开设windows系统的容器
+
+- 共享宿主机所有资源，基于docker所以只占用系统的大小，适合多开
+- 共享IP，做了docker的NAT映射，可选择是否映射到外网或仅内网
+- 设置的win系统默认最多占用为1核2G内存50G硬盘，实际占用看使用情况
+- 无需iptables进行NAT映射，删除容器时自动删除了端口的映射，方便维护
+
+**宿主机需要支持嵌套虚拟化，且暂时只支持X86_64架构的系统，手头没ARM机器编译对应的镜像**
+
+执行
+
+```
+egrep -c '(vmx|svm)' /proc/cpuinfo
+```
+
+结果需要大于或等于1，不能为0
+
+然后需要先设置docker切换使用v1版cgroup启动
+
+```
+sed -i 's/GRUB_CMDLINE_LINUX="\(.*\)"/GRUB_CMDLINE_LINUX="\1 systemd.unified_cgroup_hierarchy=0"/' /etc/default/grub
+update-grub
+ls
+```
+
+如果执行都无报错，执行```reboot```重启系统以使得设置生效
+
+**支持的镜像**
+
+使用的自建的镜像：[https://hub.docker.com/r/spiritlhl/wds](https://hub.docker.com/r/spiritlhl/wds)
+
+| 镜像名字 | 镜像大小   |
+|---------|--------|
+| 10      | 20G    |
+| 2022    | 17.5G  |
+| 2019    | 17G    |
+
+创建出的容器大小会比镜像大小大一丢丢，但不多
+
+**下载脚本**
+
+```
+curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onewindows.sh -o onewindows.sh && chmod +x onewindows.sh
+```
+
+**使用方法**
+
+开设前务必在screen窗口中执行，避免SSH长期链接造成掉线卡死
+
+```
+./onewindows.sh 系统版本 RDP的端口 是否为外网映射(留空则默认是N，可选Y)
+```
+
+开设前需要确认宿主机至少有镜像大小的两倍大小加10G硬盘的大小，因为docker在创建容器时得先将镜像拉到本地再创建
+
+创建过程中，硬盘占用峰值为```宿主机系统+镜像大小+容器大小```
+
+比如开设占用最低的 Windows 2019 容器，映射外网端口13389，设置为外网映射
+
+```
+./onewindows.sh 2019 13389 Y
+```
+
+开设后默认的用户名是```Administrator```和```vagrant```
+
+默认的密码是```vagrant```
+
+如果你选择开设映射的外网端口，务必登录后修改对应账户的密码(两个账户都可能有，自行尝试)，否则可能被人爆破
+
+## 一键安装guacamole
+
+一个网页端连接SSH或RDP等协议控制服务器的玩意
+
+网址：```http://你的IPV4地址:80/guacamole```
+
+默认用户： ```guacadmin```
+
+默认密码： ```guacadmin```
+
+安装完毕登录后自行修改
+
+**宿主机的配置至少要有1核2G内存10G硬盘，否则开设可能会导致宿主机卡死！**
+
+国际
+
+```shell
+curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/extra_scripts/guacamole.sh -o guacamole.sh && chmod +x guacamole.sh && bash guacamole.sh
+```
+
+国内
+
+```shell
+curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/main/extra_scripts/guacamole.sh -o guacamole.sh && chmod +x guacamole.sh && bash guacamole.sh
 ```

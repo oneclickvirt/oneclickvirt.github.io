@@ -10,7 +10,7 @@ outline: deep
 
 建议debian在使用前尽量使用最新的稳定版本的系统
 
-非debian11可使用 [debian一键升级](https://github.com/spiritLHLS/one-click-installation-script#%E4%B8%80%E9%94%AE%E5%8D%87%E7%BA%A7%E4%BD%8E%E7%89%88%E6%9C%ACdebian%E4%B8%BAdebian11) 来升级系统
+**不要在动态IP的服务器上使用本套脚本(重启机器后自动切换本机IP的服务器暂不支持，重启机器后IP不自动切换的支持)**
 
 本项目只适配Debian系统(非Debian无法通过APT源安装，官方只给了Debian的镜像，其他系统只能使用ISO安装)
 
