@@ -20,7 +20,7 @@ outline: deep
 内存开点swap免得机器炸了
 :::
 
-开设虚拟内存(SWAP)
+**开设虚拟内存(SWAP)**
 
 单位换算：输入 1024 产生 1G SWAP-虚拟内存，虚拟内存占用硬盘空间，当实际内存不够用时将自动使用虚拟内存做内存使用，但随之带来IO高占用以及CPU性能占用
 
@@ -38,7 +38,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
 ```
 
-### 开设
+**开设**
 
 国际
 
@@ -64,7 +64,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/
 
 **暂时只支持生成一个安卓容器，勿要重复生成，如需替换版本请执行后续命令删除后再次开设**
 
-### 删除
+**删除**
 
 - 删除容器
 - 删除容器对应镜像
@@ -81,6 +81,8 @@ rm -rf /root/android_info
 ```
 
 ## 一键安装windows
+
+**宿主机的配置至少要有2核4G内存80G硬盘，因为image大小为20G左右，开设的windows容器也大概50G左右**
 
 需要先设置docker切换使用v1版cgroup启动
 
