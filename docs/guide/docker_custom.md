@@ -87,7 +87,7 @@ rm -rf /root/android_info
 - 设置的win系统默认最多占用为1核2G内存50G硬盘，实际占用看使用情况
 - 无需iptables进行NAT映射，删除容器时自动删除了端口的映射，方便维护
 
-**宿主机需要支持嵌套虚拟化**
+**宿主机需要支持嵌套虚拟化，且暂时只支持X86_64架构的系统**
 
 执行
 
@@ -107,7 +107,37 @@ update-grub
 ls
 ```
 
-如果执行都无报错，重启系统以使得设置生效
+如果执行都无报错，执行```reboot```重启系统以使得设置生效
+
+**支持的镜像**
+
+使用的自建的镜像：[https://hub.docker.com/r/spiritlhl/wds](https://hub.docker.com/r/spiritlhl/wds)
+
+**下载脚本**
+
+```
+curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onewindows.sh -o onewindows.sh && chmod +x onewindows.sh
+```
+
+**使用方法**
+
+开设前务必在screen窗口中执行，避免SSH长期链接造成掉线卡死
+
+```
+./onewindows.sh 系统版本 RDP的端口 是否为外网映射(默认是N)
+```
+
+比如开设占用最低的 Windows 2019 容器，映射外网端口13389，设置为外网映射
+
+```
+./onewindows.sh 10 13389 Y
+```
+
+开设后默认的用户名是```Administrator```和```vagrant```
+
+默认的密码是```vagrant```
+
+如果你选择开设映射的外网端口，务必登录后修改对应账户的密码(两个账户都可能有，自行尝试)，否则可能被人爆破
 
 ## 一键安装guacamole
 
