@@ -130,7 +130,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onewind
 比如开设占用最低的 Windows 2019 容器，映射外网端口13389，设置为外网映射
 
 ```
-./onewindows.sh 10 13389 Y
+./onewindows.sh 2019 13389 Y
 ```
 
 开设后默认的用户名是```Administrator```和```vagrant```
