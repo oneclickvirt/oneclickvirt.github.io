@@ -5,7 +5,7 @@ outline: deep
 
 # 前言
 
-支持开设 Docker 虚拟化的各系统，含 Linux、Android 系统
+支持开设 Docker 虚拟化的各系统，含 Linux、Android、Windows 系统
 
 ## 环境预设
 
