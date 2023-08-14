@@ -82,7 +82,7 @@ rm -rf /root/android_info
 
 ## 一键安装windows
 
-**宿主机的配置至少要有2核4G内存80G硬盘，因为image大小为20G左右，开设的windows容器也大概50G左右**
+**宿主机的配置至少要有1核2G内存50G硬盘，因为image大小为20G左右，开设的windows容器是1核2G内存20G硬盘，你还要留一些空间给宿主机系统，保守点50G才够**
 
 需要先设置docker切换使用v1版cgroup启动
 
