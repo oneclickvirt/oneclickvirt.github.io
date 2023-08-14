@@ -30,6 +30,12 @@ docker rm -f $(docker ps -aq); docker rmi $(docker images -aq)
 docker logs 容器名字或ID
 ```
 
+查看docker整体的disk占用
+
+```
+docker system df
+```
+
 查看所有容器
 
 ```
