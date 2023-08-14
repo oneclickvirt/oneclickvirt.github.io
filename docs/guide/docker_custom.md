@@ -94,7 +94,7 @@ rm -rf /root/android_info
 egrep -c '(vmx|svm)' /proc/cpuinfo
 ```
 
-结果需要大于1
+结果需要大于或等于1，不能为0
 
 **宿主机的配置至少要有1核2G内存50G硬盘，因为image大小为20G左右，开设的windows容器是1核2G内存20G硬盘，你还要留一些空间给宿主机系统，保守点50G才够**
 
