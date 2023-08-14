@@ -130,7 +130,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onewind
 开设前务必在screen窗口中执行，避免SSH长期链接造成掉线卡死
 
 ```
-./onewindows.sh 系统版本 RDP的端口 是否为外网映射(默认是N，可选Y) 是否创建镜像副本(默认是N，可选Y)
+./onewindows.sh 系统版本 RDP的端口 是否为外网映射(留空则默认是N，可选Y) 是否创建镜像副本(留空则默认是N，可选Y)
 ```
 
 如果你选择创建有镜像副本，那么你需要确认宿主机至少有镜像大小的两倍大小加10G硬盘的大小，因为docker在创建容器时得先将镜像拉到本地再创建
