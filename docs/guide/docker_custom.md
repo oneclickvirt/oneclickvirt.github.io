@@ -130,6 +130,17 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onewind
 
 如果你选择开设映射的外网端口，务必登录后修改对应账户的密码(两个账户都可能有，自行尝试)，否则可能被人爆破
 
+**删除**
+
+需要删除对应镜像和容器，先执行```docker ps -a```和```docker images```查询镜像是```spiritlhl/wds```的ID，然后对应使用
+
+```
+docker rm -f 容器的ID
+docker rmi 镜像的ID
+```
+
+删除后可开设别的版本的windows容器
+
 ## 一键安装guacamole
 
 一个网页端连接SSH或RDP等协议控制服务器的玩意
