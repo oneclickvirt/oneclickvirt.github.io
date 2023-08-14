@@ -80,11 +80,12 @@ rm -rf /etc/nginx/passwd_scrcpy_web
 rm -rf /root/android_info
 ```
 
-## 一键开设windows10系统的容器
+## 一键开设windows系统的容器
 
 - 共享宿主机所有资源，基于docker所以只占用系统的大小，适合多开
 - 共享IP，做了docker的NAT映射，可选择是否映射到外网或仅内网
 - 设置的win系统默认最多占用为1核2G内存50G硬盘，实际占用看使用情况
+- 无需iptables进行NAT映射，删除容器时自动删除了端口的映射，方便维护
 
 **宿主机需要支持嵌套虚拟化**
 
