@@ -18,7 +18,7 @@ docker exec -it 容器名字 /bin/bash
 docker system prune -a
 ```
 
-卸载所以docker的镜像和容器
+卸载所有docker的镜像和容器
 
 ```
 docker rm -f $(docker ps -aq); docker rmi $(docker images -aq)
