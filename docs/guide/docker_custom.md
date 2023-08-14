@@ -6,7 +6,7 @@ outline: deep
 
 每个容器都有对应的配置要求，自行查看
 
-## 一键开设安卓系统的容器
+## 一键开设Android系统的容器
 
 - 自定义安卓版本
 - 自动创建带校验的web网站
@@ -80,7 +80,7 @@ rm -rf /etc/nginx/passwd_scrcpy_web
 rm -rf /root/android_info
 ```
 
-## 一键安装windows
+## 一键开设windows10系统的容器
 
 **宿主机的配置至少要有1核2G内存50G硬盘，因为image大小为20G左右，开设的windows容器是1核2G内存20G硬盘，你还要留一些空间给宿主机系统，保守点50G才够**
 
