@@ -82,9 +82,23 @@ rm -rf /root/android_info
 
 ## 一键开设windows10系统的容器
 
+- 共享宿主机所有资源，基于docker所以只占用系统的大小，适合多开
+- 共享IP，做了docker的NAT映射，可选择是否映射到外网或仅内网
+- 设置的win系统默认最多占用为1核2G内存50G硬盘，实际占用看使用情况
+
+**宿主机需要支持嵌套虚拟化**
+
+执行
+
+```
+egrep -c '(vmx|svm)' /proc/cpuinfo
+```
+
+结果需要大于1
+
 **宿主机的配置至少要有1核2G内存50G硬盘，因为image大小为20G左右，开设的windows容器是1核2G内存20G硬盘，你还要留一些空间给宿主机系统，保守点50G才够**
 
-需要先设置docker切换使用v1版cgroup启动
+然后需要先设置docker切换使用v1版cgroup启动
 
 ```
 sed -i 's/GRUB_CMDLINE_LINUX="\(.*\)"/GRUB_CMDLINE_LINUX="\1 systemd.unified_cgroup_hierarchy=0"/' /etc/default/grub
