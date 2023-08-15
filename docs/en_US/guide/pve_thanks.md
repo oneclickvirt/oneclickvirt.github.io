@@ -20,4 +20,6 @@ https://github.com/leitbogioro/Tools
 
 https://github.com/jiangcuo/Proxmox-Arm64
 
+https://github.com/jiangcuo/run_proxmox_in_docker
+
 感谢 [@Ella-Alinda](https://github.com/Ella-Alinda) 提供的PVE指导

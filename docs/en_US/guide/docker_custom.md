@@ -10,8 +10,9 @@ outline: deep
 
 - 自定义安卓版本
 - 自动创建带校验的web网站
-- 自动进行nginx和反向代理的配置
+- 自动进行nginx安装和反向代理的配置，可选择是否绑定域名，默认回车不绑定使用80端口
 - 无需考虑宿主机是否支持嵌套虚拟化
+- 支持x86_64和ARM架构
 
 **宿主机的配置至少要有1核2G内存15G硬盘，否则开设可能会导致宿主机卡死**
 
@@ -59,7 +60,7 @@ rm -rf /etc/nginx/passwd_scrcpy_web
 rm -rf /root/android_info
 ```
 
-## 一键开设windows系统的容器
+## 一键开设Windows系统的容器
 
 - 共享宿主机所有资源，基于docker所以只占用系统的大小，适合多开
 - 共享IP，做了docker的NAT映射，可选择是否映射到外网或仅内网
@@ -117,7 +118,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onewind
 
 创建过程中，硬盘占用峰值为```宿主机系统+镜像大小+容器大小```
 
-比如开设占用最低的 Windows 2019 容器，映射外网端口13389，设置为外网映射
+比如开设占用最低的 Windows 2019 容器，映射外网RDP端口为13389，设置为外网映射(映射到你的服务器外网IPV4地址)
 
 ```
 ./onewindows.sh 2019 13389 Y
@@ -128,6 +129,52 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onewind
 默认的密码是```vagrant```
 
 如果你选择开设映射的外网端口，务必登录后修改对应账户的密码(两个账户都可能有，自行尝试)，否则可能被人爆破
+
+**删除**
+
+需要删除对应镜像和容器，先执行```docker ps -a```和```docker images```查询镜像是```spiritlhl/wds```的ID，然后对应使用
+
+```
+docker rm -f 容器的ID
+docker rmi 镜像的ID
+```
+
+删除后可开设别的版本的windows容器
+
+## 一键开设Firefox浏览器的容器
+
+- 已设置崩溃自启
+- 已设置带中文字体
+- 自带web的密码
+- 可选是否开启VNC端口，默认不开启
+
+**开设**
+
+开设后默认的密码是```oneclick```
+
+默认的web端口是```3003```，开设后打开```本机IPV4:端口```即可
+
+```
+curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onefirefox.sh -o onefirefox.sh && chmod +x onefirefox.sh && bash onefirefox.sh
+```
+
+**删除**
+
+执行
+
+```
+docker ps -a
+```
+
+查询name的前缀是firefox的容器，记录容器的ID用
+
+```
+docker rm -f 容器的ID
+```
+
+删除
+
+删除所有关联的容器后可用 ```docker rmi jlesage/firefox```删除对应镜像
 
 ## 一键安装guacamole
 

@@ -23,3 +23,5 @@ https://app.vagrantup.com/peru
 https://medium.com/axon-technologies/installing-a-windows-virtual-machine-in-a-linux-docker-container-c78e4c3f9ba1
 
 https://forum.garudalinux.org/t/error-while-attempting-to-create-a-virtual-machine-with-virt-manager/18534/4
+
+https://github.com/jlesage/docker-firefox

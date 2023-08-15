@@ -141,6 +141,41 @@ docker rmi 镜像的ID
 
 删除后可开设别的版本的windows容器
 
+## 一键开设Firefox浏览器的容器
+
+- 已设置崩溃自启
+- 已设置带中文字体
+- 自带web的密码
+- 可选是否开启VNC端口，默认不开启
+
+**开设**
+
+开设后默认的密码是```oneclick```
+
+默认的web端口是```3003```，开设后打开```本机IPV4:端口```即可
+
+```
+curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onefirefox.sh -o onefirefox.sh && chmod +x onefirefox.sh && bash onefirefox.sh
+```
+
+**删除**
+
+执行
+
+```
+docker ps -a
+```
+
+查询name的前缀是firefox的容器，记录容器的ID用
+
+```
+docker rm -f 容器的ID
+```
+
+删除
+
+删除所有关联的容器后可用 ```docker rmi jlesage/firefox```删除对应镜像
+
 ## 一键安装guacamole
 
 一个网页端连接SSH或RDP等协议控制服务器的玩意
