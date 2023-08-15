@@ -23,7 +23,7 @@ docker-compose --version
 
 面板上宿主机的SSH是在Docker内的，所以不支持后续的一键配置，请自行配置网关等进行使用
 
-中国境内服务器 - x86_64架构
+非中国境内服务器 - x86_64架构
 
 ```
 docker run -idt --network host \
@@ -34,7 +34,7 @@ docker run -idt --network host \
 spiritlhl/proxmoxve:x86_64
 ```
 
-非中国境内服务器 - x86_64架构
+中国境内服务器 - x86_64架构
 
 ```
 docker run -idt --network host \
