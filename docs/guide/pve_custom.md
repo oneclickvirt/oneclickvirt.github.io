@@ -17,13 +17,13 @@ chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 ```
 
-然后使用```uname -m```查询架构，使用对应架构对应区域的镜像配置
+然后使用```uname -m```查询架构，使用对应架构的命令
 
 开设出的PVE面板登录用户名和密码都是```root```，使用宿主机SSH时务必登录对应```https://IPV4地址:8006```，在web面板上使用SSH，不要使用宿主机的22端口使用
 
 面板上宿主机的SSH是在Docker内的，所以不支持后续的一键配置，请自行配置网关等进行使用
 
-非中国境内服务器 - x86_64架构
+X86架构
 
 ```
 docker run -idt --network host \
@@ -31,10 +31,10 @@ docker run -idt --network host \
 --name pve \
 --add-host pve:10.13.14.101 \
 --hostname pve \
-spiritlhl/proxmoxve:x86_64
+spiritlhl/pve:7_x86_64
 ```
 
-中国境内服务器 - x86_64架构
+ARM架构
 
 ```
 docker run -idt --network host \
@@ -42,5 +42,5 @@ docker run -idt --network host \
 --name pve \
 --add-host pve:10.13.14.101 \
 --hostname pve \
-spiritlhl/proxmoxve:cn_x86_64
+spiritlhl/pve:7_aarch64
 ```
