@@ -60,7 +60,7 @@ rm -rf /etc/nginx/passwd_scrcpy_web
 rm -rf /root/android_info
 ```
 
-## 一键开设windows系统的容器
+## 一键开设Windows系统的容器
 
 - 共享宿主机所有资源，基于docker所以只占用系统的大小，适合多开
 - 共享IP，做了docker的NAT映射，可选择是否映射到外网或仅内网
