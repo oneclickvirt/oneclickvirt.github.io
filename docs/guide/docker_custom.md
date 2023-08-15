@@ -10,7 +10,7 @@ outline: deep
 
 - 自定义安卓版本
 - 自动创建带校验的web网站
-- 自动进行nginx和反向代理的配置
+- 自动进行nginx安装和反向代理的配置，可选择是否绑定域名，默认回车不绑定使用80端口
 - 无需考虑宿主机是否支持嵌套虚拟化
 - 支持x86_64和ARM架构
 
@@ -118,7 +118,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onewind
 
 创建过程中，硬盘占用峰值为```宿主机系统+镜像大小+容器大小```
 
-比如开设占用最低的 Windows 2019 容器，映射外网端口13389，设置为外网映射
+比如开设占用最低的 Windows 2019 容器，映射外网RDP端口为13389，设置为外网映射(映射到你的服务器外网IPV4地址)
 
 ```
 ./onewindows.sh 2019 13389 Y
