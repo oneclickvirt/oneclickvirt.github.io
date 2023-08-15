@@ -8,6 +8,8 @@ outline: deep
 
 ## 在非Debian系统上安装 Proxmox VE 7
 
+本机硬件配置的最低要求同先前正常安装的要求一致
+
 需要先安装docker
 
 ```
