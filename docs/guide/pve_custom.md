@@ -21,7 +21,7 @@ docker-compose --version
 
 开设出的PVE面板信息为：
 
-登录用户名和密码都是```root```
+登录用户名和密码都是```root```，登录后务必使用web的SSH更改密码以免被爆破
 
 用宿主机SSH时务必登录对应```https://IPV4地址:8006```在web面板上使用SSH，不要使用宿主机的22端口操控PVE
 
@@ -29,7 +29,7 @@ docker-compose --version
 
 X86架构
 
-```
+```bash
 docker run -idt --network host \
 --privileged \
 --name pve \
@@ -40,7 +40,7 @@ spiritlhl/pve:7_x86_64
 
 ARM架构
 
-```
+```bash
 docker run -idt --network host \
 --privileged \
 --name pve \
