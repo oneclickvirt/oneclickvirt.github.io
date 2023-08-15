@@ -6,6 +6,12 @@ outline: deep
 
 ## 常见的一些docker命令
 
+查询某个容器的实时占用
+
+```
+docker stats 容器名字
+```
+
 进入某个容器
 
 ```
