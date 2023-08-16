@@ -6,7 +6,7 @@ export default defineConfig({
   head: [
     ['link', { rel: 'icon', href: 'https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png' }],
     ['script', {
-      // async: true,
+      async: true,
       src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5991535488582679",
       crossorigin: "anonymous"
     }],
