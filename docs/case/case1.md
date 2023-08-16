@@ -10,43 +10,6 @@ https://github.com/spiritLHLS/one-click-installation-script
 
 所有脚本如需在国内服务器使用，请在链接前加上```https://ghproxy.com/```确保命令可以下载本仓库的shell脚本执行
 
-# 目录
-
-* [一键修复脚本](#一键修复脚本)
-  * [一键尝试修复apt源](#一键尝试修复apt源)
-  * [一键尝试修复系统时间](#一键尝试修复系统时间)
-  * [一键尝试修复sudo警告](#一键尝试修复sudo警告)
-  * [一键修改系统自带的journal日志记录大小释放系统盘空间](#一键修改系统自带的journal日志记录大小释放系统盘空间)
-  * [一键尝试修复网络](#一键尝试修复网络)
-* [一键环境安装脚本](#一键环境安装脚本)
-  * [一键安装jupyter环境](#一键安装jupyter环境)
-  * [一键安装R语言环境](#一键安装R语言环境)
-  * [一键安装rust环境](#一键安装rust环境)
-  * [一键安装C++环境](#一键安装C环境)
-  * [一键安装vnstat环境](#一键安装vnstat环境)
-  * [一键升级低版本debian为debian11](#一键升级低版本debian为debian11)
-  * [一键升级低版本ubuntu为ubuntu22](#一键升级低版本ubuntu为ubuntu22)
-  * [一键安装zipline平台](#一键安装zipline平台)
-  * [一键安装filebrowser平台](#一键安装filebrowser平台)
-  * [一键删除平台监控](#一键删除平台监控)
-* [部分手动命令](#部分手动命令)
-  * [一键开启root登陆并替换密码](#一键开启root登陆并替换密码)
-  * [一键屏蔽邮件端口避免被恶意程序使用](#一键屏蔽邮件端口避免被恶意程序使用)
-  * [设置语言包](#设置语言包)
-  * [ubuntu更新源被锁](#ubuntu更新源被锁)
-  * [debian缺失公钥](#debian缺失公钥)
-  * [ubuntu或debian缺失公钥](#ubuntu或debian缺失公钥)
-  * [centos换源](#centos换源)
-  * [安装gitea](#安装gitea)
-  * [卸载aapanel](#卸载aapanel)
-  * [安装docker和docker-compose](#安装docker和docker-compose)
-  * [通过docker安装code-server](#通过docker安装code-server)
-* [友链](#友链)
-  * [一键测试服务器的融合怪脚本](#一键测试服务器的融合怪脚本)
-  * [一键批量开NAT服务器LXC](#一键批量开NAT服务器LXC)
-  * [一键安装PVE](#一键安装PVE)
-  * [朋友fscarmen的常用一键工具仓库](#朋友fscarmen的常用一键工具仓库)
-  
 ## 一键修复脚本
 
 运行所有一键修复脚本前注意看说明，以及保证服务器无重要数据，运行后造成的一切后果作者不负任何责任，自行评判风险！
