@@ -34,7 +34,7 @@ Command:
 curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct.sh -o buildct.sh && chmod +x buildct.sh
 ```
 
-* System Support:
+System Support:
 - debian10, debian11
 - ubuntu18, ubuntu20, ubuntu22
 - centos8, almalinux9
