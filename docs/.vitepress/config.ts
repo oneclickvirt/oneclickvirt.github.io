@@ -1,13 +1,30 @@
+import { createWriteStream } from 'node:fs'
+import { resolve } from 'node:path'
+import { SitemapStream } from 'sitemap'
 import { defineConfig } from 'vitepress'
+
+const links = []
 
 export default defineConfig({
   lastUpdated: true,
   lang: 'zh-CN',
-  sitemap: {
-    hostname: 'https://virt.spiritlhl.net',
-    transformItems(items) {
-      return items.filter((item) => !item.url.includes('migration'))
+  transformHtml: (_, id, { pageData }) => {
+    if (!/[\\/]404\.html$/.test(id)) {
+      links.push({
+        url: pageData.relativePath.replace(/\/index\.md$/, '/').replace(/\.md$/, '.html'),
+        lastmod: pageData.lastUpdated,
+      })
     }
+  },
+  buildEnd: async ({ outDir }) => {
+    const sitemap = new SitemapStream({
+      hostname: 'https://virt.spiritlhl.net/'
+    })
+    const writeStream = createWriteStream(resolve(outDir, 'sitemap.xml'))
+    sitemap.pipe(writeStream)
+    links.forEach((link) => sitemap.write(link))
+    sitemap.end()
+    await new Promise((r) => writeStream.on('finish', r))
   },
   head: [
     ['link', { rel: 'icon', href: 'https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png' }],
