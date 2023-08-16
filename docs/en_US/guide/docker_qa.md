@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# Dispel doubts
+# Solve the puzzle
 
 ## Common Docker Commands
 

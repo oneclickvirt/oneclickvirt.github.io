@@ -2,15 +2,15 @@
 outline: deep
 ---
 
-# 一些自定义脚本
+# Some custom scripts
 
-每个脚本可能有对应的系统要求，自行查看
+Each script may have its own system requirements, check them out!
 
-## 在非Debian系统上安装 Proxmox VE 7
+## Installing Proxmox VE 7 on a non-Debian system
 
-本机硬件配置的最低要求同先前正常安装的要求一致
+Minimum local hardware requirements are the same as for the previous normal installation.
 
-需要先安装docker
+You need to install docker first.
 
 ```
 curl -sSL https://get.docker.com/ | sh
@@ -19,17 +19,17 @@ chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 ```
 
-然后使用```uname -m```查询架构，使用对应架构的命令
+Then use ```uname -m``` to query the architecture and use the command corresponding to the architecture
 
-开设出的PVE面板信息为：
+The opened PVE panel information is:
 
-登录用户名和密码都是```root```，登录后务必使用web的SSH更改密码以免被爆破
+Login username and password are both ``root``, after logging in be sure to use web SSH to change the password to avoid being blown up.
 
-用宿主机SSH时务必登录对应```https://IPV4地址:8006```在web面板上使用SSH，不要使用宿主机的22端口操控PVE
+When using host SSH, be sure to log into the corresponding ``https://IPV4:8006`` to use SSH on the web panel, do not use the host's port 22 to manipulate the PVE.
 
-因为web面板上的SSH是在Docker内的，所以不支持后续的一键配置，请自行配置网关等进行使用
+Because the SSH on the web panel is inside Docker, it does not support subsequent one-click configurations, so please configure your own gateway, etc. to use it.
 
-X86架构
+X86 architecture
 
 ```bash
 docker run -idt --network host \
@@ -40,7 +40,7 @@ docker run -idt --network host \
 spiritlhl/pve:7_x86_64
 ```
 
-ARM架构
+ARM architecture
 
 ```bash
 docker run -idt --network host \
@@ -51,4 +51,4 @@ docker run -idt --network host \
 spiritlhl/pve:7_aarch64
 ```
 
-开设出的面板实际是开设在容器内的，但网络已使用host模式，PVE的端口约等于就使用的宿主机的端口，正常使用即可
+The web panel is actually opened in the container, but the network has used the host mode, the port of the PVE is about the same as the port of the host used, normal use can be

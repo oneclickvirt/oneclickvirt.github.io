@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# 解惑
+# Solve the puzzle
 
 ## 安装PVE成功但重启后失联
 

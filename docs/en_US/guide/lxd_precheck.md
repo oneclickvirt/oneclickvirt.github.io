@@ -2,44 +2,44 @@
 outline: deep
 ---
 
-# 前言
+# Preface
 
-以下为非自定义部分的介绍，自定义部分有自己对应的介绍，勿弄混了
+The following is the introduction of the non-customized part, the customized part has its own corresponding introduction, do not get confused!
 
-## 要求
+## Requirements
 
-硬件要求:
-- 系统：Debian 8+, Ubuntu 18+(推荐20.04)
-- 虚拟化：推荐KVM、VMWARE虚拟化
-- 内存：内存至少512MB
-- 硬盘：硬盘(系统盘)至少10G
-- 网络：独立的IPV4地址，IPV6可有可无，带宽能下载脚本就行，网络能连接Github的raw页面就行
+Hardware requirements.
+- System: Debian 8+, Ubuntu 18+ (20.04 recommended).
+- Virtualization: KVM, VMWARE recommended.
+- Memory: At least 512MB of RAM
+- Hard disk: hard disk (system disk) at least 10G
+- Network: Independent IPV4 address, IPV6 is optional, bandwidth can download scripts on the line, the network can connect to the Github raw page on the line
 
-PS: 如果硬件非常好资源很多，可使用PVE批量开KVM虚拟化的虚拟机 [跳转](https://github.com/spiritLHLS/pve)
+PS: If the hardware is very good and has a lot of resources, you can use PVE to batch open KVM virtualized VMs [Jump](https://github.com/spiritLHLS/pve)
 
-PS: 如果硬件资源更烂，虚拟化不支持，可使用docker版本的，适配面更广 [跳转](https://github.com/spiritLHLS/docker)
+PS: If the hardware resources are even worse, virtualization is not supported, you can use the docker version, the adaption surface is wider [Jump](https://github.com/spiritLHLS/docker)
 
-## 项目特点
+## Project Features
 
-- 本套脚本开发使用的**Ubuntu20**，Ubuntu别的长期维护版本应该也没问题，Debian无法使用zfs时自动切换别的存储类型
+- This set of script development using **Ubuntu20**, Ubuntu other long-term maintenance version should also be no problem, Debian can not use zfs automatically switch to another storage type!
 
-- 已设置同时进行TCP和UDP转发，除了SSH端口其他的映射内网外网端口一致
+- Set up both TCP and UDP forwarding, in addition to SSH ports, other mapping intranet and extranet ports are the same.
 
-- 已设置支持开出的LXC容器进行docker嵌套虚拟，默认普通版本和纯探针版本使用debian11系统
+- Support for docker nested virtualization of open LXC containers has been set up, and the default normal version and pure probe version use the debian11 system.
 
-- 已屏蔽容器内可能用于滥用的工具包和IPV4网络的TCP/UDP协议的端口( 3389 8888 54321 65432 )，以防止容器被用于扫描和爆破，且可外置进程检查有问题自动停机
+- Have blocked the container may be used to abuse the toolkit and IPV4 network TCP/UDP protocol ports ( 3389 8888 54321 65432 ), to prevent the container is used for scanning and blasting, and can be external process checking for problems automatically shut down
 
-- 已支持一键为LXC容器配置IPV6地址(前提是母鸡有IPV6子网，无IPV6地址则不配置)，自动适配子网大小
+- Has supported one-click configuration of IPV6 addresses for LXC containers (provided that the mother hen has an IPV6 subnet, no IPV6 address is not configured), automatically adapted to the size of the subnet
 
-- 保证你要开的盘为默认的系统盘(sda或者sda1)而不是挂载的盘(sdb之类的)，不确定的使用```fdisk -l```和```df```查看
+- Ensure that the disk you want to open is the default system disk (sda or sda1) and not the mounted disk (sdb and so on), if you are not sure, use ``fdisk -l`` and ``df`` to check.
 
-- 挂载其他盘的详看 [其他说明](https://github.com/spiritLHLS/lxd/blob/main/README_other.md)
+- See [Other notes](https://github.com/spiritLHLS/lxd/blob/main/README_other.md) for details on mounting other disks.
 
-- 一键脚本支持自定义限制所有内容，普通版本支持多次运行批量生成不覆盖先前生成的配置
+- One-click scripts support custom restrictions on all content, the normal version supports multiple runs of the batch generation does not overwrite the previously generated configuration
 
-## 检测环境
+## Detecting the environment
 
-**使用后续脚本的务必执行本命令检测母鸡是否符合要求**
+** Use the subsequent script must execute this command to detect the hen whether it meets the requirements **
 
 Command:
 
