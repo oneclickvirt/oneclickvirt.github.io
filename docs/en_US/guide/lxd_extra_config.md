@@ -2,24 +2,24 @@
 outline: deep
 ---
 
-# 其他自定义配置
+# Custom Configuration
 
 :::tip
-以下的配置安装会加重母鸡的负担，非必要不要安装
+The following configurations may increase the load on the server. Only install them if necessary.
 :::
 
 :::tip
-如果是个人使用，可忽略防滥用部分脚本的安装
+If you are using the server for personal use, you can ignore the installation of some abuse prevention scripts.
 :::
 
-## 自动配置IPV6地址
+## Automatic IPV6 Address Configuration
 
-- (***非必须***，不使用的也没问题)
-- **该脚本仅适用于母鸡有给```IPV6```子网且是```/64```的，且母鸡绑定了子网的```第一个IP```做```母鸡的IPV6地址或IPV6的gateway```**
-- 自动为LXD创建的LXC容器配置```IPV6```地址
-- 已集成到```buildone.sh```中可使用变量控制且无需事先下载，该脚本可不手动使用，在使用```buildone.sh```时配置Y开启即可
+- (Optional, not required if not using)
+- **This script is only suitable for servers that have an ```IPV6``` subnet with a prefix, and the server has bound the ```first IP``` of the subnet as its ```IPV6 address or IPV6 gateway```.**
+- Automatically configures ```IPV6``` addresses for LXC containers created with LXD.
+- Integrated into ```buildone.sh``` and can be controlled by variables without needing to be downloaded beforehand. You don't need to manually use this script; when using ```buildone.sh```, configure with variable Y to enable it.
 
-下载脚本
+Download Script
 
 Command:
 
@@ -27,21 +27,21 @@ Command:
 curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/build_ipv6_network.sh -o build_ipv6_network.sh && chmod +x build_ipv6_network.sh
 ```
 
-自动为容器配置IPV6映射地址
+Automatically configure IPV6 mapped addresses for containers
 
 ```bash
-bash build_ipv6_network.sh 容器名称
+bash build_ipv6_network.sh Container_Name(change me)
 ```
 
-映射完毕会打印信息
+A message is printed when the mapping is complete
 
-示例(给test容器自动配置IPV6地址，配置完成会写入一个test_v6的文件信息)
+Example (automatically configure the test container with an IPV6 address, a test_v6 file is written when the configuration is complete)
 
 ```bash
 bash build_ipv6_network.sh test
 ```
 
-删除所有IPV6已映射的规则
+Delete all IPV6 mapped rules
 
 ```bash
 ip6tables -t nat -F PREROUTING
@@ -52,7 +52,7 @@ netfilter-persistent reload
 service netfilter-persistent restart
 ```
 
-卸载IPV6地址绑定的守护进程和对应的文件
+Uninstall the IPV6 address binding daemon and corresponding files
 
 ```shell
 systemctl stop add-ipv6.service
@@ -62,10 +62,10 @@ systemctl daemon-reload
 rm /usr/local/bin/add-ipv6.sh
 ```
 
-## 屏蔽容易被滥用的端口的出入流量以屏蔽端口和屏蔽滥用工具包
+## Blocking Ingress/Egress Traffic on Easily Abused Ports and Filtering Out Port Scanning and Exploitation Toolkits
 
-- (***非必须***，该脚本仅仅是为了防止容器滥用方便，不装的也没问题)
-- 事前预防
+- (***Optional***, this script is solely for preventing container abuse and is not mandatory to install.)
+- Precautionary Measures
 
 Command:
 
@@ -73,11 +73,11 @@ Command:
 curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/rules.sh -o rules.sh && chmod +x rules.sh && bash rules.sh
 ```
 
-## 使用screen配置监控屏蔽某些进程的Command:遇到某些进程的出现直接关闭容器
+## Use the 'screen' command to configure monitoring and blocking of certain processes' commands: terminate containers immediately upon the appearance of specific processes.
 
-- 如需停止监控可使用```screen```命令停止```lxc_moniter```这个名字的窗口并删除
-- (***非必须***，该脚本仅仅是为了防止容器滥用方便，不装的也没问题)
-- 事后停机
+- To stop monitoring, you can use the 'screen' command to stop the window named 'lxc_monitor' and delete it.
+- (***Optional***, this script is only for preventing misuse of containers; it's fine not to install it.)
+- Shutdown afterwards.
 
 Command:
 
@@ -85,9 +85,9 @@ Command:
 curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/build_monitor.sh -o build_monitor.sh && chmod +x build_monitor.sh && bash build_monitor.sh
 ```
 
-## 一键安装开lxd母鸡所需要的带vnstat环境的常用预配置环境
+## One-click Installation of Common Pre-configured Environment for LXD Hosts with vnstat Integration
 
-- (***非必须***，该脚本仅仅是为了站点对接监控方便，不装的也没问题)
+- (***Optional***, this script is only for easy monitoring integration with the site, it's fine if you choose not to install)
 
 Command:
 
@@ -95,11 +95,10 @@ Command:
 curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/backend.sh -o backend.sh && chmod +x backend.sh && bash backend.sh
 ```
 
+## One-Click Installation of Cockpit Visualization Panel for Mother Hen
 
-## 一键安装母鸡可视化操作的面板
-
-- (***非必须***，该面板只是为了方便可视化操作，没有也没问题)
-- 原作者仓库：[跳转](https://github.com/turtle0x1/LxdMosaic)
+- (***Optional***, this panel is just for convenient visualization operations, it's okay if not present)
+- Original author's repository: [Link](https://github.com/turtle0x1/LxdMosaic)
 
 ```shell
 lxc config set core.https_address [::]
@@ -107,4 +106,4 @@ lxc config set core.trust_password some-secret-string
 snap install lxdmosaic
 ```
 
-安装完毕后打开母鸡IP地址，按照提示设置admin的密码，其他一路默认就能使用面板了
+After the installation is complete, open the hen IP address, follow the prompts to set the password for admin, other all the way to the default will be able to use the panel!
