@@ -70,7 +70,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm.sh
 
 ### Usage Instructions
 
-- System Support:
+System Support:
 - For x86_64 architecture systems listed in [this link](https://github.com/oneclickvirt/kvm_images/releases/tag/v1.0), simply use the filename without the .qcow2 extension when using. 
 - For arm architecture systems listed at [this link](http://cloud-images.ubuntu.com/), use the system name and version number, such as ubuntu20 or ubuntu22.
 
