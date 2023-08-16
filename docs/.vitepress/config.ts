@@ -5,6 +5,8 @@ export default defineConfig({
   lang: 'zh-CN',
   head: [
     ['link', { rel: 'icon', href: 'https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png' }],
+    ['meta', { name: 'google-site-verification', content: 'wdrGBim_2XmtMrqxivze70saMiPQAiOhpmN3KAWb0Sw' }],
+    // <meta name="google-site-verification" content="wdrGBim_2XmtMrqxivze70saMiPQAiOhpmN3KAWb0Sw" />
     ['script', {
       async: true,
       src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5991535488582679",
