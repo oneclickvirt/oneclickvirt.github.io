@@ -1,38 +1,34 @@
----
-outline: deep
----
+## 准备工作  
 
-## Preparation
+需要虚拟化出服务器，你需要：
 
-To virtualize a server, you will need:
+1. 一台可以连接公网的服务器( VPS 或 Dedicated Server)，最好能完美访问 Github 的 RAW 页面，部分项目部分组件可能未使用 CDN 加速
 
-1. A server that can connect to the public internet (VPS or Dedicated Server), preferably capable of accessing Github's RAW pages without any issues. Some projects and components might not utilize CDN acceleration.
-
-::: tip
-If you are located in mainland China and have difficulty accessing Github, please pay attention to whether accompanying scripts and projects have indicated the use of CDN acceleration.
+::: tip  
+如果您位于中国大陆，访问 Github 有困难，请注意配套脚本和项目是否有说明已使用 CDN 加速
 :::
 
-2. A stable local SSH connection. If your connection isn't stable, use the ```screen``` command to create a window and execute commands within it.
+2. 本地可以稳定连接SSH，如果不能稳定连接，请使用```screen```命令创建窗口后，在窗口内执行命令
 
-::: tip
-If you're not familiar with the ```screen``` command, search for relevant tutorials to learn, or you can use ```tmux``` as an alternative.
+::: tip  
+不会用screen命令的，自行查找相关教程学习，或者用tmux替代也行
 :::
 
-3. Ensure that the server's system and hardware meet the requirements of the corresponding project, as outlined in the project's documentation.
+3. 确保服务器的系统和硬件满足对应项目的要求，详见对应项目说明
 
-**This document will use a VPS as an example, assuming a clean environment without any native issues. If necessary, reinstall the system to ensure a pristine initial setup.**
+**本文档将以VPS作为范例，且该VPS纯净，无原生环境问题，如有必要请重装系统保证初始环境的纯净**  
 
-:::warning
-The PVE project might cause problems on the host machine. If you're not experienced in identifying bugs and fixing systems, it's not recommended to use it in a production environment. If using PVE-related scripts, make sure the host machine can be reinstalled at any time.
-:::
+:::warning  
+PVE项目可能造成宿主机出现问题，如果你不会看Bug和修复系统，那么不建议你在生产环境中使用，使用PVE相关脚本请确保宿主机随时可重装系统  
+:::  
 
-## Project Repositories
+## 项目仓库
 
-Feel free to Star and Fork these repositories.
+欢迎Star和Fork
 
 ### PVE
 
-Enables the creation of KVM virtualized virtual machines and LXC container virtualization.
+可开设KVM虚拟化的虚拟机、LXC虚拟化的容器
 
 [https://github.com/spiritLHLS/pve](https://github.com/spiritLHLS/pve)
 
@@ -40,7 +36,7 @@ Enables the creation of KVM virtualized virtual machines and LXC container virtu
 
 ### LXD
 
-Enables the creation of LXC container virtualization.
+可开设LXC虚拟化的容器
 
 [https://github.com/spiritLHLS/lxd](https://github.com/spiritLHLS/lxd)
 
@@ -48,11 +44,6 @@ Enables the creation of LXC container virtualization.
 
 ### Docker
 
-Enables the creation of Docker container virtualization.
+可开设Docker虚拟化的容器
 
 [https://github.com/spiritLHLS/docker](https://github.com/spiritLHLS/docker)
-
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2Fdocker&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
-
-<br/>
-<br/>
