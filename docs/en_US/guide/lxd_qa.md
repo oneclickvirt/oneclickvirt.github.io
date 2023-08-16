@@ -43,8 +43,8 @@ If the above changes still do not support the opening of centos7, try using a di
 
 ## Currently verified VPS vendors that can open containers with separate IPV6 addresses.
 
-Phoenix, USA regular in [kuroit](https://my.kuroit.com/aff.php?aff=5)
+[kuroit](https://my.kuroit.com/aff.php?aff=5) Phoenix, USA regular
 
-[datalix](https://t.me/vps_reviews/338) in German AMD Promotions
+[datalix](https://t.me/vps_reviews/338) German AMD Promotions
 
-German AMD Promotions in [luxvps](https://billing.luxvps.xyz/aff.php?aff=36)
+[luxvps](https://billing.luxvps.xyz/aff.php?aff=36) German AMD Promotions

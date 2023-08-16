@@ -39,7 +39,7 @@ PS: If the hardware resources are even worse, virtualization is not supported, y
 
 ## Detecting the environment
 
-** Use the subsequent script must execute this command to detect the hen whether it meets the requirements **
+**Use the subsequent script must execute this command to detect the hen whether it meets the requirements**
 
 Command:
 

@@ -12,7 +12,7 @@ If there are unadapted merchants or machines welcome to contact [@spiritlhl_bot]
 
 It is recommended that debian try to use the latest stable version of the system before use.
 
-** Do not use this set of scripts in the dynamic IP server (reboot the machine automatically switch the local IP server is not supported, reboot the machine after the IP does not automatically switch the support)**
+**Do not use this set of scripts in the dynamic IP server (reboot the machine automatically switch the local IP server is not supported, reboot the machine after the IP does not automatically switch the support)**
 
 This project is only adapted to Debian system (non-Debian can not be installed through the APT source, the official only gave the Debian image, other systems can only use ISO installation)
 
@@ -28,7 +28,7 @@ It is recommended to install debian11 instead of debian12, because the latter is
 
 :::warning
 I'm not sure if I'm going to be able to do this, but I'm going to be able to do it in a few minutes.
-:::.
+:::
 
 Setting up virtual memory (SWAP)
 

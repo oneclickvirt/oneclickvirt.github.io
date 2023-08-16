@@ -39,7 +39,7 @@ Support for customizing the system of the chicken, do not fill out the default u
 
 :::tip
 The version number has ended the long-term maintenance of the general no longer have an official mirror, temporarily did not find the archive address of the historical mirror, if you find welcome to leave a message I will add support!
-:::.
+:::
 
 #### 示例
 
@@ -98,7 +98,7 @@ Opened Chick Configuration:
 
 :::tip
 lxc if the command is no problem, the execution of the initialization of the opening of the chickens, this step is best to put ```screen`` in the background to suspend the execution of the opening of the chickens, the length of time with you to open a few and the mother hen configuration-related
-:::.
+:::
 
 Execute the following command to load the boot script
 
@@ -126,7 +126,7 @@ Opened Chick Configuration:
 
 :::tip
 lxc if the command is no problem, the execution of the initialization of the opening of the chick, this step is best to put the ```screen`` in the background to hang the execution of the opening of the chick, the length of time you open the chick with the opening of a few and the mother hen configuration-related
-::.
+:::
 
 Load boot script
 
