@@ -2,9 +2,9 @@
 outline: deep
 ---
 
-# KVM虚拟化
+# KVM Virtualization
 
-## SSH登录说明
+## SSH Login Instructions
 
 The virtual machines created through KVM virtualization do not have the username '''root''' by default. To switch to the root user, you need to execute '''sudo -i''' .
 
