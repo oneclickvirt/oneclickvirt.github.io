@@ -51,4 +51,6 @@ docker run -idt --network host \
 spiritlhl/pve:7_aarch64
 ```
 
-The web panel is actually opened in the container, but the network has used the host mode, the port of the PVE is about the same as the port of the host used, normal use can be
+The web panel is actually opened in the container, but the network has used the host mode, the port of the PVE is about the same as the port of the host used
+
+There are a lot of bugs to be fixed, PR is welcome to solve problems
