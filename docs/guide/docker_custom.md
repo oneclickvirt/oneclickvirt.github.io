@@ -2,53 +2,53 @@
 outline: deep
 ---
 
-# 使用Docker一键安装某些容器的脚本
+# Script for One-Click Installation of Certain Containers Using Docker
 
-每个容器都有对应的配置要求，自行查看
+Each container has corresponding configuration requirements, please refer to them accordingly.
 
-## 一键开设Android系统的容器
+## One-Click Setup of Android System Container
 
-- 自定义安卓版本
-- 自动创建带校验的web网站
-- 自动进行nginx安装和反向代理的配置，可选择是否绑定域名，默认回车不绑定使用80端口
-- 无需考虑宿主机是否支持嵌套虚拟化
-- 支持x86_64和ARM架构
+- Customizable Android version
+- Automatically creates a validated web website
+- Automatically performs nginx installation and reverse proxy configuration, with the option to bind a domain name or use port 80 by default if no binding is selected
+- No need to consider whether the host machine supports nested virtualization
+- Supports both x86_64 and ARM architectures
 
-**宿主机的配置至少要有1核2G内存15G硬盘，否则开设可能会导致宿主机卡死**
+**The host machine must have a configuration of at least 1 core, 2GB memory, and 15GB disk space, otherwise the setup may cause the host machine to freeze.**
 
-安卓版本越新占用越大，以上的配置要求是最低版本安卓的配置要求 (个人测试到 12.0.0-latest 的tag可用，更高版本映射白屏了，自己测试哪个能用吧)
+The newer the Android version, the larger the space it occupies. The above configuration requirements are for the minimum Android version configuration (personally tested up to the '12.0.0-latest' tag, higher versions resulted in a blank screen, please test which version works for you).
 
-**开设**
+**Setup:**
 
-国际
+International
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/create_android.sh -o create_android.sh && chmod +x create_android.sh && bash create_android.sh
 ```
 
-国内
+China
 
 ```shell
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/create_android.sh -o create_android.sh && chmod +x create_android.sh && bash create_android.sh
 ```
 
-命令执行后按照提示输入即可，注意选择版本输入的是序号，对应选项的数字序号，安装完毕后打开```本机IPV4+80端口```可登录
+After executing the command, follow the prompts to input the required information. Please note that when selecting the version, input the corresponding number according to the option's numeric order. After the installation is complete, open the "Local IPV4+80 port" to log in.
 
-如果需要查询生成的安卓信息和web登录信息，执行```cat /root/android_info```可查询信息
+If you need to retrieve the generated Android information and web login details, execute the command ```cat /root/android_info``` to query the information.
 
-默认的用户名 ```onea```
+Default username: ```onea```
 
-默认密码 ```oneclick```
+Default password: ```oneclick```
 
-远程的桌面点击```H264 Converter```跳转就是了
+For remote desktop, click on ```H264 Converter``` to initiate the redirection.
 
-**暂时只支持生成一个安卓容器，勿要重复生成，如需替换版本请执行后续命令删除后再次开设**
+**Currently, only the generation of one Android container is supported. Do not generate duplicates. If you need to replace the version, please execute the subsequent command to delete before reestablishing.**
 
-**删除**
+**Deletion**
 
-- 删除容器
-- 删除容器对应镜像
-- 删除配置文件
+- Delete container
+- Delete corresponding container image
+- Delete configuration file
 
 ```
 docker rm -f android
@@ -60,25 +60,25 @@ rm -rf /etc/nginx/passwd_scrcpy_web
 rm -rf /root/android_info
 ```
 
-## 一键开设Windows系统的容器
+## One-Click Creation of Windows System Containers
 
-- 共享宿主机所有资源，基于docker所以只占用系统的大小，适合多开
-- 共享IP，做了docker的NAT映射，可选择是否映射到外网或仅内网
-- 设置的win系统默认最多占用为1核2G内存50G硬盘，实际占用看使用情况
-- 无需iptables进行NAT映射，删除容器时自动删除了端口的映射，方便维护
-- 需要考虑宿主机是否支持嵌套虚拟化
+- Share all resources of the host machine. Based on Docker, it only occupies the size of the system, suitable for multiple instances.
+- Share IP addresses. NAT mapping is implemented using Docker, allowing the choice of mapping to the external network or internal network only.
+- The configured Windows system is set to defaultly utilize up to 1 core, 2GB of memory, and 50GB of hard disk space. Actual usage may vary based on usage patterns.
+- No need for iptables for NAT mapping. Port mappings are automatically deleted when containers are removed, facilitating maintenance.
+- It's important to consider whether the host machine supports nested virtualization.
 
-**宿主机需要支持嵌套虚拟化，且暂时只支持X86_64架构的系统，手头没ARM机器编译对应的镜像**
+**The host machine needs to support nested virtualization and currently only supports systems based on the X86_64 architecture. There are no ARM machines available to compile corresponding images.**
 
-执行
+Execute.
 
 ```
 egrep -c '(vmx|svm)' /proc/cpuinfo
 ```
 
-结果需要大于或等于1，不能为0
+The result needs to be greater than or equal to 1, it cannot be 0.
 
-然后需要先设置docker切换使用v1版cgroup启动
+Then, you need to first configure Docker to start with v1 version cgroup.
 
 ```
 sed -i 's/GRUB_CMDLINE_LINUX="\(.*\)"/GRUB_CMDLINE_LINUX="\1 systemd.unified_cgroup_hierarchy=0"/' /etc/default/grub
@@ -86,120 +86,118 @@ update-grub
 ls
 ```
 
-如果执行都无报错，执行```reboot```重启系统以使得设置生效
+If there are no errors during execution, run the command ```reboot``` to restart the system for the settings to take effect.
 
-**支持的镜像**
+**Supported Images**
 
-使用的自建的镜像：[https://hub.docker.com/r/spiritlhl/wds](https://hub.docker.com/r/spiritlhl/wds)
+Self-built image in use: [https://hub.docker.com/r/spiritlhl/wds](https://hub.docker.com/r/spiritlhl/wds)
 
-| 镜像名字 | 镜像大小   |
-|---------|--------|
-| 10      | 20G    |
-| 2022    | 17.5G  |
-| 2019    | 17G    |
+| Image Name | Image Size |
+|------------|------------|
+| 10         | 20G        |
+| 2022       | 17.5G      |
+| 2019       | 17G        |
 
-创建出的容器大小会比镜像大小大一丢丢，但不多
+The size of the created container will be slightly larger than the image size, but not by much.
 
-**下载脚本**
+**Download Script**
 
 ```
 curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onewindows.sh -o onewindows.sh && chmod +x onewindows.sh
 ```
 
-**使用方法**
+**Usage Instructions**
 
-开设前务必在screen窗口中执行，避免SSH长期链接造成掉线卡死
+Make sure to execute in the `screen` window before opening to avoid SSH connection drop due to long-term connections.
 
 ```
-./onewindows.sh 系统版本 RDP的端口 是否为外网映射(留空则默认是N，可选Y)
+./onewindows.sh system_version RDP_port External_mapping(Y/N, leave empty for default N)
 ```
 
-开设前需要确认宿主机至少有镜像大小的两倍大小加10G硬盘的大小，因为docker在创建容器时得先将镜像拉到本地再创建
+Before opening, confirm that the host machine has a disk size at least twice the size of the image plus 10GB, as Docker first needs to pull the image locally before creating it.
 
-创建过程中，硬盘占用峰值为```宿主机系统+镜像大小+容器大小```
+During the creation process, the peak disk usage is `host_system + image_size + container_size`.
 
-比如开设占用最低的 Windows 2019 容器，映射外网RDP端口为13389，设置为外网映射(映射到你的服务器外网IPV4地址)
+For example, to open the Windows 2019 container with the lowest occupancy, mapping external RDP port to 13389, and enabling external mapping (mapping to your server's public IPv4 address):
 
 ```
 ./onewindows.sh 2019 13389 Y
 ```
 
-开设后默认的用户名是```Administrator```和```vagrant```
+The default usernames after opening are `Administrator` and `vagrant`.
 
-默认的密码是```vagrant```
+The default password is `vagrant`.
 
-如果你选择开设映射的外网端口，务必登录后修改对应账户的密码(两个账户都可能有，自行尝试)，否则可能被人爆破
+If you choose to map an external port, make sure to change the corresponding account's password (both accounts might exist, try both) after logging in, to prevent potential brute-force attacks.
 
-**删除**
+**Deletion**
 
-需要删除对应镜像和容器，先执行```docker ps -a```和```docker images```查询镜像是```spiritlhl/wds```的ID，然后对应使用
+To delete corresponding images and containers, first execute `docker ps -a` and `docker images` to find the ID of the image with the name `spiritlhl/wds`, then use:
 
 ```
-docker rm -f 容器的ID
-docker rmi 镜像的ID
+docker rm -f container_ID
+docker rmi image_ID
 ```
 
-删除后可开设别的版本的windows容器
+After deletion, you can open containers for different versions of Windows.
 
-## 一键开设Firefox浏览器的容器
+## One-Click Setup of Firefox Browser Container
 
-- 已设置崩溃自启
-- 已设置带中文字体
-- 自带web的密码
-- 可选是否开启VNC端口，默认不开启
-- 无需考虑是否支持嵌套虚拟化和服务器的架构
+- Crash auto-restart is set.
+- Chinese fonts are included.
+- Web password is provided.
+- Optional VNC port activation (default is off).
+- No need to consider nested virtualization support or server architecture.
 
-**宿主机需要至少1核1G内存5G硬盘，开设的容器大小将占用起码1G硬盘**
+**The host machine needs at least 1 core, 1GB RAM, and 5GB disk. The container size will occupy at least 1GB of disk space.**
 
-**开设**
+**Setup**
 
-开设后默认的密码是```oneclick```
+After setup, the default password is `oneclick`.
 
-默认的web端口是```3003```，开设后打开```本机IPV4:端口```即可
+The default web port is `3003`. After setup, open `localhost_IPv4:port` in a browser.
 
 ```
 curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onefirefox.sh -o onefirefox.sh && chmod +x onefirefox.sh && bash onefirefox.sh
 ```
 
-**删除**
+**Deletion**
 
-执行
+Execute:
 
 ```
 docker ps -a
 ```
 
-查询name的前缀是firefox的容器，记录容器的ID用
+Find containers with a name prefix of `firefox`, record the container ID, then use:
 
 ```
-docker rm -f 容器的ID
+docker rm -f container_ID
 ```
 
-删除
+After deleting all associated containers, you can use `docker rmi jlesage/firefox` to delete the corresponding image.
 
-删除所有关联的容器后可用 ```docker rmi jlesage/firefox```删除对应镜像
+## One-Click Installation of Guacamole
 
-## 一键安装guacamole
+A web-based tool to connect to servers using protocols like SSH or RDP.
 
-一个网页端连接SSH或RDP等协议控制服务器的玩意
+URL: `http://your_IPV4_address:80/guacamole`
 
-网址：```http://你的IPV4地址:80/guacamole```
+Default user: `guacadmin`
 
-默认用户： ```guacadmin```
+Default password: `guacadmin`
 
-默认密码： ```guacadmin```
+After installation, log in and modify as needed.
 
-安装完毕登录后自行修改
+**The host machine should have at least 1 core, 2GB RAM, and 10GB disk to avoid potential host freezing during setup.**
 
-**宿主机的配置至少要有1核2G内存10G硬盘，否则开设可能会导致宿主机卡死！**
-
-国际
+International:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/extra_scripts/guacamole.sh -o guacamole.sh && chmod +x guacamole.sh && bash guacamole.sh
 ```
 
-国内
+China:
 
 ```shell
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/main/extra_scripts/guacamole.sh -o guacamole.sh && chmod +x guacamole.sh && bash guacamole.sh
