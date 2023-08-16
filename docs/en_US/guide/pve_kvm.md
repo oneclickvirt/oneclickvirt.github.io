@@ -6,63 +6,61 @@ outline: deep
 
 ## SSH登录说明
 
-KVM虚拟化开设出的虚拟机，默认生成的用户名不是```root```，你需要执行```sudo -i```切换为root用户
+The virtual machines created through KVM virtualization do not have the username'''root'''by default. To switch to the root user, you need to execute```sudo -i'''.
 
-**当然部分模板实际支持用户名```root```登录，默认的root密码是```password```，你也可以先试试**
+**Of course, some templates actually allow logging in with the username ```root```, and the default root password is ```password```. You can give it a try.**
 
-登录SSH切换为root权限后，一定要修改root密码，可以使用以下命令修改
+Once you've logged in via SSH and switched to root privileges, it's crucial to change the root password. You can use the following command to do so.
 
 Command:
 
 ```bash
 bash <(curl -sSL https://raw.githubusercontent.com/fscarmen/tools/main/root.sh) [PASSWORD]
 ```
+## Partial Notes
 
-## 部分注意事项
-
-**执行本项目的检测环境的命令**，展示如下
+**Commands to set up the testing environment for executing this project are as follows:**
 
 ![图片](https://github.com/oneclickvirt/oneclickvirt.github.io/blob/main/docs/images/pve_kvm/pve_kvm_1.png?raw=true)
 
-查询如上的只需使用下面的一键脚本自动创建虚拟机即可，无需手动再修改WEB端设置
+To perform the above-mentioned query, you only need to use the one-click script below to automatically create a virtual machine. There is no need to manually modify settings on the web interface.
 
 ![图片](https://github.com/oneclickvirt/oneclickvirt.github.io/blob/main/docs/images/pve_kvm/pve_kvm_2.png?raw=true)
 
-查询如上的在使用后续脚本创建了虚拟机后，**可能**需要手动修改WEB端设置，需要关闭对应每个虚拟机的硬件嵌套虚拟化，如下图
+After creating the virtual machines using the subsequent script as mentioned above, it **may** be necessary to manually modify the settings on the web interface. You will need to disable hardware nested virtualization for each respective virtual machine, as shown in the following diagram.
 
 ![图片](https://github.com/oneclickvirt/oneclickvirt.github.io/blob/main/docs/images/pve_kvm/pve_kvm_3.png?raw=true)
 
-先停止虚拟机再修改，修改完后再开机才能使用NOVNC，不关闭**可能**导致这个虚拟机有BUG无法使用
+Stop the virtual machine before making modifications. After the modifications are done, you can start the machine to use NOVNC. Failure to close it **may** result in bugs that render this virtual machine unusable.
 
-如果强行安装PVE开KVM，启动不了的也可以关闭这个选项试试能不能启动虚拟机
-
+If you forcibly install PVE to enable KVM, even if the startup fails, you can also disable this option and try to start the virtual machine to see if it works.
 :::tip
-开设虚拟机前请使用screen挂起执行，避免开设时间过长，SSH不稳定导致中间执行中断
+Please use the "screen" command to suspend execution before launching the virtual machine, in order to avoid prolonged startup times. Unstable SSH connections could lead to interruptions during the intermediate execution.
 :::
 
-## 开设KVM虚拟机可使用的镜像
+## Images available for creating KVM virtual machines
 
-- 已预安装开启cloudinit
-- 开启SSH登陆
-- 预设置SSH监听V4和V6的22端口
-- 开启允许密码验证登陆
-- 开启允许root登陆
-- 部分预安装Qemu-guest-agent
+- Pre-installed with cloud-init enabled.
+- Enabled SSH login.
+- Pre-configured SSH to listen on ports 22 for both IPv4 and IPv6.
+- Enabled password authentication for login.
+- Enabled root login.
+- Partially pre-installed QEMU guest agent.
 
-目前可使用的镜像名字的列表为
+The list of currently available image names is as follows:
 
 [https://github.com/oneclickvirt/kvm_images/blob/main/list.text](https://github.com/oneclickvirt/kvm_images/blob/main/list.text)
 
-## 单独开设NAT的KVM虚拟化的虚拟机
+## Virtual machines with standalone NAT configuration in KVM virtualization.
 
-- 自动开设NAT服务器，默认使用Debian10镜像，因为该镜像占用最小
-- 可在命令中自定义需要使用的镜像，这里有给出配置好的镜像，镜像自带空间设置是2~10G硬盘，日常使用**至少10G以上**即可，除非某些镜像开不起来再增加硬盘大小
-- 可在命令中指定存储盘位置，默认不指定时为local盘即系统盘，可指定为PVE中显示的挂载盘
-- 自定义内存大小推荐512MB内存
-- 自动进行内外网端口映射，含22，80，443端口以及其他25个内外网端口号一样的端口
-- 生成后需要等待一段时间虚拟机内部的cloud-init配置好网络以及登陆信息，大概需要5分钟
-- 虚拟机的相关信息将会存储到WEB端对应VM的NOTES中，可在WEB端查看
-- 如果宿主机自带IPV6子网将自动附加上IPV6网络，但无公网IPV6地址
+- Automatically deploy NAT servers with the default Debian 10 image, chosen for its minimal footprint.
+- It's possible to customize the image used through the command, and pre-configured images are available. These images come with storage settings ranging from 2 to 10 GB of disk space. For regular use, **at least 10 GB** of disk space is recommended. You can increase the disk size if certain images fail to start.
+- The command allows for specifying the storage disk location. When not specified, it defaults to the local disk, which is the system disk. It can also be set to a mount disk as displayed in PVE.
+- Recommended custom memory size is 512 MB.
+- Automatic internal and external port mapping, including ports 22, 80, 443, and 25 other port numbers shared between internal and external networks.
+- After generation, there's a wait time for the virtual machine's internal cloud-init configuration to establish network and login information. This process takes approximately 5 minutes.
+- Pertinent virtual machine information will be stored in the NOTES section of the corresponding VM on the web interface, accessible for viewing through the web portal.
+- If the host machine has an IPV6 subnet, IPV6 networking will be automatically added. However, there won't be any public IPV6 addresses.
 
 Command:
 
@@ -70,44 +68,44 @@ Command:
 curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm.sh -o buildvm.sh && chmod +x buildvm.sh
 ```
 
-### 使用方法
+### Usage Instructions
 
-- 系统支持：
-  - x86_64架构的详见 [跳转](https://github.com/oneclickvirt/kvm_images/releases/tag/v1.0) 中列出的系统，使用时只需写文件名字，不需要.qcow2尾缀
-  - arm架构的详见 [跳转](http://cloud-images.ubuntu.com/) 中列出的系统，使用时只需要写系统名字+系统版本号，如ubuntu20、ubutnu22这种
+- System Support:
+- For x86_64 architecture systems listed in [this link](https://github.com/oneclickvirt/kvm_images/releases/tag/v1.0), simply use the filename without the .qcow2 extension when using. 
+- For arm architecture systems listed at [this link](http://cloud-images.ubuntu.com/), use the system name and version number, such as ubuntu20 or ubuntu22.
 
 :::tip
-注意这里的用户名不能是纯数字，会造成cloudinit出问题，最好是纯英文或英文开头
+Note that usernames consisting of only numbers may cause issues with cloud-init. It's preferable to use usernames that are entirely in English or start with an English character.
 :::
 
 ```shell
-./buildvm.sh VMID 用户名 密码 CPU核数 内存 硬盘 SSH端口 80端口 443端口 外网端口起 外网端口止 系统 存储盘
+./buildvm.sh VMID Username Password Number_of_CPU_Cores Memory Disk SSH_Port Port_80 Port_443 Public_Port_Start Public_Port_End System Storage_Disk
 ```
 
-### 测试示例
+### Test Example
 
 ```shell
 ./buildvm.sh 102 test1 oneclick123 1 512 10 40001 40002 40003 50000 50025 debian11 local
 ```
 
-开设完毕可执行```cat vm102```查看信息，或到WEB端对应VM的NOTES中查看
+After setup is completed, you can execute ```cat vm102``` to view the information or check the NOTES section for the corresponding VM on the WEB interface.
 
-以下为开设的示例VM的信息：
+Below is the information for the example VM that has been set up:
 
-| 属性                     | 值             |
+| Attribute                | Value          |
 |-------------------------|----------------|
-| VMID                    | 102            |
-| SSH登录的用户名          | test1          |
-| SSH登录的密码            | oneclick123    |
-| CPU核数                  | 1              |
-| 内存大小                 | 512MB          |
-| 磁盘大小                 | 10G            |
-| SSH端口                  | 40001          |
-| 80端口                   | 40002          |
-| 443端口                  | 40003          |
-| 内外网映射端口一致的区间 | 50000到50025   |
-| 系统                     | debian11       |
-| 宿主机的存储盘           | local          |
+| VMID                     | 102            |
+| SSH Username             | test1          |
+| SSH Password             | oneclick123    |
+| Number of CPU Cores      | 1              |
+| Memory Size              | 512MB          |
+| Disk Size                | 10G            |
+| SSH Port                 | 40001          |
+| Port 80                  | 40002          |
+| Port 443                 | 40003          |
+| Port Range for NAT       | 50000 to 50025 |
+| Operating System         | debian11       |
+| Host Storage Disk        | local          |
 
 ### 删除示例
 
