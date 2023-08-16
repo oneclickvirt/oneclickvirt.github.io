@@ -4,9 +4,9 @@ outline: deep
 
 # Solve the puzzle
 
-## 安装PVE成功但重启后失联
+## Successful PVE Installation but Lost Connection After Reboot
 
-如果什么机器安装PVE成功后WEB可用，但重启失联，请安装成功PVE后，重启前执行以下命令再重启
+If the machine successfully installs PVE and the web interface is accessible, but loses connection after a reboot, please execute the following commands after a successful PVE installation and before rebooting:
 
 ```bash
 auto_interface=$(grep '^auto ' /etc/network/interfaces | grep -v '^auto lo' | awk '{print $2}' | head -n 1)
@@ -17,64 +17,66 @@ if ! grep -q "^post-up /sbin/ethtool" /etc/network/interfaces; then
 fi
 ```
 
-然后将重启失联的机器报给 [@spiritlhl_bot](https://t.me/spiritlhl_bot) 待更新脚本自动修复
+Then report the rebooted disconnected machine to [@spiritlhl_bot](https://t.me/spiritlhl_bot) for the script to be updated and repaired automatically.
 
-## 安装PVE失败
+## PVE Installation Failed
 
-如果有什么机器安装不了，着急的可以尝试使用以下仓库的脚本先重装为debian11先
+If you encounter any issues with installing on certain machines, and if you're in a hurry, you can try using the scripts from the following repository to reinstall as Debian 11 first.
 
 ```
 bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh) -debian 11 -pwd 'oneclickvirt139'
 ```
 
-此时dd后的系统用户名为```root```，密码为```oneclickvirt139```
+The system username after dd at this point is ```root```, and the password is ```oneclickvirt139```.
 
-如果有空或者还是不行，请联系 [@spiritlhl_bot](https://t.me/spiritlhl_bot) 尝试
+If you have time or if it's still not working, please contact [@spiritlhl_bot](https://t.me/spiritlhl_bot) for assistance.
 
-## 目前已验证的VPS商家
+## Verified VPS Providers
 
-### 可开设KVM虚拟化的NAT的商家
+### VPS Providers Offering KVM Virtualization with NAT
 
-[interserver](https://www.interserver.net/r/802990) 中的VPS或独立服务器
+VPS or dedicated servers from [interserver](https://www.interserver.net/r/802990)
 
-[frantech](https://my.frantech.ca/aff.php?aff=5522) 中的拉斯维加斯第二档
+Las Vegas Tier 2 from [frantech](https://my.frantech.ca/aff.php?aff=5522)
 
-[eugamehost](https://www.eugamehost.com/clients/aff.php?aff=194) 中的美国凤凰城黑五促销款
+US Phoenix Black Friday Special from [eugamehost](https://www.eugamehost.com/clients/aff.php?aff=194)
 
-[amhost](http://amhost.net/vps/?cid=29317) 中的测试款
+Testing version from [amhost](http://amhost.net/vps/?cid=29317)
 
-[digitalocean](https://m.do.co/c/e9712622ee89) 中的 Perminu Intel 和 Regular 4核款
+Perminu Intel and Regular 4-core versions from [digitalocean](https://m.do.co/c/e9712622ee89)
 
-[skrime](https://hosting.skrime.eu/a/server) 中的 AMD Ryzen KVM Server 最低配款
+Lowest configuration of AMD Ryzen KVM Server from [skrime](https://hosting.skrime.eu/a/server)
 
-[webdock](https://webdock.io/en?maff=wdaff--150) 中的 AMD KVM Server
+AMD KVM Server from [webdock](https://webdock.io/en?maff=wdaff--150)
 
-[4vps](https://clck.ru/33VQmc) 中的 俄罗斯和希腊 测试款
+Russian and Greek testing versions from [4vps](https://clck.ru/33VQmc)
 
-[hostaris](https://deploy.hostaris.com/) 中的 德国款 (商家的系统模板有问题，IPV6已失效和Github的连通稳定性很差)
+German version from [hostaris](https://deploy.hostaris.com/) (Note: Issues with the vendor's system template, IPV6 is not functional, and poor connectivity with Github)
 
-[adtaq](https://www.adtaq.com/) 中的最低配存储KVM服务器
+Storage KVM server with lowest configuration from [adtaq](https://www.adtaq.com/)
 
-[nocix](https://www.nocix.net/) 中的独立服务器
+Dedicated servers from [nocix](https://www.nocix.net/)
 
-### 只可开设LXC虚拟化的NAT的商家
+### VPS Providers Offering NAT with LXC Virtualization
 
-[腾讯云](https://curl.qcloud.com/tPrMnfZm) 中的无忧款和特惠款(学生机)
+Worry-Free and Student editions from [Tencent Cloud](https://curl.qcloud.com/tPrMnfZm)
 
-[spectraip](https://my.spectraip.net/aff.php?aff=35) 中的KVM服务器
+KVM servers from [spectraip](https://my.spectraip.net/aff.php?aff=35)
 
-[Linode](https://www.linode.com/lp/refer/?r=9296554d01ecacaa0be56892fd969b557722becd) 中美国专用CPU的最低配
+Lowest configuration with dedicated CPU from [Linode](https://www.linode.com/lp/refer/?r=9296554d01ecacaa0be56892fd969b557722becd)
 
-[hosthatch](https://cloud.hosthatch.com/a/2450) 中的特价高配服务器
+Special high-configuration servers from [hosthatch](https://cloud.hosthatch.com/a/2450)
 
-[hetzner](https://hetzner.cloud/?ref=CnWVr0FGneUl) 的cloud服务器
+Cloud servers from [hetzner](https://hetzner.cloud/?ref=CnWVr0FGneUl)
 
-[rackdog](https://cloud.rackdog.com/referral/bx8fms) 的浮动IP的服务器
+Servers with floating IP from [rackdog](https://cloud.rackdog.com/referral/bx8fms)
 
-[vultr](https://www.vultr.com/?ref=9124520-8H) 的Cloud普通服务器
+Standard Cloud servers from [vultr](https://www.vultr.com/?ref=9124520-8H)
 
-[azure](https://portal.azure.com/#create/Microsoft.VirtualMachine-ARM) 的普通机器
+Standard machines from [azure](https://portal.azure.com/#create/Microsoft.VirtualMachine-ARM)
 
-### 已知暂时不可用未适配的商家
+### Currently Unavailable or Unsupported Providers
+
+(Note: The list ends here, as there's no specific information about unsupported providers)
 
 OVH
