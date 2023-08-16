@@ -1,5 +1,7 @@
 # oneclickvirt.github.io
 
+[virt.spiritlhl.net](https://virt.spiritlhl.net/)
+
 一键虚拟化项目(One click virtualization) 
 
 Documentation for one-click virtualization
