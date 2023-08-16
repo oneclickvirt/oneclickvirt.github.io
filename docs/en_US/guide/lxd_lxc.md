@@ -2,13 +2,13 @@
 outline: deep
 ---
 
-# LXC虚拟化
+# LXC virtualization
 
-## 单独生成一个NAT服务器
+## Generate only one NAT server
 
-- 只生成一个NAT服务器，可自定义限制所有内容
+- Generate only one NAT server, with customizable restrictions on all content.
 
-下载开机脚本是**非必须**的，如果你使用过一键安装LXD的命令，自动已下载对应的开机脚本，不需要重复下载该脚本
+Downloading the boot script is **NOT REQUIRED**, if you have used the command to install LXD with one click, the corresponding boot script will be downloaded automatically, so you don't need to download the script again.
 
 Command:
 
@@ -16,30 +16,30 @@ Command:
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
 ```
 
-### 使用方法
+### How it's used
 
 ```
-./buildone.sh 小鸡名称 内存大小 硬盘大小 SSH端口 外网起端口 外网止端口 下载速度 上传速度 是否启用IPV6(Y or N) 系统(留空则为debian11)
+. /buildone.sh Chick name Memory size Hard disk size SSH port Extranet start port Extranet stop port Download speed Upload speed Whether IPV6 is enabled (Y or N) System (leave blank for debian11)
 ```
 
-内存大小以MB计算，硬盘大小以GB计算，下载速度上传速度以Mbit计算，是否启用IPV6不一定要填Y或者N，没有这个参数也行，留空默认不开启IPV6
+Memory size is calculated in MB, hard disk size is calculated in GB, download speed upload speed is calculated in Mbit, whether to enable IPV6 does not have to fill in Y or N, no this parameter can also be left blank default does not enable IPV6
 
-如果```外网起端口```和```外网止端口```都设置为0则不做区间外网端口映射了，只映射基础的SSH端口，注意```不能为空```，不进行映射需要设置为0
+If ```external start port`` and ```external stop port`` are both set to 0, then we don't do interval port mapping, only the basic SSH port is mapped, note that ```can't be null``, and it needs to be set to 0 if it's not to be mapped.
 
-支持自定义小鸡的系统，不填写留空时默认使用debian11，注意传入参数为系统名字+版本号，如：
+Support for customizing the system of the chicken, do not fill out the default use of debian11 when left blank, note that the incoming parameters for the system name + version number, such as:
 
-- debian10，debian11，debian12
-- ubuntu18，ubuntu20，ubuntu22
-- centos8，centos9 (实际开设出来都是Stream版本)
-- alpine3.15，alpine3.16，alpine3.17，alpine3.18
+- debian10, debian11, debian12
+- ubuntu18, ubuntu20, ubuntu22
+- centos8, centos9 (actually opened out of the Stream version)
+- alpine3.15, alpine3.16, alpine3.17, alpine3.18
 
-* 注意都是小写字母+数字的组合，自行尝试，如果搜索无该系统则会自动退出脚本
-* 版本号可以带英文小数点，为了适配alpine的版本号已支持
-* 注意部分系统可能因为未加载cgroup，所以在容器内测试系统资源会显示的宿主机的系统资源，实际是有约束的，类同Docker
+* Note that they are all lowercase letters + numbers of the combination of their own to try, if the search is not the system will automatically exit the script
+* Version number can be with English decimal point, in order to adapt to the alpine version number has been supported.
+* Note that some systems may not have cgroups loaded, so testing system resources in the container will show the system resources of the host, which are actually constrained, similar to Docker.
 
 :::tip
-版本号中已结束长期维护的一般不再有官方镜像了，暂时未找到历史镜像的存档地址，如果有找到欢迎留言我会添加支持
-:::
+The version number has ended the long-term maintenance of the general no longer have an official mirror, temporarily did not find the archive address of the historical mirror, if you find welcome to leave a message I will add support!
+:::.
 
 #### 示例
 
@@ -64,21 +64,21 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/mai
 ./buildone.sh test 256 2 20001 20002 20025 500 500 N
 ```
 
-需要查看信息则执行
+If you need to see the information, run
 
 ```shell
 cat 小鸡名字
 ```
 
-比如查询示例的信息就是
+For example, the information for the query example is
 
 ```shell
 cat test
 ```
 
-如果已通过以上方法生成过小鸡，还需要批量生成小鸡，可使用自定义批量生成版本的脚本，但注意先删除测试小鸡再进行批量生成小鸡
+If you have already generated chicks through the above methods and still need to batch generate chicks, you can use a customized batch generation version of the script, but note that you should first delete the test chicks before batch generating chicks
 
-#### 删除测试小鸡
+#### Delete Test Chick
 
 ```shell
 lxc stop test
@@ -88,19 +88,19 @@ rm -rf test_v6
 ls
 ```
 
-## 普通版本批量生成
+## Normal version batch generation
 
-开出的小鸡配置：
+Opened Chick Configuration:
 
-- 1核256MB内存1GB硬盘限速300Mbit带宽
-- 带1个SSH端口，25个外网端口
-- 默认内存和硬盘大小
+- 1 core 256MB RAM 1GB hard disk limited to 300Mbit bandwidth
+- With 1 SSH port, 25 extranet ports
+- Default memory and hard disk size
 
 :::tip
-lxc若命令无问题，执行初始化开小鸡，这一步最好放```screen```中后台挂起执行，开小鸡时长与你开几个和母鸡配置相关
-:::
+lxc if the command is no problem, the execution of the initialization of the opening of the chickens, this step is best to put ```screen`` in the background to suspend the execution of the opening of the chickens, the length of time with you to open a few and the mother hen configuration-related
+:::.
 
-执行下面命令加载开机脚本
+Execute the following command to load the boot script
 
 Command:
 
@@ -108,27 +108,27 @@ Command:
 curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/init.sh -o init.sh && chmod +x init.sh && dos2unix init.sh
 ```
 
-下面命令为开小鸡名字前缀为**tj**的**10**个小鸡
+The following command opens **10** chicks with the name prefix **tj**.
 
 ```shell
 ./init.sh tj 10
 ```
 
-有时候init.sh的运行路径有问题，此时建议前面加上sudo强制根目录执行
+Sometimes there is a problem with the path where init.sh is run, in this case it is recommended to add sudo in front of it to force it to run in the root directory
 
-## 纯SSH端口版本批量生成
+## Bulk generation of pure SSH port versions
 
-开出的小鸡配置：
+Opened Chick Configuration:
 
-- 1核128MB内存300MB硬盘限速300Mbit带宽
-- 只有一个SSH端口
-- 无法挂载warp
+- 1 core 128MB RAM 300MB hard disk limited to 300Mbit bandwidth
+- Only one SSH port
+- Unable to mount warp
 
 :::tip
-lxc若命令无问题，执行初始化开小鸡，这一步最好放```screen```中后台挂起执行，开小鸡时长与你开几个和母鸡配置相关
-:::
+lxc if the command is no problem, the execution of the initialization of the opening of the chick, this step is best to put the ```screen`` in the background to hang the execution of the opening of the chick, the length of time you open the chick with the opening of a few and the mother hen configuration-related
+::.
 
-加载开机脚本
+Load boot script
 
 Command:
 
@@ -136,13 +136,13 @@ Command:
 curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/least.sh -o least.sh && chmod +x least.sh && dos2unix least.sh
 ```
 
-下列命令最后一行为开小鸡名字前缀为**tj**的**10**个小鸡
+The last line of the following command opens **10** chicks with the chick name prefix **tj**
 
 ```shell
 ./least.sh tj 10
 ```
 
-有时候least.sh的运行路径有问题，此时建议前面加上sudo强制根目录执行
+Sometimes there is a problem with the path where last.sh is run, in this case it is recommended to force the root directory to run by adding sudo in front of it.
 
 ## 自定义批量生成版本
 
@@ -157,25 +157,25 @@ Command:
 curl -L https://github.com/spiritLHLS/lxd/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
 ```
 
-可多次运行批量生成小鸡，且继承前面已生成的部分在后面添加，可自定义内存和硬盘大小
+Can be run multiple times to batch generate chicks, and inherit the previous part has been generated in the back to add, customizable memory and hard disk size
 
-## 查看已批量开设的信息
+## View the information of the batch opened chicks
 
-开完小鸡后，具体信息会生成在当前目录下的log文件中，格式如下
+After opening the chicks, the specific information will be generated in the log file in the current directory, with the following format
 
 ```shell
 1号服务器名称 密码 ssh端口 外网端口起始 外网端口终止
 2号服务器名称 密码 ssh端口 外网端口起始 外网端口终止
 ```
 
-如果想要查看，只需在当前目录执行以下命令打印log文件即可
+To view it, simply print the log file by executing the following command in the current directory
 
 ```shell
 cat log
 ```
 
 :::warning
-不要拿该脚本开出的小鸡当生产环境，LXC虚拟化不支持换内核，dd，开启bbr等操作
+Don't use the chicks opened by this script as a production environment, LXC virtualization doesn't support changing kernel, dd, turning on bbr, etc.
 :::
 
 ## 部分常用LXD命令
@@ -217,18 +217,18 @@ lxc exec 服务器名字 /bin/bash
 ```
 
 :::tip
-在alpine中不用/bin/bash而是用/bin/sh，常规的系统都是/bin/bash
+Instead of /bin/bash, you can use /bin/sh in alpine, which is /bin/bash on regular systems.
 :::
 
-退出则输入```exit```回车即可
+To exit, type ```exit`` and enter.
 
-删除所有LXC容器
+Delete all LXC containers
 
 ```bash
 lxc list | awk '{print $2}' | grep -v "^$" | xargs -I {} lxc delete -f {}
 ```
 
-在容器内执行删除无用日志
+Perform deletion of useless logs within a container
 
 ```bash
 sudo apt-get autoremove
@@ -239,9 +239,9 @@ sudo find /tmp -type f -delete
 sudo find /var/cache/apt/archives -type f -delete
 ```
 
-## 更新上述所有一键脚本的相关命令
+## Update all commands related to the above one-click scripts
 
-删除原始配置脚本
+Delete the original configuration script
 
 ```bash
 rm -rf /usr/local/bin/alpinessh.sh
@@ -255,7 +255,7 @@ rm -rf /root/buildone.sh
 rm -rf /root/add_more.sh
 ```
 
-下载回新版本的相关配置脚本
+Download back the relevant configuration scripts for the new version
 
 ```bash
 wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/check-dns.sh -O /usr/local/bin/check-dns.sh && chmod +x /usr/local/bin/check-dns.sh
@@ -264,4 +264,4 @@ wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/ssh.sh -O /us
 wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/alpinessh.sh -O /usr/local/bin/alpinessh.sh && chmod +x /usr/local/bin/alpinessh.sh
 ```
 
-其他一键脚本自己对应下载回来就行了
+Just download the other one-click scripts yourself.
