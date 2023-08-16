@@ -35,48 +35,46 @@ If you have time or if it's still not working, please contact [@spiritlhl_bot](h
 
 ### VPS Providers Offering KVM Virtualization with NAT
 
-VPS or dedicated servers from [interserver](https://www.interserver.net/r/802990)
+[interserver](https://www.interserver.net/r/802990) VPS or dedicated servers
 
-Las Vegas Tier 2 from [frantech](https://my.frantech.ca/aff.php?aff=5522)
+[frantech](https://my.frantech.ca/aff.php?aff=5522) Las Vegas Tier 2
 
-US Phoenix Black Friday Special from [eugamehost](https://www.eugamehost.com/clients/aff.php?aff=194)
+[eugamehost](https://www.eugamehost.com/clients/aff.php?aff=194) US Phoenix Black Friday Special
 
-Testing version from [amhost](http://amhost.net/vps/?cid=29317)
+[amhost](http://amhost.net/vps/?cid=29317) Testing version
 
-Perminu Intel and Regular 4-core versions from [digitalocean](https://m.do.co/c/e9712622ee89)
+[digitalocean](https://m.do.co/c/e9712622ee89) Perminu Intel and Regular 4-core versions
 
-Lowest configuration of AMD Ryzen KVM Server from [skrime](https://hosting.skrime.eu/a/server)
+[skrime](https://hosting.skrime.eu/a/server) Lowest configuration of AMD Ryzen KVM Server
 
-AMD KVM Server from [webdock](https://webdock.io/en?maff=wdaff--150)
+[webdock](https://webdock.io/en?maff=wdaff--150) AMD KVM Server
 
-Russian and Greek testing versions from [4vps](https://clck.ru/33VQmc)
+[4vps](https://clck.ru/33VQmc) Russian and Greek testing versions
 
-German version from [hostaris](https://deploy.hostaris.com/) (Note: Issues with the vendor's system template, IPV6 is not functional, and poor connectivity with Github)
+[hostaris](https://deploy.hostaris.com/) German version (Note: Issues with the vendor's system template, IPV6 is not functional, and poor connectivity with Github)
 
-Storage KVM server with lowest configuration from [adtaq](https://www.adtaq.com/)
+[adtaq](https://www.adtaq.com/) Storage KVM server with lowest configuration
 
-Dedicated servers from [nocix](https://www.nocix.net/)
+[nocix](https://www.nocix.net/) Dedicated servers
 
 ### VPS Providers Offering NAT with LXC Virtualization
 
-Worry-Free and Student editions from [Tencent Cloud](https://curl.qcloud.com/tPrMnfZm)
+[Tencent Cloud](https://curl.qcloud.com/tPrMnfZm) Worry-Free and Student editions
 
-KVM servers from [spectraip](https://my.spectraip.net/aff.php?aff=35)
+[spectraip](https://my.spectraip.net/aff.php?aff=35) KVM servers
 
-Lowest configuration with dedicated CPU from [Linode](https://www.linode.com/lp/refer/?r=9296554d01ecacaa0be56892fd969b557722becd)
+[Linode](https://www.linode.com/lp/refer/?r=9296554d01ecacaa0be56892fd969b557722becd) Lowest configuration with dedicated CPU
 
-Special high-configuration servers from [hosthatch](https://cloud.hosthatch.com/a/2450)
+[hosthatch](https://cloud.hosthatch.com/a/2450) Special high-configuration servers
 
-Cloud servers from [hetzner](https://hetzner.cloud/?ref=CnWVr0FGneUl)
+[hetzner](https://hetzner.cloud/?ref=CnWVr0FGneUl) Cloud servers
 
-Servers with floating IP from [rackdog](https://cloud.rackdog.com/referral/bx8fms)
+[rackdog](https://cloud.rackdog.com/referral/bx8fms) Servers with floating IP
 
-Standard Cloud servers from [vultr](https://www.vultr.com/?ref=9124520-8H)
+[vultr](https://www.vultr.com/?ref=9124520-8H) Standard Cloud servers
 
-Standard machines from [azure](https://portal.azure.com/#create/Microsoft.VirtualMachine-ARM)
+[azure](https://portal.azure.com/#create/Microsoft.VirtualMachine-ARM) Standard machines
 
 ### Currently Unavailable or Unsupported Providers
-
-(Note: The list ends here, as there's no specific information about unsupported providers)
 
 OVH
