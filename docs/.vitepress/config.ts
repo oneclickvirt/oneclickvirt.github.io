@@ -3,6 +3,9 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   lastUpdated: true,
   lang: 'zh-CN',
+  head: [
+    ['link', { rel: 'icon', href: 'https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png' }],
+  ],
   locales: {
     root: {
         lang: 'zh-CN',
@@ -11,6 +14,7 @@ export default defineConfig({
         description: '开源、易于使用的服务器虚拟化项目',
         link: '/',
         themeConfig: {
+          logo: { src: 'https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png', width: 24, height: 24 },
           lastUpdatedText: '上次更新',
           editLink: {
             pattern: 'https://github.com/oneclickvirt/oneclickvirt.github.io/edit/main/docs/:path',
@@ -46,6 +50,7 @@ export default defineConfig({
         description: 'Open source, easy to use server virtualization project',
         link: '/en_US/',
         themeConfig: {
+          logo: { src: 'https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png', width: 24, height: 24 },
           lastUpdatedText: 'Last Updated',
           editLink: {
             text: 'Edit this page on GitHub',
