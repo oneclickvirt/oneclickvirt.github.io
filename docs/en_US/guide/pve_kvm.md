@@ -6,7 +6,7 @@ outline: deep
 
 ## SSH登录说明
 
-The virtual machines created through KVM virtualization do not have the username ```root``` by default. To switch to the root user, you need to execute ```sudo -i``` .
+The virtual machines created through KVM virtualization do not have the username '''root''' by default. To switch to the root user, you need to execute '''sudo -i''' .
 
 **Of course, some templates actually allow logging in with the username ```root```, and the default root password is ```password```. You can give it a try.**
 
@@ -107,13 +107,13 @@ Below is the information for the example VM that has been set up:
 | Operating System         | debian11       |
 | Host Storage Disk        | local          |
 
-### 删除示例
+### Deletion Examples
 
-- 停止VM
-- 删除VM
-- 删除端口映射
-- 重启网络
-- 删除log文件
+- Stop VM
+- Delete VM
+- Delete port mapping
+- Restart network
+- Delete log files
 
 ```shell
 qm stop 102
@@ -125,39 +125,38 @@ systemctl restart networking.service
 rm -rf vm102
 ```
 
-## 批量开设NAT的KVM虚拟化的虚拟机
+## Batch Creation of Virtual Machines with KVM Virtualization and NAT
 
 :::warning
-初次使用前需要保证当前PVE纯净且宿主机未进行过任何端口映射，否则设置冲突可能出现BUG
+Before initial use, ensure that the current Proxmox Virtual Environment (PVE) is clean and the host machine has not undergone any port forwarding, as conflicting settings may result in bugs.
 :::
 
 :::tip
-开设前请使用screen挂起执行，避免批量开设时间过长，SSH不稳定导致中间执行中断
+Before initiating the batch creation process, please use the 'screen' command to execute it in the background. This will help avoid interruptions due to the instability of SSH caused by extended batch creation times.
 :::
 
-- 可多次运行批量生成VM
-- 自动开设NAT服务器，选项留空默认使用debian11镜像，可自定义使用镜像名字，支持的系统名字详见上文支持的镜像列表
-- 自动进行内外网端口映射，含22，80，443端口以及其他25个内外网端口号一样的端口
-- 生成后需要等待一段时间虚拟机内部的cloudinit配置好网络以及登陆信息，大概需要5分钟，每个虚拟机创建之间有间隔等待60秒避免突发性能不足
-- 默认批量开设的虚拟机网络配置为：22，80，443端口及一个25个端口区间的内外网映射
-- 可自定义批量开设的核心数，内存大小，硬盘大小，使用宿主机哪个存储盘，记得自己计算好空闲资源开设
-- 虚拟机的相关信息将会存储到WEB端对应VM的NOTES中，可在WEB端查看
-- 如果宿主机自带IPV6子网将自动附加上IPV6网络，但无公网IPV6地址
-
+- The batch creation process can be run multiple times to generate multiple virtual machines (VMs).
+- NAT servers are automatically created during the process. If left blank, the default Debian 11 image will be used. You can also customize the image name. Refer to the list of supported images in the previous section.
+- Automatic internal and external port mapping is performed, including ports 22, 80, 443, and other ports with identical internal and external numbers (25 ports in total).
+- After generation, a waiting period is required for the cloud-init configuration of the VM's network and login information to be set up. This process takes approximately 5 minutes. There is a 60-second interval between creating each VM to avoid potential performance issues.
+- The default network configuration for VMs created in batches includes port mappings for ports 22, 80, 443, and a range of 25 ports for internal and external communication.
+- You can customize the number of CPU cores, memory size, disk size, and which storage disk on the host machine to use for batch creation. Ensure you calculate available resources before proceeding.
+- Relevant information about the virtual machines will be stored in the 'NOTES' section of the corresponding VM on the web interface, where you can view them.
+- If the host machine comes with an IPv6 subnet, an IPv6 network will be automatically attached, although there will be no public IPv6 addresses available.
 Command:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/create_vm.sh -o create_vm.sh && chmod +x create_vm.sh && bash create_vm.sh
 ```
 
-开设完毕可执行```cat vmlog```查看信息，或到WEB端对应VM的NOTES中查看
+After the setup is completed, you can execute ```cat vmlog``` to view the information, or check the NOTES in the corresponding VM on the web interface.
 
-## 删除所有虚拟机
+## Delete All Virtual Machines
 
-- 删除所有VM
-- 删除所有nat的端口映射
-- 重启网络
-- 删除log文件
+- Delete all VMs
+- Delete all NAT port mappings
+- Restart the network
+- Delete log files
 
 ```shell
 for vmid in $(qm list | awk '{if(NR>1) print $1}'); do qm stop $vmid; qm destroy $vmid; rm -rf /var/lib/vz/images/$vmid*; done
@@ -170,22 +169,22 @@ rm -rf vm*
 ```
 
 :::tip
-PVE修改VM配置前都得停机先，再修改配置，修改完再启动，免得出现配置重载错误
+Before modifying the VM configuration for PVE, you must shut it down first. After making the configuration changes, start it again to avoid configuration reload errors.
 :::
 
-## 开设独立IPV4地址的虚拟机
+## Setting Up Virtual Machines with Dedicated IPv4 Addresses
 
-两个版本，各取所需
+Two versions are available, choose as needed.
 
-### 自动选择IPV4地址无需手动指定的版本
+### Version with Automatic Selection of IPv4 Address (No Manual Specification Required)
 
 :::warning
-使用前需要保证当前宿主机的IP段带了至少2个IP，且有空余的IP未配置，该空余的IP未绑定宿主机
+Before use, ensure that the current host machine has at least 2 available IP addresses within its IP range, and there are unallocated IP addresses. These unallocated IP addresses should not be bound to the host machine.
 :::
 
-- 自动检测可用的IP区间，通过ping检测空余可使用的IP，选取其中之一绑定到虚拟机上
-- 如果宿主机自带IPV6子网将可选择是否附加上IPV6地址
-- 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
+- Automatically detect available IP ranges. Use ping to identify unallocated IP addresses and select one to bind to the virtual machine.
+- If the host machine has an accompanying IPv6 subnet, there will be an option to attach an IPv6 address.
+- Relevant system information will be stored in the corresponding virtual machine's NOTE section, accessible for viewing on the web interface.
 
 Command:
 
@@ -193,36 +192,36 @@ Command:
 curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_extraip.sh -o buildvm_extraip.sh && chmod +x buildvm_extraip.sh
 ```
 
-#### 创建示例
+#### Example of Creation
 
 ```shell
-./buildvm_extraip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 是否附加IPV6(默认为N)
+./buildvm_extraip.sh VMID Username Password Number_of_CPU_Cores Memory_Size_in_MB Disk_Size_in_GB OS Storage_Disk Attach_IPV6(Default is N)
 ```
 
 ```shell
 ./buildvm_extraip.sh 152 test1 oneclick123 1 1024 10 debian12 local N
 ```
 
-上述命令意义为开设一个带独立IPV4地址的虚拟机
+The above command is used to create a virtual machine with a dedicated IPv4 address.
 
-| 属性       | 值             |
+| Attribute  | Value          |
 |------------|----------------|
 | VMID       | 152            |
-| 用户名     | test1          |
-| 密码       | oneclick123    |
-| CPU        | 1核            |
-| 内存       | 1024MB         |
-| 硬盘       | 10G            |
-| 系统       | debian12       |
-| 存储盘     | local盘        |
-| IPV6附加   | 默认不附加     |
+| Username   | test1          |
+| Password   | oneclick123    |
+| CPU        | 1 core         |
+| Memory     | 1024MB         |
+| Disk       | 10GB           |
+| OS         | debian12       |
+| Storage    | local disk     |
+| IPv6 Addon | Not attached by default |
 
-### 需要手动指定IPV4地址的版本
+### Version Requiring Manual Specification of IPV4 Address
 
-- 需要手动在命令中指定IPV4地址，且带上子网长度
-- 如果宿主机自带IPV6子网将可选择是否附加上IPV6地址
-- 如果商家有给IPV4地址和子网长度，请仔细比对，按照下面示例的命令写参数
-- 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
+- Manual specification of IPV4 address with subnet length in the command is required.
+- If the host machine comes with an IPV6 subnet, you can choose whether to add an IPV6 address additionally.
+- If the vendor has provided an IPV4 address and subnet length, please carefully compare and write the parameters in the command format shown below.
+- Relevant system information will be stored in the NOTE of the corresponding virtual machine and can be viewed on the WEB end.
 
 Command:
 
@@ -230,40 +229,40 @@ Command:
 curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_manual_ip.sh -o buildvm_manual_ip.sh && chmod +x buildvm_manual_ip.sh
 ```
 
-#### 创建示例
+#### Example Usage
 
 ```shell
-./buildvm_manual_ip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 IPV4地址 是否附加IPV6(默认为N)
+./buildvm_manual_ip.sh VMID USERNAME PASSWORD CPU_CORES MEMORY_SIZE_GB STORAGE_SIZE_GB OS STORAGE_DISK IPV4_ADDRESS ATTACH_IPV6(defaults to N)
 ```
 
 ```shell
 ./buildvm_manual_ip.sh 152 test1 oneclick123 1 1024 10 debian12 local a.b.c.d/24 N
 ```
 
-上述命令意义为开设一个带独立IPV4地址的虚拟机
+The above command is used to create a virtual machine with an independent IPV4 address.
 
-| 属性         | 值                |
+| Attribute    | Value             |
 |--------------|-------------------|
 | VMID         | 152               |
-| 用户名       | test1             |
-| 密码         | oneclick123       |
-| CPU          | 1核              |
-| 内存         | 1024MB            |
-| 硬盘         | 10G               |
-| 系统         | debian12          |
-| 存储盘       | local盘 (系统盘)  |
-| IPV4地址     | a.b.c.d           |
-| 子网         | /24 子网          |
-| IPV6         | 无                |
+| Username     | test1             |
+| Password     | oneclick123       |
+| CPU          | 1 core            |
+| Memory       | 1024MB            |
+| Disk         | 10GB              |
+| Operating System | debian12       |
+| Storage Disk | Local Disk (System Disk) |
+| IPV4 Address | a.b.c.d           |
+| Subnet       | /24 Subnet        |
+| IPV6         | None              |
 
-## 开设纯IPV6地址的虚拟机
+## Creating Virtual Machines with Pure IPv6 Addresses
 
-前提是宿主机给的是IPV6子网而不是单独一个IPV6地址，且宿主机未开启MAC地址校验
+The prerequisite is that the host provides an IPv6 subnet instead of just a standalone IPv6 address, and the host does not have MAC address verification enabled.
 
-### 自动选择IPV6地址无需手动指定
+### Automatic Selection of IPv6 Addresses without Manual Specification
 
-- 自动检测可用的IPV6区间，对应虚拟机编号的V6地址绑定到虚拟机上
-- 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
+- Automatically detect available IPv6 ranges and bind the corresponding V6 address, based on the virtual machine's number, to the virtual machine.
+- System-related information will be stored in the NOTES section of the respective virtual machine, accessible for viewing on the web interface.
 
 Command:
 
@@ -271,31 +270,31 @@ Command:
 curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_onlyv6.sh -o buildvm_onlyv6.sh && chmod +x buildvm_onlyv6.sh
 ```
 
-#### 创建示例
+#### Example Usage
 
 ```shell
-./buildvm_onlyv6.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘
+./buildvm_onlyv6.sh VMID username password CPU_cores memory_GB disk_GB operating_system storage_disk
 ```
 
 ```shell
 ./buildvm_onlyv6.sh 152 test1 oneclick123 1 1024 10 debian12 local
 ```
 
-上述命令意义为开设一个纯IPV6地址的虚拟机
+The above command is used to create a virtual machine with only IPv6 addresses.
 
-| 参数         | 值               |
-|--------------|------------------|
-| VMID         | 152              |
-| 用户名       | test1            |
-| 密码         | oneclick123      |
-| CPU          | 1核              |
-| 内存         | 1024MB           |
-| 硬盘         | 10G              |
-| 系统         | debian12         |
-| 存储盘       | local            |
+| Parameter   | Value           |
+|-------------|-----------------|
+| VMID        | 152             |
+| Username    | test1           |
+| Password    | oneclick123     |
+| CPU         | 1 core          |
+| Memory      | 1024MB          |
+| Disk        | 10GB            |
+| Operating System | debian12   |
+| Storage Disk| local           |
 
 
-## 删除vm152示例
+## Delete Example vm152
 
 ```shell
 qm stop 152
