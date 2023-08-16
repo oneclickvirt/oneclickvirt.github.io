@@ -1,29 +1,27 @@
----
-outline: deep
----
+# Introduction
 
-# 前言
+The following is an introduction to the non-customized sections. Please ensure that you don't confuse them with the customized parts.
 
-以下为非自定义部分的介绍，自定义部分有自己对应的介绍，勿弄混了
+## Project Highlights
 
-## 项目特点
+This project involves bulk or individual provisioning of NAT servers using Docker containers.
 
-通过docker批量或单独开设NAT服务器(Bulk or individual NAT server provisioning via docker)
+The default operating system used is Debian. Each container comes with one external SSH port and 25 consistent internal and external ports.
 
-默认使用debian系统，每个容器自带1个外网ssh端口，25个内外网一致端口
+The containers created by default are non-privileged and do not establish communication between the Docker daemon on the host and the containers. As a result, **containers nested within Docker virtualized NAT servers on the host will not function**.
 
-默认创建的是非特权容器，且不挂载与宿主机的docker的守护进程之间的通信，所以**宿主机创建的docker虚拟化的NAT服务器内无法再嵌套虚拟化docker**
+Due to CPU and memory limitations set on the host without utilizing cgroup drivers within containers, any server testing scripts run inside containers to assess available resources will be ineffective. The displayed resources will reflect those of the host.
 
-由于只是在宿主机进行了CPU和内存的限制未在容器内使用cgroup驱动，所以在容器内使用服务器测试脚本检测容器的可用资源是无效的，显示的会是宿主机的资源
+Since the majority of cloud servers do not enable the 'pquota' option for the XFS file system, the **default configuration involves sharing the host's hard drive, thus preventing the restriction of individual container disk sizes**.
 
-由于大部分云服务器xfs文件系统不启用pquota选项，所以**默认共享宿主机硬盘，无法限制每个容器的磁盘大小**
+## Configuration Requirements
 
-## 配置要求
+The system should have Docker installed to be operational. As long as the network can connect to GitHub's raw interface, it can be used. Hardware configuration requirements are minimal, as long as they are adequate; a spare 3GB of hard disk space is sufficient.
 
-系统可安装docker即可用，网络能连接Github的raw界面就能用，硬件配置只要不拉跨就行，空闲硬盘有3G就行
+It is recommended to increase the available SWAP virtual memory prior to provisioning NAT servers to prevent potential host performance issues due to sudden memory spikes. [Link](https://github.com/spiritLHLS/addswap)
 
-推荐在开设NAT服务器前先增加部分SWAP虚拟内存，避免突发的内存占用导致母鸡卡死 [跳转](https://github.com/spiritLHLS/addswap)
+PS: If hardware resources are somewhat limited and more restrictions are necessary, including configuration of individual IPv6 addresses and disk size limitations, consider utilizing LXD to create batch LXC virtualized containers. [Link](https://github.com/spiritLHLS/lxd)
 
-PS: 如果硬件资源只是好了一点，需要限制更多东西并需要配置IPV6独立地址和限制硬盘大小，可使用LXD批量开LXC虚拟化的容器 [跳转](https://github.com/spiritLHLS/lxd)
+PS: If hardware resources are abundant and ample, consider using Proxmox Virtual Environment (PVE) to provision batch KVM virtualized machines. [Link](https://github.com/spiritLHLS/pve)
 
-PS: 如果硬件非常好资源很多，可使用PVE批量开KVM虚拟化的虚拟机 [跳转](https://github.com/spiritLHLS/pve)
+Please note that the original formatting has been preserved and enclosed within ``` and ``` for your convenience during copying. No character escaping has been applied.

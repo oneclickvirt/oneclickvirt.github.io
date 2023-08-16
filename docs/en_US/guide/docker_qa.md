@@ -2,66 +2,66 @@
 outline: deep
 ---
 
-# 解惑
+# Dispel doubts
 
-## 常见的一些docker命令
+## Common Docker Commands
 
-查询某个容器的实时占用
-
-```
-docker stats 容器名字
-```
-
-进入某个容器
+Check real-time resource usage of a specific container
 
 ```
-docker exec -it 容器名字 /bin/bash
+docker stats <container_name>
 ```
 
-清理 Docker 缓存，清理未使用的资源，包括镜像、容器、网络等
+Enter a specific container
+
+```
+docker exec -it <container_name> /bin/bash
+```
+
+Clean Docker cache, remove unused resources including images, containers, networks, etc.
 
 ```
 docker system prune -a
 ```
 
-卸载所有docker的镜像和容器
+Uninstall all Docker images and containers
 
 ```
 docker rm -f $(docker ps -aq); docker rmi $(docker images -aq)
 ```
 
-查看对应容器日志
+View logs of a specific container
 
 ```
-docker logs 容器名字或ID
+docker logs <container_name_or_ID>
 ```
 
-查看docker整体的disk占用
+View overall disk usage of Docker
 
 ```
 docker system df
 ```
 
-查看所有容器
+List all containers
 
 ```
 docker ps -a
 ```
 
-查看所有镜像
+List all images
 
 ```
 docker images
 ```
 
-删除某个特定容器
+Remove a specific container
 
 ```
-docker rm -f 容器名字或ID
+docker rm -f <container_name_or_ID>
 ```
 
-删除某个特定镜像
+Remove a specific image
 
 ```
-docker rmi 镜像名字或ID
+docker rmi <image_name_or_ID>
 ```

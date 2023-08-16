@@ -3,15 +3,15 @@ outline: deep
 ---
 
 
-# 前言
+# Preface
 
-支持开设 Docker 虚拟化的各系统，含 Linux、Android、Windows 系统
+Support for running Docker virtualization on various systems, including Linux, Android, and Windows.
 
-## 环境预设
+## Environment Setup
 
-- 检测环境
-- 安装docker和其他预制组件
-- 下载默认需要的一些配置脚本
+- Check the environment
+- Install Docker and other prerequisite components
+- Download some default configuration scripts required by default
 
 Command:
 
@@ -19,15 +19,15 @@ Command:
 curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/dockerinstall.sh -o dockerinstall.sh && chmod +x dockerinstall.sh && bash dockerinstall.sh
 ```
 
-## 开设虚拟内存
+## Setting Up Virtual Memory
 
 :::warning
-内存开点swap免得机器炸了
+Allocate some swap space to prevent your machine from crashing.
 :::
 
-单位换算：输入 1024 产生 1G SWAP-虚拟内存，虚拟内存占用硬盘空间，当实际内存不够用时将自动使用虚拟内存做内存使用，但随之带来IO高占用以及CPU性能占用
+Unit conversion: Inputting 1024 results in 1G of SWAP - virtual memory. Virtual memory occupies disk space and is automatically utilized when the physical memory is insufficient. However, this leads to high IO usage and CPU performance overhead.
 
-建议只开实际内存大小两倍大小的虚拟内存
+It is recommended to allocate virtual memory twice the size of your physical memory.
 
 Command:
 
