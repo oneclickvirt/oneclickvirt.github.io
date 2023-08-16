@@ -50,3 +50,5 @@ docker run -idt --network host \
 --hostname pve \
 spiritlhl/pve:7_aarch64
 ```
+
+开设出的面板实际是开设在容器内的，但网络已使用host模式，PVE的端口约等于就使用的宿主机的端口，正常使用即可

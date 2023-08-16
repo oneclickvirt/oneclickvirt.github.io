@@ -73,7 +73,7 @@ Command:
 curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/rules.sh -o rules.sh && chmod +x rules.sh && bash rules.sh
 ```
 
-## 使用screen配置监控屏蔽某些进程的执行遇到某些进程的出现直接关闭容器
+## 使用screen配置监控屏蔽某些进程的Command:遇到某些进程的出现直接关闭容器
 
 - 如需停止监控可使用```screen```命令停止```lxc_moniter```这个名字的窗口并删除
 - (***非必须***，该脚本仅仅是为了防止容器滥用方便，不装的也没问题)
