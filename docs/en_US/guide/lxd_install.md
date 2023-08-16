@@ -2,13 +2,13 @@
 outline: deep
 ---
 
-# LXD主体安装
+# LXD Installation Guide
 
-## 手动安装
+## Manual Installation
 
-新手推荐，避免有bug不知道怎么修，当然如果只是图方便又是老手懂排查BUG，用后面的一键安装也行
+Recommended for beginners to avoid potential troubleshooting. However, if you're experienced and comfortable with debugging bugs, you can also use the later one-click installation method for convenience.
 
-### 关闭防火墙
+### Disable Firewall
 
 ```bash
 apt update
@@ -16,11 +16,11 @@ apt install curl wget sudo dos2unix ufw jq -y
 ufw disable
 ```
 
-### 开设虚拟内存SWAP
+### Enabling Virtual Memory SWAP
 
-内存看你开多少小鸡，这里如果要开8个，换算需要2G内存，实际内存如果是512MB内存，还需要开1.5G，保守点开2G虚拟内存即可
+The amount of memory depends on how many instances you want to run. If you want to run 8 instances and calculate, you'll need 2GB of memory. If your actual physical memory is 512MB, you'll need an additional 1.5GB. To be cautious, allocate 2GB of virtual memory.
 
-执行下面命令，输入1，再输入2048，代表开2G虚拟内存
+Execute the following commands: Enter '1', then enter '2048'. This signifies allocating 2GB of virtual memory.
 
 Command:
 
@@ -28,9 +28,9 @@ Command:
 curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/swap.sh -o swap.sh && chmod +x swap.sh && bash swap.sh
 ```
 
-### 安装LXD
+### Installing LXD
 
-实际swap开的虚拟内存应该是实际内存的2倍，也就是开1G是合理的，上面我描述的情况属于超开了
+Actually, the virtual memory allocated for swap should be twice the size of the actual memory. So, it's reasonable to allocate 1GB if the actual memory is 500MB. The scenario I described above is an excessive allocation.
 
 ```
 apt install snapd -y
@@ -38,62 +38,62 @@ snap install lxd
 /snap/bin/lxd init
 ```
 
-如果上面的命令中出现下面的错误
+If the following error occurs in the above command
 
 (snap "lxd" assumes unsupported features: snapd2.39 (try to update snapd and refresh the core snap))
 
-使用命令修补后再进行lxd的安装
+Use the command patch before installing lxd
 
 ```
 snap install core
 ```
 
-如果无异常，上面三行命令执行结果如下
+If there are no exceptions, the results of the above three lines of commands are as follows
 
 ![图片](https://user-images.githubusercontent.com/103393591/233270028-5a43d0f7-45f5-4175-969e-d4d182cb877a.png)
 
-一般的选项回车默认即可
+Just enter the default for the normal options
 
-选择配置物理盘大小(提示默认最小1GB那个选项)，一般我填空闲磁盘大小减去内存大小后乘以0.95并向下取整，这里我填了10GB
+Choose the size of the physical disk (hint: select the default option with a minimum of 1GB). Generally, I fill in the available disk space minus the memory size, then multiply by 0.95 and round down. Here, I entered 10GB.
 
-提示带auto的更新image的选项记得选no，避免更新占用系统
+Remember to select 'no' for options containing 'auto' when prompted to update the image, in order to avoid occupying the system.
 
-测试lxc有没有软连接上
+Test whether symbolic links are functioning in LXC.
 
 ```
 lxc -h
 ```
 
-如果报错则执行以下命令软连接lxc命令
+If an error is reported then execute the following command to soft connect the lxc command
 
 ```bash
 ! lxc -h >/dev/null 2>&1 && echo 'alias lxc="/snap/bin/lxc"' >> /root/.bashrc && source /root/.bashrc
 export PATH=$PATH:/snap/bin
 ```
 
-连接后再测试lxc命令是否有报错找不到
+After connecting, test the lxc command again to see if there is an error about not being able to find the
 
-## 一键安装
+## One-Click Installation
 
 :::warning
-如果是全新的服务器，务必保证apt update和apt install curl都无问题再执行本脚本
+If this is a new server, make sure that both 'apt update' and 'apt install curl' are working properly before executing this script.
 :::
 
 :::tip
-且自开机起最好等待5分钟后再执行以下命令，避免系统默认设置中就执行了本脚本导致apt源卡死
+It's recommended to wait for at least 5 minutes after the system boots up before executing the following commands. This is to avoid the script being executed by the default system settings, which could cause issues with apt sources.
 :::
 
-- 环境要求：Ubuntu 18+(推荐)，Debian 8+(仅限x86_64架构)
+- Prerequisites: Ubuntu 18+ (recommended), Debian 8+ (x86_64 architecture only)
 
-**如果是Debian系的宿主机，务必在screen中执行本脚本，避免长期运行时SSH中断导致ZFS编译安装失败**
+**If you are on a Debian-based host, be sure to execute this script within a 'screen' session to prevent ZFS compilation installation failure due to SSH interruptions during long-term runs.**
 
-这里的虚拟内存是说要开的SWAP大小，存储池则是你所有要开的小鸡占的盘的大小的总和
+The virtual memory mentioned here refers to the desired SWAP size, and the storage pool represents the total size of all disks allocated for your virtual machines.
 
-环境安装过程中**可能需要重启服务器以加载含zfs的内核，然后再次执行安装命令，一切以运行后命令行的提示为准**
+During the environment installation process, **you might need to restart the server to load the kernel with ZFS support and then execute the installation command again. Follow the prompts in the command line after running for accurate instructions.**
 
-如果脚本提示重启系统后需要再次执行脚本，第二次执行安装脚本仍提示重启系统加载内核，那么意味着内核在上一次加载中失败了，最好重装宿主机系统为ubuntu系解决这个问题
+If the script prompts you to restart the system and execute the script again, and if the second execution still requires a system restart to load the kernel, it means the kernel loading failed during the previous attempt. It's recommended to reinstall the host system using an Ubuntu-based version to resolve this issue.
 
-每次执行脚本都需要输入一次初始化的配置，所以遇到脚本提示需重启系统再次执行，那么就得再次输入初始化的配置
+Each time you run the script, you'll need to input the initialization configuration. So, if the script prompts you to restart the system and execute again, you'll need to input the initialization configuration again.
 
 Command:
 
@@ -101,6 +101,6 @@ Command:
 curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/lxdinstall.sh -o lxdinstall.sh && chmod +x lxdinstall.sh && bash lxdinstall.sh
 ```
 
-初始化配置的例子：
+Example of initialization configuration:
 
-如果系统盘除去已占用空间还有18G硬盘空余，想开2G虚拟内存(2048MB的SWAP)，15G的存储池，按照命令行的提示则依次输入```2048```和```15```
+If there is 18GB of unused disk space on the system disk, after deducting the space already occupied, and you want to allocate 2GB of virtual memory (2048MB of SWAP) and a 15GB storage pool, then following the prompts in the command line, enter ```2048``` and ```15```.
