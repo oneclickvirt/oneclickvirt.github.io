@@ -10,7 +10,7 @@ If you don't know how to choose an option during installation, just press enter.
 
 :::tip
 I recommend debian11 instead of debian12, because the latter is a stable version but I don't know if there are any undiscovered bugs, and the debian11 installation is currently more stable.
-:::.
+:::
 
 - The installation is the latest PVE from the apt source at the moment.
 - For example, debian10 is pve6.4, debian11 is pve7.x, debian12 is pve8.x
@@ -44,7 +44,7 @@ bash install_pve.sh
 
 :::tip
 After successful installation, the web page may not be safe to open, click on Advanced or More Options and insist on accessing it!
-:::.
+:::
 
 The login information is your SSH account and password.
 
