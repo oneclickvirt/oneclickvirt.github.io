@@ -3,6 +3,12 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   lastUpdated: true,
   lang: 'zh-CN',
+  sitemap: {
+    hostname: 'https://virt.spiritlhl.net',
+    transformItems(items) {
+      return items.filter((item) => !item.url.includes('migration'))
+    }
+  },
   head: [
     ['link', { rel: 'icon', href: 'https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png' }],
     ['meta', { name: 'google-site-verification', content: 'wdrGBim_2XmtMrqxivze70saMiPQAiOhpmN3KAWb0Sw' }],
