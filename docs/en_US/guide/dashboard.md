@@ -2,37 +2,35 @@
 outline: deep
 ---
 
-## 准备工作  
+## Preparation Work  
 
-需要虚拟化出服务器，你需要：
+To virtualize a server, you will need:
 
-1. 一台可以连接公网的服务器( VPS 或 Dedicated Server)，最好能完美访问 Github 的 RAW 页面，部分项目部分组件可能未使用 CDN 加速
+1. A server (VPS or Dedicated Server) that can connect to the public internet. It's preferable if this server can access GitHub's RAW pages perfectly, as some projects and components might not use CDN acceleration.
 
-::: tip  
-如果您位于中国大陆，访问 Github 有困难，请注意配套脚本和项目是否有说明已使用 CDN 加速
-:::
-
-2. 本地可以稳定连接SSH，如果不能稳定连接，请使用```screen```命令创建窗口后，在窗口内执行命令
+2. A stable SSH connection from your local machine. If the connection isn't stable, you can use the ```screen``` command to create a window and execute commands within that window.
 
 ::: tip  
-不会用screen命令的，自行查找相关教程学习，或者用tmux替代也行
+If you're unfamiliar with the ```screen``` command, please search for relevant tutorials to learn it, or you can use ```tmux``` as an alternative.
 :::
 
-3. 确保服务器的系统和硬件满足对应项目的要求，详见对应项目说明
+3. Ensure that the server's system and hardware meet the requirements specified by the corresponding project. Refer to the project's documentation for detailed information.
 
-**本文档将以VPS作为范例，且该VPS纯净，无原生环境问题，如有必要请重装系统保证初始环境的纯净**  
+**This document will use a VPS as an example, and the VPS should be clean without any native environment issues. If necessary, reinstall the system to ensure the initial environment's cleanliness.**
 
 :::warning  
-PVE项目可能造成宿主机出现问题，如果你不会看Bug和修复系统，那么不建议你在生产环境中使用，使用PVE相关脚本请确保宿主机随时可重装系统  
-:::  
+The PVE project might cause problems on the host machine. If you're not familiar with debugging bugs and fixing system issues, it's not recommended to use PVE in a production environment. When using PVE-related scripts, make sure the host machine can be reinstalled at any time.
+:::
 
-## 项目仓库
+Please make sure to keep the original formatting by enclosing the translation in ``` and ``` for easy copying.
 
-欢迎Star和Fork
+## Project Repository
+
+Welcome to Star and Fork
 
 ### PVE
 
-可开设KVM虚拟化的虚拟机、LXC虚拟化的容器
+Allows for the creation of KVM virtualized virtual machines and LXC virtualized containers.
 
 [https://github.com/spiritLHLS/pve](https://github.com/spiritLHLS/pve)
 
@@ -40,7 +38,7 @@ PVE项目可能造成宿主机出现问题，如果你不会看Bug和修复系�
 
 ### LXD
 
-可开设LXC虚拟化的容器
+LXC Virtualization Containers Can Be Created.
 
 [https://github.com/spiritLHLS/lxd](https://github.com/spiritLHLS/lxd)
 
@@ -48,7 +46,7 @@ PVE项目可能造成宿主机出现问题，如果你不会看Bug和修复系�
 
 ### Docker
 
-可开设Docker虚拟化的容器
+Docker virtualized containers Can Be Created.
 
 [https://github.com/spiritLHLS/docker](https://github.com/spiritLHLS/docker)
 

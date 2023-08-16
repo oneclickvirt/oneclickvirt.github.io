@@ -1,4 +1,4 @@
-## 致谢
+## Acknowledgements
 
 https://forum.proxmox.com/
 
@@ -22,4 +22,4 @@ https://github.com/jiangcuo/Proxmox-Arm64
 
 https://github.com/jiangcuo/run_proxmox_in_docker
 
-感谢 [@Ella-Alinda](https://github.com/Ella-Alinda) 提供的PVE指导
+Thank [@Ella-Alinda](https://github.com/Ella-Alinda) for providing PVE guidance.

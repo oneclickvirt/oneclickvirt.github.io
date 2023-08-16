@@ -2,55 +2,48 @@
 outline: deep
 ---
 
-# 使用Docker一键安装某些容器的脚本
+# Script for One-Click Installation of Certain Containers using Docker
 
-每个容器都有对应的配置要求，自行查看
+Each container has specific configuration requirements; please refer to them individually.
 
-## 一键开设Android系统的容器
+## One-Click Setup of Android System Container
 
-- 自定义安卓版本
-- 自动创建带校验的web网站
-- 自动进行nginx安装和反向代理的配置，可选择是否绑定域名，默认回车不绑定使用80端口
-- 无需考虑宿主机是否支持嵌套虚拟化
-- 支持x86_64和ARM架构
+- Customizable Android version
+- Automatically creates a validated web website
+- Automatically installs Nginx and configures reverse proxy. Option to bind a domain is available. Default is port 80 if no domain binding is chosen.
+- No need to worry about host machine supporting nested virtualization
+- Supports x86_64 and ARM architectures
 
-**宿主机的配置至少要有1核2G内存15G硬盘，否则开设可能会导致宿主机卡死**
+**Host machine should have a minimum configuration of 1 core, 2GB RAM, and 15GB storage, else starting the setup might lead to host machine freezing.**
 
-安卓版本越新占用越大，以上的配置要求是最低版本安卓的配置要求 (个人测试到 12.0.0-latest 的tag可用，更高版本映射白屏了，自己测试哪个能用吧)
+Newer Android versions occupy more resources. The above configuration requirements are for the minimum version of Android. (Personally tested with the tag "12.0.0-latest", higher versions resulted in a blank screen. Test which version works for you.)
 
-**开设**
+**Setup:**
 
-国际
+Command:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/create_android.sh -o create_android.sh && chmod +x create_android.sh && bash create_android.sh
 ```
 
-国内
+After executing the command, follow the prompts to input the required information. Make sure to choose the version by entering the corresponding number index. Once the installation is complete, open ```YourMachineIPv4+80Port``` to log in.
+
+If you need to check the generated Android information and web login details, execute ```cat /root/android_info``` to retrieve the information.
+
+Default username: ```onea```
+Default password: ```oneclick```
+
+For remote desktop, click on ```H264 Converter``` to initiate the redirection.
+
+**Please note that currently only one Android container can be generated. Do not generate duplicates. If you need to replace the version, please execute the subsequent commands after deletion.**
+
+**Deletion:**
+
+- Delete the container
+- Delete the corresponding container image
+- Delete the configuration file
 
 ```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/create_android.sh -o create_android.sh && chmod +x create_android.sh && bash create_android.sh
-```
-
-命令执行后按照提示输入即可，注意选择版本输入的是序号，对应选项的数字序号，安装完毕后打开```本机IPV4+80端口```可登录
-
-如果需要查询生成的安卓信息和web登录信息，执行```cat /root/android_info```可查询信息
-
-默认的用户名 ```onea```
-
-默认密码 ```oneclick```
-
-远程的桌面点击```H264 Converter```跳转就是了
-
-**暂时只支持生成一个安卓容器，勿要重复生成，如需替换版本请执行后续命令删除后再次开设**
-
-**删除**
-
-- 删除容器
-- 删除容器对应镜像
-- 删除配置文件
-
-```
 docker rm -f android
 docker rm -f scrcpy_web
 docker rmi $(docker images | grep "redroid" | awk '{print $3}')
@@ -72,7 +65,7 @@ rm -rf /root/android_info
 
 执行
 
-```
+```shell
 egrep -c '(vmx|svm)' /proc/cpuinfo
 ```
 
@@ -80,7 +73,7 @@ egrep -c '(vmx|svm)' /proc/cpuinfo
 
 然后需要先设置docker切换使用v1版cgroup启动
 
-```
+```shell
 sed -i 's/GRUB_CMDLINE_LINUX="\(.*\)"/GRUB_CMDLINE_LINUX="\1 systemd.unified_cgroup_hierarchy=0"/' /etc/default/grub
 update-grub
 ls
@@ -193,14 +186,8 @@ docker rm -f 容器的ID
 
 **宿主机的配置至少要有1核2G内存10G硬盘，否则开设可能会导致宿主机卡死！**
 
-国际
+Command:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/extra_scripts/guacamole.sh -o guacamole.sh && chmod +x guacamole.sh && bash guacamole.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/main/extra_scripts/guacamole.sh -o guacamole.sh && chmod +x guacamole.sh && bash guacamole.sh
 ```

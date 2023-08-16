@@ -21,16 +21,10 @@ outline: deep
 
 下载脚本
 
-国际
+Command:
 
 ```bash
 curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/build_ipv6_network.sh -o build_ipv6_network.sh && chmod +x build_ipv6_network.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/build_ipv6_network.sh -o build_ipv6_network.sh && chmod +x build_ipv6_network.sh
 ```
 
 自动为容器配置IPV6映射地址
@@ -73,16 +67,10 @@ rm /usr/local/bin/add-ipv6.sh
 - (***非必须***，该脚本仅仅是为了防止容器滥用方便，不装的也没问题)
 - 事前预防
 
-国际
+Command:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/rules.sh -o rules.sh && chmod +x rules.sh && bash rules.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/rules.sh -o rules.sh && chmod +x rules.sh && bash rules.sh
 ```
 
 ## 使用screen配置监控屏蔽某些进程的执行遇到某些进程的出现直接关闭容器
@@ -91,33 +79,22 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/mai
 - (***非必须***，该脚本仅仅是为了防止容器滥用方便，不装的也没问题)
 - 事后停机
 
-国际
+Command:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/build_monitor.sh -o build_monitor.sh && chmod +x build_monitor.sh && bash build_monitor.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/build_monitor.sh -o build_monitor.sh && chmod +x build_monitor.sh && bash build_monitor.sh
 ```
 
 ## 一键安装开lxd母鸡所需要的带vnstat环境的常用预配置环境
 
 - (***非必须***，该脚本仅仅是为了站点对接监控方便，不装的也没问题)
 
-国际
+Command:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/backend.sh -o backend.sh && chmod +x backend.sh && bash backend.sh
 ```
 
-国内
-
-```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/backend.sh -o backend.sh && chmod +x backend.sh && bash backend.sh
-```
 
 ## 一键安装母鸡可视化操作的面板
 

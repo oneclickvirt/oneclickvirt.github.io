@@ -41,14 +41,8 @@ PS: 如果硬件资源更烂，虚拟化不支持，可使用docker版本的，�
 
 **使用后续脚本的务必执行本命令检测母鸡是否符合要求**
 
-国际
+Command:
 
 ```
 bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/pre_check.sh)
-```
-
-国内
-
-```
-bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/pre_check.sh)
 ```

@@ -28,16 +28,10 @@ outline: deep
 
 下载脚本
 
-国际
+Command:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct.sh -o buildct.sh && chmod +x buildct.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct.sh -o buildct.sh && chmod +x buildct.sh
 ```
 
 * 系统支持：
@@ -117,16 +111,10 @@ systemctl restart networking.service
 - 容器的相关信息将会存储到对应的容器的NOTE中，可在WEB端查看
 - 如果宿主机自带IPV6子网将自动附加上IPV6网络，但无公网IPV6地址
 
-国际
+Command:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/create_ct.sh -o create_ct.sh && chmod +x create_ct.sh && bash create_ct.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/create_ct.sh -o create_ct.sh && chmod +x create_ct.sh && bash create_ct.sh
 ```
 
 开设完毕可执行```cat ctlog```查看信息，或在web端的NOTES查看
@@ -157,16 +145,10 @@ systemctl restart networking.service
 - 自动检测可用的IPV6区间，对应容器编号的V6地址绑定到容器上
 - 系统的相关信息将会存储到对应的容器的NOTE中，可在WEB端查看
 
-国际
+Command:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct_onlyv6.sh -o buildct_onlyv6.sh && chmod +x buildct_onlyv6.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct_onlyv6.sh -o buildct_onlyv6.sh && chmod +x buildct_onlyv6.sh
 ```
 
 #### 创建示例

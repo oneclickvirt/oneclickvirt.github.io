@@ -1,4 +1,4 @@
-## 致谢
+## Acknowledgements
 
 https://hub.docker.com/_/debian
 

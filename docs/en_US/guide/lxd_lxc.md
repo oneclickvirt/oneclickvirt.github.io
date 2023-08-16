@@ -10,16 +10,10 @@ outline: deep
 
 下载开机脚本是**非必须**的，如果你使用过一键安装LXD的命令，自动已下载对应的开机脚本，不需要重复下载该脚本
 
-国际
+Command:
 
 ```shell
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
 ```
 
 ### 使用方法
@@ -108,16 +102,10 @@ lxc若命令无问题，执行初始化开小鸡，这一步最好放```screen``
 
 执行下面命令加载开机脚本
 
-国际
+Command:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/init.sh -o init.sh && chmod +x init.sh && dos2unix init.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/init.sh -o init.sh && chmod +x init.sh && dos2unix init.sh
 ```
 
 下面命令为开小鸡名字前缀为**tj**的**10**个小鸡
@@ -142,16 +130,10 @@ lxc若命令无问题，执行初始化开小鸡，这一步最好放```screen``
 
 加载开机脚本
 
-国际
+Command:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/least.sh -o least.sh && chmod +x least.sh && dos2unix least.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/least.sh -o least.sh && chmod +x least.sh && dos2unix least.sh
 ```
 
 下列命令最后一行为开小鸡名字前缀为**tj**的**10**个小鸡
@@ -169,16 +151,10 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/mai
 
 如果需要多次批量生成小鸡，可使用
 
-国际
+Command:
 
 ```
 curl -L https://github.com/spiritLHLS/lxd/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://github.com/spiritLHLS/lxd/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
 ```
 
 可多次运行批量生成小鸡，且继承前面已生成的部分在后面添加，可自定义内存和硬盘大小

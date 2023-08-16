@@ -4,7 +4,7 @@ outline: deep
 
 # PVE主体安装
 
-安装过程中遇到选项不会选的可无脑按回车，本项目所有脚本内置国内外IP自动判断，使用的是不同的安装源与配置文件，有使用CDN加速镜像下载
+安装过程中遇到选项不会选的可无脑按回车
 
 ## 一键安装PVE
 
@@ -30,16 +30,10 @@ outline: deep
 
 如需修改请使用```chattr -i 文件路径```取消只读锁定，修改完毕请执行```chattr +i 文件路径```进行只读锁定
 
-国际
+Command:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/install_pve.sh -o install_pve.sh && chmod +x install_pve.sh && bash install_pve.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/install_pve.sh -o install_pve.sh && chmod +x install_pve.sh && bash install_pve.sh
 ```
 
 或
@@ -63,16 +57,10 @@ bash install_pve.sh
 - 重启系统前推荐挂上[nezha探针](https://github.com/naiba/nezha)方便在后台不通过SSH使用命令行，避免SSH可能因为商家奇葩的预设可能导致重启后root密码丢失
 - 执行```reboot```前需要等待后台任务执行完毕，一些宿主机的系统apt命令执行很慢，得等一会才能执行完毕，当然大部分的机器没这么烂
 
-国际
+Command:
 
 ```shell
 bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/build_backend.sh)
-```
-
-国内
-
-```shell
-bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/build_backend.sh)
 ```
 
 ## 自动配置宿主机的网关
@@ -95,16 +83,10 @@ bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubus
 
 开NAT的IPV4的虚拟机时使用vmbr1，gateway使用```172.16.1.1```，IPV4/CIDR使用```172.16.1.x/24```，这里的x不能是1，当然如果后续使用本套脚本无需关注这点细枝末节的东西
 
-国际
+Command:
 
 ```shell
 bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/build_nat_network.sh)
-```
-
-国内
-
-```shell
-bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/build_nat_network.sh)
 ```
 
 :::tip

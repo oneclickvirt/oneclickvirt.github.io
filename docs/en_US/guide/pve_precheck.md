@@ -36,16 +36,10 @@ outline: deep
 
 建议只开实际内存大小两倍大小的虚拟内存
 
-国际
+Command:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
 ```
 
 ## 检测环境
@@ -57,16 +51,10 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/addswap
 - 检测系统环境是否可嵌套虚拟化KVM类型的服务器
 - 不可嵌套虚拟化KVM类型的服务器也可以开LXC虚拟化的服务器，但不推荐安装PVE，不如使用[LXD](https://github.com/spiritLHLS/lxd)
 
-国际
+Command:
 
 ```bash
 bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/check_kernal.sh)
-```
-
-国内
-
-```bash
-bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/check_kernal.sh)
 ```
 
 如果你需要更新IPV6信息再查询，那么执行以下命令后再查询

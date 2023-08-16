@@ -12,17 +12,10 @@ KVM虚拟化开设出的虚拟机，默认生成的用户名不是```root```，�
 
 登录SSH切换为root权限后，一定要修改root密码，可以使用以下命令修改
 
-国际
+Command:
 
 ```bash
 bash <(curl -sSL https://raw.githubusercontent.com/fscarmen/tools/main/root.sh) [PASSWORD]
-```
-
-国内
-
-
-```bash
-bash <(curl -sSL https://ghproxy.com/https://raw.githubusercontent.com/fscarmen/tools/main/root.sh) [PASSWORD]
 ```
 
 ## 部分注意事项
@@ -71,16 +64,10 @@ bash <(curl -sSL https://ghproxy.com/https://raw.githubusercontent.com/fscarmen/
 - 虚拟机的相关信息将会存储到WEB端对应VM的NOTES中，可在WEB端查看
 - 如果宿主机自带IPV6子网将自动附加上IPV6网络，但无公网IPV6地址
 
-国际
+Command:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm.sh -o buildvm.sh && chmod +x buildvm.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm.sh -o buildvm.sh && chmod +x buildvm.sh
 ```
 
 ### 使用方法
@@ -159,16 +146,10 @@ rm -rf vm102
 - 虚拟机的相关信息将会存储到WEB端对应VM的NOTES中，可在WEB端查看
 - 如果宿主机自带IPV6子网将自动附加上IPV6网络，但无公网IPV6地址
 
-国际
+Command:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/create_vm.sh -o create_vm.sh && chmod +x create_vm.sh && bash create_vm.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/create_vm.sh -o create_vm.sh && chmod +x create_vm.sh && bash create_vm.sh
 ```
 
 开设完毕可执行```cat vmlog```查看信息，或到WEB端对应VM的NOTES中查看
@@ -208,16 +189,10 @@ PVE修改VM配置前都得停机先，再修改配置，修改完再启动，免
 - 如果宿主机自带IPV6子网将可选择是否附加上IPV6地址
 - 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
 
-国际
+Command:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_extraip.sh -o buildvm_extraip.sh && chmod +x buildvm_extraip.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_extraip.sh -o buildvm_extraip.sh && chmod +x buildvm_extraip.sh
 ```
 
 #### 创建示例
@@ -251,16 +226,10 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 - 如果商家有给IPV4地址和子网长度，请仔细比对，按照下面示例的命令写参数
 - 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
 
-国际
+Command:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_manual_ip.sh -o buildvm_manual_ip.sh && chmod +x buildvm_manual_ip.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_manual_ip.sh -o buildvm_manual_ip.sh && chmod +x buildvm_manual_ip.sh
 ```
 
 #### 创建示例
@@ -298,16 +267,10 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 - 自动检测可用的IPV6区间，对应虚拟机编号的V6地址绑定到虚拟机上
 - 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
 
-国际
+Command:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_onlyv6.sh -o buildvm_onlyv6.sh && chmod +x buildvm_onlyv6.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_onlyv6.sh -o buildvm_onlyv6.sh && chmod +x buildvm_onlyv6.sh
 ```
 
 #### 创建示例

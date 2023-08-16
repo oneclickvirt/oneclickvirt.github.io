@@ -22,16 +22,10 @@ ufw disable
 
 执行下面命令，输入1，再输入2048，代表开2G虚拟内存
 
-国际
+Command:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/swap.sh -o swap.sh && chmod +x swap.sh && bash swap.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/swap.sh -o swap.sh && chmod +x swap.sh && bash swap.sh
 ```
 
 ### 安装LXD
@@ -101,16 +95,10 @@ export PATH=$PATH:/snap/bin
 
 每次执行脚本都需要输入一次初始化的配置，所以遇到脚本提示需重启系统再次执行，那么就得再次输入初始化的配置
 
-国际
+Command:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/lxdinstall.sh -o lxdinstall.sh && chmod +x lxdinstall.sh && bash lxdinstall.sh
-```
-
-国内
-
-```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/lxdinstall.sh -o lxdinstall.sh && chmod +x lxdinstall.sh && bash lxdinstall.sh
 ```
 
 初始化配置的例子：
