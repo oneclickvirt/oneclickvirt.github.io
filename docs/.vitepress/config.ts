@@ -30,6 +30,8 @@ export default defineConfig({
     ['link', { rel: 'icon', href: 'https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png' }],
     ['meta', { name: 'google-site-verification', content: 'wdrGBim_2XmtMrqxivze70saMiPQAiOhpmN3KAWb0Sw' }],
     // <meta name="google-site-verification" content="wdrGBim_2XmtMrqxivze70saMiPQAiOhpmN3KAWb0Sw" />
+    ['meta', { name: 'msvalidate.01', content: 'FC9B6B8BEB3D3B56844ADA69766DBB24' }],
+    // <meta name="msvalidate.01" content="FC9B6B8BEB3D3B56844ADA69766DBB24" />
     ['script', {
       async: true,
       src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5991535488582679",
