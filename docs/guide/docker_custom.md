@@ -48,7 +48,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/
 
 ```
 docker rm -f android
-	@@ -60,147 +60,145 @@ rm -rf /etc/nginx/passwd_scrcpy_web
+rm -rf /etc/nginx/passwd_scrcpy_web
 rm -rf /root/android_info
 ```
 
@@ -103,24 +103,24 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onewind
 开设前务必在screen窗口中执行，避免SSH长期链接造成掉线卡死
 
 ```
-./onewindows.sh 系统版本 RDP的端口 是否为外网映射(留空则默认是N，可选Y)
+./onewindows.sh 容器名字 系统版本 RDP的端口 是否为外网映射(留空则默认是N，可选Y)
 ```
 
 开设前需要确认宿主机至少有镜像大小的两倍大小加10G硬盘的大小，因为docker在创建容器时得先将镜像拉到本地再创建
 
 创建过程中，硬盘占用峰值为```宿主机系统+镜像大小+容器大小```
 
-比如开设占用最低的 Windows 2019 容器，映射外网RDP端口为13389，设置为外网映射(映射到你的服务器外网IPV4地址)
+比如开设容器名字为```test```，占用最低的```Windows 2019```系统的容器，映射外网RDP端口为```13389```，设置为```外网映射```(映射到你的服务器外网IPV4地址)
 
 ```
-./onewindows.sh 2019 13389 Y
+./onewindows.sh test 2019 13389 Y
 ```
 
 开设后默认的用户名是```Administrator```和```vagrant```
 
 默认的密码是```vagrant```
 
-如果你选择开设映射的外网端口，务必登录后修改对应账户的密码(两个账户都可能有，自行尝试)，否则可能被人爆破
+如果你选择开设映射的外网端口，务必登录后修改对应账户的密码(两个账户都可能有，自行尝试)，否则可能被人爆破滥用
 
 **删除**
 
