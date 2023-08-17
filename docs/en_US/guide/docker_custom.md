@@ -104,9 +104,10 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onewind
 Make sure to execute the following commands in a 'screen' session before proceeding, to avoid potential disconnection or freezing of the SSH connection.
 
 ```
-./onewindows.sh <system_version> <RDP_port> <external_mapping>
+./onewindows.sh <container_name> <system_version> <RDP_port> <external_mapping>
 ```
 
+- Replace <container_name> with the name.
 - Replace <system_version> with the desired Windows system version.
 - Replace <RDP_port> with the port number for RDP access.
 - If you want to enable external mapping, replace <external_mapping> with 'Y'. If not, leave it blank or use 'N'.
@@ -115,15 +116,15 @@ Before initiating the setup, ensure that the host machine has a disk size at lea
 
 During the creation process, the peak disk usage will be ```host_system_size + image_size + container_size```.
 
-For example, to set up a Windows 2019 container with minimum resource usage, mapping the external RDP port to 13389, and enabling external mapping (mapping to your server's external IPv4 address):
+For example, to set up a container with the name ```test```, the container with the lowest occupancy ```Windows 2019``` system, map the extranet RDP port ```13389``` and set it to ```extranet mapping``` (mapping to your server's extranet IPV4 address)
 
 ```shell
-./onewindows.sh 2019 13389 Y
+./onewindows.sh test 2019 13389 Y
 ```
 
-To set up, the default usernames are ```Administrator``` and ```vagrant```, with the default password being ```vagrant```.
+After it, the default usernames are ```Administrator``` and ```vagrant```, with the default password being ```vagrant```.
 
-If you choose to expose mapped external ports, be sure to change the corresponding account's password (both accounts might have this option, so try both) after logging in. Failure to do so might make you vulnerable to brute-force attacks.
+If you choose to open a mapped extranet port, be sure to log in and change the password of the corresponding account (both accounts may have, try it yourself), otherwise it may be abused by someone blasting
 
 **Deletion**
 
