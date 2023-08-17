@@ -26,7 +26,7 @@ Please make sure to keep the original formatting by enclosing the translation in
 
 ## Project Repository
 
-Welcome to Star and Fork
+Welcome Star and Fork, all resources are open source, no non-open source parts, reproduced as well as the use of please write on the source of this site, thank you!
 
 ### PVE
 

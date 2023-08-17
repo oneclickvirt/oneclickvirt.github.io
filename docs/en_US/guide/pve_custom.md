@@ -53,4 +53,4 @@ spiritlhl/pve:7_aarch64
 
 The web panel is actually opened in the container, but the network has used the host mode, the port of the PVE is about the same as the port of the host used
 
-There are a lot of bugs to be fixed, PR is welcome to solve problems
+There are many bugs need to be fixed, welcome to PR to solve the problem, the actual test on the Ubuntu system host machine to install ```Proxmox VE``` panel success, solved the problem of installing ```Proxmox VE``` over the network can only be used to use the Debian system as a host machine!
