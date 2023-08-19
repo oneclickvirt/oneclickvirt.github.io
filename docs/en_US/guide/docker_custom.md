@@ -6,6 +6,8 @@ outline: deep
 
 Each container has specific configuration requirements; please refer to them individually.
 
+If the configured memory is not enough, then it's okay to make up for it with the virtual memory [here](https://virt.spiritlhl.net/en_US/guide/docker_install.html#setting-up-virtual-memory).
+
 ## One-Click Setup of Android System Container
 
 - Customizable Android version
@@ -188,7 +190,7 @@ docker rmi jlesage/firefox
 - No need to consider nested virtualization support and server architecture.
 - Sound mapping is supported, and sound can be transmitted via the web interface.
 
-**The host system requires at least 1 core, 1 GB of RAM, and 5 GB of hard disk space. The created container will occupy a minimum of 1 GB of hard disk space.**
+**The host system requires at least 1 core, 2 GB of RAM, and 5 GB of hard disk space. The created container will occupy a minimum of 1 GB of hard disk space.**
 
 **Setup Instructions:**
 
@@ -221,8 +223,6 @@ To remove the corresponding image, you can use the following command after delet
 ```shell
 docker rmi lscr.io/linuxserver/webtop
 ```
-
-
 
 ## One-Click Installation of Guacamole
 
