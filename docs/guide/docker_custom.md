@@ -224,6 +224,37 @@ docker rmi lscr.io/linuxserver/webtop
 
 删除对应镜像
 
+## 一键开设RustDesk的容器
+
+- 已设置崩溃自启
+- 可自定义是否开启web客户端(留空回车则默认开启)
+- 无需考虑是否支持嵌套虚拟化和服务器的架构
+
+一个跨端的远控中继端，支持双向控制
+
+**宿主机需要至少1核1G内存10G硬盘**
+
+**开设**
+
+```shell
+curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onerustdesk.sh -o onerustdesk.sh && chmod +x onerustdesk.sh && bash onerustdesk.sh
+```
+
+**删除**
+
+删除容器
+
+```shell
+docker rm -f hbbs
+docker rm -f hbbr
+```
+
+删除对应镜像
+
+```shell
+docker rmi rustdesk/rustdesk-server
+```
+
 ## 一键安装guacamole
 
 一个网页端连接SSH或RDP等协议控制服务器的玩意
