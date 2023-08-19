@@ -96,13 +96,9 @@ pct destroy 102
 rm -rf ct102
 iptables -t nat -F
 iptables -t filter -F
-iptables -t nat -A POSTROUTING -s 172.16.1.0/24 -j MASQUERADE
-ip6tables -t nat -F
-ip6tables -t nat -A POSTROUTING -s 2001:db8:1::/64 -j MASQUERADE
-iptables-save > /etc/iptables/rules.v4
-ip6tables-save > /etc/iptables/rules.v6
 service networking restart
 systemctl restart networking.service
+iptables-save | awk '!seen[$0]++' | iptables-restore
 ```
 
 ## 批量开设NAT的LXC虚拟化的CT
@@ -149,13 +145,9 @@ pct list | awk 'NR>1{print $1}' | xargs -I {} sh -c 'pct stop {}; pct destroy {}
 rm -rf ct*
 iptables -t nat -F
 iptables -t filter -F
-iptables -t nat -A POSTROUTING -s 172.16.1.0/24 -j MASQUERADE
-ip6tables -t nat -F
-ip6tables -t nat -A POSTROUTING -s 2001:db8:1::/64 -j MASQUERADE
-iptables-save > /etc/iptables/rules.v4
-ip6tables-save > /etc/iptables/rules.v6
 service networking restart
 systemctl restart networking.service
+iptables-save | awk '!seen[$0]++' | iptables-restore
 ```
 
 ## 开设纯IPV6地址的虚拟机
