@@ -190,6 +190,8 @@ docker rmi jlesage/firefox
 - No need to consider nested virtualization support and server architecture.
 - Sound mapping is supported, and sound can be transmitted via the web interface.
 
+A complete Linux desktop on which you can use a browser
+
 **The host system requires at least 1 core, 2 GB of RAM, and 5 GB of hard disk space. The created container will occupy a minimum of 1 GB of hard disk space.**
 
 **Setup Instructions:**
