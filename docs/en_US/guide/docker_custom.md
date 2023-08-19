@@ -139,11 +139,13 @@ After deletion, you can create containers of different versions of Windows.
 
 ## One-Click Setup of Firefox Browser Container
 
-- Crash auto-restart is configured.
-- Chinese fonts are included.
-- Web passwords are pre-configured.
-- Optional: Enable VNC port (default: disabled).
-- No need to consider nested virtualization or server architecture.
+- Crash recovery on startup has been configured.
+- Chinese fonts have been integrated into the container.
+- Built-in web validation with the option to set a custom password.
+- Maximum memory usage for the container is customizable.
+- Choice to enable VNC port, disabled by default.
+- No need to consider support for nested virtualization or server architecture.
+- Audio mapping is not supported; sound transmission is unavailable on both the web and VNC.
 
 **The host machine should have at least 1 core, 1GB RAM, and 5GB disk space. The created container will occupy a minimum of 1GB disk space.**
 
@@ -176,6 +178,51 @@ To remove the corresponding image, you can use the following command after delet
 ```shell
 docker rmi jlesage/firefox
 ```
+
+## One-Click Setup of Desktop Container
+
+- Crashes automatically restart have been configured.
+- Chinese fonts are included in the setup.
+- Built-in web validation with the ability to set your own username and password.
+- Customizable maximum memory usage for the container.
+- No need to consider nested virtualization support and server architecture.
+- Sound mapping is supported, and sound can be transmitted via the web interface.
+
+**The host system requires at least 1 core, 1 GB of RAM, and 5 GB of hard disk space. The created container will occupy a minimum of 1 GB of hard disk space.**
+
+**Setup Instructions:**
+
+After setup, the default username is ```onew``` and the password is ```oneclick```. The default maximum memory usage is 2 GB.
+
+The default web port for HTTP protocol is ```3004```, and for HTTPS protocol is ```3005```. After setup, open the corresponding protocol with ```localhost's IPV4:port``` in your web browser.
+
+Run the following command to download and execute the setup script:
+
+```
+curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onewebtop.sh -o onewebtop.sh && chmod +x onewebtop.sh && bash onewebtop.sh
+```
+
+**Deletion**
+
+Command:
+
+```shell
+docker ps -a
+```
+
+Query for containers with a prefix of 'webtop' in their names, and record the IDs of these containers.
+
+```shell
+docker rm -f container_ID
+```
+
+To remove the corresponding image, you can use the following command after deleting all associated containers:
+
+```shell
+docker rmi lscr.io/linuxserver/webtop
+```
+
+
 
 ## One-Click Installation of Guacamole
 

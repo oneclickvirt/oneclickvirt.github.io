@@ -139,9 +139,11 @@ docker rmi 镜像的ID
 
 - 已设置崩溃自启
 - 已设置带中文字体
-- 自带web的密码
+- 自带web的校验，可自设置密码
+- 可自定义容器最大的内存占用
 - 可选是否开启VNC端口，默认不开启
 - 无需考虑是否支持嵌套虚拟化和服务器的架构
+- 不支持声音映射，无论是WEB端还是VNC端都无法传输声音
 
 **宿主机需要至少1核1G内存5G硬盘，开设的容器大小将占用起码1G硬盘**
 
@@ -151,7 +153,7 @@ docker rmi 镜像的ID
 
 默认的web端口是```3003```，开设后打开```本机IPV4:端口```即可
 
-```
+```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onefirefox.sh -o onefirefox.sh && chmod +x onefirefox.sh && bash onefirefox.sh
 ```
 
@@ -159,19 +161,66 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onefire
 
 执行
 
-```
+```shell
 docker ps -a
 ```
 
 查询name的前缀是firefox的容器，记录容器的ID用
 
-```
+```shell
 docker rm -f 容器的ID
 ```
 
-删除
+删除所有关联的容器后可用 
 
-删除所有关联的容器后可用 ```docker rmi jlesage/firefox```删除对应镜像
+```shell
+docker rmi jlesage/firefox
+```
+
+删除对应镜像
+
+## 一键开设对应宿主机系统的desktop的容器
+
+- 已设置崩溃自启
+- 已设置带中文字体
+- 自带web的校验，可自设置用户名和密码
+- 可自定义容器最大的内存占用
+- 无需考虑是否支持嵌套虚拟化和服务器的架构
+- 支持声音映射，WEB端可传输声音
+
+**宿主机需要至少1核1G内存5G硬盘，开设的容器大小将占用起码1G硬盘**
+
+**开设**
+
+开设后默认的用户名是```onew```，密码是```oneclick```，默认的内存最大占用是2GB
+
+默认的http协议的web端口是```3004```，默认的https协议的web端口是```3005```，开设后打开对应协议的```本机IPV4:端口```即可
+
+```shell
+curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onewebtop.sh -o onewebtop.sh && chmod +x onewebtop.sh && bash onewebtop.sh
+```
+
+**删除**
+
+执行
+
+```shell
+docker ps -a
+```
+
+查询name的前缀是webtop的容器，记录容器的ID用
+
+```shell
+docker rm -f 容器的ID
+```
+
+删除所有关联的容器后可用 
+
+```shell
+docker rmi lscr.io/linuxserver/webtop
+```
+
+删除对应镜像
 
 ## 一键安装guacamole
 
