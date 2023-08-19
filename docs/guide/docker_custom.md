@@ -254,12 +254,17 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/
 
 - 已设置崩溃自启
 - 无需考虑是否支持嵌套虚拟化和服务器的架构
+- 传输质量看你的服务器和各端之间的连通性和延迟
 
-一个跨端的远控中继端(非客户端)，支持双向控制，但质量一般
+一个跨端的远控中继端(非客户端)，支持双向控制
 
-**宿主机需要至少1核1G内存10G硬盘**
+**宿主机需要至少1核1G内存10G硬盘，对带宽的需求极低**
 
 **开设**
+
+安装后客户端在这里找 [https://github.com/rustdesk/rustdesk/releases/latest](https://github.com/rustdesk/rustdesk/releases/latest)
+
+在设置中设置中继服务器的IP即可，支持 Android、Windows、Linux、浏览器 端，支持电脑远控手机
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onerustdesk.sh -o onerustdesk.sh && chmod +x onerustdesk.sh && bash onerustdesk.sh
