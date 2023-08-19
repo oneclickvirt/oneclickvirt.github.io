@@ -135,6 +135,11 @@ qm stop 102
 qm destroy 102
 iptables -t nat -F
 iptables -t filter -F
+iptables -t nat -A POSTROUTING -s 172.16.1.0/24 -o vmbr0 -j MASQUERADE
+ip6tables -t nat -F
+ip6tables -t nat -A POSTROUTING -s 2001:db8:1::/64 -o vmbr0 -j MASQUERADE
+iptables-save > /etc/iptables/rules.v4
+ip6tables-save > /etc/iptables/rules.v6
 service networking restart
 systemctl restart networking.service
 rm -rf vm102
@@ -184,6 +189,11 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 for vmid in $(qm list | awk '{if(NR>1) print $1}'); do qm stop $vmid; qm destroy $vmid; rm -rf /var/lib/vz/images/$vmid*; done
 iptables -t nat -F
 iptables -t filter -F
+iptables -t nat -A POSTROUTING -s 172.16.1.0/24 -o vmbr0 -j MASQUERADE
+ip6tables -t nat -F
+ip6tables -t nat -A POSTROUTING -s 2001:db8:1::/64 -o vmbr0 -j MASQUERADE
+iptables-save > /etc/iptables/rules.v4
+ip6tables-save > /etc/iptables/rules.v6
 service networking restart
 systemctl restart networking.service
 rm -rf vmlog

@@ -31,6 +31,22 @@ The system username after dd at this point is ```root```, and the password is ``
 
 If you have time or if it's still not working, please contact [@spiritlhl_bot](https://t.me/spiritlhl_bot) for assistance.
 
+## What to do if you accidentally delete a NAT mapping rule
+
+Use the following command to map back
+
+```shell
+iptables -t nat -F
+iptables -t filter -F
+iptables -t nat -A POSTROUTING -s 172.16.1.0/24 -o vmbr0 -j MASQUERADE
+ip6tables -t nat -F
+ip6tables -t nat -A POSTROUTING -s 2001:db8:1::/64 -o vmbr0 -j MASQUERADE
+iptables-save > /etc/iptables/rules.v4
+ip6tables-save > /etc/iptables/rules.v6
+service networking restart
+systemctl restart networking.service
+```
+
 ## Verified VPS Providers
 
 ### VPS Providers Offering KVM Virtualization with NAT
