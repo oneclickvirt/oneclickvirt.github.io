@@ -179,7 +179,7 @@ docker rmi jlesage/firefox
 
 删除对应镜像
 
-## 一键开设对应宿主机系统的desktop的容器
+## 一键开设Desktop的容器
 
 - 已设置崩溃自启
 - 已设置带中文字体
