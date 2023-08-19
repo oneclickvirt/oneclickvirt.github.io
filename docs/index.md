@@ -15,15 +15,15 @@ hero:
 
 features:
 - title: 一键使用
-  details: 支持一键脚本安装使用，轻松在X86_64和ARM架构的服务器上创建虚拟机/容器
+  details: 支持一键命令安装使用，轻松在X86_64和ARM架构的服务器上创建虚拟机或容器
 - title: 基于主流系统开发
-  details: 基于 Debian、Ubuntu 的长期维护版本开发，如需使用请尽量保证宿主机系统与开发环境一致
+  details: 基于 Debian、Ubuntu、Centos 等系统的长期维护版本开发，无论是什么系统总有一个方法能让你虚拟化出容器或虚拟机
 - title: 自带内外网端口转发
-  details: 支持自动的内网端口转发，含TCP、UDP协议，无需人工管理
+  details: 自带内外网端口转发，含TCP、UDP、vnc、rdp等协议，无需人工管理
 - title: 批量虚拟化
-  details: 支持使用 KVM、LXC、Docker 虚拟化批量开设容器/虚拟机
-- title: 多系统支持
-  details: 开设出的容器/虚拟机已支持主流系统，涵盖 Linux、Android、Windows 系统
+  details: 支持使用 KVM、LXC、Docker 虚拟化批量开设容器或虚拟机
+- title: 多系统多环境支持
+  details: 开设出的容器或虚拟机已支持主流系统，涵盖 Linux、Android、Windows 系统，也支持纯粹的浏览器环境或桌面环境
 - title: 自限制滥用
-  details: 部分虚拟化开设的容器/虚拟机已屏蔽和装载限制，避免被用于滥用
+  details: 部分虚拟化开设的容器或虚拟机支持设置屏蔽和装载限制，避免被用于滥用
 ---

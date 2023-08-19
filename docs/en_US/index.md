@@ -15,15 +15,15 @@ hero:
 
 features:
 - title: One Click Use
-  details: Supports one-click script installation for easy creation of virtual machines/containers on servers of X86_64 and ARM architectures
+  details: Supports one-click command installation and use, easy to create virtual machines or containers on X86_64 and ARM architecture servers
 - title: Based on mainstream systems development
-  details: Based on Debian, Ubuntu long-term maintenance version, if you want to use it, please try to ensure that the host system and the development environment are the same
+  details: Based on long-term maintenance releases of Debian, Ubuntu, Centos, etc., there is always a way to virtualize containers or virtual machines, no matter what the system is.
 - title: Comes with internal and external port forwarding
-  details: Support automatic intranet port forwarding, including TCP and UDP protocols, without manual management
+  details: Self-contained internal and external network port forwarding, including TCP, UDP, vnc, rdp and other protocols, without manual management
 - title: Batch Virtualization
-  details: Support for KVM, LXC, Docker virtualization batch opening of virtual machines/containers
-- title: Multisystem support
-  details: Containers/virtual machines have been opened to support mainstream systems, including Linux, Android, and Windows.
+  details: Supports batch opening of containers or virtual machines using KVM, LXC, Docker virtualization
+- title: Multi-system and multi-environment support
+  details: Open containers or virtual machines that support mainstream systems, including Linux, Android, Windows, as well as pure browser or desktop environments.
 - title: Self-limiting abuse
-  details: Partially virtual machines/containers have been masked and loaded with restrictions to avoid being used for abuse
+  details: Some virtualized containers or VMs support the setting of masks and loading limits to avoid being used for abuse.
 ---
