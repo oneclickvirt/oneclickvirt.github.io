@@ -192,7 +192,7 @@ docker rmi jlesage/firefox
 
 A complete Linux desktop on which you can use a browser
 
-**The host system requires at least 1 core, 2 GB of RAM, and 5 GB of hard disk space. The created container will occupy a minimum of 1 GB of hard disk space.**
+**The host system requires at least 1 core, 2 GB of RAM, and 5 GB of hard disk space. The created container will occupy a minimum of 3.2 GB of hard disk space.**
 
 **Setup Instructions:**
 
