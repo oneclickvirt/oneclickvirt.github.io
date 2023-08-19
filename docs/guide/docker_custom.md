@@ -227,7 +227,6 @@ docker rmi lscr.io/linuxserver/webtop
 ## 一键开设RustDesk的容器
 
 - 已设置崩溃自启
-- 可自定义是否开启web客户端(留空回车则默认开启)
 - 无需考虑是否支持嵌套虚拟化和服务器的架构
 
 一个跨端的远控中继端，支持双向控制
