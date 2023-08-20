@@ -137,7 +137,7 @@ iptables -t nat -F
 iptables -t filter -F
 service networking restart
 systemctl restart networking.service
-iptables-save | awk '!seen[$0]++' | iptables-restore
+iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
 rm -rf vm102
 ```
 
@@ -187,7 +187,7 @@ iptables -t nat -F
 iptables -t filter -F
 service networking restart
 systemctl restart networking.service
-iptables-save | awk '!seen[$0]++' | iptables-restore
+iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
 rm -rf vmlog
 rm -rf vm*
 ```

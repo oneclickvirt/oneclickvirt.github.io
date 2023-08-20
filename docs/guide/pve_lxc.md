@@ -98,7 +98,7 @@ iptables -t nat -F
 iptables -t filter -F
 service networking restart
 systemctl restart networking.service
-iptables-save | awk '!seen[$0]++' | iptables-restore
+iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
 ```
 
 ## 批量开设NAT的LXC虚拟化的CT
@@ -147,7 +147,7 @@ iptables -t nat -F
 iptables -t filter -F
 service networking restart
 systemctl restart networking.service
-iptables-save | awk '!seen[$0]++' | iptables-restore
+iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
 ```
 
 ## 开设纯IPV6地址的虚拟机
