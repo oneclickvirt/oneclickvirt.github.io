@@ -73,8 +73,9 @@ Before using this command, please make sure that you have restarted the server a
 This step is most likely to cause SSH disconnections, the reason is to modify the network without waiting for the PVE kernel to start, which will result in setting conflicts, so wait at least a few minutes until the kernel is started, that is, the WEB side is started successfully before execution.
 :::
 
-- If vmbr0 is not created, it is automatically created
-- Creating vmbr1 (NAT gateway), not supporting IPV4 VMs with separate IPV6 addresses for NAT.
+- If vmbr0 is not created, it is automatically created with the same logic as the main installation
+- Create vmbr1 (NAT gateway) to support IPV4 servers that open NAT for IPV6 networks with NAT.
+- Create vmbr2 (standalone IPV6 gateway), use ndppd to solve the problem of MAC verification of IPV6 addresses by the host, support the opening of servers with standalone IPV6 networks.
 - If you want to see the complete settings, you can execute ``cat /etc/network/interfaces`` to see, if you need to modify the gateway you need to modify the file, the web site can not be modified!
 - Load iptables and set back to source and allow NAT port forwarding.
 

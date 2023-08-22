@@ -70,6 +70,7 @@ bash <(curl -sSL https://ghproxy.com/https://raw.githubusercontent.com/fscarmen/
 - 生成后需要等待一段时间虚拟机内部的cloud-init配置好网络以及登陆信息，大概需要5分钟
 - 虚拟机的相关信息将会存储到WEB端对应VM的NOTES中，可在WEB端查看
 - 如果宿主机自带IPV6子网将自动附加上IPV6网络，但无公网IPV6地址
+- 可选择是否开启独立IPV6，需要宿主机至少有一个/64的子网
 
 国际
 
@@ -94,13 +95,13 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 :::
 
 ```shell
-./buildvm.sh VMID 用户名 密码 CPU核数 内存 硬盘 SSH端口 80端口 443端口 外网端口起 外网端口止 系统 存储盘
+./buildvm.sh VMID 用户名 密码 CPU核数 内存 硬盘 SSH端口 80端口 443端口 外网端口起 外网端口止 系统 存储盘 独立IPV6地址(留空默认N)
 ```
 
 ### 测试示例
 
 ```shell
-./buildvm.sh 102 test1 oneclick123 1 512 10 40001 40002 40003 50000 50025 debian11 local
+./buildvm.sh 102 test1 oneclick123 1 512 10 40001 40002 40003 50000 50025 debian11 local N
 ```
 
 开设完毕可执行```cat vm102```查看信息，或到WEB端对应VM的NOTES中查看
@@ -121,6 +122,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 | 内外网映射端口一致的区间 | 50000到50025   |
 | 系统                     | debian11       |
 | 宿主机的存储盘           | local          |
+| 绑定独立IPV6(留空默认N)  | N          |
 
 ### 删除示例
 
@@ -137,6 +139,7 @@ iptables -t nat -F
 iptables -t filter -F
 service networking restart
 systemctl restart networking.service
+systemctl restart ndpresponder.service
 iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
 rm -rf vm102
 ```
@@ -187,6 +190,7 @@ iptables -t nat -F
 iptables -t filter -F
 service networking restart
 systemctl restart networking.service
+systemctl restart ndpresponder.service
 iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
 rm -rf vmlog
 rm -rf vm*
@@ -225,7 +229,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 #### 创建示例
 
 ```shell
-./buildvm_extraip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 是否附加IPV6(默认为N)
+./buildvm_extraip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 独立IPV6(默认为N)
 ```
 
 ```shell
@@ -268,7 +272,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 #### 创建示例
 
 ```shell
-./buildvm_manual_ip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 IPV4地址 是否附加IPV6(默认为N)
+./buildvm_manual_ip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 IPV4地址 独立IPV6(默认为N)
 ```
 
 ```shell
@@ -341,5 +345,6 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 ```shell
 qm stop 152
 qm destroy 152
+systemctl restart ndpresponder.service
 rm -rf vm152
 ```

@@ -23,6 +23,7 @@ Before creating containers, use the 'screen' command to run them in the backgrou
 - The created containers are enabled with SSH by default, allowing root login. They are also configured to support nested virtualization for Docker.
 - Relevant container information will be stored in the respective container's notes, accessible through the web interface.
 - If the host machine has an IPV6 subnet, IPV6 networking will be automatically attached, but no public IPV6 addresses will be provided.
+- Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet
 
 ### Usage Instructions
 
@@ -48,13 +49,13 @@ System parameters are always in lowercase, consisting of the system name concate
 The default username for all CTs is root.
 
 ```shell
-./buildct.sh CTID Password Number_of_CPU_Cores Memory Disk SSH_Port Port_80 Port_443 Start_Public_Port End_Public_Port System Storage_Disk
+./buildct.sh CTID Password Number_of_CPU_Cores Memory Disk SSH_Port Port_80 Port_443 Start_Public_Port End_Public_Port System Storage_Disk Independent_IPV6_address(leave default N blank)
 ```
 
 ### Test Example
 
 ```shell
-./buildct.sh 102 oneclick123 1 512 5 20001 20002 20003 30000 30025 debian11 local
+./buildct.sh 102 oneclick123 1 512 5 20001 20002 20003 30000 30025 debian11 local N
 ```
 
 After setting up, you can execute `cat ct102` to view the information, or check the NOTES section on the web interface.
@@ -77,6 +78,7 @@ Please note that "CT" and other technical terms might have specific meanings in 
 | Port Range for NAT        | 30000 to 30025|
 | Operating System          | debian11    |
 | Host Storage Disk         | local       |
+| IPV6 address              | N           |
 
 ### Deletion Examples
 
@@ -94,6 +96,7 @@ iptables -t nat -F
 iptables -t filter -F
 service networking restart
 systemctl restart networking.service
+systemctl restart ndpresponder.service
 iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
 ```
 
@@ -136,6 +139,7 @@ iptables -t nat -F
 iptables -t filter -F
 service networking restart
 systemctl restart networking.service
+systemctl restart ndpresponder.service
 iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
 ```
 
@@ -184,4 +188,5 @@ The above command signifies the creation of a container with a pure IPV6 address
 rm -rf ct*
 pct stop 152 
 pct destroy 152
+systemctl restart ndpresponder.service
 ```

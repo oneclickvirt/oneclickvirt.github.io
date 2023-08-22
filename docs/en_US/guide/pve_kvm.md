@@ -61,6 +61,7 @@ The list of currently available image names is as follows:
 - After generation, there's a wait time for the virtual machine's internal cloud-init configuration to establish network and login information. This process takes approximately 5 minutes.
 - Pertinent virtual machine information will be stored in the NOTES section of the corresponding VM on the web interface, accessible for viewing through the web portal.
 - If the host machine has an IPV6 subnet, IPV6 networking will be automatically added. However, there won't be any public IPV6 addresses.
+- Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet
 
 Command:
 
@@ -79,13 +80,13 @@ Note that usernames consisting of only numbers may cause issues with cloud-init.
 :::
 
 ```shell
-./buildvm.sh VMID Username Password Number_of_CPU_Cores Memory Disk SSH_Port Port_80 Port_443 Public_Port_Start Public_Port_End System Storage_Disk
+./buildvm.sh VMID Username Password Number_of_CPU_Cores Memory Disk SSH_Port Port_80 Port_443 Public_Port_Start Public_Port_End System Storage_Disk Independent_IPV6_address(leave default N blank)
 ```
 
 ### Test Example
 
 ```shell
-./buildvm.sh 102 test1 oneclick123 1 512 10 40001 40002 40003 50000 50025 debian11 local
+./buildvm.sh 102 test1 oneclick123 1 512 10 40001 40002 40003 50000 50025 debian11 local N
 ```
 
 After setup is completed, you can execute ```cat vm102``` to view the information or check the NOTES section for the corresponding VM on the WEB interface.
@@ -106,6 +107,7 @@ Below is the information for the example VM that has been set up:
 | Port Range for NAT       | 50000 to 50025 |
 | Operating System         | debian11       |
 | Host Storage Disk        | local          |
+| IPV6 address             | N              |
 
 ### Deletion Examples
 
@@ -122,6 +124,7 @@ iptables -t nat -F
 iptables -t filter -F
 service networking restart
 systemctl restart networking.service
+systemctl restart ndpresponder.service
 iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
 rm -rf vm102
 ```
@@ -165,6 +168,7 @@ iptables -t nat -F
 iptables -t filter -F
 service networking restart
 systemctl restart networking.service
+systemctl restart ndpresponder.service
 iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
 rm -rf vmlog
 rm -rf vm*
@@ -301,5 +305,6 @@ The above command is used to create a virtual machine with only IPv6 addresses.
 ```shell
 qm stop 152
 qm destroy 152
+systemctl restart ndpresponder.service
 rm -rf vm152
 ```

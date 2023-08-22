@@ -23,6 +23,7 @@ outline: deep
 - 开设的CT默认已启用SSH且允许root登陆，且已设置支持使用docker的嵌套虚拟化
 - 容器的相关信息将会存储到对应的容器的NOTE中，可在WEB端查看
 - 如果宿主机自带IPV6子网将自动附加上IPV6网络，但无公网IPV6地址
+- 可选择是否开启独立IPV6，需要宿主机至少有一个/64的子网
 
 ### 使用方法
 
@@ -54,13 +55,13 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 所有系统的CT默认用户名是root
 
 ```shell
-./buildct.sh CTID 密码 CPU核数 内存 硬盘 SSH端口 80端口 443端口 外网端口起 外网端口止 系统 存储盘
+./buildct.sh CTID 密码 CPU核数 内存 硬盘 SSH端口 80端口 443端口 外网端口起 外网端口止 系统 存储盘 独立IPV6(默认为N)
 ```
 
 ### 测试示例
 
 ```shell
-./buildct.sh 102 oneclick123 1 512 5 20001 20002 20003 30000 30025 debian11 local
+./buildct.sh 102 oneclick123 1 512 5 20001 20002 20003 30000 30025 debian11 local N
 ```
 
 开设完毕可执行```cat ct102```查看信息，或在web端的NOTES查看
@@ -81,6 +82,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 | 内外网映射端口一致的区间    | 30000到30025|
 | 系统                       | debian11    |
 | 宿主机的存储盘              | local       |
+| IPV6         | 无                |
 
 ### 删除示例
 
@@ -98,6 +100,7 @@ iptables -t nat -F
 iptables -t filter -F
 service networking restart
 systemctl restart networking.service
+systemctl restart ndpresponder.service
 iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
 ```
 
@@ -147,6 +150,7 @@ iptables -t nat -F
 iptables -t filter -F
 service networking restart
 systemctl restart networking.service
+systemctl restart ndpresponder.service
 iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
 ```
 
@@ -201,4 +205,5 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 rm -rf ct*
 pct stop 152 
 pct destroy 152
+systemctl restart ndpresponder.service
 ```
