@@ -91,7 +91,7 @@ bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubus
 - 想查看完整设置可以执行```cat /etc/network/interfaces```查看，如需修改网关需要修改该文件，web端已经无法修改
 - 加载iptables并设置回源且允许NAT端口转发
 
-简单的说，```vmbr0```负责v4/v6的独立IP，```vmbr1```复杂v4/v6的NAT
+简单的说，```vmbr0```负责v4的独立IP，```vmbr1```负责复杂v4/v6的NAT，```vmbr2```负责v6的独立IP
 
 开独立IPV4的虚拟机时使用的vmbr0，gateway同宿主机，IPV4/CIDR使用同一网段的地址和相同的子网掩码，使用宿主机未绑定的IPV4地址做IPV4/CIDR，当然如果后续使用本套脚本无需关注这点细枝末节的东西
 
