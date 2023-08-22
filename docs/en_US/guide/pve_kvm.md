@@ -147,6 +147,8 @@ Before initiating the batch creation process, please use the 'screen' command to
 - You can customize the number of CPU cores, memory size, disk size, and which storage disk on the host machine to use for batch creation. Ensure you calculate available resources before proceeding.
 - Relevant information about the virtual machines will be stored in the 'NOTES' section of the corresponding VM on the web interface, where you can view them.
 - If the host machine comes with an IPv6 subnet, an IPv6 network will be automatically attached, although there will be no public IPv6 addresses available.
+- Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet.
+
 Command:
 
 ```shell
@@ -191,6 +193,7 @@ Before use, ensure that the current host machine has at least 2 available IP add
 - Automatically detect available IP ranges. Use ping to identify unallocated IP addresses and select one to bind to the virtual machine.
 - If the host machine has an accompanying IPv6 subnet, there will be an option to attach an IPv6 address.
 - Relevant system information will be stored in the corresponding virtual machine's NOTE section, accessible for viewing on the web interface.
+- Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet.
 
 Command:
 
@@ -228,6 +231,7 @@ The above command is used to create a virtual machine with a dedicated IPv4 addr
 - If the host machine comes with an IPV6 subnet, you can choose whether to add an IPV6 address additionally.
 - If the vendor has provided an IPV4 address and subnet length, please carefully compare and write the parameters in the command format shown below.
 - Relevant system information will be stored in the NOTE of the corresponding virtual machine and can be viewed on the WEB end.
+- Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet.
 
 Command:
 

@@ -18,8 +18,8 @@ features:
   details: Supports one-click command installation and use, easy to create virtual machines or containers on X86_64 and ARM architecture servers
 - title: Based on mainstream systems development
   details: Based on long-term maintenance releases of Debian, Ubuntu, Centos, etc., there is always a way to virtualize containers or virtual machines, no matter what the system is.
-- title: Comes with internal and external port forwarding
-  details: Self-contained internal and external network port forwarding, including TCP, UDP, vnc, rdp and other protocols, without manual management
+- title: Comes with internal and external port forwarding and automatic IP address assignment
+  details: Self-contained internal and external port forwarding and automatic IP address allocation, including TCP, UDP, vnc, rdp and other protocols, without manual management
 - title: Batch Virtualization
   details: Supports batch opening of containers or virtual machines using KVM, LXC, Docker virtualization
 - title: Multi-system and multi-environment support

@@ -116,6 +116,7 @@ Before initiating the creation process, it's recommended to use the 'screen' com
 - The created containers have SSH enabled by default, allowing root login. Additionally, they are configured to support nested virtualization for Docker usage.
 - Relevant information about the containers will be stored in the corresponding container's notes, which can be viewed on the web interface.
 - If the host machine has an IPv6 subnet, it will be automatically assigned to the containers. However, public IPv6 addresses will not be provided.
+- Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet.
 
 Command:
 
