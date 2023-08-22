@@ -79,11 +79,12 @@ This step is most likely to cause SSH disconnections, the reason is to modify th
 - If you want to see the complete settings, you can execute ``cat /etc/network/interfaces`` to see, if you need to modify the gateway you need to modify the file, the web site can not be modified!
 - Load iptables and set back to source and allow NAT port forwarding.
 
-In short, ``vmbr0`` is responsible for v4/v6 standalone IPs, and ``vmbr1`` is responsible for complex v4/v6 NATs.
+In short, ```vmbr0``` is responsible for v4 standalone IPs, and ```vmbr1``` is responsible for complex v4/v6 NATs, ```vmbr2``` is responsible for v6 standalone IPs.
 
 Open independent IPV4 virtual machine using vmbr0, gateway with the host, IPV4/CIDR using the same network segment address and the same subnet mask, using the host's unbound IPV4 address for IPV4/CIDR, of course, if the subsequent use of this script does not need to pay attention to this point of the nuances of the thing
 
 Use vmbr1 for IPV4 VM with NAT, ``172.16.1.1`` for gateway, ``172.16.1.x/24`` for IPV4/CIDR, where x can't be 1, but of course you don't need to pay attention to this minutia if you use this script later.
+
 Command:
 
 ```shell
