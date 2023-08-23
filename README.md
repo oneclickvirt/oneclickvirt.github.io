@@ -1,6 +1,12 @@
 # oneclickvirt.github.io
 
+国内(China)：
+
 [virt.spiritlhl.net](https://virt.spiritlhl.net/)
+
+国际(Global)：
+
+[www.spiritlhl.net](https://www.spiritlhl.net/)
 
 一键虚拟化项目(One click virtualization) 
 
