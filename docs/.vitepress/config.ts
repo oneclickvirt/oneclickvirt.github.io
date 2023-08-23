@@ -110,7 +110,7 @@ export default defineConfig({
       indexName: 'virt-spiritlhl'
     },
     footer: {
-      message: 'Under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">(CC BY-NC-SA 4.0) License.</a><br>Thanks to <a href="https://www.cloudflare.com/">cloudflare</a> and <a href="https://tanglu.me/">tanglu.me</a> for the CDN.',
+      message: 'Under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">(CC BY-NC-SA 4.0) License.</a><br>Thanks to <a href="https://www.cloudflare.com/">cloudflare</a> and <a href="https://blog.tanglu.me/">tanglu.me</a> for the CDN.',
       copyright: 'Copyright © 2022-present oneclickvirt'
     }
   }
