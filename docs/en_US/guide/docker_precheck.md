@@ -4,15 +4,15 @@ The following is an introduction to the non-customized sections. Please ensure t
 
 ## Project Highlights
 
-This project involves bulk or individual provisioning of NAT servers using Docker containers.
+Bulk or individual NAT server provisioning via docker
 
-The default operating system used is Debian. Each container comes with one external SSH port and 25 consistent internal and external ports.
+Default use of debian system optional alpine system, each container comes with 1 external ssh port, 25 internal and external network consistent ports
 
-The containers created by default are non-privileged and do not establish communication between the Docker daemon on the host and the containers. As a result, **containers nested within Docker virtualized NAT servers on the host will not function**.
+The default creation of unprivileged containers, and does not mount and host docker daemon communication, so ** host created docker virtualization NAT server can not be nested within the virtualization of docker **
 
-Due to CPU and memory limitations set on the host without utilizing cgroup drivers within containers, any server testing scripts run inside containers to assess available resources will be ineffective. The displayed resources will reflect those of the host.
+Since the CPU and memory limits are only applied to the host and the cgroup driver is not used in the container, using the server test script to detect the available resources of the container will not be effective, and the resources displayed will be those of the host.
 
-Since the majority of cloud servers do not enable the 'pquota' option for the XFS file system, the **default configuration involves sharing the host's hard drive, thus preventing the restriction of individual container disk sizes**.
+Since most cloud servers have ext4 filesystems, even xfs filesystems do not enable the pquota option, so **sharing the host's hard disk by default does not limit the disk size of each container**.
 
 ## Configuration Requirements
 
