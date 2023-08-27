@@ -25,14 +25,14 @@ curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.co
 ### 使用方法
 
 ```
-./buildone.sh 小鸡名称 内存大小 硬盘大小 SSH端口 外网起端口 外网止端口 下载速度 上传速度 是否启用IPV6(Y or N) 系统(留空则为debian11)
+./buildone.sh 服务器名称 内存大小 硬盘大小 SSH端口 外网起端口 外网止端口 下载速度 上传速度 是否启用IPV6(Y or N) 系统(留空则为debian11)
 ```
 
 内存大小以MB计算，硬盘大小以GB计算，下载速度上传速度以Mbit计算，是否启用IPV6不一定要填Y或者N，没有这个参数也行，留空默认不开启IPV6
 
 如果```外网起端口```和```外网止端口```都设置为0则不做区间外网端口映射了，只映射基础的SSH端口，注意```不能为空```，不进行映射需要设置为0
 
-支持自定义小鸡的系统，不填写留空时默认使用debian11，注意传入参数为系统名字+版本号，如：
+支持自定义服务器的系统，不填写留空时默认使用debian11，注意传入参数为系统名字+版本号，如：
 
 - debian10，debian11，debian12
 - ubuntu18，ubuntu20，ubuntu22
@@ -49,11 +49,11 @@ curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.co
 
 #### 示例
 
-以下为开设的示例小鸡的信息：
+以下为开设的示例服务器的信息：
 
 | 属性                        | 值             |
 |---------------------------|----------------|
-| 小鸡名字                  | test           |
+| 服务器名字                  | test           |
 | SSH登录的用户名            | root           |
 | SSH登录的密码              | 随机生成       |
 | CPU核数                   | 1              |
@@ -73,7 +73,7 @@ curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.co
 需要查看信息则执行
 
 ```shell
-cat 小鸡名字
+cat 服务器名字
 ```
 
 比如查询示例的信息就是
@@ -82,9 +82,9 @@ cat 小鸡名字
 cat test
 ```
 
-如果已通过以上方法生成过小鸡，还需要批量生成小鸡，可使用自定义批量生成版本的脚本，但注意先删除测试小鸡再进行批量生成小鸡
+如果已通过以上方法生成过服务器，还需要批量生成服务器，可使用自定义批量生成版本的脚本，但注意先删除测试服务器再进行批量生成服务器
 
-#### 删除测试小鸡
+#### 删除测试服务器
 
 ```shell
 lxc stop test
@@ -96,14 +96,14 @@ ls
 
 ## 普通版本批量生成
 
-开出的小鸡配置：
+开出的服务器配置：
 
 - 1核256MB内存1GB硬盘限速300Mbit带宽
 - 带1个SSH端口，25个外网端口
 - 默认内存和硬盘大小
 
 :::tip
-lxc若命令无问题，执行初始化开小鸡，这一步最好放```screen```中后台挂起执行，开小鸡时长与你开几个和母鸡配置相关
+lxc若命令无问题，执行初始化开服务器，这一步最好放```screen```中后台挂起执行，开服务器时长与你开几个和宿主机配置相关
 :::
 
 执行下面命令加载开机脚本
@@ -120,7 +120,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/init.sh -o
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/init.sh -o init.sh && chmod +x init.sh && dos2unix init.sh
 ```
 
-下面命令为开小鸡名字前缀为**tj**的**10**个小鸡
+下面命令为开服务器名字前缀为**tj**的**10**个服务器
 
 ```shell
 ./init.sh tj 10
@@ -130,14 +130,14 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/mai
 
 ## 纯SSH端口版本批量生成
 
-开出的小鸡配置：
+开出的服务器配置：
 
 - 1核128MB内存300MB硬盘限速300Mbit带宽
 - 只有一个SSH端口
 - 无法挂载warp
 
 :::tip
-lxc若命令无问题，执行初始化开小鸡，这一步最好放```screen```中后台挂起执行，开小鸡时长与你开几个和母鸡配置相关
+lxc若命令无问题，执行初始化开服务器，这一步最好放```screen```中后台挂起执行，开服务器时长与你开几个和宿主机配置相关
 :::
 
 加载开机脚本
@@ -154,7 +154,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/least.sh -
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/least.sh -o least.sh && chmod +x least.sh && dos2unix least.sh
 ```
 
-下列命令最后一行为开小鸡名字前缀为**tj**的**10**个小鸡
+下列命令最后一行为开服务器名字前缀为**tj**的**10**个服务器
 
 ```shell
 ./least.sh tj 10
@@ -167,7 +167,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/mai
 - 可自定义内存和硬盘大小
 - 有执行过上面的手动批量生成过也没问题，配置是继承的不覆盖
 
-如果需要多次批量生成小鸡，可使用
+如果需要多次批量生成服务器，可使用
 
 国际
 
@@ -181,11 +181,11 @@ curl -L https://github.com/spiritLHLS/lxd/raw/main/scripts/add_more.sh -o add_mo
 curl -L https://ghproxy.com/https://github.com/spiritLHLS/lxd/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
 ```
 
-可多次运行批量生成小鸡，且继承前面已生成的部分在后面添加，可自定义内存和硬盘大小
+可多次运行批量生成服务器，且继承前面已生成的部分在后面添加，可自定义内存和硬盘大小
 
 ## 查看已批量开设的信息
 
-开完小鸡后，具体信息会生成在当前目录下的log文件中，格式如下
+开完服务器后，具体信息会生成在当前目录下的log文件中，格式如下
 
 ```shell
 1号服务器名称 密码 ssh端口 外网端口起始 外网端口终止
@@ -199,7 +199,7 @@ cat log
 ```
 
 :::warning
-不要拿该脚本开出的小鸡当生产环境，LXC虚拟化不支持换内核，dd，开启bbr等操作
+不要拿该脚本开出的服务器当生产环境，LXC虚拟化不支持换内核，dd，开启bbr等操作
 :::
 
 ## 部分常用LXD命令

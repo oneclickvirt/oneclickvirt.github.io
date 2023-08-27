@@ -26,7 +26,7 @@ Memory size is calculated in MB, hard disk size is calculated in GB, download sp
 
 If ```external start port`` and ```external stop port`` are both set to 0, then we don't do interval port mapping, only the basic SSH port is mapped, note that ```can't be null``, and it needs to be set to 0 if it's not to be mapped.
 
-Support for customizing the system of the chicken, do not fill out the default use of debian11 when left blank, note that the incoming parameters for the system name + version number, such as:
+Support for customizing the system of the server, do not fill out the default use of debian11 when left blank, note that the incoming parameters for the system name + version number, such as:
 
 - debian10, debian11, debian12
 - ubuntu18, ubuntu20, ubuntu22
@@ -47,7 +47,7 @@ Here is the information about the example chick that is being raised:
 
 | Attribute                   | Value           |
 |-----------------------------|-----------------|
-| Chicken's Name              | test            |
+| server's Name              | test            |
 | Username for SSH Login      | root            |
 | Password for SSH Login      | Randomly generated |
 | Number of CPU Cores         | 1               |
@@ -96,7 +96,7 @@ Opened Chick Configuration:
 - Default memory and hard disk size
 
 :::tip
-lxc if the command is no problem, the execution of the initialization of the opening of the chickens, this step is best to put ```screen`` in the background to suspend the execution of the opening of the chickens, the length of time with you to open a few and the mother hen configuration-related
+lxc if the command is no problem, the execution of the initialization of the opening of the servers, this step is best to put ```screen`` in the background to suspend the execution of the opening of the servers, the length of time with you to open a few and the mother hen configuration-related
 :::
 
 Execute the following command to load the boot script

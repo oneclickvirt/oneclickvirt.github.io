@@ -114,7 +114,7 @@ iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables
 开设前请使用screen挂起执行，避免批量开设时间过长，SSH不稳定导致中间执行中断
 :::
 
-- 可多次运行批量生成CT容器，但需要注意的是母鸡内存记得开点swap免得机器炸了[开SWAP点我跳转](https://github.com/spiritLHLS/addswap)
+- 可多次运行批量生成CT容器，但需要注意的是宿主机内存记得开点swap免得机器炸了[开SWAP点我跳转](https://github.com/spiritLHLS/addswap)
 - 每个容器创建之间有间隔等待60秒避免突发性能不足
 - 可自定义批量开设的核心数，内存大小，硬盘大小，使用宿主机哪个存储盘，记得自己计算好空闲资源开设
 - 开设的CT默认已启用SSH且允许root登陆，且已设置支持使用docker的嵌套虚拟化

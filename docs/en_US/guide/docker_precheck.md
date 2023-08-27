@@ -27,17 +27,3 @@ The system can be installed docker can be used, the network can connect to the G
 If the hardware resources are just a little bit better, need to limit more things and need to limit the size of the hard disk, you can use the LXD partition of the script batch open LXC virtualization containers
 
 If the hardware is very good and you have a lot of resources, you can use the PVE partition script to batch open KVM virtualized VMs.
-
-## Setting up virtual memory (SWAP)
-
-It is recommended to increase part of the SWAP virtual memory before setting up a NAT server, to avoid sudden memory occupation that may cause the hen to crash.
-
-Unit conversion: Enter 1024 to generate 1G SWAP-virtual memory, virtual memory takes up hard disk space, when the actual memory is not enough to use the virtual memory will automatically use the virtual memory for memory use, but this will bring about high IO usage and CPU performance usage.
-
-It is recommended to use only twice the size of the actual memory as virtual memory.
-
-Command:
-
-```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
-```
