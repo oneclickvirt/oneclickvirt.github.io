@@ -30,7 +30,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/
 
 ## 开设虚拟内存
 
-:::warning
+:::tip
 内存开点swap免得机器炸了
 :::
 
