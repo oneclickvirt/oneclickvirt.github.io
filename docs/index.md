@@ -1,8 +1,9 @@
 ---
 layout: home
 
-title: 一键虚拟化项目
-titleTemplate: 开源、易于使用的服务器虚拟化项目
+title: K'thun
+titleTemplate: 一键虚拟化项目
+tagline: 开源、易于使用的服务器虚拟化项目
 
 hero:
   name: 一键虚拟化项目

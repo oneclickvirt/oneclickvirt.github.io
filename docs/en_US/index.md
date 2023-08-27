@@ -1,8 +1,9 @@
 ---
 layout: home
 
-title: One Click Virtualization
-titleTemplate: Open source, easy to use server virtualization project
+title: K'thun
+titleTemplate: One Click Virtualization
+tagline: Open source, easy to use server virtualization project
 
 hero:
   name: One Click Virtualization
