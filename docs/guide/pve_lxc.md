@@ -164,6 +164,8 @@ iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables
 - 自动检测可用的IPV6区间，对应容器编号的V6地址绑定到容器上
 - 系统的相关信息将会存储到对应的容器的NOTE中，可在WEB端查看
 
+#### 下载脚本
+
 国际
 
 ```shell
