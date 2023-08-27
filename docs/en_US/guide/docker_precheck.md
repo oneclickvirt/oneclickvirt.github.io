@@ -6,26 +6,38 @@ The following is an introduction to the non-customized sections. Please ensure t
 If the host has an IPV6 network, the installation will change the network structure of the host, please make sure that the host can reset the system at any time and that there is no important data on the host before running.
 :::
 
-## Project Highlights
+## Project Features
 
 Bulk or individual NAT server provisioning via docker
 
-Default use of debian system optional alpine system, each container comes with 1 external ssh port, 25 internal and external network consistent ports
+Default use of debian system optional alpine system, each container comes with 1 external ssh port, 25 internal and external network ports, you can choose whether to bind IPV6 address
 
-The default creation of unprivileged containers, and does not mount and host docker daemon communication, so ** host created docker virtualization NAT server can not be nested within the virtualization of docker **
+The default creation of unprivileged containers, and does not mount and host docker daemon communication, so ** host created docker virtualization NAT servers can not be nested within the virtualization docker **
 
 Since the CPU and memory limits are only applied to the host and the cgroup driver is not used in the container, using the server test script to detect the available resources of the container will not be effective, and the resources displayed will be those of the host.
 
 Since most cloud servers have ext4 filesystems, even xfs filesystems do not enable the pquota option, so **sharing the host's hard disk by default does not limit the disk size of each container**.
 
-## Configuration Requirements
+## Configuration requirements
 
-The system should have Docker installed to be operational. As long as the network can connect to GitHub's raw interface, it can be used. Hardware configuration requirements are minimal, as long as they are adequate; a spare 3GB of hard disk space is sufficient.
+The system can be installed docker can be used, the network can connect to the Github raw interface can be used, hardware configuration as long as not pull across the line, free hard disk has 3G on it!
 
-It is recommended to increase the available SWAP virtual memory prior to provisioning NAT servers to prevent potential host performance issues due to sudden memory spikes. [Link](https://github.com/spiritLHLS/addswap)
+(If you need to bind an IPV6 address, then please make sure to use the installation script of this set of scripts for docker installation, you need it to automatically preset some of the settings)
 
-PS: If hardware resources are somewhat limited and more restrictions are necessary, including configuration of individual IPv6 addresses and disk size limitations, consider utilizing LXD to create batch LXC virtualized containers. [Link](https://github.com/spiritLHLS/lxd)
+If the hardware resources are just a little bit better, need to limit more things and need to limit the size of the hard disk, you can use the LXD partition of the script batch open LXC virtualization containers
 
-PS: If hardware resources are abundant and ample, consider using Proxmox Virtual Environment (PVE) to provision batch KVM virtualized machines. [Link](https://github.com/spiritLHLS/pve)
+If the hardware is very good and you have a lot of resources, you can use the PVE partition script to batch open KVM virtualized VMs.
 
-Please note that the original formatting has been preserved and enclosed within ``` and ``` for your convenience during copying. No character escaping has been applied.
+## Setting up virtual memory (SWAP)
+
+It is recommended to increase part of the SWAP virtual memory before setting up a NAT server, to avoid sudden memory occupation that may cause the hen to crash.
+
+Unit conversion: Enter 1024 to generate 1G SWAP-virtual memory, virtual memory takes up hard disk space, when the actual memory is not enough to use the virtual memory will automatically use the virtual memory for memory use, but this will bring about high IO usage and CPU performance usage.
+
+It is recommended to use only twice the size of the actual memory as virtual memory.
+
+Command:
+
+```shell
+curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
+```
