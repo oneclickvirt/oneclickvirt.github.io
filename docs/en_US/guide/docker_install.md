@@ -23,7 +23,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/dockeri
 
 ## Setting Up Virtual Memory
 
-:::warning
+:::tip
 Allocate some swap space to prevent your machine from crashing.
 :::
 
