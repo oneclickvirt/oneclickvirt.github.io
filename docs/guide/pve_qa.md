@@ -87,6 +87,8 @@ iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables
 
 [azure](https://portal.azure.com/#create/Microsoft.VirtualMachine-ARM) 的普通机器
 
+[scaleway](https://www.scaleway.com/en/) 中的ARM架构的服务器
+
 ### 已知暂时不可用未适配的商家
 
 OVH

@@ -87,6 +87,8 @@ iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables
 
 [azure](https://portal.azure.com/#create/Microsoft.VirtualMachine-ARM) Standard machines
 
+[scaleway](https://www.scaleway.com/en/) ARM architecture servers
+
 ### Currently Unavailable or Unsupported Providers
 
 OVH
