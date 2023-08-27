@@ -1,7 +1,7 @@
 ---
 layout: home
 
-title: K'thun
+title: 库苏恩
 titleTemplate: 一键虚拟化项目
 tagline: 开源、易于使用的服务器虚拟化项目
 
