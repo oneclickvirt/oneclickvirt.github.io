@@ -2,16 +2,17 @@
 outline: deep
 ---
 
-
 # Preface
 
 Support for running Docker virtualization on various systems, including Linux, Android, and Windows.
 
 ## Environment Setup
 
-- Check the environment
-- Install Docker and other prerequisite components
-- Download some default configuration scripts required by default
+- Detect the system environment and install the corresponding components
+- Install docker and docker-compose.
+- Download some configuration scripts required by default
+- Detect if there is an IPV6 address, check if it is greater than or equal to /64, and if so, configure the docker's ipv6 network.
+- If all the above conditions are met, create ndpresponder docker and radvd so that IPV6 allocation supports ndp broadcasting and auto-allocation.
 
 Command:
 

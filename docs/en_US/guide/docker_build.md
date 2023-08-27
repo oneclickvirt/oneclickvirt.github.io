@@ -8,7 +8,10 @@ There are two methods of building
 
 ## Setting Up Standalone
 
-Download the Script
+- Generate only one docker
+- Can be configured to bind a separate IPV6 address, but requires a docker previously installed using the environment installation command of this set of scripts, and requires the host to be bound to at least the /64 IPV6 subnet
+
+### Download the Script
 
 Command:
 
@@ -16,15 +19,15 @@ Command:
 curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onedocker.sh -o onedocker.sh && chmod +x onedocker.sh
 ```
 
+### Example
+
 Run
 
 ```
-./onedocker.sh name cpu memory password sshport startport endport system
+./onedocker.sh name cpu memory password sshport startport endport system independent_ipv6
 ```
 
 Currently, the system only supports selecting Alpine or Debian, with Debian being the default choice.
-
-### Example
 
 The following is the information for the created example container:
 
@@ -38,10 +41,13 @@ The following is the information for the created example container:
 | SSH Port               | 25000          |
 | Port Range for Internal and External Mapping | 34975 to 35000   |
 | Operating System       | debian         |
+| Whether to bind a separate IPV6 address| N     |
 
 ```shell
-./onedocker.sh test 1 512 123456 25000 34975 35000 debian
+./onedocker.sh test 1 512 123456 25000 34975 35000 debian N
 ```
+
+### Related operations
 
 Deleting the test container
 
@@ -59,7 +65,7 @@ docker exec -it test /bin/bash
 
 To exit the container, simply execute ```exit```.
 
-### Inquiry Information
+Inquiry Information
 
 ```shell
 cat Container_Name(change me)
@@ -70,6 +76,8 @@ The output format is
 ```
 Container_Name SSH_Port Root_Password Number_of_Cores Memory Start_of_Public_Port End_of_Public_Port
 ```
+
+The docker's ipv6 address can only be looked up within the container itself, it doesn't exist in the docker's configuration
 
 ## Batch Deployment
 
@@ -94,12 +102,13 @@ The output format is
 Container_Name SSH_Port Root_Password Number_of_Cores Memory Start_of_Public_Port End_of_Public_Port
 ```
 
-One line corresponds to information about a container.
+One line corresponds to information about a container, the docker's ipv6 address can only be looked up within the container itself, it doesn't exist in the docker's configuration.
 
 ## Uninstall all Docker containers and images
 
+The following command offload ignores ndpresponder to prevent IPV6 configuration failure
+
 ```shell
-docker rm -f $(docker ps -aq); docker rmi $(docker images -aq)
-rm -rf dclog
-ls
+docker ps -aq | grep -v 'ndpresponder' | xargs -r docker rm -f
+docker images -aq | grep -v 'ndpresponder' | xargs -r docker rmi
 ```

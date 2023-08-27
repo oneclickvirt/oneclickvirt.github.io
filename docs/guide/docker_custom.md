@@ -1,3 +1,7 @@
+---
+outline: deep
+---
+
 # 使用Docker一键安装某些容器的脚本
 
 每个容器都有对应的配置要求，自行查看，内存不够的用[这个](https://virt.spiritlhl.net/guide/docker_install.html#%E5%BC%80%E8%AE%BE%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98)开设虚拟内存补足也行

@@ -1,10 +1,17 @@
+---
+outline: deep
+---
+
 # 前言
 
 两种开设方式
 
 ## 单独开设
 
-下载脚本
+- 只生成一个docker
+- 可配置绑定独立的IPV6地址，但需要先前使用本套脚本的环境安装命令安装的docker，且需要宿主机至少绑定了/64的IPV6子网
+
+### 下载脚本
 
 国际
 
@@ -18,15 +25,19 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onedock
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onedocker.sh -o onedocker.sh && chmod +x onedocker.sh
 ```
 
-运行
+### 示例
+
+运行支持的变量
 
 ```
-./onedocker.sh name cpu memory password sshport startport endport system
+./onedocker.sh name cpu memory password sshport startport endport system independent_ipv6
 ```
 
 目前system仅支持选择alpine或debian，默认是debian
 
-### 示例
+```shell
+./onedocker.sh test 1 512 123456 25000 34975 35000 debian N
+```
 
 以下为开设的示例容器的信息：
 
@@ -40,11 +51,9 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/
 | SSH端口                 | 25000          |
 | 内外网映射端口一致的区间 | 34975到35000   |
 | 系统                   | debian         |
+| 是否绑定独立的IPV6地址   | N             |
 
-
-```shell
-./onedocker.sh test 1 512 123456 25000 34975 35000 debian
-```
+### 相关操作
 
 删除示例
 
@@ -62,7 +71,7 @@ docker exec -it test /bin/bash
 
 要退出容器就执行```exit```退出。
 
-### 查询信息
+查询已开设的信息
 
 ```shell
 cat 容器名字
@@ -71,13 +80,17 @@ cat 容器名字
 输出格式
 
 ```
-容器名字 SSH端口 登陆的root密码 核数 内存 外网端口起 外网端口止 
+容器名字 SSH端口 登陆的root密码 核数 内存 外网端口起 外网端口止
 ```
+
+docker的ipv6地址只能在容器内自己查询，在docker的配置中是不存在的
 
 ## 批量开设
 
 - 批量多次运行继承配置生成
 - 生成多个时为避免SSH连接中断建议在screen中执行
+
+## 运行
 
 国际
 
@@ -103,9 +116,15 @@ cat dclog
 容器名字 SSH端口 登陆的root密码 核数 内存 外网端口起 外网端口止 
 ```
 
-一行一个容器对应的信息
+一行一个容器对应的信息，docker的ipv6地址只能在容器内自己查询，在docker的配置中是不存在的
 
 ## 卸载所有docker容器和镜像
 
+以下命令卸载会忽略ndpresponder，以防止IPV6的配置失效
+
 ```shell
-docker rm -f $(docker ps -aq); docker rmi $(docker images -aq)
+docker ps -aq | grep -v 'ndpresponder' | xargs -r docker rm -f
+docker images -aq | grep -v 'ndpresponder' | xargs -r docker rmi
+rm -rf dclog
+ls
+```
