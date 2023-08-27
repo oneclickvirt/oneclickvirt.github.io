@@ -177,7 +177,9 @@ function getCaseSidebarZhCN() {
         { text: '2. VPS融合怪服务器测评脚本', link: '/case/case2.html' },
         { text: '3. 自动更新测试服务器节点列表的网络基准测试脚本', link: '/case/case3.html' },
         { text: '4. 甲骨文服务器保活脚本', link: '/case/case4.html' },
-        { text: '5. convoy面板安装脚本', link: '/case/case5.html' }
+        { text: '5. 为linux服务器增加swap分区(虚拟内存)', link: '/case/case5.html' },
+        { text: '6. 为linux服务器启用zram(压缩内存)', link: '/case/case6.html' },
+        { text: '7. convoy面板安装脚本', link: '/case/case7.html' }
       ]
     }
   ]
