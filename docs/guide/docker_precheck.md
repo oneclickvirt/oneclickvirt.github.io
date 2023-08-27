@@ -6,6 +6,10 @@ outline: deep
 
 以下为非自定义部分的介绍，自定义部分有自己对应的介绍，勿弄混了
 
+:::warning
+如果宿主机带IPV6网络的话，安装会改变宿主机的网络结构，请保证宿主机随时可重置系统，且运行前无重要数据在宿主机上
+:::
+
 ## 项目特点
 
 通过docker批量或单独开设NAT服务器(Bulk or individual NAT server provisioning via docker)

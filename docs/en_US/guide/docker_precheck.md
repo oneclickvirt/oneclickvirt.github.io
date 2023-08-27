@@ -2,6 +2,10 @@
 
 The following is an introduction to the non-customized sections. Please ensure that you don't confuse them with the customized parts.
 
+:::warning
+If the host has an IPV6 network, the installation will change the network structure of the host, please make sure that the host can reset the system at any time and that there is no important data on the host before running.
+:::
+
 ## Project Highlights
 
 Bulk or individual NAT server provisioning via docker

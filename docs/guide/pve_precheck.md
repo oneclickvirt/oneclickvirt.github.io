@@ -8,6 +8,10 @@ outline: deep
 
 如果有未适配的商家或机器欢迎联系[@spiritlhl_bot](https://t.me/spiritlhl_bot)，有空会尝试支持一下
 
+:::warning
+会改变宿主机的网络结构，请保证宿主机随时可重置系统，且运行前无重要数据在宿主机上
+:::
+
 ## 各种要求
 
 建议debian在使用前尽量使用最新的稳定版本的系统
