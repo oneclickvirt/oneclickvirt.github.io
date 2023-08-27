@@ -10,6 +10,7 @@ outline: deep
 
 - 只生成一个docker
 - 可配置绑定独立的IPV6地址，但需要先前使用本套脚本的环境安装命令安装的docker，且需要宿主机至少绑定了/64的IPV6子网
+- 支持x86_64和ARM架构的服务器
 
 ### 下载脚本
 
@@ -89,8 +90,9 @@ docker的ipv6地址只能在容器内自己查询，在docker的配置中是不�
 
 - 批量多次运行继承配置生成
 - 生成多个时为避免SSH连接中断建议在screen中执行
+- 支持x86_64和ARM架构的服务器
 
-## 运行
+### 运行
 
 国际
 
@@ -104,7 +106,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/create_
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onedocker.sh -o onedocker.sh && chmod +x onedocker.sh
 ```
 
-## 查询批量开设的信息
+### 查询批量开设的信息
 
 ```shell
 cat dclog

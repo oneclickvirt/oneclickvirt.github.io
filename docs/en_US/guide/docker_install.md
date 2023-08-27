@@ -13,6 +13,7 @@ Support for running Docker virtualization on various systems, including Linux, A
 - Download some configuration scripts required by default
 - Detect if there is an IPV6 address, check if it is greater than or equal to /64, and if so, configure the docker's ipv6 network.
 - If all the above conditions are met, create ndpresponder docker and radvd so that IPV6 allocation supports ndp broadcasting and auto-allocation.
+- Support for x86_64 and ARM architecture servers
 
 Command:
 

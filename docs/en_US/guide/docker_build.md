@@ -10,6 +10,7 @@ There are two methods of building
 
 - Generate only one docker
 - Can be configured to bind a separate IPV6 address, but requires a docker previously installed using the environment installation command of this set of scripts, and requires the host to be bound to at least the /64 IPV6 subnet
+- Support for x86_64 and ARM architecture servers
 
 ### Download the Script
 
@@ -83,6 +84,7 @@ The docker's ipv6 address can only be looked up within the container itself, it 
 
 - Run inheritance configuration generation multiple times in bulk.
 - When generating multiple instances, it is recommended to execute within a `screen` session to avoid SSH connection interruptions.
+- Support for x86_64 and ARM architecture servers
 
 Command:
 
@@ -90,7 +92,7 @@ Command:
 curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/create_docker.sh -o create_docker.sh && chmod +x create_docker.sh && bash create_docker.sh
 ```
 
-## Querying information on batch openings
+### Querying information on batch openings
 
 ```shell
 cat dclog
