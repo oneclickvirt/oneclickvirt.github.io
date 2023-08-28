@@ -89,6 +89,8 @@ iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables
 
 [scaleway](https://www.scaleway.com/en/) ARM architecture servers
 
+[aws](https://aws.amazon.com/lightsail/) EC2 servers
+
 ### Currently Unavailable or Unsupported Providers
 
 OVH
