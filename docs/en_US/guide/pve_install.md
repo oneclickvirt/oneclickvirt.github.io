@@ -30,6 +30,10 @@ All modified files have been set to read-only mode to avoid overwriting after re
 
 If you want to modify the file, please use ``chattr -i file path`` to cancel the read-only lock, and run ``chattr +i file path`` to lock the read-only lock when you finish modifying the file.
 
+You will be prompted to reboot your system once during the execution process, **After rebooting, be sure to wait at least 1 minute to make sure the system does not reboot automatically again**.
+
+Because the original environment may be missing ``ifupdown`` or ``ifupdown2`` environment, there is a self-installation daemon loaded for the installation, after the installation of the system will automatically reboot the system again, wait for 1 minute without reboot to ensure that the installation has been run.
+
 Command:
 
 ```shell
