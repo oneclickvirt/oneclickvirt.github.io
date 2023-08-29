@@ -27,14 +27,6 @@ Before creating containers, use the 'screen' command to run them in the backgrou
 
 ### Usage Instructions
 
-Download the script
-
-Command:
-
-```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct.sh -o buildct.sh && chmod +x buildct.sh
-```
-
 System Support:
 - debian10, debian11
 - ubuntu18, ubuntu20, ubuntu22
@@ -47,6 +39,14 @@ System parameters are always in lowercase, consisting of the system name concate
 :::
 
 The default username for all CTs is root.
+
+**Download Script**
+
+```shell
+curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct.sh -o buildct.sh && chmod +x buildct.sh
+```
+
+**Meaning of each parameter**
 
 ```shell
 ./buildct.sh CTID Password Number_of_CPU_Cores Memory Disk SSH_Port Port_80 Port_443 Start_Public_Port End_Public_Port System Storage_Disk Independent_IPV6_address(leave default N blank)
@@ -118,7 +118,9 @@ Before initiating the creation process, it's recommended to use the 'screen' com
 - If the host machine has an IPv6 subnet, it will be automatically assigned to the containers. However, public IPv6 addresses will not be provided.
 - Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet.
 
-Command:
+### Usage Instructions
+
+**Download Script**
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/create_ct.sh -o create_ct.sh && chmod +x create_ct.sh && bash create_ct.sh

@@ -27,7 +27,7 @@ outline: deep
 
 ### 使用方法
 
-下载脚本
+**下载脚本**
 
 国际
 
@@ -53,6 +53,8 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 :::
 
 所有系统的CT默认用户名是root
+
+**各参数含义**
 
 ```shell
 ./buildct.sh CTID 密码 CPU核数 内存 硬盘 SSH端口 80端口 443端口 外网端口起 外网端口止 系统 存储盘 独立IPV6(默认为N)
@@ -164,7 +166,9 @@ iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables
 - 自动检测可用的IPV6区间，对应容器编号的V6地址绑定到容器上
 - 系统的相关信息将会存储到对应的容器的NOTE中，可在WEB端查看
 
-#### 下载脚本
+#### 使用方法
+
+**下载脚本**
 
 国际
 
@@ -178,11 +182,13 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct_on
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct_onlyv6.sh -o buildct_onlyv6.sh && chmod +x buildct_onlyv6.sh
 ```
 
-#### 创建示例
+**各参数含义**
 
 ```shell
 ./buildct_onlyv6.sh CTID 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘
 ```
+
+#### 创建示例
 
 ```shell
 ./buildct_onlyv6.sh 152 oneclick123 1 1024 10 debian12 local

@@ -72,6 +72,18 @@ bash <(curl -sSL https://ghproxy.com/https://raw.githubusercontent.com/fscarmen/
 - 如果宿主机自带IPV6子网将自动附加上IPV6网络，但无公网IPV6地址
 - 可选择是否开启独立IPV6，需要宿主机至少有一个/64的子网
 
+### 使用方法
+
+- 系统支持：
+  - x86_64架构的详见 [跳转](https://github.com/oneclickvirt/kvm_images/releases/tag/v1.0) 中列出的系统，使用时只需写文件名字，不需要.qcow2尾缀
+  - arm架构的详见 [跳转](http://cloud-images.ubuntu.com/) 中列出的系统，使用时只需要写系统名字+系统版本号，如ubuntu20、ubutnu22这种
+
+:::tip
+注意这里的用户名不能是纯数字，会造成cloudinit出问题，最好是纯英文或英文开头
+:::
+
+**下载脚本**
+
 国际
 
 ```shell
@@ -84,15 +96,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm.sh
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm.sh -o buildvm.sh && chmod +x buildvm.sh
 ```
 
-### 使用方法
-
-- 系统支持：
-  - x86_64架构的详见 [跳转](https://github.com/oneclickvirt/kvm_images/releases/tag/v1.0) 中列出的系统，使用时只需写文件名字，不需要.qcow2尾缀
-  - arm架构的详见 [跳转](http://cloud-images.ubuntu.com/) 中列出的系统，使用时只需要写系统名字+系统版本号，如ubuntu20、ubutnu22这种
-
-:::tip
-注意这里的用户名不能是纯数字，会造成cloudinit出问题，最好是纯英文或英文开头
-:::
+**各参数含义**
 
 ```shell
 ./buildvm.sh VMID 用户名 密码 CPU核数 内存 硬盘 SSH端口 80端口 443端口 外网端口起 外网端口止 系统 存储盘 独立IPV6地址(留空默认N)
@@ -215,6 +219,10 @@ PVE修改VM配置前都得停机先，再修改配置，修改完再启动，免
 - 如果宿主机自带IPV6子网将可选择是否附加上IPV6地址
 - 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
 
+#### 使用方法
+
+**下载脚本**
+
 国际
 
 ```shell
@@ -227,11 +235,13 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_ex
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_extraip.sh -o buildvm_extraip.sh && chmod +x buildvm_extraip.sh
 ```
 
-#### 创建示例
+**各参数含义**
 
 ```shell
 ./buildvm_extraip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 独立IPV6(默认为N)
 ```
+
+#### 测试示例
 
 ```shell
 ./buildvm_extraip.sh 152 test1 oneclick123 1 1024 10 debian12 local N
@@ -259,6 +269,10 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 - 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
 - 可选择是否开启独立IPV6，需要宿主机至少有一个/64的子网
 
+#### 使用方法
+
+**下载脚本**
+
 国际
 
 ```shell
@@ -271,11 +285,13 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_ma
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_manual_ip.sh -o buildvm_manual_ip.sh && chmod +x buildvm_manual_ip.sh
 ```
 
-#### 创建示例
+**各参数含义**
 
 ```shell
 ./buildvm_manual_ip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 IPV4地址 独立IPV6(默认为N)
 ```
+
+#### 测试示例
 
 ```shell
 ./buildvm_manual_ip.sh 152 test1 oneclick123 1 1024 10 debian12 local a.b.c.d/24 N
@@ -306,6 +322,10 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 - 自动检测可用的IPV6区间，对应虚拟机编号的V6地址绑定到虚拟机上
 - 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
 
+#### 使用方法
+
+**下载脚本**
+
 国际
 
 ```shell
@@ -318,11 +338,13 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_on
 curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_onlyv6.sh -o buildvm_onlyv6.sh && chmod +x buildvm_onlyv6.sh
 ```
 
-#### 创建示例
+**各参数含义**
 
 ```shell
 ./buildvm_onlyv6.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘
 ```
+
+#### 创建示例
 
 ```shell
 ./buildvm_onlyv6.sh 152 test1 oneclick123 1 1024 10 debian12 local

@@ -63,12 +63,6 @@ The list of currently available image names is as follows:
 - If the host machine has an IPV6 subnet, IPV6 networking will be automatically added. However, there won't be any public IPV6 addresses.
 - Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet
 
-Command:
-
-```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm.sh -o buildvm.sh && chmod +x buildvm.sh
-```
-
 ### Usage Instructions
 
 System Support:
@@ -78,6 +72,14 @@ System Support:
 :::tip
 Note that usernames consisting of only numbers may cause issues with cloud-init. It's preferable to use usernames that are entirely in English or start with an English character.
 :::
+
+**Download Script**
+
+```shell
+curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm.sh -o buildvm.sh && chmod +x buildvm.sh
+```
+
+**Meaning of each parameter**
 
 ```shell
 ./buildvm.sh VMID Username Password Number_of_CPU_Cores Memory Disk SSH_Port Port_80 Port_443 Public_Port_Start Public_Port_End System Storage_Disk Independent_IPV6_address(leave default N blank)
@@ -195,17 +197,21 @@ Before use, ensure that the current host machine has at least 2 available IP add
 - Relevant system information will be stored in the corresponding virtual machine's NOTE section, accessible for viewing on the web interface.
 - Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet.
 
-Command:
+#### Usage Instructions
+
+**Download Script**
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_extraip.sh -o buildvm_extraip.sh && chmod +x buildvm_extraip.sh
 ```
 
-#### Example of Creation
+**Meaning of each parameter**
 
 ```shell
 ./buildvm_extraip.sh VMID Username Password Number_of_CPU_Cores Memory_Size_in_MB Disk_Size_in_GB OS Storage_Disk Attach_IPV6(Default is N)
 ```
+
+#### Test Example
 
 ```shell
 ./buildvm_extraip.sh 152 test1 oneclick123 1 1024 10 debian12 local N
@@ -233,17 +239,21 @@ The above command is used to create a virtual machine with a dedicated IPv4 addr
 - Relevant system information will be stored in the NOTE of the corresponding virtual machine and can be viewed on the WEB end.
 - Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet.
 
-Command:
+#### Usage Instructions
+
+**Download Script**
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_manual_ip.sh -o buildvm_manual_ip.sh && chmod +x buildvm_manual_ip.sh
 ```
 
-#### Example Usage
+**Meaning of each parameter**
 
 ```shell
 ./buildvm_manual_ip.sh VMID USERNAME PASSWORD CPU_CORES MEMORY_SIZE_GB STORAGE_SIZE_GB OS STORAGE_DISK IPV4_ADDRESS ATTACH_IPV6(defaults to N)
 ```
+
+#### Test Example
 
 ```shell
 ./buildvm_manual_ip.sh 152 test1 oneclick123 1 1024 10 debian12 local a.b.c.d/24 N
@@ -274,17 +284,21 @@ The prerequisite is that the host provides an IPv6 subnet instead of just a stan
 - Automatically detect available IPv6 ranges and bind the corresponding V6 address, based on the virtual machine's number, to the virtual machine.
 - System-related information will be stored in the NOTES section of the respective virtual machine, accessible for viewing on the web interface.
 
-Command:
+#### Usage Instructions
+
+**Download Script**
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_onlyv6.sh -o buildvm_onlyv6.sh && chmod +x buildvm_onlyv6.sh
 ```
 
-#### Example Usage
+**Meaning of each parameter**
 
 ```shell
 ./buildvm_onlyv6.sh VMID username password CPU_cores memory_GB disk_GB operating_system storage_disk
 ```
+
+#### Test Example
 
 ```shell
 ./buildvm_onlyv6.sh 152 test1 oneclick123 1 1024 10 debian12 local
