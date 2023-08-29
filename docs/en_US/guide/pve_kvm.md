@@ -318,7 +318,7 @@ The above command is used to create a virtual machine with only IPv6 addresses.
 | Storage Disk| local           |
 
 
-## Delete Example vm152
+### Delete Example vm152
 
 ```shell
 qm stop 152

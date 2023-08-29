@@ -91,6 +91,8 @@ iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables
 
 [aws](https://aws.amazon.com/lightsail/) EC2 servers
 
+[Google cloud platform - GCP](https://console.cloud.google.com/) AMD servers
+
 ### Currently Unavailable or Unsupported Providers
 
 OVH

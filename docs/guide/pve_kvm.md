@@ -364,7 +364,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 | 存储盘       | local            |
 
 
-## 删除vm152示例
+### 删除vm152示例
 
 ```shell
 qm stop 152

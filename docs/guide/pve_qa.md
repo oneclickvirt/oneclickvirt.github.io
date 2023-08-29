@@ -91,6 +91,8 @@ iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables
 
 [aws](https://aws.amazon.com/lightsail/) 中的ec2实例
 
+[Google cloud platform - GCP](https://console.cloud.google.com/) 的 AMD 服务器
+
 ### 已知暂时不可用未适配的商家
 
 OVH
