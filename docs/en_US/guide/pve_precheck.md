@@ -30,10 +30,6 @@ It is recommended to install debian11 instead of debian12, because the latter is
 - Hardware requirements for KVM: VM-X or AMD-V support (some VPS and all Dedicated servers support).
 - If hardware or system requirements are not met, you can use LXD to batch open LXC containers [Jump](https://github.com/spiritLHLS/lxd)
 
-:::warning
-I'm not sure if I'm going to be able to do this, but I'm going to be able to do it in a few minutes.
-:::
-
 Setting up virtual memory (SWAP)
 
 Unit conversion: Enter 1024 to generate 1G SWAP-virtual memory, virtual memory takes up hard disk space, when the actual memory is not enough to use the virtual memory will automatically use the virtual memory for memory use, but then bring the IO high occupancy and CPU performance occupancy!
