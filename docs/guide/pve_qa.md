@@ -69,6 +69,14 @@ iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables
 
 [nocix](https://www.nocix.net/) 中的独立服务器
 
+[OVH](https://www.ovhcloud.com/en/public-cloud/) 中的 Public Cloud 服务器 需要使用以下命令dd为纯净系统后安装
+
+```shell
+bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh) -debian 11 -pwd 'oneclickvirt139' --network "static"
+```
+
+此时dd后的系统用户名为```root```，密码为```oneclickvirt139```
+
 ### 只可开设LXC虚拟化的NAT的商家
 
 [腾讯云](https://curl.qcloud.com/tPrMnfZm) 中的无忧款和特惠款(学生机)
@@ -92,7 +100,3 @@ iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables
 [aws](https://aws.amazon.com/lightsail/) 中的ec2实例
 
 [Google cloud platform - GCP](https://console.cloud.google.com/) 的 AMD 服务器
-
-### 已知暂时不可用未适配的商家
-
-OVH
