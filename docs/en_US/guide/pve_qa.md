@@ -69,6 +69,14 @@ iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables
 
 [nocix](https://www.nocix.net/) Dedicated servers
 
+[OVH](https://www.ovhcloud.com/en/public-cloud/) Public Cloud needs to be installed after dd as a pure system using the following command
+
+```shell
+bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh) -debian 11 -pwd ' oneclickvirt139' --network "static"
+```
+
+At this point, the system username after dd is ``root``, and the password is ``oneclickvirt139``.
+
 ### VPS Providers Offering NAT with LXC Virtualization
 
 [Tencent Cloud](https://curl.qcloud.com/tPrMnfZm) Worry-Free and Student editions
@@ -92,7 +100,3 @@ iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables
 [aws](https://aws.amazon.com/lightsail/) EC2 servers
 
 [Google cloud platform - GCP](https://console.cloud.google.com/) AMD servers
-
-### Currently Unavailable or Unsupported Providers
-
-OVH
