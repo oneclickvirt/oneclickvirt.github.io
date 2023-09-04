@@ -47,6 +47,8 @@ iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables
 
 ### VPS Providers Offering KVM Virtualization with NAT
 
+[spartanhost](https://billing.spartanhost.net/aff.php?aff=1705) Debian12 on a Dedicated Server (Debian11 has problems)
+
 [interserver](https://www.interserver.net/r/802990) VPS or dedicated servers
 
 [frantech](https://my.frantech.ca/aff.php?aff=5522) Las Vegas Tier 2

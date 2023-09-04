@@ -47,6 +47,8 @@ iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables
 
 ### 可开设KVM虚拟化的NAT的商家
 
+[spartanhost](https://billing.spartanhost.net/aff.php?aff=1705) 中的独立服务器的Debian12(Debian11有问题)
+
 [interserver](https://www.interserver.net/r/802990) 中的VPS或独立服务器
 
 [frantech](https://my.frantech.ca/aff.php?aff=5522) 中的拉斯维加斯第二档
