@@ -8,6 +8,8 @@ Each container has specific configuration requirements; please refer to them ind
 
 If the configured memory is not enough, then it's okay to make up for it with the virtual memory [here](https://virt.spiritlhl.net/en_US/guide/docker_install.html#setting-up-virtual-memory).
 
+Note that the following scripts must be pre-installed using the environment installation scripts in this set of tutorials before using them
+
 ## One-Click Setup of Android System Container
 
 - Customizable Android version
@@ -17,16 +19,6 @@ If the configured memory is not enough, then it's okay to make up for it with th
 - Supports x86_64 and ARM architectures
 
 **Host machine should have a minimum configuration of 1 core, 2GB RAM, and 15GB storage, else starting the setup might lead to host machine freezing.**
-
-**The host machine needs to support nested virtualization, If don't support it, you can try, but there is no guarantee that it will work 100% of the time.**
-
-Command:
-
-```shell
-egrep -c '(vmx|svm)' /proc/cpuinfo
-```
-
-The result should be greater than or equal to 1 and cannot be 0.
 
 Newer Android versions occupy more resources. The above configuration requirements are for the minimum version of Android. (Personally tested with the tag "12.0.0-latest", higher versions resulted in a blank screen. Test which version works for you.)
 
