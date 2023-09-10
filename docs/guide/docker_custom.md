@@ -52,7 +52,9 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/
 
 ```
 docker rm -f android
+docker rm -f scrcpy_web
 rm -rf /etc/nginx/passwd_scrcpy_web
+rm -rf /etc/nginx/sites-enabled/reverse-proxy
 rm -rf /root/android_info
 ```
 
