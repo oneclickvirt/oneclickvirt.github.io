@@ -20,6 +20,8 @@ Note that the following scripts must be pre-installed using the environment inst
 
 **Host machine should have a minimum configuration of 1 core, 2GB RAM, and 15GB storage, else starting the setup might lead to host machine freezing.**
 
+Ubuntu is recommended for hosting, Debian may cause white screen on Android.
+
 Newer Android versions occupy more resources. The above configuration requirements are for the minimum version of Android. (Personally tested with the tag "12.0.0-latest", higher versions resulted in a blank screen. Test which version works for you.)
 
 **Setup:**
