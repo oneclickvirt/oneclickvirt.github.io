@@ -171,25 +171,49 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onefire
 
 **删除**
 
-执行
+修改以下端口号```3003```为你实际的端口号，然后执行命令回车两次即可删除容器、配置文件、对应镜像
 
 ```shell
-docker ps -a
-```
-
-查询name的前缀是firefox的容器，记录容器的ID用
-
-```shell
-docker rm -f 容器的ID
-```
-
-删除所有关联的容器后可用 
-
-```shell
+PORT="3003"
+docker stop firefox_${PORT}
+docker rm -f firefox_${PORT}
+rm -f /usr/local/bin/firefox_${PORT}
 docker rmi jlesage/firefox
 ```
 
-删除对应镜像
+## 一键开设Chrome浏览器的容器
+
+- 已设置崩溃自启
+- 自带web的校验，可自设置密码
+- 可自定义容器最大的内存占用
+- 无需考虑是否支持嵌套虚拟化和服务器的架构
+- 支持声音映射
+
+**宿主机需要至少1核2G内存5G硬盘，开设的容器大小将占用起码1G硬盘**
+
+**开设**
+
+开设后默认的密码是```oneclick```
+
+默认的http端口是```3004```，开设后打开```http://本机IPV4:端口```即可
+
+默认的https端口是```3005```，开设后打开```https://本机IPV4:端口```即可
+
+```shell
+curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onechromium.sh -o onechromium.sh && chmod +x onechromium.sh && bash onechromium.sh
+```
+
+**删除**
+
+修改以下端口号```3004```为你实际的http端口号，然后执行命令回车两次即可删除容器、配置文件、对应镜像
+
+```shell
+PORT="3004"
+docker stop chromium_${PORT}
+docker rm -f chromium_${PORT}
+rm -f /usr/local/bin/config_${PORT}
+docker rmi lscr.io/linuxserver/chromium
+```
 
 ## 一键开设Desktop的容器
 

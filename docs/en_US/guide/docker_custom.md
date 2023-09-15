@@ -167,22 +167,48 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onefire
 
 **Deletion**
 
-Command:
+Modify the following port number ``3003`` to your actual port number, and then execute the command to delete the container, configuration file, and corresponding image
 
 ```shell
-docker ps -a
-```
-
-Query for containers with a prefix of 'firefox' in their names, and record the IDs of these containers.
-
-```shell
-docker rm -f container_ID
-```
-
-To remove the corresponding image, you can use the following command after deleting all associated containers:
-
-```shell
+PORT="3003"
+docker stop firefox_${PORT}
+docker rm -f firefox_${PORT}
+rm -f /usr/local/bin/firefox_${PORT}
 docker rmi jlesage/firefox
+```
+
+## One-Click Setup of Chrome Browser Container
+
+- Crashing self-start has been set
+- Web checksums and passwords can be set.
+- Customizable maximum container memory footprint
+- No need to consider whether to support nested virtualization and server architecture.
+- Supports sound mapping
+
+Sound mapping is supported **Host requires at least 1 core, 2G RAM, and 5G hard disk, and the size of the container to be opened will take up a minimum of 1G hard disk**.
+
+**Opening**
+
+The default password after opening is ```oneclick```.
+
+The default http port is ```3004```, open ```http://IPV4:3004``` after opening.
+
+The default https port is ```3005```, open ```https://IPV4:3005``` after opening.
+
+```shell
+curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onechromium.sh -o onechromium.sh && chmod +x onechromium.sh && bash onechromium.sh
+```
+
+**Delete**
+
+Change the following port number ```3004``` to your actual http port number, then execute the command enter twice to delete the container, configuration file, and corresponding image
+
+```shell
+PORT="3004"
+docker stop chromium_${PORT}
+docker rm -f chromium_${PORT}
+rm -f /usr/local/bin/config_${PORT}
+docker rmi lscr.io/linuxserver/chromium
 ```
 
 ## One-Click Setup of Desktop Container
