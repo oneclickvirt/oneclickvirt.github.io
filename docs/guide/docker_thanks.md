@@ -32,4 +32,6 @@ https://github.com/rustdesk/rustdesk
 
 https://github.com/yoursunny/ndpresponder
 
+https://github.com/linuxserver/docker-chromium
+
 感谢 [@Ella-Alinda](https://github.com/Ella-Alinda) 和 @CoiaPrant 提供的Docker指导

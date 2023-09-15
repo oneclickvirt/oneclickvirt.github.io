@@ -30,4 +30,6 @@ https://github.com/linuxserver/docker-webtop
 
 https://github.com/yoursunny/ndpresponder
 
+https://github.com/linuxserver/docker-chromium
+
 Thank [@Ella-Alinda](https://github.com/Ella-Alinda) and @CoiaPrant for providing docker guidance.
