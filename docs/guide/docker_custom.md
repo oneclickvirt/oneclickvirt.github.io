@@ -177,7 +177,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onefire
 PORT="3003"
 docker stop firefox_${PORT}
 docker rm -f firefox_${PORT}
-rm -f /usr/local/bin/firefox_${PORT}
+rm -rf /usr/local/bin/firefox_${PORT}
 docker rmi jlesage/firefox
 ```
 
@@ -211,7 +211,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onechro
 PORT="3004"
 docker stop chromium_${PORT}
 docker rm -f chromium_${PORT}
-rm -f /usr/local/bin/config_${PORT}
+rm -rf /usr/local/bin/config_${PORT}
 docker rmi lscr.io/linuxserver/chromium
 ```
 

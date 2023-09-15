@@ -173,7 +173,7 @@ Modify the following port number ``3003`` to your actual port number, and then e
 PORT="3003"
 docker stop firefox_${PORT}
 docker rm -f firefox_${PORT}
-rm -f /usr/local/bin/firefox_${PORT}
+rm -rf /usr/local/bin/firefox_${PORT}
 docker rmi jlesage/firefox
 ```
 
@@ -207,7 +207,7 @@ Change the following port number ```3004``` to your actual http port number, the
 PORT="3004"
 docker stop chromium_${PORT}
 docker rm -f chromium_${PORT}
-rm -f /usr/local/bin/config_${PORT}
+rm -rf /usr/local/bin/config_${PORT}
 docker rmi lscr.io/linuxserver/chromium
 ```
 
