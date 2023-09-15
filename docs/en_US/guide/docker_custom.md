@@ -208,6 +208,7 @@ PORT="3004"
 docker stop chromium_${PORT}
 docker rm -f chromium_${PORT}
 rm -rf /usr/local/bin/config_${PORT}
+rm -rf /usr/local/bin/password_${PORT}
 docker rmi lscr.io/linuxserver/chromium
 ```
 
