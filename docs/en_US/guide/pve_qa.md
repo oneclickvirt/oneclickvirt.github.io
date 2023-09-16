@@ -71,6 +71,8 @@ iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables
 
 [nocix](https://www.nocix.net/) Dedicated servers
 
+[crunchbits](https://get.crunchbits.com/aff.php?aff=17) VPS
+
 [OVH](https://www.ovhcloud.com/en/public-cloud/) Public Cloud needs to be installed after dd as a pure system using the following command
 
 ```shell

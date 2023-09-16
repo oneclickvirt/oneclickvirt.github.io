@@ -71,6 +71,8 @@ iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables
 
 [nocix](https://www.nocix.net/) 中的独立服务器
 
+[crunchbits](https://get.crunchbits.com/aff.php?aff=17) 中的VPS
+
 [OVH](https://www.ovhcloud.com/en/public-cloud/) 中的 Public Cloud 服务器 需要使用以下命令dd为纯净系统后安装
 
 ```shell
