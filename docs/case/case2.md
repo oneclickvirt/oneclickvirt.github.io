@@ -18,13 +18,11 @@ Ubuntu 18+, Debian 8+, Centos 7+, Fedora 33+, Almalinux 8.5+, OracleLinux 8+, Ro
 
 FreeBSD(前提已执行```pkg install -y curl bash```)，Armbian
 
-<details>
 Armbian系统部分检测和测试暂不支持，部分会编码错误
 
 FreeBSD系统的硬盘测试和CPU测试目前是半残的，有些东西显示有问题
 
 FreeBSD系统的分享链接的预处理部分sed命令存在问题未删除部分无效内容
-</details>
 
 支持架构：
 
@@ -43,7 +41,6 @@ https://github.com/spiritLHLS/one-click-installation-script
 如若还有系统bug请到上面仓库的issues反映，脚本原生BUG该仓库issues反映
 
 ## 融合怪命令
-
 
 ### 交互形式
 
@@ -66,20 +63,24 @@ bash <(wget -qO- bash.spiritlhl.net/ecs)
 ### 无交互形式
 
 ```bash
-echo 1 | bash <(wget -qO- --no-check-certificate https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh)
+curl -L https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh 1 0 0
 ```
 
 或
 
 ```bash
-echo 1 | bash <(wget -qO- --no-check-certificate https://github.com/spiritLHLS/ecs/raw/main/ecs.sh)
+curl -L https://github.com/spiritLHLS/ecs/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh 1 0 0
 ```
 
 或
 
+```bash
+bash ecs.sh 1 0 0
 ```
-echo 1 | bash <(wget -qO- bash.spiritlhl.net/ecs)
-```
+
+上述命令默认执行融合怪全体，输入的三个参数数字是对应的选项序号.
+
+```参数1 参数2 参数3```对应有交互模式中你依次输入的选项序号，如果有参数没用到留空或者写0即可.
 
 ## IP质量检测
 
@@ -166,7 +167,6 @@ VPS测试，VPS测速，VPS综合性能测试，VPS回程线路测试，VPS流�
 - [x] 回程路由以及带宽类型检测(商宽/家宽/数据中心)--由[fscarmen](https://github.com/fscarmen)的PR以及本人的技术思路提供，本人后续修改优化
 - [x] IP质量与25端口检测(含IPV4和IPV6)--本脚本独创，感谢互联网提供的查询资源
 - [x] speedtest测速--使用自写[ecsspeed](https://github.com/spiritLHLS/ecsspeed)仓库，自动更新测速服务器ID，一劳永逸解决老是要手动更新测速ID的问题
-- [ ] 端口检测(检测是否被墙)--由fscarmen的PR以及本人的技术思路提供 - 待修复
 
 # 友链
 
