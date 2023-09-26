@@ -14,7 +14,7 @@ https://github.com/spiritLHLS/one-click-installation-script
 
 运行所有一键修复脚本前注意看说明，以及保证服务器无重要数据，运行后造成的一切后果作者不负任何责任，自行评判风险！
 
-#### 一键尝试修复apt源 
+### 一键尝试修复apt源 
 
 - 支持系统：Ubuntu 12+，Debian 6+
 - 修复apt下载包进程意外退出导致的源锁死
@@ -30,7 +30,7 @@ https://github.com/spiritLHLS/one-click-installation-script
 curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/repair_scripts/package.sh -o package.sh && chmod +x package.sh && bash package.sh
 ```
 
-#### 一键尝试修复系统时间 
+### 一键尝试修复系统时间 
 
 - 支持系统：Ubuntu 18+，Debian 8+，centos 7+，Fedora，Almalinux 8.5+
 - 由于系统时间不准确都是未进行时区时间同步造成的，使用chronyd进行时区时间同步后应当解决了问题
@@ -39,7 +39,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-scri
 curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/repair_scripts/modify_time.sh -o modify_time.sh && chmod +x modify_time.sh && bash modify_time.sh
 ```
 
-#### 一键尝试修复sudo警告
+### 一键尝试修复sudo警告
 
 - 一键尝试修复```sudo: unable to resolve host xxx: Name or service not known```警告(爆错)
 
@@ -49,7 +49,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-scri
 curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/repair_scripts/check_sudo.sh -o check_sudo.sh && chmod +x check_sudo.sh && bash check_sudo.sh
 ```
 
-#### 一键修改系统自带的journal日志记录大小释放系统盘空间
+### 一键修改系统自带的journal日志记录大小释放系统盘空间
 
 - 支持系统：Ubuntu 18+，Debian 8+，centos 7+，Fedora，Almalinux 8.5+
 - 1.自定义修改大小，单位为MB，一般500或者1000即可，有的系统日志默认给了5000甚至更多，不是做站啥的没必要
@@ -62,7 +62,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-scri
 curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/repair_scripts/resize_journal.sh -o resize_journal.sh && chmod +x resize_journal.sh && bash resize_journal.sh
 ```
 
-#### 一键尝试修复网络
+### 一键尝试修复网络
 
 **该脚本轻易勿要使用，请确保运行时服务器无重要文件或程序，出现运行bug后续可能需要重装系统**
 
@@ -95,7 +95,7 @@ sudo sed -i 's/.*precedence ::ffff:0:0\/96.*/precedence ::ffff:0:0\/96  100/g' /
 
 运行所有一键环境安装脚本前注意看说明，以及保证服务器无重要数据，运行后造成的一切后果作者不负任何责任，自行评判风险！
 
-#### 一键安装jupyter环境 
+### 一键安装jupyter环境 
 
 - **本脚本尝试使用Miniconda3安装虚拟环境jupyter-env再进行jupyter和jupyterlab的安装，如若安装机器不纯净勿要轻易使用本脚本！**
 - **本脚本为实验性脚本可能会有各种bug，勿要轻易尝试！**
@@ -114,7 +114,7 @@ sudo sed -i 's/.*precedence ::ffff:0:0\/96.*/precedence ::ffff:0:0\/96  100/g' /
 curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/install_scripts/jupyter.sh -o jupyter.sh && chmod +x jupyter.sh && bash jupyter.sh
 ```
 
-#### 一键安装R语言环境
+### 一键安装R语言环境
 
 - **安装前需使用Miniconda3安装虚拟环境jupyter-env，然后进行jupyter和jupyterlab的安装，再然后才能安装本内核**
 - **简单的说，需要执行本仓库对应的jupyter安装脚本再运行本脚本安装R语言环境，会自动安装R环境内核和图形设备支持库**
@@ -125,7 +125,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-scri
 curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/install_scripts/R.sh -o R.sh && chmod +x R.sh && bash R.sh
 ```
 
-#### 一键安装rust环境 
+### 一键安装rust环境 
 
 - 支持系统：Ubuntu 18+，Debian 8+，centos 7+，Fedora，Almalinux 8.5+
 - 加载官方脚本安装，前置条件适配系统以及后置条件判断安装的版本
@@ -134,7 +134,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-scri
 curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/install_scripts/rust.sh -o rust.sh && chmod +x rust.sh && bash rust.sh 
 ```
 
-#### 一键安装C环境
+### 一键安装C环境
 
 - 一键安装C++环境
 - 支持系统：使用apt或者yum作为包管理器的系统
@@ -144,7 +144,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-scri
 curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/install_scripts/cplusplus.sh -o cplusplus.sh && chmod +x cplusplus.sh && bash cplusplus.sh 
 ```
 
-#### 一键安装vnstat环境
+### 一键安装vnstat环境
 
 - 支持系统：Ubuntu 18+，Debian 8+，centos 7+，Fedora，Almalinux 8.5+
 - 加载官方文件编译安装，前置条件适配系统以及后置条件判断安装的版本
@@ -153,7 +153,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-scri
 curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/install_scripts/vnstat.sh -o vnstat.sh && chmod +x vnstat.sh && bash vnstat.sh 
 ```
 
-#### 一键升级低版本debian为debian11
+### 一键升级低版本debian为debian11
 
 - 支持系统：debian 6+
 - 升级后需要重启系统加载内核，升级过程中需要选择的都无脑按回车即可
@@ -163,7 +163,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-scri
 curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/install_scripts/todebian11.sh -o todebian11.sh && chmod +x todebian11.sh && bash todebian11.sh
 ```
 
-#### 一键升级低版本ubuntu为ubuntu22
+### 一键升级低版本ubuntu为ubuntu22
 
 - 支持系统：Ubuntu 16+
 - 升级后需要重启系统加载内核，升级过程中需要选择的都无脑按回车即可
@@ -173,7 +173,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-scri
 curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/install_scripts/toubuntu22.sh -o toubuntu22.sh && chmod +x toubuntu22.sh && bash toubuntu22.sh
 ```
 
-#### 一键安装zipline平台
+### 一键安装zipline平台
 
 - 应该支持的系统：Ubuntu 18+，Debian 8+，centos 7+，Fedora，Almalinux 8.5+
 - 暂时只在Ubuntu上验证无问题
@@ -195,7 +195,7 @@ docker-compose exec zipline yarn scripts:clear-zero-byte
 
 按照提示操作
 
-#### 一键安装filebrowser平台
+### 一键安装filebrowser平台
 
 - 端口设置为3030了，其他登陆信息详见提示
 - [filebrowser](https://github.com/filebrowser/filebrowser)平台支持下载上传文件到服务器，批量下载多个文件(自定义压缩格式)，构建文件分享链接，设置分享时长
@@ -205,7 +205,7 @@ docker-compose exec zipline yarn scripts:clear-zero-byte
 curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/install_scripts/filebrowser.sh -o filebrowser.sh && chmod +x filebrowser.sh && bash filebrowser.sh
 ```
 
-#### 一键删除平台监控
+### 一键删除平台监控
 
 - 一键移除大多数云服务器监控
 - 涵盖阿里云、腾讯云、华为云、UCLOUD、甲骨文云、京东云
