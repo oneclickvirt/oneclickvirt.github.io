@@ -100,12 +100,12 @@ sudo sed -i 's/.*precedence ::ffff:0:0\/96.*/precedence ::ffff:0:0\/96  100/g' /
 - **本脚本尝试使用Miniconda3安装虚拟环境jupyter-env再进行jupyter和jupyterlab的安装，如若安装机器不纯净勿要轻易使用本脚本！**
 - **本脚本为实验性脚本可能会有各种bug，勿要轻易尝试！**
 - 验证已支持的系统：
-  - Ubuntu 18/20/22 - 推荐，脚本自动挂起到后台
-  - Debian 9/10/11 - 还行，需要手动挂起到后台，详看脚本运行安装完毕的后续提示
+  - Ubuntu 系 - 推荐，脚本自动挂起到后台
+  - Debian 系 - 部分可能需要手动挂起到后台，详看脚本运行安装完毕的后续提示
 - 可能支持的系统(未验证)：centos 7+，Fedora，Almalinux 8.5+
 - 执行脚本，之前有用本脚本安装过则直接打印设置的登陆信息，没安装过则进行安装再打印信息，如果已安装但未启动则自动启动后再打印信息
-- 如果是初次安装无脑输入y回车即可，按照提示进行操作即可，安装完毕将在后台常驻运行
-- 安装完毕后，如果需要在lab中安装第三方库需要在lab中使用terminal并使用conda进行下载而不是pip3下载，这是需要注意的
+- 如果是初次安装无脑输入y回车即可，按照提示进行操作即可，安装完毕将在后台常驻运行，自动添加常用的安装包通道源
+- 安装完毕后，如果需要在lab中安装第三方库需要在lab中使用terminal并使用conda进行下载而不是pip3下载，这是需要注意的一点
 - 安装过程中有判断是否为中国IP，可选择是否使用中国镜像
 
 原始用途是方便快捷的在按小时计费的超大型服务器上部署python环境进行科学计算，充分利用时间别浪费在构建环境上。
@@ -326,6 +326,25 @@ docker run --restart=always --name code-server -p 0.0.0.0:8886:8080 \
 
 ```shell
 docker exec code-server cat /root/.config/code-server/config.yaml
+```
+
+或
+
+```
+curl -fsSL https://code-server.dev/install.sh | sh -s -- --dry-run
+sudo systemctl enable --now code-server@root
+sed -i '1s/127.0.0.1:8080/0.0.0.0:8536/' ~/.config/code-server/config.yaml
+sudo systemctl restart code-server@root
+cat .config/code-server/config.yaml
+```
+
+卸载需要
+
+```
+sudo systemctl stop code-server@root
+sudo systemctl disable code-server@root
+rm -rf ~/.cache/coder
+sudo apt remove coder -y
 ```
 
 或
