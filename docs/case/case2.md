@@ -60,7 +60,7 @@ curl -L https://github.com/spiritLHLS/ecs/raw/main/ecs.sh -o ecs.sh && chmod +x 
 bash <(wget -qO- bash.spiritlhl.net/ecs)
 ```
 
-### 无交互形式
+### 无交互形式-参数模式
 
 ```bash
 curl -L https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh 1 0 0
@@ -78,9 +78,11 @@ curl -L https://github.com/spiritLHLS/ecs/raw/main/ecs.sh -o ecs.sh && chmod +x 
 bash ecs.sh 1 0 0
 ```
 
-上述命令默认执行融合怪全体，输入的三个参数数字是对应的选项序号.
+上述命令默认执行融合怪全体，输入的三个参数数字是对应的选项序号。
 
-```参数1 参数2 参数3```对应有交互模式中你依次输入的选项序号，如果有参数没用到留空或者写0即可.
+```参数1 参数2 参数3```对应有交互模式中你依次输入的选项序号，如果有参数没用到留空或者写0即可。
+
+```参数2```可传入你本地的IPV4地址，将使用你本地IPV4作为回程路由测试的目标地址。
 
 ## IP质量检测
 
