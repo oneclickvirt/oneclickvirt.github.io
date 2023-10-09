@@ -13,7 +13,7 @@ Downloading the boot script is **NOT REQUIRED**, if you have used the command to
 Command:
 
 ```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
+curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
 ```
 
 ### How it's used

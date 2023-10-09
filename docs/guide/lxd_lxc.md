@@ -13,13 +13,13 @@ outline: deep
 国际
 
 ```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
+curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
 ```
 
 国内
 
 ```shell
-curl -L https://ghproxy.com/https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
+curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
 ```
 
 ### 使用方法
