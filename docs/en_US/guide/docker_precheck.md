@@ -14,7 +14,7 @@ Default use of debian system optional alpine system, each container comes with 1
 
 The default creation of unprivileged containers, and does not mount and host docker daemon communication, so ** host created docker virtualization NAT servers can not be nested within the virtualization docker **
 
-Since the CPU and memory limits are only applied to the host and the cgroup driver is not used in the container, using the server test script to detect the available resources of the container will not be effective, and the resources displayed will be those of the host.
+By default, lxcfs is installed and enabled, so that when querying resources within a container, CPU and memory use the configured view instead of the host's view.
 
 Since most cloud servers have ext4 filesystems, even xfs filesystems do not enable the pquota option, so **sharing the host's hard disk by default does not limit the disk size of each container**.
 

@@ -27,6 +27,8 @@ PS: If the hardware resources are even worse, virtualization is not supported, y
 
 - Support for docker nested virtualization of open LXC containers has been set up, and the default normal version and pure probe version use the debian11 system.
 
+- lxcfs has been set to be enabled by default, so that querying resources within a container uses the configured view rather than the host's view
+
 - Have blocked the container may be used to abuse the toolkit and IPV4 network TCP/UDP protocol ports ( 3389 8888 54321 65432 ), to prevent the container is used for scanning and blasting, and can be external process checking for problems automatically shut down
 
 - Has supported one-click configuration of IPV6 addresses for LXC containers (provided that the mother hen has an IPV6 subnet, no IPV6 address is not configured), automatically adapted to the size of the subnet
