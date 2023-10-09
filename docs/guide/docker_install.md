@@ -10,7 +10,7 @@ outline: deep
 ## 环境预设
 
 - 检测系统环境，安装对应组件
-- 安装docker和docker-compose
+- 安装docker和docker-compose，这里有判断为国际服务器还是国内服务器，自动安装对应源的docker
 - 下载默认需要的一些配置脚本
 - 检测如果存在IPV6地址，检测其是否大于或等于/64，如果符合条件，则配置docker的ipv6的网络
 - 如果上述条件都符合，创建ndpresponder的docker和radvd，使得IPV6的分配支持ndp广播和自动分配

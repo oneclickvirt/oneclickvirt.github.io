@@ -91,6 +91,8 @@ The virtual memory mentioned here refers to the desired SWAP size, and the stora
 
 During the environment installation process, **you might need to restart the server to load the kernel with ZFS support and then execute the installation command again. Follow the prompts in the command line after running for accurate instructions.**
 
+Enable the lxcfs-related configuration of lxd by default, so that in-container querying of container information changes to information about the container itself rather than the host.
+
 If the script prompts you to restart the system and execute the script again, and if the second execution still requires a system restart to load the kernel, it means the kernel loading failed during the previous attempt. It's recommended to reinstall the host system using an Ubuntu-based version to resolve this issue.
 
 Each time you run the script, you'll need to input the initialization configuration. So, if the script prompts you to restart the system and execute again, you'll need to input the initialization configuration again.

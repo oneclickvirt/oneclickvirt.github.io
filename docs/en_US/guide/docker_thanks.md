@@ -32,4 +32,6 @@ https://github.com/yoursunny/ndpresponder
 
 https://github.com/linuxserver/docker-chromium
 
+https://github.com/SuperManito/LinuxMirrors
+
 Thank [@Ella-Alinda](https://github.com/Ella-Alinda) and @CoiaPrant for providing docker guidance.
