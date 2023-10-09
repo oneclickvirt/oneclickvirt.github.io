@@ -16,4 +16,6 @@ https://github.com/turtle0x1/LxdMosaic
 
 https://openzfs.github.io/openzfs-docs/Getting%20Started/Debian/index.html
 
+https://github.com/SuperManito/LinuxMirrors
+
 感谢 [@Ella-Alinda](https://github.com/Ella-Alinda) [@fscarmen](https://github.com/fscarmen) 提供的指导

@@ -24,4 +24,6 @@ https://github.com/jiangcuo/run_proxmox_in_docker
 
 https://github.com/yoursunny/ndpresponder
 
+https://github.com/SuperManito/LinuxMirrors
+
 感谢 [@Ella-Alinda](https://github.com/Ella-Alinda) 提供的PVE指导
