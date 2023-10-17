@@ -224,7 +224,7 @@ To exit, type ```exit`` and enter.
 Delete all LXC containers
 
 ```bash
-lxc list | awk '{print $2}' | grep -v "^$" | xargs -I {} lxc delete -f {}
+lxc list -c n --format csv | xargs -I {} lxc delete -f {}
 ```
 
 Perform deletion of useless logs within a container

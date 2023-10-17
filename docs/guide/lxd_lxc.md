@@ -249,7 +249,7 @@ lxc exec 服务器名字 /bin/bash
 删除所有LXC容器
 
 ```bash
-lxc list | awk '{print $2}' | grep -v "^$" | xargs -I {} lxc delete -f {}
+lxc list -c n --format csv | xargs -I {} lxc delete -f {}
 ```
 
 在容器内执行删除无用日志
