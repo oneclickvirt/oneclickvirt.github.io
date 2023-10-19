@@ -38,6 +38,7 @@ CPU核数需要小于或等于宿主机的核数，内存大小以MB计算，硬
 - ubuntu18，ubuntu20，ubuntu22
 - centos8，centos9 (实际开设出来都是Stream版本)
 - alpine3.15，alpine3.16，alpine3.17，alpine3.18
+- openwrt22
 
 * 注意都是小写字母+数字的组合，自行尝试，如果搜索无该系统则会自动退出脚本
 * 版本号可以带英文小数点，为了适配alpine的版本号已支持
