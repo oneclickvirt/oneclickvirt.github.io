@@ -269,13 +269,13 @@ sudo find /var/cache/apt/archives -type f -delete
 删除原始配置脚本
 
 ```bash
-rm -rf /usr/local/bin/alpinessh.sh
+rm -rf /usr/local/bin/ssh_sh.sh
 rm -rf /usr/local/bin/config.sh
-rm -rf /usr/local/bin/ssh.sh
+rm -rf /usr/local/bin/ssh_bash.sh
 rm -rf /usr/local/bin/check-dns.sh
-rm -rf /root/alpinessh.sh
+rm -rf /root/ssh_sh.sh
 rm -rf /root/config.sh
-rm -rf /root/ssh.sh
+rm -rf /root/ssh_bash.sh
 rm -rf /root/buildone.sh
 rm -rf /root/add_more.sh
 ```
@@ -285,8 +285,8 @@ rm -rf /root/add_more.sh
 ```bash
 wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/check-dns.sh -O /usr/local/bin/check-dns.sh && chmod +x /usr/local/bin/check-dns.sh
 wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/config.sh -O /usr/local/bin/config.sh && chmod +x /usr/local/bin/config.sh
-wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/ssh.sh -O /usr/local/bin/ssh.sh && chmod +x /usr/local/bin/ssh.sh
-wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/alpinessh.sh -O /usr/local/bin/alpinessh.sh && chmod +x /usr/local/bin/alpinessh.sh
+wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/ssh_bash.sh -O /usr/local/bin/ssh_bash.sh && chmod +x /usr/local/bin/ssh_bash.sh
+wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/ssh_sh.sh -O /usr/local/bin/ssh_sh.sh && chmod +x /usr/local/bin/ssh_sh.sh
 ```
 
 其他一键脚本自己对应下载回来就行了
