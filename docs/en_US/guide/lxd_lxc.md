@@ -32,6 +32,7 @@ Support for customizing the system of the server, do not fill out the default us
 - ubuntu18, ubuntu20, ubuntu22
 - centos8, centos9 (actually opened out of the Stream version)
 - alpine3.15, alpine3.16, alpine3.17, alpine3.18
+- openwrt
 
 * Note that they are all lowercase letters + numbers of the combination of their own to try, if the search is not the system will automatically exit the script
 * Version number can be with English decimal point, in order to adapt to the alpine version number has been supported.
