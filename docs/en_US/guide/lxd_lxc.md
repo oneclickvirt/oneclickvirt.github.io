@@ -16,7 +16,7 @@ Command:
 curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
 ```
 
-### How it's used
+### Usage
 
 ```
 . /buildone.sh name Cpu_num Memory_size Hard_disk_size SSH_port Extranet_start_port Extranet_stop_port Download_speed Upload_speed Whether_IPV6_is_enabled(Y or N) System(leave blank for debian11)
