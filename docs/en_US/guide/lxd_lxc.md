@@ -19,7 +19,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/buildone.s
 ### How it's used
 
 ```
-. /buildone.sh Chick name Memory size Hard disk size SSH port Extranet start port Extranet stop port Download speed Upload speed Whether IPV6 is enabled (Y or N) System (leave blank for debian11)
+. /buildone.sh name Cpu_num Memory_size Hard_disk_size SSH_port Extranet_start_port Extranet_stop_port Download_speed Upload_speed Whether_IPV6_is_enabled(Y or N) System(leave blank for debian11)
 ```
 
 Memory size is calculated in MB, hard disk size is calculated in GB, download speed upload speed is calculated in Mbit, whether to enable IPV6 does not have to fill in Y or N, no this parameter can also be left blank default does not enable IPV6
@@ -60,7 +60,7 @@ Here is the information about the example chick that is being raised:
 | Operating System            | Debian 11       |
 
 ```
-./buildone.sh test 256 2 20001 20002 20025 500 500 N
+./buildone.sh test 1 256 2 20001 20002 20025 500 500 N
 ```
 
 If you need to see the information, run

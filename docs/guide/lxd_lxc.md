@@ -25,10 +25,10 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/mai
 ### 使用方法
 
 ```
-./buildone.sh 服务器名称 内存大小 硬盘大小 SSH端口 外网起端口 外网止端口 下载速度 上传速度 是否启用IPV6(Y or N) 系统(留空则为debian11)
+./buildone.sh 服务器名称 CPU核数 内存大小 硬盘大小 SSH端口 外网起端口 外网止端口 下载速度 上传速度 是否启用IPV6(Y or N) 系统(留空则为debian11)
 ```
 
-内存大小以MB计算，硬盘大小以GB计算，下载速度上传速度以Mbit计算，是否启用IPV6不一定要填Y或者N，没有这个参数也行，留空默认不开启IPV6
+CPU核数需要小于或等于宿主机的核数，内存大小以MB计算，硬盘大小以GB计算，下载速度上传速度以Mbit计算，是否启用IPV6不一定要填Y或者N，没有这个参数也行，留空默认不开启IPV6
 
 如果```外网起端口```和```外网止端口```都设置为0则不做区间外网端口映射了，只映射基础的SSH端口，注意```不能为空```，不进行映射需要设置为0
 
@@ -67,7 +67,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/mai
 
 
 ```
-./buildone.sh test 256 2 20001 20002 20025 500 500 N
+./buildone.sh test 1 256 2 20001 20002 20025 500 500 N
 ```
 
 需要查看信息则执行
