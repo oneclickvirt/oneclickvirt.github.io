@@ -39,11 +39,13 @@ CPU核数需要小于或等于宿主机的核数，内存大小以MB计算，硬
 - centos8，centos9 (实际开设出来都是Stream版本)
 - alpine3.15，alpine3.16，alpine3.17，alpine3.18
 - openwrt21，openwrt22，fedora37，fedora38，fedora39
-- kali，rockylinux
+- rockylinux8，rockylinux9，oralce8，oracle9
+- oralce7，centos7 (都需要在GRUB中启用CGroupV1否则无法启动，详细介绍见常见问题答疑)
+- kali，archlinux
 
 * 注意都是小写字母+数字的组合或仅小写字母，自行尝试，如果搜索无该系统则会自动退出脚本
 * 版本号可以带英文小数点，为了适配alpine的版本号已支持
-* 开不起来的可能是硬盘不够大或者本身就不适配宿主机，自行尝试
+* 开不起来的可能是硬盘或内存不够大或者本身就不适配宿主机，自行尝试查看开不起来的报错
 
 :::tip
 版本号中已结束长期维护的一般不再有官方镜像了，暂时未找到历史镜像的存档地址，如果有找到欢迎留言我会添加支持
