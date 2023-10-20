@@ -85,6 +85,8 @@ iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables
 
 [crunchbits](https://get.crunchbits.com/aff.php?aff=17) 中的VPS
 
+[online.net](https://www.scaleway.com/en/dedibox/) 中的低配独立服务器的Debian12(Debian11有问题)
+
 [OVH](https://www.ovhcloud.com/en/public-cloud/) 中的 Public Cloud 服务器 需要使用以下命令dd为纯净系统后安装
 
 ```shell
