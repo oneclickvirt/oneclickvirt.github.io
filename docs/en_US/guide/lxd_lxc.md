@@ -33,7 +33,9 @@ Support for customizing the system of the server, do not fill out the default us
 - centos8, centos9 (actually opened out of the Stream version)
 - alpine3.15, alpine3.16, alpine3.17, alpine3.18
 - openwrt21，openwrt22，fedora37，fedora38，fedora39
-- kali，rockylinux
+- rockylinux8，rockylinux9，oralce8，oracle9
+- oralce7，centos7 (CGroupV1 needs to be enabled in GRUB or it won't start.)
+- kali，archlinux
 
 * Note that the combination of lowercase letters + numbers or only lowercase letters, try it yourself, if the search is not the system will automatically exit the script
 * The version number can be with English decimal point, in order to adapt to the alpine version number has been supported.
