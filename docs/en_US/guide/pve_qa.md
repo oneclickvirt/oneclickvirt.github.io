@@ -36,7 +36,7 @@ Then report the rebooted disconnected machine to [@spiritlhl_bot](https://t.me/s
 If you encounter any issues with installing on certain machines, and if you're in a hurry, you can try using the scripts from the following repository to reinstall as Debian 11 first.
 
 ```
-bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh) -debian 12 -pwd 'oneclickvirt139'
+bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh) -debian 12 -pwd 'oneclickvirt139' --network "static"
 ```
 
 The system username after dd at this point is ```root```, and the password is ```oneclickvirt139```.
