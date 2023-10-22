@@ -36,7 +36,7 @@ fi
 如果有什么机器安装不了，着急的可以尝试使用以下仓库的脚本先重装为debian12先
 
 ```
-bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh) -debian 12 -pwd 'oneclickvirt139'
+bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh) -debian 12 -pwd 'oneclickvirt139' --network "static"
 ```
 
 此时dd后的系统用户名为```root```，密码为```oneclickvirt139```
