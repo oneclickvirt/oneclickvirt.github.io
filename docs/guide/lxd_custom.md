@@ -2,7 +2,9 @@
 outline: deep
 ---
 
-## 给宿主机附加免费的IPV6地址
+## 给宿主机附加免费的IPV6地址段
+
+有的机器本身没有IPV6的/64子网，这里给出一个方法免费附加IPV6的子网
 
 0. 初始环境修改
 
@@ -119,7 +121,7 @@ route -A inet6 add ::/0 dev he-ipv6
 sudo ifdown he-ipv6
 ```
 
-删除 he-ipv6 网络接口配置（若没有删除重启后会自动启用），记得修改/etc/network/interfaces文件，删除之前红框添加的内容
+删除 he-ipv6 网络接口配置（若没有删除重启后会自动启用），记得修改```/etc/network/interfaces```文件，删除之前红框添加的内容
 
 
 
