@@ -4,6 +4,18 @@ outline: deep
 
 # Solve the puzzle
 
+## Within 30 seconds of executing the script, the machine dropped.
+
+Original system execution
+
+```
+systemctl restart networking
+```
+
+See if it is not directly offline, if so that is the machine native problem, hot plug or dhcp caused by the network can not restart, it is recommended to replace the host system or DD a new system to try!
+
+Generally speaking, this situation occurs in the exclusive service Debian11 system, switch to Debian12 system will not be a problem!
+
 ## Successful PVE Installation but Lost Connection After Reboot
 
 If the machine successfully installs PVE and the web interface is accessible, but loses connection after a reboot, please execute the following commands after a successful PVE installation and before rebooting:
@@ -24,7 +36,7 @@ Then report the rebooted disconnected machine to [@spiritlhl_bot](https://t.me/s
 If you encounter any issues with installing on certain machines, and if you're in a hurry, you can try using the scripts from the following repository to reinstall as Debian 11 first.
 
 ```
-bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh) -debian 11 -pwd 'oneclickvirt139'
+bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh) -debian 12 -pwd 'oneclickvirt139'
 ```
 
 The system username after dd at this point is ```root```, and the password is ```oneclickvirt139```.
@@ -78,7 +90,7 @@ iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables
 [OVH](https://www.ovhcloud.com/en/public-cloud/) Public Cloud needs to be installed after dd as a pure system using the following command
 
 ```shell
-bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh) -debian 11 -pwd ' oneclickvirt139' --network "static"
+bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh) -debian 12 -pwd ' oneclickvirt139' --network "static"
 ```
 
 At this point, the system username after dd is ``root``, and the password is ``oneclickvirt139``.
