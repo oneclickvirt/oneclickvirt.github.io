@@ -9,7 +9,7 @@ If you don't know how to choose an option during installation, just press enter.
 ## One-click PVE installation
 
 :::tip
-I recommend debian11 instead of debian12, because the latter is a stable version but I don't know if there are any undiscovered bugs, and the debian11 installation is currently more stable.
+Suggest debian12, the actual test part of the independent server debian11 system will appear a reboot network will be lost, debian12 does not have such a problem!
 :::
 
 - The installation is the latest PVE from the apt source at the moment.
