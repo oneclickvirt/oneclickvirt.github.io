@@ -80,7 +80,6 @@ EOF
 
 ```
 apt-get install net-tools iproute2 -y
-ifup2 he-ipv6
 systemctl restart networking
 ```
 
