@@ -40,7 +40,7 @@ sudo systemctl start networking
 sudo systemctl enable networking
 ```
 
-然后重启服务器，等待自动安装成功，且执行```uptime```观察启动已超过1分钟后，再进行后续步骤
+然后重启服务器，检验机器的网络是否会因为修改出现重启失联的情况，且执行```uptime```观察启动已超过1分钟后，再进行后续步骤
 
 如果是是前者inactive，后者active，则不需要切换网络管理程序，直接进行后续操作即可。
 
