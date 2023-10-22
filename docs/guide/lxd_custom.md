@@ -4,29 +4,9 @@ outline: deep
 
 ## 给宿主机附加免费的IPV6地址
 
-1. 在 [https://tunnelbroker.net/](https://tunnelbroker.net/) 注册账户，并点击左边的 ```Create Regular Tunnel```
+0. 初始环境修改
 
-![1](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/35923be5-821f-45c8-8401-962ea3f97726)
-
-2. 红框处填写你的服务器的IPV4地址，选择物理距离近的连接点，比如机器在美国洛杉矶，就选美国西海岸的连接点，然后显示绿框提示，点```Create Tunnel```创建即可
-
-![2](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/cab04113-4d6a-4d6f-9952-d3851057fc4a)
-
-![3](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/518dc62a-c8d0-48e3-bb13-befc39348990)
-
-![4](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/6188de3f-e83c-400e-9594-dd3f73aaf46a)
-
-3. 等待出以下界面，点击```Example Configurations```然后选择对应的系统，比如LXD的宿主机那肯定就是Debian/Ubuntu了
-
-![5](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/9f0045fc-b1ac-4954-9ecd-1fba47d07d8a)
-
-![6](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/2fb7c951-371c-452c-b775-78f69b980a2c)
-
-4. 框住的部分就是要修改的文件和需要填写的内容了
-
-![7](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/c0156902-b4c0-4001-823e-50f611215393)
-
-但先别急，执行
+执行
 
 ```
 touch /etc/cloud/cloud-init.disabled
@@ -60,6 +40,28 @@ fi
 然后重启服务器，等待自动安装成功，且执行```uptime```观察启动已超过1分钟后，再进行后续步骤
 
 如果是是前者inactive，后者active，则不需要切换网络管理程序，直接进行后续操作即可。
+
+1. 在 [https://tunnelbroker.net/](https://tunnelbroker.net/) 注册账户，并点击左边的 ```Create Regular Tunnel```
+
+![1](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/35923be5-821f-45c8-8401-962ea3f97726)
+
+2. 红框处填写你的服务器的IPV4地址，选择物理距离近的连接点，比如机器在美国洛杉矶，就选美国西海岸的连接点，然后显示绿框提示，点```Create Tunnel```创建即可
+
+![2](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/cab04113-4d6a-4d6f-9952-d3851057fc4a)
+
+![3](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/518dc62a-c8d0-48e3-bb13-befc39348990)
+
+![4](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/6188de3f-e83c-400e-9594-dd3f73aaf46a)
+
+3. 等待出以下界面，点击```Example Configurations```然后选择对应的系统，比如LXD的宿主机那肯定就是Debian/Ubuntu了
+
+![5](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/9f0045fc-b1ac-4954-9ecd-1fba47d07d8a)
+
+![6](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/2fb7c951-371c-452c-b775-78f69b980a2c)
+
+4. 框住的部分就是要修改的文件和需要填写的内容了
+
+![7](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/c0156902-b4c0-4001-823e-50f611215393)
 
 5. 执行以下命令给你的网络配置文件附加IPV6的设置
 
