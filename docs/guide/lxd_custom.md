@@ -24,17 +24,18 @@ systemctl is-active systemd-networkd
 systemctl is-active networking
 ```
 
-看看属于哪种情况，如果是前者active，后者inactive，你需要切换本机使用ifupdown或者ifupdown2管理网络，执行
+看看属于哪种情况，如果是前者active，后者inactive，你需要重装/DD一个不是这样配置的系统，或者切换本机使用ifupdown管理网络执行
 
 ```
-wget https://raw.githubusercontent.com/spiritLHLS/pve/main/extra_scripts/install_ifupdown2.sh -O /usr/local/bin/install_ifupdown2.sh
-wget https://raw.githubusercontent.com/spiritLHLS/pve/main/extra_scripts/ifupdown2-install.service -O /etc/systemd/system/ifupdown2-install.service
-chmod 777 /usr/local/bin/install_ifupdown2.sh
-chmod 777 /etc/systemd/system/ifupdown2-install.service
-if [ -f "/usr/local/bin/install_ifupdown2.sh" ]; then
-    systemctl daemon-reload
-    systemctl enable ifupdown2-install.service
-fi
+# 是否需要禁用原网络管理自行评判
+# sudo systemctl stop systemd-networkd
+# sudo systemctl disable systemd-networkd
+# sudo systemctl stop systemd-networkd.socket
+# sudo systemctl disable systemd-networkd.socket
+
+sudo apt-get install ifupdown
+sudo systemctl start networking
+sudo systemctl enable networking
 ```
 
 然后重启服务器，等待自动安装成功，且执行```uptime```观察启动已超过1分钟后，再进行后续步骤
@@ -63,7 +64,7 @@ fi
 
 ![7](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/c0156902-b4c0-4001-823e-50f611215393)
 
-5. 执行以下命令给你的网络配置文件附加IPV6的设置
+5. 执行以下命令给你的网络配置文件附加IPV6的设置(或者自己用vim或者vi命令修改```/etc/network/interfaces```文件增加内容)
 
 ```
 sudo tee -a /etc/network/interfaces <<EOF
@@ -77,20 +78,23 @@ EOF
 
 ```
 apt-get install net-tools iproute2 -y
-ifup he-ipv6
+ifup2 he-ipv6
 systemctl restart networking
 ```
 
 7. 然后你就可以测试IPV6网络是否已附加
 
-执行 ifconfig 命令，这时应该有一个 he-ipv6 接口，类似下面这样：
+执行```ifconfig```命令，这时应该有一个 he-ipv6 接口，类似下面这样：
 
+![8](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/1760af85-2b60-4352-ad8c-3c69e49fc1e4)
 
 或者执行：
 
 ```
 curl ipv6.ip.sb
 ```
+
+回传你绑定IPV6地址
 
 8. NAT VPS 的额外设置
 
