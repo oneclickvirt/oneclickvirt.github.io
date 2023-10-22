@@ -114,13 +114,9 @@ route -A inet6 add ::/0 dev he-ipv6
 
 9. 如果不需要该IPV6网络了，想要删除
 
-停用隧道：
-
-```
-sudo ifdown he-ipv6
-```
-
 删除 he-ipv6 网络接口配置（若没有删除重启后会自动启用），记得修改```/etc/network/interfaces```文件，删除之前红框添加的内容
+
+然后重启服务器，就删除了
 
 
 
