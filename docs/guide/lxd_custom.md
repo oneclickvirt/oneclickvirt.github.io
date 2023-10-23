@@ -39,7 +39,7 @@ systemctl is-active networking
 # sudo systemctl stop systemd-networkd.socket
 # sudo systemctl disable systemd-networkd.socket
 
-sudo apt-get install ifupdown
+sudo apt-get install ifupdown -y
 sudo systemctl start networking
 sudo systemctl enable networking
 ```
