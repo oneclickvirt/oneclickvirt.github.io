@@ -164,9 +164,13 @@ sudo systemctl enable networking
 
 ![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/d919dda7-571d-45b1-9d2f-03f29866269e)
 
-记录以下页面的最后一个红框的内容，准备修改宿主机配置文件
+见到以下页面千万别使用，先刷新一下本页面，不要弹那个浅蓝色框后再停止刷新
 
 ![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/aefd1477-d5f5-4a4e-a66c-80ef5f9250c6)
+
+记录以下页面的最后一个红框的内容，准备修改宿主机配置文件
+
+![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/9329974c-9549-4ff2-a8a0-a53c00e2863d)
 
 用vim或者vi命令修改```/etc/network/interfaces```文件增加的内容了，或者修改以下命令新增
 
