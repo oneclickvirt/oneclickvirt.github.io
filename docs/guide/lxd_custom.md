@@ -172,7 +172,13 @@ sudo systemctl enable networking
 
 ![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/9329974c-9549-4ff2-a8a0-a53c00e2863d)
 
-用vim或者vi命令修改```/etc/network/interfaces```文件增加的内容了，或者修改以下命令新增
+页面的最后一个红框框住的部分复制下来，不要带空行
+
+然后打开 [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) 选择```Option```为```TunnelBroker```，在输入框内粘贴你复制的内容
+
+然后点击```Covert```转换格式，等待页面刷新显示转换格式后的配置文件内容
+
+然后用vim或者vi命令修改```/etc/network/interfaces```文件增加内容，或者修改以下命令新增
 
 ```
 sudo tee -a /etc/network/interfaces <<EOF
