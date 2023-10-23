@@ -6,6 +6,8 @@ outline: deep
 
 The following is the introduction of the non-customized part, the customized part has its own corresponding introduction, do not get confused!
 
+If your host does not have an IPV6 subnet and you want to assign IPV6 addresses to containers, then please check the ``Customize`` partition in the ``LXD`` module for the ``Attach a free IPV6 address segment`` to the host, and attach an IPV6 subnet to the host before installing the environment.
+
 ## Requirements
 
 Hardware requirements.

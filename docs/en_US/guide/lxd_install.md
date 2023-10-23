@@ -4,6 +4,8 @@ outline: deep
 
 # LXD Installation Guide
 
+If your host does not have an IPV6 subnet and you want to assign IPV6 addresses to containers, then please check the ``Customize`` partition in the ``LXD`` module for the ``Attach a free IPV6 address segment`` to the host, and attach an IPV6 subnet to the host before installing the environment.
+
 ## Manual Installation
 
 Recommended for beginners to avoid potential troubleshooting. However, if you're experienced and comfortable with debugging bugs, you can also use the later one-click installation method for convenience.

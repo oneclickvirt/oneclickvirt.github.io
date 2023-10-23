@@ -12,6 +12,8 @@ If there are unadapted merchants or machines welcome to contact [@spiritlhl_bot]
 Will change the network structure of the host, please make sure that the host can reset the system at any time and that there is no important data on the host before running it.
 :::
 
+If your host does not have an IPV6 subnet and you want to assign IPV6 addresses to containers/virtual machines, then please check the ``Customize`` partition in the ``LXD`` module for the ``Attach a free IPV6 address segment`` to the host, and attach an IPV6 subnet to the host before installing the environment.
+
 ## Various requirements
 
 It is recommended that debian try to use the latest stable version of the system before use.

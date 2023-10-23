@@ -6,6 +6,8 @@ outline: deep
 
 If you don't know how to choose an option during installation, just press enter.
 
+If your host does not have an IPV6 subnet and you want to assign IPV6 addresses to containers/virtual machines, then please check the ``Customize`` partition in the ``LXD`` module for the ``Attach a free IPV6 address segment`` to the host, and attach an IPV6 subnet to the host before installing the environment.
+
 ## One-click PVE installation
 
 :::tip

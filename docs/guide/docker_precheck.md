@@ -10,6 +10,8 @@ outline: deep
 如果宿主机带IPV6网络的话，安装会改变宿主机的网络结构，请保证宿主机随时可重置系统，且运行前无重要数据在宿主机上
 :::
 
+如果你的宿主机本身没有IPV6的子网又想给容器分配IPV6地址，那么请先查看```LXD```模块中的```自定义```分区中的```给宿主机附加免费的IPV6地址段```的内容，给宿主机附加上IPV6子网后再进行环境安装
+
 ## 项目特点
 
 通过docker批量或单独开设NAT服务器(Bulk or individual NAT server provisioning via docker)
