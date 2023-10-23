@@ -125,8 +125,8 @@ cat dclog
 以下命令卸载会忽略ndpresponder，以防止IPV6的配置失效
 
 ```shell
-docker ps -aq | grep -v 'ndpresponder' | xargs -r docker rm -f
-docker images -aq | grep -v 'ndpresponder' | xargs -r docker rmi
+docker ps -aq --format '{{.Names}}' | grep -E '^ndpresponder' | xargs -r docker rm -f
+docker images -aq --format '{{.Repository}}:{{.Tag}}' | grep -E '^ndpresponder' | xargs -r docker rmi
 rm -rf dclog
 ls
 ```
