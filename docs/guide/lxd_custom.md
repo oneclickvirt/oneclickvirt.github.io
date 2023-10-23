@@ -40,10 +40,10 @@ systemctl is-active networking
 # sudo systemctl disable systemd-networkd.socket
 ```
 
-安装```ifupdown```控制网络(注意下面的平台不同可能有的平台需要```ifupdown2```)
+安装```ifupdown2```或```ifupdown```控制网络
 
 ```
-sudo apt-get install ifupdown -y
+sudo apt-get install ifupdown2 -y | sudo apt-get install ifupdown -y
 ```
 
 ```
