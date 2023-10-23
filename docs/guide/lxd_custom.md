@@ -10,7 +10,7 @@ outline: deep
 
 缺点是地址比较黑/脏，cloudflare的cdn极有可能套不上，自行测试
 
-0. 初始环境修改
+### 初始环境修改
 
 执行
 
@@ -47,6 +47,8 @@ sudo systemctl enable networking
 然后重启服务器，检验机器的网络是否会因为修改出现重启失联的情况，且执行```uptime```观察启动已超过1分钟后，再进行后续步骤
 
 如果是是前者inactive，后者active，则不需要切换网络管理程序，直接进行后续操作即可。
+
+### tunnelbroker
 
 1. 在 [https://tunnelbroker.net/](https://tunnelbroker.net/) 注册账户，并点击左边的 ```Create Regular Tunnel```
 
@@ -122,10 +124,37 @@ route -A inet6 add ::/0 dev he-ipv6
 
 然后重启服务器，就删除了
 
+### netassist
 
+类似上述的操作，先在 [https://tb.netassist.ua/](https://tb.netassist.ua/) 注册一个账户先，注册后点击激活的邮件，激活页面会有密码显示，记得记录
 
+然后就是填写你的服务器IPV4地址，这个后面可以自己修改，先随便填一个都没问题
 
+然后就到了这个页面了
 
+![a](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/4af680d4-3b01-495a-91d1-3cf4f187d0df)
+
+第一个红框是你宿主机的IPV4地址需要填写的位置，要修改就修改那里，然后点change保存
+
+第二个下拉红框选择```Linux```，然后点击show
+
+![b](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/099d43a0-0397-4e02-9275-9ec3099c0ff1)
+
+会出现上面的内容，全选框住的部分复制下来，不要带空行
+
+然后打开 [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) 选择```Option```为```NetAssist```，在输入框内粘贴你复制的内容
+
+然后点击```Covert```转换格式
+
+![c](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/7324c7ff-d22f-4c17-b3c2-b5338ca6dfee)
+
+然后就会刷新页面出现需要自己用vim或者vi命令修改```/etc/network/interfaces```文件增加的内容了，或者修改以下命令新增
+
+```
+sudo tee -a /etc/network/interfaces <<EOF
+# 这里修改一下
+EOF
+```
 
 
 
