@@ -8,8 +8,9 @@ outline: deep
 
 | 支持的平台                       | 对应需要的安装包             | 协议             |
 |---------------------------|----------------|----------------|
-| tunnelbroker              | ifupdown           | v4tunnel           |
-| netassist                | ifupdown2          | sit           |
+| tunnelbroker.net              | ifupdown           | v4tunnel           |
+| tunnelbroker.ch              | ifupdown           | v4tunnel           |
+| netassist.ua                | ifupdown2          | sit           |
 
 ### 初始环境修改
 
@@ -56,7 +57,7 @@ sudo systemctl enable networking
 
 如果是是前者inactive，后者active，则不需要切换网络管理程序，直接进行后续操作即可。
 
-### tunnelbroker
+### tunnelbroker_net
 
 需要安装```ifupdown```控制网络
 
@@ -138,9 +139,55 @@ route -A inet6 add ::/0 dev he-ipv6
 
 然后重启服务器，就删除了
 
-### netassist
+### netassist_ch
 
-这个平台你在切换网络管理时务必使用```ifupdown2```而不是```ifupdown2```安装包，因为前者使用v4tunnel协议，该平台使用sit协议，而sit协议需要在```ifupdown2```控制的环境中使用
+这个平台你在切换网络管理时务必使用```ifupdown```，该平台使用v4tunnel协议
+
+需要安装```ifupdown```控制网络
+
+```
+sudo apt-get install ifupdown -y
+```
+
+```
+sudo systemctl start networking
+sudo systemctl enable networking
+```
+
+类似上述的操作，先在 [https://www.tunnelbroker.ch/](https://www.tunnelbroker.ch/) 注册一个账户先，注册后点击激活的邮件
+
+然后就是填写你的服务器IPV4地址
+
+![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/e018c7bc-e73c-4c68-88b6-b073f0dbd150)
+
+创建后需要进入Config页面而不是详情页面
+
+![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/d919dda7-571d-45b1-9d2f-03f29866269e)
+
+记录以下页面的最后一个红框的内容，准备修改宿主机配置文件
+
+![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/aefd1477-d5f5-4a4e-a66c-80ef5f9250c6)
+
+用vim或者vi命令修改```/etc/network/interfaces```文件增加的内容了，或者修改以下命令新增
+
+```
+sudo tee -a /etc/network/interfaces <<EOF
+# 这里修改一下
+EOF
+```
+
+然后你就需要重启一下系统，或者执行
+
+```
+apt-get install net-tools iproute2 -y
+systemctl restart networking
+```
+
+保证环境无问题再进行别的操作了
+
+### netassist_ua
+
+这个平台你在切换网络管理时务必使用```ifupdown2```而不是```ifupdown2```安装包，该平台使用sit协议，而sit协议需要在```ifupdown2```控制的环境中使用
 
 需要安装```ifupdown2```控制网络
 
