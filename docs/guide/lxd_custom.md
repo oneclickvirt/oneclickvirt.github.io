@@ -40,10 +40,10 @@ systemctl is-active networking
 # sudo systemctl disable systemd-networkd.socket
 ```
 
-安装```ifupdown2```或```ifupdown```控制网络
+安装```ifupdown```控制网络(有的平台需要安装```ifupdown2```控制网络，详见对应平台说明再回来)
 
 ```
-sudo apt-get install ifupdown2 -y | sudo apt-get install ifupdown -y
+sudo apt-get install ifupdown -y
 ```
 
 ```
@@ -56,6 +56,8 @@ sudo systemctl enable networking
 如果是是前者inactive，后者active，则不需要切换网络管理程序，直接进行后续操作即可。
 
 ### tunnelbroker
+
+需要安装```ifupdown```控制网络
 
 1. 在 [https://tunnelbroker.net/](https://tunnelbroker.net/) 注册账户，并点击左边的 ```Create Regular Tunnel```
 
@@ -135,7 +137,7 @@ route -A inet6 add ::/0 dev he-ipv6
 
 这个平台你在切换网络管理时务必使用```ifupdown2```而不是```ifupdown2```安装包，因为前者使用v4tunnel协议，该平台使用sit协议，而sit协议需要在```ifupdown2```控制的环境中使用
 
-安装```ifupdown2```控制网络
+需要安装```ifupdown2```控制网络
 
 ```
 sudo apt-get install ifupdown -y
