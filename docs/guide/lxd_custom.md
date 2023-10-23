@@ -6,9 +6,10 @@ outline: deep
 
 有的机器本身没有IPV6的/64子网，这里给出一个方法免费附加IPV6的子网
 
-结合一键开设带IPV6地址的容器的脚本，就能给每个容器附加来自he的IPV6地址了
-
-缺点是地址比较黑/脏，cloudflare的cdn极有可能套不上，自行测试
+| 支持的平台                       | 对应需要的安装包             |
+|---------------------------|----------------|
+| tunnelbroker              | ifupdown           |
+| netassist                | ifupdown2          |
 
 ### 初始环境修改
 
@@ -58,6 +59,10 @@ sudo systemctl enable networking
 ### tunnelbroker
 
 需要安装```ifupdown```控制网络
+
+结合一键开设带IPV6地址的容器的脚本，就能给每个容器附加来自he的IPV6地址了
+
+缺点是地址比较黑/脏，cloudflare的cdn极有可能套不上，自行测试
 
 1. 在 [https://tunnelbroker.net/](https://tunnelbroker.net/) 注册账户，并点击左边的 ```Create Regular Tunnel```
 
