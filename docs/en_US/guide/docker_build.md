@@ -111,6 +111,8 @@ One line corresponds to information about a container, the docker's ipv6 address
 The following command offload ignores ndpresponder to prevent IPV6 configuration failure
 
 ```shell
-docker ps -aq | grep -v 'ndpresponder' | xargs -r docker rm -f
-docker images -aq | grep -v 'ndpresponder' | xargs -r docker rmi
+docker ps -aq --format '{{.Names}}' | grep -E '^ndpresponder' | xargs -r docker rm -f
+docker images -aq --format '{{.Repository}}:{{.Tag}}' | grep -E '^ndpresponder' | xargs -r docker rmi
+rm -rf dclog
+ls
 ```
