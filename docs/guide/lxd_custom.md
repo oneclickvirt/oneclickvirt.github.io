@@ -156,5 +156,6 @@ sudo tee -a /etc/network/interfaces <<EOF
 EOF
 ```
 
+然后你就需要重启一下系统，保证环境无问题再进行别的操作了
 
 
