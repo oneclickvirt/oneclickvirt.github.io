@@ -8,7 +8,7 @@ outline: deep
 
 结合前面的一键开设带IPV6地址的容器的脚本，就能给每个容器附加来着he的IPV6地址了
 
-缺点是地址比较黑，cf的cdn极有可能套不上，自行测试
+缺点是地址比较黑/脏，cloudflare的cdn极有可能套不上，自行测试
 
 0. 初始环境修改
 
@@ -74,7 +74,7 @@ sudo systemctl enable networking
 
 ```
 sudo tee -a /etc/network/interfaces <<EOF
-这里修改复制粘贴一下之前红框框住的配置文件内容，然后执行此命令
+# 这里修改复制粘贴一下之前红框框住的配置文件内容，然后执行此命令
 EOF
 ```
 
