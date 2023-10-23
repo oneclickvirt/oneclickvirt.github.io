@@ -6,10 +6,10 @@ outline: deep
 
 有的机器本身没有IPV6的/64子网，这里给出一个方法免费附加IPV6的子网
 
-| 支持的平台                       | 对应需要的安装包             |
-|---------------------------|----------------|
-| tunnelbroker              | ifupdown           |
-| netassist                | ifupdown2          |
+| 支持的平台                       | 对应需要的安装包             | 协议             |
+|---------------------------|----------------|----------------|
+| tunnelbroker              | ifupdown           | v4tunnel           |
+| netassist                | ifupdown2          | sit           |
 
 ### 初始环境修改
 
