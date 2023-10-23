@@ -135,6 +135,17 @@ route -A inet6 add ::/0 dev he-ipv6
 
 这个平台你在切换网络管理时务必使用```ifupdown2```而不是```ifupdown2```安装包，因为前者使用v4tunnel协议，该平台使用sit协议，而sit协议需要在```ifupdown2```控制的环境中使用
 
+安装```ifupdown2```控制网络
+
+```
+sudo apt-get install ifupdown -y
+```
+
+```
+sudo systemctl start networking
+sudo systemctl enable networking
+```
+
 类似上述的操作，先在 [https://tb.netassist.ua/](https://tb.netassist.ua/) 注册一个账户先，注册后点击激活的邮件，激活页面会有密码显示，记得记录
 
 然后就是填写你的服务器IPV4地址，这个后面可以自己修改，先随便填一个都没问题
