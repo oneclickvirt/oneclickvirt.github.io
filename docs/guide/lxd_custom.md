@@ -393,3 +393,19 @@ ip addr show
 ```
 curl ipv6.ip.sb
 ```
+
+### 删除隧道
+
+```
+# 关闭隧道接口
+ip link set he-ipv6 down
+
+# 删除隧道接口
+ip tunnel del he-ipv6
+
+# 删除IPv6地址
+ip addr del 修改这里改成你绑定的::2结尾的IPV6地址/80 dev he-ipv6
+
+# 删除路由规则
+ip route del ::/0 dev he-ipv6
+```
