@@ -10,6 +10,7 @@ outline: deep
 |---------------------------|----------------|----------------|----------------|
 | tunnelbroker.net              | ifupdown           | v4tunnel           | 3✖/64 或 5✖/64            |
 | tunnelbroker.ch              | ifupdown           | v4tunnel           | 3✖/64          |
+| ip4market.ru                | ifupdown          | v4tunnel           | 1✖/64          |
 | netassist.ua                | ifupdown2          | sit           | 1✖/64          |
 
 ### 初始环境修改
@@ -195,6 +196,74 @@ systemctl restart networking
 
 保证环境无问题再进行别的操作了
 
+### ip4market_ru
+
+这个平台你在切换网络管理时务必使用```ifupdown```，该平台使用v4tunnel协议
+
+需要安装```ifupdown```控制网络
+
+```
+sudo apt-get install ifupdown -y
+```
+
+```
+sudo systemctl start networking
+sudo systemctl enable networking
+```
+
+类似上述的操作，先在 [https://tb.ip4market.ru](https://tb.ip4market.ru/) 注册一个账户先，注册邮箱得是非常见邮箱，电话可随便写不验证的，IP填上你要附加的宿主机的IPV4地址
+
+![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/24df37f2-12fe-49b6-87df-f07213346fbe)
+
+然后就是过Recaptcha的人机验证，点击注册
+
+邮箱会收到激活邮件，里面附带有你的密码，记住它
+
+然后在首页进行登录
+
+![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/38b3f5a7-a5e1-47e0-b13e-8570e946c61c)
+
+然后就会进入这个页面
+
+![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/fc1d38b9-b45a-41de-a931-5dbe96e9791c)
+
+按住右键，然后复制红框框住的四行内容，也就是
+
+```
+Server IPv4:
+Client IPv4
+Server IPv6
+Client IPv6
+```
+
+这四行内容，按ctrl+c复制或者右键复制
+
+![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/69c946e6-e82f-4665-b3c1-3c97e27f8487)
+
+然后打开 [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) 选择```Option```为```ip4market```，在输入框内粘贴你复制的内容
+
+然后点击```Covert```转换格式
+
+![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/b9ca3ee1-4f13-4e10-bdc8-1ed1cc23ab05)
+
+然后就会自动刷新页面出现需要自己用vim或者vi命令修改```/etc/network/interfaces```文件增加的内容了，或者修改以下命令新增
+
+```
+sudo tee -a /etc/network/interfaces <<EOF
+# 这里修改一下
+EOF
+```
+
+然后你就需要重启一下系统，或者执行
+
+```
+apt-get install net-tools iproute2 -y
+systemctl restart networking
+```
+
+保证环境无问题再进行别的操作了
+
+
 ### netassist_ua
 
 这个平台你在切换网络管理时务必使用```ifupdown2```而不是```ifupdown2```安装包，该平台使用sit协议，而sit协议需要在```ifupdown2```控制的环境中使用
@@ -232,7 +301,7 @@ sudo systemctl enable networking
 
 ![c](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/7324c7ff-d22f-4c17-b3c2-b5338ca6dfee)
 
-然后就会刷新页面出现需要自己用vim或者vi命令修改```/etc/network/interfaces```文件增加的内容了，或者修改以下命令新增
+然后就会自动刷新页面出现需要自己用vim或者vi命令修改```/etc/network/interfaces```文件增加的内容了，或者修改以下命令新增
 
 ```
 sudo tee -a /etc/network/interfaces <<EOF
