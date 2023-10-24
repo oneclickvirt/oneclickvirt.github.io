@@ -373,4 +373,52 @@ systemctl restart networking
 
 Make sure the environment is OK before you do anything else
 
+## Transfer IPV6 subnets between different servers
 
+Related repository: [https://github.com/oneclickvirt/6in4](https://github.com/oneclickvirt/6in4)
+
+### Environmental Preparation
+
+A dual-stack VPS (A) with at least /64 subnet size and a VPS (B) with only one IPV4 address, hereafter referred to as server and client, respectively.
+
+### Usage
+
+Download Script
+
+```
+curl -L https://raw.githubusercontent.com/oneclickvirt/6in4/main/6in4.sh -o 6in4.sh && chmod +x 6in4.sh
+```
+
+Execute it
+
+```
+./6in4.sh your_client_ipv4
+```
+
+Remember to write the IPV4 address of the machine you need to attach IPV6, after the execution is complete, it will return the command you need to execute in the client, see the instructions after the execution of the can be
+
+### Check server status
+
+```
+systemctl status ndpresponder
+```
+
+```
+ip addr show
+```
+
+### Check client status
+
+```
+ip addr show
+```
+
+```
+curl ipv6.ip.sb
+```
+
+### Principle
+
+Use 6in4's tunnel technology, along with ndpresponder to handle the NDP side of the problem, to solve the problem of forwarding IPV6 networks (/80) across different servers.
+
+Combining https://virt.spiritlhl.net/ or https://www.spiritlhl.net/en_US/ automates the assignment of IPV6 addresses to containers.

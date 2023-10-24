@@ -325,3 +325,46 @@ systemctl restart networking
 保证环境无问题再进行别的操作了
 
 
+## 转移不同服务器之间的IPV6子网
+
+相关仓库：[https://github.com/oneclickvirt/6in4](https://github.com/oneclickvirt/6in4)
+
+### 环境准备
+
+一个带有至少/64子网大小的 双栈VPS (A) 和 一个只有一个IPV4地址的VPS (B)，下面分别称为服务端和客户端。
+
+### 使用方法
+
+下载脚本
+
+```
+curl -L https://raw.githubusercontent.com/oneclickvirt/6in4/main/6in4.sh -o 6in4.sh && chmod +x 6in4.sh
+```
+
+执行命令
+
+```
+./6in4.sh your_client_ipv4
+```
+
+记得写上你需要附加IPV6的机器的IPV4地址，执行完毕后会回传你需要在客户端执行的命令，详见执行后的说明即可
+
+### 检测服务端
+
+```
+systemctl status ndpresponder
+```
+
+```
+ip addr show
+```
+
+### 检测客户端
+
+```
+ip addr show
+```
+
+```
+curl ipv6.ip.sb
+```
