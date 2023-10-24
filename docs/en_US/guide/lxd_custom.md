@@ -379,6 +379,8 @@ Related repository: [https://github.com/oneclickvirt/6in4](https://github.com/on
 
 This method will provide a way to split a /80 out of the IPV6 segment on A and attach it to B to use.
 
+If you need to use this set of scripts to configure IPV6 addresses for containers with a single click on the server where B resides, then what you need to install is ```ifupdown2``` for network management
+
 ### Environmental Preparation
 
 A dual-stack VPS (A) with an IPV6 segment of at least /64 size and an IPV4 address and a VPS (B) with only one IPV4 address, hereafter referred to as server and client, respectively, are split so that the client will be given an IPV6 subnet of /80.
