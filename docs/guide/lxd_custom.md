@@ -142,7 +142,7 @@ route -A inet6 add ::/0 dev he-ipv6
 
 然后重启服务器，就删除了
 
-### netassist_ch
+### tunnelbroker_ch
 
 这个平台你在切换网络管理时务必使用```ifupdown```，该平台使用v4tunnel协议
 
