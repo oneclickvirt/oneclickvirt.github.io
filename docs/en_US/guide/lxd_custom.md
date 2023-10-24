@@ -420,5 +420,3 @@ curl ipv6.ip.sb
 ### Principle
 
 Use 6in4's tunnel technology, along with ndpresponder to handle the NDP side of the problem, to solve the problem of forwarding IPV6 networks (/80) across different servers.
-
-Combining https://virt.spiritlhl.net/ or https://www.spiritlhl.net/en_US/ automates the assignment of IPV6 addresses to containers.
