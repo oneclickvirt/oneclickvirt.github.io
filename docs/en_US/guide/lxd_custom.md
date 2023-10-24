@@ -180,7 +180,7 @@ You must use```ifupdown```when switching network management on this platform, wh
 You need to install```ifupdown```to control the network.
 
 
-``
+```
 sudo apt-get install ifupdown -y
 ```
 
