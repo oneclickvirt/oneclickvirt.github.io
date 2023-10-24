@@ -377,9 +377,11 @@ Make sure the environment is OK before you do anything else
 
 Related repository: [https://github.com/oneclickvirt/6in4](https://github.com/oneclickvirt/6in4)
 
+This method will provide a way to split a /80 out of the IPV6 segment on A and attach it to B to use.
+
 ### Environmental Preparation
 
-A dual-stack VPS (A) with at least /64 subnet size and a VPS (B) with only one IPV4 address, hereafter referred to as server and client, respectively.
+A dual-stack VPS (A) with an IPV6 segment of at least /64 size and an IPV4 address and a VPS (B) with only one IPV4 address, hereafter referred to as server and client, respectively, are split so that the client will be given an IPV6 subnet of /80.
 
 ### Usage
 
@@ -395,7 +397,28 @@ Execute it
 ./6in4.sh your_client_ipv4
 ```
 
-Remember to write the IPV4 address of the machine you need to attach IPV6, after the execution is complete, it will return the command you need to execute in the client, see the instructions after the execution of the can be
+Remember to write the IPV4 address of the machine you need to attach IPV6, after the execution is complete, it will return the command you need to execute in the client, see the instructions after the execution.
+
+In case you forget to copy the command, the command itself will also be written to the 6in4.log file in the current path
+
+For copied commands, be sure to select option ``6in4`` in [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) before converting!
+
+Then the page will be refreshed automatically and you need to modify the contents of the```/etc/network/interfaces```file with vim or vi commands, or modify the following commands to add new contents.
+
+```
+sudo tee -a /etc/network/interfaces <<EOF
+# Modify the
+EOF
+```
+
+Then you'll need to reboot the system a bit, or run
+
+```
+apt-get install net-tools iproute2 -y
+systemctl restart networking
+```
+
+Make sure the environment is OK before you do anything else
 
 ### Check server status
 

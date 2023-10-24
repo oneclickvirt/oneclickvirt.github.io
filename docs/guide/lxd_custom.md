@@ -333,7 +333,7 @@ systemctl restart networking
 
 ### 环境准备
 
-一个带有至少/64子网大小的 双栈VPS (A) 和 一个只有一个IPV4地址的VPS (B)，下面分别称为服务端和客户端。
+一个带有 至少/64大小的IPV6网段和一个IPV4地址的 双栈VPS (A) 和 一个只带有一个IPV4地址的VPS (B)，下面分别称为服务端和客户端，拆分后客户端将获得一个/80的IPV6子网。
 
 ### 使用方法
 
@@ -350,6 +350,27 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/6in4/main/6in4.sh -o 6in4
 ```
 
 记得写上你需要附加IPV6的机器的IPV4地址，执行完毕后会回传你需要在客户端执行的命令，详见执行后的说明即可
+
+为防止忘记复制命令，命令本身也将写入到当前路径下的 6in4.log 文件中
+
+复制下来的命令，务必在 [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) 中选择选项```6in4```后进行转换
+
+然后就会自动刷新页面出现需要自己用vim或者vi命令修改```/etc/network/interfaces```文件增加的内容了，或者修改以下命令新增
+
+```
+sudo tee -a /etc/network/interfaces <<EOF
+# 这里修改一下
+EOF
+```
+
+然后你就需要重启一下系统，或者执行
+
+```
+apt-get install net-tools iproute2 -y
+systemctl restart networking
+```
+
+保证环境无问题再进行别的操作了
 
 ### 检测服务端
 
