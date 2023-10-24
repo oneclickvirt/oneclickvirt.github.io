@@ -402,4 +402,10 @@ ip link set he-ipv6 down
 
 # 删除隧道接口
 ip tunnel del he-ipv6
+
+# 关闭隧道接口
+ip link set sit0 down
+
+# 删除隧道接口
+ip tunnel del sit0
 ```
