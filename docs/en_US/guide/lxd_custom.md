@@ -6,6 +6,8 @@ outline: deep
 
 Some machines don't have IPV6 /64 subnets on their own, here's a way to attach an IPV6 subnet for free.
 
+The 6in4 method is used here to solve the problem of the host machine itself not having an IPV6 address.
+
 The following platforms are currently running in 2023 that provide IPV6 subnets for free.
 
 | Supported Platforms | Corresponding Required Installation Packages | Protocols | Number of Channels/Subnets
@@ -14,6 +16,8 @@ The following platforms are currently running in 2023 that provide IPV6 subnets 
 | tunnelbroker.ch              | ifupdown           | v4tunnel           | 3✖/64          |
 | ip4market.ru                | ifupdown          | v4tunnel           | 1✖/64          |
 | netassist.ua                | ifupdown2          | sit           | 1✖/64          |
+
+These platforms only address the issue of whether IPV6 is there or not, and do not provide quality IPV6 bandwidth.
 
 ### Initial environment modifications
 

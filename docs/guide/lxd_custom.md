@@ -4,7 +4,9 @@ outline: deep
 
 ## 给宿主机附加免费的IPV6地址段
 
-有的机器本身没有IPV6的/64子网，这里给出一个方法免费附加IPV6的子网
+有的机器本身没有IPV6的/64子网，这里给出一个方法免费附加IPV6的子网。
+
+这里使用6in4方法解决宿主机本身没有IPV6地址的问题。
 
 以下是2023年目前还在运行的免费提供IPV6子网的平台
 
@@ -14,6 +16,8 @@ outline: deep
 | tunnelbroker.ch              | ifupdown           | v4tunnel           | 3✖/64          |
 | ip4market.ru                | ifupdown          | v4tunnel           | 1✖/64          |
 | netassist.ua                | ifupdown2          | sit           | 1✖/64          |
+
+这些平台只解决IPV6有没有的问题，不提供优质的IPV6带宽。
 
 ### 初始环境修改
 
