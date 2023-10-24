@@ -329,6 +329,8 @@ systemctl restart networking
 
 相关仓库：[https://github.com/oneclickvirt/6in4](https://github.com/oneclickvirt/6in4)
 
+该方法将提供一种方式，将A上的IPV6网段拆分一个/80的出来，附加到B上使用
+
 ### 环境准备
 
 一个带有至少/64子网大小的 双栈VPS (A) 和 一个只有一个IPV4地址的VPS (B)，下面分别称为服务端和客户端。
