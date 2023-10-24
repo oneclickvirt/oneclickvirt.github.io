@@ -4,9 +4,9 @@ outline: deep
 
 ## Attach free IPV6 address segments to host machines
 
-Some machines don't have IPV6 /64 subnets on their own, here's a way to attach an IPV6 subnet for free
+Some machines don't have IPV6 /64 subnets on their own, here's a way to attach an IPV6 subnet for free.
 
-The following platforms are currently running in 2023 that provide IPV6 subnets for free
+The following platforms are currently running in 2023 that provide IPV6 subnets for free.
 
 | Supported Platforms | Corresponding Required Installation Packages | Protocols | Number of Channels/Subnets
 |---------------------------|----------------|----------------|----------------|
