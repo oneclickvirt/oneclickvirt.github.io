@@ -172,7 +172,7 @@ If you want to delete the he-ipv6 network interface configuration (if not, it wi
 
 Then reboot the server to remove the
 
-### netassist_ch
+### tunnelbroker_ch
 
 You must use```ifupdown```when switching network management on this platform, which uses the v4tunnel protocol.
 
