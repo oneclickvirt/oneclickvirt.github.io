@@ -383,11 +383,11 @@ If you need to use this set of scripts to configure IPV6 addresses for container
 
 ### Features
 
-- [x] Self-built IPv6 tunnel for sit/gre/ipip protocols
-- [x] Support to customize the IPV6 subnet size to be cut out, and the appropriate IPV6 subnet information in CIDR format will be calculated automatically.
-- [x] Automatically recognizes the IPV6 subnet size of the server side
-- [x] will automatically set up the tunnel server and print the commands that the client needs to execute
-- [x] Setting up the IPV6 tunnel is easy to understand and easy to remove
+- Self-built IPv6 tunnel for sit/gre/ipip protocols
+- Support to customize the IPV6 subnet size to be cut out, and the appropriate IPV6 subnet information in CIDR format will be calculated automatically.
+- Automatically recognizes the IPV6 subnet size of the server side
+- will automatically set up the tunnel server and print the commands that the client needs to execute
+- Setting up the IPV6 tunnel is easy to understand and easy to remove
 
 ### Environmental Preparation
 
