@@ -348,10 +348,12 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/6in4/main/6in4.sh -o 6in4
 执行命令
 
 ```
-./6in4.sh client_ipv4
+./6in4.sh client_ipv4 <mode_type> 
 ```
 
-记得写上你需要附加IPV6的机器的IPV4地址，执行完毕后会回传你需要在客户端执行的命令，详见执行后的说明即可
+mode_type: sit、gre、ipip
+
+记得写上你需要附加IPV6的机器的IPV4地址和协议类型(不填则默认为sit类型)，执行完毕后会回传你需要在客户端执行的命令，详见执行后的说明即可
 
 为防止忘记复制命令，命令本身也将写入到当前路径下的 6in4.log 文件中
 
