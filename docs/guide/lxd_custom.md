@@ -396,16 +396,19 @@ curl ipv6.ip.sb
 
 ### 删除隧道
 
+服务端
+
 ```
-# 关闭隧道接口
-ip link set he-ipv6 down
-
-# 删除隧道接口
-ip tunnel del he-ipv6
-
-# 关闭隧道接口
+ip link set server-ipv6 down
+ip tunnel del server-ipv6
 ip link set sit0 down
-
-# 删除隧道接口
-ip tunnel del sit0
 ```
+
+客户端
+
+```
+ip link set user down
+ip tunnel del user
+ip link set sit0 down
+```
+
