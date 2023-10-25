@@ -395,7 +395,7 @@ If you need to use this set of scripts to configure IPV6 addresses for container
 | --------|--------|
 | one IPV4 address (server_ipv4) | one IPV4 address (clinet_ipv4) |
 | one IPV6 subnet | no IPV6 address |
-| Hereafter referred to as server | Hereafter referred to as server client |
+| Hereafter referred to as server | Hereafter referred to as client |
 
 ### Usage
 
@@ -478,7 +478,3 @@ client
 ip link set user-ipv6 down
 ip tunnel del user-ipv6
 ```
-
-### Principle
-
-Use 6in4's tunnel technology, along with ndpresponder to handle the NDP side of the problem, to solve the problem of forwarding IPV6 networks (/80) across different servers.
