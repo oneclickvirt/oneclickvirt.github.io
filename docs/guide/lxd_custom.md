@@ -347,7 +347,7 @@ systemctl restart networking
 |--------|--------|
 | 一个IPV4地址(server_ipv4) | 一个IPV4地址(clinet_ipv4) |
 | 一个IPV6子网 | 无IPV6地址 |
-| 以下称之为服务端 | 以下称之为服务端客户端 |
+| 以下称之为服务端 | 以下称之为客户端 |
 
 ### 使用方法
 
