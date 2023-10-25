@@ -381,9 +381,21 @@ This method will provide a way to split a /80 out of the IPV6 segment on A and a
 
 If you need to use this set of scripts to configure IPV6 addresses for containers with a single click on the server where B resides, then what you need to install is ```ifupdown2``` for network management
 
+### Features
+
+- [x] Self-built IPv6 tunnel for sit/gre/ipip protocols
+- [x] Support to customize the IPV6 subnet size to be cut out, and the appropriate IPV6 subnet information in CIDR format will be calculated automatically.
+- [x] Automatically recognizes the IPV6 subnet size of the server side
+- [x] will automatically set up the tunnel server and print the commands that the client needs to execute
+- [x] Setting up the IPV6 tunnel is easy to understand and easy to remove
+
 ### Environmental Preparation
 
-A dual-stack VPS (A) with an IPV6 segment of at least /64 size and an IPV4 address and a VPS (B) with only one IPV4 address, hereafter referred to as server and client, respectively, are split so that the client will be given an IPV6 subnet of /80.
+| VPS(A) | VPS(B) |
+| --------|--------|
+| one IPV4 address (server_ipv4) | one IPV4 address (clinet_ipv4) |
+| one IPV6 subnet | no IPV6 address |
+| Hereafter referred to as server | Hereafter referred to as server client |
 
 ### Usage
 
@@ -399,11 +411,18 @@ Execute it
 ./6in4.sh client_ipv4 <mode_type> 
 ```
 
-mode_type: sit、gre、ipip
+| Options | Optional Option 1 | Optional Option 2 | Optional Option 3 |
+|--------|--------|--------|--------|
+| <mode_type> | gre | sit | ipip |
+| <subnet_size> | 64 | 80 | 112 |
 
-Remember to write the IPV4 address and protocol type of the machine you need to attach IPV6 (not fill in the default sit type), after the execution is completed, it will send back the commands you need to be executed in the client, see the instructions after the execution.
+```<mode_type>``` only support those three protocols for now, the more advanced the more recommended, no fill in the default is ```sit``` protocol
 
-In case you forget to copy the command, the command itself will also be written to the 6in4.log file in the current path
+```<subnet_size>``` as long as it is larger than the original system subnet mask, and is a multiple of 2, if you don't fill it in, it defaults to ```80```.
+
+Remember to replace ```client_ipv4``` with the IPV4 address of the machine you want to attach IPV6 to, and the command you need to execute on the client side will be sent back to you after execution, see the instructions after execution for details.
+
+To prevent you from forgetting to copy the commands, the commands themselves will be written to the ```6in4.log``` file under the current path, you can use ```cat 6in4.log``` to query the commands that need to be executed on the client side
 
 For copied commands, be sure to select option ``6in4`` in [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) before converting!
 
@@ -411,7 +430,7 @@ Then the page will be refreshed automatically and you need to modify the content
 
 ```
 sudo tee -a /etc/network/interfaces <<EOF
-# Modify the
+# Modify here
 EOF
 ```
 

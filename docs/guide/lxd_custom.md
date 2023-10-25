@@ -329,13 +329,25 @@ systemctl restart networking
 
 相关仓库：[https://github.com/oneclickvirt/6in4](https://github.com/oneclickvirt/6in4)
 
-该方法将提供一种方式，将A上的IPV6网段拆分一个/80的出来，附加到B上使用
+该方法将提供一种方式，将A上的IPV6网段拆分一个子ipv6网段的出来，附加到B上使用
 
 如果你需要在B所在的服务器上使用本套脚本给容器一键配置IPV6地址，那么需要安装的是```ifupdown2```进行网络管理
 
+### 功能
+
+- [x] 自建sit/gre/ipip协议的IPv6隧道
+- [x] 支持自定义要切分出来的IPV6子网大小，将自动计算出合适的CIDR格式的IPV6子网信息
+- [x] 自动识别服务端的IPV6子网大小
+- [x] 将自动设置隧道服务端并打印客户端需要执行的命令
+- [x] 设置IPV6隧道的方法简单易懂，易于删除
+
 ### 环境准备
 
-一个带有 至少/64大小的IPV6网段和一个IPV4地址的 双栈VPS (A) 和 一个只带有一个IPV4地址的VPS (B)，下面分别称为服务端和客户端，拆分后客户端将获得一个/80的IPV6子网。
+| VPS(A) | VPS(B) |
+|--------|--------|
+| 一个IPV4地址(server_ipv4) | 一个IPV4地址(clinet_ipv4) |
+| 一个IPV6子网 | 无IPV6地址 |
+| 以下称之为服务端 | 以下称之为服务端客户端 |
 
 ### 使用方法
 
@@ -348,14 +360,21 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/6in4/main/6in4.sh -o 6in4
 执行命令
 
 ```
-./6in4.sh client_ipv4 <mode_type> 
+./6in4.sh client_ipv4 <mode_type> <subnet_size> 
 ```
 
-mode_type: sit、gre、ipip
+| 选项 | 可选的选项1 | 可选的选项2 | 可选的选项3 |
+|--------|--------|--------|--------|
+| <mode_type> | gre | sit | ipip |
+| <subnet_size> | 64 | 80 | 112 |
 
-记得写上你需要附加IPV6的机器的IPV4地址和协议类型(不填则默认为sit类型)，执行完毕后会回传你需要在客户端执行的命令，详见执行后的说明即可
+```<mode_type>```暂时只支持那三种协议，越靠前的越推荐，不填则默认为```sit```协议
 
-为防止忘记复制命令，命令本身也将写入到当前路径下的 6in4.log 文件中
+```<subnet_size>```只要比原系统子网掩码大就行，且是2的倍数，不填则默认为```80```
+
+记得```client_ipv4```替换为需要附加IPV6的机器的IPV4地址，执行完毕后会回传你需要在客户端执行的命令，详见执行后的说明即可
+
+为防止忘记复制命令，命令本身也将写入到当前路径下的```6in4.log```文件中，可使用```cat 6in4.log```查询客户端需要执行的命令
 
 复制下来的命令，务必在 [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) 中选择选项```6in4```后进行转换
 
