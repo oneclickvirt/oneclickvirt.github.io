@@ -396,10 +396,12 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/6in4/main/6in4.sh -o 6in4
 Execute it
 
 ```
-./6in4.sh your_client_ipv4
+./6in4.sh client_ipv4 <mode_type> 
 ```
 
-Remember to write the IPV4 address of the machine you need to attach IPV6, after the execution is complete, it will return the command you need to execute in the client, see the instructions after the execution.
+mode_type: sit、gre、ipip
+
+Remember to write the IPV4 address and protocol type of the machine you need to attach IPV6 (not fill in the default sit type), after the execution is completed, it will send back the commands you need to be executed in the client, see the instructions after the execution.
 
 In case you forget to copy the command, the command itself will also be written to the 6in4.log file in the current path
 
@@ -440,6 +442,22 @@ ip addr show
 
 ```
 curl ipv6.ip.sb
+```
+
+### Delete tunnel
+
+server
+
+```
+ip link set server-ipv6 down
+ip tunnel del server-ipv6
+```
+
+client
+
+```
+ip link set user down
+ip tunnel del user
 ```
 
 ### Principle
