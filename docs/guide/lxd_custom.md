@@ -408,7 +408,7 @@ ip tunnel del server-ipv6
 客户端
 
 ```
-ip link set user down
-ip tunnel del user
+ip link set user-ipv6 down
+ip tunnel del user-ipv6
 ```
 
