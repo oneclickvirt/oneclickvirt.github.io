@@ -348,7 +348,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/6in4/main/6in4.sh -o 6in4
 执行命令
 
 ```
-./6in4.sh your_client_ipv4
+./6in4.sh client_ipv4
 ```
 
 记得写上你需要附加IPV6的机器的IPV4地址，执行完毕后会回传你需要在客户端执行的命令，详见执行后的说明即可
@@ -401,7 +401,6 @@ curl ipv6.ip.sb
 ```
 ip link set server-ipv6 down
 ip tunnel del server-ipv6
-ip link set sit0 down
 ```
 
 客户端
@@ -409,6 +408,5 @@ ip link set sit0 down
 ```
 ip link set user down
 ip tunnel del user
-ip link set sit0 down
 ```
 
