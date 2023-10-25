@@ -456,8 +456,8 @@ ip tunnel del server-ipv6
 client
 
 ```
-ip link set user down
-ip tunnel del user
+ip link set user-ipv6 down
+ip tunnel del user-ipv6
 ```
 
 ### Principle
