@@ -408,7 +408,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/6in4/main/6in4.sh -o 6in4
 Execute it
 
 ```
-./6in4.sh client_ipv4 <mode_type> 
+./6in4.sh client_ipv4 <mode_type> <subnet_size> 
 ```
 
 | Options | Optional Option 1 | Optional Option 2 | Optional Option 3 |
