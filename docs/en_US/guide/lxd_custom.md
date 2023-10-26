@@ -478,3 +478,5 @@ client
 ip link set user-ipv6 down
 ip tunnel del user-ipv6
 ```
+
+The above deletion is only temporary, for permanent deletion you must modify and delete the contents of the ``/etc/network/interfaces`` file that you have previously added.

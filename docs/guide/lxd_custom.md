@@ -431,3 +431,4 @@ ip link set user-ipv6 down
 ip tunnel del user-ipv6
 ```
 
+以上删除的方式只是临时删除，永久删除务必修改删除```/etc/network/interfaces```文件中你之前增加的内容
