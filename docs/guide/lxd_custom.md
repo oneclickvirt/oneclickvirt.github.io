@@ -333,6 +333,19 @@ systemctl restart networking
 
 如果你需要在B所在的服务器上使用本套脚本给容器一键配置IPV6地址，那么需要安装的是```ifupdown2```进行网络管理
 
+```
+touch /etc/cloud/cloud-init.disabled
+```
+
+```
+apt install ifupdown2 -y
+```
+
+```
+sudo systemctl start networking
+sudo systemctl enable networking
+```
+
 ### 功能
 
 - 自建sit/gre/ipip协议的IPv6隧道
@@ -370,7 +383,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/6in4/main/6in4.sh -o 6in4
 
 ```<mode_type>```暂时只支持那三种协议，越靠前的越推荐，不填则默认为```sit```协议
 
-```<subnet_size>```只要比原系统子网掩码大就行，且是2的倍数，不填则默认为```80```
+```<subnet_size>```只要比原系统子网掩码大就行，且是8的倍数，不填则默认为```80```
 
 记得```client_ipv4```替换为需要附加IPV6的机器的IPV4地址，执行完毕后会回传你需要在客户端执行的命令，详见执行后的说明即可
 
