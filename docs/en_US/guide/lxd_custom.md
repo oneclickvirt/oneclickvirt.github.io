@@ -381,6 +381,19 @@ This method will provide a way to split a /80 out of the IPV6 segment on A and a
 
 If you need to use this set of scripts to configure IPV6 addresses for containers with a single click on the server where B resides, then what you need to install is ```ifupdown2``` for network management
 
+```
+touch /etc/cloud/cloud-init.disabled
+```
+
+```
+apt install ifupdown2 -y
+```
+
+```
+sudo systemctl start networking
+sudo systemctl enable networking
+```
+
 ### Features
 
 - Self-built IPv6 tunnel for sit/gre/ipip protocols
@@ -418,7 +431,7 @@ Execute it
 
 ```<mode_type>``` only support those three protocols for now, the more advanced the more recommended, no fill in the default is ```sit``` protocol
 
-```<subnet_size>``` as long as it is larger than the original system subnet mask, and is a multiple of 2, if you don't fill it in, it defaults to ```80```.
+```<subnet_size>``` as long as it is larger than the original system subnet mask, and is a multiple of 8, if you don't fill it in, it defaults to ```80```.
 
 Remember to replace ```client_ipv4``` with the IPV4 address of the machine you want to attach IPV6 to, and the command you need to execute on the client side will be sent back to you after execution, see the instructions after execution for details.
 
