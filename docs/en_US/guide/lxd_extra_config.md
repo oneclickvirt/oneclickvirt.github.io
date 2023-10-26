@@ -40,7 +40,7 @@ Example (automatically configure the test container with an IPV6 address, a test
 ```bash
 bash build_ipv6_network.sh test
 ```
-
+<!-- 
 Delete all IPV6 mapped rules
 
 ```bash
@@ -60,7 +60,7 @@ systemctl disable add-ipv6.service
 rm /etc/systemd/system/add-ipv6.service
 systemctl daemon-reload
 rm /usr/local/bin/add-ipv6.sh
-```
+``` -->
 
 ## Blocking Ingress/Egress Traffic on Easily Abused Ports and Filtering Out Port Scanning and Exploitation Toolkits
 
