@@ -289,6 +289,7 @@ rm -rf /root/config.sh
 rm -rf /root/ssh_bash.sh
 rm -rf /root/buildone.sh
 rm -rf /root/add_more.sh
+rm -rf /root/build_ipv6_network.sh
 ```
 
 下载回新版本的相关配置脚本
@@ -298,6 +299,7 @@ wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/check-dns.sh 
 wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/config.sh -O /usr/local/bin/config.sh && chmod +x /usr/local/bin/config.sh
 wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/ssh_bash.sh -O /usr/local/bin/ssh_bash.sh && chmod +x /usr/local/bin/ssh_bash.sh
 wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/ssh_sh.sh -O /usr/local/bin/ssh_sh.sh && chmod +x /usr/local/bin/ssh_sh.sh
+wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/build_ipv6_network.sh -O /root/build_ipv6_network.sh && chmod +x /root/build_ipv6_network.sh
 ```
 
 其他一键脚本自己对应下载回来就行了
