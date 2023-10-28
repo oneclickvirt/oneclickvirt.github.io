@@ -267,6 +267,7 @@ wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/config.sh -O 
 wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/ssh_bash.sh -O /usr/local/bin/ssh_bash.sh && chmod +x /usr/local/bin/ssh_bash.sh
 wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/ssh_sh.sh -O /usr/local/bin/ssh_sh.sh && chmod +x /usr/local/bin/ssh_sh.sh
 wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/build_ipv6_network.sh -O /root/build_ipv6_network.sh && chmod +x /root/build_ipv6_network.sh
+wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/buildone.sh -O /root/buildone.sh && chmod +x /root/buildone.sh
 ```
 
 Just download the other one-click scripts yourself.
