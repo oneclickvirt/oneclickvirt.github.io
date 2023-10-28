@@ -274,7 +274,7 @@ systemctl restart networking
 
 这个平台你在切换网络管理时务必使用```ifupdown2```而不是```ifupdown2```安装包，该平台使用sit协议，而sit协议需要在```ifupdown2```控制的环境中使用
 
-需要安装```ifupdown2```控制网络
+需要安装```ifupdown2```控制网络，而这个工具一般只在debian系上可安装使用
 
 ```
 sudo apt-get install ifupdown -y
