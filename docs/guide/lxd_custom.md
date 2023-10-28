@@ -331,7 +331,7 @@ systemctl restart networking
 
 该方法将提供一种方式，将A上的IPV6网段拆分一个子ipv6网段的出来，附加到B上使用
 
-如果你需要在B所在的服务器上使用本套脚本给容器一键配置IPV6地址，那么需要安装的是```ifupdown2```进行网络管理
+如果你需要在B所在的服务器上使用本套脚本给容器一键配置IPV6地址，那么需要安装的是```ifupdown2```进行网络管理，而这个工具一般只在debian系上可安装使用
 
 ```
 touch /etc/cloud/cloud-init.disabled
