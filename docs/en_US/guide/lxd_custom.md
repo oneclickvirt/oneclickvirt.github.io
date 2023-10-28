@@ -16,8 +16,8 @@ Here are the platforms that are currently running in 2023 that offer IPV6 subnet
 
 | Supported Platforms | Corresponding Required Installation Packages | Protocols | Number of Channels/Subnets
 |---------------------------|----------------|----------------|----------------|
-| tunnelbroker.net              | ifupdown           | v4tunnel           | 3✖/64 或 5✖/64            |
-| tunnelbroker.ch              | ifupdown           | v4tunnel           | 3✖/64          |
+| tunnelbroker.net              | ifupdown OR ifupdown2         | v4tunnel OR sit          | 3✖/64 或 5✖/64            |
+| tunnelbroker.ch              | ifupdown OR ifupdown2          | v4tunnel OR sit        | 3✖/64          |
 | ip4market.ru                | ifupdown          | v4tunnel           | 1✖/64          |
 | netassist.ua                | ifupdown2          | sit           | 1✖/64          |
 | https://github.com/oneclickvirt/6in4               | ifupdown2          | sit、gre、ipip           | 自定义          |
@@ -87,7 +87,7 @@ This assumes that your client's server's default NIC is ```eth0```, you can use 
 
 ## tunnelbroker_net
 
-Requires installation of```ifupdown```to control the network
+You need to install ```ifupdown``` to control the network, the official example is ```ifupdown``` configured by default, if you need to use ```ifupdown2``` to adjust the format yourself
 
 
 Combined with a script that opens containers with IPV6 addresses with a single click, you can attach an IPV6 address from he to each container
@@ -199,10 +199,7 @@ Then reboot the server to remove the
 
 ## tunnelbroker_ch
 
-You must use```ifupdown```when switching network management on this platform, which uses the v4tunnel protocol.
-
-
-You need to install```ifupdown```to control the network.
+You need to install ```ifupdown``` to control the network, the official example is ```ifupdown``` configured by default, if you need to use ```ifupdown2``` to adjust the format yourself
 
 
 ```

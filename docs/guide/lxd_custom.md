@@ -16,8 +16,8 @@ outline: deep
 
 | 支持的平台                       | 对应需要的安装包             | 协议             | 通道/子网数量           |
 |---------------------------|----------------|----------------|----------------|
-| tunnelbroker.net              | ifupdown           | v4tunnel           | 3✖/64 或 5✖/64            |
-| tunnelbroker.ch              | ifupdown           | v4tunnel           | 3✖/64          |
+| tunnelbroker.net              | ifupdown 或 ifupdown2        | v4tunnel 或 sit           | 3✖/64 或 5✖/64            |
+| tunnelbroker.ch              | ifupdown 或 ifupdown2           | v4tunnel 或 sit         | 3✖/64          |
 | ip4market.ru                | ifupdown          | v4tunnel           | 1✖/64          |
 | netassist.ua                | ifupdown2          | sit           | 1✖/64          |
 | https://github.com/oneclickvirt/6in4               | ifupdown2          | sit、gre、ipip           | 自定义          |
@@ -87,7 +87,7 @@ default_route=$(ip -6 route show | awk '/default via/{print $3}') && [ -n "$defa
 
 ## tunnelbroker_net
 
-需要安装```ifupdown```控制网络
+需要安装```ifupdown```控制网络，官方给的示例默认就是```ifupdown```配置下的，如需使用```ifupdown2```自行调整格式
 
 结合一键开设带IPV6地址的容器的脚本，就能给每个容器附加来自he的IPV6地址了
 
@@ -169,9 +169,7 @@ route -A inet6 add ::/0 dev he-ipv6
 
 ## tunnelbroker_ch
 
-这个平台你在切换网络管理时务必使用```ifupdown```，该平台使用v4tunnel协议
-
-需要安装```ifupdown```控制网络
+需要安装```ifupdown```控制网络，官方给的示例默认就是```ifupdown```配置下的，如需使用```ifupdown2```自行调整格式
 
 ```
 apt-get install ifupdown -y
