@@ -2,11 +2,15 @@
 outline: deep
 ---
 
-## 给宿主机附加免费的IPV6地址段
+# 给宿主机附加免费的IPV6地址段
 
 有的机器本身没有IPV6的/64子网，这里给出一个方法免费附加IPV6的子网。
 
-这里使用6in4方法解决宿主机本身没有IPV6地址的问题。
+这里是使用6in4方法解决宿主机本身没有IPV6地址的问题。
+
+:::tip
+本页面的操作务必在原始系统上操作，保证未使用本项目的其他脚本安装环境，否则可能导致环境冲突
+:::
 
 以下是2023年目前还在运行的免费提供IPV6子网的平台
 
@@ -16,10 +20,13 @@ outline: deep
 | tunnelbroker.ch              | ifupdown           | v4tunnel           | 3✖/64          |
 | ip4market.ru                | ifupdown          | v4tunnel           | 1✖/64          |
 | netassist.ua                | ifupdown2          | sit           | 1✖/64          |
+| https://github.com/oneclickvirt/6in4               | ifupdown2          | sit、gre、ipip           | 自定义          |
 
-这些平台只解决IPV6有没有的问题，不提供优质的IPV6带宽。
+免费的平台只解决IPV6有没有的问题，不提供优质的IPV6带宽。
 
-### 初始环境修改
+如需优质的带宽，请自建隧道。
+
+## 初始环境修改
 
 执行
 
@@ -43,28 +50,42 @@ systemctl is-active networking
 
 ```
 # 是否需要禁用原网络管理自行评判
-# sudo systemctl stop systemd-networkd
-# sudo systemctl disable systemd-networkd
-# sudo systemctl stop systemd-networkd.socket
-# sudo systemctl disable systemd-networkd.socket
+# systemctl stop systemd-networkd
+# systemctl disable systemd-networkd
+# systemctl stop systemd-networkd.socket
+# systemctl disable systemd-networkd.socket
 ```
 
-安装```ifupdown```控制网络(有的平台需要安装```ifupdown2```控制网络，详见对应平台说明再回来)
+如果需要安装的是```ifupdown```控制网络，这个工具一般的主流linux系统都有
 
 ```
-sudo apt-get install ifupdown -y
+apt-get install ifupdown -y
+```
+
+如果需要安装的是```ifupdown2```进行网络管理，而这个工具一般只在debian系上可安装使用
+
+```
+apt-get install ifupdown2 -y
 ```
 
 ```
-sudo systemctl start networking
-sudo systemctl enable networking
+systemctl start networking
+systemctl enable networking
 ```
 
 然后重启服务器，检验机器的网络是否会因为修改出现重启失联的情况，且执行```uptime```观察启动已超过1分钟后，再进行后续步骤
 
 如果是是前者inactive，后者active，则不需要切换网络管理程序，直接进行后续操作即可。
 
-### tunnelbroker_net
+由于部分服务器存在默认的内网IPV6路由会与隧道冲突，此时可使用以下命令删除默认的IPV6路由
+
+```
+default_route=$(ip -6 route show | awk '/default via/{print $3}') && [ -n "$default_route" ] && ip -6 route del default via $default_route dev eth0
+```
+
+这里假设了你的客户端的服务器的默认网卡是```eth0```，你可以使用```ip -6 route```查看默认的路由并替换它，默认路由以```default via```开头，使用```dev```指定默认网卡，你只需要按照这个规则找到它即可
+
+## tunnelbroker_net
 
 需要安装```ifupdown```控制网络
 
@@ -97,7 +118,7 @@ sudo systemctl enable networking
 5. 执行以下命令给你的网络配置文件附加IPV6的设置(或者自己用vim或者vi命令修改```/etc/network/interfaces```文件增加内容)
 
 ```
-sudo tee -a /etc/network/interfaces <<EOF
+tee -a /etc/network/interfaces <<EOF
 # 这里修改复制粘贴一下之前红框框住的配置文件内容，然后执行此命令
 EOF
 ```
@@ -146,19 +167,19 @@ route -A inet6 add ::/0 dev he-ipv6
 
 然后重启服务器，就删除了
 
-### tunnelbroker_ch
+## tunnelbroker_ch
 
 这个平台你在切换网络管理时务必使用```ifupdown```，该平台使用v4tunnel协议
 
 需要安装```ifupdown```控制网络
 
 ```
-sudo apt-get install ifupdown -y
+apt-get install ifupdown -y
 ```
 
 ```
-sudo systemctl start networking
-sudo systemctl enable networking
+systemctl start networking
+systemctl enable networking
 ```
 
 类似上述的操作，先在 [https://www.tunnelbroker.ch/](https://www.tunnelbroker.ch/) 注册一个账户先，注册后点击激活的邮件
@@ -188,7 +209,7 @@ sudo systemctl enable networking
 然后用vim或者vi命令修改```/etc/network/interfaces```文件增加内容，或者修改以下命令新增
 
 ```
-sudo tee -a /etc/network/interfaces <<EOF
+tee -a /etc/network/interfaces <<EOF
 # 这里修改一下
 EOF
 ```
@@ -202,19 +223,19 @@ systemctl restart networking
 
 保证环境无问题再进行别的操作了
 
-### ip4market_ru
+## ip4market_ru
 
 这个平台你在切换网络管理时务必使用```ifupdown```，该平台使用v4tunnel协议
 
 需要安装```ifupdown```控制网络
 
 ```
-sudo apt-get install ifupdown -y
+apt-get install ifupdown -y
 ```
 
 ```
-sudo systemctl start networking
-sudo systemctl enable networking
+systemctl start networking
+systemctl enable networking
 ```
 
 类似上述的操作，先在 [https://tb.ip4market.ru](https://tb.ip4market.ru/) 注册一个账户先，注册邮箱得是非常见邮箱，电话可随便写不验证的，IP填上你要附加的宿主机的IPV4地址
@@ -255,7 +276,7 @@ Client IPv6
 然后就会自动刷新页面出现需要自己用vim或者vi命令修改```/etc/network/interfaces```文件增加的内容了，或者修改以下命令新增
 
 ```
-sudo tee -a /etc/network/interfaces <<EOF
+tee -a /etc/network/interfaces <<EOF
 # 这里修改一下
 EOF
 ```
@@ -270,20 +291,9 @@ systemctl restart networking
 保证环境无问题再进行别的操作了
 
 
-### netassist_ua
+## netassist_ua
 
 这个平台你在切换网络管理时务必使用```ifupdown2```而不是```ifupdown2```安装包，该平台使用sit协议，而sit协议需要在```ifupdown2```控制的环境中使用
-
-需要安装```ifupdown2```控制网络，而这个工具一般只在debian系上可安装使用
-
-```
-sudo apt-get install ifupdown -y
-```
-
-```
-sudo systemctl start networking
-sudo systemctl enable networking
-```
 
 类似上述的操作，先在 [https://tb.netassist.ua/](https://tb.netassist.ua/) 注册一个账户先，注册后点击激活的邮件，激活页面会有密码显示，记得记录
 
@@ -310,7 +320,7 @@ sudo systemctl enable networking
 然后就会自动刷新页面出现需要自己用vim或者vi命令修改```/etc/network/interfaces```文件增加的内容了，或者修改以下命令新增
 
 ```
-sudo tee -a /etc/network/interfaces <<EOF
+tee -a /etc/network/interfaces <<EOF
 # 这里修改一下
 EOF
 ```
@@ -331,20 +341,7 @@ systemctl restart networking
 
 该方法将提供一种方式，将A上的IPV6网段拆分一个子ipv6网段的出来，附加到B上使用
 
-如果你需要在B所在的服务器上使用本套脚本给容器一键配置IPV6地址，那么需要安装的是```ifupdown2```进行网络管理，而这个工具一般只在debian系上可安装使用
-
-```
-touch /etc/cloud/cloud-init.disabled
-```
-
-```
-apt install ifupdown2 -y
-```
-
-```
-sudo systemctl start networking
-sudo systemctl enable networking
-```
+你需要在B所在的服务器上使用本套脚本给容器一键配置IPV6地址
 
 ### 功能
 
@@ -394,7 +391,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/6in4/main/6in4.sh -o 6in4
 然后就会自动刷新页面出现需要自己用vim或者vi命令修改```/etc/network/interfaces```文件增加的内容了，或者修改以下命令新增
 
 ```
-sudo tee -a /etc/network/interfaces <<EOF
+tee -a /etc/network/interfaces <<EOF
 # 这里修改一下
 EOF
 ```

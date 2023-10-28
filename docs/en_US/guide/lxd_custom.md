@@ -2,13 +2,17 @@
 outline: deep
 ---
 
-## Attach free IPV6 address segments to host machines
+# Attach free IPV6 address segments to host machines
 
-Some machines don't have IPV6 /64 subnets on their own, here's a way to attach an IPV6 subnet for free.
+Some machines don't have an IPV6 /64 subnet on the machine itself, here is a method given to attach an IPV6 subnet for free.
 
-The 6in4 method is used here to solve the problem of the host machine itself not having an IPV6 address.
+Here is a solution using the 6in4 method for a host machine that doesn't have an IPV6 address on its own.
 
-The following platforms are currently running in 2023 that provide IPV6 subnets for free.
+:::tip
+The operations on this page must be performed on the original system, and ensure that no other scripts from this project are installed, as this may lead to environment conflicts.
+:::
+
+Here are the platforms that are currently running in 2023 that offer IPV6 subnets for free.
 
 | Supported Platforms | Corresponding Required Installation Packages | Protocols | Number of Channels/Subnets
 |---------------------------|----------------|----------------|----------------|
@@ -16,10 +20,13 @@ The following platforms are currently running in 2023 that provide IPV6 subnets 
 | tunnelbroker.ch              | ifupdown           | v4tunnel           | 3✖/64          |
 | ip4market.ru                | ifupdown          | v4tunnel           | 1✖/64          |
 | netassist.ua                | ifupdown2          | sit           | 1✖/64          |
+| https://github.com/oneclickvirt/6in4               | ifupdown2          | sit、gre、ipip           | 自定义          |
 
-These platforms only address the issue of whether IPV6 is there or not, and do not provide quality IPV6 bandwidth.
+The free platform only solves the problem that IPV6 is not available, it does not provide premium IPV6 bandwidth.
 
-### Initial environment modifications
+If you need premium bandwidth, please build your own tunnel.
+
+## Initial environment modifications
 
 Execute
 
@@ -49,10 +56,16 @@ See which case this falls into, if it's the former active and the latter inactiv
 # sudo systemctl disable systemd-networkd.socket
 ```
 
-Install```ifupdown```to control the network (some platforms require```ifupdown2```to control the network, see the corresponding platform instructions and come back)
+If you want to install ```ifupdown``` to control the network, this tool is available on all major linux systems.
 
 ```
-sudo apt-get install ifupdown -y
+apt-get install ifupdown -y
+```
+
+If you want to install ```ifupdown2``` for network management, which is generally only available on debian systems, you can install
+
+```
+apt-get install ifupdown2 -y
 ```
 
 ```
@@ -64,7 +77,15 @@ Then restart the server, check whether the machine's network will be rebooted du
 
 If it is inactive and active, there is no need to switch the network management program and you can proceed directly to the next step.
 
-### tunnelbroker_net
+Since some servers have default intranet IPV6 routes that will conflict with the tunnel, you can use the following command to remove the default IPV6 routes
+
+```
+default_route=$(ip -6 route show | awk '/default via/{print $3}') && [ -n "$default_route" ] && ip -6 route del default via $default_route dev eth0
+```
+
+This assumes that your client's server's default NIC is ```eth0```, you can use ```ip -6 route``` to see the default route and replace it, the default route starts with ```default via```, and uses ```dev``` to specify the default NIC, you just need to find it according to this rule
+
+## tunnelbroker_net
 
 Requires installation of```ifupdown```to control the network
 
@@ -176,7 +197,7 @@ If you want to delete the he-ipv6 network interface configuration (if not, it wi
 
 Then reboot the server to remove the
 
-### tunnelbroker_ch
+## tunnelbroker_ch
 
 You must use```ifupdown```when switching network management on this platform, which uses the v4tunnel protocol.
 
@@ -252,7 +273,7 @@ systemctl restart networking
 
 Make sure the environment is OK before you do anything else
 
-### ip4market_ru
+## ip4market_ru
 
 You must use```ifupdown```when switching network management on this platform, which uses the v4tunnel protocol.
 
@@ -319,20 +340,9 @@ systemctl restart networking
 
 Make sure the environment is OK before you do anything else
 
-### netassist_ua
+## netassist_ua
 
 This platform you must use```ifupdown2```instead of the```ifupdown2```installer when switching network management, the platform uses the sit protocol, which needs to be used in```ifupdown2```controlled environments
-
-Requires installation of```ifupdown2```controlled network
-
-```
-sudo apt-get install ifupdown -y
-```
-
-```
-sudo systemctl start networking
-sudo systemctl enable networking
-```
 
 Similar to the above operation, first in [https://tb.netassist.ua/](https://tb.netassist.ua/) register an account first, after registration, click on the activation of the mail, the activation page will have a password display, remember to record!
 
@@ -380,19 +390,6 @@ Related repository: [https://github.com/oneclickvirt/6in4](https://github.com/on
 This method will provide a way to split a /80 out of the IPV6 segment on A and attach it to B to use.
 
 If you need to use this set of scripts to configure IPV6 addresses for containers with a single click on the server where B resides, then what you need to install is ```ifupdown2``` for network management
-
-```
-touch /etc/cloud/cloud-init.disabled
-```
-
-```
-apt install ifupdown2 -y
-```
-
-```
-sudo systemctl start networking
-sudo systemctl enable networking
-```
 
 ### Features
 
