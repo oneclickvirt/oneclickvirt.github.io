@@ -50,10 +50,10 @@ See which case this falls into, if it's the former active and the latter inactiv
 
 ```
 # Judge for yourself whether you need to disable the original network management or not
-# sudo systemctl stop systemd-networkd
-# sudo systemctl disable systemd-networkd
-# sudo systemctl stop systemd-networkd.socket
-# sudo systemctl disable systemd-networkd.socket
+# systemctl stop systemd-networkd
+# systemctl disable systemd-networkd
+# systemctl stop systemd-networkd.socket
+# systemctl disable systemd-networkd.socket
 ```
 
 If you want to install ```ifupdown``` to control the network, this tool is available on all major linux systems.
@@ -69,8 +69,8 @@ apt-get install ifupdown2 -y
 ```
 
 ```
-sudo systemctl start networking
-sudo systemctl enable networking
+systemctl start networking
+systemctl enable networking
 ```
 
 Then restart the server, check whether the machine's network will be rebooted due to the modification of the case of loss of connection, and run```uptime```to observe that the startup has been more than 1 minute before proceeding to the next steps
@@ -133,7 +133,7 @@ The downside is that the addresses are dark/dirty, and cloudflare's cdn will mos
 
 
 ```
-sudo tee -a /etc/network/interfaces <<EOF
+tee -a /etc/network/interfaces <<EOF
 # Here, copy and paste the contents of the configuration file in the red box, and then run this command.
 EOF
 ```
@@ -203,13 +203,13 @@ You need to install ```ifupdown``` to control the network, the official example 
 
 
 ```
-sudo apt-get install ifupdown -y
+apt-get install ifupdown -y
 ```
 
 
 ```
-sudo systemctl start networking
-sudo systemctl enable networking
+systemctl start networking
+systemctl enable networking
 ```
 
 
@@ -254,7 +254,7 @@ Then use vim or vi to modify the```/etc/network/interfaces```file to add content
 
 
 ```
-sudo tee -a /etc/network/interfaces <<EOF
+tee -a /etc/network/interfaces <<EOF
 # Modify the
 EOF
 ```
@@ -277,12 +277,12 @@ You must use```ifupdown```when switching network management on this platform, wh
 You need to install```ifupdown```to control the network.
 
 ```
-sudo apt-get install ifupdown -y
+apt-get install ifupdown -y
 ```
 
 ```
-sudo systemctl start networking
-sudo systemctl enable networking
+systemctl start networking
+systemctl enable networking
 ```
 
 Similar to the above, first register an account at [https://tb.ip4market.ru](https://tb.ip4market.ru/), the registered email address must be an unseen email address, the phone number can be written randomly without verification, and the IP address should be the IPV4 address of the host you want to attach.
@@ -323,7 +323,7 @@ Then click```Covert```to convert the formatting
 Then the page will be refreshed automatically and you need to modify the contents of the```/etc/network/interfaces```file with vim or vi commands, or modify the following commands to add new contents.
 
 ```
-sudo tee -a /etc/network/interfaces <<EOF
+tee -a /etc/network/interfaces <<EOF
 # Modify the
 EOF
 ```
@@ -366,7 +366,7 @@ Then click on```Covert```to convert the formatting
 Then the page will be refreshed automatically and you need to modify the contents of the```/etc/network/interfaces```file with vim or vi commands, or modify the following commands to add new contents.
 
 ```
-sudo tee -a /etc/network/interfaces <<EOF
+tee -a /etc/network/interfaces <<EOF
 # Modify the
 EOF
 ```
@@ -436,7 +436,7 @@ For copied commands, be sure to select option ``6in4`` in [https://ipv6tunnel.sp
 Then the page will be refreshed automatically and you need to modify the contents of the```/etc/network/interfaces```file with vim or vi commands, or modify the following commands to add new contents.
 
 ```
-sudo tee -a /etc/network/interfaces <<EOF
+tee -a /etc/network/interfaces <<EOF
 # Modify here
 EOF
 ```
