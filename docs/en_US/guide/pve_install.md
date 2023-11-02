@@ -100,5 +100,5 @@ bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spirit
 ```
 
 :::tip
-This step may require you to reboot your system after a few minutes of successful execution, see the final execution of the script at the end of the tip
+This step may require you to reboot your system after a few minutes of successful execution, see the final execution of the script at the end of the tip. However, a reboot will ensure that some of the hidden settings are loaded successfully, so be sure to reboot the server once if you are in a position to do so.
 :::
