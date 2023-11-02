@@ -9,7 +9,7 @@ Some machines don't have an IPV6 /64 subnet on the machine itself, here is a met
 Here is a solution using the 6in4 method for a host machine that doesn't have an IPV6 address on its own.
 
 :::tip
-The operations on this page must be performed on the original system, and ensure that no other scripts from this project are installed, as this may lead to environment conflicts.
+The operations on this page must be performed on the original system, and ensure that no other scripts from this project are installed(Except for PVE, which needs to be installed first), as this may lead to environment conflicts.
 :::
 
 Here are the platforms that are currently running in 2023 that offer IPV6 subnets for free.
