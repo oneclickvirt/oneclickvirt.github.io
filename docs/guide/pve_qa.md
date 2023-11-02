@@ -31,7 +31,7 @@ fi
 
 然后将重启失联的机器报给 [@spiritlhl_bot](https://t.me/spiritlhl_bot) 待更新脚本自动修复
 
-## 安装PVE失败
+## 安装PVE失败或非Debian系统
 
 如果有什么机器安装不了，着急的可以尝试使用以下仓库的脚本先重装为debian12先
 
