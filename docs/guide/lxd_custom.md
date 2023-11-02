@@ -18,7 +18,7 @@ outline: deep
 |---------------------------|----------------|----------------|----------------|
 | tunnelbroker.net              | ifupdown 或 ifupdown2        | v4tunnel 或 sit           | 3✖/64 或 5✖/64            |
 | tunnelbroker.ch              | ifupdown 或 ifupdown2           | v4tunnel 或 sit         | 3✖/64          |
-| ip4market.ru                | ifupdown          | v4tunnel           | 1✖/64          |
+| ip4market.ru                | ifupdown 或 ifupdown2         | v4tunnel 或 sit           | 1✖/64          |
 | netassist.ua                | ifupdown2          | sit           | 1✖/64          |
 | https://github.com/oneclickvirt/6in4               | ifupdown2          | sit、gre、ipip           | 自定义          |
 
@@ -46,7 +46,7 @@ systemctl is-active systemd-networkd
 systemctl is-active networking
 ```
 
-看看属于哪种情况，如果是前者active，后者inactive，你需要重装/DD一个不是这样配置的系统，或者切换本机使用ifupdown管理网络执行
+看看属于哪种情况，如果是前者active，后者inactive，你需要重装/DD一个不是这样配置的系统，或者切换本机使用ifupdown/ifupdown2管理网络
 
 ```
 # 是否需要禁用原网络管理自行评判
@@ -86,8 +86,6 @@ default_route=$(ip -6 route show | awk '/default via/{print $3}') && [ -n "$defa
 这里假设了你的客户端的服务器的默认网卡是```eth0```，你可以使用```ip -6 route```查看默认的路由并替换它，默认路由以```default via```开头，使用```dev```指定默认网卡，你只需要按照这个规则找到它即可
 
 ## tunnelbroker_net
-
-需要安装```ifupdown```控制网络，官方给的示例默认就是```ifupdown```配置下的，如需使用```ifupdown2```自行调整格式
 
 结合一键开设带IPV6地址的容器的脚本，就能给每个容器附加来自he的IPV6地址了
 
@@ -169,17 +167,6 @@ route -A inet6 add ::/0 dev he-ipv6
 
 ## tunnelbroker_ch
 
-需要安装```ifupdown```控制网络，官方给的示例默认就是```ifupdown```配置下的，如需使用```ifupdown2```自行调整格式
-
-```
-apt-get install ifupdown -y
-```
-
-```
-systemctl start networking
-systemctl enable networking
-```
-
 类似上述的操作，先在 [https://www.tunnelbroker.ch/](https://www.tunnelbroker.ch/) 注册一个账户先，注册后点击激活的邮件
 
 然后就是填写你的服务器IPV4地址
@@ -222,19 +209,6 @@ systemctl restart networking
 保证环境无问题再进行别的操作了
 
 ## ip4market_ru
-
-这个平台你在切换网络管理时务必使用```ifupdown```，该平台使用v4tunnel协议
-
-需要安装```ifupdown```控制网络
-
-```
-apt-get install ifupdown -y
-```
-
-```
-systemctl start networking
-systemctl enable networking
-```
 
 类似上述的操作，先在 [https://tb.ip4market.ru](https://tb.ip4market.ru/) 注册一个账户先，注册邮箱得是非常见邮箱，电话可随便写不验证的，IP填上你要附加的宿主机的IPV4地址
 

@@ -18,7 +18,7 @@ Here are the platforms that are currently running in 2023 that offer IPV6 subnet
 |---------------------------|----------------|----------------|----------------|
 | tunnelbroker.net              | ifupdown OR ifupdown2         | v4tunnel OR sit          | 3✖/64 或 5✖/64            |
 | tunnelbroker.ch              | ifupdown OR ifupdown2          | v4tunnel OR sit        | 3✖/64          |
-| ip4market.ru                | ifupdown          | v4tunnel           | 1✖/64          |
+| ip4market.ru                | ifupdown OR ifupdown2          | v4tunnel OR sit           | 1✖/64          |
 | netassist.ua                | ifupdown2          | sit           | 1✖/64          |
 | https://github.com/oneclickvirt/6in4               | ifupdown2          | sit、gre、ipip           | 自定义          |
 
@@ -46,7 +46,7 @@ and
 systemctl is-active networking
 ```
 
-See which case this falls into, if it's the former active and the latter inactive, you need to reinstall/DD a system that isn't configured this way, or switch the local machine to use ifupdown to manage network execution
+See which case this falls into, if it's the former active and the latter inactive, you need to reinstall/DD a system that isn't configured this way, or switch the local machine to use ifupdown/ifupdown2 to manage network execution
 
 ```
 # Judge for yourself whether you need to disable the original network management or not
@@ -86,8 +86,6 @@ default_route=$(ip -6 route show | awk '/default via/{print $3}') && [ -n "$defa
 This assumes that your client's server's default NIC is ```eth0```, you can use ```ip -6 route``` to see the default route and replace it, the default route starts with ```default via```, and uses ```dev``` to specify the default NIC, you just need to find it according to this rule
 
 ## tunnelbroker_net
-
-You need to install ```ifupdown``` to control the network, the official example is ```ifupdown``` configured by default, if you need to use ```ifupdown2``` to adjust the format yourself
 
 
 Combined with a script that opens containers with IPV6 addresses with a single click, you can attach an IPV6 address from he to each container
@@ -199,19 +197,6 @@ Then reboot the server to remove the
 
 ## tunnelbroker_ch
 
-You need to install ```ifupdown``` to control the network, the official example is ```ifupdown``` configured by default, if you need to use ```ifupdown2``` to adjust the format yourself
-
-
-```
-apt-get install ifupdown -y
-```
-
-
-```
-systemctl start networking
-systemctl enable networking
-```
-
 
 Similar to the above, first register an account at [https://www.tunnelbroker.ch/](https://www.tunnelbroker.ch/) and click on the activation email after registering.
 
@@ -271,19 +256,6 @@ systemctl restart networking
 Make sure the environment is OK before you do anything else
 
 ## ip4market_ru
-
-You must use```ifupdown```when switching network management on this platform, which uses the v4tunnel protocol.
-
-You need to install```ifupdown```to control the network.
-
-```
-apt-get install ifupdown -y
-```
-
-```
-systemctl start networking
-systemctl enable networking
-```
 
 Similar to the above, first register an account at [https://tb.ip4market.ru](https://tb.ip4market.ru/), the registered email address must be an unseen email address, the phone number can be written randomly without verification, and the IP address should be the IPV4 address of the host you want to attach.
 
@@ -385,8 +357,6 @@ Make sure the environment is OK before you do anything else
 Related repository: [https://github.com/oneclickvirt/6in4](https://github.com/oneclickvirt/6in4)
 
 This method will provide a way to split a /80 out of the IPV6 segment on A and attach it to B to use.
-
-If you need to use this set of scripts to configure IPV6 addresses for containers with a single click on the server where B resides, then what you need to install is ```ifupdown2``` for network management
 
 ### Features
 
