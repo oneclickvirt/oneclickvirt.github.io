@@ -19,12 +19,14 @@ outline: deep
 | tunnelbroker.net              | ifupdown 或 ifupdown2        | v4tunnel 或 sit           | 3✖/64 或 5✖/64            |
 | tunnelbroker.ch              | ifupdown 或 ifupdown2           | v4tunnel 或 sit         | 3✖/64          |
 | ip4market.ru                | ifupdown 或 ifupdown2         | v4tunnel 或 sit           | 1✖/64          |
-| netassist.ua                | ifupdown2          | sit           | 1✖/64          |
+| netassist.ua                | ifupdown 或 ifupdown2          | v4tunnel 或 sit           | 1✖/64          |
 | https://github.com/oneclickvirt/6in4               | ifupdown2          | sit、gre、ipip           | 自定义          |
 
 免费的平台只解决IPV6有没有的问题，不提供优质的IPV6带宽。
 
 如需优质的带宽，请自建隧道，当ifupdown和ifupdown2都可时，先尝试ifupdown是否可安装成功，否则就安装ifupdown2.
+
+安装完毕后，安装了哪个包后面就选择哪个包进行格式转换。
 
 ## 初始环境修改
 
@@ -68,6 +70,8 @@ apt-get install ifupdown -y
 apt-get install ifupdown2 -y
 ```
 
+安装完毕后，安装了哪个包后面就选择哪个包进行格式转换。
+
 ```
 systemctl start networking
 systemctl enable networking
@@ -109,15 +113,23 @@ default_route=$(ip -6 route show | awk '/default via/{print $3}') && [ -n "$defa
 
 ![6](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/2fb7c951-371c-452c-b775-78f69b980a2c)
 
-4. 框住的部分就是要修改的文件和需要填写的内容了
+4. 框住的部分就是要修改的文件和需要复制的内容了
 
 ![7](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/c0156902-b4c0-4001-823e-50f611215393)
 
-5. 执行以下命令给你的网络配置文件附加IPV6的设置(或者自己用vim或者vi命令修改```/etc/network/interfaces```文件增加内容)
+复制的时候不要带空行
+
+5. 转换格式后给你的网络配置文件附加IPV6的设置
+
+然后打开 [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) 选择```Option```为```TunnelBrokerNet```，另一个下拉选择框选择你之前安装成功的包名，然后在输入框内粘贴你复制的内容
+
+然后点击```Covert```转换格式，等待页面刷新显示转换格式后的配置文件内容
+
+然后用vim或者vi命令修改```/etc/network/interfaces```文件增加内容，或者修改以下命令新增
 
 ```
 tee -a /etc/network/interfaces <<EOF
-# 这里修改复制粘贴一下之前红框框住的配置文件内容，然后执行此命令
+# 这里修改复制粘贴一下转换格式后的配置文件内容，然后执行此命令
 EOF
 ```
 
@@ -187,7 +199,7 @@ route -A inet6 add ::/0 dev he-ipv6
 
 页面的最后一个红框框住的部分复制下来，不要带空行
 
-然后打开 [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) 选择```Option```为```TunnelBroker```，在输入框内粘贴你复制的内容
+然后打开 [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) 选择```Option```为```TunnelBrokerCh```，另一个下拉选择框选择你之前安装成功的包名，然后在输入框内粘贴你复制的内容
 
 然后点击```Covert```转换格式，等待页面刷新显示转换格式后的配置文件内容
 
@@ -239,7 +251,7 @@ Client IPv6
 
 ![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/69c946e6-e82f-4665-b3c1-3c97e27f8487)
 
-然后打开 [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) 选择```Option```为```ip4market```，在输入框内粘贴你复制的内容
+然后打开 [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) 选择```Option```为```ip4market```，另一个下拉选择框选择你之前安装成功的包名，然后在输入框内粘贴你复制的内容
 
 然后点击```Covert```转换格式
 
@@ -283,7 +295,7 @@ systemctl restart networking
 
 会出现上面的内容，全选框住的部分复制下来，不要带空行
 
-然后打开 [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) 选择```Option```为```NetAssist```，在输入框内粘贴你复制的内容
+然后打开 [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) 选择```Option```为```NetAssist```，另一个下拉选择框选择你之前安装成功的包名，然后在输入框内粘贴你复制的内容
 
 然后点击```Covert```转换格式
 

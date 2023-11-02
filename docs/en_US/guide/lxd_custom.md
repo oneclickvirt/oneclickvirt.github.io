@@ -19,12 +19,14 @@ Here are the platforms that are currently running in 2023 that offer IPV6 subnet
 | tunnelbroker.net              | ifupdown OR ifupdown2         | v4tunnel OR sit          | 3✖/64 或 5✖/64            |
 | tunnelbroker.ch              | ifupdown OR ifupdown2          | v4tunnel OR sit        | 3✖/64          |
 | ip4market.ru                | ifupdown OR ifupdown2          | v4tunnel OR sit           | 1✖/64          |
-| netassist.ua                | ifupdown2          | sit           | 1✖/64          |
+| netassist.ua                | ifupdown OR ifupdown2          | v4tunnel OR sit           | 1✖/64          |
 | https://github.com/oneclickvirt/6in4               | ifupdown2          | sit、gre、ipip           | 自定义          |
 
 The free platform only solves the problem that IPV6 is not available, it does not provide premium IPV6 bandwidth.
 
 If you need high quality bandwidth, please build your own tunnel. When both ifupdown and ifupdown2 are available, try ifupdown first to see if it can be installed successfully, otherwise install ifupdown2.
+
+After the installation is complete, select which package is installed behind to convert the format.
 
 ## Initial environment modifications
 
@@ -67,6 +69,8 @@ If you want to install ```ifupdown2``` for network management, which is generall
 ```
 apt-get install ifupdown2 -y
 ```
+
+After the installation is complete, select which package is installed behind to convert the format.
 
 ```
 systemctl start networking
@@ -127,8 +131,14 @@ The downside is that the addresses are dark/dirty, and cloudflare's cdn will mos
 ![7](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/c0156902-b4c0-4001-823e-50f611215393)
 
 
-5. Execute the following command to add IPV6 settings to your network configuration file (or modify the```/etc/network/interfaces```file yourself with vim or vi commands to add the content).
+5. Exchange the format of the command then add IPV6 settings to your network configuration file.
 
+Then open [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) and select```Option```for```TunnelBrokerNet```, another drop-down selection box to choose the name of the package you successfully installed previously, then paste what you copied in the input box.
+
+Then click```Covert```to convert the format, and wait for the page to refresh to show the converted configuration file.
+
+
+Then use vim or vi to modify the```/etc/network/interfaces```file to add content, or modify the following command to add new content
 
 ```
 tee -a /etc/network/interfaces <<EOF
@@ -229,7 +239,7 @@ Record the content of the last red box on the following page, and prepare to mod
 Copy the last red box of the page without the blank lines.
 
 
-Then open [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) and select```Option```for```TunnelBroker```and paste what you copied in the input box.
+Then open [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) and select```Option```for```TunnelBrokerCh```, another drop-down selection box to choose the name of the package you successfully installed previously, then paste what you copied in the input box.
 
 
 Then click```Covert```to convert the format, and wait for the page to refresh to show the converted configuration file.
@@ -286,7 +296,7 @@ For these four lines, press ctrl+c to copy or right-click to copy
 
 ![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/69c946e6-e82f-4665-b3c1-3c97e27f8487)
 
-Then open [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) and select```Option```for```ip4market```and paste what you copied in the input box.
+Then open [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) and select```Option```for```ip4market```, another drop-down selection box to choose the name of the package you successfully installed previously, then paste what you copied in the input box.
 
 Then click```Covert```to convert the formatting
 
@@ -311,8 +321,6 @@ Make sure the environment is OK before you do anything else
 
 ## netassist_ua
 
-This platform you must use```ifupdown2```instead of the```ifupdown2```installer when switching network management, the platform uses the sit protocol, which needs to be used in```ifupdown2```controlled environments
-
 Similar to the above operation, first in [https://tb.netassist.ua/](https://tb.netassist.ua/) register an account first, after registration, click on the activation of the mail, the activation page will have a password display, remember to record!
 
 Then fill in the IPV4 address of your server, you can change it later, just fill in a random one first.
@@ -329,7 +337,7 @@ The second red box is for```Linux``, and then click on show
 
 The above content will appear, copy all the boxed parts without blank lines.
 
-Then open [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) and select```Option```for```NetAssist```and paste what you copied in the input box.
+Then open [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) and select```Option```for```NetAssist```, another drop-down selection box to choose the name of the package you successfully installed previously, then paste what you copied in the input box.
 
 Then click on```Covert```to convert the formatting
 
