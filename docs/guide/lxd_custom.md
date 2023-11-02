@@ -24,7 +24,7 @@ outline: deep
 
 免费的平台只解决IPV6有没有的问题，不提供优质的IPV6带宽。
 
-如需优质的带宽，请自建隧道。
+如需优质的带宽，请自建隧道，当ifupdown和ifupdown2都可时，先尝试ifupdown是否可安装成功，否则就安装ifupdown2.
 
 ## 初始环境修改
 

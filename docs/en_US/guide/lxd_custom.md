@@ -24,7 +24,7 @@ Here are the platforms that are currently running in 2023 that offer IPV6 subnet
 
 The free platform only solves the problem that IPV6 is not available, it does not provide premium IPV6 bandwidth.
 
-If you need premium bandwidth, please build your own tunnel.
+If you need high quality bandwidth, please build your own tunnel. When both ifupdown and ifupdown2 are available, try ifupdown first to see if it can be installed successfully, otherwise install ifupdown2.
 
 ## Initial environment modifications
 
