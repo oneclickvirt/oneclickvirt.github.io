@@ -18,7 +18,7 @@ It is recommended that debian try to use the latest stable version of the system
 
 **Do not use this set of scripts in the dynamic IP server (reboot the machine automatically switch the local IP server is not supported, reboot the machine after the IP does not automatically switch the support)**
 
-This project is only adapted to Debian system (non-Debian can not be installed through the APT source, the official only gave the Debian image, other systems can only use ISO installation)
+The one-click installation script of this project only adapts to Debian systems, non-Debian can not be installed through the APT source, the official only gives the image of Debian, other systems can only use the ISO installation, or use custom partitions and other ways to solve the problem in the FAQ partition.
 
 - System requirements: Debian 8+
 
@@ -30,7 +30,9 @@ It is recommended to install debian11 instead of debian12, because the latter is
 - Hardware requirements for KVM: VM-X or AMD-V support (some VPS and all Dedicated servers support).
 - If hardware or system requirements are not met, you can use LXD to batch open LXC containers [Jump](https://github.com/spiritLHLS/lxd)
 
-Setting up virtual memory (SWAP)
+If you use IPV6 tunnels for IPV6 subnet attachment on the host, be sure to add the contents in the corresponding file when PVE is successfully installed but the gateway is not automatically set, and do not add IPV6 tunnels at the very beginning (without installing PVE).
+
+## Setting up virtual memory (SWAP)
 
 Unit conversion: Enter 1024 to generate 1G SWAP-virtual memory, virtual memory takes up hard disk space, when the actual memory is not enough to use the virtual memory will automatically use the virtual memory for memory use, but then bring the IO high occupancy and CPU performance occupancy!
 

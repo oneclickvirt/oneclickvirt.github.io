@@ -45,7 +45,7 @@ Support for customizing the system of the server, do not fill out the default us
 The version number has ended the long-term maintenance of the general no longer have an official mirror, temporarily did not find the archive address of the historical mirror, if you find welcome to leave a message I will add support!
 :::
 
-#### Example
+### Example
 
 Here is the information about the example chick that is being raised:
 
@@ -81,7 +81,7 @@ cat test
 
 If you have already generated chicks through the above methods and still need to batch generate chicks, you can use a customized batch generation version of the script, but note that you should first delete the test chicks before batch generating chicks
 
-#### Delete Test Chick
+### Delete Test Chick
 
 ```shell
 lxc stop test

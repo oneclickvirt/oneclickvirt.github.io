@@ -89,6 +89,10 @@ bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubus
 这一步是最容易造成SSH断开的，原因是未等待PVE内核启动就修改网络会造成设置冲突，所以至少等几分钟待内核启动也就是WEB端启动成功后再执行
 :::
 
+:::tip
+在执行本命令前如果宿主机需要附加IPV6隧道的地址，请查看```LXD的自定义分区```部分的内容附加到对应文件中，但**请忽略它的初始环境修改部分的内容**
+:::
+
 - 如果vmbr0未创建，则自动创建，逻辑同主体安装一致
 - 创建vmbr1(NAT网关)，支持开设NAT的IPV6网络的NAT的IPV4的服务器
 - 创建vmbr2(独立IPV6网关)，使用ndppd解决宿主机对IPV6地址进行MAC校验的问题，支持开设带独立IPV6网络的服务器

@@ -77,6 +77,10 @@ Before using this command, please make sure that you have restarted the server a
 This step is most likely to cause SSH disconnections, the reason is to modify the network without waiting for the PVE kernel to start, which will result in setting conflicts, so wait at least a few minutes until the kernel is started, that is, the WEB side is started successfully before execution.
 :::
 
+:::tip
+Before executing this command, if the host needs to append the address of the IPV6 tunnel, see the ```LXD Custom``` section for appending it to the corresponding file, but **please ignore the initial environment modification section for it**.
+:::
+
 - If vmbr0 is not created, it is automatically created with the same logic as the main installation
 - Create vmbr1 (NAT gateway) to support IPV4 servers that open NAT for IPV6 networks with NAT.
 - Create vmbr2 (standalone IPV6 gateway), use ndppd to solve the problem of MAC verification of IPV6 addresses by the host, support the opening of servers with standalone IPV6 networks.
