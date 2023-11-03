@@ -25,10 +25,10 @@ lxc -h
 
 请注意，在更改内核启动参数之前，请务必备份重要的数据和设置，以防止意外的问题。
 
-编辑```/etc/default/grub```文件，将```GRUB_CMDLINE_LINUX_DEFAULT```中的参数末尾加上```cgroup_enable=memory```。
+编辑```/etc/default/grub```文件，将```GRUB_CMDLINE_LINUX_DEFAULT```中的参数末尾加上```systemd.unified_cgroup_hierarchy=0```，如
 
 ```
-GRUB_CMDLINE_LINUX_DEFAULT="quiet splash cgroup_enable=memory"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash systemd.unified_cgroup_hierarchy=0"
 ```
 
 保存文件并运行以下命令更新GRUB引导。
