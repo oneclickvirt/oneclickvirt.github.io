@@ -6,7 +6,7 @@ outline: deep
 
 ## What if the lxc command says it can't be found after LXD is installed?
 
-``
+```
 ! lxc -h >/dev/null 2>&1 && echo 'alias lxc="/snap/bin/lxc"' >> /root/.bashrc && source /root/.bashrc
 export PATH=$PATH:/snap/bin
 ```
@@ -25,10 +25,10 @@ Enable CGroup V1: To enable CGroup V1 on an Ubuntu system, you need to edit the 
 
 Please note that before changing kernel boot parameters, make sure to backup important data and settings to prevent unexpected problems.
 
-Edit the ```/etc/default/grub`` file and add ``cgroup_enable=memory`` to the end of the parameters in ``GRUB_CMDLINE_LINUX_DEFAULT``.
+Edit the ```/etc/default/grub`` file and add ``systemd.unified_cgroup_hierarchy=0`` to the end of the parameters in ``GRUB_CMDLINE_LINUX_DEFAULT``, just like:
 
 ```
-GRUB_CMDLINE_LINUX_DEFAULT="quiet splash cgroup_enable=memory"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash systemd.unified_cgroup_hierarchy=0"
 ```
 
 Save the file and run the following command to update the GRUB boot.
