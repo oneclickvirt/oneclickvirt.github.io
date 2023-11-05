@@ -33,7 +33,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/swap.sh -o
 国内
 
 ```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/swap.sh -o swap.sh && chmod +x swap.sh && bash swap.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/swap.sh -o swap.sh && chmod +x swap.sh && bash swap.sh
 ```
 
 ### 安装LXD
@@ -110,7 +110,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/lxdinstall
 国内
 
 ```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/lxdinstall.sh -o lxdinstall.sh && chmod +x lxdinstall.sh && bash lxdinstall.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/lxdinstall.sh -o lxdinstall.sh && chmod +x lxdinstall.sh && bash lxdinstall.sh
 ```
 
 初始化配置的例子：

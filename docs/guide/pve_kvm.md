@@ -22,7 +22,7 @@ bash <(curl -sSL https://raw.githubusercontent.com/fscarmen/tools/main/root.sh) 
 
 
 ```bash
-bash <(curl -sSL https://ghproxy.com/https://raw.githubusercontent.com/fscarmen/tools/main/root.sh) [PASSWORD]
+bash <(curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/fscarmen/tools/main/root.sh) [PASSWORD]
 ```
 
 ## 部分注意事项
@@ -70,7 +70,7 @@ bash <(curl -sSL https://ghproxy.com/https://raw.githubusercontent.com/fscarmen/
 - 生成后需要等待一段时间虚拟机内部的cloud-init配置好网络以及登陆信息，大概需要5分钟
 - 虚拟机的相关信息将会存储到WEB端对应VM的NOTES中，可在WEB端查看
 - 如果宿主机自带IPV6子网将自动附加上IPV6网络，但无公网IPV6地址
-- 可选择是否开启独立IPV6，需要宿主机至少有一个/64的子网
+- 可选择是否开启独立IPV6，需要宿主机至少有一个/104的子网，最好是/64的子网
 
 ### 使用方法
 
@@ -93,7 +93,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm.sh
 国内
 
 ```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm.sh -o buildvm.sh && chmod +x buildvm.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm.sh -o buildvm.sh && chmod +x buildvm.sh
 ```
 
 **各参数含义**
@@ -166,7 +166,7 @@ rm -rf vm102
 - 可自定义批量开设的核心数，内存大小，硬盘大小，使用宿主机哪个存储盘，记得自己计算好空闲资源开设
 - 虚拟机的相关信息将会存储到WEB端对应VM的NOTES中，可在WEB端查看
 - 如果宿主机自带IPV6子网将自动附加上IPV6网络，但无公网IPV6地址
-- 可选择是否开启独立IPV6，需要宿主机至少有一个/64的子网
+- 可选择是否开启独立IPV6，需要宿主机至少有一个/104的子网，最好是一个/64子网
 
 国际
 
@@ -177,7 +177,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/create_vm.
 国内
 
 ```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/create_vm.sh -o create_vm.sh && chmod +x create_vm.sh && bash create_vm.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/create_vm.sh -o create_vm.sh && chmod +x create_vm.sh && bash create_vm.sh
 ```
 
 开设完毕可执行```cat vmlog```查看信息，或到WEB端对应VM的NOTES中查看
@@ -232,7 +232,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_ex
 国内
 
 ```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_extraip.sh -o buildvm_extraip.sh && chmod +x buildvm_extraip.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_extraip.sh -o buildvm_extraip.sh && chmod +x buildvm_extraip.sh
 ```
 
 **各参数含义**
@@ -267,7 +267,7 @@ curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/mai
 - 如果宿主机自带IPV6子网将可选择是否附加上IPV6地址
 - 如果商家有给IPV4地址和子网长度，请仔细比对，按照下面示例的命令写参数
 - 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
-- 可选择是否开启独立IPV6，需要宿主机至少有一个/64的子网
+- 可选择是否开启独立IPV6，需要宿主机至少有一个/104的子网，最好是一个/64子网
 
 #### 使用方法
 
@@ -282,7 +282,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_ma
 国内
 
 ```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_manual_ip.sh -o buildvm_manual_ip.sh && chmod +x buildvm_manual_ip.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_manual_ip.sh -o buildvm_manual_ip.sh && chmod +x buildvm_manual_ip.sh
 ```
 
 **各参数含义**
@@ -335,7 +335,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_on
 国内
 
 ```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_onlyv6.sh -o buildvm_onlyv6.sh && chmod +x buildvm_onlyv6.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_onlyv6.sh -o buildvm_onlyv6.sh && chmod +x buildvm_onlyv6.sh
 ```
 
 **各参数含义**

@@ -33,7 +33,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/create_
 国内
 
 ```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/create_android.sh -o create_android.sh && chmod +x create_android.sh && bash create_android.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/create_android.sh -o create_android.sh && chmod +x create_android.sh && bash create_android.sh
 ```
 
 命令执行后按照提示输入即可，注意选择版本输入的是序号，对应选项的数字序号，安装完毕后打开```本机IPV4+80端口```可登录
@@ -284,7 +284,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/extra_scripts/g
 国内
 
 ```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/docker/main/extra_scripts/guacamole.sh -o guacamole.sh && chmod +x guacamole.sh && bash guacamole.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/docker/main/extra_scripts/guacamole.sh -o guacamole.sh && chmod +x guacamole.sh && bash guacamole.sh
 ```
 
 ## 一键开设RustDesk的容器

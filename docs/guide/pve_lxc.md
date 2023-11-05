@@ -23,7 +23,7 @@ outline: deep
 - 开设的CT默认已启用SSH且允许root登陆，且已设置支持使用docker的嵌套虚拟化
 - 容器的相关信息将会存储到对应的容器的NOTE中，可在WEB端查看
 - 如果宿主机自带IPV6子网将自动附加上IPV6网络，但无公网IPV6地址
-- 可选择是否开启独立IPV6，需要宿主机至少有一个/64的子网
+- 可选择是否开启独立IPV6，需要宿主机至少有一个/104的子网，最好是一个/64子网
 
 ### 使用方法
 
@@ -38,7 +38,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct.sh
 国内
 
 ```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct.sh -o buildct.sh && chmod +x buildct.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct.sh -o buildct.sh && chmod +x buildct.sh
 ```
 
 * 系统支持：
@@ -122,7 +122,7 @@ iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables
 - 开设的CT默认已启用SSH且允许root登陆，且已设置支持使用docker的嵌套虚拟化
 - 容器的相关信息将会存储到对应的容器的NOTE中，可在WEB端查看
 - 如果宿主机自带IPV6子网将自动附加上IPV6网络，但无公网IPV6地址
-- 可选择是否开启独立IPV6，需要宿主机至少有一个/64的子网
+- 可选择是否开启独立IPV6，需要宿主机至少有一个/104的子网，最好是一个/64子网
 
 国际
 
@@ -133,7 +133,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/create_ct.
 国内
 
 ```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/create_ct.sh -o create_ct.sh && chmod +x create_ct.sh && bash create_ct.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/create_ct.sh -o create_ct.sh && chmod +x create_ct.sh && bash create_ct.sh
 ```
 
 开设完毕可执行```cat ctlog```查看信息，或在web端的NOTES查看
@@ -179,7 +179,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct_on
 国内
 
 ```shell
-curl -L https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct_onlyv6.sh -o buildct_onlyv6.sh && chmod +x buildct_onlyv6.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct_onlyv6.sh -o buildct_onlyv6.sh && chmod +x buildct_onlyv6.sh
 ```
 
 **各参数含义**

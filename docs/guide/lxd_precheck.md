@@ -56,5 +56,5 @@ bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spirit
 国内
 
 ```
-bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/pre_check.sh)
+bash <(wget -qO- --no-check-certificate https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/pre_check.sh)
 ```
