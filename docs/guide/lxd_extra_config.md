@@ -33,7 +33,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/build_ipv6
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/build_ipv6_network.sh -o build_ipv6_network.sh && chmod +x build_ipv6_network.sh
 ```
 
-自动为容器配置IPV6映射地址
+自动为容器配置IPV6映射地址(默认不使用iptables进行映射)
 
 ```bash
 bash build_ipv6_network.sh 容器名称
@@ -47,7 +47,15 @@ bash build_ipv6_network.sh 容器名称
 bash build_ipv6_network.sh test
 ```
 
-<!-- 删除所有IPV6已映射的规则
+**PS：增加ipv6处理过程中可选择是否使用iptables进行映射，默认不使用iptables方式进行映射而新增网络设备的方式进行映射**
+
+使用iptables进行映射
+
+```bash
+bash build_ipv6_network.sh 容器名称 Y
+```
+
+若使用了iptables进行映射，则删除所有IPV6已映射的规则可用：
 
 ```bash
 ip6tables -t nat -F PREROUTING
@@ -58,7 +66,7 @@ netfilter-persistent reload
 service netfilter-persistent restart
 ```
 
-卸载IPV6地址绑定的守护进程和对应的文件
+卸载IPV6地址绑定的守护进程和对应的文件可用：
 
 ```shell
 systemctl stop add-ipv6.service
@@ -66,7 +74,7 @@ systemctl disable add-ipv6.service
 rm /etc/systemd/system/add-ipv6.service
 systemctl daemon-reload
 rm /usr/local/bin/add-ipv6.sh
-``` -->
+```
 
 ## 屏蔽容易被滥用的端口的出入流量以屏蔽端口和屏蔽滥用工具包
 
