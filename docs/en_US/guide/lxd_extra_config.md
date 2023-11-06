@@ -30,18 +30,26 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/build_ipv6
 Automatically configure IPV6 mapped addresses for containers
 
 ```bash
-bash build_ipv6_network.sh Container_Name(change me)
+bash build_ipv6_network.sh Container_Name(change_me)
 ```
 
-A message is printed when the mapping is complete
+A message is printed when the mapping is complete (Default mapping without iptables)
 
 Example (automatically configure the test container with an IPV6 address, a test_v6 file is written when the configuration is complete)
 
 ```bash
 bash build_ipv6_network.sh test
 ```
-<!-- 
-Delete all IPV6 mapped rules
+
+**PS: Add ipv6 processing can choose whether to use iptables for mapping, the default is not to use iptables for mapping but to add new network devices for mapping**.
+
+Use iptables for mapping
+
+```bash
+bash build_ipv6_network.sh Container_name Y
+```
+
+If iptables is used for mapping, remove all IPV6 mapped rules available:
 
 ```bash
 ip6tables -t nat -F PREROUTING
@@ -60,7 +68,7 @@ systemctl disable add-ipv6.service
 rm /etc/systemd/system/add-ipv6.service
 systemctl daemon-reload
 rm /usr/local/bin/add-ipv6.sh
-``` -->
+```
 
 ## Blocking Ingress/Egress Traffic on Easily Abused Ports and Filtering Out Port Scanning and Exploitation Toolkits
 
