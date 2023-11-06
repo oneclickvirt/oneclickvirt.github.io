@@ -25,7 +25,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onedock
 Run
 
 ```
-./onedocker.sh name cpu memory password sshport startport endport system independent_ipv6
+./onedocker.sh name cpu memory password sshport startport endport <independent_ipv6> <system>
 ```
 
 Currently, the system only supports selecting:
@@ -52,7 +52,7 @@ The following is the information for the created example container:
 | Whether to bind a separate IPV6 address| N     |
 
 ```shell
-./onedocker.sh test 1 512 123456 25000 34975 35000 debian N
+./onedocker.sh test 1 512 123456 25000 34975 35000 N debian
 ```
 
 ### Related operations
@@ -122,4 +122,29 @@ docker ps -aq --format '{{.Names}}' | grep -E '^ndpresponder' | xargs -r docker 
 docker images -aq --format '{{.Repository}}:{{.Tag}}' | grep -E '^ndpresponder' | xargs -r docker rmi
 rm -rf dclog
 ls
+```
+
+## Update all commands related to the above one-click scripts
+
+Delete the original configuration script
+
+```bash
+rm -rf /usr/local/bin/ssh_sh.sh
+rm -rf /usr/local/bin/ssh_bash.sh
+rm -rf /usr/local/bin/check-dns.sh
+rm -rf /root/ssh_sh.sh
+rm -rf /root/ssh_bash.sh
+rm -rf /root/onedocker.sh
+rm -rf /root/create_docker.sh
+```
+
+Download back the relevant configuration scripts for the new version
+
+```bash
+wget https://raw.githubusercontent.com/spiritLHLS/docker/main/extra_scripts/check-dns.sh -O /usr/local/bin/check-dns.sh && chmod +x /usr/local/bin/check-dns.sh
+wget https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/config.sh -O /usr/local/bin/config.sh && chmod +x /usr/local/bin/config.sh
+wget https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/ssh_bash.sh -O /usr/local/bin/ssh_bash.sh && chmod +x /usr/local/bin/ssh_bash.sh
+wget https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/ssh_sh.sh -O /usr/local/bin/ssh_sh.sh && chmod +x /usr/local/bin/ssh_sh.sh
+wget https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onedocker.sh -O /root/onedocker.sh && chmod +x /root/onedocker.sh
+wget https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/create_docker.sh -O /root/create_docker.sh && chmod +x /root/create_docker.sh
 ```

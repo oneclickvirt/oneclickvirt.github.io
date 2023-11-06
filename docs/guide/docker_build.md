@@ -31,7 +31,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/d
 运行支持的变量
 
 ```
-./onedocker.sh name cpu memory password sshport startport endport system independent_ipv6
+./onedocker.sh name cpu memory password sshport startport endport <independent_ipv6> <system>
 ```
 
 目前system仅支持选择
@@ -44,7 +44,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/d
 默认不填则是debian
 
 ```shell
-./onedocker.sh test 1 512 123456 25000 34975 35000 debian N
+./onedocker.sh test 1 512 123456 25000 34975 35000 N debian
 ```
 
 以下为开设的示例容器的信息：
@@ -136,4 +136,29 @@ docker ps -aq --format '{{.Names}}' | grep -E '^ndpresponder' | xargs -r docker 
 docker images -aq --format '{{.Repository}}:{{.Tag}}' | grep -E '^ndpresponder' | xargs -r docker rmi
 rm -rf dclog
 ls
+```
+
+## 更新上述所有脚本
+
+删除原始配置脚本
+
+```bash
+rm -rf /usr/local/bin/ssh_sh.sh
+rm -rf /usr/local/bin/ssh_bash.sh
+rm -rf /usr/local/bin/check-dns.sh
+rm -rf /root/ssh_sh.sh
+rm -rf /root/ssh_bash.sh
+rm -rf /root/onedocker.sh
+rm -rf /root/create_docker.sh
+```
+
+下载回新版本的相关配置脚本
+
+```bash
+wget https://raw.githubusercontent.com/spiritLHLS/docker/main/extra_scripts/check-dns.sh -O /usr/local/bin/check-dns.sh && chmod +x /usr/local/bin/check-dns.sh
+wget https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/config.sh -O /usr/local/bin/config.sh && chmod +x /usr/local/bin/config.sh
+wget https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/ssh_bash.sh -O /usr/local/bin/ssh_bash.sh && chmod +x /usr/local/bin/ssh_bash.sh
+wget https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/ssh_sh.sh -O /usr/local/bin/ssh_sh.sh && chmod +x /usr/local/bin/ssh_sh.sh
+wget https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onedocker.sh -O /root/onedocker.sh && chmod +x /root/onedocker.sh
+wget https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/create_docker.sh -O /root/create_docker.sh && chmod +x /root/create_docker.sh
 ```
