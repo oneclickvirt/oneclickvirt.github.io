@@ -9,7 +9,7 @@ There are two methods of building
 ## Setting Up Standalone
 
 - Generate only one docker
-- Can be configured to bind a separate IPV6 address, but requires a docker previously installed using the environment installation command of this set of scripts, and requires the host to be bound to at least the /64 IPV6 subnet
+- Can be configured to bind a separate IPV6 address, but requires a docker previously installed using the environment installation command of this set of scripts, and requires the host to be bound to at least the /112 IPV6 subnet
 - Support for x86_64 and ARM architecture servers
 
 ### Download the Script
