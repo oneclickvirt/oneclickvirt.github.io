@@ -47,7 +47,7 @@ bash build_ipv6_network.sh 容器名称
 bash build_ipv6_network.sh test
 ```
 
-**PS：增加ipv6处理过程中可选择是否使用iptables进行映射，默认不使用iptables方式进行映射而新增网络设备的方式进行映射**
+**PS：增加ipv6处理过程中可选择是否使用iptables进行映射，默认不使用iptables方式进行映射而使用新增网络设备的方式进行映射**
 
 使用iptables进行映射
 
