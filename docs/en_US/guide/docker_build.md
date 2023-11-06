@@ -28,7 +28,14 @@ Run
 ./onedocker.sh name cpu memory password sshport startport endport system independent_ipv6
 ```
 
-Currently, the system only supports selecting Alpine or Debian, with Debian being the default choice.
+Currently, the system only supports selecting:
+
+- alpine
+- debian
+- ubuntu
+- almalinux
+
+with Debian being the default choice.
 
 The following is the information for the created example container:
 

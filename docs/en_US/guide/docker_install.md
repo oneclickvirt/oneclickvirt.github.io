@@ -8,21 +8,6 @@ Support for running Docker virtualization on various systems, including Linux, A
 
 If your host does not have an IPV6 subnet and you want to assign IPV6 addresses to containers, then please check the ``Customize`` partition in the ``LXD`` module for the ``Attach a free IPV6 address segment`` to the host, and attach an IPV6 subnet to the host before installing the environment.
 
-## Environment Setup
-
-- Detect the system environment and install the corresponding components
-- Install docker and docker-compose.
-- Download some configuration scripts required by default
-- Detect if there is an IPV6 address, check if it is greater than or equal to /64, and if so, configure the docker's ipv6 network.
-- If all the above conditions are met, create ndpresponder docker and radvd so that IPV6 allocation supports ndp broadcasting and auto-allocation.
-- Support for x86_64 and ARM architecture servers
-
-Command:
-
-```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/dockerinstall.sh -o dockerinstall.sh && chmod +x dockerinstall.sh && bash dockerinstall.sh
-```
-
 ## Setting Up Virtual Memory
 
 :::tip
@@ -37,4 +22,19 @@ Command:
 
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
+```
+
+## Environment Setup
+
+- Detect the system environment and install the corresponding components
+- Install docker and docker-compose.
+- Download some configuration scripts required by default
+- Detect if there is an IPV6 address, check if it is greater than or equal to /64, and if so, configure the docker's ipv6 network.
+- If all the above conditions are met, create ndpresponder docker and radvd so that IPV6 allocation supports ndp broadcasting and auto-allocation.
+- Support for x86_64 and ARM architecture servers
+
+Command:
+
+```shell
+curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/dockerinstall.sh -o dockerinstall.sh && chmod +x dockerinstall.sh && bash dockerinstall.sh
 ```

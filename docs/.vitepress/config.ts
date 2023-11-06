@@ -152,7 +152,7 @@ function getGuideSidebarZhCN() {
       text: 'Docker',
       items: [
         { text: '系统和硬件配置要求', link: '/guide/docker_precheck.html' },
-        { text: '主体安装', link: '/guide/docker_install.html' },
+        { text: 'Docker主体安装', link: '/guide/docker_install.html' },
         { text: 'Docker虚拟化', link: '/guide/docker_build.html' },
         { text: '自定义', link: '/guide/docker_custom.html' },
         { text: '致谢', link: '/guide/docker_thanks.html' },
@@ -207,7 +207,7 @@ function getGuideSidebarEnUS() {
     {
       text: 'Proxmox VE',
       items: [
-        { text: 'System and hardware configuration requirements', link: '/en_US/guide/pve_precheck.html' },
+        { text: 'Configuration requirements', link: '/en_US/guide/pve_precheck.html' },
         { text: 'PVE main installation', link: '/en_US/guide/pve_install.html' },
         { text: 'KVM Virtualization', link: '/en_US/guide/pve_kvm.html' },
         { text: 'LXC Virtualization', link: '/en_US/guide/pve_lxc.html' },
@@ -219,7 +219,7 @@ function getGuideSidebarEnUS() {
     {
       text: 'LXD',
       items: [
-        { text: 'System and hardware configuration requirements', link: '/en_US/guide/lxd_precheck.html' },
+        { text: 'Configuration requirements', link: '/en_US/guide/lxd_precheck.html' },
         { text: 'LXD main installation', link: '/en_US/guide/lxd_install.html' },
         { text: 'LXC Virtualization', link: '/en_US/guide/lxd_lxc.html' },
         { text: 'Extra configuration', link: '/en_US/guide/lxd_extra_config.html' },
@@ -231,8 +231,8 @@ function getGuideSidebarEnUS() {
     {
       text: 'Docker',
       items: [
-        { text: 'System and hardware configuration requirements', link: '/en_US/guide/docker_precheck.html' },
-        { text: 'Main installation', link: '/en_US/guide/docker_install.html' },
+        { text: 'Configuration requirements', link: '/en_US/guide/docker_precheck.html' },
+        { text: 'Docker main installation', link: '/en_US/guide/docker_install.html' },
         { text: 'Docker Virtualization', link: '/en_US/guide/docker_build.html' },
         { text: 'Custom', link: '/en_US/guide/docker_custom.html' },
         { text: 'Acknowledgements', link: '/en_US/guide/docker_thanks.html' },

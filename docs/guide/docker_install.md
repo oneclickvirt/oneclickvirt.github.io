@@ -9,27 +9,6 @@ outline: deep
 
 如果你的宿主机本身没有IPV6的子网又想给容器分配IPV6地址，那么请先查看```LXD```模块中的```自定义```分区中的```给宿主机附加免费的IPV6地址段```的内容，给宿主机附加上IPV6子网后再进行环境安装
 
-## 环境预设
-
-- 检测系统环境，安装对应组件
-- 安装docker和docker-compose，这里有判断为国际服务器还是国内服务器，自动安装对应源的docker
-- 下载默认需要的一些配置脚本
-- 检测如果存在IPV6地址，检测其是否大于或等于/64，如果符合条件，则配置docker的ipv6的网络
-- 如果上述条件都符合，创建ndpresponder的docker和radvd，使得IPV6的分配支持ndp广播和自动分配
-- 支持x86_64和ARM架构的服务器
-
-国际
-
-```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/dockerinstall.sh -o dockerinstall.sh && chmod +x dockerinstall.sh && bash dockerinstall.sh
-```
-
-国内
-
-```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/dockerinstall.sh -o dockerinstall.sh && chmod +x dockerinstall.sh && bash dockerinstall.sh
-```
-
 ## 开设虚拟内存
 
 :::tip
@@ -50,4 +29,25 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 
 ```shell
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
+```
+
+## 环境预设
+
+- 检测系统环境，安装对应组件
+- 安装docker和docker-compose，这里有判断为国际服务器还是国内服务器，自动安装对应源的docker
+- 下载默认需要的一些配置脚本
+- 检测如果存在IPV6地址，检测其是否大于或等于/112，如果符合条件，则配置docker的ipv6的网络
+- 如果上述条件都符合，创建ndpresponder的docker和radvd，使得IPV6的分配支持ndp广播和自动分配
+- 支持x86_64和ARM架构的服务器
+
+国际
+
+```shell
+curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/dockerinstall.sh -o dockerinstall.sh && chmod +x dockerinstall.sh && bash dockerinstall.sh
+```
+
+国内
+
+```shell
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/dockerinstall.sh -o dockerinstall.sh && chmod +x dockerinstall.sh && bash dockerinstall.sh
 ```

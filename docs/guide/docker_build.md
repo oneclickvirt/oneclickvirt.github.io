@@ -9,7 +9,7 @@ outline: deep
 ## 单独开设
 
 - 只生成一个docker，这里有判断为国际服务器还是国内服务器，如果在国内服务器上开设，容器内的包管理源自动替换为清华源
-- 可配置绑定独立的IPV6地址，但需要先前使用本套脚本的环境安装命令安装的docker，且需要宿主机至少绑定了/64的IPV6子网
+- 可配置绑定独立的IPV6地址，但需要先前使用本套脚本的环境安装命令安装的docker，且需要宿主机至少绑定了/112的IPV6子网
 - 支持x86_64和ARM架构的服务器
 
 ### 下载脚本
@@ -34,7 +34,14 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/d
 ./onedocker.sh name cpu memory password sshport startport endport system independent_ipv6
 ```
 
-目前system仅支持选择alpine或debian，默认是debian
+目前system仅支持选择
+
+- alpine
+- debian
+- ubuntu
+- almalinux
+
+默认不填则是debian
 
 ```shell
 ./onedocker.sh test 1 512 123456 25000 34975 35000 debian N
