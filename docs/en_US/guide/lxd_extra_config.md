@@ -41,15 +41,15 @@ Example (automatically configure the test container with an IPV6 address, a test
 bash build_ipv6_network.sh test
 ```
 
-**PS: Add ipv6 processing can choose whether to use iptables for mapping, the default is not to use iptables for mapping but to add new network devices for mapping**.
+**PS: Add ipv6 processing can choose whether to use ip6tables for mapping, the default is not to use ip6tables for mapping but to add new network devices for mapping**.
 
-Use iptables for mapping
+Use ip6tables for mapping
 
 ```bash
 bash build_ipv6_network.sh Container_name Y
 ```
 
-If iptables is used for mapping, remove all IPV6 mapped rules available:
+If ip6tables is used for mapping, remove all IPV6 mapped rules available:
 
 ```bash
 ip6tables -t nat -F PREROUTING
