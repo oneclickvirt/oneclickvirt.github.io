@@ -55,7 +55,7 @@ bash build_ipv6_network.sh test
 bash build_ipv6_network.sh 容器名称 Y
 ```
 
-若使用了iptables进行映射，则删除所有IPV6已映射的规则可用：
+若使用了ip6tables进行映射，则删除所有IPV6已映射的规则可用：
 
 ```bash
 ip6tables -t nat -F PREROUTING
