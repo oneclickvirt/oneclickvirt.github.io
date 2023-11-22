@@ -79,6 +79,7 @@ bash <(wget -qO- --no-check-certificate https://cdn.spiritlhl.net/https://raw.gi
 
 ```bash
 rm -rf /usr/local/bin/pve_ipv6*
+rm -rf /usr/local/bin/pve_check_ipv6*
 ```
 
 <br/>
