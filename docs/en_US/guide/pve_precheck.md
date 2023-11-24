@@ -64,6 +64,7 @@ If you need to update the IPV6 information before querying, then execute the fol
 ```bash
 rm -rf /usr/local/bin/pve_ipv6*
 rm -rf /usr/local/bin/pve_check_ipv6*
+rm -rf /usr/local/bin/pve_last_ipv6*
 ```
 
 <br/>
