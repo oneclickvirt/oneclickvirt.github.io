@@ -6,11 +6,11 @@ outline: deep
 
 ## SSH登录说明
 
-KVM虚拟化开设出的虚拟机，默认生成的用户名不是```root```，你需要执行```sudo -i```切换为root用户
+KVM虚拟化开设出的虚拟机，**默认生成的用户名不是```root```，你需要执行```sudo -i```切换为root用户**
 
 **当然部分模板实际支持用户名```root```登录，默认的root密码是```password```，你也可以先试试**
 
-登录SSH切换为root权限后，一定要修改root密码，可以使用以下命令修改
+**登录SSH切换为root权限后，一定要修改root密码**，可以使用以下命令修改
 
 国际
 
@@ -101,6 +101,10 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/p
 ```shell
 ./buildvm.sh VMID 用户名 密码 CPU核数 内存 硬盘 SSH端口 80端口 443端口 外网端口起 外网端口止 系统 存储盘 独立IPV6地址(留空默认N)
 ```
+
+:::tip
+注意这里的密码最好仅英文与数字混合，且以英文开头，避免密码在设置过程中因为特殊字符被转义而设置失败
+:::
 
 ### 测试示例
 
@@ -241,6 +245,10 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/p
 ./buildvm_extraip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 独立IPV6(默认为N)
 ```
 
+:::tip
+注意这里的密码最好仅英文与数字混合，且以英文开头，避免密码在设置过程中因为特殊字符被转义而设置失败
+:::
+
 #### 测试示例
 
 ```shell
@@ -290,6 +298,10 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/p
 ```shell
 ./buildvm_manual_ip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 IPV4地址 独立IPV6(默认为N)
 ```
+
+:::tip
+注意这里的密码最好仅英文与数字混合，且以英文开头，避免密码在设置过程中因为特殊字符被转义而设置失败
+:::
 
 #### 测试示例
 
@@ -343,6 +355,10 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/p
 ```shell
 ./buildvm_onlyv6.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘
 ```
+
+:::tip
+注意这里的密码最好仅英文与数字混合，且以英文开头，避免密码在设置过程中因为特殊字符被转义而设置失败
+:::
 
 #### 创建示例
 

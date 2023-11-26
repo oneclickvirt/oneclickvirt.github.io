@@ -85,6 +85,10 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm.sh
 ./buildvm.sh VMID Username Password Number_of_CPU_Cores Memory Disk SSH_Port Port_80 Port_443 Public_Port_Start Public_Port_End System Storage_Disk Independent_IPV6_address(leave default N blank)
 ```
 
+:::tip
+Note that the Password here should be a mix of English and numbers only, and start with English, so as to avoid failing to set the Password due to special characters being escaped during the setup process.
+:::
+
 ### Test Example
 
 ```shell
@@ -211,6 +215,10 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_ex
 ./buildvm_extraip.sh VMID Username Password Number_of_CPU_Cores Memory_Size_in_MB Disk_Size_in_GB OS Storage_Disk Attach_IPV6(Default is N)
 ```
 
+:::tip
+Note that the Password here should be a mix of English and numbers only, and start with English, so as to avoid failing to set the Password due to special characters being escaped during the setup process.
+:::
+
 #### Test Example
 
 ```shell
@@ -252,6 +260,10 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_ma
 ```shell
 ./buildvm_manual_ip.sh VMID USERNAME PASSWORD CPU_CORES MEMORY_SIZE_GB STORAGE_SIZE_GB OS STORAGE_DISK IPV4_ADDRESS ATTACH_IPV6(defaults to N)
 ```
+
+:::tip
+Note that the PASSWORD here should be a mix of English and numbers only, and start with English, so as to avoid failing to set the PASSWORD due to special characters being escaped during the setup process.
+:::
 
 #### Test Example
 
@@ -297,6 +309,10 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_on
 ```shell
 ./buildvm_onlyv6.sh VMID username password CPU_cores memory_GB disk_GB operating_system storage_disk
 ```
+
+:::tip
+Note that the password here should be a mix of English and numbers only, and start with English, so as to avoid failing to set the password due to special characters being escaped during the setup process.
+:::
 
 #### Test Example
 
