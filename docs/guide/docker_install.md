@@ -51,3 +51,13 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/dockeri
 ```shell
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/dockerinstall.sh -o dockerinstall.sh && chmod +x dockerinstall.sh && bash dockerinstall.sh
 ```
+
+或
+
+```
+bash dockerinstall.sh
+```
+
+:::tip
+环境安装过程中可能要求你重启服务器后再次执行脚本，详见脚本运行后的说明
+:::
