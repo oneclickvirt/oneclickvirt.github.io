@@ -6,6 +6,42 @@ outline: deep
 
 如果你的宿主机本身没有IPV6的子网又想给容器分配IPV6地址，那么请先查看```LXD```模块中的```自定义```分区中的```给宿主机附加免费的IPV6地址段```的内容，给宿主机附加上IPV6子网后再进行环境安装
 
+## 一键安装
+
+:::warning
+如果是全新的服务器，务必保证apt update和apt install curl都无问题再执行本脚本
+:::
+
+:::tip
+且自开机起最好等待5分钟后再执行以下命令，避免系统默认设置中就执行了本脚本导致apt源卡死
+:::
+
+- 环境要求：Ubuntu 18+(推荐)，Debian 8+(仅限x86_64架构)
+- **如果是Debian系的宿主机，务必在screen中执行本脚本，避免长期运行时SSH中断导致ZFS编译安装失败**
+- 这里的虚拟内存是说要开的SWAP大小，存储池则是你所有要开的服务器占的盘的大小的总和
+- 环境安装过程中**可能需要重启服务器以加载含zfs的内核，然后再次执行安装命令，一切以运行后命令行的提示为准**
+- 默认启用lxd的lxcfs相关配置，使得容器内查询容器信息变更为容器本身的信息而不是宿主机信息
+
+如果脚本提示重启系统后需要再次执行脚本，第二次执行安装脚本仍提示重启系统加载内核，那么意味着内核在上一次加载中失败了，最好重装宿主机系统为ubuntu系解决这个问题
+
+每次执行脚本都需要输入一次初始化的配置，所以遇到脚本提示需重启系统再次执行，那么就得再次输入初始化的配置
+
+国际
+
+```shell
+curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/lxdinstall.sh -o lxdinstall.sh && chmod +x lxdinstall.sh && bash lxdinstall.sh
+```
+
+国内
+
+```shell
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/lxdinstall.sh -o lxdinstall.sh && chmod +x lxdinstall.sh && bash lxdinstall.sh
+```
+
+初始化配置的例子：
+
+如果系统盘除去已占用空间还有18G硬盘空余，想开2G虚拟内存(2048MB的SWAP)，15G的存储池，按照命令行的提示则依次输入```2048```和```15```
+
 ## 手动安装
 
 新手推荐，避免有bug不知道怎么修，当然如果只是图方便又是老手懂排查BUG，用后面的一键安装也行
@@ -80,39 +116,3 @@ export PATH=$PATH:/snap/bin
 ```
 
 连接后再测试lxc命令是否有报错找不到
-
-## 一键安装
-
-:::warning
-如果是全新的服务器，务必保证apt update和apt install curl都无问题再执行本脚本
-:::
-
-:::tip
-且自开机起最好等待5分钟后再执行以下命令，避免系统默认设置中就执行了本脚本导致apt源卡死
-:::
-
-- 环境要求：Ubuntu 18+(推荐)，Debian 8+(仅限x86_64架构)
-- **如果是Debian系的宿主机，务必在screen中执行本脚本，避免长期运行时SSH中断导致ZFS编译安装失败**
-- 这里的虚拟内存是说要开的SWAP大小，存储池则是你所有要开的服务器占的盘的大小的总和
-- 环境安装过程中**可能需要重启服务器以加载含zfs的内核，然后再次执行安装命令，一切以运行后命令行的提示为准**
-- 默认启用lxd的lxcfs相关配置，使得容器内查询容器信息变更为容器本身的信息而不是宿主机信息
-
-如果脚本提示重启系统后需要再次执行脚本，第二次执行安装脚本仍提示重启系统加载内核，那么意味着内核在上一次加载中失败了，最好重装宿主机系统为ubuntu系解决这个问题
-
-每次执行脚本都需要输入一次初始化的配置，所以遇到脚本提示需重启系统再次执行，那么就得再次输入初始化的配置
-
-国际
-
-```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/lxdinstall.sh -o lxdinstall.sh && chmod +x lxdinstall.sh && bash lxdinstall.sh
-```
-
-国内
-
-```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/lxdinstall.sh -o lxdinstall.sh && chmod +x lxdinstall.sh && bash lxdinstall.sh
-```
-
-初始化配置的例子：
-
-如果系统盘除去已占用空间还有18G硬盘空余，想开2G虚拟内存(2048MB的SWAP)，15G的存储池，按照命令行的提示则依次输入```2048```和```15```
