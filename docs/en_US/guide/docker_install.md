@@ -38,3 +38,13 @@ Command:
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/dockerinstall.sh -o dockerinstall.sh && chmod +x dockerinstall.sh && bash dockerinstall.sh
 ```
+
+OR
+
+```
+bash dockerinstall.sh
+```
+
+:::tip
+The environment installation process may require you to reboot the server and then execute the script again, see the instructions after the script is run for more details
+:::
