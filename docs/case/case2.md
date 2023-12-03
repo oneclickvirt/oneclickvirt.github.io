@@ -18,8 +18,6 @@ Ubuntu 18+, Debian 8+, Centos 7+, Fedora 33+, Almalinux 8.5+, OracleLinux 8+, Ro
 
 FreeBSD(前提已执行```pkg install -y curl bash```)，Armbian
 
-<details>
-
 部分问题：
   
 Armbian系统部分检测和测试暂不支持，部分会编码错误
@@ -27,8 +25,6 @@ Armbian系统部分检测和测试暂不支持，部分会编码错误
 FreeBSD系统的CPU测试目前是残废的，有些东西显示有问题
 
 FreeBSD系统的sed命令类似alpine而不是debian，很多命令的sed需要修改，有大问题
-
-</details>
 
 支持架构：
 
@@ -154,7 +150,6 @@ bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spirit
 使用**CDN**加速已支持**国内**和**国外**服务器测试，但国内受CDN连通性或国内机器带宽大小的限制加载可能会慢很多
 
 融合怪测试说明以及部分测试结果的内容解释(初次使用推荐查看)：
-<details>
 
 除了已标注的原创内容，其余所有分区均为借鉴并进行优化修改后的版本，与原始对应的脚本不一样
 
@@ -187,8 +182,6 @@ IP质量检测纯原创，如有bug或者更多数据库来源可在issues中提
 原创脚本区是个人原创的部分，有事没事也可以看看，可能会更新某些偏门或者独到的脚本
 
 VPS测试，VPS测速，VPS综合性能测试，VPS回程线路测试，VPS流媒体测试等所有测试融合的脚本，本脚本能融合的都融合了
-
-</details>
 
 ## 融合怪功能
 
