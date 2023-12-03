@@ -8,7 +8,7 @@ https://github.com/spiritLHLS/ecs
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2Fecs&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
-# 融合怪测评脚本
+## 前言
 
 支持系统：
 
@@ -18,11 +18,17 @@ Ubuntu 18+, Debian 8+, Centos 7+, Fedora 33+, Almalinux 8.5+, OracleLinux 8+, Ro
 
 FreeBSD(前提已执行```pkg install -y curl bash```)，Armbian
 
+<details>
+
+部分问题：
+  
 Armbian系统部分检测和测试暂不支持，部分会编码错误
 
-FreeBSD系统的硬盘测试和CPU测试目前是半残的，有些东西显示有问题
+FreeBSD系统的CPU测试目前是残废的，有些东西显示有问题
 
-FreeBSD系统的分享链接的预处理部分sed命令存在问题未删除部分无效内容
+FreeBSD系统的sed命令类似alpine而不是debian，很多命令的sed需要修改，有大问题
+
+</details>
 
 支持架构：
 
@@ -38,9 +44,22 @@ FreeBSD系统的分享链接的预处理部分sed命令存在问题未删除部�
 
 https://github.com/spiritLHLS/one-click-installation-script
 
-如若还有系统bug请到上面仓库的issues反映，脚本原生BUG该仓库issues反映
+如若还有系统bug请到上面仓库的issues反馈，脚本原生BUG该仓库issues反馈
+
+## 更新
+
+2023.12.03
+
+- 更新参数模式的指令形式
+- 更新nexttrace的正则匹配
+- 更新besttrace的老版本存档，优先使用besttrace以确保精确度
+
+历史更新日志：[跳转](https://github.com/spiritLHLS/ecs/blob/main/CHANGELOG.md)
+
+**[返回顶部](https://github.com/spiritLHLS/ecs#top)**
 
 ## 融合怪命令
+
 
 ### 交互形式
 
@@ -63,26 +82,40 @@ bash <(wget -qO- bash.spiritlhl.net/ecs)
 ### 无交互形式-参数模式
 
 ```bash
-curl -L https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh 1 0 0
+curl -L https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh -m 1
 ```
 
 或
 
 ```bash
-curl -L https://github.com/spiritLHLS/ecs/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh 1 0 0
+curl -L https://github.com/spiritLHLS/ecs/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh -m 1
 ```
 
-或
+或通过
+
+```
+curl -L https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh
+```
+
+下载文件后使用类似
 
 ```bash
-bash ecs.sh 1 0 0
+bash ecs.sh -m 1
 ```
 
-上述命令默认执行融合怪全体，输入的三个参数数字是对应的选项序号。
+这样的参数命令指定选项执行
 
-```参数1 参数2 参数3```对应有交互模式中你依次输入的选项序号，如果有参数没用到留空或者写0即可。
+以下为参数说明：
 
-```参数2```可传入你本地的IPV4地址，将使用你本地IPV4作为回程路由测试的目标地址。
+```-m```可指定原本menu中的对应选项，最多支持三层选择，例如执行```bash ecs.sh -m 5 1 1```将选择主菜单第5选项下的第1选项下的子选项1的脚本执行
+
+(可缺省仅指定一个参数，如```-m 1```仅指定执行融合怪完全体，执行```-m 1 0```以及```-m 1 0 0```都是指定执行融合怪完全体)
+
+```-i```可指定回程路由测试中的目标IPV4地址，可通过 ip.sb ipinfo.io 等网站获取本地IPV4地址后指定
+
+```-r```可指定回程路由测试中的目标IPV4地址，可选```b``` ```g``` ```s``` ```c``` 分别对应```北京、广州、上海、成都```，如```-r b```指定测试北京回程(三网)
+
+本地的IPV4地址可使用 ip.sb ipinfo.io nstool.netease.com cip.cc 之类的网站查询
 
 ## IP质量检测
 
@@ -121,6 +154,7 @@ bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spirit
 使用**CDN**加速已支持**国内**和**国外**服务器测试，但国内受CDN连通性或国内机器带宽大小的限制加载可能会慢很多
 
 融合怪测试说明以及部分测试结果的内容解释(初次使用推荐查看)：
+<details>
 
 除了已标注的原创内容，其余所有分区均为借鉴并进行优化修改后的版本，与原始对应的脚本不一样
 
@@ -154,9 +188,11 @@ IP质量检测纯原创，如有bug或者更多数据库来源可在issues中提
 
 VPS测试，VPS测速，VPS综合性能测试，VPS回程线路测试，VPS流媒体测试等所有测试融合的脚本，本脚本能融合的都融合了
 
+</details>
+
 ## 融合怪功能
 
-- [x] 自由组合测试方向和单项测试以及合集收录第三方脚本
+- [x] 自由组合测试方向和单项测试以及合集收录第三方脚本，融合怪各项测试均自优化修复过，与原始脚本均不同
 - [x] 基础信息查询--感谢[bench.sh](https://github.com/teddysun/across/blob/master/bench.sh)、[superbench.sh](https://www.oldking.net/350.html)、[yabs](https://github.com/masonr/yet-another-bench-script)、[lemonbench](https://github.com/LemonBench/LemonBench)开源，本人整理修改优化，同原版均不一致
 - [x] CPU测试--感谢[lemonbench](https://github.com/LemonBench/LemonBench)开源，本人整理修改优化
 - [x] 内存测试--感谢[lemonbench](https://github.com/LemonBench/LemonBench)开源，本人整理修改优化
@@ -170,17 +206,17 @@ VPS测试，VPS测速，VPS综合性能测试，VPS回程线路测试，VPS流�
 - [x] IP质量与25端口检测(含IPV4和IPV6)--本脚本独创，感谢互联网提供的查询资源
 - [x] speedtest测速--使用自写[ecsspeed](https://github.com/spiritLHLS/ecsspeed)仓库，自动更新测速服务器ID，一劳永逸解决老是要手动更新测速ID的问题
 
-# 友链
+## 友链
 
-## 测评频道
+测评频道
 
-### https://t.me/vps_reviews
+https://t.me/vps_reviews
 
-## 自动更新测速服务器节点列表的网络基准测试脚本
+自动更新测速服务器节点列表的网络基准测试脚本
 
-### https://github.com/spiritLHLS/ecsspeed
+https://github.com/spiritLHLS/ecsspeed
 
-# 脚本概况
+## 脚本概况
 
 主界面：
 
@@ -199,3 +235,13 @@ VPS测试，VPS测速，VPS综合性能测试，VPS回程线路测试，VPS流�
 选项6原创区：
 
 ![图片](https://github.com/spiritLHLS/ecs/assets/103393591/393db695-5c94-41a9-9b02-812ad9d64967)
+
+## 致谢
+
+感谢 [ipinfo.io](https://ipinfo.io) [ip.sb](https://ip.sb) [cheervision.co](https://cheervision.co) [ipip.net](https://en.ipip.net) [cip.cc](http://www.cip.cc) [scamalytics.com](https://scamalytics.com) [abuseipdb.com](https://www.abuseipdb.com/) [virustotal.com](https://www.virustotal.com/) [ip2location.com](ip2location.com/) [ip-api.com](https://ip-api.com) [ipregistry.co](https://ipregistry.co/) [ipdata.co](https://ipdata.co/) [ipgeolocation.io](https://ipgeolocation.io) [ipwhois.io](https://ipwhois.io) 等网站提供的API进行检测，感谢互联网各网站提供的查询资源
+
+感谢所有开源项目提供的原始测试脚本，感谢 [h501](https://h501.io/?from=69) 提供的免费托管支持本开源项目
+
+同时感谢以下平台提供编辑和测试支持
+
+![PyCharm logo](https://resources.jetbrains.com/storage/products/company/brand/logos/PyCharm.png)
