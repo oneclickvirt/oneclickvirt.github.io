@@ -98,8 +98,6 @@ bash ecs.sh -m 1
 
 ```-r```可指定回程路由测试中的目标IPV4地址，可选```b``` ```g``` ```s``` ```c``` 分别对应```北京、广州、上海、成都```，如```-r b```指定测试北京回程(三网)
 
-本地的IPV4地址可使用 ip.sb ipinfo.io nstool.netease.com cip.cc 之类的网站查询
-
 ## IP质量检测
 
 - IP质量检测，含多家数据库查询，含黑名单查询
@@ -215,13 +213,3 @@ https://github.com/spiritLHLS/ecsspeed
 选项6原创区：
 
 ![图片](https://github.com/spiritLHLS/ecs/assets/103393591/393db695-5c94-41a9-9b02-812ad9d64967)
-
-## 致谢
-
-感谢 [ipinfo.io](https://ipinfo.io) [ip.sb](https://ip.sb) [cheervision.co](https://cheervision.co) [ipip.net](https://en.ipip.net) [cip.cc](http://www.cip.cc) [scamalytics.com](https://scamalytics.com) [abuseipdb.com](https://www.abuseipdb.com/) [virustotal.com](https://www.virustotal.com/) [ip2location.com](ip2location.com/) [ip-api.com](https://ip-api.com) [ipregistry.co](https://ipregistry.co/) [ipdata.co](https://ipdata.co/) [ipgeolocation.io](https://ipgeolocation.io) [ipwhois.io](https://ipwhois.io) 等网站提供的API进行检测，感谢互联网各网站提供的查询资源
-
-感谢所有开源项目提供的原始测试脚本，感谢 [h501](https://h501.io/?from=69) 提供的免费托管支持本开源项目
-
-同时感谢以下平台提供编辑和测试支持
-
-![PyCharm logo](https://resources.jetbrains.com/storage/products/company/brand/logos/PyCharm.png)
