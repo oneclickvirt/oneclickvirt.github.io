@@ -42,20 +42,7 @@ https://github.com/spiritLHLS/one-click-installation-script
 
 如若还有系统bug请到上面仓库的issues反馈，脚本原生BUG该仓库issues反馈
 
-## 更新
-
-2023.12.03
-
-- 更新参数模式的指令形式
-- 更新nexttrace的正则匹配
-- 更新besttrace的老版本存档，优先使用besttrace以确保精确度
-
-历史更新日志：[跳转](https://github.com/spiritLHLS/ecs/blob/main/CHANGELOG.md)
-
-**[返回顶部](https://github.com/spiritLHLS/ecs#top)**
-
 ## 融合怪命令
-
 
 ### 交互形式
 
