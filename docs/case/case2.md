@@ -8,7 +8,7 @@ https://github.com/spiritLHLS/ecs
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2Fecs&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
-## 前言
+# 融合怪测评脚本
 
 支持系统：
 
@@ -18,13 +18,11 @@ Ubuntu 18+, Debian 8+, Centos 7+, Fedora 33+, Almalinux 8.5+, OracleLinux 8+, Ro
 
 FreeBSD(前提已执行```pkg install -y curl bash```)，Armbian
 
-部分问题：
-  
 Armbian系统部分检测和测试暂不支持，部分会编码错误
 
-FreeBSD系统的CPU测试目前是残废的，有些东西显示有问题
+FreeBSD系统的硬盘测试和CPU测试目前是半残的，有些东西显示有问题
 
-FreeBSD系统的sed命令类似alpine而不是debian，很多命令的sed需要修改，有大问题
+FreeBSD系统的分享链接的预处理部分sed命令存在问题未删除部分无效内容
 
 支持架构：
 
@@ -40,7 +38,7 @@ FreeBSD系统的sed命令类似alpine而不是debian，很多命令的sed需要�
 
 https://github.com/spiritLHLS/one-click-installation-script
 
-如若还有系统bug请到上面仓库的issues反馈，脚本原生BUG该仓库issues反馈
+如若还有系统bug请到上面仓库的issues反映，脚本原生BUG该仓库issues反映
 
 ## 融合怪命令
 
@@ -65,38 +63,20 @@ bash <(wget -qO- bash.spiritlhl.net/ecs)
 ### 无交互形式-参数模式
 
 ```bash
-curl -L https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh -m 1
+curl -L https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh -h
 ```
 
 或
 
 ```bash
-curl -L https://github.com/spiritLHLS/ecs/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh -m 1
+curl -L https://github.com/spiritLHLS/ecs/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh -h
 ```
 
-或通过
-
-```
-curl -L https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh
-```
-
-下载文件后使用类似
+或
 
 ```bash
-bash ecs.sh -m 1
+bash ecs.sh -h
 ```
-
-这样的参数命令指定选项执行
-
-以下为参数说明：
-
-```-m```可指定原本menu中的对应选项，最多支持三层选择，例如执行```bash ecs.sh -m 5 1 1```将选择主菜单第5选项下的第1选项下的子选项1的脚本执行
-
-(可缺省仅指定一个参数，如```-m 1```仅指定执行融合怪完全体，执行```-m 1 0```以及```-m 1 0 0```都是指定执行融合怪完全体)
-
-```-i```可指定回程路由测试中的目标IPV4地址，可通过 ip.sb ipinfo.io 等网站获取本地IPV4地址后指定
-
-```-r```可指定回程路由测试中的目标IPV4地址，可选```b``` ```g``` ```s``` ```c``` 分别对应```北京、广州、上海、成都```，如```-r b```指定测试北京回程(三网)
 
 ## IP质量检测
 
@@ -170,7 +150,7 @@ VPS测试，VPS测速，VPS综合性能测试，VPS回程线路测试，VPS流�
 
 ## 融合怪功能
 
-- [x] 自由组合测试方向和单项测试以及合集收录第三方脚本，融合怪各项测试均自优化修复过，与原始脚本均不同
+- [x] 自由组合测试方向和单项测试以及合集收录第三方脚本
 - [x] 基础信息查询--感谢[bench.sh](https://github.com/teddysun/across/blob/master/bench.sh)、[superbench.sh](https://www.oldking.net/350.html)、[yabs](https://github.com/masonr/yet-another-bench-script)、[lemonbench](https://github.com/LemonBench/LemonBench)开源，本人整理修改优化，同原版均不一致
 - [x] CPU测试--感谢[lemonbench](https://github.com/LemonBench/LemonBench)开源，本人整理修改优化
 - [x] 内存测试--感谢[lemonbench](https://github.com/LemonBench/LemonBench)开源，本人整理修改优化
@@ -184,17 +164,17 @@ VPS测试，VPS测速，VPS综合性能测试，VPS回程线路测试，VPS流�
 - [x] IP质量与25端口检测(含IPV4和IPV6)--本脚本独创，感谢互联网提供的查询资源
 - [x] speedtest测速--使用自写[ecsspeed](https://github.com/spiritLHLS/ecsspeed)仓库，自动更新测速服务器ID，一劳永逸解决老是要手动更新测速ID的问题
 
-## 友链
+# 友链
 
-测评频道
+## 测评频道
 
-https://t.me/vps_reviews
+### https://t.me/vps_reviews
 
-自动更新测速服务器节点列表的网络基准测试脚本
+## 自动更新测速服务器节点列表的网络基准测试脚本
 
-https://github.com/spiritLHLS/ecsspeed
+### https://github.com/spiritLHLS/ecsspeed
 
-## 脚本概况
+# 脚本概况
 
 主界面：
 
