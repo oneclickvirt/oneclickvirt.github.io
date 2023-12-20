@@ -47,6 +47,16 @@ bash <(curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/fsc
 开设虚拟机前请使用screen挂起执行，避免开设时间过长，SSH不稳定导致中间执行中断
 :::
 
+## 开设带IPV6地址的KVM虚拟机的注意事项
+
+由于长期闲置IPV6不使用可能导致NDP广播缓存失效重置，一般闲置50分钟左右就会出现IPV6不可用的情况，俗称“IPV6断流”，此时需要设置一个定时任务
+
+```shell
+echo '*/1 * * * * curl -m 6 -s ipv6.ip.sb && curl -m 6 -s ipv6.ip.sb' | crontab -
+```
+
+在开设出的虚拟机中执行上述命令，可保证IPV6网络一直被使用，不会失效断流
+
 ## 开设KVM虚拟机可使用的镜像
 
 - 已预安装开启cloudinit

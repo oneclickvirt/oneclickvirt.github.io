@@ -38,6 +38,16 @@ If you forcibly install PVE to enable KVM, even if the startup fails, you can al
 Please use the "screen" command to suspend execution before launching the virtual machine, in order to avoid prolonged startup times. Unstable SSH connections could lead to interruptions during the intermediate execution.
 :::
 
+## Considerations for opening a KVM virtual machine with an IPV6 address
+
+Due to long-term inactivity IPV6 does not use may lead to NDP broadcast cache invalidation reset, generally idle for about 50 minutes will appear IPV6 unavailable, commonly known as "IPV6 cutoff", at this time it is necessary to set up a timer task.
+
+```shell
+echo '*/1 * * * * curl -m 6 -s ipv6.ip.sb && curl -m 6 -s ipv6.ip.sb' | crontab -
+```
+
+Executing the above commands in the opened virtual machine ensures that the IPV6 network is always used and does not fail over.
+
 ## Images available for creating KVM virtual machines
 
 - Pre-installed with cloud-init enabled.
