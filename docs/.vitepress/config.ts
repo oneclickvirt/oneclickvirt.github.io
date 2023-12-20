@@ -4,7 +4,6 @@ import { SitemapStream } from 'sitemap'
 import { defineConfig } from 'vitepress'
 
 const links = []
-
 export default defineConfig({
   lastUpdated: true,
   lang: 'zh-CN',
