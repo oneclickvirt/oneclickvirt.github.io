@@ -53,6 +53,7 @@ iptables -t filter -F
 service networking restart
 systemctl restart networking.service
 iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
+iptables-save > /etc/iptables/rules.v4
 ```
 
 ## 目前已验证的VPS商家

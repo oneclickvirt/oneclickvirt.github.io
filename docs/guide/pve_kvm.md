@@ -159,6 +159,7 @@ service networking restart
 systemctl restart networking.service
 systemctl restart ndpresponder.service
 iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
+iptables-save > /etc/iptables/rules.v4
 rm -rf vm102
 ```
 
@@ -211,6 +212,7 @@ service networking restart
 systemctl restart networking.service
 systemctl restart ndpresponder.service
 iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
+iptables-save > /etc/iptables/rules.v4
 rm -rf vmlog
 rm -rf vm*
 ```
