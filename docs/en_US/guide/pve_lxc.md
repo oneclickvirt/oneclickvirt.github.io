@@ -98,6 +98,7 @@ service networking restart
 systemctl restart networking.service
 systemctl restart ndpresponder.service
 iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
+iptables-save > /etc/iptables/rules.v4
 ```
 
 ## Batch Creation of LXC Containers with NAT
@@ -144,6 +145,7 @@ service networking restart
 systemctl restart networking.service
 systemctl restart ndpresponder.service
 iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
+iptables-save > /etc/iptables/rules.v4
 ```
 
 ## Creating Virtual Machines with Pure IPv6 Addresses
