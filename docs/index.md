@@ -20,7 +20,7 @@ features:
 - title: 基于主流系统开发
   details: 基于 Debian、Ubuntu、Centos 等系统的长期维护版本开发，无论是什么系统总有一个方法能让你虚拟化出容器或虚拟机
 - title: 自带内外网端口转发和IP地址自动分配
-  details: 自带内外网端口转发和IP地址自动分配，含TCP、UDP、vnc、rdp等协议，无需人工管理
+  details: 自带内外网端口转发和IP地址自动分配，含TCP、UDP、VNC、RDP等协议，无需人工管理
 - title: 批量虚拟化
   details: 支持使用 KVM、LXC、Docker 虚拟化批量开设容器或虚拟机
 - title: 多系统多环境支持
