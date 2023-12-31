@@ -125,7 +125,7 @@ Below is the information for the example VM that has been set up:
 | Host Storage Disk        | local          |
 | IPV6 address             | N              |
 
-### Deletion Examples
+## Deletion specific VM
 
 - Stop VM
 - Delete VM
@@ -133,18 +133,21 @@ Below is the information for the example VM that has been set up:
 - Restart network
 - Delete log files
 
+**Download Script**
+
 ```shell
-qm stop 102
-qm destroy 102
-iptables -t nat -F
-iptables -t filter -F
-service networking restart
-systemctl restart networking.service
-systemctl restart ndpresponder.service
-iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
-iptables-save > /etc/iptables/rules.v4
-rm -rf vm102
+curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/pve_delete.sh -o pve_delete.sh && chmod +x pve_delete.sh
 ```
+
+**Meaning of each parameter**
+
+You can delete the VM with the corresponding VMID, as demonstrated here using the example 102 above
+
+```shell
+./pve_delete.sh 102
+```
+
+The actual number of deletions is not fixed, a space separates each VMID, and more than one can be deleted at a time.
 
 ## Batch Creation of Virtual Machines with KVM Virtualization and NAT
 

@@ -86,7 +86,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/p
 | 宿主机的存储盘              | local       |
 | IPV6         | 无                |
 
-### 删除示例
+## 删除指定容器
 
 - 停止CT
 - 删除CT
@@ -94,18 +94,29 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/p
 - 重启网络
 - 删除log文件
 
+**下载脚本**
+
+国际
+
 ```shell
-pct stop 102
-pct destroy 102
-rm -rf ct102
-iptables -t nat -F
-iptables -t filter -F
-service networking restart
-systemctl restart networking.service
-systemctl restart ndpresponder.service
-iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
-iptables-save > /etc/iptables/rules.v4
+curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/pve_delete.sh -o pve_delete.sh && chmod +x pve_delete.sh
 ```
+
+国内
+
+```shell
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/pve_delete.sh -o pve_delete.sh && chmod +x pve_delete.sh
+```
+
+**使用方法**
+
+可以删除对应CTID的容器，这里用上文中的示例102做演示
+
+```shell
+./pve_delete.sh 102
+```
+
+实际删除数量不固定，空格分隔每个CTID即可，可一次性删除多个
 
 ## 批量开设NAT的LXC虚拟化的CT
 

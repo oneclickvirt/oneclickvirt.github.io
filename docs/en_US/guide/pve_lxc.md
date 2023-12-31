@@ -80,7 +80,7 @@ Please note that "CT" and other technical terms might have specific meanings in 
 | Host Storage Disk         | local       |
 | IPV6 address              | N           |
 
-### Deletion Examples
+## Deletion specific CT
 
 - Stop CT
 - Delete CT
@@ -88,18 +88,21 @@ Please note that "CT" and other technical terms might have specific meanings in 
 - Restart Network
 - Delete Log Files
 
+**Download Script**
+
 ```shell
-pct stop 102
-pct destroy 102
-rm -rf ct102
-iptables -t nat -F
-iptables -t filter -F
-service networking restart
-systemctl restart networking.service
-systemctl restart ndpresponder.service
-iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
-iptables-save > /etc/iptables/rules.v4
+curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/pve_delete.sh -o pve_delete.sh && chmod +x pve_delete.sh
 ```
+
+**Meaning of each parameter**
+
+You can delete the CT with the corresponding CTID, as demonstrated here using the example 102 above
+
+```shell
+./pve_delete.sh 102
+```
+
+The actual number of deletions is not fixed, a space separates each CTID, and more than one can be deleted at a time.
 
 ## Batch Creation of LXC Containers with NAT
 
