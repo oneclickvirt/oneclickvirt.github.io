@@ -34,6 +34,8 @@ You will be prompted to reboot your system once during the execution process, **
 
 Because the original environment may be missing ``ifupdown`` or ``ifupdown2`` environment, there is a self-installation daemon loaded for the installation, after the installation of the system will automatically reboot the system again, wait for 20 seconds without reboot to ensure that the installation has been run.
 
+If the host itself exists SLAAC assigned IPV6 address, will be able to choose whether to use the largest IPV6 subnet range, the default carriage return does not use the largest IPV6 subnet range only use the local IPV6, if you subsequently need to attach a separate IPV6 address to the virtual machine/container, the option must be selected ```y```.
+
 Command:
 
 ```shell

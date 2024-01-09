@@ -43,6 +43,30 @@ bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linu
 
 如果有空或者还是不行，请联系 [@spiritlhl_bot](https://t.me/spiritlhl_bot) 尝试
 
+非Debian系统也可使用自定义分区的内容自行尝试
+
+## 开设centos7发现报错CGroupV1不支持怎么办
+
+启用CGroup V1：要在Ubuntu系统上启用CGroup V1，需要编辑内核启动参数。
+
+请注意，在更改内核启动参数之前，请务必备份重要的数据和设置，以防止意外的问题。
+
+编辑```/etc/default/grub```文件，将```GRUB_CMDLINE_LINUX_DEFAULT```中的参数末尾加上```systemd.unified_cgroup_hierarchy=0```，如
+
+```
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash systemd.unified_cgroup_hierarchy=0"
+```
+
+保存文件并运行以下命令更新GRUB引导。
+
+```bash
+sudo update-grub
+```
+
+重启系统，使更改生效
+
+如果上述更改仍旧不支持开设centos7，那么请使用别的宿主机系统尝试
+
 ## 不小心删除了NAT的映射规则怎么办
 
 使用下面的命令映射回来
@@ -52,8 +76,7 @@ iptables -t nat -F
 iptables -t filter -F
 service networking restart
 systemctl restart networking.service
-iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
-iptables-save > /etc/iptables/rules.v4
+cat /etc/iptables/rules.v4 | iptables-restore
 ```
 
 ## 目前已验证的VPS商家
