@@ -426,3 +426,11 @@ ip tunnel del user-ipv6
 ```
 
 以上删除的方式只是临时删除，永久删除务必修改删除```/etc/network/interfaces```文件中你之前增加的内容
+
+### 后言
+
+实际上 [https://tunnelbroker.net/](https://tunnelbroker.net/) 支持申请```/48```大小的IPV6子网，只需要在
+
+![图片](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/07987e41-0158-430c-bcc5-f7cd8652b2c4)
+
+这里进行申请，然后转换格式的时候将原先```/64```的IPV6地址改成```/48```的IPV6地址，你就能获得一个更大的IPV6子网了
