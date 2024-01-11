@@ -465,3 +465,11 @@ ip tunnel del user-ipv6
 ```
 
 The above deletion is only temporary, for permanent deletion you must modify and delete the contents of the ``/etc/network/interfaces`` file that you have previously added.
+
+### one more thing
+
+In fact [https://tunnelbroker.net/](https://tunnelbroker.net/) supports the application of IPV6 subnets of size ```/48```
+
+![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/07987e41-0158-430c-bcc5-f7cd8652b2c4)
+
+Make the request here, then when converting the format change the original ```/64``` IPV6 address to a ```/48``` IPV6 address and you'll get a larger IPV6 subnet!
