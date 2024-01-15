@@ -74,12 +74,12 @@ export default defineConfig({
           }
         }
       },
-      en_US: {
+      en: {
         lang: 'en-US',
         label: 'English',
         title: 'One Click Virtualization',
         description: 'Open source, easy to use server virtualization project',
-        link: '/en_US/',
+        link: '/en/',
         themeConfig: {
           logo: { src: 'https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png', width: 24, height: 24 },
           lastUpdatedText: 'Last Updated',
@@ -88,13 +88,13 @@ export default defineConfig({
             pattern: 'https://github.com/oneclickvirt/oneclickvirt.github.io/edit/main/docs/:path',
           },
           nav: [
-            { text: 'One Click Virtualization', link: '/en_US/', activeMatch: '^/en_US/guide/' },
-            { text: 'Development Manual', link: '/en_US/developer/index', activeMatch: '^/en_US/developer/' }
+            { text: 'One Click Virtualization', link: '/en/', activeMatch: '^/en/guide/' },
+            { text: 'Development Manual', link: '/en/developer/index', activeMatch: '^/en/developer/' }
           ],
           sidebar: {
-            '/en_US/': getGuideSidebarEnUS(),
-            '/en_US/guide/': getGuideSidebarEnUS(),
-            '/en_US/developer/': getDeveloperSidebarEnUS()
+            '/en/': getGuideSidebarEnUS(),
+            '/en/guide/': getGuideSidebarEnUS(),
+            '/en/developer/': getDeveloperSidebarEnUS()
         },
       },
     },
@@ -126,36 +126,48 @@ function getGuideSidebarZhCN() {
     {
       text: 'Proxmox VE',
       items: [
-        { text: '系统和硬件配置要求', link: '/guide/pve_precheck.html' },
-        { text: 'PVE主体安装', link: '/guide/pve_install.html' },
-        { text: 'KVM虚拟化', link: '/guide/pve_kvm.html' },
-        { text: 'LXC虚拟化', link: '/guide/pve_lxc.html' },
-        { text: '自定义', link: '/guide/pve_custom.html' },
-        { text: '致谢', link: '/guide/pve_thanks.html' },
-        { text: '常见问题答疑', link: '/guide/pve_qa.html' }
+        { text: '系统和硬件配置要求', link: '/guide/pve/pve_precheck.html' },
+        { text: 'PVE主体安装', link: '/guide/pve/pve_install.html' },
+        { text: 'KVM虚拟化', link: '/guide/pve/pve_kvm.html' },
+        { text: 'LXC虚拟化', link: '/guide/pve/pve_lxc.html' },
+        { text: '自定义', link: '/guide/pve/pve_custom.html' },
+        { text: '致谢', link: '/guide/pve/pve_thanks.html' },
+        { text: '常见问题答疑', link: '/guide/pve/pve_qa.html' }
       ]
     },
     {
-      text: 'LXD',
+      text: 'incus',
       items: [
-        { text: '系统和硬件配置要求', link: '/guide/lxd_precheck.html' },
-        { text: 'LXD主体安装', link: '/guide/lxd_install.html' },
-        { text: 'LXC虚拟化', link: '/guide/lxd_lxc.html' },
-        { text: '更多配置', link: '/guide/lxd_extra_config.html' },
-        { text: '自定义', link: '/guide/lxd_custom.html' },
-        { text: '致谢', link: '/guide/lxd_thanks.html' },
-        { text: '常见问题答疑', link: '/guide/lxd_qa.html' }
+        { text: '系统和硬件配置要求', link: '/guide/incus/incus_precheck.html' },
+        { text: 'incus主体安装', link: '/guide/incus/incus_install.html' },
+        { text: 'LXC虚拟化', link: '/guide/incus/incus_lxc.html' },
+        { text: '更多配置', link: '/guide/incus/incus_extra_config.html' },
+        { text: '自定义', link: '/guide/incus/incus_custom.html' },
+        { text: '致谢', link: '/guide/incus/incus_thanks.html' },
+        { text: '常见问题答疑', link: '/guide/incus/incus_qa.html' }
       ]
     },
     {
       text: 'Docker',
       items: [
-        { text: '系统和硬件配置要求', link: '/guide/docker_precheck.html' },
-        { text: 'Docker主体安装', link: '/guide/docker_install.html' },
-        { text: 'Docker虚拟化', link: '/guide/docker_build.html' },
-        { text: '自定义', link: '/guide/docker_custom.html' },
-        { text: '致谢', link: '/guide/docker_thanks.html' },
-        { text: '常见问题答疑', link: '/guide/docker_qa.html' }
+        { text: '系统和硬件配置要求', link: '/guide/docker/docker_precheck.html' },
+        { text: 'Docker主体安装', link: '/guide/docker/docker_install.html' },
+        { text: 'Docker虚拟化', link: '/guide/docker/docker_build.html' },
+        { text: '自定义', link: '/guide/docker/docker_custom.html' },
+        { text: '致谢', link: '/guide/docker/docker_thanks.html' },
+        { text: '常见问题答疑', link: '/guide/docker/docker_qa.html' }
+      ]
+    },
+    {
+      text: 'LXD',
+      items: [
+        { text: '系统和硬件配置要求', link: '/guide/lxd/lxd_precheck.html' },
+        { text: 'LXD主体安装', link: '/guide/lxd/lxd_install.html' },
+        { text: 'LXC虚拟化', link: '/guide/lxd/lxd_lxc.html' },
+        { text: '更多配置', link: '/guide/lxd/lxd_extra_config.html' },
+        { text: '自定义', link: '/guide/lxd/lxd_custom.html' },
+        { text: '致谢', link: '/guide/lxd/lxd_thanks.html' },
+        { text: '常见问题答疑', link: '/guide/lxd/lxd_qa.html' }
       ]
     },
     {
@@ -200,42 +212,54 @@ function getGuideSidebarEnUS() {
     {
       text: 'Pre-requisites for all projects',
       items: [
-        { text: 'Preparation', link: '/en_US/guide/dashboard.html' }
+        { text: 'Preparation', link: '/en/guide/dashboard.html' }
       ]
     },
     {
       text: 'Proxmox VE',
       items: [
-        { text: 'Configuration requirements', link: '/en_US/guide/pve_precheck.html' },
-        { text: 'PVE main installation', link: '/en_US/guide/pve_install.html' },
-        { text: 'KVM Virtualization', link: '/en_US/guide/pve_kvm.html' },
-        { text: 'LXC Virtualization', link: '/en_US/guide/pve_lxc.html' },
-        { text: 'Custom', link: '/en_US/guide/pve_custom.html' },
-        { text: 'Acknowledgements', link: '/en_US/guide/pve_thanks.html' },
-        { text: 'FAQ', link: '/en_US/guide/pve_qa.html' }
+        { text: 'Configuration requirements', link: '/en/guide/pve/pve_precheck.html' },
+        { text: 'PVE main installation', link: '/en/guide/pve/pve_install.html' },
+        { text: 'KVM Virtualization', link: '/en/guide/pve/pve_kvm.html' },
+        { text: 'LXC Virtualization', link: '/en/guide/pve/pve_lxc.html' },
+        { text: 'Custom', link: '/en/guide/pve/pve_custom.html' },
+        { text: 'Acknowledgements', link: '/en/guide/pve/pve_thanks.html' },
+        { text: 'FAQ', link: '/en/guide/pve/pve_qa.html' }
       ]
     },
     {
-      text: 'LXD',
+      text: 'incus',
       items: [
-        { text: 'Configuration requirements', link: '/en_US/guide/lxd_precheck.html' },
-        { text: 'LXD main installation', link: '/en_US/guide/lxd_install.html' },
-        { text: 'LXC Virtualization', link: '/en_US/guide/lxd_lxc.html' },
-        { text: 'Extra configuration', link: '/en_US/guide/lxd_extra_config.html' },
-        { text: 'Custom', link: '/en_US/guide/lxd_custom.html' },
-        { text: 'Acknowledgements', link: '/en_US/guide/lxd_thanks.html' },
-        { text: 'FAQ', link: '/en_US/guide/lxd_qa.html' }
+        { text: 'Configuration requirements', link: '/en/guide/incus/incus_precheck.html' },
+        { text: 'incus main installation', link: '/en/guide/incus/incus_install.html' },
+        { text: 'LXC Virtualization', link: '/en/guide/incus/incus_lxc.html' },
+        { text: 'Extra configuration', link: '/en/guide/incus/incus_extra_config.html' },
+        { text: 'Custom', link: '/en/guide/incus/incus_custom.html' },
+        { text: 'Acknowledgements', link: '/en/guide/incus/incus_thanks.html' },
+        { text: 'FAQ', link: '/en/guide/incus/incus_qa.html' }
       ]
     },
     {
       text: 'Docker',
       items: [
-        { text: 'Configuration requirements', link: '/en_US/guide/docker_precheck.html' },
-        { text: 'Docker main installation', link: '/en_US/guide/docker_install.html' },
-        { text: 'Docker Virtualization', link: '/en_US/guide/docker_build.html' },
-        { text: 'Custom', link: '/en_US/guide/docker_custom.html' },
-        { text: 'Acknowledgements', link: '/en_US/guide/docker_thanks.html' },
-        { text: 'FAQ', link: '/en_US/guide/docker_qa.html' }
+        { text: 'Configuration requirements', link: '/en/guide/docker/docker_precheck.html' },
+        { text: 'Docker main installation', link: '/en/guide/docker/docker_install.html' },
+        { text: 'Docker Virtualization', link: '/en/guide/docker/docker_build.html' },
+        { text: 'Custom', link: '/en/guide/docker/docker_custom.html' },
+        { text: 'Acknowledgements', link: '/en/guide/docker/docker_thanks.html' },
+        { text: 'FAQ', link: '/en/guide/docker/docker_qa.html' }
+      ]
+    },
+    {
+      text: 'LXD',
+      items: [
+        { text: 'Configuration requirements', link: '/en/guide/lxd/lxd_precheck.html' },
+        { text: 'LXD main installation', link: '/en/guide/lxd/lxd_install.html' },
+        { text: 'LXC Virtualization', link: '/en/guide/lxd/lxd_lxc.html' },
+        { text: 'Extra configuration', link: '/en/guide/lxd/lxd_extra_config.html' },
+        { text: 'Custom', link: '/en/guide/lxd/lxd_custom.html' },
+        { text: 'Acknowledgements', link: '/en/guide/lxd/lxd_thanks.html' },
+        { text: 'FAQ', link: '/en/guide/lxd/lxd_qa.html' }
       ]
     },
     {
@@ -252,7 +276,7 @@ function getDeveloperSidebarEnUS() {
     {
       text: 'Development Manual',
       items: [
-        { text: 'l10n', link: '/en_US/developer/l10n.html' }
+        { text: 'l10n', link: '/en/developer/l10n.html' }
       ]
     }
   ]
