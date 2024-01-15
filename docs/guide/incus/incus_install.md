@@ -77,24 +77,29 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 实际swap开的虚拟内存应该是实际内存的2倍，也就是开1G是合理的，上面我描述的情况属于超开了
 
 ```
-apt install snapd -y
-snap install incus
-incus init
+sudo -i
+mkdir -p /etc/apt/keyrings/
+curl -fsSL https://pkgs.zabbly.com/key.asc -o /etc/apt/keyrings/zabbly.asc
+sh -c 'cat <<EOF > /etc/apt/sources.list.d/zabbly-incus-stable.sources
+Enabled: yes
+Types: deb
+URIs: https://pkgs.zabbly.com/incus/stable
+Suites: $(. /etc/os-release && echo ${VERSION_CODENAME})
+Components: main
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/zabbly.asc
+
+EOF'
+apt-get update
+apt-get install incus -y
+incus -h
 ```
 
-如果上面的命令中出现下面的错误
-
-(snap "incus" assumes unsupported features: snapd2.39 (try to update snapd and refresh the core snap))
-
-使用命令修补后再进行incus的安装
+如果无异常，继续执行
 
 ```
-snap install core
+incus admin init
 ```
-
-如果无异常，上面三行命令执行结果如下
-
-![图片](https://user-images.githubusercontent.com/103393591/233270028-5a43d0f7-45f5-4175-969e-d4d182cb877a.png)
 
 一般的选项回车默认即可
 
