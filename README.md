@@ -2,11 +2,11 @@
 
 国内(China)：
 
-[virt.spiritlhl.net](https://virt.spiritlhl.net/)
+[https://virt.spiritlhl.net/](https://virt.spiritlhl.net/)
 
 国际(Global)：
 
-[www.spiritlhl.net](https://www.spiritlhl.net/)
+[https://www.spiritlhl.net/en/](https://www.spiritlhl.net/en/)
 
 一键虚拟化项目(One click virtualization) 
 
