@@ -70,24 +70,29 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/swap.s
 Actually, the virtual memory allocated for swap should be twice the size of the actual memory. So, it's reasonable to allocate 1GB if the actual memory is 500MB. The scenario I described above is an excessive allocation.
 
 ```
-apt install snapd -y
-snap install incus
-incus init
+sudo -i
+mkdir -p /etc/apt/keyrings/
+curl -fsSL https://pkgs.zabbly.com/key.asc -o /etc/apt/keyrings/zabbly.asc
+sh -c 'cat <<EOF > /etc/apt/sources.list.d/zabbly-incus-stable.sources
+Enabled: yes
+Types: deb
+URIs: https://pkgs.zabbly.com/incus/stable
+Suites: $(. /etc/os-release && echo ${VERSION_CODENAME})
+Components: main
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/zabbly.asc
+
+EOF'
+apt-get update
+apt-get install incus -y
+incus -h
 ```
 
-If the following error occurs in the above command
-
-(snap "incus" assumes unsupported features: snapd2.39 (try to update snapd and refresh the core snap))
-
-Use the command patch before installing incus
+If there are no exceptions, continue execution
 
 ```
-snap install core
+incus admin init
 ```
-
-If there are no exceptions, the results of the above three lines of commands are as follows
-
-![图片](https://user-images.githubusercontent.com/103393591/233270028-5a43d0f7-45f5-4175-969e-d4d182cb877a.png)
 
 Just enter the default for the normal options
 
