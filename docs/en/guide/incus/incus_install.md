@@ -16,7 +16,7 @@ If this is a new server, make sure that both 'apt update' and 'apt install curl'
 It's recommended to wait for at least 5 minutes after the system boots up before executing the following commands. This is to avoid the script being executed by the default system settings, which could cause issues with apt sources.
 :::
 
-- Prerequisites: Ubuntu 18+ (recommended), Debian 8+ (x86_64 architecture only)
+- Prerequisites: Ubuntu 20+ (recommended), Debian 11+
 
 **If you are on a Debian-based host, be sure to execute this script within a 'screen' session to prevent ZFS compilation installation failure due to SSH interruptions during long-term runs.**
 
