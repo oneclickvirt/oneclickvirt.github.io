@@ -13,7 +13,7 @@ Downloading the boot script is **NOT REQUIRED**, if you have used the command to
 Command:
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
 ```
 
 ### Usage
@@ -108,7 +108,7 @@ Execute the following command to load the boot script
 Command:
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/init.sh -o init.sh && chmod +x init.sh && dos2unix init.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/init.sh -o init.sh && chmod +x init.sh && dos2unix init.sh
 ```
 
 The following command opens **10** chicks with the name prefix **tj**.
@@ -136,7 +136,7 @@ Load boot script
 Command:
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/least.sh -o least.sh && chmod +x least.sh && dos2unix least.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/least.sh -o least.sh && chmod +x least.sh && dos2unix least.sh
 ```
 
 The last line of the following command opens **10** chicks with the chick name prefix **tj**
@@ -157,7 +157,7 @@ If you need to batch-generate servers multiple times, you can use the following:
 Command:
 
 ```
-curl -L https://github.com/spiritLHLS/lxd/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
+curl -L https://github.com/oneclickvirt/lxd/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
 ```
 
 Can be run multiple times to batch generate chicks, and inherit the previous part has been generated in the back to add, customizable memory and hard disk size
@@ -262,12 +262,12 @@ rm -rf /root/build_ipv6_network.sh
 Download back the relevant configuration scripts for the new version
 
 ```bash
-wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/check-dns.sh -O /usr/local/bin/check-dns.sh && chmod +x /usr/local/bin/check-dns.sh
-wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/config.sh -O /usr/local/bin/config.sh && chmod +x /usr/local/bin/config.sh
-wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/ssh_bash.sh -O /usr/local/bin/ssh_bash.sh && chmod +x /usr/local/bin/ssh_bash.sh
-wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/ssh_sh.sh -O /usr/local/bin/ssh_sh.sh && chmod +x /usr/local/bin/ssh_sh.sh
-wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/build_ipv6_network.sh -O /root/build_ipv6_network.sh && chmod +x /root/build_ipv6_network.sh
-wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/buildone.sh -O /root/buildone.sh && chmod +x /root/buildone.sh
+wget https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/check-dns.sh -O /usr/local/bin/check-dns.sh && chmod +x /usr/local/bin/check-dns.sh
+wget https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/config.sh -O /usr/local/bin/config.sh && chmod +x /usr/local/bin/config.sh
+wget https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/ssh_bash.sh -O /usr/local/bin/ssh_bash.sh && chmod +x /usr/local/bin/ssh_bash.sh
+wget https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/ssh_sh.sh -O /usr/local/bin/ssh_sh.sh && chmod +x /usr/local/bin/ssh_sh.sh
+wget https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/build_ipv6_network.sh -O /root/build_ipv6_network.sh && chmod +x /root/build_ipv6_network.sh
+wget https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/buildone.sh -O /root/buildone.sh && chmod +x /root/buildone.sh
 ```
 
 Just download the other one-click scripts yourself.

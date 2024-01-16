@@ -24,7 +24,7 @@ Download Script
 Command:
 
 ```bash
-curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/build_ipv6_network.sh -o build_ipv6_network.sh && chmod +x build_ipv6_network.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/build_ipv6_network.sh -o build_ipv6_network.sh && chmod +x build_ipv6_network.sh
 ```
 
 Automatically configure IPV6 mapped addresses for containers
@@ -78,7 +78,7 @@ rm /usr/local/bin/add-ipv6.sh
 Command:
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/rules.sh -o rules.sh && chmod +x rules.sh && bash rules.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/rules.sh -o rules.sh && chmod +x rules.sh && bash rules.sh
 ```
 
 ## Use the 'screen' command to configure monitoring and blocking of certain processes' commands: terminate containers immediately upon the appearance of specific processes.
@@ -90,7 +90,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/rules.sh -
 Command:
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/build_monitor.sh -o build_monitor.sh && chmod +x build_monitor.sh && bash build_monitor.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/build_monitor.sh -o build_monitor.sh && chmod +x build_monitor.sh && bash build_monitor.sh
 ```
 
 ## One-click Installation of Common Pre-configured Environment for LXD Hosts with vnstat Integration
@@ -100,7 +100,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/build_moni
 Command:
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/backend.sh -o backend.sh && chmod +x backend.sh && bash backend.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/backend.sh -o backend.sh && chmod +x backend.sh && bash backend.sh
 ```
 
 ## One-Click Installation of Cockpit Visualization Panel for Mother Hen

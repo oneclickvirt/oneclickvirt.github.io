@@ -8,7 +8,7 @@ The following is the introduction of the non-customized part, the customized par
 
 If your host does not have an IPV6 subnet and you want to assign IPV6 addresses to containers, then please check the ``Customize`` partition in the ``LXD`` module for the ``Attach a free IPV6 address segment`` to the host, and attach an IPV6 subnet to the host before installing the environment.
 
-Feel free to give the project a ```Star``` for free support!-->[https://github.com/spiritLHLS/lxd](https://github.com/spiritLHLS/lxd)
+Feel free to give the project a ```Star``` for free support!-->[https://github.com/oneclickvirt/lxd](https://github.com/oneclickvirt/lxd)
 
 ## Requirements
 
@@ -39,7 +39,7 @@ PS: If the hardware resources are even worse, virtualization is not supported, y
 
 - Ensure that the disk you want to open is the default system disk (sda or sda1) and not the mounted disk (sdb and so on), if you are not sure, use ``fdisk -l`` and ``df`` to check.
 
-- See [Other notes](https://github.com/spiritLHLS/lxd/blob/main/README_other.md) for details on mounting other disks.
+- See [Other notes](https://github.com/oneclickvirt/lxd/blob/main/README_other.md) for details on mounting other disks.
 
 - One-click scripts support custom restrictions on all content, the normal version supports multiple runs of the batch generation does not overwrite the previously generated configuration
 
@@ -50,5 +50,5 @@ PS: If the hardware resources are even worse, virtualization is not supported, y
 Command:
 
 ```
-bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/pre_check.sh)
+bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/pre_check.sh)
 ```

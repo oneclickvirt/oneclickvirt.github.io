@@ -27,7 +27,7 @@ Execute the following commands: Enter '1', then enter '2048'. This signifies all
 Command:
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/swap.sh -o swap.sh && chmod +x swap.sh && bash swap.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/swap.sh -o swap.sh && chmod +x swap.sh && bash swap.sh
 ```
 
 ### Installing LXD
@@ -102,7 +102,7 @@ Each time you run the script, you'll need to input the initialization configurat
 Command:
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/lxdinstall.sh -o lxdinstall.sh && chmod +x lxdinstall.sh && bash lxdinstall.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/lxdinstall.sh -o lxdinstall.sh && chmod +x lxdinstall.sh && bash lxdinstall.sh
 ```
 
 Example of initialization configuration:

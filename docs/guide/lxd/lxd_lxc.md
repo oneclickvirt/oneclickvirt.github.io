@@ -13,13 +13,13 @@ outline: deep
 国际
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
 ```
 
 国内
 
 ```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
 ```
 
 ### 使用方法
@@ -123,13 +123,13 @@ lxc若命令无问题，执行初始化开服务器，这一步最好放```scree
 国际
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/init.sh -o init.sh && chmod +x init.sh && dos2unix init.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/init.sh -o init.sh && chmod +x init.sh && dos2unix init.sh
 ```
 
 国内
 
 ```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/init.sh -o init.sh && chmod +x init.sh && dos2unix init.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/init.sh -o init.sh && chmod +x init.sh && dos2unix init.sh
 ```
 
 下面命令为开服务器名字前缀为**tj**的**10**个服务器
@@ -157,13 +157,13 @@ lxc若命令无问题，执行初始化开服务器，这一步最好放```scree
 国际
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/least.sh -o least.sh && chmod +x least.sh && dos2unix least.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/least.sh -o least.sh && chmod +x least.sh && dos2unix least.sh
 ```
 
 国内
 
 ```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/least.sh -o least.sh && chmod +x least.sh && dos2unix least.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/least.sh -o least.sh && chmod +x least.sh && dos2unix least.sh
 ```
 
 下列命令最后一行为开服务器名字前缀为**tj**的**10**个服务器
@@ -184,13 +184,13 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/l
 国际
 
 ```
-curl -L https://github.com/spiritLHLS/lxd/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
+curl -L https://github.com/oneclickvirt/lxd/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
 ```
 
 国内
 
 ```shell
-curl -L https://cdn.spiritlhl.net/https://github.com/spiritLHLS/lxd/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
+curl -L https://cdn.spiritlhl.net/https://github.com/oneclickvirt/lxd/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
 ```
 
 可多次运行批量生成服务器，且继承前面已生成的部分在后面添加，可自定义内存和硬盘大小
@@ -295,12 +295,12 @@ rm -rf /root/build_ipv6_network.sh
 下载回新版本的相关配置脚本
 
 ```bash
-wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/check-dns.sh -O /usr/local/bin/check-dns.sh && chmod +x /usr/local/bin/check-dns.sh
-wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/config.sh -O /usr/local/bin/config.sh && chmod +x /usr/local/bin/config.sh
-wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/ssh_bash.sh -O /usr/local/bin/ssh_bash.sh && chmod +x /usr/local/bin/ssh_bash.sh
-wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/ssh_sh.sh -O /usr/local/bin/ssh_sh.sh && chmod +x /usr/local/bin/ssh_sh.sh
-wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/build_ipv6_network.sh -O /root/build_ipv6_network.sh && chmod +x /root/build_ipv6_network.sh
-wget https://raw.githubusercontent.com/spiritLHLS/lxd/main/scripts/buildone.sh -O /root/buildone.sh && chmod +x /root/buildone.sh
+wget https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/check-dns.sh -O /usr/local/bin/check-dns.sh && chmod +x /usr/local/bin/check-dns.sh
+wget https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/config.sh -O /usr/local/bin/config.sh && chmod +x /usr/local/bin/config.sh
+wget https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/ssh_bash.sh -O /usr/local/bin/ssh_bash.sh && chmod +x /usr/local/bin/ssh_bash.sh
+wget https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/ssh_sh.sh -O /usr/local/bin/ssh_sh.sh && chmod +x /usr/local/bin/ssh_sh.sh
+wget https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/build_ipv6_network.sh -O /root/build_ipv6_network.sh && chmod +x /root/build_ipv6_network.sh
+wget https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/buildone.sh -O /root/buildone.sh && chmod +x /root/buildone.sh
 ```
 
 其他一键脚本自己对应下载回来就行了
