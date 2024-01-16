@@ -6,9 +6,9 @@ outline: deep
 
 ## Generate only one NAT server
 
-### Download script
-
 - Generate only one NAT server, with customizable restrictions on all content.
+
+### Download script
 
 Downloading the boot script is **NOT REQUIRED**, if you have used the command to install incus with one click, the corresponding boot script will be downloaded automatically, so you don't need to download the script again.
 
