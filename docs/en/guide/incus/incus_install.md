@@ -17,18 +17,9 @@ It's recommended to wait for at least 5 minutes after the system boots up before
 :::
 
 - Prerequisites: Ubuntu 20+ (recommended), Debian 11+
-
-**If you are on a Debian-based host, be sure to execute this script within a 'screen' session to prevent ZFS compilation installation failure due to SSH interruptions during long-term runs.**
-
-The virtual memory mentioned here refers to the desired SWAP size, and the storage pool represents the total size of all disks allocated for your virtual machines.
-
-During the environment installation process, **you might need to restart the server to load the kernel with ZFS support and then execute the installation command again. Follow the prompts in the command line after running for accurate instructions.**
-
-Enable the lxcfs-related configuration of incus by default, so that in-container querying of container information changes to information about the container itself rather than the host.
-
-If the script prompts you to restart the system and execute the script again, and if the second execution still requires a system restart to load the kernel, it means the kernel loading failed during the previous attempt. It's recommended to reinstall the host system using an Ubuntu-based version to resolve this issue.
-
-Each time you run the script, you'll need to input the initialization configuration. So, **if the script prompts you to restart the system and execute again, you'll need to input the initialization configuration again.**
+- The virtual memory here is talking about the size of the SWAP to be opened, and the storage pool is the sum of the sizes of the disks occupied by all your servers to be opened
+- The server needs to be restarted after the environment installation process to load some default configurations
+- By default, lxd's lxcfs-related configuration is enabled, so that in-container querying of container information changes to information about the container itself rather than the host
 
 Command:
 
@@ -43,7 +34,7 @@ If there is 18GB of unused disk space on the system disk, after deducting the sp
 
 ## Manual Installation
 
-Recommended for beginners to avoid potential troubleshooting. However, if you're experienced and comfortable with debugging bugs, you can also use the later one-click installation method for convenience.
+Recommended for beginners to avoid potential troubleshooting. However, if you're experienced and comfortable with debugging bugs, you can also use the above one-click installation method for convenience.
 
 ### Disable Firewall
 

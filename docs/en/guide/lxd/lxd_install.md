@@ -6,9 +6,34 @@ outline: deep
 
 If your host does not have an IPV6 subnet and you want to assign IPV6 addresses to containers, then please check the ``Customize`` partition in the ``LXD`` module for the ``Attach a free IPV6 address segment`` to the host, and attach an IPV6 subnet to the host before installing the environment.
 
+## One-Click Installation
+
+:::warning
+If this is a new server, make sure that both 'apt update' and 'apt install curl' are working properly before executing this script.
+:::
+
+:::tip
+It's recommended to wait for at least 5 minutes after the system boots up before executing the following commands. This is to avoid the script being executed by the default system settings, which could cause issues with apt sources.
+:::
+
+- Prerequisites: Ubuntu 18+ (recommended), Debian 8+ (x86_64 architecture only)
+- The virtual memory here is talking about the size of the SWAP to be opened, and the storage pool is the sum of the sizes of the disks occupied by all your servers to be opened
+- The server needs to be restarted after the environment installation process to load some default configurations
+- By default, lxd's lxcfs-related configuration is enabled, so that in-container querying of container information changes to information about the container itself rather than the host
+
+Command:
+
+```shell
+curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/lxdinstall.sh -o lxdinstall.sh && chmod +x lxdinstall.sh && bash lxdinstall.sh
+```
+
+Example of initialization configuration:
+
+If there is 18GB of unused disk space on the system disk, after deducting the space already occupied, and you want to allocate 2GB of virtual memory (2048MB of SWAP) and a 15GB storage pool, then following the prompts in the command line, enter ```2048``` and ```15```.
+
 ## Manual Installation
 
-Recommended for beginners to avoid potential troubleshooting. However, if you're experienced and comfortable with debugging bugs, you can also use the later one-click installation method for convenience.
+Recommended for beginners to avoid potential troubleshooting. However, if you're experienced and comfortable with debugging bugs, you can also use the above one-click installation method for convenience.
 
 ### Disable Firewall
 
@@ -73,29 +98,4 @@ If an error is reported then execute the following command to soft connect the l
 export PATH=$PATH:/snap/bin
 ```
 
-After connecting, test the lxc command again to see if there is an error about not being able to find the
-
-## One-Click Installation
-
-:::warning
-If this is a new server, make sure that both 'apt update' and 'apt install curl' are working properly before executing this script.
-:::
-
-:::tip
-It's recommended to wait for at least 5 minutes after the system boots up before executing the following commands. This is to avoid the script being executed by the default system settings, which could cause issues with apt sources.
-:::
-
-- Prerequisites: Ubuntu 18+ (recommended), Debian 8+ (x86_64 architecture only)
-- The virtual memory here is talking about the size of the SWAP to be opened, and the storage pool is the sum of the sizes of the disks occupied by all your servers to be opened
-- The server needs to be restarted after the environment installation process to load some default configurations
-- By default, lxd's lxcfs-related configuration is enabled, so that in-container querying of container information changes to information about the container itself rather than the host
-
-Command:
-
-```shell
-curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/lxdinstall.sh -o lxdinstall.sh && chmod +x lxdinstall.sh && bash lxdinstall.sh
-```
-
-Example of initialization configuration:
-
-If there is 18GB of unused disk space on the system disk, after deducting the space already occupied, and you want to allocate 2GB of virtual memory (2048MB of SWAP) and a 15GB storage pool, then following the prompts in the command line, enter ```2048``` and ```15```.
+After connecting, test the lxc command again to see if there is an error about not being able to find it

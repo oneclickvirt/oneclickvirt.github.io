@@ -39,7 +39,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 ## 手动安装
 
-新手推荐，避免有bug不知道怎么修，当然如果只是图方便又是老手懂排查BUG，用后面的一键安装也行
+新手推荐，避免有bug不知道怎么修，当然如果只是图方便又是老手懂排查BUG，用上面的一键安装也行
 
 ### 关闭防火墙
 
