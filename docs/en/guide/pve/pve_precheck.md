@@ -12,6 +12,8 @@ If there are unadapted merchants or machines welcome to contact [@spiritlhl_bot]
 Will change the network structure of the host, please make sure that the host can reset the system at any time and that there is no important data on the host before running it.
 :::
 
+Feel free to give the project a ```Star``` for free support!-->[https://github.com/spiritLHLS/pve](https://github.com/spiritLHLS/pve)
+
 ## Various requirements
 
 It is recommended that debian try to use the latest stable version of the system before use.

@@ -12,6 +12,8 @@ outline: deep
 会改变宿主机的网络结构，请保证宿主机随时可重置系统，且运行前无重要数据在宿主机上
 :::
 
+欢迎给项目一个```Star```进行免费的支持-->[https://github.com/spiritLHLS/pve](https://github.com/spiritLHLS/pve)
+
 ## 各种要求
 
 建议debian在使用前尽量使用最新的稳定版本的系统

@@ -8,6 +8,8 @@ The following is the introduction of the non-customized part, the customized par
 
 If your host does not have an IPV6 subnet and you want to assign IPV6 addresses to containers, then please check the ``Customize`` partition in the ``LXD`` module for the ``Attach a free IPV6 address segment`` to the host, and attach an IPV6 subnet to the host before installing the environment.
 
+Feel free to give the project a ```Star``` for free support!-->[https://github.com/spiritLHLS/lxd](https://github.com/spiritLHLS/lxd)
+
 ## Requirements
 
 Hardware requirements.

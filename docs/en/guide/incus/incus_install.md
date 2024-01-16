@@ -28,7 +28,7 @@ Enable the lxcfs-related configuration of incus by default, so that in-container
 
 If the script prompts you to restart the system and execute the script again, and if the second execution still requires a system restart to load the kernel, it means the kernel loading failed during the previous attempt. It's recommended to reinstall the host system using an Ubuntu-based version to resolve this issue.
 
-Each time you run the script, you'll need to input the initialization configuration. So, if the script prompts you to restart the system and execute again, you'll need to input the initialization configuration again.
+Each time you run the script, you'll need to input the initialization configuration. So, **if the script prompts you to restart the system and execute again, you'll need to input the initialization configuration again.**
 
 Command:
 

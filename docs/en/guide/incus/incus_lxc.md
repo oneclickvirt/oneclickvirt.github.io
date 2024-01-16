@@ -40,6 +40,7 @@ Support for customizing the system of the server, do not fill out the default us
 * Note that the combination of lowercase letters + numbers or only lowercase letters, try it yourself, if the search is not the system will automatically exit the script
 * The version number can be with English decimal point, in order to adapt to the alpine version number has been supported.
 * If you can't open it, it may be that the hard disk is not big enough or it doesn't fit the host, try it by yourself.
+* The images currently in use are triple filtered and prioritized: [self-hosted](https://github.com/oneclickvirt/incus_images)、[official-hosted](https://images.linuxcontainers.org/)、[tuna-images-hosted](https://mirrors.tuna.tsinghua.edu.cn/lxc-images/)
 
 :::tip
 The version number has ended the long-term maintenance of the general no longer have an official mirror, temporarily did not find the archive address of the historical mirror, if you find welcome to leave a message I will add support!
