@@ -8,7 +8,7 @@ outline: deep
 
 KVM虚拟化开设出的虚拟机，**默认生成的用户名不是```root```，你需要执行```sudo -i```切换为root用户**
 
-**当然部分模板实际支持用户名```root```登录，默认的root密码是```password```，你也可以先试试**
+**默认支持用户名```root```登录，默认的root密码是```password```或```oneclickvirt```，你也可以先试试**
 
 **登录SSH切换为root权限后，一定要修改root密码**，可以使用以下命令修改
 
@@ -52,7 +52,7 @@ bash <(curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/fsc
 由于长期闲置IPV6不使用可能导致NDP广播缓存失效重置，一般闲置50分钟左右就会出现IPV6不可用的情况，俗称“IPV6断流”，此时需要设置一个定时任务
 
 ```shell
-echo '*/1 * * * * curl -m 6 -s ipv6.ip.sb && curl -m 6 -s ipv6.ip.sb' | crontab -
+echo '*/1 * * * * curl -m 6 -s ipv6.ip.sb || curl -m 6 -s ipv6.ip.sb' | crontab -
 ```
 
 在开设出的虚拟机中执行上述命令，可保证IPV6网络一直被使用，不会失效断流
@@ -69,6 +69,12 @@ echo '*/1 * * * * curl -m 6 -s ipv6.ip.sb && curl -m 6 -s ipv6.ip.sb' | crontab 
 目前可使用的镜像名字的列表为
 
 [https://github.com/oneclickvirt/kvm_images/blob/main/list.text](https://github.com/oneclickvirt/kvm_images/blob/main/list.text)
+
+以及
+
+[https://github.com/oneclickvirt/pve_kvm_images](https://github.com/oneclickvirt/pve_kvm_images)
+
+仓库的Release中存储的每日修补镜像
 
 ## 单独开设NAT的KVM虚拟化的虚拟机
 
