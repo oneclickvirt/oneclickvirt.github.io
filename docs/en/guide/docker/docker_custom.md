@@ -189,7 +189,9 @@ Sound mapping is supported **Host requires at least 1 core, 2G RAM, and 5G hard 
 
 **Opening**
 
-The default password after opening is ```oneclick```.
+If no custom username is set, the default username after opening is ```oneclick```.
+
+If no custom password is set, the default password after opening is ```oneclick```.
 
 The default http port is ```3004```, open ```http://IPV4:3004``` after opening.
 
