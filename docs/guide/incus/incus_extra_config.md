@@ -126,16 +126,3 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/backen
 ```shell
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/backend.sh -o backend.sh && chmod +x backend.sh && bash backend.sh
 ```
-
-## 一键安装宿主机可视化操作的面板
-
-- (***非必须***，该面板只是为了方便可视化操作，没有也没问题)
-- 原作者仓库：[跳转](https://github.com/turtle0x1/incusMosaic)
-
-```shell
-incus config set core.https_address [::]
-incus config set core.trust_password some-secret-string
-snap install incusmosaic
-```
-
-安装完毕后打开宿主机IP地址，按照提示设置admin的密码，其他一路默认就能使用面板了

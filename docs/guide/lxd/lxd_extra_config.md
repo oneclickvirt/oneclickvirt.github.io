@@ -127,7 +127,25 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/backend.
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/backend.sh -o backend.sh && chmod +x backend.sh && bash backend.sh
 ```
 
-## 一键安装宿主机可视化操作的面板
+## 一键启用官方可视化操作的面板
+
+- (***非必须***，只是为了方便可视化操作，没有也没问题)
+
+```shell
+sudo snap refresh lxd --channel=latest/stable
+snap set lxd ui.enable=true
+lxc config set core.https_address $(curl -sKL ipv4.ip.sb):8443
+systemctl reload snap.lxd.daemon
+snap restart --reload lxd
+```
+
+然后你可以在浏览器中输入
+
+```https://你的公网IPV4地址:8443```
+
+即可进入官方可视化操作面板，后续的操作配置按照UI提示操作即可
+
+## 一键安装宿主机第三方可视化操作的面板
 
 - (***非必须***，该面板只是为了方便可视化操作，没有也没问题)
 - 原作者仓库：[跳转](https://github.com/turtle0x1/LxdMosaic)

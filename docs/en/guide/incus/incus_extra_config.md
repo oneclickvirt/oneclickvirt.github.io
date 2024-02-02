@@ -102,16 +102,3 @@ Command:
 ```shell
 curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/backend.sh -o backend.sh && chmod +x backend.sh && bash backend.sh
 ```
-
-## One-Click Installation of Cockpit Visualization Panel for Mother Hen
-
-- (***Optional***, this panel is just for convenient visualization operations, it's okay if not present)
-- Original author's repository: [Link](https://github.com/turtle0x1/incusMosaic)
-
-```shell
-incus config set core.https_address [::]
-incus config set core.trust_password some-secret-string
-snap install incusmosaic
-```
-
-After the installation is complete, open the hen IP address, follow the prompts to set the password for admin, other all the way to the default will be able to use the panel!

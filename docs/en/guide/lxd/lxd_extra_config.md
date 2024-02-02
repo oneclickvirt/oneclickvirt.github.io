@@ -103,7 +103,25 @@ Command:
 curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/backend.sh -o backend.sh && chmod +x backend.sh && bash backend.sh
 ```
 
-## One-Click Installation of Cockpit Visualization Panel for Mother Hen
+## Enable the official visualization of the panel with a single click
+
+- (***Optional***, this panel is just for convenient visualization operations, it's okay if not present)
+
+```shell
+sudo snap refresh lxd --channel=latest/stable
+snap set lxd ui.enable=true
+lxc config set core.https_address $(curl -sKL ipv4.ip.sb):8443
+systemctl reload snap.lxd.daemon
+snap restart --reload lxd
+```
+
+Then you can type in your browser
+
+```https://your_public_ipv4_address:8443```
+
+You can enter the official visualization panel, subsequent operation configuration in accordance with the UI prompts can be operated.
+
+## One-Click Installation of Hosted Third-Party Visualization Dashboards
 
 - (***Optional***, this panel is just for convenient visualization operations, it's okay if not present)
 - Original author's repository: [Link](https://github.com/turtle0x1/LxdMosaic)
