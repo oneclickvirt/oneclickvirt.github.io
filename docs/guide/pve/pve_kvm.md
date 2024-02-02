@@ -360,6 +360,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/p
 
 ### 自动选择IPV6地址无需手动指定
 
+- 纯IPV6指绑定的公共IPV6地址，实际虚拟机仍旧有宿主机的IPV4网络但无外网IPV4端口
 - 自动检测可用的IPV6区间，对应虚拟机编号的V6地址绑定到虚拟机上
 - 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
 

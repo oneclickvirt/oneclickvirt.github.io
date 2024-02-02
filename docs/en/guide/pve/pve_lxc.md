@@ -157,6 +157,7 @@ The premise is that the host provides an IPv6 subnet rather than a standalone IP
 
 ### Automatic Selection of IPv6 Addresses, No Manual Configuration Needed
 
+- Pure IPV6 refers to a bound public IPV6 address, where the actual container still has the host's IPV4 network but no external IPV4 port
 - Automatically detect available IPv6 ranges and bind the corresponding V6 address based on the container number to the container.
 - Relevant system information will be stored in the NOTES of the corresponding container, accessible for viewing on the web interface.
 

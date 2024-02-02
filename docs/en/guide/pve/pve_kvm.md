@@ -314,6 +314,7 @@ The prerequisite is that the host provides an IPv6 subnet instead of just a stan
 
 ### Automatic Selection of IPv6 Addresses without Manual Specification
 
+- Pure IPV6 refers to a bound public IPV6 address, where the actual VM still has the host's IPV4 network but no external IPV4 port
 - Automatically detect available IPv6 ranges and bind the corresponding V6 address, based on the virtual machine's number, to the virtual machine.
 - System-related information will be stored in the NOTES section of the respective virtual machine, accessible for viewing on the web interface.
 
