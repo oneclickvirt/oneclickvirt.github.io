@@ -103,7 +103,7 @@ Command:
 curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/backend.sh -o backend.sh && chmod +x backend.sh && bash backend.sh
 ```
 
-## Enable the official visualization of the panel with a single click
+## Enable the official lxd control panel with a single click
 
 - (***Optional***, this panel is just for convenient visualization operations, it's okay if not present)
 
@@ -121,14 +121,14 @@ Then you can type in your browser
 
 You can enter the official visualization panel, subsequent operation configuration in accordance with the UI prompts can be operated.
 
-## One-Click Installation of Hosted Third-Party Visualization Dashboards
+## One-Click Installation of Hosted Third-Party Visualization Dashboard
 
 - (***Optional***, this panel is just for convenient visualization operations, it's okay if not present)
 - Original author's repository: [Link](https://github.com/turtle0x1/LxdMosaic)
 
 ```shell
 lxc config set core.https_address [::]
-lxc config set core.trust_password some-secret-string
+lxc config set core.trust_password your_password
 snap install lxdmosaic
 ```
 

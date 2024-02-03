@@ -102,3 +102,18 @@ Command:
 ```shell
 curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/backend.sh -o backend.sh && chmod +x backend.sh && bash backend.sh
 ```
+
+## One-Click Installation of the official incus Visualization Dashboard
+
+- (***Optional***, this panel is just for convenient visualization operations, it's okay if not present)
+
+```shell
+apt-get install -y incus-ui-canonical
+incus config set core.https_address [::]
+```
+
+Then you can type in your browser
+
+```https://your_public_ipv4_address:8443```
+
+You can enter the official visualization panel, subsequent operation configuration in accordance with the UI prompts can be operated.

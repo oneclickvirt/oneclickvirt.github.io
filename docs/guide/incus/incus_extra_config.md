@@ -126,3 +126,18 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/backen
 ```shell
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/backend.sh -o backend.sh && chmod +x backend.sh && bash backend.sh
 ```
+
+## 安装incus的官方可视化控制面板
+
+- (***非必须***，只是为了方便可视化操作，没有也没问题)
+
+```shell
+apt-get install -y incus-ui-canonical
+incus config set core.https_address [::]
+```
+
+然后你可以在浏览器中输入
+
+```https://你的公网IPV4地址:8443```
+
+即可进入官方可视化操作面板，后续的操作配置按照UI提示操作即可

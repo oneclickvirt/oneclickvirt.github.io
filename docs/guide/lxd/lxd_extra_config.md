@@ -152,7 +152,7 @@ snap restart --reload lxd
 
 ```shell
 lxc config set core.https_address [::]
-lxc config set core.trust_password some-secret-string
+lxc config set core.trust_password your_password
 snap install lxdmosaic
 ```
 
