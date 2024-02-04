@@ -185,7 +185,9 @@ docker rmi jlesage/firefox
 - No need to consider whether to support nested virtualization and server architecture.
 - Supports sound mapping
 
-Sound mapping is supported **Host requires at least 1 core, 2G RAM, and 5G hard disk, and the size of the container to be opened will take up a minimum of 1G hard disk**.
+**Host requires at least 1 core, 2G RAM, and 10G hard disk, and the size of the container to be opened will take up a minimum of 1G hard disk**
+
+**It is better to hang the execution in the screen during the first installation, to avoid long running SSH connection disconnection**
 
 **Opening**
 

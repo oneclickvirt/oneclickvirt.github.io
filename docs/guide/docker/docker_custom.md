@@ -189,7 +189,9 @@ docker rmi jlesage/firefox
 - 无需考虑是否支持嵌套虚拟化和服务器的架构
 - 支持声音映射
 
-**宿主机需要至少1核2G内存5G硬盘，开设的容器大小将占用起码1G硬盘**
+**宿主机需要至少1核2G内存10G硬盘，开设的容器大小将占用起码1G硬盘**
+
+**首次安装过程中最好在screen中挂起执行，避免长时间运行SSH连接断开**
 
 **开设**
 
@@ -217,6 +219,12 @@ rm -rf /usr/local/bin/config_${PORT}
 rm -rf /usr/local/bin/password_${PORT}
 docker rmi lscr.io/linuxserver/chromium
 ```
+
+**注意事项**
+
+- nginx，caddy等https映射的时候要映射3004的端口，不要映射3005端口
+- 部署以后安静的等待15分钟，不然中文库没安装全，会出现不可预料的错误
+- 进入远程桌面浏览器以后点击左侧的设置->点开输入法进行设置，不然没法输入中文
 
 ## 一键开设Desktop的容器
 
