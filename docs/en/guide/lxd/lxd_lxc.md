@@ -64,7 +64,7 @@ Here is the information about the example chick that is being raised:
 | Operating System            | Debian 11       |
 
 ```
-./buildone.sh test 1 256 2 20001 20002 20025 500 500 N
+./buildone.sh test 1 256 2 20001 20002 20025 500 500 N debian11
 ```
 
 If you need to see the information, run
