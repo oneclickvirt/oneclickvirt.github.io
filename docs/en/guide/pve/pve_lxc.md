@@ -33,6 +33,8 @@ x86_64:
 
 https://github.com/oneclickvirt/pve_lxc_images/blob/main/fixed_images.txt
 
+and
+
 Run ```pveam available --section system``` to see the names and version numbers of the officially available systems.
 
 arm:

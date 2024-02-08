@@ -33,6 +33,8 @@ x86_64的
 
 https://github.com/oneclickvirt/pve_lxc_images/blob/main/fixed_images.txt
 
+和
+
 执行```pveam available --section system```查看官方可用的系统名字和版本号
 
 arm的
