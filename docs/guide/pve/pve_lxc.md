@@ -27,6 +27,27 @@ outline: deep
 
 ### 使用方法
 
+**系统支持：**
+
+x86_64的
+
+https://github.com/oneclickvirt/pve_lxc_images/blob/main/fixed_images.txt
+
+执行```pveam available --section system```查看官方可用的系统名字和版本号
+
+arm的
+
+[https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/](https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/)
+
+中查看支持的系统
+
+:::tip
+系统参数一律是小写的系统名字拼接版本号。
+(注意脚本使用的参数只有小写的英文系统名字拼接版本号)
+:::
+
+**所有系统的CT默认用户名是root**
+
 **下载脚本**
 
 国际
@@ -40,19 +61,6 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct.sh
 ```shell
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct.sh -o buildct.sh && chmod +x buildct.sh
 ```
-
-* 系统支持：
-- debian10，debian11
-- ubuntu18，ubuntu20，ubuntu22
-- centos8，almalinux9
-- 其他系统可能支持可能不支持，自行测试
-
-:::tip
-系统参数一律是小写的系统名字拼接版本号，x86_64的具体可执行```pveam available --section system```查看可用的系统名字和版本号，arm的可在[https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/](https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/)中查看支持的系统，版本号类同执行```pveam available --section system```查看到的版本号。
-(注意脚本使用的参数只有小写的英文系统名字拼接版本号)
-:::
-
-所有系统的CT默认用户名是root
 
 **各参数含义**
 

@@ -27,18 +27,24 @@ Before creating containers, use the 'screen' command to run them in the backgrou
 
 ### Usage Instructions
 
-System Support:
-- debian10, debian11
-- ubuntu18, ubuntu20, ubuntu22
-- centos8, almalinux9
-- Other systems may or may not be supported, please test on your own.
+**System Support:**
+
+x86_64:
+
+https://github.com/oneclickvirt/pve_lxc_images/blob/main/fixed_images.txt
+
+Run ```pveam available --section system``` to see the names and version numbers of the officially available systems.
+
+arm:
+
+[https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/](https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/)
 
 :::tip
-System parameters are always in lowercase, consisting of the system name concatenated with the version number. For x86_64 systems, you can check available system names and version numbers using ```pveam available --section system```. For ARM systems, you can check supported systems and version numbers at [https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/](https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/), similar to the version numbers obtained by executing ```pveam available --section system```.
-(Please note that the parameters used in the script are only lowercase English system names concatenated with version numbers.)
+All system parameters are lowercase system names spliced with version numbers.
+(Note that the only parameters used by the script are lowercase English system names spliced with version numbers)
 :::
 
-The default username for all CTs is root.
+**The default CT username for all systems is root**
 
 **Download Script**
 
