@@ -37,6 +37,8 @@ https://github.com/oneclickvirt/pve_lxc_images/blob/main/fixed_images.txt
 
 执行```pveam available --section system```查看官方可用的系统名字和版本号
 
+优先级：自修补镜像 > 官方默认镜像
+
 arm的
 
 [https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/](https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/)
@@ -45,7 +47,7 @@ arm的
 
 :::tip
 系统参数一律是小写的系统名字拼接版本号。
-(注意脚本使用的参数只有小写的英文系统名字拼接版本号)
+(自修补镜像支持一些偏门系统，如 centos6、centos7、debian8、debian9 等)
 :::
 
 **所有系统的CT默认用户名是root**
