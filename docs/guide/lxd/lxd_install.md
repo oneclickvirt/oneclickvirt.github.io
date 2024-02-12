@@ -9,7 +9,7 @@ outline: deep
 ## 一键安装
 
 :::warning
-如果是全新的服务器，务必保证apt update和apt install curl都无问题再执行本脚本
+如果是全新的服务器，务必保证```apt update```和```apt install curl```都无问题再执行本脚本。建议预装```btrfs-progs```以加速后续的安装流程，安装后建议重启系统以加载设置，若未预安装也没问题，只需按照提示执行脚本即可。
 :::
 
 :::tip
