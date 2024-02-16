@@ -80,7 +80,7 @@ This step is most likely to cause SSH disconnections, the reason is to modify th
 :::
 
 :::tip
-Before executing this command, if the host needs to append the address of the IPV6 tunnel, see the ```LXD Custom``` section for appending it to the corresponding file, but **please ignore the initial environment modification section for it**.
+Before executing this command, if the host needs to append the address of the IPV6 tunnel, see the ```incus Custom``` section for appending it to the corresponding file, but **please ignore the initial environment modification section for it**.
 :::
 
 - If vmbr0 is not created, it is automatically created with the same logic as the main installation
