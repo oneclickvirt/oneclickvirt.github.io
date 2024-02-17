@@ -46,5 +46,3 @@ If the above changes still do not support the opening of centos7, try using a di
 [kuroit](https://my.kuroit.com/aff.php?aff=5) Phoenix, USA regular
 
 [datalix](https://t.me/vps_reviews/338) German AMD Promotions
-
-[luxvps](https://billing.luxvps.xyz/aff.php?aff=36) German AMD Promotions
