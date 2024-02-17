@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: Learn More →
-      link: /en_US/guide/dashboard
+      link: /en/guide/dashboard
 
 features:
 - title: One Click Use
