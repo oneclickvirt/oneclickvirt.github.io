@@ -49,6 +49,8 @@ cat /etc/resolv.conf
 
 需要在web端这个页面设置DNS
 
+![screenshot-1708136079861](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/2431b94e-fc84-4a9d-9ddc-bf7da9a2054f)
+
 设置完成后再次查看文件会发现有如下内容
 
 ```
