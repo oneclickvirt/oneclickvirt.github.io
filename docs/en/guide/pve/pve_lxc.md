@@ -31,11 +31,16 @@ Before creating containers, use the 'screen' command to run them in the backgrou
 
 x86_64:
 
-https://github.com/oneclickvirt/pve_lxc_images/blob/main/fixed_images.txt
+Self-patching images: https://github.com/oneclickvirt/pve_lxc_images/blob/main/fixed_images.txt
 
 and
 
 Run ```pveam available --section system``` to see the names and version numbers of the officially available systems.
+
+Priority: Self-patching images (not supported by Proxmox-VE 5 and below) > Official default images (both supported)
+image
+
+The version has been automatically recognized by a script to use the corresponding image.
 
 arm:
 
@@ -43,7 +48,7 @@ arm:
 
 :::tip
 All system parameters are lowercase system names spliced with version numbers.
-(Note that the only parameters used by the script are lowercase English system names spliced with version numbers)
+(Self-patched images support some out-of-the-way systems, such as centos6, centos7, debian8, debian9, etc.)
 :::
 
 **The default CT username for all systems is root**

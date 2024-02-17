@@ -31,13 +31,15 @@ outline: deep
 
 x86_64的
 
-https://github.com/oneclickvirt/pve_lxc_images/blob/main/fixed_images.txt
+自修补镜像: https://github.com/oneclickvirt/pve_lxc_images/blob/main/fixed_images.txt
 
 和
 
 执行```pveam available --section system```查看官方可用的系统名字和版本号
 
-优先级：自修补镜像 > 官方默认镜像
+优先级：自修补镜像(Proxmox-VE 5及其以下版本不支持) > 官方默认镜像(都支持)
+
+已通过脚本自动识别版本使用对应镜像
 
 arm的
 
