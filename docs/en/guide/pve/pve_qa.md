@@ -49,6 +49,8 @@ Statements beginning with ```nameserver``` may be found to be absent.
 
 You need to set up DNS on this web page
 
+![screenshot-1708136079861](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/2431b94e-fc84-4a9d-9ddc-bf7da9a2054f)
+
 After setting up the DNS, check the file again and you will find the following content
 
 ```
