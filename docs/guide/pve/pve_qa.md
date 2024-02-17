@@ -31,6 +31,34 @@ fi
 
 然后将重启失联的机器报给 [@spiritlhl_bot](https://t.me/spiritlhl_bot) 待更新脚本自动修复
 
+## 安装PVE成功但重启后无法解析网址
+
+常见于低版本的Debian系统(云服务器)安装PVE重启后无论访问什么网址都报错
+
+```
+curl: (6) Could not resolve host:
+```
+
+此时查看文件
+
+```
+cat /etc/resolv.conf
+```
+
+可发现无```nameserver```开头的语句
+
+需要在web端这个页面设置DNS
+
+设置完成后再次查看文件会发现有如下内容
+
+```
+search .
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+```
+
+此时再去请求网址就能解析成功了
+
 ## 安装PVE失败或非Debian系统
 
 如果有什么机器安装不了，着急的可以尝试使用以下仓库的脚本先重装为debian12先
@@ -69,7 +97,15 @@ sudo update-grub
 
 ## 不小心删除了NAT的映射规则怎么办
 
-使用下面的命令映射回来
+先查看
+
+```
+cat /etc/iptables/rules.v4
+```
+
+检测是否有问题，且备份数据到本地避免被覆盖
+
+然后再使用下面的命令映射回来
 
 ```shell
 iptables -t nat -F

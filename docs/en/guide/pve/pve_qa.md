@@ -31,6 +31,34 @@ fi
 
 Then report the rebooted disconnected machine to [@spiritlhl_bot](https://t.me/spiritlhl_bot) for the script to be updated and repaired automatically.
 
+## Successful PVE Installation but can not resolve host after reboot
+
+Common in low version of Debian system (cloud server) after installing PVE reboot no matter what URL to visit the report error
+
+```
+curl: (6) Could not resolve host:
+```
+
+View the file at this time
+
+```
+cat /etc/resolv.conf
+```
+
+Statements beginning with ```nameserver``` may be found to be absent.
+
+You need to set up DNS on this web page
+
+After setting up the DNS, check the file again and you will find the following content
+
+```
+search .
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+```
+
+At this point, requesting any URL again will resolve it successfully
+
 ## PVE Installation Failed
 
 If you encounter any issues with installing on certain machines, and if you're in a hurry, you can try using the scripts from the following repository to reinstall as Debian 11 first.
