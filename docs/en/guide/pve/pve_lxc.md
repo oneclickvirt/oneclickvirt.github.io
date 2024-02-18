@@ -4,6 +4,38 @@ outline: deep
 
 # LXC Virtualization
 
+## Images available for creating LXC Containers
+
+**x86_64:**
+
+Self-patching images: https://github.com/oneclickvirt/pve_lxc_images/blob/main/fixed_images.txt
+
+:::tip
+Some of these images are flawed and not guaranteed to be available for all PVEs, with names like ```ubuntu16.04```, ```debian6```, ```centos7```, ```opensuse42.2```, ```opensuse42.3``` Don't use them unless necessary.
+:::
+
+and
+
+Run ```pveam available --section system``` to see the names and version numbers of the officially available systems.
+
+Priority: Self-patching images (not supported by Proxmox-VE 5 and below) > Official default images (both supported)
+image
+
+The version has been automatically recognized by a script to use the corresponding image.
+
+**arm:**
+
+[https://github.com/oneclickvirt/lxc_arm_images/blob/main/fixed_images.txt](https://github.com/oneclickvirt/lxc_arm_images/blob/main/fixed_images.txt)
+
+Supported systems can be viewed in the file above, which lists debian and ubuntu systems do not use the aliases in it, just use the numeric designators.
+
+:::tip
+All system parameters are lowercase system names spliced with version numbers, e.g. debian11, ubuntu22, etc.
+(Self-patched images support some out-of-the-way systems, such as centos6, centos7, debian8, debian9, etc.)
+:::
+
+**The default CT username for all systems is root**
+
 ## Creating Individual LXC Containers for Virtualization
 
 :::warning
@@ -26,38 +58,6 @@ Before creating containers, use the 'screen' command to run them in the backgrou
 - Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet
 
 ### Usage Instructions
-
-**System Support:**
-
-x86_64:
-
-Self-patching images: https://github.com/oneclickvirt/pve_lxc_images/blob/main/fixed_images.txt
-
-:::tip
-Some of these images are flawed and not guaranteed to be available for all PVEs, with names like ```ubuntu16.04```, ```debian6```, ```centos7```, ```opensuse42.2```, ```opensuse42.3``` Don't use them unless necessary.
-:::
-
-and
-
-Run ```pveam available --section system``` to see the names and version numbers of the officially available systems.
-
-Priority: Self-patching images (not supported by Proxmox-VE 5 and below) > Official default images (both supported)
-image
-
-The version has been automatically recognized by a script to use the corresponding image.
-
-arm:
-
-[https://github.com/oneclickvirt/lxc_arm_images/blob/main/fixed_images.txt](https://github.com/oneclickvirt/lxc_arm_images/blob/main/fixed_images.txt)
-
-Supported systems can be viewed in the file above, which lists debian and ubuntu systems do not use the aliases in it, just use the numeric designators.
-
-:::tip
-All system parameters are lowercase system names spliced with version numbers, e.g. debian11, ubuntu22, etc.
-(Self-patched images support some out-of-the-way systems, such as centos6, centos7, debian8, debian9, etc.)
-:::
-
-**The default CT username for all systems is root**
 
 **Download Script**
 
