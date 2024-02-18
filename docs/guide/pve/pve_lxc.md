@@ -33,6 +33,10 @@ x86_64的
 
 自修补镜像: https://github.com/oneclickvirt/pve_lxc_images/blob/main/fixed_images.txt
 
+:::tip
+其中的部分镜像有缺陷，不保证所有PVE可用，名字为 ```ubuntu16.04```、```debian6```、```centos7```、```opensuse42.2```、```opensuse42.3``` 非必要不要使用。
+:::
+
 和
 
 执行```pveam available --section system```查看官方可用的系统名字和版本号
@@ -43,12 +47,12 @@ x86_64的
 
 arm的
 
-[https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/](https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/)
+[https://github.com/oneclickvirt/lxc_arm_images/blob/main/fixed_images.txt](https://github.com/oneclickvirt/lxc_arm_images/blob/main/fixed_images.txt)
 
-中查看支持的系统
+可在上面的文件中查看支持的系统，其中列出的debian和ubuntu系统不要使用里面的别名，使用数字代号即可。
 
 :::tip
-系统参数一律是小写的系统名字拼接版本号。
+系统参数一律是小写的系统名字拼接版本号，如：debian11，ubuntu22等。
 (自修补镜像支持一些偏门系统，如 centos6、centos7、debian8、debian9 等)
 :::
 

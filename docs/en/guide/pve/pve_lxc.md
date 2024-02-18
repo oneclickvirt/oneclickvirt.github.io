@@ -33,6 +33,10 @@ x86_64:
 
 Self-patching images: https://github.com/oneclickvirt/pve_lxc_images/blob/main/fixed_images.txt
 
+:::tip
+Some of these images are flawed and not guaranteed to be available for all PVEs, with names like ```ubuntu16.04```, ```debian6```, ```centos7```, ```opensuse42.2```, ```opensuse42.3``` Don't use them unless necessary.
+:::
+
 and
 
 Run ```pveam available --section system``` to see the names and version numbers of the officially available systems.
@@ -44,10 +48,12 @@ The version has been automatically recognized by a script to use the correspondi
 
 arm:
 
-[https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/](https://mirror.tuna.tsinghua.edu.cn/lxc-images/images/)
+[https://github.com/oneclickvirt/lxc_arm_images/blob/main/fixed_images.txt](https://github.com/oneclickvirt/lxc_arm_images/blob/main/fixed_images.txt)
+
+Supported systems can be viewed in the file above, which lists debian and ubuntu systems do not use the aliases in it, just use the numeric designators.
 
 :::tip
-All system parameters are lowercase system names spliced with version numbers.
+All system parameters are lowercase system names spliced with version numbers, e.g. debian11, ubuntu22, etc.
 (Self-patched images support some out-of-the-way systems, such as centos6, centos7, debian8, debian9, etc.)
 :::
 
