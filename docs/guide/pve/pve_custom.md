@@ -111,9 +111,9 @@ systemctl stop pvescheduler.service
 systemctl disable pvescheduler.service
 ```
 
-### 停用Spiceproxy
+### 停用Spiceproxy服务
 
-如果不需要使用Spice进行虚拟机/容器链接(Arm版本本身不支持Spice)，可执行下述命令停用服务
+如果不需要使用Spice进行虚拟机/容器链接(arm下暂不支持Spice)，可执行下述命令停用服务
 
 ```
 systemctl stop spiceproxy.service 
