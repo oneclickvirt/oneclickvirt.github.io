@@ -33,6 +33,10 @@ outline: deep
 (自修补镜像支持一些偏门系统，如 centos6、centos7、debian8、debian9 等)
 :::
 
+:::tip
+当然有时候会存在特殊情况，version可能是current/base，此时仅使用英文系统名字即可，如 archlinux、gentoo 。
+:::
+
 **所有系统的CT默认用户名是root**
 
 ## 单独开设LXC虚拟化的CT

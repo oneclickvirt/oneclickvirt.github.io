@@ -4,7 +4,7 @@ outline: deep
 
 # Some custom scripts
 
-Each script may have its own system requirements, check them out!
+Some scripts may have its own system requirements, check them out!
 
 ## Installing Proxmox VE 7 on a non-Debian system
 
@@ -54,3 +54,68 @@ spiritlhl/pve:7_aarch64
 The web panel is actually opened in the container, but the network has used the host mode, the port of the PVE is about the same as the port of the host used
 
 There are many bugs need to be fixed, welcome to PR to solve the problem, the actual test on the Ubuntu system host machine to install ```Proxmox VE``` panel success, solved the problem of installing ```Proxmox VE``` over the network can only be used to use the Debian system as a host machine!
+
+## Optimizing the memory footprint of Proxmox-VE on low-configuration systems
+
+The following optimizations can reduce the memory usage by about 400M, which is better than nothing.
+
+### Reduce the number of max_workers
+
+Execute the following command to query
+
+```
+cd /usr/share/perl5/PVE/Service
+grep 'max_workers => 3' *
+```
+
+you can see
+
+```
+pvedaemon.pm:    max_workers => 3,
+pveproxy.pm:    max_workers => 3,
+spiceproxy.pm:    max_workers => 3, # todo: do we need more?
+```
+
+The default max_workers is 3, you can modify the corresponding file, the minimum max_workers can be 1, you can use the following commands to modify them:
+
+```
+sed -i "s/max_workers => 3/max_workers => 1/g" /usr/share/perl5/PVE/Service/*
+```
+
+### Deactivation of HA services
+
+Clusters (multi-nodes) can use the HA service, if it is a single node, or there is no need for HA use, you can execute the following command:
+
+```
+systemctl stop pve-ha-lrm.service 
+systemctl stop pve-ha-crm.service 
+systemctl disable pve-ha-lrm.service 
+systemctl disable pve-ha-crm.service 
+```
+
+### Disable firewall service
+
+The service can be deactivated by executing the following command:
+
+```
+systemctl stop pve-firewall.service 
+systemctl disable pve-firewall.service 
+```
+
+### Discontinuation of cheduler service
+
+If you don't need scheduled tasks, such as backups and synchronizations, you can deactivate the service by executing the following command:
+
+```
+systemctl stop pvescheduler.service
+systemctl disable pvescheduler.service
+```
+
+### Discontinuation of Spiceproxy service
+
+If you do not need to use Spice for VM/container linking (the Arm version itself does not support Spice), you can deactivate the service by executing the following command:
+
+```
+systemctl stop spiceproxy.service 
+systemctl disable spiceproxy.service 
+```

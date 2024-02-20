@@ -34,6 +34,10 @@ All system parameters are lowercase system names spliced with version numbers, e
 (Self-patched images support some out-of-the-way systems, such as centos6, centos7, debian8, debian9, etc.)
 :::
 
+:::tip
+Of course, sometimes there are special cases where the version may be current/base, in which case it is sufficient to use only the English system name, e.g. archlinux, gentoo.
+:::
+
 **The default CT username for all systems is root**
 
 ## Creating Individual LXC Containers for Virtualization

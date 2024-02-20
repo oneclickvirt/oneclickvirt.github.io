@@ -4,7 +4,7 @@ outline: deep
 
 # 一些自定义脚本
 
-每个脚本可能有对应的系统要求，自行查看
+有些脚本可能有对应的系统要求，自行查看
 
 ## 在非Debian系统上安装 Proxmox VE 7
 
@@ -54,3 +54,68 @@ spiritlhl/pve:7_aarch64
 开设出的面板实际是开设在容器内的，但网络已使用host模式，PVE的端口约等于就使用的宿主机的端口
 
 有许多错误需要修复，欢迎PR解决问题，实测在Ubuntu系统的宿主机上安装```Proxmox VE```的面板成功，解决了通过网络安装```Proxmox VE```只能使用Debian系统做宿主机的问题
+
+## 在低配置系统中优化Proxmox-VE的内存占用
+
+以下优化可以减少400M内存左右的占用，聊胜于无。
+
+### 减少max_workers数量
+
+执行下述命令查询
+
+```
+cd /usr/share/perl5/PVE/Service
+grep 'max_workers => 3' *
+```
+
+可见
+
+```
+pvedaemon.pm:    max_workers => 3,
+pveproxy.pm:    max_workers => 3,
+spiceproxy.pm:    max_workers => 3, # todo: do we need more?
+```
+
+默认的max_workers是3，可以修改对应的文件，最低max_workers可为1，可使用如下命令进行修改
+
+```
+sed -i "s/max_workers => 3/max_workers => 1/g" /usr/share/perl5/PVE/Service/*
+```
+
+### 停用HA服务
+
+集群(多节点)可以使用HA服务，如果是单节点，或者没有HA使用的需求，可以执行下述命令禁用
+
+```
+systemctl stop pve-ha-lrm.service 
+systemctl stop pve-ha-crm.service 
+systemctl disable pve-ha-lrm.service 
+systemctl disable pve-ha-crm.service 
+```
+
+### 停用防火墙服务
+
+可执行下述命令停用服务
+
+```
+systemctl stop pve-firewall.service 
+systemctl disable pve-firewall.service 
+```
+
+### 停用调度服务
+
+如果不需要计划任务，如备份、同步之类的任务，可执行下述命令停用服务
+
+```
+systemctl stop pvescheduler.service
+systemctl disable pvescheduler.service
+```
+
+### 停用Spiceproxy
+
+如果不需要使用Spice进行虚拟机/容器链接(Arm版本本身不支持Spice)，可执行下述命令停用服务
+
+```
+systemctl stop spiceproxy.service 
+systemctl disable spiceproxy.service 
+```

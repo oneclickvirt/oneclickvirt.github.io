@@ -6,6 +6,10 @@ outline: deep
 
 If you don't know how to choose an option during installation, just press enter.
 
+:::tip
+For low-configuration hosts, it is recommended to check the contents of the ```Custom``` partition after all the content has been installed to perform memory tuning and reduce the memory footprint.
+:::
+
 ## One-click PVE installation
 
 :::tip
