@@ -8,7 +8,13 @@ outline: deep
 
 **x86_64：**
 
-自修补镜像: https://github.com/oneclickvirt/pve_lxc_images/blob/main/fixed_images.txt
+自动修补镜像：https://github.com/oneclickvirt/lxc_amd64_images/blob/main/fixed_images.txt
+
+:::tip
+每日自动拉取进行编译和修补
+:::
+
+手动修补镜像: https://github.com/oneclickvirt/pve_lxc_images/blob/main/fixed_images.txt
 
 :::tip
 其中的部分镜像有缺陷，不保证所有PVE可用，名字为 ```ubuntu16.04```、```debian6```、```centos7```、```opensuse42.2```、```opensuse42.3``` 非必要不要使用。
@@ -33,11 +39,11 @@ outline: deep
 (自修补镜像支持一些偏门系统，如 centos6、centos7、debian8、debian9 等)
 :::
 
-:::tip
-当然有时候会存在特殊情况，version可能是current/base，此时仅使用英文系统名字即可，如 archlinux、gentoo 。
-:::
-
 **所有系统的CT默认用户名是root**
+
+:::tip
+当然有时候会存在特殊情况，version可能是current/base，此时系统参数仅使用英文系统名字即可，如 archlinux、gentoo、kali。
+:::
 
 ## 单独开设LXC虚拟化的CT
 

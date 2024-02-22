@@ -4,6 +4,29 @@ outline: deep
 
 # LXC虚拟化
 
+## 开设LXC容器可使用的镜像
+
+这里展示一部分可使用的系统参数供你参考：
+
+- debian10，debian11，debian12
+- ubuntu18，ubuntu20，ubuntu22
+- centos8，centos9 (实际开设出来都是Stream版本)
+- alpine3.15，alpine3.16，alpine3.17，alpine3.18
+- openwrt21，openwrt22，fedora37，fedora38，fedora39
+- rockylinux8，rockylinux9，oralce8，oracle9
+- oralce7，centos7 (都需要在GRUB中启用CGroupV1否则无法启动，详细介绍见常见问题答疑)
+- kali，archlinux
+
+* 注意都是**小写字母+数字**的组合或**仅小写字母**，自行尝试，如果搜索无该系统则会自动退出脚本
+* 版本号可以带英文小数点，为了适配alpine的版本号已支持
+* 开不起来的可能是硬盘或内存不够大或者本身就不适配宿主机，自行尝试查看开不起来的报错
+* 目前使用的容器系统有三重筛选，优先级：[自编译](https://github.com/oneclickvirt/incus_images)、[官方](https://images.linuxcontainers.org/)、[清华源](https://mirrors.tuna.tsinghua.edu.cn/lxc-images/)
+* 自编译镜像完整的支持系统的列表：[https://github.com/oneclickvirt/incus_images/blob/main/fixed_images.txt](https://github.com/oneclickvirt/incus_images/blob/main/fixed_images.txt)
+
+:::tip
+版本号中已结束长期维护的一般不再有官方系统镜像了，暂时未找到历史镜像的存档地址，如果有找到欢迎留言我会添加支持
+:::
+
 ## 单独生成一个NAT服务器
 
 - 只生成一个NAT服务器，可自定义限制所有内容
@@ -34,25 +57,7 @@ CPU核数需要小于或等于宿主机的核数，内存大小以MB计算，硬
 
 如果```外网起端口```和```外网止端口```都设置为0则不做区间外网端口映射了，只映射基础的SSH端口，注意```不能为空```，不进行映射需要设置为0
 
-支持自定义服务器的系统，不填写留空时默认使用debian11，注意传入参数为系统名字+版本号，如：
-
-- debian10，debian11，debian12
-- ubuntu18，ubuntu20，ubuntu22
-- centos8，centos9 (实际开设出来都是Stream版本)
-- alpine3.15，alpine3.16，alpine3.17，alpine3.18
-- openwrt21，openwrt22，fedora37，fedora38，fedora39
-- rockylinux8，rockylinux9，oralce8，oracle9
-- oralce7，centos7 (都需要在GRUB中启用CGroupV1否则无法启动，详细介绍见常见问题答疑)
-- kali，archlinux
-
-* 注意都是小写字母+数字的组合或仅小写字母，自行尝试，如果搜索无该系统则会自动退出脚本
-* 版本号可以带英文小数点，为了适配alpine的版本号已支持
-* 开不起来的可能是硬盘或内存不够大或者本身就不适配宿主机，自行尝试查看开不起来的报错
-* 目前使用的容器系统有三重筛选，优先级：[自编译](https://github.com/oneclickvirt/incus_images)、[官方](https://images.linuxcontainers.org/)、[清华源](https://mirrors.tuna.tsinghua.edu.cn/lxc-images/)
-
-:::tip
-版本号中已结束长期维护的一般不再有官方系统镜像了，暂时未找到历史镜像的存档地址，如果有找到欢迎留言我会添加支持
-:::
+支持自定义服务器的系统，不填写留空时默认使用debian11，注意传入参数为系统名字+版本号
 
 ### 示例
 

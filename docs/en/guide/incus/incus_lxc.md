@@ -4,6 +4,29 @@ outline: deep
 
 # incus virtualization
 
+## Images available for creating LXC Containers
+
+A portion of the available system parameters are shown here for your reference:
+
+- debian10, debian11, debian12
+- ubuntu18, ubuntu20, ubuntu22
+- centos8, centos9 (actually opened out of the Stream version)
+- alpine3.15, alpine3.16, alpine3.17, alpine3.18
+- openwrt21，openwrt22，fedora37，fedora38，fedora39
+- rockylinux8，rockylinux9，oralce8，oracle9
+- oralce7，centos7 (CGroupV1 needs to be enabled in GRUB or it won't start.)
+- kali，archlinux
+
+* Note that **the combination of lowercase letters + numbers** or **only lowercase letters**, try it yourself, if the search is not the system will automatically exit the script
+* The version number can be with English decimal point, in order to adapt to the alpine version number has been supported.
+* If you can't open it, it may be that the hard disk is not big enough or it doesn't fit the host, try it by yourself.
+* The images currently in use are triple filtered and prioritized: [self-hosted](https://github.com/oneclickvirt/incus_images)、[official-hosted](https://images.linuxcontainers.org/)、[tuna-images-hosted](https://mirrors.tuna.tsinghua.edu.cn/lxc-images/)
+* A complete list of supported systems for self-compiling images: [https://github.com/oneclickvirt/incus_images/blob/main/fixed_images.txt](https://github.com/oneclickvirt/incus_images/blob/main/fixed_images.txt)
+
+:::tip
+The version number has ended the long-term maintenance of the general no longer have an official mirror, temporarily did not find the archive address of the historical mirror, if you find welcome to leave a message I will add support!
+:::
+
 ## Generate only one NAT server
 
 - Generate only one NAT server, with customizable restrictions on all content.
@@ -28,25 +51,7 @@ Memory size is calculated in MB, hard disk size is calculated in GB, download sp
 
 If ```external start port`` and ```external stop port`` are both set to 0, then we don't do interval port mapping, only the basic SSH port is mapped, note that ```can't be null``, and it needs to be set to 0 if it's not to be mapped.
 
-Support for customizing the system of the server, do not fill out the default use of debian11 when left blank, note that the incoming parameters for the system name + version number, such as:
-
-- debian10, debian11, debian12
-- ubuntu18, ubuntu20, ubuntu22
-- centos8, centos9 (actually opened out of the Stream version)
-- alpine3.15, alpine3.16, alpine3.17, alpine3.18
-- openwrt21，openwrt22，fedora37，fedora38，fedora39
-- rockylinux8，rockylinux9，oralce8，oracle9
-- oralce7，centos7 (CGroupV1 needs to be enabled in GRUB or it won't start.)
-- kali，archlinux
-
-* Note that the combination of lowercase letters + numbers or only lowercase letters, try it yourself, if the search is not the system will automatically exit the script
-* The version number can be with English decimal point, in order to adapt to the alpine version number has been supported.
-* If you can't open it, it may be that the hard disk is not big enough or it doesn't fit the host, try it by yourself.
-* The images currently in use are triple filtered and prioritized: [self-hosted](https://github.com/oneclickvirt/incus_images)、[official-hosted](https://images.linuxcontainers.org/)、[tuna-images-hosted](https://mirrors.tuna.tsinghua.edu.cn/lxc-images/)
-
-:::tip
-The version number has ended the long-term maintenance of the general no longer have an official mirror, temporarily did not find the archive address of the historical mirror, if you find welcome to leave a message I will add support!
-:::
+Support custom server system, do not fill in the leave blank default use debian11, pay attention to the incoming parameters for the system name + version number
 
 ### Example
 

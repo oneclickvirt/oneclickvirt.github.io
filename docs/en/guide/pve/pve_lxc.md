@@ -8,6 +8,12 @@ outline: deep
 
 **x86_64:**
 
+Auto-patching images: https://github.com/oneclickvirt/lxc_amd64_images/blob/main/fixed_images.txt
+
+:::tip
+Automated daily pulls for compilation and patching
+:::
+
 Self-patching images: https://github.com/oneclickvirt/pve_lxc_images/blob/main/fixed_images.txt
 
 :::tip
@@ -34,11 +40,11 @@ All system parameters are lowercase system names spliced with version numbers, e
 (Self-patched images support some out-of-the-way systems, such as centos6, centos7, debian8, debian9, etc.)
 :::
 
-:::tip
-Of course, sometimes there are special cases where the version may be current/base, in which case it is sufficient to use only the English system name, e.g. archlinux, gentoo.
-:::
-
 **The default CT username for all systems is root**
+
+:::tip
+Of course, sometimes there are special cases where the version may be current/base, in which case it is sufficient to use only the English system name, e.g. archlinux, gentoo, kali.
+:::
 
 ## Creating Individual LXC Containers for Virtualization
 
