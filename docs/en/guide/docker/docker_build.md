@@ -148,3 +148,11 @@ wget https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/ssh_sh.sh 
 wget https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onedocker.sh -O /root/onedocker.sh && chmod +x /root/onedocker.sh
 wget https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/create_docker.sh -O /root/create_docker.sh && chmod +x /root/create_docker.sh
 ```
+
+## Restart all containers after host reboot
+
+The default containers are not set to restart themselves after stopping, you need to execute the following command to start all stopped containers.
+
+```
+docker start $(docker ps -aq)
+```

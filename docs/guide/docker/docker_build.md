@@ -162,3 +162,11 @@ wget https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/ssh_sh.sh 
 wget https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onedocker.sh -O /root/onedocker.sh && chmod +x /root/onedocker.sh
 wget https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/create_docker.sh -O /root/create_docker.sh && chmod +x /root/create_docker.sh
 ```
+
+## 宿主机重启后重启所有容器
+
+默认容器没有设置停止后自重启，需要执行以下命令启动所有停止的容器
+
+```
+docker start $(docker ps -aq)
+```
