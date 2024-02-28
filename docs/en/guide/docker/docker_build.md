@@ -156,3 +156,18 @@ The default containers are not set to restart themselves after stopping, you nee
 ```
 docker start $(docker ps -aq)
 ```
+
+## Start SSH service for all containers after host reboot
+
+Since the container itself does not have a daemon, the SSH service cannot start itself, and you need to execute the following command to start the SSH process for all containers.
+
+```
+container_ids=$(docker ps -q)
+for container_id in $container_ids
+do
+    docker exec -it $container_id bash -c "service ssh start"
+    docker exec -it $container_id bash -c "service sshd restart"
+    docker exec -it $container_id sh -c "service ssh start"
+    docker exec -it $container_id sh -c "/usr/sbin/sshd"
+done
+```

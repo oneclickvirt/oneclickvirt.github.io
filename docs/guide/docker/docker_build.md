@@ -170,3 +170,18 @@ wget https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/create_doc
 ```
 docker start $(docker ps -aq)
 ```
+
+## 宿主机重启后启动所有容器的SSH服务
+
+由于容器本身没有守护进程，所以SSH服务无法自启动，需要执行以下命令启动所有容器的SSH进程
+
+```
+container_ids=$(docker ps -q)
+for container_id in $container_ids
+do
+    docker exec -it $container_id bash -c "service ssh start"
+    docker exec -it $container_id bash -c "service sshd restart"
+    docker exec -it $container_id sh -c "service ssh start"
+    docker exec -it $container_id sh -c "/usr/sbin/sshd"
+done
+```
