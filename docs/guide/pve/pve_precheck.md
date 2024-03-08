@@ -63,7 +63,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/a
 - 检测硬件配置是否满足最低要求
 - 检测硬件环境是否可嵌套虚拟化KVM类型的服务器
 - 检测系统环境是否可嵌套虚拟化KVM类型的服务器
-- 不可嵌套虚拟化KVM类型的服务器也可以开LXC虚拟化的服务器，但不推荐安装PVE，不如使用[LXD](https://github.com/spiritLHLS/lxd)
+- 不可嵌套虚拟化KVM类型的服务器也可以开LXC虚拟化的服务器，但不推荐安装PVE，不如使用[incus](https://github.com/oneclickvirt/incus)
 
 国际
 

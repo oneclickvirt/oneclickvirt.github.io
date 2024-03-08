@@ -30,7 +30,7 @@ It is recommended to install debian11 instead of debian12, because the latter is
 
 - Hardware requirements: 2 cores 2G RAM ``x86_64`` or ``arm`` architecture server hard disk at least 20G
 - Hardware requirements for KVM: VM-X or AMD-V support (some VPS and all Dedicated servers support).
-- If hardware or system requirements are not met, you can use LXD to batch open LXC containers [Jump](https://github.com/spiritLHLS/lxd)
+- If hardware or system requirements are not met, you can use ```incus``` to batch open LXC containers [Jump](https://github.com/oneclickvirt/incus)
 
 If you use IPV6 tunnels for IPV6 subnet attachment on the host, be sure to add the contents in the corresponding file when PVE is successfully installed but the gateway is not automatically set, and do not add IPV6 tunnels at the very beginning (without installing PVE).
 

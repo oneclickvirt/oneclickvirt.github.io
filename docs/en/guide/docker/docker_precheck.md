@@ -2,7 +2,7 @@
 
 The following is an introduction to the non-customized sections. Please ensure that you don't confuse them with the customized parts.
 
-If your host does not have an IPV6 subnet and you want to assign IPV6 addresses to containers, then please check the ``Customize`` partition in the ``LXD`` module for the ``Attach a free IPV6 address segment`` to the host, and attach an IPV6 subnet to the host before installing the environment.
+If your host does not have an IPV6 subnet and you want to assign IPV6 addresses to containers, then please check the ``Customize`` partition in the ``incus`` module for the ``Attach a free IPV6 address segment`` to the host, and attach an IPV6 subnet to the host before installing the environment.
 
 :::warning
 If the host has an IPV6 network, the installation will change the network structure of the host, please make sure that the host can reset the system at any time and that there is no important data on the host before running.
@@ -29,6 +29,6 @@ The system can be installed docker can be used, the network can connect to the G
 
 (If you need to bind an IPV6 address, then please make sure to use the installation script of this set of scripts for docker installation, you need it to automatically preset some of the settings)
 
-If the hardware resources are just a little bit better, need to limit more things and need to limit the size of the hard disk, you can use the LXD partition of the script batch open LXC virtualization containers
+If the hardware resources are just a little bit better, need to limit more things and need to limit the size of the hard disk, you can use the incus partition of the script batch open LXC virtualization containers
 
 If the hardware is very good and you have a lot of resources, you can use the PVE partition script to batch open KVM virtualized VMs.
