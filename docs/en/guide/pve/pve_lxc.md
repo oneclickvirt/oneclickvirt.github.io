@@ -72,7 +72,7 @@ Before creating containers, use the 'screen' command to run them in the backgrou
 **Download Script**
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct.sh -o buildct.sh && chmod +x buildct.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildct.sh -o buildct.sh && chmod +x buildct.sh
 ```
 
 **Meaning of each parameter**
@@ -120,7 +120,7 @@ Please note that "CT" and other technical terms might have specific meanings in 
 **Download Script**
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/pve_delete.sh -o pve_delete.sh && chmod +x pve_delete.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/pve_delete.sh -o pve_delete.sh && chmod +x pve_delete.sh
 ```
 
 **Meaning of each parameter**
@@ -156,7 +156,7 @@ Before initiating the creation process, it's recommended to use the 'screen' com
 **Download Script**
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/create_ct.sh -o create_ct.sh && chmod +x create_ct.sh && bash create_ct.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/create_ct.sh -o create_ct.sh && chmod +x create_ct.sh && bash create_ct.sh
 ```
 
 After the setup is complete, you can execute ```cat ctlog``` to view the information, or check in the NOTES section on the web interface.
@@ -195,7 +195,7 @@ The premise is that the host provides an IPv6 subnet rather than a standalone IP
 Command:
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildct_onlyv6.sh -o buildct_onlyv6.sh && chmod +x buildct_onlyv6.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildct_onlyv6.sh -o buildct_onlyv6.sh && chmod +x buildct_onlyv6.sh
 ```
 
 #### Example Usage

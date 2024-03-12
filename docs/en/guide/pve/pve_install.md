@@ -43,7 +43,7 @@ If the host itself exists SLAAC assigned IPV6 address, will be able to choose wh
 Command:
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/install_pve.sh -o install_pve.sh && chmod +x install_pve.sh && bash install_pve.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/install_pve.sh -o install_pve.sh && chmod +x install_pve.sh && bash install_pve.sh
 ```
 
 or
@@ -70,7 +70,7 @@ The login information is your SSH account and password.
 Command:
 
 ```shell
-bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/build_backend.sh)
+bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/build_backend.sh)
 ```
 
 ## Automatically configure the host's gateway
@@ -102,7 +102,7 @@ Use vmbr1 for IPV4 VM with NAT, ``172.16.1.1`` for gateway, ``172.16.1.x/24`` fo
 Command:
 
 ```shell
-bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/build_nat_network.sh)
+bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/build_nat_network.sh)
 ```
 
 :::tip

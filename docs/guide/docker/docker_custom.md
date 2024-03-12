@@ -27,13 +27,13 @@ outline: deep
 国际
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/create_android.sh -o create_android.sh && chmod +x create_android.sh && bash create_android.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/create_android.sh -o create_android.sh && chmod +x create_android.sh && bash create_android.sh
 ```
 
 国内
 
 ```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/create_android.sh -o create_android.sh && chmod +x create_android.sh && bash create_android.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/create_android.sh -o create_android.sh && chmod +x create_android.sh && bash create_android.sh
 ```
 
 命令执行后按照提示输入即可，注意选择版本输入的是序号，对应选项的数字序号，安装完毕后打开```本机IPV4+80端口```可登录
@@ -107,7 +107,7 @@ ls
 **下载脚本**
 
 ```
-curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onewindows.sh -o onewindows.sh && chmod +x onewindows.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/onewindows.sh -o onewindows.sh && chmod +x onewindows.sh
 ```
 
 **使用方法**
@@ -166,7 +166,7 @@ docker rmi 镜像的ID
 默认的web端口是```3003```，开设后打开```本机IPV4:端口```即可
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onefirefox.sh -o onefirefox.sh && chmod +x onefirefox.sh && bash onefirefox.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/onefirefox.sh -o onefirefox.sh && chmod +x onefirefox.sh && bash onefirefox.sh
 ```
 
 **删除**
@@ -204,7 +204,7 @@ docker rmi jlesage/firefox
 默认的https端口是```3005```，开设后打开```https://本机IPV4:端口```即可
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onechromium.sh -o onechromium.sh && chmod +x onechromium.sh && bash onechromium.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/onechromium.sh -o onechromium.sh && chmod +x onechromium.sh && bash onechromium.sh
 ```
 
 **删除**
@@ -246,7 +246,7 @@ docker rmi lscr.io/linuxserver/chromium
 默认的http协议的web端口是```3004```，默认的https协议的web端口是```3005```，开设后打开对应协议的```本机IPV4:端口```即可
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onewebtop.sh -o onewebtop.sh && chmod +x onewebtop.sh && bash onewebtop.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/onewebtop.sh -o onewebtop.sh && chmod +x onewebtop.sh && bash onewebtop.sh
 ```
 
 **删除**
@@ -288,13 +288,13 @@ docker rmi lscr.io/linuxserver/webtop
 国际
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/extra_scripts/guacamole.sh -o guacamole.sh && chmod +x guacamole.sh && bash guacamole.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/docker/main/extra_scripts/guacamole.sh -o guacamole.sh && chmod +x guacamole.sh && bash guacamole.sh
 ```
 
 国内
 
 ```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/docker/main/extra_scripts/guacamole.sh -o guacamole.sh && chmod +x guacamole.sh && bash guacamole.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/docker/main/extra_scripts/guacamole.sh -o guacamole.sh && chmod +x guacamole.sh && bash guacamole.sh
 ```
 
 ## 一键开设RustDesk的容器
@@ -314,7 +314,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/d
 在设置中设置中继服务器的IP即可，支持 Android、Windows、Linux、浏览器 端，支持电脑远控手机
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onerustdesk.sh -o onerustdesk.sh && chmod +x onerustdesk.sh && bash onerustdesk.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/onerustdesk.sh -o onerustdesk.sh && chmod +x onerustdesk.sh && bash onerustdesk.sh
 ```
 
 **删除**

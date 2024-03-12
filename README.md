@@ -18,7 +18,7 @@ Documentation for one-click virtualization
 
 ## PVE相关的各种一键脚本
 
-[https://github.com/spiritLHLS/pve](https://github.com/spiritLHLS/pve)
+[https://github.com/oneclickvirt/pve](https://github.com/oneclickvirt/pve)
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2Fpve&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
@@ -30,7 +30,7 @@ Documentation for one-click virtualization
 
 ## Docker相关的各种一键脚本
 
-[https://github.com/spiritLHLS/docker](https://github.com/spiritLHLS/docker)
+[https://github.com/oneclickvirt/docker](https://github.com/oneclickvirt/docker)
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2Fdocker&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 

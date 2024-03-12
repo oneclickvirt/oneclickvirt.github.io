@@ -31,6 +31,9 @@ Example of initialization configuration:
 
 If there is 18GB of unused disk space on the system disk, after deducting the space already occupied, and you want to allocate 2GB of virtual memory (2048MB of SWAP) and a 15GB storage pool, then following the prompts in the command line, enter ```2048``` and ```15```.
 
+:::tip
+If the implementation of the final stuck more than 60 seconds without log display, it is recommended to force a restart of the server through your server's control panel, may be the last step of the installation is stuck in the restart of the network that step!
+:::
 
 ## Manual Installation
 

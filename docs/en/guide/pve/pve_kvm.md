@@ -92,7 +92,7 @@ Note that usernames consisting of only numbers may cause issues with cloud-init.
 **Download Script**
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm.sh -o buildvm.sh && chmod +x buildvm.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm.sh -o buildvm.sh && chmod +x buildvm.sh
 ```
 
 **Meaning of each parameter**
@@ -142,7 +142,7 @@ Below is the information for the example VM that has been set up:
 **Download Script**
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/pve_delete.sh -o pve_delete.sh && chmod +x pve_delete.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/pve_delete.sh -o pve_delete.sh && chmod +x pve_delete.sh
 ```
 
 **Meaning of each parameter**
@@ -178,7 +178,7 @@ Before initiating the batch creation process, please use the 'screen' command to
 Command:
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/create_vm.sh -o create_vm.sh && chmod +x create_vm.sh && bash create_vm.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/create_vm.sh -o create_vm.sh && chmod +x create_vm.sh && bash create_vm.sh
 ```
 
 After the setup is completed, you can execute ```cat vmlog``` to view the information, or check the NOTES in the corresponding VM on the web interface.
@@ -227,7 +227,7 @@ Before use, ensure that the current host machine has at least 2 available IP add
 **Download Script**
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_extraip.sh -o buildvm_extraip.sh && chmod +x buildvm_extraip.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_extraip.sh -o buildvm_extraip.sh && chmod +x buildvm_extraip.sh
 ```
 
 **Meaning of each parameter**
@@ -273,7 +273,7 @@ The above command is used to create a virtual machine with a dedicated IPv4 addr
 **Download Script**
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_manual_ip.sh -o buildvm_manual_ip.sh && chmod +x buildvm_manual_ip.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_manual_ip.sh -o buildvm_manual_ip.sh && chmod +x buildvm_manual_ip.sh
 ```
 
 **Meaning of each parameter**
@@ -323,7 +323,7 @@ The prerequisite is that the host provides an IPv6 subnet instead of just a stan
 **Download Script**
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/buildvm_onlyv6.sh -o buildvm_onlyv6.sh && chmod +x buildvm_onlyv6.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_onlyv6.sh -o buildvm_onlyv6.sh && chmod +x buildvm_onlyv6.sh
 ```
 
 **Meaning of each parameter**

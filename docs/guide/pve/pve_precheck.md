@@ -12,7 +12,7 @@ outline: deep
 会改变宿主机的网络结构，请保证宿主机随时可重置系统，且运行前无重要数据在宿主机上
 :::
 
-欢迎给项目一个```Star```进行免费的支持-->[https://github.com/spiritLHLS/pve](https://github.com/spiritLHLS/pve)
+欢迎给项目一个```Star```进行免费的支持-->[https://github.com/oneclickvirt/pve](https://github.com/oneclickvirt/pve)
 
 ## 各种要求
 
@@ -68,13 +68,13 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/a
 国际
 
 ```bash
-bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/check_kernal.sh)
+bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/check_kernal.sh)
 ```
 
 国内
 
 ```bash
-bash <(wget -qO- --no-check-certificate https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/check_kernal.sh)
+bash <(wget -qO- --no-check-certificate https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/check_kernal.sh)
 ```
 
 如果你需要更新IPV6信息再查询，那么执行以下命令后再查询

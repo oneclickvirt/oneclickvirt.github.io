@@ -29,7 +29,7 @@ Newer Android versions occupy more resources. The above configuration requiremen
 Command:
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/create_android.sh -o create_android.sh && chmod +x create_android.sh && bash create_android.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/create_android.sh -o create_android.sh && chmod +x create_android.sh && bash create_android.sh
 ```
 
 After executing the command, follow the prompts to input the required information. Make sure to choose the version by entering the corresponding number index. Once the installation is complete, open ```YourMachineIPv4+80Port``` to log in.
@@ -102,7 +102,7 @@ The size of the created container will be slightly larger than the image size, b
 **Download Script**
 
 ```
-curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onewindows.sh -o onewindows.sh && chmod +x onewindows.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/onewindows.sh -o onewindows.sh && chmod +x onewindows.sh
 ```
 
 **Usage Instructions**
@@ -162,7 +162,7 @@ After setup, the default password is ```oneclick```.
 The default web port is ```3003```. Once the setup is complete, simply open ```HOST_IPV4:PORT``` in your browser.
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onefirefox.sh -o onefirefox.sh && chmod +x onefirefox.sh && bash onefirefox.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/onefirefox.sh -o onefirefox.sh && chmod +x onefirefox.sh && bash onefirefox.sh
 ```
 
 **Deletion**
@@ -200,7 +200,7 @@ The default http port is ```3004```, open ```http://IPV4:3004``` after opening.
 The default https port is ```3005```, open ```https://IPV4:3005``` after opening.
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onechromium.sh -o onechromium.sh && chmod +x onechromium.sh && bash onechromium.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/onechromium.sh -o onechromium.sh && chmod +x onechromium.sh && bash onechromium.sh
 ```
 
 **Delete**
@@ -238,7 +238,7 @@ The default web port for HTTP protocol is ```3004```, and for HTTPS protocol is 
 Run the following command to download and execute the setup script:
 
 ```
-curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/scripts/onewebtop.sh -o onewebtop.sh && chmod +x onewebtop.sh && bash onewebtop.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/onewebtop.sh -o onewebtop.sh && chmod +x onewebtop.sh && bash onewebtop.sh
 ```
 
 **Deletion**
@@ -278,5 +278,5 @@ After installation, remember to change the password upon login.
 Command:
 
 ```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/docker/main/extra_scripts/guacamole.sh -o guacamole.sh && chmod +x guacamole.sh && bash guacamole.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/docker/main/extra_scripts/guacamole.sh -o guacamole.sh && chmod +x guacamole.sh && bash guacamole.sh
 ```

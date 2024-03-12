@@ -12,7 +12,7 @@ If there are unadapted merchants or machines welcome to contact [@spiritlhl_bot]
 Will change the network structure of the host, please make sure that the host can reset the system at any time and that there is no important data on the host before running it.
 :::
 
-Feel free to give the project a ```Star``` for free support!-->[https://github.com/spiritLHLS/pve](https://github.com/spiritLHLS/pve)
+Feel free to give the project a ```Star``` for free support!-->[https://github.com/oneclickvirt/pve](https://github.com/oneclickvirt/pve)
 
 ## Various requirements
 
@@ -58,7 +58,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 Command:
 
 ```bash
-bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spiritLHLS/pve/main/scripts/check_kernal.sh)
+bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/check_kernal.sh)
 ```
 
 If you need to update the IPV6 information before querying, then execute the following command before querying

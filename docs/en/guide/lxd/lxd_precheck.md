@@ -19,9 +19,9 @@ Hardware requirements.
 - Hard disk: hard disk (system disk) at least 10G
 - Network: Independent IPV4 address, IPV6 is optional, bandwidth can download scripts on the line, the network can connect to the Github raw page on the line
 
-PS: If the hardware is very good and has a lot of resources, you can use PVE to batch open KVM virtualized VMs [Jump](https://github.com/spiritLHLS/pve)
+PS: If the hardware is very good and has a lot of resources, you can use PVE to batch open KVM virtualized VMs [Jump](https://github.com/oneclickvirt/pve)
 
-PS: If the hardware resources are even worse, virtualization is not supported, you can use the docker version, the adaption surface is wider [Jump](https://github.com/spiritLHLS/docker)
+PS: If the hardware resources are even worse, virtualization is not supported, you can use the docker version, the adaption surface is wider [Jump](https://github.com/oneclickvirt/docker)
 
 ## Project Features
 
