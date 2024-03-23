@@ -18,4 +18,6 @@ https://openzfs.github.io/openzfs-docs/Getting%20Started/Debian/index.html
 
 https://github.com/SuperManito/LinuxMirrors
 
+https://images.opsmaru.dev/
+
 Thank [@Ella-Alinda](https://github.com/Ella-Alinda) [@fscarmen](https://github.com/fscarmen)  for providing guidance.

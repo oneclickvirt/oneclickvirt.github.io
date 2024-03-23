@@ -32,24 +32,16 @@ CPU核数需要小于或等于宿主机的核数，内存大小以MB计算，硬
 
 如果```外网起端口```和```外网止端口```都设置为0则不做区间外网端口映射了，只映射基础的SSH端口，注意```不能为空```，不进行映射需要设置为0
 
-支持自定义服务器的系统，不填写留空时默认使用debian11，注意传入参数为系统名字+版本号，如：
+支持自定义服务器的系统，不填写留空时默认使用debian12，注意传入参数为系统名字+版本号，如：
 
-- debian10，debian11，debian12
-- ubuntu18，ubuntu20，ubuntu22
-- centos8，centos9 (实际开设出来都是Stream版本)
-- alpine3.15，alpine3.16，alpine3.17，alpine3.18
-- openwrt21，openwrt22，fedora37，fedora38，fedora39
-- rockylinux8，rockylinux9，oralce8，oracle9
-- oralce7，centos7 (都需要在GRUB中启用CGroupV1否则无法启动，详细介绍见常见问题答疑)
-- kali，archlinux
+- debian12，debian13
+- ubuntu22，ubuntu24
+- centos8，centos9 (实际都是Stream版本)
+- alpine3.16，alpine3.17，alpine3.18，alpine3.19
 
 * 注意都是小写字母+数字的组合或仅小写字母，自行尝试，如果搜索无该系统则会自动退出脚本
 * 版本号可以带英文小数点，为了适配alpine的版本号已支持
 * 开不起来的可能是硬盘或内存不够大或者本身就不适配宿主机，自行尝试查看开不起来的报错
-
-:::tip
-版本号中已结束长期维护的一般不再有官方镜像了，暂时未找到历史镜像的存档地址，如果有找到欢迎留言我会添加支持
-:::
 
 ### 示例
 
@@ -67,11 +59,11 @@ CPU核数需要小于或等于宿主机的核数，内存大小以MB计算，硬
 | 上传带宽                   | 500Mbit        |
 | 下载带宽                   | 500Mbit        |
 | 自动设置外网IPV6地址      | N              |
-| 系统                       | debian11       |
+| 系统                       | debian12      |
 
 
 ```
-./buildone.sh test 1 256 2 20001 20002 20025 500 500 N debian11
+./buildone.sh test 1 256 2 20001 20002 20025 500 500 N debian12
 ```
 
 需要进入容器内部则执行

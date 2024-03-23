@@ -19,31 +19,23 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/buildone
 ### Usage
 
 ```
-. /buildone.sh name Cpu_num Memory_size Hard_disk_size SSH_port Extranet_start_port Extranet_stop_port Download_speed Upload_speed Whether_IPV6_is_enabled(Y or N) System(leave blank for debian11)
+. /buildone.sh name Cpu_num Memory_size Hard_disk_size SSH_port Extranet_start_port Extranet_stop_port Download_speed Upload_speed Whether_IPV6_is_enabled(Y or N) System(leave blank for debian12)
 ```
 
 Memory size is calculated in MB, hard disk size is calculated in GB, download speed upload speed is calculated in Mbit, whether to enable IPV6 does not have to fill in Y or N, no this parameter can also be left blank default does not enable IPV6
 
 If ```external start port`` and ```external stop port`` are both set to 0, then we don't do interval port mapping, only the basic SSH port is mapped, note that ```can't be null``, and it needs to be set to 0 if it's not to be mapped.
 
-Support for customizing the system of the server, do not fill out the default use of debian11 when left blank, note that the incoming parameters for the system name + version number, such as:
+Support for customizing the system of the server, do not fill out the default use of debian12 when left blank, note that the incoming parameters for the system name + version number, such as:
 
-- debian10, debian11, debian12
-- ubuntu18, ubuntu20, ubuntu22
-- centos8, centos9 (actually opened out of the Stream version)
-- alpine3.15, alpine3.16, alpine3.17, alpine3.18
-- openwrt21，openwrt22，fedora37，fedora38，fedora39
-- rockylinux8，rockylinux9，oralce8，oracle9
-- oralce7，centos7 (CGroupV1 needs to be enabled in GRUB or it won't start.)
-- kali，archlinux
+- debian12, debian13
+- ubuntu22, ubuntu24
+- centos8，centos9
+- alpine3.16, alpine3.17, alpine3.18，alpine3.19
 
 * Note that the combination of lowercase letters + numbers or only lowercase letters, try it yourself, if the search is not the system will automatically exit the script
 * The version number can be with English decimal point, in order to adapt to the alpine version number has been supported.
 * If you can't open it, it may be that the hard disk is not big enough or it doesn't fit the host, try it by yourself.
-
-:::tip
-The version number has ended the long-term maintenance of the general no longer have an official mirror, temporarily did not find the archive address of the historical mirror, if you find welcome to leave a message I will add support!
-:::
 
 ### Example
 
@@ -61,10 +53,10 @@ Here is the information about the example chick that is being raised:
 | Upload Bandwidth            | 500Mbit         |
 | Download Bandwidth          | 500Mbit         |
 | Automatically Set External IPv6 Address | No   |
-| Operating System            | Debian 11       |
+| Operating System            | Debian 12       |
 
 ```
-./buildone.sh test 1 256 2 20001 20002 20025 500 500 N debian11
+./buildone.sh test 1 256 2 20001 20002 20025 500 500 N debian12
 ```
 
 If you need to see the information, run
