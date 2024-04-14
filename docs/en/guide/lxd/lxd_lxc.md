@@ -88,7 +88,7 @@ ls
 Opened Chick Configuration:
 
 - 1 core 256MB RAM 1GB hard disk limited to 300Mbit bandwidth
-- With 1 SSH port, 25 extranet ports
+- With 1 SSH port, 24 extranet ports
 - Default memory and hard disk size
 
 :::tip
