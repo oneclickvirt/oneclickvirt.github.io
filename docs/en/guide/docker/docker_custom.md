@@ -51,7 +51,6 @@ For remote desktop, click on ```H264 Converter``` to initiate the redirection.
 
 ```shell
 docker rm -f android
-docker rm -f scrcpy_web
 docker rmi $(docker images | grep "redroid" | awk '{print $3}')
 rm -rf /etc/nginx/sites-enabled/reverse-proxy
 rm -rf /etc/nginx/sites-available/reverse-proxy

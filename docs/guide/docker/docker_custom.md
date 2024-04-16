@@ -56,7 +56,6 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 ```
 docker rm -f android
-docker rm -f scrcpy_web
 docker rmi $(docker images | grep "redroid" | awk '{print $3}')
 rm -rf /etc/nginx/sites-enabled/reverse-proxy
 rm -rf /etc/nginx/sites-available/reverse-proxy
