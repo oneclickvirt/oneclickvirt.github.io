@@ -48,6 +48,8 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 **暂时只支持生成一个安卓容器，勿要重复生成，如需替换版本请执行后续命令删除后再次开设**
 
+**暂时只支持开设后一直使用，不可重启服务器，重启后可能无法自重启映射成功，自测**
+
 **删除**
 
 - 删除容器
