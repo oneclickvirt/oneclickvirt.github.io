@@ -43,6 +43,8 @@ For remote desktop, click on ```H264 Converter``` to initiate the redirection.
 
 **Please note that currently only one Android container can be generated. Do not generate duplicates. If you need to replace the version, please execute the subsequent commands after deletion.**
 
+**Temporarily only support the opening has been used, can not restart the server, reboot may not be able to restart after the mapping success, self-test**
+
 **Deletion:**
 
 - Delete the container
