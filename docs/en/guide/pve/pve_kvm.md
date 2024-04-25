@@ -221,6 +221,7 @@ Before use, ensure that the current host machine has at least 2 available IP add
 - If the host machine has an accompanying IPv6 subnet, there will be an option to attach an IPv6 address.
 - Relevant system information will be stored in the corresponding virtual machine's NOTE section, accessible for viewing on the web interface.
 - Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet.
+- The automatically appended IPV4 address is within the **same subnet** as the host's IPV4 address (IP address prefix is the same)
 
 #### Usage Instructions
 
@@ -267,6 +268,13 @@ The above command is used to create a virtual machine with a dedicated IPv4 addr
 - If the vendor has provided an IPV4 address and subnet length, please carefully compare and write the parameters in the command format shown below.
 - Relevant system information will be stored in the NOTE of the corresponding virtual machine and can be viewed on the WEB end.
 - Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet.
+- The manually appended IPV4 address is in a **different subnet** from the host's IPV4 address (different IP address prefixes)
+- Optionally specify the MAC address of the virtual machine
+
+:::tip
+If the router does not recognize the source MAC address, the traffic will be flagged as "abuse" and "may" cause the server to be blocked.
+(If using Hetzner's stand-alone servers be sure to provide the MAC address that corresponds to the additional IPV4 address to prevent abuse from being reported.)
+:::
 
 #### Usage Instructions
 
@@ -279,7 +287,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_
 **Meaning of each parameter**
 
 ```shell
-./buildvm_manual_ip.sh VMID USERNAME PASSWORD CPU_CORES MEMORY_SIZE_GB STORAGE_SIZE_GB OS STORAGE_DISK IPV4_ADDRESS ATTACH_IPV6(defaults to N)
+./buildvm_manual_ip.sh VMID USERNAME PASSWORD CPU_CORES MEMORY_SIZE_GB STORAGE_SIZE_GB OS STORAGE_DISK IPV4_ADDRESS ATTACH_IPV6(defaults to N) MAC_ADDRESS(Optional whether to specify)
 ```
 
 :::tip
@@ -307,6 +315,7 @@ The above command is used to create a virtual machine with an independent IPV4 a
 | IPV4 Address | a.b.c.d           |
 | Subnet       | /24 Subnet        |
 | IPV6         | None              |
+| MAC_ADDRESS  | None              |
 
 ## Creating Virtual Machines with Pure IPv6 Addresses
 

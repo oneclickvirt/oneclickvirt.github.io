@@ -251,6 +251,7 @@ PVE修改VM配置前都得停机先，再修改配置，修改完再启动，免
 - 自动检测可用的IP区间，通过ping检测空余可使用的IP，选取其中之一绑定到虚拟机上
 - 如果宿主机自带IPV6子网将可选择是否附加上IPV6地址
 - 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
+- 自动附加的IPV4地址与宿主机的IPV4地址是在**同一个子网**内的(IP地址前缀相同)
 
 #### 使用方法
 
@@ -305,6 +306,13 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 - 如果商家有给IPV4地址和子网长度，请仔细比对，按照下面示例的命令写参数
 - 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
 - 可选择是否开启独立IPV6，需要宿主机至少有一个/104的子网，最好是一个/64子网
+- 手动附加的IPV4地址与宿主机的IPV4地址是在**不同子网**内的(IP地址前缀不同)
+- 可选择是否指定虚拟机的MAC地址
+
+:::tip
+如果路由器无法识别源 MAC 地址，流量将被标记为“滥用”，并“可能”导致服务器被阻止。
+(如果使用Hetzner的独立服务器务必提供附加IPV4地址对应的MAC地址防止被报告滥用)
+:::
 
 #### 使用方法
 
@@ -325,7 +333,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 **各参数含义**
 
 ```shell
-./buildvm_manual_ip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 IPV4地址 独立IPV6(默认为N)
+./buildvm_manual_ip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 IPV4地址 独立IPV6(默认为N) MAC地址(不提供时将不指定虚拟机的MAC地址)
 ```
 
 :::tip
@@ -353,6 +361,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | IPV4地址     | a.b.c.d           |
 | 子网         | /24 子网          |
 | IPV6         | 无                |
+| MAC地址      | 无                |
 
 ## 开设纯IPV6地址的虚拟机
 
