@@ -60,6 +60,18 @@ curl -L https://github.com/spiritLHLS/ecs/raw/main/ecs.sh -o ecs.sh && chmod +x 
 bash <(wget -qO- bash.spiritlhl.net/ecs)
 ```
 
+或
+
+```
+bash <(wget -qO- ecs.0s.hk)
+```
+
+或
+
+```
+bash <(wget -qO- ecs.12345.ing)
+```
+
 ### 无交互形式-参数模式
 
 ```bash
@@ -177,17 +189,17 @@ VPS测试，VPS测速，VPS综合性能测试，VPS回程线路测试，VPS流�
 
 ## 融合怪功能
 
-- [x] 自由组合测试方向和单项测试以及合集收录第三方脚本
+- [x] 自由组合测试方向和单项测试以及合集收录第三方脚本，融合怪各项测试均自优化修复过，与原始脚本均不同
 - [x] 基础信息查询--感谢[bench.sh](https://github.com/teddysun/across/blob/master/bench.sh)、[superbench.sh](https://www.oldking.net/350.html)、[yabs](https://github.com/masonr/yet-another-bench-script)、[lemonbench](https://github.com/LemonBench/LemonBench)开源，本人整理修改优化，同原版均不一致
-- [x] CPU测试--感谢[lemonbench](https://github.com/LemonBench/LemonBench)开源，本人整理修改优化
+- [x] CPU测试--感谢[lemonbench](https://github.com/LemonBench/LemonBench)和[yabs](https://github.com/masonr/yet-another-bench-script)开源，本人整理修改优化
 - [x] 内存测试--感谢[lemonbench](https://github.com/LemonBench/LemonBench)开源，本人整理修改优化
 - [x] 磁盘dd读写测试--感谢[lemonbench](https://github.com/LemonBench/LemonBench)开源，本人整理修改优化
 - [x] 硬盘fio读写测试--感谢[yabs](https://github.com/masonr/yet-another-bench-script)开源，本人整理修改优化
-- [x] 御三家流媒体解锁测试--感谢[sjlleo的二进制文件](https://github.com/sjlleo?tab=repositories)，本人修改整理优化
+- [x] 御三家流媒体解锁测试--感谢[netflix-verify](https://github.com/sjlleo/netflix-verify)、[VerifyDisneyPlus](https://github.com/sjlleo/VerifyDisneyPlus)、[TubeCheck](https://github.com/sjlleo/TubeCheck)开源，本人整理修改维护[CommonMediaTests](https://github.com/oneclickvirt/CommonMediaTests)在脚本中使用
 - [x] 常用流媒体解锁测试--感谢[RegionRestrictionCheck](https://github.com/lmc999/RegionRestrictionCheck)开源，本人整理修改优化
 - [x] Tiktok解锁--感谢[TikTokCheck](https://github.com/lmc999/TikTokCheck)开源，本人整理修改优化
-- [x] 三网回程以及路由延迟--感谢[zhanghanyun/backtrace](https://github.com/zhanghanyun/backtrace)开源，本人整理修改
-- [x] 回程路由以及带宽类型检测(商宽/家宽/数据中心)--由[fscarmen](https://github.com/fscarmen)的PR以及本人的技术思路提供，本人后续修改优化
+- [x] 三网回程以及路由延迟--感谢[zhanghanyun/backtrace](https://github.com/zhanghanyun/backtrace)开源，本人整理修改维护[oneclickvirt/backtrace](https://github.com/oneclickvirt/backtrace)在脚本中使用
+- [x] 回程路由及带宽类型检测(商宽/家宽/数据中心)--由[fscarmen](https://github.com/fscarmen)的PR以及本人的技术思路提供，本人修改优化维护
 - [x] IP质量与25端口检测(含IPV4和IPV6)--本脚本独创，感谢互联网提供的查询资源
 - [x] speedtest测速--使用自写[ecsspeed](https://github.com/spiritLHLS/ecsspeed)仓库，自动更新测速服务器ID，一劳永逸解决老是要手动更新测速ID的问题
 
