@@ -25,7 +25,7 @@ PS: If the hardware resources are even worse, virtualization is not supported, y
 
 ## Project Features
 
-- This set of script development using **Ubuntu20**, Ubuntu other long-term maintenance version should also be no problem, automatically switch to another storage type if btrfs not supported
+- This set of script development using **Ubuntu24** and **Debian12**, other long-term maintenance version should also be no problem, automatically switch to another storage type if btrfs not supported
 
 - Set up both TCP and UDP forwarding, in addition to SSH ports, other mapping intranet and extranet ports are the same.
 
