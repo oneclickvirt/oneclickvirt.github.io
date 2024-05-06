@@ -148,11 +148,11 @@ After deletion, you can create containers of different versions of Windows.
 
 **Other similar projects**
 
-https://github.com/dockur/windows - My project supports architecture of similar projects that support more systems, but have more resource requirements
+https://github.com/dockur/windows - Similar project that support more systems, but have more resource requirements
 
 https://github.com/dockur/windows-arm/ - It's great that he has ARM servers for mirror compilation, my project doesn't have
 
-Note that both of the above projects require a host with at least 4 cores of CPU, at least 4G of RAM, and at least 64G of hard disk, which is greater than the mirroring requirements of my project.
+Note that both of the above projects require a host with at least 4 cores of CPU, at least 4G of RAM, and at least 64G of hard disk, which is greater than the mirroring requirements of my project. (The advantage of his project is that you can customize many configuration items, see his corresponding project description for details.)
 
 ## One-Click Setup of Firefox Browser Container
 
