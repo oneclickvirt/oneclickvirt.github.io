@@ -24,6 +24,8 @@ Ubuntu is recommended for hosting, Debian may cause white screen on Android.
 
 Newer Android versions occupy more resources. The above configuration requirements are for the minimum version of Android. (Personally tested with the tag "12.0.0-latest", higher versions resulted in a blank screen. Test which version works for you.)
 
+If, after 5 minutes after opening, the login verification of the browser page still keeps failing, then please check the logs of the Android container, it is probable that the Android container has crashed, and it is recommended to replace the container with a lower version of the Android system for installation.
+
 **Setup:**
 
 Command:
@@ -143,6 +145,14 @@ docker rmi image_ID
 ```
 
 After deletion, you can create containers of different versions of Windows.
+
+**Other similar projects**
+
+https://github.com/dockur/windows - My project supports architecture of similar projects that support more systems, but have more resource requirements
+
+https://github.com/dockur/windows-arm/ - It's great that he has ARM servers for mirror compilation, my project doesn't have
+
+Note that both of the above projects require a host with at least 4 cores of CPU, at least 4G of RAM, and at least 64G of hard disk, which is greater than the mirroring requirements of my project.
 
 ## One-Click Setup of Firefox Browser Container
 

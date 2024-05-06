@@ -184,8 +184,8 @@ function getCaseSidebarZhCN() {
     {
       text: 'Linux相关',
       items: [
-        { text: '1. 一键修复与安装脚本(各种linux系统修复与服务器环境安装脚本)', link: '/case/case1.html' },
-        { text: '2. VPS融合怪服务器测评脚本', link: '/case/case2.html' },
+        { text: '1. VPS融合怪服务器测评脚本', link: '/case/case1.html' },
+        { text: '2. 一键修复与安装脚本(各种linux系统修复与服务器环境安装脚本)', link: '/case/case2.html' },
         { text: '3. 自动更新测试服务器节点列表的网络基准测试脚本', link: '/case/case3.html' },
         { text: '4. 三网回程路由线路测试脚本', link: '/case/case4.html' },
         { text: '5. 御三家流媒体解锁测试脚本', link: '/case/case5.html' },

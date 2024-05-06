@@ -4,231 +4,364 @@ outline: deep
 
 # 仓库
 
-https://github.com/spiritLHLS/ecs
-
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2Fecs&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
-
-# 融合怪测评脚本
-
-支持系统：
-
-Ubuntu 18+, Debian 8+, Centos 7+, Fedora 33+, Almalinux 8.5+, OracleLinux 8+, RockyLinux 8+, AstraLinux CE, Arch
-
-半支持系统：
-
-FreeBSD(前提已执行```pkg install -y curl bash```)，Armbian
-
-Armbian系统部分检测和测试暂不支持，部分会编码错误
-
-FreeBSD系统的硬盘测试和CPU测试目前是半残的，有些东西显示有问题
-
-FreeBSD系统的分享链接的预处理部分sed命令存在问题未删除部分无效内容
-
-支持架构：
-
-基本都支持，无论是本地服务器还是云端服务器
-
-支持地域：
-
-能连得上网都支持
-
-## 部分服务器运行测试有各类bug一键修复后再测试
-
-一键修复各种系统原生bug的仓库：
-
 https://github.com/spiritLHLS/one-click-installation-script
 
-如若还有系统bug请到上面仓库的issues反映，脚本原生BUG该仓库issues反映
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2Fone-click-installation-script&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
-## 融合怪命令
+所有脚本如需在国内服务器使用，请在链接前加上```https://ghproxy.com/```确保命令可以下载本仓库的shell脚本执行
 
-### 交互形式
+## 一键修复脚本
+
+运行所有一键修复脚本前注意看说明，以及保证服务器无重要数据，运行后造成的一切后果作者不负任何责任，自行评判风险！
+
+### 一键尝试修复apt源 
+
+- 支持系统：Ubuntu 12+，Debian 6+
+- 修复apt下载包进程意外退出导致的源锁死
+- 修复apt源broken损坏
+- 修复apt源多进程占用锁死
+- 修复apt源公钥缺失
+- 修复替换系统可用的apt源列表，国内用阿里源，国外用官方源
+- 修复本机的Ubuntu系统是EOL非长期维护的版本(奇数或陈旧的偶数版本)，将替换为Ubuntu官方的old-releases仓库以支持apt的使用
+- 修复只保证```apt update```不会报错，其他命令报错未修复
+- 如若修复后install还有问题，重启服务器解决问题
 
 ```bash
-curl -L https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh
+curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/repair_scripts/package.sh -o package.sh && chmod +x package.sh && bash package.sh
+```
+
+### 一键尝试修复系统时间 
+
+- 支持系统：Ubuntu 18+，Debian 8+，centos 7+，Fedora，Almalinux 8.5+
+- 由于系统时间不准确都是未进行时区时间同步造成的，使用chronyd进行时区时间同步后应当解决了问题
+
+```bash
+curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/repair_scripts/modify_time.sh -o modify_time.sh && chmod +x modify_time.sh && bash modify_time.sh
+```
+
+### 一键尝试修复sudo警告
+
+- 一键尝试修复```sudo: unable to resolve host xxx: Name or service not known```警告(爆错)
+
+不要在生产环境上使用该脚本，否则容易造成网络hosts配置错误，配置的host名字不在外网IP上反而在内网IP(127.0.0.1)上
+
+```bash
+curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/repair_scripts/check_sudo.sh -o check_sudo.sh && chmod +x check_sudo.sh && bash check_sudo.sh
+```
+
+### 一键修改系统自带的journal日志记录大小释放系统盘空间
+
+- 支持系统：Ubuntu 18+，Debian 8+，centos 7+，Fedora，Almalinux 8.5+
+- 1.自定义修改大小，单位为MB，一般500或者1000即可，有的系统日志默认给了5000甚至更多，不是做站啥的没必要
+  - 请注意，修改journal目录大小会影响系统日志的记录，因此，在修改journal目录大小之前如果需要之前的日志，建议先备份系统日志到本地
+- 2.自定义修改设置系统日志保留日期时长，超过日期时长的日志将被清除
+- 3.默认修改日志只记录warning等级(无法自定义)
+- 4.以后日志的产生将受到日志文件大小，日志保留时间，日志保留等级的限制
+
+```bash
+curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/repair_scripts/resize_journal.sh -o resize_journal.sh && chmod +x resize_journal.sh && bash resize_journal.sh
+```
+
+### 一键尝试修复网络
+
+**该脚本轻易勿要使用，请确保运行时服务器无重要文件或程序，出现运行bug后续可能需要重装系统**
+
+**一定要在screen中执行该脚本，否则可能导致修改过程中ssh断链接而修改失败卡住最终SSH无法连接！不在screen中执行后果自负！**
+- 支持系统：Ubuntu 18+，Debian 8+，centos 7+，Fedora，Almalinux 8.5+
+- 尝试修复nameserver为google源或cloudflare源
+- 尝试修复为IP类型对应的网络优先级(默认IPV4类型，纯V6类型再替换为IPV6类型)
+
+```bash
+curl -L https://cdn.spiritlhl.workers.dev/https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/repair_scripts/network.sh -o network.sh && chmod +x network.sh && bash network.sh
+```
+
+如果是纯V6的也可以不使用上面脚本的nat64，使用warp添加V4网络
+
+比如：https://github.com/fscarmen/warp
+
+```bash
+wget -N https://raw.githubusercontent.com/fscarmen/warp/main/menu.sh && bash menu.sh [option] [lisence]
+```
+
+非纯V6的，带V4切换优先级到IPV4可用以下命令
+
+```bash
+sudo sed -i 's/.*precedence ::ffff:0:0\/96.*/precedence ::ffff:0:0\/96  100/g' /etc/gai.conf && sudo systemctl restart networking
+```
+
+## 一键环境安装脚本
+
+只推荐在新服务器上安装，环境不纯净不保证不出bug
+
+运行所有一键环境安装脚本前注意看说明，以及保证服务器无重要数据，运行后造成的一切后果作者不负任何责任，自行评判风险！
+
+### 一键安装jupyter环境 
+
+- **本脚本尝试使用Miniconda3安装虚拟环境jupyter-env再进行jupyter和jupyterlab的安装，如若安装机器不纯净勿要轻易使用本脚本！**
+- **本脚本为实验性脚本可能会有各种bug，勿要轻易尝试！**
+- 验证已支持的系统：
+  - Ubuntu 系 - 推荐，脚本自动挂起到后台
+  - Debian 系 - 部分可能需要手动挂起到后台，详看脚本运行安装完毕的后续提示
+- 可能支持的系统(未验证)：centos 7+，Fedora，Almalinux 8.5+
+- 执行脚本，之前有用本脚本安装过则直接打印设置的登陆信息，没安装过则进行安装再打印信息，如果已安装但未启动则自动启动后再打印信息
+- 如果是初次安装无脑输入y回车即可，按照提示进行操作即可，安装完毕将在后台常驻运行，自动添加常用的安装包通道源
+- 安装完毕后，如果需要在lab中安装第三方库需要在lab中使用terminal并使用conda进行下载而不是pip3下载，这是需要注意的一点
+- 安装过程中有判断是否为中国IP，可选择是否使用中国镜像
+
+原始用途是方便快捷的在按小时计费的超大型服务器上部署python环境进行科学计算，充分利用时间别浪费在构建环境上。
+
+```bash
+curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/install_scripts/jupyter.sh -o jupyter.sh && chmod +x jupyter.sh && bash jupyter.sh
+```
+
+### 一键安装R语言环境
+
+- **安装前需使用Miniconda3安装虚拟环境jupyter-env，然后进行jupyter和jupyterlab的安装，再然后才能安装本内核**
+- **简单的说，需要执行本仓库对应的jupyter安装脚本再运行本脚本安装R语言环境，会自动安装R环境内核和图形设备支持库**
+- x11可能需要手动启动一下，执行```sudo /usr/bin/Xorg```
+- 可能支持的系统(未验证)：centos 7+，Fedora，Almalinux 8.5+
+
+```bash
+curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/install_scripts/R.sh -o R.sh && chmod +x R.sh && bash R.sh
+```
+
+### 一键安装rust环境 
+
+- 支持系统：Ubuntu 18+，Debian 8+，centos 7+，Fedora，Almalinux 8.5+
+- 加载官方脚本安装，前置条件适配系统以及后置条件判断安装的版本
+
+```bash
+curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/install_scripts/rust.sh -o rust.sh && chmod +x rust.sh && bash rust.sh 
+```
+
+### 一键安装C环境
+
+- 一键安装C++环境
+- 支持系统：使用apt或者yum作为包管理器的系统
+- 如果未安装则安装，如果有安装则提示升级
+
+```bash
+curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/install_scripts/cplusplus.sh -o cplusplus.sh && chmod +x cplusplus.sh && bash cplusplus.sh 
+```
+
+### 一键安装vnstat环境
+
+- 支持系统：Ubuntu 18+，Debian 8+，centos 7+，Fedora，Almalinux 8.5+
+- 加载官方文件编译安装，前置条件适配系统以及后置条件判断安装的版本
+
+```bash
+curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/install_scripts/vnstat.sh -o vnstat.sh && chmod +x vnstat.sh && bash vnstat.sh 
+```
+
+### 一键升级低版本debian为debian11
+
+- 支持系统：debian 6+
+- 升级后需要重启系统加载内核，升级过程中需要选择的都无脑按回车即可
+- 升级是一个版本迭代一个版本，所以如果版本低，每执行一次升级一个版本，直至升级到debian11
+
+```bash
+curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/install_scripts/todebian11.sh -o todebian11.sh && chmod +x todebian11.sh && bash todebian11.sh
+```
+
+### 一键升级低版本ubuntu为ubuntu22
+
+- 支持系统：Ubuntu 16+
+- 升级后需要重启系统加载内核，升级过程中需要选择的都无脑按回车即可
+- 升级是一个版本迭代一个版本，所以如果版本低，每执行一次升级一个版本，直至升级到ubuntu22
+
+```bash
+curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/install_scripts/toubuntu22.sh -o toubuntu22.sh && chmod +x toubuntu22.sh && bash toubuntu22.sh
+```
+
+### 一键安装zipline平台
+
+- 应该支持的系统：Ubuntu 18+，Debian 8+，centos 7+，Fedora，Almalinux 8.5+
+- 暂时只在Ubuntu上验证无问题
+- 如若要设置反向代理绑定域名，安装前请保证原服务器未安装过nginx，如若已安装过nginx，请自行配置反向代理本机的3000端口
+- 默认一路回车是不启用反代不安装nginx的，自行选择，如需通过本脚本配置反代系统一定要未安装过nginx并在填写y或Y开启安装
+- [zipline](https://github.com/diced/zipline) 平台功能: ShareX，自定义短链接，文件上传分享，多用户校验，高亮显示，阅后即焚，设置简单 (含pastebin)
+- 自动安装docker，docker-compose，如若已安装zipline在/root目录下，则自动更新
+- 反向代理如若已设置成功，还需要在面板设置中填写域名，绑定启用
+
+```bash
+curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/install_scripts/zipline.sh -o zipline.sh && chmod +x zipline.sh && bash zipline.sh
+```
+
+如果需要删除0字节文件，打开```/root/zipline```文件夹，执行
+
+```
+docker-compose exec zipline yarn scripts:clear-zero-byte
+```
+
+按照提示操作
+
+### 一键安装filebrowser平台
+
+- 端口设置为3030了，其他登陆信息详见提示
+- [filebrowser](https://github.com/filebrowser/filebrowser)平台支持下载上传文件到服务器，批量下载多个文件(自定义压缩格式)，构建文件分享链接，设置分享时长
+- 如果本地有启用IPV6优先级可能绑定到V6去了，使用```lsof -i:3030```查看绑定情况，切换优先级后再安装就正常了
+
+```bash
+curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/install_scripts/filebrowser.sh -o filebrowser.sh && chmod +x filebrowser.sh && bash filebrowser.sh
+```
+
+### 一键删除平台监控
+
+- 一键移除大多数云服务器监控
+- 涵盖阿里云、腾讯云、华为云、UCLOUD、甲骨文云、京东云
+
+```bash
+curl -L https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/install_scripts/dlm.sh -o dlm.sh && chmod +x dlm.shh && bash dlm.sh
+```
+
+## 部分手动命令
+
+### 一键开启root登陆并替换密码
+
+```
+bash <(curl -sSL https://raw.githubusercontent.com/fscarmen/tools/main/root.sh) [PASSWORD]
+```
+
+### 一键屏蔽邮件端口避免被恶意程序使用
+
+```bash
+iptables -A INPUT -p tcp --dport 25 -j DROP
+iptables -A OUTPUT -p tcp --dport 25 -j DROP
+/sbin/iptables-save
+```
+
+### 设置语言包
+
+```bash
+sudo apt-get update
+sudo apt-get install language-pack-en-base
+sudo locale-gen en_US.UTF-8
+```
+下载UTF-8的环境，生成UTF-8的包，然后重启服务器
+```bash
+locale -a
+export LC_ALL=en_US.UTF-8
+```
+查看并设置语言包
+
+language-pack-en-base 在debian中好像没有，只有Ubuntu有好像，不知道是不是个例，有问题再说
+
+### ubuntu更新源被锁
+
+```bash
+sudo rm -rf /var/cache/apt/archives/lock
+sudo pkill apt
+sudo rm /var/lib/dpkg/lock-frontend
+sudo rm /var/lib/apt/lists/lock
+sudo rm /var/cache/apt/archives/lock
+sudo rm /var/lib/dpkg/lock
+sudo dpkg --configure -a
+```
+
+然后重启系统
+
+### debian缺失公钥
+
+```bash
+apt-get install debian-keyring debian-archive-keyring -y
+```
+
+### ubuntu或debian缺失公钥
+
+后续这块有计划整理为一个一键脚本
+
+```bash
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 公钥
+```
+
+### centos换源
+
+```bash
+sudo cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+sudo sed -i 's/^mirrorlist=http/mirrorlist=https/' /etc/yum.repos.d/CentOS-Base.repo
+```
+
+### 安装gitea
+
+Ubuntu 20无问题，Ubuntu 22好像不行
+
+https://gitlab.com/packaging/gitea
+
+### 卸载aapanel
+
+```bash
+apt install sysv-rc-conf -y && service bt stop && sysv-rc-conf bt off && rm -f /etc/init.d/bt && rm -rf /www/server/panel
+```
+
+### 安装docker和docker-compose
+
+```bash
+curl -sSL https://get.docker.com/ | sh
+curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-linux-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+docker-compose --version
+```
+
+卸载所有docker镜像和容器
+
+```
+docker rm -f $(docker ps -aq); docker rmi $(docker images -aq)
+```
+
+### 通过docker安装code-server
+
+安装
+
+```shell
+mkdir -p ~/.config
+docker run --restart=always --name code-server -p 0.0.0.0:8886:8080 \
+  -v "$HOME/.config:/home/coder/.config" \
+  -v "$PWD:/home/coder/project" \
+  -u "$(id -u):$(id -g)" \
+  -e "DOCKER_USER=$USER" \
+  codercom/code-server:latest
+```
+
+新窗口
+
+```shell
+docker exec code-server cat /root/.config/code-server/config.yaml
 ```
 
 或
 
-```bash
-curl -L https://github.com/spiritLHLS/ecs/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh
+```
+curl -fsSL https://code-server.dev/install.sh | sh -s -- --dry-run
+sudo systemctl enable --now code-server@root
+sed -i '1s/127.0.0.1:8080/0.0.0.0:8536/' ~/.config/code-server/config.yaml
+sudo systemctl restart code-server@root
+cat .config/code-server/config.yaml
+```
+
+卸载需要
+
+```
+sudo systemctl stop code-server@root
+sudo systemctl disable code-server@root
+rm -rf ~/.cache/coder
+sudo apt remove coder -y
 ```
 
 或
 
 ```
-bash <(wget -qO- bash.spiritlhl.net/ecs)
+curl -fsSL https://code-server.dev/install.sh | sh -s -- --dry-run
+sudo systemctl enable --now code-server@root
+sed -i '1s/127.0.0.1:8080/0.0.0.0:8536/' ~/.config/code-server/config.yaml
+sudo systemctl restart code-server@root
+cat .config/code-server/config.yaml
 ```
 
-或
+卸载需要
 
 ```
-bash <(wget -qO- ecs.0s.hk)
+sudo systemctl stop code-server@root
+sudo systemctl disable code-server@root
+rm -rf ~/.cache/coder
+sudo apt remove coder -y
 ```
-
-或
-
-```
-bash <(wget -qO- ecs.12345.ing)
-```
-
-### 无交互形式-参数模式
-
-```bash
-curl -L https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh -m 1
-```
-
-或
-
-```bash
-curl -L https://github.com/spiritLHLS/ecs/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh -m 1
-```
-
-或通过
-
-```
-curl -L https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh
-```
-
-下载文件后使用类似
-
-```bash
-bash ecs.sh -m 1
-```
-
-这样的参数命令指定选项执行
-
-以下为参数说明：
-
-| 指令 | 项目 | 说明 | 备注 |
-| ---- | ---- | ----------- | ---- |
-| -m | 必填项 | 可指定原本menu中的对应选项，最多支持三层选择，例如执行```bash ecs.sh -m 5 1 1```将选择主菜单第5选项下的第1选项下的子选项1的脚本执行 | 可缺省仅指定一个参数，如```-m 1```仅指定执行融合怪完全体，执行```-m 1 0```以及```-m 1 0 0```都是指定执行融合怪完全体 |
-| -en | 可选项 | 可指定强制输出为英文 | 无该指令则默认使用中文输出 |
-| -i | 可选项 | 可指定回程路由测试中的目标IPV4地址 | 可通过```ip.sb```、```ipinfo.io```等网站获取本地IPV4地址后指定 |
-| -r | 可选项 | 可指定回程路由测试中的目标IPV4地址，可选```b``` ```g``` ```s``` ```c``` 分别对应```北京```、```广州```、```上海、```成都``` | 如```-r b```指定测试北京回程(三网) |
-|   |   | 可指定仅测试IPV6三网，可选 ```b6``` ```g6``` ```s6``` 分别对应 ```北京```、```广州```、```上海``` 的三网的IPV6地址 | 如```-r b6``` 指定测试北京IPV6地址回程(三网) |
-| -base | 可选项 | 可指定仅测试基础的系统信息 | 无该指令则默认按照menu选项的组合测试 |
-| -ctype | 可选项 | 可指定通过何种方式测试cpu，可选```gb4```、```gb5```、```gb6```分别对应```geekbench```的```4```、```5```、```6```版本 | 无该指令则默认使用```sysbench```测试 |
-| -dtype | 可选项 | 可指定测试硬盘IO的程序，可选```dd```、```fio```，前者测试快后者测试慢 | 无该指令则默认都使用进行测试 |
-| -mdisk | 可选项 | 可指定测试多个挂载盘的IO | 注意本指令包含测试系统盘 |
-| -stype | 可选项 | 可指定使用```.cn```还是```.net```的数据进行测速 | 无该指令则默认使用```.net```数据测速优先，不可用时才替换为```.cn```数据 |
-| -bansp | 可选项 | 可指定强制不测试网速 | 无该指令则默认测试网速 |
-| -banup | 可选项 | 可指定强制不生成分享链接 | 无该指令则默认生成分享链接 |
-
-## IP质量检测
-
-- IP质量检测，含多家数据库查询，含黑名单查询
-- 含 ```IPV4``` 和 ```IPV6``` 检测，含ASN和地址查询
-- 含25端口的邮箱可达性检测，如果某个邮箱可达，则可搭建邮局
-
-```bash
-bash <(wget -qO- --no-check-certificate https://gitlab.com/spiritysdx/za/-/raw/main/qzcheck.sh)
-```
-
-或
-
-```bash
-bash <(wget -qO- bash.spiritlhl.net/ecs-ipcheck)
-```
-
-或
-
-```bash
-bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spiritLHLS/ecs/main/qzcheck.sh)
-```
-
-## 融合怪说明
-
-融合怪脚本最好在 /root 路径下执行，避免各种奇奇怪怪的问题
-
-融合怪的执行结果保存在当前路径下的```test_result.txt```中，可在```screen```或```tmux```中执行，先退出SSH登录过一段时间后再查看文件
-
-**有时候想要测一些配置极其拉跨的机器时，上面这样执行这样可以避免IO或者CPU过于垃圾导致的测试过程中的SSH连接中断，就不会测一半啥都没了，假如screen中显示乱码，也没问题，分享链接中的结果是不带乱码的**
-
-融合怪的完整版和精简版运行完毕会自动上传结果到pastebin并回传分享链接，如果测一半想要退出，那么按```Ctrl+C```同时按下可终止测试，此时会自动退出删除残余文件
-
-最烂机器测试的例子(跑了47分钟一样测完)：[跳转](https://github.com/spiritLHLS/ecs/blob/main/lowpage/README.md)
-
-使用**CDN**已支持**国内**和**国外**加速服务器环境安装和预制文件下载，但国内受CDN连通性或国内机器带宽大小的限制加载可能会慢很多
-
-融合怪测试说明以及部分测试结果的内容解释(初次使用推荐查看)：
-
-除了已标注的原创内容，其余所有分区均为借鉴并进行优化修改后的版本，与原始对应的脚本不一样
-
-所有检测都有考虑过使用并行测试，并在部分环节使用了该技术，比正常的顺序执行优化了2~3分钟，属于是独有的，暂无哪家的测试有同类技术
-
-系统基础信息测试融合了多家还有我自己修补的部分检测(systl、NAT类型检测，并发ASN检测等)，应该是目前最全面最通用的了
-
-CPU测试默认使用sysbench测试得分，不是yabs的gb4或gb5(虽然默认不是geekbench但可以通过指令指定geekbench常见版本进行测试)，前者只是简单的计算质数测试速度快，后者geekbench是综合测试系统算加权得分
-
-使用sysbench测试得分是每秒处理的事件数目，这个指标无论在强还是弱性能的服务器上都能迅速测出来，而geekbench很多是测不动或者速度很慢起码2分半钟
-
-CPU测试单核sysbench得分在5000以上的可以算第一梯队，4000到5000分算第二梯队，每1000分算一档，自己看看自己在哪个档位吧
-
-AMD的7950x单核满血性能得分在6500左右，AMD的5950x单核满血性能得分5700左右，Intel普通的CPU(E5之类的)在1000~800左右，低于500的单核CPU可以说是性能比较烂的了
-
-IO测试收录了两种，来源于lemonbench的dd磁盘测试和yabs的fio磁盘测试，综合来看会比较好，前者可能误差偏大但测试速度快无硬盘大小限制，后者真实一点但测试速度慢有硬盘以及内存大小限制
-
-流媒体测试收录了两种，一个是go编译的二进制文件和一个shell脚本版本，二者各有优劣，互相对比看即可
-
-tiktok测试有superbench和lmc999两种版本，哪个失效了随时可能更新为其中一种版本，以最新的脚本为准
-
-回程路由测试选用的GO编译的二进制版本和朋友PR的版本，本人做了优化适配多个IP列表以及融合部分查询
-
-IP质量检测纯原创，如有bug或者更多数据库来源可在issues中提出，日常看IP2Location数据库的IP类型即可，其中的25端口邮箱可达，则可搭建邮局
-
-融合怪的IP质量检测是简化过的，没有查询Cloudflare的威胁得分，个人原创区的IP质量检测才是完整版(或者仓库说明中列出的那个IP质量检测的命令也是完整版)
-
-三网测速使用自写的测速脚本，尽量使用最新节点最新组件进行测速，且有备用第三方go版本测速内核，做到自更新测速节点列表，自适应系统环境测速
-
-其他第三方脚本归纳到了第三方脚本区，里面有同类型脚本不同作者的各种竞品脚本，如果融合怪不能使你满意或者有错误，可以看看那部分
-
-原创脚本区是个人原创的部分，有事没事也可以看看，可能会更新某些偏门或者独到的脚本
-
-VPS测试，VPS测速，VPS综合性能测试，VPS回程线路测试，VPS流媒体测试等所有测试融合的脚本，本脚本能融合的都融合了
-
-## 融合怪功能
-
-- [x] 自由组合测试方向和单项测试以及合集收录第三方脚本，融合怪各项测试均自优化修复过，与原始脚本均不同
-- [x] 基础信息查询--感谢[bench.sh](https://github.com/teddysun/across/blob/master/bench.sh)、[superbench.sh](https://www.oldking.net/350.html)、[yabs](https://github.com/masonr/yet-another-bench-script)、[lemonbench](https://github.com/LemonBench/LemonBench)开源，本人整理修改优化，同原版均不一致
-- [x] CPU测试--感谢[lemonbench](https://github.com/LemonBench/LemonBench)和[yabs](https://github.com/masonr/yet-another-bench-script)开源，本人整理修改优化
-- [x] 内存测试--感谢[lemonbench](https://github.com/LemonBench/LemonBench)开源，本人整理修改优化
-- [x] 磁盘dd读写测试--感谢[lemonbench](https://github.com/LemonBench/LemonBench)开源，本人整理修改优化
-- [x] 硬盘fio读写测试--感谢[yabs](https://github.com/masonr/yet-another-bench-script)开源，本人整理修改优化
-- [x] 御三家流媒体解锁测试--感谢[netflix-verify](https://github.com/sjlleo/netflix-verify)、[VerifyDisneyPlus](https://github.com/sjlleo/VerifyDisneyPlus)、[TubeCheck](https://github.com/sjlleo/TubeCheck)开源，本人整理修改维护[CommonMediaTests](https://github.com/oneclickvirt/CommonMediaTests)使用
-- [x] 常用流媒体解锁测试--感谢[RegionRestrictionCheck](https://github.com/lmc999/RegionRestrictionCheck)开源，本人整理修改优化
-- [x] Tiktok解锁--感谢[TikTokCheck](https://github.com/lmc999/TikTokCheck)开源，本人整理修改优化
-- [x] 三网回程以及路由延迟--感谢[zhanghanyun/backtrace](https://github.com/zhanghanyun/backtrace)开源，本人整理修改维护[oneclickvirt/backtrace](https://github.com/oneclickvirt/backtrace)使用
-- [x] 回程路由及带宽类型检测(商宽/家宽/数据中心)--由[fscarmen](https://github.com/fscarmen)的PR以及本人的技术思路提供，本人修改优化维护
-- [x] IP质量与25端口检测(含IPV4和IPV6)--本脚本独创，感谢互联网提供的查询资源
-- [x] speedtest测速--使用自写[ecsspeed](https://github.com/spiritLHLS/ecsspeed)仓库，自动更新测速服务器ID，一劳永逸解决老是要手动更新测速ID的问题
-
-# 友链
-
-## 测评频道
-
-### https://t.me/vps_reviews
-
-## 自动更新测速服务器节点列表的网络基准测试脚本
-
-### https://github.com/spiritLHLS/ecsspeed
-
-# 脚本概况
-
-主界面：
-
-![图片](https://github.com/spiritLHLS/ecs/assets/103393591/051f1a83-ecd6-4713-af2f-c8b494e33c7f)
-
-选项1融合怪完全体：
-
-![图片](https://github.com/spiritLHLS/ecs/assets/103393591/a769cb11-b416-4d40-a78c-265549bc4d49)
-![图片](https://github.com/spiritLHLS/ecs/assets/103393591/291854bf-4760-4a7f-8fad-33a114a2ba46)
-![图片](https://github.com/spiritLHLS/ecs/assets/103393591/6cad0c32-2409-4a92-b2c7-435f8eb66b3c)
-![图片](https://github.com/spiritLHLS/ecs/assets/103393591/e5e486e8-0791-43d6-919e-63b420cec022)
-![图片](https://github.com/spiritLHLS/ecs/assets/103393591/7296621e-76c0-41f1-bd9c-e3e696301dcc)
-![图片](https://github.com/spiritLHLS/ecs/assets/103393591/08289d71-9f91-4597-bcb1-0909622e16d4)
-![图片](https://github.com/spiritLHLS/ecs/assets/103393591/3a53758e-5fab-4fc5-a0b6-651c2f6b79a3)
-
-选项6原创区：
-
-![图片](https://github.com/spiritLHLS/ecs/assets/103393591/393db695-5c94-41a9-9b02-812ad9d64967)

@@ -6,6 +6,8 @@ outline: deep
 
 https://github.com/spiritLHLS/Oracle-server-keep-alive-script
 
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2FOracle-server-keep-alive-script&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+
 # Oracle-server-keep-alive-script
 
 实际不止可以在甲骨文服务器上使用，也可以使用在任意ARM或X86_64架构的系统，用作资源占用
