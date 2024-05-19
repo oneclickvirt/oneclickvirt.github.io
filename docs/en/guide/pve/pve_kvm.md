@@ -378,7 +378,7 @@ The above command is used to create a virtual machine with an independent IPV4 a
 | IPV6         | None              |
 | MAC_ADDRESS  | None              |
 
-## Incoming and outgoing traffic goes to the bound IPV4 address
+#### Incoming and outgoing traffic goes to the bound IPV4 address
 
 execute
 
