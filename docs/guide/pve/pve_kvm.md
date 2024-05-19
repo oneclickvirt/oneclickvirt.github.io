@@ -265,19 +265,19 @@ PVE修改VM配置前都得停机先，再修改配置，修改完再启动，免
 国际
 
 ```shell
-curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_extraip.sh -o buildvm_extraip.sh && chmod +x buildvm_extraip.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_extra_ip.sh -o buildvm_extra_ip.sh && chmod +x buildvm_extra_ip.sh
 ```
 
 国内
 
 ```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_extraip.sh -o buildvm_extraip.sh && chmod +x buildvm_extraip.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_extra_ip.sh -o buildvm_extra_ip.sh && chmod +x buildvm_extra_ip.sh
 ```
 
 **各参数含义**
 
 ```shell
-./buildvm_extraip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 独立IPV6(默认为N)
+./buildvm_extra_ip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 独立IPV6(默认为N)
 ```
 
 :::tip
@@ -287,7 +287,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 #### 测试示例
 
 ```shell
-./buildvm_extraip.sh 152 test1 oneclick123 1 1024 10 debian12 local N
+./buildvm_extra_ip.sh 152 test1 oneclick123 1 1024 10 debian12 local N
 ```
 
 上述命令意义为开设一个带独立IPV4地址的虚拟机

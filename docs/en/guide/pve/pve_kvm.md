@@ -233,13 +233,13 @@ For example, if the current host address is ```1.1.1.32``` and then ```1.1.1.33`
 **Download Script**
 
 ```shell
-curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_extraip.sh -o buildvm_extraip.sh && chmod +x buildvm_extraip.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_extra_ip.sh -o buildvm_extra_ip.sh && chmod +x buildvm_extra_ip.sh
 ```
 
 **Meaning of each parameter**
 
 ```shell
-./buildvm_extraip.sh VMID Username Password Number_of_CPU_Cores Memory_Size_in_MB Disk_Size_in_GB OS Storage_Disk Attach_IPV6(Default is N)
+./buildvm_extra_ip.sh VMID Username Password Number_of_CPU_Cores Memory_Size_in_MB Disk_Size_in_GB OS Storage_Disk Attach_IPV6(Default is N)
 ```
 
 :::tip
@@ -249,7 +249,7 @@ Note that the Password here should be a mix of English and numbers only, and sta
 #### Test Example
 
 ```shell
-./buildvm_extraip.sh 152 test1 oneclick123 1 1024 10 debian12 local N
+./buildvm_extra_ip.sh 152 test1 oneclick123 1 1024 10 debian12 local N
 ```
 
 The above command is used to create a virtual machine with a dedicated IPv4 address.
