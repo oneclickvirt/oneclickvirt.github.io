@@ -437,8 +437,8 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 执行
 
 ```
-line="-A POSTROUTING -s 172.16.1.0/24 -o vmbr0 -j MASQUERADE"
-sed -i "/$line/d" /etc/iptables/rules.v4
+line="-A POSTROUTING -s 172.16.1.0\/24 -o vmbr0 -j MASQUERADE"
+sed -i "\|$line|d" /etc/iptables/rules.v4
 service netfilter-persistent restart
 ```
 
