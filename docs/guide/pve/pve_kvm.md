@@ -379,7 +379,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 - 需要自己在```/etc/network/interfaces```中给```vmbr0```添加额外的IPV4地址(注意```chattr -i```解锁文件修改后再```chattr +i```加锁回去)
 - 其他功能类似开设NAT的KVM虚拟机，只不过这里映射不再是部分端口映射，也不再是映射到宿主机的IPV4地址上，而是全端口一一映射到额外的IPV4地址上
-- 在虚拟机之外，这个虚拟机进出流量走绑定的额外IPV4的地址，在虚拟机之内，流量走原有的宿主机的IPV4地址
+- 在虚拟机外进入虚拟机的流量走绑定的额外IPV4的地址，在虚拟机内发出的流量走原有的宿主机的IPV4地址
 
 :::tip
 务必保证开设前你能使用额外的IPV4地址通过SSH登录宿主机，但```curl ip.sb```却仍显示原来的宿主机IPV4地址

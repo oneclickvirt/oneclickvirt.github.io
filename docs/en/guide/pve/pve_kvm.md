@@ -333,7 +333,7 @@ The above command is used to create a virtual machine with an independent IPV4 a
 
 - You need to add the extra IPV4 address to ```vmbr0``` in ```/etc/network/interfaces``` (note that ```chattr -i``` unlocks the file and then ```chattr +i``` locks it back).
 - Other features are similar to opening a NAT-enabled KVM VM, except that here the mapping is no longer partial port mapping or mapping to the host's IPV4 address, but full-port one-by-one mapping to additional IPV4 addresses
-- Outside of the VM, inbound and outbound traffic to and from this VM goes to the additional IPV4 address bound to the VM, and inside the VM, traffic goes to the original IPV4 address of the host machine.
+- Traffic coming into the VM from outside the VM goes to the bound additional IPV4 address, and traffic going out of the VM goes to the original host's IPV4 address
 
 :::tip
 Make sure you can SSH into the host with the extra IPV4 address before opening, but ```curl ip.sb``` still shows the original host IPV4 address.
