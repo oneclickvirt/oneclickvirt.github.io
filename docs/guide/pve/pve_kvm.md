@@ -240,9 +240,13 @@ PVE修改VM配置前都得停机先，再修改配置，修改完再启动，免
 
 ## 开设独立IPV4地址的虚拟机
 
-两个版本，各取所需
+三个脚本，各取所需，各有优缺点。
 
-### 自动选择IPV4地址无需手动指定的版本
+前两个脚本**不需要**额外的IPV4地址事先绑定到```vmbr0```接口上，开设的虚拟机将**直接**绑定额外的IPV4地址。
+
+最后一个脚本**需要**额外的IPV4地址事先绑定到```vmbr0```接口上，开设的虚拟机将做**NAT全端口映射**内网IPV4地址，**不直接**绑定额外的IPV4地址。
+
+### 自动选择宿主机同一子网内的额外IPV4地址开设虚拟机
 
 :::warning
 使用前需要保证当前宿主机的IP段带了至少2个IP，且有空余的IP未配置，该空余的IP未绑定宿主机。
@@ -304,7 +308,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | 存储盘     | local盘        |
 | IPV6附加   | 默认不附加     |
 
-### 需要手动指定IPV4地址的版本
+### 手动指定额外IPV4地址开设虚拟机
 
 - 需要手动在命令中指定IPV4地址，且带上子网长度
 - 如果宿主机自带IPV6子网将可选择是否附加上IPV6地址
@@ -368,6 +372,62 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | 子网         | /24 子网          |
 | IPV6         | 无                |
 | MAC地址      | 无                |
+
+### 宿主机手动附加额外IPV4地址后再指定IPV4地址开设虚拟机
+
+- 需要自己在```/etc/network/interfaces```中给```vmbr0```添加额外的IPV4地址(注意```chattr -i```解锁文件修改后再```chattr +i```加锁回去)
+- 其他功能类似开设NAT的KVM虚拟机，只不过这里映射不再是部分端口映射，也不再是映射到宿主机的IPV4地址上，而是全端口一一映射到额外的IPV4地址上
+
+:::tip
+务必保证开设前你能使用额外的IPV4地址通过SSH登录宿主机，但```curl ip.sb```却仍显示原来的宿主机IPV4地址
+:::
+
+#### 使用方法
+
+**下载脚本**
+
+国际
+
+```shell
+curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_fullnat_ip.sh -o buildvm_fullnat_ip.sh && chmod +x buildvm_fullnat_ip.sh
+```
+
+国内
+
+```shell
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_fullnat_ip.sh -o buildvm_fullnat_ip.sh && chmod +x buildvm_fullnat_ip.sh
+```
+
+**各参数含义**
+
+```shell
+./buildvm_fullnat_ip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 IPV4地址 独立IPV6(默认为N)
+```
+
+:::tip
+注意这里的密码最好仅英文与数字混合，且以英文开头，避免密码在设置过程中因为特殊字符被转义而设置失败
+:::
+
+#### 测试示例
+
+```shell
+./buildvm_manual_ip.sh 152 test1 oneclick123 1 1024 10 debian12 local a.b.c.d N
+```
+
+上述命令意义为开设一个带独立IPV4地址的虚拟机
+
+| 属性         | 值                |
+|--------------|-------------------|
+| VMID         | 152               |
+| 用户名       | test1             |
+| 密码         | oneclick123       |
+| CPU          | 1核              |
+| 内存         | 1024MB            |
+| 硬盘         | 10G               |
+| 系统         | debian12          |
+| 存储盘       | local盘 (系统盘)  |
+| IPV4地址     | a.b.c.d           |
+| IPV6         | 无                |
 
 ## 开设纯IPV6地址的虚拟机
 

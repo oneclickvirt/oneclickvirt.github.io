@@ -209,9 +209,13 @@ Before modifying the VM configuration for PVE, you must shut it down first. Afte
 
 ## Setting Up Virtual Machines with Dedicated IPv4 Addresses
 
-Two versions are available, choose as needed.
+Three scripts, each with its own advantages and disadvantages.
 
-### Version with Automatic Selection of IPv4 Address (No Manual Specification Required)
+The first two scripts **don't** require an additional IPV4 address to be bound to the ```vmbr0``` interface beforehand, and the opened VM will **directly** bind the additional IPV4 address.
+
+The last script **requires** additional IPV4 addresses to be bound to the ```vmbr0``` interface beforehand, and the opened VM will do **NAT full port mapping** to the intranet IPV4 address, **without **directly** binding additional IPV4 addresses.
+
+### Automatically selects additional IPV4 addresses on the same subnet as the host machine to open the virtual machine
 
 :::warning
 Before use, ensure that the current host machine has at least 2 available IP addresses within its IP range, and there are unallocated IP addresses. These unallocated IP addresses should not be bound to the host machine.
@@ -266,7 +270,7 @@ The above command is used to create a virtual machine with a dedicated IPv4 addr
 | Storage    | local disk     |
 | IPv6 Addon | Not attached by default |
 
-### Version Requiring Manual Specification of IPV4 Address
+### Manually Assign Additional IPV4 Addresses to Open Virtual Machines
 
 - Manual specification of IPV4 address with subnet length in the command is required.
 - If the host machine comes with an IPV6 subnet, you can choose whether to add an IPV6 address additionally.
@@ -322,6 +326,55 @@ The above command is used to create a virtual machine with an independent IPV4 a
 | Subnet       | /24 Subnet        |
 | IPV6         | None              |
 | MAC_ADDRESS  | None              |
+
+### Host manually appends an additional IPV4 address and then specifies the IPV4 address to open the virtual machine
+
+- You need to add the extra IPV4 address to ```vmbr0``` in ```/etc/network/interfaces``` (note that ```chattr -i``` unlocks the file and then ```chattr +i``` locks it back).
+- Other features are similar to opening a NAT-enabled KVM VM, except that here the mapping is no longer partial port mapping or mapping to the host's IPV4 address, but full-port one-by-one mapping to additional IPV4 addresses
+
+:::tip
+Make sure you can SSH into the host with the extra IPV4 address before opening, but ```curl ip.sb``` still shows the original host IPV4 address.
+:::
+
+#### Usage Instructions
+
+**Download Script**
+
+```shell
+curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_fullnat_ip.sh -o buildvm_fullnat_ip.sh && chmod +x buildvm_fullnat_ip.sh
+```
+**Meaning of each parameter**
+
+```shell
+./buildvm_fullnat_ip.sh VMID USERNAME PASSWORD CPU_CORES MEMORY_SIZE_GB STORAGE_SIZE_GB OS STORAGE_DISK IPV4_ADDRESS ATTACH_IPV6(defaults to N)
+```
+
+:::tip
+Note that the PASSWORD here should be a mix of English and numbers only, and start with English, so as to avoid failing to set the PASSWORD due to special characters being escaped during the setup process.
+:::
+
+#### Test Example
+
+```shell
+./buildvm_fullnat_ip.sh 152 test1 oneclick123 1 1024 10 debian12 local a.b.c.d N
+```
+
+The above command is used to create a virtual machine with an independent IPV4 address.
+
+| Attribute    | Value             |
+|--------------|-------------------|
+| VMID         | 152               |
+| Username     | test1             |
+| Password     | oneclick123       |
+| CPU          | 1 core            |
+| Memory       | 1024MB            |
+| Disk         | 10GB              |
+| Operating System | debian12       |
+| Storage Disk | Local Disk (System Disk) |
+| IPV4 Address | a.b.c.d           |
+| IPV6         | None              |
+| MAC_ADDRESS  | None              |
+
 
 ## Creating Virtual Machines with Pure IPv6 Addresses
 
