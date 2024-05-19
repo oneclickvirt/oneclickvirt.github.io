@@ -217,6 +217,11 @@ Two versions are available, choose as needed.
 Before use, ensure that the current host machine has at least 2 available IP addresses within its IP range, and there are unallocated IP addresses. These unallocated IP addresses should not be bound to the host machine.
 :::
 
+:::tip
+At this point, the IPV4 address appended is the address following the host's current IPV4 address in sequence.
+For example, if the current host address is ```1.1.1.32``` and then ```1.1.1.33``` there is already a virtual machine, then this script appends an IP address of ```1.1.1.34```.
+:::
+
 - Automatically detect available IP ranges. Use ping to identify unallocated IP addresses and select one to bind to the virtual machine.
 - If the host machine has an accompanying IPv6 subnet, there will be an option to attach an IPv6 address.
 - Relevant system information will be stored in the corresponding virtual machine's NOTE section, accessible for viewing on the web interface.
@@ -268,12 +273,13 @@ The above command is used to create a virtual machine with a dedicated IPv4 addr
 - If the vendor has provided an IPV4 address and subnet length, please carefully compare and write the parameters in the command format shown below.
 - Relevant system information will be stored in the NOTE of the corresponding virtual machine and can be viewed on the WEB end.
 - Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet.
-- The manually appended IPV4 address is in a **different subnet** from the host's IPV4 address (different IP address prefixes)
+- Manually appended IPV4 addresses that are in **different subnets** from the host's IPV4 address (different IP address prefixes) will use the host's IP address as the gateway
+- Manually appended IPV4 addresses that are within the **same subnet** as the host's IPV4 address (same IP address prefix) will use the host's gateway as the gateway
 - Optionally specify the MAC address of the virtual machine
 
 :::tip
-If the router does not recognize the source MAC address, the traffic will be flagged as "abuse" and "may" cause the server to be blocked.
-(If using Hetzner's stand-alone servers be sure to provide the MAC address that corresponds to the additional IPV4 address to prevent abuse from being reported.)
+If IP addresses within **different subnets** are appended without a MAC address, the router will not recognize the source MAC address, and the traffic will be flagged as “misuse” and “may” cause the server to be blocked.
+(If you are using a Hetzner standalone server, it is recommended that you provide the MAC address of the attached IPV4 address to prevent abuse from being reported.)
 :::
 
 #### Usage Instructions
