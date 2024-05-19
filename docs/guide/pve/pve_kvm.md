@@ -411,7 +411,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 #### 测试示例
 
 ```shell
-./buildvm_manual_ip.sh 152 test1 oneclick123 1 1024 10 debian12 local a.b.c.d N
+./buildvm_fullnat_ip.sh 152 test1 oneclick123 1 1024 10 debian12 local a.b.c.d N
 ```
 
 上述命令意义为开设一个带独立IPV4地址的虚拟机
