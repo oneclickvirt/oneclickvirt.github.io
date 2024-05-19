@@ -432,7 +432,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | IPV4地址     | a.b.c.d           |
 | IPV6         | 无                |
 
-## 进出流量都走绑定的IPV4地址
+#### 进出流量都走绑定的IPV4地址
 
 执行
 
