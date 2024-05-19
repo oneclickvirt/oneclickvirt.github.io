@@ -231,6 +231,7 @@ For example, if the current host address is ```1.1.1.32``` and then ```1.1.1.33`
 - Relevant system information will be stored in the corresponding virtual machine's NOTE section, accessible for viewing on the web interface.
 - Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet.
 - The automatically appended IPV4 address is within the **same subnet** as the host's IPV4 address (IP address prefix is the same)
+- Inbound and outbound traffic in and out of the VM goes to the additional IPV4 address of the binding
 
 #### Usage Instructions
 
@@ -280,6 +281,7 @@ The above command is used to create a virtual machine with a dedicated IPv4 addr
 - Manually appended IPV4 addresses that are in **different subnets** from the host's IPV4 address (different IP address prefixes) will use the host's IP address as the gateway
 - Manually appended IPV4 addresses that are within the **same subnet** as the host's IPV4 address (same IP address prefix) will use the host's gateway as the gateway
 - Optionally specify the MAC address of the virtual machine
+- Inbound and outbound traffic in and out of the VM goes to the additional IPV4 address of the binding
 
 :::tip
 If IP addresses within **different subnets** are appended without a MAC address, the router will not recognize the source MAC address, and the traffic will be flagged as “misuse” and “may” cause the server to be blocked.
@@ -331,6 +333,7 @@ The above command is used to create a virtual machine with an independent IPV4 a
 
 - You need to add the extra IPV4 address to ```vmbr0``` in ```/etc/network/interfaces``` (note that ```chattr -i``` unlocks the file and then ```chattr +i``` locks it back).
 - Other features are similar to opening a NAT-enabled KVM VM, except that here the mapping is no longer partial port mapping or mapping to the host's IPV4 address, but full-port one-by-one mapping to additional IPV4 addresses
+- Outside of the VM, inbound and outbound traffic to and from this VM goes to the additional IPV4 address bound to the VM, and inside the VM, traffic goes to the original IPV4 address of the host machine.
 
 :::tip
 Make sure you can SSH into the host with the extra IPV4 address before opening, but ```curl ip.sb``` still shows the original host IPV4 address.
