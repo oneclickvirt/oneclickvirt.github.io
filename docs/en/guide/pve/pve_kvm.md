@@ -378,6 +378,19 @@ The above command is used to create a virtual machine with an independent IPV4 a
 | IPV6         | None              |
 | MAC_ADDRESS  | None              |
 
+## Incoming and outgoing traffic goes to the bound IPV4 address
+
+execute
+
+```
+line="-A POSTROUTING -s 172.16.1.0/24 -o vmbr0 -j MASQUERADE"
+sed -i "/$line/d" /etc/iptables/rules.v4
+service netfilter-persistent restart
+```
+
+This will cause the host to lose the ability to open VMs/containers with NAT that do not have a separate IPV4 address, so be careful!
+
+After this, You will only be able to open VMs with separate IPV4 addresses.
 
 ## Creating Virtual Machines with Pure IPv6 Addresses
 

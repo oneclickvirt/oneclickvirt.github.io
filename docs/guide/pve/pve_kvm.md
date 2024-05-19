@@ -432,6 +432,20 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | IPV4地址     | a.b.c.d           |
 | IPV6         | 无                |
 
+## 进出流量都走绑定的IPV4地址
+
+执行
+
+```
+line="-A POSTROUTING -s 172.16.1.0/24 -o vmbr0 -j MASQUERADE"
+sed -i "/$line/d" /etc/iptables/rules.v4
+service netfilter-persistent restart
+```
+
+即可，但这会导致宿主机丧失开设非独立IPV4地址的NAT的虚拟机/容器的能力，慎重执行
+
+执行后你只能开设独立IPV4地址的虚拟机了。
+
 ## 开设纯IPV6地址的虚拟机
 
 前提是宿主机给的是IPV6子网而不是单独一个IPV6地址，且宿主机未开启MAC地址校验
