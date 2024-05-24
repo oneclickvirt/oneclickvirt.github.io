@@ -2,9 +2,7 @@
 outline: deep
 ---
 
-# Some custom scripts
-
-Some scripts may have its own system requirements, check them out!
+# Customized partitions
 
 ## Installing Proxmox VE 7 on a non-Debian system
 
@@ -119,3 +117,33 @@ If you do not need to use Spice for VM/container linking (the Arm version itself
 systemctl stop spiceproxy.service 
 systemctl disable spiceproxy.service 
 ```
+
+## Self-mapping of public ports on KVM VMs with open NATs
+
+Use the ```nano``` or ```vim``` command to modify the file to add port mapping:
+
+```
+/etc/iptables/rules.v4
+```
+
+For example, if I have a KVM VM with an intranet IP of ```172.16.1.152```, and MYSQL has been set up to listen to ```3306```, and I need to use the ```tcp``` protocol to map out to the ```33306``` port on the host IP, I would add the following line to the ```COMMIT``` line in the file above, then add the following line
+
+```
+-A PREROUTING -p tcp -m tcp -dport 33306 -j DNAT --to-destination 172.16.1.152:3306
+```
+
+Save the file and exit file editing and then execute:
+
+```
+service netfilter-persistent restart
+```
+
+Reload Port Mapping
+
+At this point, on the host machine, execute the
+
+```
+lsof -i:33306
+```
+
+To see if the port mapping rule is in effect
