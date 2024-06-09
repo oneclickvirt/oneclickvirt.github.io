@@ -2,6 +2,12 @@
 outline: deep
 ---
 
+# 给incus启用官方的web面板进行控制
+
+先查看 [incus论坛活跃用户分享的第三方教程](https://blog.simos.info/how-to-install-and-setup-the-incus-web-ui/)
+
+不懂的部分见 [给机房的Ubuntu22.04安装LXD共享GPU资源-配置web](https://www.spiritysdx.top/20240513/#%E9%85%8D%E7%BD%AEweb) 部分的内容
+
 # 给宿主机附加免费的IPV6地址段
 
 有的机器本身没有IPV6的/64子网，这里给出一个方法免费附加IPV6的子网。
