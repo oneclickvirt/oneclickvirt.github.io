@@ -115,17 +115,12 @@ bash ecs.sh -m 1
 | -bansp | 可选项 | 可指定强制不测试网速 | 无该指令则默认测试网速 |
 | -banup | 可选项 | 可指定强制不生成分享链接 | 无该指令则默认生成分享链接 |
 
+
 ## IP质量检测
 
-- IP质量检测，含多家数据库查询，含黑名单查询
+- IP质量检测，含多家数据库查询，含DNS黑名单查询
 - 含 ```IPV4``` 和 ```IPV6``` 检测，含ASN和地址查询
-- 含25端口的邮箱可达性检测，如果某个邮箱可达，则可搭建邮局
-
-```bash
-bash <(wget -qO- --no-check-certificate https://gitlab.com/spiritysdx/za/-/raw/main/qzcheck.sh)
-```
-
-或
+- 含邮件常用协议/端口检测，如果SMTP/SMTPS可用且本地端口开放，则可搭建邮局
 
 ```bash
 bash <(wget -qO- bash.spiritlhl.net/ecs-ipcheck)
@@ -134,7 +129,17 @@ bash <(wget -qO- bash.spiritlhl.net/ecs-ipcheck)
 或
 
 ```bash
-bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spiritLHLS/ecs/main/qzcheck.sh)
+bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spiritLHLS/ecs/main/ipcheck.sh)
+```
+
+或
+
+需要事先安裝```dos2unix```
+
+```bash
+wget -qO ipcheck.sh --no-check-certificate https://gitlab.com/spiritysdx/za/-/raw/main/ipcheck.sh
+dos2unix ipcheck.sh
+bash ipcheck.sh
 ```
 
 ## 融合怪说明
@@ -200,7 +205,7 @@ VPS测试，VPS测速，VPS综合性能测试，VPS回程线路测试，VPS流�
 - [x] Tiktok解锁--感谢[TikTokCheck](https://github.com/lmc999/TikTokCheck)开源，本人整理修改优化
 - [x] 三网回程以及路由延迟--感谢[zhanghanyun/backtrace](https://github.com/zhanghanyun/backtrace)开源，本人整理修改维护[oneclickvirt/backtrace](https://github.com/oneclickvirt/backtrace)使用
 - [x] 回程路由及带宽类型检测(商宽/家宽/数据中心)--由[fscarmen](https://github.com/fscarmen)的PR以及本人的技术思路提供，本人修改优化维护
-- [x] IP质量与25端口检测(含IPV4和IPV6)--本脚本独创，感谢互联网提供的查询资源
+- [x] IP质量(含IPV4和IPV6)与邮件端口检测--使用[oneclickvirt/securityCheck](https://github.com/oneclickvirt/securityCheck)和[oneclickvirt/portchecker](https://github.com/oneclickvirt/portchecker)进行测试，感谢互联网提供的查询资源
 - [x] speedtest测速--使用自写[ecsspeed](https://github.com/spiritLHLS/ecsspeed)仓库，自动更新测速服务器ID，一劳永逸解决老是要手动更新测速ID的问题
 
 # 友链
