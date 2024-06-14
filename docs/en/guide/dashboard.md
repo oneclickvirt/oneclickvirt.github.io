@@ -22,8 +22,6 @@ If you're unfamiliar with the ```screen``` command, please search for relevant t
 The PVE project might cause problems on the host machine. If you're not familiar with debugging bugs and fixing system issues, it's not recommended to use PVE in a production environment. When using PVE-related scripts, make sure the host machine can be reinstalled at any time.
 :::
 
-Please make sure to keep the original formatting by enclosing the translation in ``` and ``` for easy copying.
-
 ## Project Repository
 
 Welcome Star and Fork, all resources are open source, no non-open source parts, reproduced as well as the use of please write on the source of this site, thank you!
