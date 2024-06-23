@@ -16,6 +16,43 @@ systemctl restart networking
 
 一般来说这种情况都是出现在独服的Debian11系统上，切换为Debian12系统就没问题了
 
+## 安装PVE失败且报错显示某些安装包不存在
+
+执行下述命令查询apt的源
+
+```shell
+grep -r "deb " /etc/apt/sources.list /etc/apt/sources.list.d/
+```
+
+如果看到
+
+```
+deb file://
+deb cdrom:[
+```
+
+这种开头的行，那么证明宿主机使用的是本地源而不是网络源，需要替换```/etc/apt/sources.list```的源，如
+
+![图片](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/c2a8d7ce-d2ae-439e-9875-3ef756e9a8a3)
+
+一样替换为网络源才可使用PVE一键安装脚本进行安装。
+
+替换网络源
+
+国内服务器可使用
+
+```
+bash <(curl -sSL https://gitee.com/SuperManito/LinuxMirrors/raw/main/ChangeMirrors.sh)
+```
+
+国外服务器可使用
+
+```
+bash <(curl -sSL https://raw.githubusercontent.com/SuperManito/LinuxMirrors/main/ChangeMirrors.sh) --abroad
+```
+
+进行apt源的替换
+
 ## 安装PVE成功但重启后失联
 
 如果什么机器安装PVE成功后WEB可用，但重启失联，请安装成功PVE后，重启前执行以下命令再重启
