@@ -125,10 +125,10 @@ systemctl disable spiceproxy.service
 ```shell
 TEMP_CRON=$(mktemp)
 sudo crontab -l > $TEMP_CRON
-echo "*/5 * * * * echo 1 > /proc/sys/vm/drop_caches >> /root/checkio.log" >> $TEMP_CRON
-echo "*/5 * * * * sleep 60; echo 2 > /proc/sys/vm/drop_caches >> /root/checkio.log" >> $TEMP_CRON
-echo "*/5 * * * * sleep 120; echo 3 > /proc/sys/vm/drop_caches >> /root/checkio.log" >> $TEMP_CRON
-echo "*/5 * * * * sleep 180; fstrim -av >> /root/checkio.log >> /root/checkio.log" >> $TEMP_CRON
+echo "*/5 * * * * echo 1 > /proc/sys/vm/drop_caches" >> $TEMP_CRON
+echo "*/5 * * * * sleep 60; echo 2 > /proc/sys/vm/drop_caches" >> $TEMP_CRON
+echo "*/5 * * * * sleep 120; echo 3 > /proc/sys/vm/drop_caches" >> $TEMP_CRON
+echo "*/5 * * * * sleep 180; fstrim -av" >> $TEMP_CRON
 sudo crontab $TEMP_CRON
 rm $TEMP_CRON
 ```
