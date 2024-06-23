@@ -55,7 +55,7 @@ spiritlhl/pve:7_aarch64
 
 ## 在低配置系统中优化Proxmox-VE的内存占用
 
-以下优化可以减少400M内存左右的占用，聊胜于无。
+以下优化可以减少至少400M内存左右的占用，部分机器能减少6GB以上，实际减少多少内存占用自行测试
 
 ### 减少max_workers数量
 
@@ -117,6 +117,23 @@ systemctl disable pvescheduler.service
 systemctl stop spiceproxy.service 
 systemctl disable spiceproxy.service 
 ```
+
+### 使用定时任务删除内存缓存
+
+清理不同类型的缓存以及对文件系统进行TRIM操作
+
+```shell
+TEMP_CRON=$(mktemp)
+sudo crontab -l > $TEMP_CRON
+echo "*/5 * * * * echo 1 > /proc/sys/vm/drop_caches >> /root/checkio.log" >> $TEMP_CRON
+echo "*/5 * * * * sleep 60; echo 2 > /proc/sys/vm/drop_caches >> /root/checkio.log" >> $TEMP_CRON
+echo "*/5 * * * * sleep 120; echo 3 > /proc/sys/vm/drop_caches >> /root/checkio.log" >> $TEMP_CRON
+echo "*/5 * * * * sleep 180; fstrim -av >> /root/checkio.log >> /root/checkio.log" >> $TEMP_CRON
+sudo crontab $TEMP_CRON
+rm $TEMP_CRON
+```
+
+上面的命令需要宿主机本身有```sudo```和```crontab```命令才可使用。
 
 ## 在开设出的NAT的KVM虚拟机上自行映射公网端口
 

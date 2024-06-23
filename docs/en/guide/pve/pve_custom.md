@@ -55,7 +55,7 @@ There are many bugs need to be fixed, welcome to PR to solve the problem, the ac
 
 ## Optimizing the memory footprint of Proxmox-VE on low-configuration systems
 
-The following optimizations can reduce the memory usage by about 400M, which is better than nothing.
+The following optimization can reduce at least 400M memory occupation, some machines can reduce more than 6GB, the actual reduction of how much memory occupation to test by yourself.
 
 ### Reduce the number of max_workers
 
@@ -117,6 +117,23 @@ If you do not need to use Spice for VM/container linking (the Arm version itself
 systemctl stop spiceproxy.service 
 systemctl disable spiceproxy.service 
 ```
+
+### Deleting the memory cache using a timed task
+
+Clearing different types of caches and performing TRIM operations on file systems
+
+```shell
+TEMP_CRON=$(mktemp)
+sudo crontab -l > $TEMP_CRON
+echo "*/5 * * * * echo 1 > /proc/sys/vm/drop_caches >> /root/checkio.log" >> $TEMP_CRON
+echo "*/5 * * * * sleep 60; echo 2 > /proc/sys/vm/drop_caches >> /root/checkio.log" >> $TEMP_CRON
+echo "*/5 * * * * sleep 120; echo 3 > /proc/sys/vm/drop_caches >> /root/checkio.log" >> $TEMP_CRON
+echo "*/5 * * * * sleep 180; fstrim -av >> /root/checkio.log >> /root/checkio.log" >> $TEMP_CRON
+sudo crontab $TEMP_CRON
+rm $TEMP_CRON
+```
+
+The above commands require the ```sudo``` and ```crontab``` commands to be available on the host itself.
 
 ## Self-mapping of public ports on KVM VMs with open NATs
 
