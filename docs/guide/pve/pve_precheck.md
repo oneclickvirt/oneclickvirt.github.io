@@ -30,7 +30,7 @@ outline: deep
 
 - 硬件要求：2核2G内存```x86_64```或```arm```架构服务器硬盘至少20G
 - 可开KVM的硬件要求：VM-X或AMD-V支持 (部分VPS和全部独服支持)
-- 如果硬件或系统需求不满足，可使用LXD批量开LXC容器[跳转](https://github.com/spiritLHLS/lxd)
+- 如果硬件或系统需求不满足，可使用incus批量开LXC容器[跳转](https://github.com/oneclickvirt/incus)
 
 如果使用IPV6隧道进行宿主机的IPV6子网附加，务必在PVE安装成功但网关未自动设置时在对应文件添加内容，不要在一开始(未安装PVE)就进行IPV6隧道的添加。
 
