@@ -16,6 +16,33 @@ See if it is not directly offline, if so that is the machine native problem, hot
 
 Generally speaking, this situation occurs in the exclusive service Debian11 system, switch to Debian12 system will not be a problem!
 
+## Installation of PVE fails with an error saying that some packages do not exist.
+
+Execute the following command to query the source of apt
+
+```shell
+grep -r "deb " /etc/apt/sources.list /etc/apt/sources.list.d/
+```
+
+If you see
+
+```
+deb file://
+deb cdrom:[
+```
+
+A line starting like this proves that the host is using local sources instead of network sources, and you need to replace the sources in ```/etc/apt/sources.list``` with a line such as
+
+![pct](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/c2a8d7ce-d2ae-439e-9875-3ef756e9a8a3)
+
+Replace the network source with the same to install using the PVE one-click install script.
+
+Replacing the network source can be done using the following command for apt source replacement
+
+```
+bash <(curl -sSL https://raw.githubusercontent.com/SuperManito/LinuxMirrors/main/ChangeMirrors.sh) --abroad
+```
+
 ## Successful PVE Installation but Lost Connection After Reboot
 
 If the machine successfully installs PVE and the web interface is accessible, but loses connection after a reboot, please execute the following commands after a successful PVE installation and before rebooting:
