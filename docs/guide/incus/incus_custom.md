@@ -2,13 +2,15 @@
 outline: deep
 ---
 
-# 给incus启用官方的web面板进行控制
+# 自定义
+
+## 给incus启用官方的web面板进行控制
 
 先查看 [incus论坛活跃用户分享的第三方教程](https://blog.simos.info/how-to-install-and-setup-the-incus-web-ui/)
 
 不懂的部分见 [给机房的Ubuntu22.04安装LXD共享GPU资源-配置web](https://www.spiritysdx.top/20240513/#%E9%85%8D%E7%BD%AEweb) 部分的内容
 
-# 给宿主机附加免费的IPV6地址段
+## 给宿主机附加免费的IPV6地址段
 
 有的机器本身没有IPV6的/64子网，这里给出一个方法免费附加IPV6的子网。
 
@@ -95,7 +97,9 @@ default_route=$(ip -6 route show | awk '/default via/{print $3}') && [ -n "$defa
 
 这里假设了你的客户端的服务器的默认网卡是```eth0```，你可以使用```ip -6 route```查看默认的路由并替换它，默认路由以```default via```开头，使用```dev```指定默认网卡，你只需要按照这个规则找到它即可
 
-## tunnelbroker_net
+## 目前收集且支持的平台
+
+### tunnelbroker_net
 
 结合一键开设带IPV6地址的容器的脚本，就能给每个容器附加来自he的IPV6地址了
 
@@ -183,7 +187,7 @@ route -A inet6 add ::/0 dev he-ipv6
 
 然后重启服务器，就删除了
 
-## tunnelbroker_ch
+### tunnelbroker_ch
 
 类似上述的操作，先在 [https://www.tunnelbroker.ch/](https://www.tunnelbroker.ch/) 注册一个账户先，注册后点击激活的邮件
 
@@ -226,7 +230,7 @@ systemctl restart networking
 
 保证环境无问题再进行别的操作了
 
-## ip4market_ru
+### ip4market_ru
 
 类似上述的操作，先在 [https://tb.ip4market.ru](https://tb.ip4market.ru/) 注册一个账户先，注册邮箱得是非常见邮箱，电话可随便写不验证的，IP填上你要附加的宿主机的IPV4地址
 
@@ -281,7 +285,7 @@ systemctl restart networking
 保证环境无问题再进行别的操作了
 
 
-## netassist_ua
+### netassist_ua
 
 这个平台你在切换网络管理时务必使用```ifupdown2```而不是```ifupdown2```安装包，该平台使用sit协议，而sit协议需要在```ifupdown2```控制的环境中使用
 
@@ -441,16 +445,16 @@ ip tunnel del user-ipv6
 
 这里进行申请，然后转换格式的时候将原先```/64```的IPV6地址改成```/48```的IPV6地址，你就能获得一个更大的IPV6子网了
 
-# 补充CloudFlare的WARP的IPv4/IPv6出口
+## 添加CloudFlare的WARP的IPv4/IPv6出口
 
-## 好处
+### 好处
 
 * 宿主机安装，能使所有开启的机器都能够享受 Warp 的优势，而无需为每台机器单独进行设置，从而节省资源和简化管理。
 * 宿主机使用内核态 WireGuard，相比于用户态的 WireGuard-Go，实现能够提供更高效的 WireGuard 运行。
 
-## 手动安装
+### 手动安装
 
-### 2-1安装 WireGuard 依赖
+#### 2-1安装 WireGuard 依赖
 * Debian 和 Ubuntu 系统
 ```
 # 更新依赖库
@@ -478,15 +482,15 @@ yum install -y net-tools
 yum install -y wireguard-tools
 ```
 
-### 2-2获取 warp 账户信息
+#### 2-2获取 warp 账户信息
 
 以下 3 种方法，任选其一即可, 获取账户  private_key, v6
 
-#### 方法1: 通过网站获取: https://fscarmen.cloudflare.now.cc/ ，按 "Register Warp"，记录下 PrivateKey, Address_v6 2个值
+##### 方法1: 通过网站获取: https://fscarmen.cloudflare.now.cc/ ，按 "Register Warp"，记录下 PrivateKey, Address_v6 2个值
 
 ![image.png](https://img.imgdd.com/f210f3.5085a04e-edd3-4294-bb34-9e8263360c42.png)
 
-#### 方法2: 通过 warp-reg 二进制应用获取
+##### 方法2: 通过 warp-reg 二进制应用获取
 
 下载地址: https://github.com/badafans/warp-reg/releases ，找相应 CPU 架构的下载，以 amd64 为例
 ```
@@ -517,7 +521,7 @@ v6: 2606:4700:110:806f:56ab:3d50:f5ab:3293
 endpoint: engage.cloudflareclient.com:2408
 ```
 
-#### 方法3: 通过 wgcf 二进制应用获取
+##### 方法3: 通过 wgcf 二进制应用获取
 下载地址: https://github.com/ViRb3/wgcf/releases ，找相应 CPU 架构的下载，以 amd64 为例
 ```
 # 下载
@@ -553,7 +557,7 @@ AllowedIPs = ::/0
 Endpoint = engage.cloudflareclient.com:2408
 ```
 
-### 2-3: 修改配置文件
+#### 2-3: 修改配置文件
 
 * 创建并编辑 /etc/wireguard/warp.conf 文件，包含<>(尖括号)的部分一起替换掉，这只是为了看起来明显。
 
@@ -590,7 +594,7 @@ Endpoint = [2606:4700:d0::a29f:c101]:2408
 
 * 针对双栈没有必要，毕竟原生的网络出口都会比通过 Warp 中转要好
 
-### 2-4: 设置地址解析优先级
+#### 2-4: 设置地址解析优先级
 
 * 针对 IPv4 only 的宿主机，Warp 只接管 IPv6 出口，设置优先使用原生网络的 IPv4 出口
 ```
@@ -604,7 +608,7 @@ grep -qE '^[ ]*precedence[ ]*::ffff:0:0/96[ ]*100' /etc/gai.conf || echo 'preced
 sed -i '/^precedence \:\:ffff\:0\:0/d;/^label 2002\:\:\/16/d' /etc/gai.conf
 ```
 
-### 2-5: 连接 Warp，并设置 systemd 进程守护
+#### 2-5: 连接 Warp，并设置 systemd 进程守护
 ```
 # 运行 wireguard 连接 Warp。如果这步卡死导致失联，后台重启宿主机即可解决
 wg-quick up warp
@@ -622,7 +626,7 @@ wg-quick down warp
 systemctl enable --now wg-quick@warp
 ```
 
-## 3: 自动运行: fscarmen 的一键脚本
+### 自动安装和运行(fscarmen的一键脚本)
 
 最后，介绍 fscarmen 的一键脚本。提到该脚本是一个方便的工具，可以简化配置过程。并自动处理最优 MTU, 最优 Endpoint 等进阶参数。
 
