@@ -2,7 +2,9 @@
 outline: deep
 ---
 
-# Attach free IPV6 address segments to host machines
+# Custom
+
+## Attach free IPV6 address segments to host machines
 
 Some machines don't have an IPV6 /64 subnet on the machine itself, here is a method given to attach an IPV6 subnet for free.
 
@@ -28,7 +30,7 @@ If you need high quality bandwidth, please build your own tunnel. When both ifup
 
 After the installation is complete, select which package is installed behind to convert the format.
 
-## Initial environment modifications
+### Initial environment modifications
 
 Execute
 
@@ -89,7 +91,9 @@ default_route=$(ip -6 route show | awk '/default via/{print $3}') && [ -n "$defa
 
 This assumes that your client's server's default NIC is ```eth0```, you can use ```ip -6 route``` to see the default route and replace it, the default route starts with ```default via```, and uses ```dev``` to specify the default NIC, you just need to find it according to this rule
 
-## tunnelbroker_net
+### Currently supported platforms
+
+#### tunnelbroker_net
 
 
 Combined with a script that opens containers with IPV6 addresses with a single click, you can attach an IPV6 address from he to each container
@@ -205,7 +209,7 @@ If you want to delete the he-ipv6 network interface configuration (if not, it wi
 
 Then reboot the server to remove the
 
-## tunnelbroker_ch
+#### tunnelbroker_ch
 
 
 Similar to the above, first register an account at [https://www.tunnelbroker.ch/](https://www.tunnelbroker.ch/) and click on the activation email after registering.
@@ -265,7 +269,7 @@ systemctl restart networking
 
 Make sure the environment is OK before you do anything else
 
-## ip4market_ru
+#### ip4market_ru
 
 Similar to the above, first register an account at [https://tb.ip4market.ru](https://tb.ip4market.ru/), the registered email address must be an unseen email address, the phone number can be written randomly without verification, and the IP address should be the IPV4 address of the host you want to attach.
 
@@ -319,7 +323,7 @@ systemctl restart networking
 
 Make sure the environment is OK before you do anything else
 
-## netassist_ua
+#### netassist_ua
 
 Similar to the above operation, first in [https://tb.netassist.ua/](https://tb.netassist.ua/) register an account first, after registration, click on the activation of the mail, the activation page will have a password display, remember to record!
 
@@ -474,15 +478,15 @@ In fact [https://tunnelbroker.net/](https://tunnelbroker.net/) supports the appl
 
 Make the request here, then when converting the format change the original ```/64``` IPV6 address to a ```/48``` IPV6 address and you'll get a larger IPV6 subnet!
 
-# Supplemental CloudFlare WARP IPv4 / IPv6 outbound
+## Supplemental CloudFlare WARP IPv4 / IPv6 outbound
 
-## 1: Benefits
+### 1: Benefits
 * By installing it on the host machine, all enabled machines can benefit from the advantages of Warp without the need for individual configurations, thus saving resources and simplifying management.
 * The use of kernel WireGuard on the host machine enables more efficient operation of WireGuard compared to user-space WireGuard-Go.
 
-## 2: Manual Installation
+### 2: Manual Installation
 
-### 2-1 Installing WireGuard Dependencies
+#### 2-1 Installing WireGuard Dependencies
 * Debian and Ubuntu systems
 ```
 # Update dependent libraries
@@ -510,18 +514,21 @@ yum install -y net-tools
 yum install -y wireguard-tools
 ```
 
-### 2-2: Getting warp account information
+#### 2-2 Getting warp account information
 
 Choose one of the following 3 methods to get the account private_key, v6
 
-#### Method 1: Get it from the website: https://fscarmen.cloudflare.now.cc/ , press "Register Warp", and record the 2 values of private_key, Address_v6.
+##### Method 1: Get it from the website: https://fscarmen.cloudflare.now.cc/ , press "Register Warp", and record the 2 values of private_key, Address_v6.
+
 image.png
 ![image.png](https://img.imgdd.com/f210f3.5085a04e-edd3-4294-bb34-9e8263360c42.png)
 
 
-#### Method 2: Obtained via warp-reg binary application
+##### Method 2: Obtained via warp-reg binary application
+
 Download: https://github.com/badafans/warp-reg/releases and look for downloads for the appropriate CPU architecture, amd64 for example.
-```
+
+```shell
 # Download
 wget -O /etc/wireguard/warp-reg https://github.com/badafans/warp-reg/releases/download/v1.0/main-linux-amd64
 
@@ -534,7 +541,7 @@ chmod +x /etc/wireguard/warp-reg
 
 Output, record private_key, v6 2 values
 
-```
+```shell
 device_id: cd312e73-4813-4b5d-9414-6fc1c6757011
 token: b6b34774-5849-4cf7-a417-76b147dc49c7
 account_id: dd37e299-25ac-49ec-a921-4f225e793ab3
@@ -549,9 +556,11 @@ v6: 2606:4700:110:806f:56ab:3d50:f5ab:3293
 endpoint: engage.cloudflareclient.com:2408
 ```
 
-#### Method 3: Obtained via wgcf binary application
+##### Method 3: Obtained via wgcf binary application
+
 Download: https://github.com/ViRb3/wgcf/releases and look for downloads for the appropriate CPU architecture, amd64 for example.
-```
+
+```shell
 # Download
 wget -O /etc/wireguard/wgcf https://github.com/ViRb3/wgcf/releases/download/v2.2.22/wgcf_2.2.22_linux_amd64
 
@@ -569,7 +578,8 @@ cat /etc/wireguard/wgcf-profile.conf
 ````
 
 Output, record 2 values PrivateKey, Address_v6
-```
+
+```shell
 [Interface]
 PrivateKey = SNGCHD1NMZ/puPRGplQEVAqpcrOJt//DcipjLHhVykk=
 Address = 172.16.0.2/32
@@ -584,16 +594,17 @@ AllowedIPs = ::/0
 Endpoint = engage.cloudflareclient.com:2408
 ```
 
-### 2-3: Modifying Configuration Files
+#### 2-3: Modifying Configuration Files
 
 * Create and edit the /etc/wireguard/warp.conf file, replacing any parts that contain <> (pointy brackets) together, just to make it look obvious.
 
 * For IPv4-only hosts, Warp takes over IPv6 egress only
-```
+
+```shell
 [Interface]
-PrivateKey = <替换 PrivateKey>
+PrivateKey = <Your PrivateKey>
 Address = 172.16.0.2/32
-Address = <替换 Address v6 地址>/128
+Address = <Your Address-v6 >/128
 DNS = 1.1.1.1, 1.0.0.1, 2606:4700:4700::1111, 2606:4700:4700::1001
 MTU = 1280
 
@@ -604,11 +615,12 @@ Endpoint = 162.159.193.10:2408
 ```
 
 * For IPv6 only hosts, Warp takes over IPv4 egress only.
-```
+
+```shell
 [Interface]
-PrivateKey = <替换 PrivateKey>
+PrivateKey = <Your PrivateKey>
 Address = 172.16.0.2/32
-Address = <替换 Address v6 地址>/128
+Address = <Your Address-v6>/128
 DNS = 2606:4700:4700::1111, 2606:4700:4700::1001, 1.1.1.1, 1.0.0.1
 MTU = 1280
 
@@ -620,21 +632,24 @@ Endpoint = [2606:4700:d0::a29f:c101]:2408
 
 * There's no need to target dual-stack, after all, native network outlets are better than relaying through Warp
 
+#### 2-4: Setting the Address Resolution Priority
 
-### 2-4: Setting the Address Resolution Priority
 For IPv4-only host machines, Warp only takes control of the IPv6 outbound, prioritizing the use of the native network's IPv4 outbound.
-```
+
+```shell
 # IPv4 priority
 grep -qE '^[ ]*precedence[ ]*::ffff:0:0/96[ ]*100' /etc/gai.conf || echo 'precedence ::ffff:0:0/96  100' >> /etc/gai.conf
 ```
 
 For IPv6-only host machines, Warp only takes control of the IPv4 outbound, prioritizing the use of the native network's IPv6 outbound.
-```
+
+```shell
 # IPv6 priority
 sed -i '/^precedence \:\:ffff\:0\:0/d;/^label 2002\:\:\/16/d' /etc/gai.conf
 ```
 
-### 2-5: Connecting to Warp and setting up the systemd process daemon
+#### 2-5: Connecting to Warp and setting up the systemd process daemon
+
 ```
 # Run wireguard to connect to Warp. If this step gets stuck and causes the connection to be lost, reboot the host in the background to resolve it.
 wg-quick up warp
@@ -652,7 +667,7 @@ wg-quick down warp
 systemctl enable --now wg-quick@warp
 ```
 
-## 3: Autorun: fscarmen's one-click scripts
+### 3: Autorun: fscarmen's one-click scripts
 
 Finally, the one-click script for fscarmen is introduced. The script is mentioned as a handy tool to simplify the configuration process. It also automatically handles advanced parameters such as Optimal MTU, Optimal Endpoint, etc.
 
