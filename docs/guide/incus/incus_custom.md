@@ -20,13 +20,13 @@ outline: deep
 
 以下是2023年目前还在运行的免费提供IPV6子网的平台
 
-| 支持的平台                       | 对应需要的安装包             | 协议             | 通道/子网数量           |
-|---------------------------|----------------|----------------|----------------|
-| tunnelbroker.net              | ifupdown 或 ifupdown2        | v4tunnel 或 sit           | 3✖/64 或 5✖/64            |
-| tunnelbroker.ch              | ifupdown 或 ifupdown2           | v4tunnel 或 sit         | 3✖/64          |
-| ip4market.ru                | ifupdown 或 ifupdown2         | v4tunnel 或 sit           | 1✖/64          |
-| netassist.ua                | ifupdown 或 ifupdown2          | v4tunnel 或 sit           | 1✖/64          |
-| https://github.com/oneclickvirt/6in4               | ifupdown2          | sit、gre、ipip           | 自定义          |
+| 支持的平台                           | 对应需要的安装包      | 协议            | 通道/子网数量  |
+| ------------------------------------ | --------------------- | --------------- | -------------- |
+| tunnelbroker.net                     | ifupdown 或 ifupdown2 | v4tunnel 或 sit | 3✖/64 或 5✖/64 |
+| tunnelbroker.ch                      | ifupdown 或 ifupdown2 | v4tunnel 或 sit | 3✖/64          |
+| ip4market.ru                         | ifupdown 或 ifupdown2 | v4tunnel 或 sit | 1✖/64          |
+| netassist.ua                         | ifupdown 或 ifupdown2 | v4tunnel 或 sit | 1✖/64          |
+| https://github.com/oneclickvirt/6in4 | ifupdown2             | sit、gre、ipip  | 自定义         |
 
 免费的平台只解决IPV6有没有的问题，不提供优质的IPV6带宽。
 
@@ -343,11 +343,11 @@ systemctl restart networking
 
 ### 环境准备
 
-| VPS(A) | VPS(B) |
-|--------|--------|
+| VPS(A)                    | VPS(B)                    |
+| ------------------------- | ------------------------- |
 | 一个IPV4地址(server_ipv4) | 一个IPV4地址(clinet_ipv4) |
-| 一个IPV6子网 | 无IPV6地址 |
-| 以下称之为服务端 | 以下称之为客户端 |
+| 一个IPV6子网              | 无IPV6地址                |
+| 以下称之为服务端          | 以下称之为客户端          |
 
 ### 使用方法
 
@@ -363,10 +363,10 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/6in4/main/6in4.sh -o 6in4
 ./6in4.sh client_ipv4 <mode_type> <subnet_size> 
 ```
 
-| 选项 | 可选的选项1 | 可选的选项2 | 可选的选项3 |
-|--------|--------|--------|--------|
-| <mode_type> | gre | sit | ipip |
-| <subnet_size> | 64 | 80 | 112 |
+| 选项          | 可选的选项1 | 可选的选项2 | 可选的选项3 |
+| ------------- | ----------- | ----------- | ----------- |
+| <mode_type>   | gre         | sit         | ipip        |
+| <subnet_size> | 64          | 80          | 112         |
 
 ```<mode_type>```暂时只支持那三种协议，越靠前的越推荐，不填则默认为```sit```协议
 
@@ -440,3 +440,197 @@ ip tunnel del user-ipv6
 ![图片](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/07987e41-0158-430c-bcc5-f7cd8652b2c4)
 
 这里进行申请，然后转换格式的时候将原先```/64```的IPV6地址改成```/48```的IPV6地址，你就能获得一个更大的IPV6子网了
+
+# 补充CloudFlare的WARP的IPv4/IPv6出口
+
+## 好处
+
+* 宿主机安装，能使所有开启的机器都能够享受 Warp 的优势，而无需为每台机器单独进行设置，从而节省资源和简化管理。
+* 宿主机使用内核态 WireGuard，相比于用户态的 WireGuard-Go，实现能够提供更高效的 WireGuard 运行。
+
+## 手动安装
+
+### 2-1安装 WireGuard 依赖
+* Debian 和 Ubuntu 系统
+```
+# 更新依赖库
+apt update -y
+
+# 安装 WireGuard 运行依赖
+apt install -y --no-install-recommends net-tools openresolv dnsutils
+
+# 安装 WireGuard 协议兼容的工具集合
+apt install -y --no-install-recommends wireguard-tools
+```
+
+* CentOS 系
+```
+# 更新依赖库
+yum update -y
+
+# 安装额外包组件
+yum install -y epel-release 
+
+# 安装 WireGuard 运行依赖
+yum install -y net-tools
+
+# 安装 WireGuard 协议兼容的工具集合
+yum install -y wireguard-tools
+```
+
+### 2-2获取 warp 账户信息
+
+以下 3 种方法，任选其一即可, 获取账户  private_key, v6
+
+#### 方法1: 通过网站获取: https://fscarmen.cloudflare.now.cc/ ，按 "Register Warp"，记录下 PrivateKey, Address_v6 2个值
+
+![image.png](https://img.imgdd.com/f210f3.5085a04e-edd3-4294-bb34-9e8263360c42.png)
+
+#### 方法2: 通过 warp-reg 二进制应用获取
+
+下载地址: https://github.com/badafans/warp-reg/releases ，找相应 CPU 架构的下载，以 amd64 为例
+```
+# 下载
+wget -O /etc/wireguard/warp-reg https://github.com/badafans/warp-reg/releases/download/v1.0/main-linux-amd64
+
+# 赋权
+chmod +x /etc/wireguard/warp-reg
+
+# 运行
+/etc/wireguard/warp-reg
+```
+
+输出，记录下 private_key, v6 2个值
+
+```
+device_id: cd312e73-4813-4b5d-9414-6fc1c6757011
+token: b6b34774-5849-4cf7-a417-76b147dc49c7
+account_id: dd37e299-25ac-49ec-a921-4f225e793ab3
+account_type: free
+license: 8h4G90jx-2jgVM816-9Cl1e7I3
+private_key: SNGCHD1NMZ/puPRGplQEVAqpcrOJt//DcipjLHhVykk=
+public_key: bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
+client_id: WaBF
+reserved: [ 89, 160, 69 ]
+v4: 172.16.0.2
+v6: 2606:4700:110:806f:56ab:3d50:f5ab:3293
+endpoint: engage.cloudflareclient.com:2408
+```
+
+#### 方法3: 通过 wgcf 二进制应用获取
+下载地址: https://github.com/ViRb3/wgcf/releases ，找相应 CPU 架构的下载，以 amd64 为例
+```
+# 下载
+wget -O /etc/wireguard/wgcf https://github.com/ViRb3/wgcf/releases/download/v2.2.22/wgcf_2.2.22_linux_amd64
+
+# 赋权
+chmod +x /etc/wireguard/wgcf
+
+# 注册 WireGuard 账户信息
+/etc/wireguard/wgcf register --accept-tos --config /etc/wireguard/wgcf-account.toml
+
+# 生成 WireGuard 配置文件
+/etc/wireguard/wgcf generate --config /etc/wireguard/wgcf-account.toml --profile /etc/wireguard/wgcf-profile.conf
+
+# 查看结果
+cat /etc/wireguard/wgcf-profile.conf 
+```
+
+输出，记录下 PrivateKey, Address_v6 2个值
+
+```
+[Interface]
+PrivateKey = SNGCHD1NMZ/puPRGplQEVAqpcrOJt//DcipjLHhVykk=
+Address = 172.16.0.2/32
+Address = 2606:4700:110:806f:56ab:3d50:f5ab:3293/128
+DNS = 1.1.1.1, 1.0.0.1, 2606:4700:4700::1111, 2606:4700:4700::1001
+MTU = 1280
+
+[Peer]
+PublicKey = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
+AllowedIPs = 0.0.0.0/0
+AllowedIPs = ::/0
+Endpoint = engage.cloudflareclient.com:2408
+```
+
+### 2-3: 修改配置文件
+
+* 创建并编辑 /etc/wireguard/warp.conf 文件，包含<>(尖括号)的部分一起替换掉，这只是为了看起来明显。
+
+* 针对 IPv4 only 的宿主机，Warp 只接管 IPv6 出口
+```
+[Interface]
+PrivateKey = <替换 PrivateKey>
+Address = 172.16.0.2/32
+Address = <替换 Address v6 地址>/128
+DNS = 1.1.1.1, 1.0.0.1, 2606:4700:4700::1111, 2606:4700:4700::1001
+MTU = 1280
+
+[Peer]
+PublicKey = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
+AllowedIPs = ::/0
+Endpoint = 162.159.193.10:2408
+```
+
+* 针对 IPv6 only 的宿主机，Warp 只接管 IPv4 出口
+
+```
+[Interface]
+PrivateKey = <替换 PrivateKey>
+Address = 172.16.0.2/32
+Address = <替换 Address v6 地址>/128
+DNS = 2606:4700:4700::1111, 2606:4700:4700::1001, 1.1.1.1, 1.0.0.1
+MTU = 1280
+
+[Peer]
+PublicKey = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
+AllowedIPs = 0.0.0.0/0
+Endpoint = [2606:4700:d0::a29f:c101]:2408
+```
+
+* 针对双栈没有必要，毕竟原生的网络出口都会比通过 Warp 中转要好
+
+### 2-4: 设置地址解析优先级
+
+* 针对 IPv4 only 的宿主机，Warp 只接管 IPv6 出口，设置优先使用原生网络的 IPv4 出口
+```
+# IPv4 优先
+grep -qE '^[ ]*precedence[ ]*::ffff:0:0/96[ ]*100' /etc/gai.conf || echo 'precedence ::ffff:0:0/96  100' >> /etc/gai.conf
+```
+
+* 针对 IPv6 only 的宿主机，Warp 只接管 IPv4 出口，设置优先使用原生网络的 IPv6 出口
+```
+# IPv6 优先，默认即为 IPv6 优先
+sed -i '/^precedence \:\:ffff\:0\:0/d;/^label 2002\:\:\/16/d' /etc/gai.conf
+```
+
+### 2-5: 连接 Warp，并设置 systemd 进程守护
+```
+# 运行 wireguard 连接 Warp。如果这步卡死导致失联，后台重启宿主机即可解决
+wg-quick up warp
+
+# 查看 IPv4
+curl -A a https://api-ipv4.ip.sb/geoip
+
+# 查看 IPv6
+curl -A a https://api-ipv6.ip.sb/geoip
+
+# 测试成功后断开 Warp 连接
+wg-quick down warp
+
+# 重新连接并设置进程守护，以便重启后自动生效
+systemctl enable --now wg-quick@warp
+```
+
+## 3: 自动运行: fscarmen 的一键脚本
+
+最后，介绍 fscarmen 的一键脚本。提到该脚本是一个方便的工具，可以简化配置过程。并自动处理最优 MTU, 最优 Endpoint 等进阶参数。
+
+项目介绍: https://github.com/fscarmen/warp-sh
+
+```
+# 运动脚本
+wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh
+```
+
+![image.png](https://img.imgdd.com/f210f3.b94cf8fb-82f2-4160-95a7-c2859238284f.png)

@@ -473,3 +473,193 @@ In fact [https://tunnelbroker.net/](https://tunnelbroker.net/) supports the appl
 ![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/07987e41-0158-430c-bcc5-f7cd8652b2c4)
 
 Make the request here, then when converting the format change the original ```/64``` IPV6 address to a ```/48``` IPV6 address and you'll get a larger IPV6 subnet!
+
+# Supplemental CloudFlare WARP IPv4 / IPv6 outbound
+
+## 1: Benefits
+* By installing it on the host machine, all enabled machines can benefit from the advantages of Warp without the need for individual configurations, thus saving resources and simplifying management.
+* The use of kernel WireGuard on the host machine enables more efficient operation of WireGuard compared to user-space WireGuard-Go.
+
+## 2: Manual Installation
+
+### 2-1 Installing WireGuard Dependencies
+* Debian and Ubuntu systems
+```
+# Update dependent libraries
+apt update -y
+
+# Install WireGuard runtime dependencies
+apt install -y --no-install-recommends net-tools openresolv dnsutils
+
+# Install WireGuard protocol-compatible toolset
+apt install -y --no-install-recommends wireguard-tools
+```
+
+* CentOS systems
+```
+# Update dependent libraries
+yum update -y
+
+# Install additional package components
+yum install -y epel-release 
+
+# Install WireGuard runtime dependencies
+yum install -y net-tools
+
+# Install WireGuard protocol-compatible toolset
+yum install -y wireguard-tools
+```
+
+### 2-2: Getting warp account information
+
+Choose one of the following 3 methods to get the account private_key, v6
+
+#### Method 1: Get it from the website: https://fscarmen.cloudflare.now.cc/ , press "Register Warp", and record the 2 values of private_key, Address_v6.
+image.png
+![image.png](https://img.imgdd.com/f210f3.5085a04e-edd3-4294-bb34-9e8263360c42.png)
+
+
+#### Method 2: Obtained via warp-reg binary application
+Download: https://github.com/badafans/warp-reg/releases and look for downloads for the appropriate CPU architecture, amd64 for example.
+```
+# Download
+wget -O /etc/wireguard/warp-reg https://github.com/badafans/warp-reg/releases/download/v1.0/main-linux-amd64
+
+# Grant the execute  permission
+chmod +x /etc/wireguard/warp-reg
+
+# Run
+/etc/wireguard/warp-reg
+```
+
+Output, record private_key, v6 2 values
+
+```
+device_id: cd312e73-4813-4b5d-9414-6fc1c6757011
+token: b6b34774-5849-4cf7-a417-76b147dc49c7
+account_id: dd37e299-25ac-49ec-a921-4f225e793ab3
+account_type: free
+license: 8h4G90jx-2jgVM816-9Cl1e7I3
+private_key: SNGCHD1NMZ/puPRGplQEVAqpcrOJt//DcipjLHhVykk=
+public_key: bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
+client_id: WaBF
+reserved: [ 89, 160, 69 ]
+v4: 172.16.0.2
+v6: 2606:4700:110:806f:56ab:3d50:f5ab:3293
+endpoint: engage.cloudflareclient.com:2408
+```
+
+#### Method 3: Obtained via wgcf binary application
+Download: https://github.com/ViRb3/wgcf/releases and look for downloads for the appropriate CPU architecture, amd64 for example.
+```
+# Download
+wget -O /etc/wireguard/wgcf https://github.com/ViRb3/wgcf/releases/download/v2.2.22/wgcf_2.2.22_linux_amd64
+
+# Grant the execute  permission
+chmod +x /etc/wireguard/wgcf
+
+# Registers a new Cloudflare Warp device and creates a new account
+/etc/wireguard/wgcf register --accept-tos --config /etc/wireguard/wgcf-account.toml
+
+# Generates a WireGuard profile from the current Cloudflare Warp account
+/etc/wireguard/wgcf generate --config /etc/wireguard/wgcf-account.toml --profile /etc/wireguard/wgcf-profile.conf
+
+# View configuration information
+cat /etc/wireguard/wgcf-profile.conf
+````
+
+Output, record 2 values PrivateKey, Address_v6
+```
+[Interface]
+PrivateKey = SNGCHD1NMZ/puPRGplQEVAqpcrOJt//DcipjLHhVykk=
+Address = 172.16.0.2/32
+Address = 2606:4700:110:806f:56ab:3d50:f5ab:3293/128
+DNS = 1.1.1.1, 1.0.0.1, 2606:4700:4700::1111, 2606:4700:4700::1001
+MTU = 1280
+
+[Peer]
+PublicKey = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
+AllowedIPs = 0.0.0.0/0
+AllowedIPs = ::/0
+Endpoint = engage.cloudflareclient.com:2408
+```
+
+### 2-3: Modifying Configuration Files
+
+* Create and edit the /etc/wireguard/warp.conf file, replacing any parts that contain <> (pointy brackets) together, just to make it look obvious.
+
+* For IPv4-only hosts, Warp takes over IPv6 egress only
+```
+[Interface]
+PrivateKey = <替换 PrivateKey>
+Address = 172.16.0.2/32
+Address = <替换 Address v6 地址>/128
+DNS = 1.1.1.1, 1.0.0.1, 2606:4700:4700::1111, 2606:4700:4700::1001
+MTU = 1280
+
+[Peer]
+PublicKey = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
+AllowedIPs = ::/0
+Endpoint = 162.159.193.10:2408
+```
+
+* For IPv6 only hosts, Warp takes over IPv4 egress only.
+```
+[Interface]
+PrivateKey = <替换 PrivateKey>
+Address = 172.16.0.2/32
+Address = <替换 Address v6 地址>/128
+DNS = 2606:4700:4700::1111, 2606:4700:4700::1001, 1.1.1.1, 1.0.0.1
+MTU = 1280
+
+[Peer]
+PublicKey = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
+AllowedIPs = 0.0.0.0/0
+Endpoint = [2606:4700:d0::a29f:c101]:2408
+```
+
+* There's no need to target dual-stack, after all, native network outlets are better than relaying through Warp
+
+
+### 2-4: Setting the Address Resolution Priority
+For IPv4-only host machines, Warp only takes control of the IPv6 outbound, prioritizing the use of the native network's IPv4 outbound.
+```
+# IPv4 priority
+grep -qE '^[ ]*precedence[ ]*::ffff:0:0/96[ ]*100' /etc/gai.conf || echo 'precedence ::ffff:0:0/96  100' >> /etc/gai.conf
+```
+
+For IPv6-only host machines, Warp only takes control of the IPv4 outbound, prioritizing the use of the native network's IPv6 outbound.
+```
+# IPv6 priority
+sed -i '/^precedence \:\:ffff\:0\:0/d;/^label 2002\:\:\/16/d' /etc/gai.conf
+```
+
+### 2-5: Connecting to Warp and setting up the systemd process daemon
+```
+# Run wireguard to connect to Warp. If this step gets stuck and causes the connection to be lost, reboot the host in the background to resolve it.
+wg-quick up warp
+
+# Check IPv4
+curl -A a https://api-ipv4.ip.sb/geoip
+
+# Check IPv6
+curl -A a https://api-ipv6.ip.sb/geoip
+
+# Disconnect from Warp after successful test.
+wg-quick down warp
+
+# Reconnect and set process daemon to take effect automatically after reboot.
+systemctl enable --now wg-quick@warp
+```
+
+## 3: Autorun: fscarmen's one-click scripts
+
+Finally, the one-click script for fscarmen is introduced. The script is mentioned as a handy tool to simplify the configuration process. It also automatically handles advanced parameters such as Optimal MTU, Optimal Endpoint, etc.
+
+Project: https://github.com/fscarmen/warp-sh
+```
+# Run one-key script
+wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh
+```
+
+![image.png](https://img.imgdd.com/f210f3.b94cf8fb-82f2-4160-95a7-c2859238284f.png)
