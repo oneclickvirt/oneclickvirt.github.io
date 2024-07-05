@@ -5,7 +5,7 @@ outline: deep
 
 # 自定义
 
-## 给lxd启用官方的web面板进行控制
+## 给lxd启用官方的web面板
 
 见 [给机房的Ubuntu22.04安装LXD共享GPU资源-配置web](https://www.spiritysdx.top/20240513/#%E9%85%8D%E7%BD%AEweb) 部分的内容
 
@@ -35,7 +35,7 @@ outline: deep
 
 安装完毕后，安装了哪个包后面就选择哪个包进行格式转换。
 
-## 初始环境修改
+### 初始环境修改
 
 执行
 
@@ -96,9 +96,9 @@ default_route=$(ip -6 route show | awk '/default via/{print $3}') && [ -n "$defa
 
 这里假设了你的客户端的服务器的默认网卡是```eth0```，你可以使用```ip -6 route```查看默认的路由并替换它，默认路由以```default via```开头，使用```dev```指定默认网卡，你只需要按照这个规则找到它即可
 
-## 目前收集且支持的平台
+### 目前收集且支持的平台
 
-### tunnelbroker_net
+#### tunnelbroker_net
 
 结合一键开设带IPV6地址的容器的脚本，就能给每个容器附加来自he的IPV6地址了
 
@@ -186,7 +186,7 @@ route -A inet6 add ::/0 dev he-ipv6
 
 然后重启服务器，就删除了
 
-### tunnelbroker_ch
+#### tunnelbroker_ch
 
 类似上述的操作，先在 [https://www.tunnelbroker.ch/](https://www.tunnelbroker.ch/) 注册一个账户先，注册后点击激活的邮件
 
@@ -229,7 +229,7 @@ systemctl restart networking
 
 保证环境无问题再进行别的操作了
 
-### ip4market_ru
+#### ip4market_ru
 
 类似上述的操作，先在 [https://tb.ip4market.ru](https://tb.ip4market.ru/) 注册一个账户先，注册邮箱得是非常见邮箱，电话可随便写不验证的，IP填上你要附加的宿主机的IPV4地址
 
@@ -283,8 +283,7 @@ systemctl restart networking
 
 保证环境无问题再进行别的操作了
 
-
-### netassist_ua
+#### netassist_ua
 
 这个平台你在切换网络管理时务必使用```ifupdown2```而不是```ifupdown2```安装包，该平台使用sit协议，而sit协议需要在```ifupdown2```控制的环境中使用
 
@@ -326,7 +325,6 @@ systemctl restart networking
 ```
 
 保证环境无问题再进行别的操作了
-
 
 ## 转移不同服务器之间的IPV6子网
 
@@ -444,7 +442,7 @@ ip tunnel del user-ipv6
 
 这里进行申请，然后转换格式的时候将原先```/64```的IPV6地址改成```/48```的IPV6地址，你就能获得一个更大的IPV6子网了
 
-## 添加CloudFlare的WARP的IPv4/IPv6出口
+## 使用WARP给宿主机添加IP出口(IPv4/IPv6)
 
 ### 好处
 

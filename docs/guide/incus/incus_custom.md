@@ -36,7 +36,7 @@ outline: deep
 
 安装完毕后，安装了哪个包后面就选择哪个包进行格式转换。
 
-## 初始环境修改
+### 初始环境修改
 
 执行
 
@@ -97,9 +97,9 @@ default_route=$(ip -6 route show | awk '/default via/{print $3}') && [ -n "$defa
 
 这里假设了你的客户端的服务器的默认网卡是```eth0```，你可以使用```ip -6 route```查看默认的路由并替换它，默认路由以```default via```开头，使用```dev```指定默认网卡，你只需要按照这个规则找到它即可
 
-## 目前收集且支持的平台
+### 目前收集且支持的平台
 
-### tunnelbroker_net
+#### tunnelbroker_net
 
 结合一键开设带IPV6地址的容器的脚本，就能给每个容器附加来自he的IPV6地址了
 
@@ -187,7 +187,7 @@ route -A inet6 add ::/0 dev he-ipv6
 
 然后重启服务器，就删除了
 
-### tunnelbroker_ch
+#### tunnelbroker_ch
 
 类似上述的操作，先在 [https://www.tunnelbroker.ch/](https://www.tunnelbroker.ch/) 注册一个账户先，注册后点击激活的邮件
 
@@ -230,7 +230,7 @@ systemctl restart networking
 
 保证环境无问题再进行别的操作了
 
-### ip4market_ru
+#### ip4market_ru
 
 类似上述的操作，先在 [https://tb.ip4market.ru](https://tb.ip4market.ru/) 注册一个账户先，注册邮箱得是非常见邮箱，电话可随便写不验证的，IP填上你要附加的宿主机的IPV4地址
 
@@ -284,8 +284,7 @@ systemctl restart networking
 
 保证环境无问题再进行别的操作了
 
-
-### netassist_ua
+#### netassist_ua
 
 这个平台你在切换网络管理时务必使用```ifupdown2```而不是```ifupdown2```安装包，该平台使用sit协议，而sit协议需要在```ifupdown2```控制的环境中使用
 
@@ -445,7 +444,7 @@ ip tunnel del user-ipv6
 
 这里进行申请，然后转换格式的时候将原先```/64```的IPV6地址改成```/48```的IPV6地址，你就能获得一个更大的IPV6子网了
 
-## 添加CloudFlare的WARP的IPv4/IPv6出口
+## 使用WARP给宿主机添加IP出口(IPv4/IPv6)
 
 ### 好处
 
@@ -454,7 +453,7 @@ ip tunnel del user-ipv6
 
 ### 手动安装
 
-#### 2-1安装 WireGuard 依赖
+#### 1.安装WireGuard依赖
 * Debian 和 Ubuntu 系统
 ```
 # 更新依赖库
@@ -482,7 +481,7 @@ yum install -y net-tools
 yum install -y wireguard-tools
 ```
 
-#### 2-2获取 warp 账户信息
+#### 2.获取warp账户信息
 
 以下 3 种方法，任选其一即可, 获取账户  private_key, v6
 
@@ -557,7 +556,7 @@ AllowedIPs = ::/0
 Endpoint = engage.cloudflareclient.com:2408
 ```
 
-#### 2-3: 修改配置文件
+#### 3.修改配置文件
 
 * 创建并编辑 /etc/wireguard/warp.conf 文件，包含<>(尖括号)的部分一起替换掉，这只是为了看起来明显。
 
@@ -594,7 +593,7 @@ Endpoint = [2606:4700:d0::a29f:c101]:2408
 
 * 针对双栈没有必要，毕竟原生的网络出口都会比通过 Warp 中转要好
 
-#### 2-4: 设置地址解析优先级
+#### 4.设置地址解析优先级
 
 * 针对 IPv4 only 的宿主机，Warp 只接管 IPv6 出口，设置优先使用原生网络的 IPv4 出口
 ```
@@ -608,7 +607,7 @@ grep -qE '^[ ]*precedence[ ]*::ffff:0:0/96[ ]*100' /etc/gai.conf || echo 'preced
 sed -i '/^precedence \:\:ffff\:0\:0/d;/^label 2002\:\:\/16/d' /etc/gai.conf
 ```
 
-#### 2-5: 连接 Warp，并设置 systemd 进程守护
+#### 5.连接 Warp，并设置 systemd 进程守护
 ```
 # 运行 wireguard 连接 Warp。如果这步卡死导致失联，后台重启宿主机即可解决
 wg-quick up warp
