@@ -6,9 +6,11 @@ outline: deep
 
 https://github.com/spiritLHLS/ecs
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2Fecs&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FspiritLHLS%2Fecs&count_bg=%2357DEFF&title_bg=%23000000&icon=cliqz.svg&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://www.spiritlhl.net/)
 
 # 融合怪测评脚本
+
+**以下未列出的系统/架构请尝试[https://github.com/oneclickvirt/ecs](https://github.com/oneclickvirt/ecs)进行测试**
 
 支持系统：
 
@@ -18,15 +20,9 @@ Ubuntu 18+, Debian 8+, Centos 7+, Fedora 33+, Almalinux 8.5+, OracleLinux 8+, Ro
 
 FreeBSD(前提已执行```pkg install -y curl bash```)，Armbian
 
-Armbian系统部分检测和测试暂不支持，部分会编码错误
-
-FreeBSD系统的硬盘测试和CPU测试目前是半残的，有些东西显示有问题
-
-FreeBSD系统的分享链接的预处理部分sed命令存在问题未删除部分无效内容
-
 支持架构：
 
-基本都支持，无论是本地服务器还是云端服务器
+amd64(x86_64)、arm64、i386、arm
 
 支持地域：
 
