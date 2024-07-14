@@ -481,7 +481,7 @@ yum install -y wireguard-tools
 
 #### 2.获取warp账户信息
 
-访问 https://warp.cloudflare.now.cc/?run=register&format=yaml，记录下 private_key, v6 2个值
+访问 [https://warp.cloudflare.now.cc/?run=register&format=yaml](https://warp.cloudflare.now.cc/?run=register&format=yaml)，记录下 private_key, v6 2个值
 
 ![image.png](https://img.imgdd.com/f210f3.5085a04e-edd3-4294-bb34-9e8263360c42.png)
 
