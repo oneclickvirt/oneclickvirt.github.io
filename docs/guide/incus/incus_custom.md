@@ -483,78 +483,9 @@ yum install -y wireguard-tools
 
 #### 2.获取warp账户信息
 
-以下 3 种方法，任选其一即可, 获取账户  private_key, v6
-
-##### 方法1: 通过网站获取: https://fscarmen.cloudflare.now.cc/ ，按 "Register Warp"，记录下 PrivateKey, Address_v6 2个值
+访问 https://warp.cloudflare.now.cc/?run=register&format=yaml，记录下 private_key, v6 2个值
 
 ![image.png](https://img.imgdd.com/f210f3.5085a04e-edd3-4294-bb34-9e8263360c42.png)
-
-##### 方法2: 通过 warp-reg 二进制应用获取
-
-下载地址: https://github.com/badafans/warp-reg/releases ，找相应 CPU 架构的下载，以 amd64 为例
-```
-# 下载
-wget -O /etc/wireguard/warp-reg https://github.com/badafans/warp-reg/releases/download/v1.0/main-linux-amd64
-
-# 赋权
-chmod +x /etc/wireguard/warp-reg
-
-# 运行
-/etc/wireguard/warp-reg
-```
-
-输出，记录下 private_key, v6 2个值
-
-```
-device_id: cd312e73-4813-4b5d-9414-6fc1c6757011
-token: b6b34774-5849-4cf7-a417-76b147dc49c7
-account_id: dd37e299-25ac-49ec-a921-4f225e793ab3
-account_type: free
-license: 8h4G90jx-2jgVM816-9Cl1e7I3
-private_key: SNGCHD1NMZ/puPRGplQEVAqpcrOJt//DcipjLHhVykk=
-public_key: bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
-client_id: WaBF
-reserved: [ 89, 160, 69 ]
-v4: 172.16.0.2
-v6: 2606:4700:110:806f:56ab:3d50:f5ab:3293
-endpoint: engage.cloudflareclient.com:2408
-```
-
-##### 方法3: 通过 wgcf 二进制应用获取
-下载地址: https://github.com/ViRb3/wgcf/releases ，找相应 CPU 架构的下载，以 amd64 为例
-```
-# 下载
-wget -O /etc/wireguard/wgcf https://github.com/ViRb3/wgcf/releases/download/v2.2.22/wgcf_2.2.22_linux_amd64
-
-# 赋权
-chmod +x /etc/wireguard/wgcf
-
-# 注册 WireGuard 账户信息
-/etc/wireguard/wgcf register --accept-tos --config /etc/wireguard/wgcf-account.toml
-
-# 生成 WireGuard 配置文件
-/etc/wireguard/wgcf generate --config /etc/wireguard/wgcf-account.toml --profile /etc/wireguard/wgcf-profile.conf
-
-# 查看结果
-cat /etc/wireguard/wgcf-profile.conf 
-```
-
-输出，记录下 PrivateKey, Address_v6 2个值
-
-```
-[Interface]
-PrivateKey = SNGCHD1NMZ/puPRGplQEVAqpcrOJt//DcipjLHhVykk=
-Address = 172.16.0.2/32
-Address = 2606:4700:110:806f:56ab:3d50:f5ab:3293/128
-DNS = 1.1.1.1, 1.0.0.1, 2606:4700:4700::1111, 2606:4700:4700::1001
-MTU = 1280
-
-[Peer]
-PublicKey = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
-AllowedIPs = 0.0.0.0/0
-AllowedIPs = ::/0
-Endpoint = engage.cloudflareclient.com:2408
-```
 
 #### 3.修改配置文件
 
