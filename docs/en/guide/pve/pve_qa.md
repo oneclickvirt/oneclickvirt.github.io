@@ -156,13 +156,9 @@ cat /etc/iptables/rules.v4 | iptables-restore
 
 [4vps](https://clck.ru/33VQmc) Russian and Greek testing versions
 
-[hostaris](https://deploy.hostaris.com/) German version (Note: Issues with the vendor's system template, IPV6 is not functional, and poor connectivity with Github)
-
 [adtaq](https://www.adtaq.com/) Storage KVM server with lowest configuration
 
 [nocix](https://www.nocix.net/) Dedicated servers
-
-[crunchbits](https://get.crunchbits.com/aff.php?aff=17) VPS
 
 [online.net](https://www.scaleway.com/en/dedibox/) Debian12 on a Dedicated Server (Debian11 has problems)
 

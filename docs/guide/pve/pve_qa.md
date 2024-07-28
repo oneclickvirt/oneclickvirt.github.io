@@ -176,13 +176,9 @@ cat /etc/iptables/rules.v4 | iptables-restore
 
 [4vps](https://clck.ru/33VQmc) 中的 俄罗斯和希腊 测试款
 
-[hostaris](https://deploy.hostaris.com/) 中的 德国款 (商家的系统模板有问题，IPV6已失效和Github的连通稳定性很差)
-
 [adtaq](https://www.adtaq.com/) 中的最低配存储KVM服务器
 
 [nocix](https://www.nocix.net/) 中的独立服务器
-
-[crunchbits](https://get.crunchbits.com/aff.php?aff=17) 中的VPS
 
 [online.net](https://www.scaleway.com/en/dedibox/) 中的低配独立服务器的Debian12(Debian11有问题)
 
