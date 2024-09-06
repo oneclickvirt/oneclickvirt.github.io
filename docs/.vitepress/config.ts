@@ -171,6 +171,16 @@ function getGuideSidebarZhCN() {
       ]
     },
     {
+      text: '屏蔽滥用',
+      items: [
+        { text: '通过iptables', link: '/guide/block/block_iptables.html' },
+        { text: '在PVE上', link: '/guide/block/block_pve.html' },
+        { text: '在INCUS上', link: '/guide/block/block_incus.html' },
+        { text: '在LXD上', link: '/guide/block/block_lxd.html' },
+        { text: '在DOCKER上', link: '/guide/block/block_docker.html' },
+      ]
+    },
+    {
       text: '捐赠',
       items: [
         { text: '捐赠', link: '/guide/dashboardq.html' },
@@ -262,6 +272,16 @@ function getGuideSidebarEnUS() {
         { text: 'Custom', link: '/en/guide/lxd/lxd_custom.html' },
         { text: 'Acknowledgements', link: '/en/guide/lxd/lxd_thanks.html' },
         { text: 'FAQ', link: '/en/guide/lxd/lxd_qa.html' }
+      ]
+    },
+    {
+      text: 'Block Abuse',
+      items: [
+        { text: 'via iptables', link: '/guide/block/block_iptables.html' },
+        { text: 'In PVE', link: '/guide/block/block_pve.html' },
+        { text: 'In INCUS', link: '/guide/block/block_incus.html' },
+        { text: 'In LXD', link: '/guide/block/block_lxd.html' },
+        { text: 'In DOCKER', link: '/guide/block/block_docker.html' },
       ]
     },
     {

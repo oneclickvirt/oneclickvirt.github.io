@@ -8,10 +8,6 @@ outline: deep
 以下的配置安装会加重宿主机的负担，非必要不要安装
 :::
 
-:::tip
-如果是个人使用，可忽略防滥用部分脚本的安装
-:::
-
 ## 自动配置IPV6地址
 
 - (***非必须***，不使用的也没问题)
@@ -74,41 +70,6 @@ systemctl disable add-ipv6.service
 rm /etc/systemd/system/add-ipv6.service
 systemctl daemon-reload
 rm /usr/local/bin/add-ipv6.sh
-```
-
-## 屏蔽容易被滥用的端口的出入流量以屏蔽端口和屏蔽滥用工具包
-
-- (***非必须***，该脚本仅仅是为了防止容器滥用方便，不装的也没问题)
-- 事前预防
-
-国际
-
-```shell
-curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/rules.sh -o rules.sh && chmod +x rules.sh && bash rules.sh
-```
-
-国内
-
-```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/rules.sh -o rules.sh && chmod +x rules.sh && bash rules.sh
-```
-
-## 使用screen配置监控屏蔽某些进程的执行遇到某些进程的出现直接关闭容器
-
-- 如需停止监控可使用```screen```命令停止```lxc_moniter```这个名字的窗口并删除
-- (***非必须***，该脚本仅仅是为了防止容器滥用方便，不装的也没问题)
-- 事后停机
-
-国际
-
-```shell
-curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/build_monitor.sh -o build_monitor.sh && chmod +x build_monitor.sh && bash build_monitor.sh
-```
-
-国内
-
-```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/build_monitor.sh -o build_monitor.sh && chmod +x build_monitor.sh && bash build_monitor.sh
 ```
 
 ## 一键安装开incus宿主机所需要的带vnstat环境的常用预配置环境

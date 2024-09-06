@@ -8,10 +8,6 @@ outline: deep
 The following configurations may increase the load on the server. Only install them if necessary.
 :::
 
-:::tip
-If you are using the server for personal use, you can ignore the installation of some abuse prevention scripts.
-:::
-
 ## Automatic IPV6 Address Configuration
 
 - (Optional, not required if not using)
@@ -68,29 +64,6 @@ systemctl disable add-ipv6.service
 rm /etc/systemd/system/add-ipv6.service
 systemctl daemon-reload
 rm /usr/local/bin/add-ipv6.sh
-```
-
-## Blocking Ingress/Egress Traffic on Easily Abused Ports and Filtering Out Port Scanning and Exploitation Toolkits
-
-- (***Optional***, this script is solely for preventing container abuse and is not mandatory to install.)
-- Precautionary Measures
-
-Command:
-
-```shell
-curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/rules.sh -o rules.sh && chmod +x rules.sh && bash rules.sh
-```
-
-## Use the 'screen' command to configure monitoring and blocking of certain processes' commands: terminate containers immediately upon the appearance of specific processes.
-
-- To stop monitoring, you can use the 'screen' command to stop the window named 'lxc_monitor' and delete it.
-- (***Optional***, this script is only for preventing misuse of containers; it's fine not to install it.)
-- Shutdown afterwards.
-
-Command:
-
-```shell
-curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/build_monitor.sh -o build_monitor.sh && chmod +x build_monitor.sh && bash build_monitor.sh
 ```
 
 ## One-click Installation of Common Pre-configured Environment for incus Hosts with vnstat Integration
