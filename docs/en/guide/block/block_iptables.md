@@ -102,7 +102,6 @@ done
 ### Blocking BT behavior
 
 ```
-# 阻止的字符
 strings=(
     "torrent"
     ".torrent"

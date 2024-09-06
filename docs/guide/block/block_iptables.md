@@ -100,7 +100,6 @@ done
 ### 屏蔽BT行为
 
 ```
-# 阻止的字符
 strings=(
     "torrent"
     ".torrent"
