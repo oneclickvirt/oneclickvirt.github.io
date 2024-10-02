@@ -88,7 +88,7 @@ bash <(wget -qO- --no-check-certificate https://cdn.spiritlhl.net/https://raw.gi
 ## 自动配置宿主机的网关
 
 :::warning
-**使用前请保证重启过服务器且此时PVE能正常使用WEB端再执行，重启机器后不要立即执行此命令，待WEB端启动成功后至少等1分钟再执行本命令**
+**使用前请保证重启过服务器且此时PVE能正常登录进WEB端再执行，重启机器后不要立即执行此命令，待WEB端启动并可登录成功后至少等1分钟再执行本命令**
 :::
 
 :::tip
