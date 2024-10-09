@@ -237,6 +237,8 @@ docker rmi lscr.io/linuxserver/chromium
 - 部署以后安静的等待15分钟，不然中文库没安装全，会出现不可预料的错误
 - 进入远程桌面浏览器以后点击左侧的设置->点开输入法进行设置，不然没法输入中文
 
+![图片](https://github.com/user-attachments/assets/b433d9e3-bd79-413c-8c97-15b29a4c1058)
+
 ## 一键开设Desktop的容器
 
 - 已设置崩溃自启
