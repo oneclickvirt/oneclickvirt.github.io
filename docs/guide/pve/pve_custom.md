@@ -51,6 +51,8 @@ spiritlhl/pve:7_aarch64
 
 开设出的面板实际是开设在容器内的，但网络已使用host模式，PVE的端口约等于就使用的宿主机的端口
 
+但这里登录的用户名和密码就变成了```root```和```root```，如需修改请```docker exec -it pve /bin/bash```进入后修改root的密码，然后按```ctrl```键和```A+D```退出。
+
 有许多错误需要修复，欢迎PR解决问题，实测在Ubuntu系统的宿主机上安装```Proxmox VE```的面板成功，解决了通过网络安装```Proxmox VE```只能使用Debian系统做宿主机的问题
 
 ## 在低配置系统中优化Proxmox-VE的内存占用
