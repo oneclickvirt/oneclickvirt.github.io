@@ -49,7 +49,9 @@ docker run -idt --network host \
 spiritlhl/pve:7_aarch64
 ```
 
-The web panel is actually opened in the container, but the network has used the host mode, the port of the PVE is about the same as the port of the host used
+The web panel is actually opened in the container, but the network has used the host mode, the port of the PVE is about the same as the port of the host used.
+
+But here the login username and password become ```root``` and ```root```, if you need to change it please ```docker exec -it pve /bin/bash``` enter and change the password of root, then press ```ctrl``` key and ```A+D``` to exit.
 
 There are many bugs need to be fixed, welcome to PR to solve the problem, the actual test on the Ubuntu system host machine to install ```Proxmox VE``` panel success, solved the problem of installing ```Proxmox VE``` over the network can only be used to use the Debian system as a host machine!
 
