@@ -170,7 +170,7 @@ cat /etc/iptables/rules.v4 | iptables-restore
 
 [digitalocean](https://m.do.co/c/e9712622ee89) 中的 Perminu Intel 和 Regular 4核款
 
-[skrime](https://hosting.skrime.eu/a/server) 中的 AMD Ryzen KVM Server 最低配款
+[skrime](https://skrime.eu/a/server) 中的 AMD Ryzen KVM Server 最低配款
 
 [webdock](https://webdock.io/en?maff=wdaff--150) 中的 AMD KVM Server
 
