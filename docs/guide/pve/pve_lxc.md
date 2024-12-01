@@ -91,16 +91,16 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 ### 测试示例
 
 ```shell
-./buildct.sh 102 oneclick123 1 512 5 20001 20002 20003 30000 30025 debian11 local N
+./buildct.sh 111 oneclick123 1 512 5 20001 20002 20003 30000 30025 debian11 local N
 ```
 
-开设完毕可执行```cat ct102```查看信息，或在web端的NOTES查看
+开设完毕可执行```cat ct111```查看信息，或在web端的NOTES查看
 
 以下为开设的示例CT的信息：
 
 | 属性                       | 值          |
 |---------------------------|-------------|
-| VMID                      | 102         |
+| CTID                      | 111         |
 | SSH登录的用户名            | root        |
 | SSH登录的密码              | oneclick123 |
 | CPU核数                    | 1           |
@@ -113,6 +113,10 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | 系统                       | debian11    |
 | 宿主机的存储盘              | local       |
 | IPV6         | 无                |
+
+:::tip
+注意这里的CTID仅可使用11到256，其他数字不可用
+:::
 
 ## 删除指定容器
 
@@ -138,10 +142,10 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 **使用方法**
 
-可以删除对应CTID的容器，这里用上文中的示例102做演示
+可以删除对应CTID的容器，这里用上文中的示例111做演示
 
 ```shell
-./pve_delete.sh 102
+./pve_delete.sh 111
 ```
 
 实际删除数量不固定，空格分隔每个CTID即可，可一次性删除多个
@@ -249,6 +253,10 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | 硬盘          | 10G             |
 | 系统          | debian12        |
 | 存储盘         | local盘 (系统盘) |
+
+:::tip
+注意这里的CTID仅可使用11到256，其他数字不可用
+:::
 
 #### 删除示例
 

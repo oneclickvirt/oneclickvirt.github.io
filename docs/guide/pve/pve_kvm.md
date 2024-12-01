@@ -125,16 +125,16 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 ### 测试示例
 
 ```shell
-./buildvm.sh 102 test1 oneclick123 1 512 10 40001 40002 40003 50000 50025 debian11 local N
+./buildvm.sh 111 test1 oneclick123 1 512 10 40001 40002 40003 50000 50025 debian11 local N
 ```
 
-开设完毕可执行```cat vm102```查看信息，或到WEB端对应VM的NOTES中查看
+开设完毕可执行```cat vm111```查看信息，或到WEB端对应VM的NOTES中查看
 
 以下为开设的示例VM的信息：
 
 | 属性                     | 值             |
 |-------------------------|----------------|
-| VMID                    | 102            |
+| VMID                    | 111            |
 | SSH登录的用户名          | test1          |
 | SSH登录的密码            | oneclick123    |
 | CPU核数                  | 1              |
@@ -147,6 +147,10 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | 系统                     | debian11       |
 | 宿主机的存储盘           | local          |
 | 绑定独立IPV6(留空默认N)  | N          |
+
+:::tip
+注意这里的VMID仅可使用11到256，其他数字不可用
+:::
 
 ## 删除指定虚拟机
 
@@ -172,10 +176,10 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 **使用方法**
 
-可以删除对应VMID的虚拟机，这里用上文中的示例102做演示
+可以删除对应VMID的虚拟机，这里用上文中的示例111做演示
 
 ```shell
-./pve_delete.sh 102
+./pve_delete.sh 111
 ```
 
 实际删除数量不固定，空格分隔每个VMID即可，可一次性删除多个
@@ -309,6 +313,10 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | 存储盘     | local盘        |
 | IPV6附加   | 默认不附加     |
 
+:::tip
+注意这里的VMID仅可使用11到256，其他数字不可用
+:::
+
 ### 手动指定额外IPV4地址开设虚拟机
 
 - 需要手动在命令中指定IPV4地址，且带上子网长度
@@ -375,6 +383,10 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | IPV6         | 无                |
 | MAC地址      | 无                |
 
+:::tip
+注意这里的VMID仅可使用11到256，其他数字不可用
+:::
+
 ### 宿主机手动附加额外IPV4地址后再指定IPV4地址开设虚拟机
 
 - 需要自己在```/etc/network/interfaces```中给```vmbr0```添加额外的IPV4地址(注意```chattr -i```解锁文件修改后再```chattr +i```加锁回去)
@@ -431,6 +443,10 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | 存储盘       | local盘 (系统盘)  |
 | IPV4地址     | a.b.c.d           |
 | IPV6         | 无                |
+
+:::tip
+注意这里的VMID仅可使用11到256，其他数字不可用
+:::
 
 #### 进出流量都走绑定的IPV4地址
 
@@ -501,6 +517,9 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | 系统         | debian12         |
 | 存储盘       | local            |
 
+:::tip
+注意这里的VMID仅可使用11到256，其他数字不可用
+:::
 
 ### 删除vm152示例
 

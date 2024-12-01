@@ -108,16 +108,16 @@ Note that the Password here should be a mix of English and numbers only, and sta
 ### Test Example
 
 ```shell
-./buildvm.sh 102 test1 oneclick123 1 512 10 40001 40002 40003 50000 50025 debian11 local N
+./buildvm.sh 111 test1 oneclick123 1 512 10 40001 40002 40003 50000 50025 debian11 local N
 ```
 
-After setup is completed, you can execute ```cat vm102``` to view the information or check the NOTES section for the corresponding VM on the WEB interface.
+After setup is completed, you can execute ```cat vm111``` to view the information or check the NOTES section for the corresponding VM on the WEB interface.
 
 Below is the information for the example VM that has been set up:
 
 | Attribute                | Value          |
 |-------------------------|----------------|
-| VMID                     | 102            |
+| VMID                     | 111            |
 | SSH Username             | test1          |
 | SSH Password             | oneclick123    |
 | Number of CPU Cores      | 1              |
@@ -130,6 +130,10 @@ Below is the information for the example VM that has been set up:
 | Operating System         | debian11       |
 | Host Storage Disk        | local          |
 | IPV6 address             | N              |
+
+:::tip
+Note that only VMIDs from 11 to 256 can be used here, no other numbers can be used.
+:::
 
 ## Deletion specific VM
 
@@ -147,10 +151,10 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/pve_dele
 
 **Meaning of each parameter**
 
-You can delete the VM with the corresponding VMID, as demonstrated here using the example 102 above
+You can delete the VM with the corresponding VMID, as demonstrated here using the example 111 above
 
 ```shell
-./pve_delete.sh 102
+./pve_delete.sh 111
 ```
 
 The actual number of deletions is not fixed, a space separates each VMID, and more than one can be deleted at a time.
@@ -271,6 +275,10 @@ The above command is used to create a virtual machine with a dedicated IPv4 addr
 | Storage    | local disk     |
 | IPv6 Addon | Not attached by default |
 
+:::tip
+Note that only VMIDs from 11 to 256 can be used here, no other numbers can be used.
+:::
+
 ### Manually Assign Additional IPV4 Addresses to Open Virtual Machines
 
 - Manual specification of IPV4 address with subnet length in the command is required.
@@ -329,6 +337,10 @@ The above command is used to create a virtual machine with an independent IPV4 a
 | IPV6         | None              |
 | MAC_ADDRESS  | None              |
 
+:::tip
+Note that only VMIDs from 11 to 256 can be used here, no other numbers can be used.
+:::
+
 ### Host manually appends an additional IPV4 address and then specifies the IPV4 address to open the virtual machine
 
 - You need to add the extra IPV4 address to ```vmbr0``` in ```/etc/network/interfaces``` (note that ```chattr -i``` unlocks the file and then ```chattr +i``` locks it back).
@@ -377,6 +389,10 @@ The above command is used to create a virtual machine with an independent IPV4 a
 | IPV4 Address | a.b.c.d           |
 | IPV6         | None              |
 | MAC_ADDRESS  | None              |
+
+:::tip
+Note that only VMIDs from 11 to 256 can be used here, no other numbers can be used.
+:::
 
 #### Incoming and outgoing traffic goes to the bound IPV4 address
 
@@ -439,6 +455,9 @@ The above command is used to create a virtual machine with only IPv6 addresses.
 | Operating System | debian12   |
 | Storage Disk| local           |
 
+:::tip
+Note that only VMIDs from 11 to 256 can be used here, no other numbers can be used.
+:::
 
 ### Delete Example vm152
 

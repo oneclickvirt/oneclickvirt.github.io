@@ -84,10 +84,10 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildct.
 ### Test Example
 
 ```shell
-./buildct.sh 102 oneclick123 1 512 5 20001 20002 20003 30000 30025 debian11 local N
+./buildct.sh 111 oneclick123 1 512 5 20001 20002 20003 30000 30025 debian11 local N
 ```
 
-After setting up, you can execute `cat ct102` to view the information, or check the NOTES section on the web interface.
+After setting up, you can execute `cat ct111` to view the information, or check the NOTES section on the web interface.
 
 Here is the information for the created example CT:
 
@@ -95,7 +95,7 @@ Please note that "CT" and other technical terms might have specific meanings in 
 
 | Attribute                  | Value       |
 |---------------------------|-------------|
-| VMID                      | 102         |
+| CTID                      | 111         |
 | SSH Username              | root        |
 | SSH Password              | oneclick123 |
 | Number of CPU Cores       | 1           |
@@ -108,6 +108,10 @@ Please note that "CT" and other technical terms might have specific meanings in 
 | Operating System          | debian11    |
 | Host Storage Disk         | local       |
 | IPV6 address              | N           |
+
+:::tip
+Note that only CTIDs from 11 to 256 can be used here, no other numbers can be used.
+:::.
 
 ## Deletion specific CT
 
@@ -125,10 +129,10 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/pve_dele
 
 **Meaning of each parameter**
 
-You can delete the CT with the corresponding CTID, as demonstrated here using the example 102 above
+You can delete the CT with the corresponding CTID, as demonstrated here using the example 111 above
 
 ```shell
-./pve_delete.sh 102
+./pve_delete.sh 111
 ```
 
 The actual number of deletions is not fixed, a space separates each CTID, and more than one can be deleted at a time.
@@ -221,6 +225,10 @@ The above command signifies the creation of a container with a pure IPV6 address
 | Disk         | 10G             |
 | Operating System | debian12     |
 | Storage Disk | Local Disk (System Disk) |
+
+:::tip
+Note that only CTIDs from 11 to 256 can be used here, no other numbers can be used.
+:::.
 
 #### Deletion Example
 
