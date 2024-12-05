@@ -148,7 +148,7 @@ Use the ```nano``` or ```vim``` command to modify the file to add port mapping:
 For example, if I have a KVM VM with an intranet IP of ```172.16.1.152```, and MYSQL has been set up to listen to ```3306```, and I need to use the ```tcp``` protocol to map out to the ```33306``` port on the host IP, I would add the following line to the ```COMMIT``` line in the file above, then add the following line
 
 ```
--A PREROUTING -p tcp -m tcp -dport 33306 -j DNAT --to-destination 172.16.1.152:3306
+-A PREROUTING -i vmbr0 -p tcp -m tcp -dport 33306 -j DNAT --to-destination 172.16.1.152:3306
 ```
 
 Save the file and exit file editing and then execute:
