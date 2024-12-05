@@ -148,7 +148,7 @@ rm $TEMP_CRON
 例如我有一台内网IP为```172.16.1.152```的KVM虚拟机，虚拟机内已经开设MYSQL监听了```3306```，我需要使用```tcp```协议映射出来到宿主机IP上的```33306```端口上进行使用，那么需要在上面的那个文件中的```COMMIT```行以上增加如下行
 
 ```
--A PREROUTING -p tcp -m tcp -dport 33306 -j DNAT --to-destination 172.16.1.152:3306
+-A PREROUTING -i vmbr0 -p tcp -m tcp -dport 33306 -j DNAT --to-destination 172.16.1.152:3306
 ```
 
 保存文件退出文件编辑后执行
