@@ -6,9 +6,9 @@ outline: deep
 
 ## SSH登录说明
 
-KVM虚拟化开设出的虚拟机，**默认生成的用户名不是```root```，你需要执行```sudo -i```切换为root用户**
+KVM虚拟化开设出的虚拟机，默认生成的用户名**可以不是**```root```，此时你需要执行```sudo -i```切换为root用户
 
-**默认支持用户名```root```登录，默认的root密码是```password```或```oneclickvirt```，你也可以先试试**
+默认设置的用户名**不是```root```时，未经过设置的默认的root密码是```password```或```oneclickvirt```**
 
 **登录SSH切换为root权限后，一定要修改root密码**，可以使用以下命令修改
 
@@ -125,7 +125,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 ### 测试示例
 
 ```shell
-./buildvm.sh 111 test1 oneclick123 1 512 10 40001 40002 40003 50000 50025 debian11 local N
+./buildvm.sh 111 root oneclick123 1 512 10 40001 40002 40003 50000 50025 debian11 local N
 ```
 
 开设完毕可执行```cat vm111```查看信息，或到WEB端对应VM的NOTES中查看
@@ -135,7 +135,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | 属性                     | 值             |
 |-------------------------|----------------|
 | VMID                    | 111            |
-| SSH登录的用户名          | test1          |
+| SSH登录的用户名          | root          |
 | SSH登录的密码            | oneclick123    |
 | CPU核数                  | 1              |
 | 内存大小                 | 512MB          |
@@ -296,7 +296,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 #### 测试示例
 
 ```shell
-./buildvm_extra_ip.sh 152 test1 oneclick123 1 1024 10 debian12 local N
+./buildvm_extra_ip.sh 152 root oneclick123 1 1024 10 debian12 local N
 ```
 
 上述命令意义为开设一个带独立IPV4地址的虚拟机
@@ -304,7 +304,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | 属性       | 值             |
 |------------|----------------|
 | VMID       | 152            |
-| 用户名     | test1          |
+| 用户名     | root          |
 | 密码       | oneclick123    |
 | CPU        | 1核            |
 | 内存       | 1024MB         |
@@ -363,7 +363,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 #### 测试示例
 
 ```shell
-./buildvm_manual_ip.sh 152 test1 oneclick123 1 1024 10 debian12 local a.b.c.d/24 N
+./buildvm_manual_ip.sh 152 root oneclick123 1 1024 10 debian12 local a.b.c.d/24 N
 ```
 
 上述命令意义为开设一个带独立IPV4地址的虚拟机
@@ -371,7 +371,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | 属性         | 值                |
 |--------------|-------------------|
 | VMID         | 152               |
-| 用户名       | test1             |
+| 用户名       | root             |
 | 密码         | oneclick123       |
 | CPU          | 1核              |
 | 内存         | 1024MB            |
@@ -426,7 +426,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 #### 测试示例
 
 ```shell
-./buildvm_fullnat_ip.sh 152 test1 oneclick123 1 1024 10 debian12 local a.b.c.d N
+./buildvm_fullnat_ip.sh 152 root oneclick123 1 1024 10 debian12 local a.b.c.d N
 ```
 
 上述命令意义为开设一个带独立IPV4地址的虚拟机
@@ -434,7 +434,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | 属性         | 值                |
 |--------------|-------------------|
 | VMID         | 152               |
-| 用户名       | test1             |
+| 用户名       | root             |
 | 密码         | oneclick123       |
 | CPU          | 1核              |
 | 内存         | 1024MB            |
@@ -501,7 +501,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 #### 创建示例
 
 ```shell
-./buildvm_onlyv6.sh 152 test1 oneclick123 1 1024 10 debian12 local
+./buildvm_onlyv6.sh 152 root oneclick123 1 1024 10 debian12 local
 ```
 
 上述命令意义为开设一个纯IPV6地址的虚拟机
@@ -509,7 +509,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | 参数         | 值               |
 |--------------|------------------|
 | VMID         | 152              |
-| 用户名       | test1            |
+| 用户名       | root            |
 | 密码         | oneclick123      |
 | CPU          | 1核              |
 | 内存         | 1024MB           |

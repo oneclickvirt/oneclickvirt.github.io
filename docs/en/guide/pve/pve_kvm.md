@@ -6,17 +6,16 @@ outline: deep
 
 ## SSH Login Instructions
 
-The virtual machines created through KVM virtualization do not have the username ```root``` by default. To switch to the root user, you need to execute ```sudo -i``` .
+When KVM virtualization opens a virtual machine, the default generated username **can be something other than** ```root```, in which case you need to run ```sudo -i``` to switch to root!
 
-**Default allow logging in with the username ```root```, and the default root password is ```password``` or ```oneclickvirt```. You can give it a try.**
+If the default username **is not ```root```, the default unset root password is ```password``` or ```oneclickvirt```**.
 
-Once you've logged in via SSH and switched to root privileges, it's crucial to change the root password. You can use the following command to do so.
-
-Command:
+**After logging into SSH and switching to root privileges, be sure to change the root password**, which can be changed using the following command:
 
 ```bash
 bash <(curl -sSL https://raw.githubusercontent.com/fscarmen/tools/main/root.sh) [PASSWORD]
 ```
+
 ## Partial Notes
 
 **Commands to set up the testing environment for executing this project are as follows:**
@@ -108,7 +107,7 @@ Note that the Password here should be a mix of English and numbers only, and sta
 ### Test Example
 
 ```shell
-./buildvm.sh 111 test1 oneclick123 1 512 10 40001 40002 40003 50000 50025 debian11 local N
+./buildvm.sh 111 root oneclick123 1 512 10 40001 40002 40003 50000 50025 debian11 local N
 ```
 
 After setup is completed, you can execute ```cat vm111``` to view the information or check the NOTES section for the corresponding VM on the WEB interface.
@@ -118,7 +117,7 @@ Below is the information for the example VM that has been set up:
 | Attribute                | Value          |
 |-------------------------|----------------|
 | VMID                     | 111            |
-| SSH Username             | test1          |
+| SSH Username             | root          |
 | SSH Password             | oneclick123    |
 | Number of CPU Cores      | 1              |
 | Memory Size              | 512MB          |
@@ -258,7 +257,7 @@ Note that the Password here should be a mix of English and numbers only, and sta
 #### Test Example
 
 ```shell
-./buildvm_extra_ip.sh 152 test1 oneclick123 1 1024 10 debian12 local N
+./buildvm_extra_ip.sh 152 root oneclick123 1 1024 10 debian12 local N
 ```
 
 The above command is used to create a virtual machine with a dedicated IPv4 address.
@@ -266,7 +265,7 @@ The above command is used to create a virtual machine with a dedicated IPv4 addr
 | Attribute  | Value          |
 |------------|----------------|
 | VMID       | 152            |
-| Username   | test1          |
+| Username   | root          |
 | Password   | oneclick123    |
 | CPU        | 1 core         |
 | Memory     | 1024MB         |
@@ -317,7 +316,7 @@ Note that the PASSWORD here should be a mix of English and numbers only, and sta
 #### Test Example
 
 ```shell
-./buildvm_manual_ip.sh 152 test1 oneclick123 1 1024 10 debian12 local a.b.c.d/24 N
+./buildvm_manual_ip.sh 152 root oneclick123 1 1024 10 debian12 local a.b.c.d/24 N
 ```
 
 The above command is used to create a virtual machine with an independent IPV4 address.
@@ -325,7 +324,7 @@ The above command is used to create a virtual machine with an independent IPV4 a
 | Attribute    | Value             |
 |--------------|-------------------|
 | VMID         | 152               |
-| Username     | test1             |
+| Username     | root             |
 | Password     | oneclick123       |
 | CPU          | 1 core            |
 | Memory       | 1024MB            |
@@ -371,7 +370,7 @@ Note that the PASSWORD here should be a mix of English and numbers only, and sta
 #### Test Example
 
 ```shell
-./buildvm_fullnat_ip.sh 152 test1 oneclick123 1 1024 10 debian12 local a.b.c.d N
+./buildvm_fullnat_ip.sh 152 root oneclick123 1 1024 10 debian12 local a.b.c.d N
 ```
 
 The above command is used to create a virtual machine with an independent IPV4 address.
@@ -379,7 +378,7 @@ The above command is used to create a virtual machine with an independent IPV4 a
 | Attribute    | Value             |
 |--------------|-------------------|
 | VMID         | 152               |
-| Username     | test1             |
+| Username     | root             |
 | Password     | oneclick123       |
 | CPU          | 1 core            |
 | Memory       | 1024MB            |
@@ -439,7 +438,7 @@ Note that the password here should be a mix of English and numbers only, and sta
 #### Test Example
 
 ```shell
-./buildvm_onlyv6.sh 152 test1 oneclick123 1 1024 10 debian12 local
+./buildvm_onlyv6.sh 152 root oneclick123 1 1024 10 debian12 local
 ```
 
 The above command is used to create a virtual machine with only IPv6 addresses.
@@ -447,7 +446,7 @@ The above command is used to create a virtual machine with only IPv6 addresses.
 | Parameter   | Value           |
 |-------------|-----------------|
 | VMID        | 152             |
-| Username    | test1           |
+| Username    | root           |
 | Password    | oneclick123     |
 | CPU         | 1 core          |
 | Memory      | 1024MB          |
