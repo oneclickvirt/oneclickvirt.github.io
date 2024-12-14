@@ -110,7 +110,7 @@ Please note that "CT" and other technical terms might have specific meanings in 
 | IPV6 address              | N           |
 
 :::tip
-Note that only CTIDs from 11 to 256 can be used here, no other numbers can be used.
+Note that only CTIDs from 100 to 256 can be used here, no other numbers can be used.
 :::
 
 ## Deletion specific CT
@@ -227,7 +227,7 @@ The above command signifies the creation of a container with a pure IPV6 address
 | Storage Disk | Local Disk (System Disk) |
 
 :::tip
-Note that only CTIDs from 11 to 256 can be used here, no other numbers can be used.
+Note that only CTIDs from 100 to 256 can be used here, no other numbers can be used.
 :::
 
 #### Deletion Example

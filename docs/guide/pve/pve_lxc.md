@@ -115,7 +115,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | IPV6         | 无                |
 
 :::tip
-注意这里的CTID仅可使用11到256，其他数字不可用
+注意这里的CTID仅可使用100到256，其他数字不可用
 :::
 
 ## 删除指定容器
@@ -255,7 +255,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | 存储盘         | local盘 (系统盘) |
 
 :::tip
-注意这里的CTID仅可使用11到256，其他数字不可用
+注意这里的CTID仅可使用100到256，其他数字不可用
 :::
 
 #### 删除示例

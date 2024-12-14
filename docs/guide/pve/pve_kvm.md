@@ -149,7 +149,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | 绑定独立IPV6(留空默认N)  | N          |
 
 :::tip
-注意这里的VMID仅可使用11到256，其他数字不可用
+注意这里的VMID仅可使用100到256，其他数字不可用
 :::
 
 ## 删除指定虚拟机
@@ -314,7 +314,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | IPV6附加   | 默认不附加     |
 
 :::tip
-注意这里的VMID仅可使用11到256，其他数字不可用
+注意这里的VMID仅可使用100到256，其他数字不可用
 :::
 
 ### 手动指定额外IPV4地址开设虚拟机
@@ -384,7 +384,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | MAC地址      | 无                |
 
 :::tip
-注意这里的VMID仅可使用11到256，其他数字不可用
+注意这里的VMID仅可使用100到256，其他数字不可用
 :::
 
 ### 宿主机手动附加额外IPV4地址后再指定IPV4地址开设虚拟机
@@ -445,7 +445,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | IPV6         | 无                |
 
 :::tip
-注意这里的VMID仅可使用11到256，其他数字不可用
+注意这里的VMID仅可使用100到256，其他数字不可用
 :::
 
 #### 进出流量都走绑定的IPV4地址
@@ -518,7 +518,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | 存储盘       | local            |
 
 :::tip
-注意这里的VMID仅可使用11到256，其他数字不可用
+注意这里的VMID仅可使用100到256，其他数字不可用
 :::
 
 ### 删除vm152示例

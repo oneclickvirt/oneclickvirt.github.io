@@ -131,7 +131,7 @@ Below is the information for the example VM that has been set up:
 | IPV6 address             | N              |
 
 :::tip
-Note that only VMIDs from 11 to 256 can be used here, no other numbers can be used.
+Note that only VMIDs from 100 to 256 can be used here, no other numbers can be used.
 :::
 
 ## Deletion specific VM
@@ -275,7 +275,7 @@ The above command is used to create a virtual machine with a dedicated IPv4 addr
 | IPv6 Addon | Not attached by default |
 
 :::tip
-Note that only VMIDs from 11 to 256 can be used here, no other numbers can be used.
+Note that only VMIDs from 100 to 256 can be used here, no other numbers can be used.
 :::
 
 ### Manually Assign Additional IPV4 Addresses to Open Virtual Machines
@@ -337,7 +337,7 @@ The above command is used to create a virtual machine with an independent IPV4 a
 | MAC_ADDRESS  | None              |
 
 :::tip
-Note that only VMIDs from 11 to 256 can be used here, no other numbers can be used.
+Note that only VMIDs from 100 to 256 can be used here, no other numbers can be used.
 :::
 
 ### Host manually appends an additional IPV4 address and then specifies the IPV4 address to open the virtual machine
@@ -390,7 +390,7 @@ The above command is used to create a virtual machine with an independent IPV4 a
 | MAC_ADDRESS  | None              |
 
 :::tip
-Note that only VMIDs from 11 to 256 can be used here, no other numbers can be used.
+Note that only VMIDs from 100 to 256 can be used here, no other numbers can be used.
 :::
 
 #### Incoming and outgoing traffic goes to the bound IPV4 address
@@ -455,7 +455,7 @@ The above command is used to create a virtual machine with only IPv6 addresses.
 | Storage Disk| local           |
 
 :::tip
-Note that only VMIDs from 11 to 256 can be used here, no other numbers can be used.
+Note that only VMIDs from 100 to 256 can be used here, no other numbers can be used.
 :::
 
 ### Delete Example vm152
