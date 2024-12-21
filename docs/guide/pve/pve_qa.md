@@ -108,6 +108,8 @@ bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linu
 
 此时dd后的系统用户名为```root```，密码为```oneclickvirt139```
 
+如果不成功，请查看 https://github.com/leitbogioro/Tools 中的issues和说明，一个常见的问题是机器是raid0不是raid10，需要加参数指定raid的值
+
 如果有空或者还是不行，请联系 [@spiritlhl_bot](https://t.me/spiritlhl_bot) 尝试
 
 非Debian系统也可使用自定义分区的内容自行尝试
@@ -188,7 +190,7 @@ cat /etc/iptables/rules.v4 | iptables-restore
 bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh) -debian 12 -pwd 'oneclickvirt139' --network "static"
 ```
 
-此时dd后的系统用户名为```root```，密码为```oneclickvirt139```
+此时dd后的系统用户名为```root```，密码为```oneclickvirt139```，如果不成功，请查看 https://github.com/leitbogioro/Tools 中的issues和说明，一个常见的问题是机器是raid0不是raid10，需要加参数指定raid的值
 
 ### 只可开设LXC虚拟化的NAT的商家
 
