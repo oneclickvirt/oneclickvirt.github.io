@@ -18,11 +18,11 @@ Here are the platforms that are currently running in 2023 that offer IPV6 subnet
 
 | Supported Platforms | Corresponding Required Installation Packages | Protocols | Number of Channels/Subnets
 |---------------------------|----------------|----------------|----------------|
-| tunnelbroker.net              | ifupdown OR ifupdown2         | v4tunnel OR sit          | 3✖/64 或 5✖/64            |
+| tunnelbroker.net              | ifupdown OR ifupdown2         | v4tunnel OR sit          | 3✖/64 OR 5✖/64            |
 | tunnelbroker.ch              | ifupdown OR ifupdown2          | v4tunnel OR sit        | 3✖/64          |
 | ip4market.ru                | ifupdown OR ifupdown2          | v4tunnel OR sit           | 1✖/64          |
 | netassist.ua                | ifupdown OR ifupdown2          | v4tunnel OR sit           | 1✖/64          |
-| https://github.com/oneclickvirt/6in4               | ifupdown2          | sit、gre、ipip           | 自定义          |
+| https://github.com/oneclickvirt/6in4               | ifupdown2          | sit、gre、ipip           | Self-Modified          |
 
 The free platform only solves the problem that IPV6 is not available, it does not provide premium IPV6 bandwidth.
 
