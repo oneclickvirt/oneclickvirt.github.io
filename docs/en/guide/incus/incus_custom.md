@@ -18,7 +18,7 @@ Here are the platforms that are currently running in 2023 that offer IPV6 subnet
 
 | Supported Platforms | Corresponding Required Installation Packages | Protocols | Number of Channels/Subnets
 |---------------------------|----------------|----------------|----------------|
-| tunnelbroker.net              | ifupdown OR ifupdown2         | v4tunnel OR sit          | 3✖/64 或 5✖/64            |
+| tunnelbroker.net              | ifupdown OR ifupdown2         | v4tunnel OR sit          | 3✖/64 OR 5✖/64            |
 | tunnelbroker.ch              | ifupdown OR ifupdown2          | v4tunnel OR sit        | 3✖/64          |
 | ip4market.ru                | ifupdown OR ifupdown2          | v4tunnel OR sit           | 1✖/64          |
 | netassist.ua                | ifupdown OR ifupdown2          | v4tunnel OR sit           | 1✖/64          |
