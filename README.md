@@ -1,5 +1,7 @@
 # oneclickvirt.github.io
 
+[<img src="https://api.gitsponsors.com/api/badge/img?id=654839356" height="20">](https://api.gitsponsors.com/api/badge/link?p=u0/rvQMhrb3u+TtnYBqYaTrzHL0FHrSH269BGRuBHgc2/Hfr5XtzIdueVbw57mGIzT7WioCzQ3TpXXlHWcylLUsH0/rIpAo6xCJ8nHUGDr06dh3RyfJHT0aaLvMti0QfmeJ+kZwuBHhlTWFou2tfNA==)
+
 国内(China)：
 
 [https://virt.spiritlhl.net/](https://virt.spiritlhl.net/)
