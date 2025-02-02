@@ -13,7 +13,7 @@ outline: deep
 ## 要求
 
 硬件要求:
-- 系统：Debian 10+(推荐 13 以上), Ubuntu 20.04+(推荐 24.04 以上)
+- 系统：Debian 10+(推荐 13 以上), Ubuntu 20.04+(推荐 24.04 以上)，Alpine，ArchLinux，Gentoo，RockyLinux，VoidLinux
 - 虚拟化：推荐KVM、VMWARE虚拟化
 - 内存：内存至少512MB
 - 硬盘：硬盘(系统盘)至少10G
