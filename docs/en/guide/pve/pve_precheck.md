@@ -34,7 +34,11 @@ It is recommended to install debian11 instead of debian12, because the latter is
 
 If you use IPV6 tunnels for IPV6 subnet attachment on the host, be sure to add the contents in the corresponding file when PVE is successfully installed but the gateway is not automatically set, and do not add IPV6 tunnels at the very beginning (without installing PVE).
 
-## Setting up virtual memory (SWAP)
+## Setting up virtual memory (SWAP) (optional, not required)
+
+:::tip
+Memory to open some swap lest the machine blow up, if your host computer does not have enough memory and a lot of free hard disk.
+:::
 
 Unit conversion: Enter 1024 to generate 1G SWAP-virtual memory, virtual memory takes up hard disk space, when the actual memory is not enough to use the virtual memory will automatically use the virtual memory for memory use, but then bring the IO high occupancy and CPU performance occupancy!
 

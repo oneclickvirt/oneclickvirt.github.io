@@ -39,9 +39,11 @@ CPU核数需要小于或等于宿主机的核数，内存大小以MB计算，硬
 - centos8，centos9 (实际都是Stream版本)
 - alpine3.16，alpine3.17，alpine3.18，alpine3.19
 
-* 注意都是小写字母+数字的组合或仅小写字母，自行尝试，如果搜索无该系统则会自动退出脚本
+* 注意都是**小写字母+数字**的组合或**仅小写字母**，自行尝试，如果搜索无该系统则会自动退出脚本
 * 版本号可以带英文小数点，为了适配alpine的版本号已支持
 * 开不起来的可能是硬盘或内存不够大或者本身就不适配宿主机，自行尝试查看开不起来的报错
+* 目前使用的容器系统有三重筛选，优先级：[自编译](https://github.com/oneclickvirt/lxd_images)、[官方](https://images.lxd.canonical.com/)、[opsmaru](https://images.opsmaru.com/)
+* 自编译镜像完整的支持系统的列表：[x86_64_fixed_images.txt](https://github.com/oneclickvirt/lxd_images/blob/main/x86_64_fixed_images.txt) 和 [arm64_fixed_images.txt](https://github.com/oneclickvirt/lxd_images/blob/main/arm64_fixed_images.txt)
 
 ### 示例
 

@@ -33,9 +33,12 @@ Support for customizing the system of the server, do not fill out the default us
 - centos8，centos9
 - alpine3.16, alpine3.17, alpine3.18，alpine3.19
 
-* Note that the combination of lowercase letters + numbers or only lowercase letters, try it yourself, if the search is not the system will automatically exit the script
+* Note that **the combination of lowercase letters + numbers** or **only lowercase letters**, try it yourself, if the search is not the system will automatically exit the script
 * The version number can be with English decimal point, in order to adapt to the alpine version number has been supported.
 * If you can't open it, it may be that the hard disk is not big enough or it doesn't fit the host, try it by yourself.
+* The images currently in use are triple filtered and prioritized: [self-hosted](https://github.com/oneclickvirt/lxd_images)、[official-hosted](https://images.lxd.canonical.com/)、[opsmaru](https://images.opsmaru.com/)
+* A complete list of supported systems for self-compiling images: [x86_64_fixed_images.txt](https://github.com/oneclickvirt/lxd_images/blob/main/x86_64_fixed_images.txt) and [arm64_fixed_images.txt](https://github.com/oneclickvirt/lxd_images/blob/main/arm64_fixed_images.txt)
+
 
 ### Example
 
