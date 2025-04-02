@@ -152,9 +152,9 @@ docker rmi 镜像的ID
 
 **其他类似的项目**
 
-https://github.com/dockur/windows - 同类项目，他支持的系统更多，但资源需求更多
+https://github.com/dockur/windows - 同类项目，他支持的系统更多，但资源需求更多，同时开设过程中需要额外下载iso装载，docker容器本身只有脚本，安装缓慢
 
-https://github.com/dockur/windows-arm/ - 很棒，他有ARM的服务器进行镜像编译，我的项目没有
+https://github.com/dockur/windows-arm/ - 同类项目，他支持的系统更多，但资源需求更多，同时开设过程中需要额外下载iso装载，docker容器本身只有脚本，安装缓慢
 
 注意，上述的两个项目都要求宿主机的CPU至少4核，内存至少4G，硬盘至少64G，比我的项目的镜像需求要求更大。(他的项目优点是可以自定义很多配置项，详见他对应的项目说明。)
 
