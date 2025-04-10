@@ -85,9 +85,6 @@ Shell 版本：[https://github.com/spiritLHLS/ecs](https://github.com/spiritLHLS
 
 **详细说明**中的命令**可控制是否安装依赖**，**是否更新包管理器**，**默认互动模式可进行选择**
 
-<details>
-<summary>展开查看详细说明</summary>
-
 1. **下载脚本**
 
    **国际用户无加速：**
@@ -150,14 +147,10 @@ Shell 版本：[https://github.com/spiritLHLS/ecs](https://github.com/spiritLHLS
    goecs
    ```
 
-</details>
-
 ---
 
 #### **命令参数化**
 
-<details>
-<summary>展开查看各参数说明</summary>
 
 ```bash
 Usage: goecs [options]
@@ -212,7 +205,7 @@ Usage: goecs [options]
         Enable/Disable unlock media test (default true)
   -v    Display version information
 ```
-</details>
+
 
 ---
 
@@ -225,8 +218,7 @@ Usage: goecs [options]
 
 ### **Docker**
 
-<details>
-<summary>展开查看使用说明</summary>
+
 
 国际镜像地址：https://hub.docker.com/r/spiritlhl/goecs
 
@@ -262,14 +254,12 @@ docker run --rm --privileged --network host docker.cnb.cool/oneclickvirt/ecs:lat
 docker run --rm docker.cnb.cool/oneclickvirt/ecs:latest -menu=false -l zh
 ```
 
-</details>
+
 
 ---
 
 ### 从源码进行编译
 
-<details>
-<summary>展开查看编译说明</summary>
 
 1. 克隆仓库的 public 分支（不含私有依赖）
 ```bash
@@ -306,7 +296,6 @@ GOOS=windows GOARCH=amd64 go build -o goecs.exe
 # 编译 MacOS 版本
 GOOS=darwin GOARCH=amd64 go build -o goecs_darwin
 ```
-</details>
 
 ---
 
