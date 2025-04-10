@@ -4,234 +4,367 @@ outline: deep
 
 # 仓库
 
-https://github.com/spiritLHLS/ecs
-
 [![Hits](https://hits.spiritlhl.net/ecs.svg?action=hit&title=Hits&title_bg=%23555555&count_bg=%230eecf8&edge_flat=false)](https://hits.spiritlhl.net)
 
-# 融合怪测评脚本
+[![Hits](https://hits.spiritlhl.net/goecs.svg?action=hit&title=Hits&title_bg=%23555555&count_bg=%230eecf8&edge_flat=false)](https://hits.spiritlhl.net)
 
-**如果有本项目未列出的系统/架构，或本项目测试有BUG测不出来，或测试不想要魔改本机配置想要最小化环境变动的**
+融合怪测评项目
 
-**请尝试[https://github.com/oneclickvirt/ecs](https://github.com/oneclickvirt/ecs)进行测试**
+(GO版本除非必须的环境安装使用shell外无额外shell文件依赖，环境安装只是为了测的更准，极端情况下无环境依赖也可全测项目)
 
-支持系统：
+如有问题请 [issues](https://github.com/oneclickvirt/ecs/issues) 反馈。
 
-Ubuntu 18+, Debian 8+, Centos 7+, Fedora 33+, Almalinux 8.5+, OracleLinux 8+, RockyLinux 8+, AstraLinux CE, Arch
+Go 版本：[https://github.com/oneclickvirt/ecs](https://github.com/oneclickvirt/ecs)
 
-半支持系统：
+Shell 版本：[https://github.com/spiritLHLS/ecs](https://github.com/spiritLHLS/ecs)
 
-FreeBSD(前提已执行```pkg install -y curl bash```)，Armbian
+---
 
-支持架构：
+## **适配系统和架构**
 
-amd64(x86_64)、arm64、i386、arm
+### **编译与测试支持情况**
+| 编译支持的架构 | 测试支持的架构 | 编译支持的系统 | 测试支持的系统 |
+|---------------------------|-----------|---------|-----------|
+| amd64                     | amd64     | Linux   | Linux     |
+| arm                       | arm       | Windows | Windows   |
+| arm64                     | arm64     | FreeBSD | FreeBSD   |
+| 386                       | 386       | OpenBSD |           |
+| mips                      |           | MacOS   |           |
+| mipsle                    |           |         |           |
+| s390x                     | s390x     |         |           |
+| riscv64                   |           |         |           |
 
-支持地域：
+---
 
-能连得上网都支持
+## **功能**
 
-## 部分服务器运行测试有各类bug一键修复后再测试
+- 系统基础信息查询，IP基础信息并发查询：[basics](https://github.com/oneclickvirt/basics)、[gostun](https://github.com/oneclickvirt/gostun)
+- CPU 测试：[cputest](https://github.com/oneclickvirt/cputest)，支持 sysbench(lua/golang版本)、geekbench、winsat
+- 内存测试：[memorytest](https://github.com/oneclickvirt/memorytest)，支持 sysbench、dd
+- 硬盘测试：[disktest](https://github.com/oneclickvirt/disktest)，支持 dd、fio、winsat
+- 流媒体解锁信息并发查询：[netflix-verify](https://github.com/sjlleo/netflix-verify) 等逻辑，开发至 [CommonMediaTests](https://github.com/oneclickvirt/CommonMediaTests)
+- 常见流媒体测试并发查询：[UnlockTests](https://github.com/oneclickvirt/UnlockTests)，逻辑借鉴 [RegionRestrictionCheck](https://github.com/lmc999/RegionRestrictionCheck) 等
+- IP 质量/安全信息并发查询：二进制文件编译至 [securityCheck](https://github.com/oneclickvirt/securityCheck)
+- 邮件端口测试：[portchecker](https://github.com/oneclickvirt/portchecker)
+- 三网回程测试：借鉴 [zhanghanyun/backtrace](https://github.com/zhanghanyun/backtrace)，二次开发至 [oneclickvirt/backtrace](https://github.com/oneclickvirt/backtrace)
+- 三网路由测试：基于 [NTrace-core](https://github.com/nxtrace/NTrace-core)，二次开发至 [nt3](https://github.com/oneclickvirt/nt3)
+- 网速测试：基于 [speedtest.net](https://github.com/spiritLHLS/speedtest.net-CN-ID) 和 [speedtest.cn](https://github.com/spiritLHLS/speedtest.cn-CN-ID) 数据，开发至 [oneclickvirt/speedtest](https://github.com/oneclickvirt/speedtest)
+- 三网 Ping 值测试：借鉴 [ecsspeed](https://github.com/spiritLHLS/ecsspeed)，二次开发至 [pingtest](https://github.com/oneclickvirt/pingtest)
 
-一键修复各种系统原生bug的仓库：
+**本项目初次使用建议查看说明：[跳转](https://github.com/oneclickvirt/ecs/blob/master/README_NEW_USER.md)**
 
-https://github.com/spiritLHLS/one-click-installation-script
+---
 
-如若还有系统bug请到上面仓库的issues反映，脚本原生BUG该仓库issues反映
+## **使用说明**
 
-## 融合怪命令
+### **Linux/FreeBSD/OpenBSD/MacOS**
 
-### 交互形式
+#### **一键命令**
+
+**一键命令**将**默认安装依赖**，**默认更新包管理器**，**默认非互动模式**
+
+- **国际用户无加速：**
+
+  ```bash
+  export noninteractive=true && curl -L https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && bash goecs.sh env && bash goecs.sh install && goecs
+  ```
+
+- **国际/国内使用 CDN 加速：**
+
+  ```bash
+  export noninteractive=true && curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && bash goecs.sh env && bash goecs.sh install && goecs
+  ```
+
+- **国内用户使用 CNB 加速：**
+
+  ```bash
+  export noninteractive=true && curl -L https://cnb.cool/oneclickvirt/ecs/-/git/raw/main/goecs.sh -o goecs.sh && chmod +x goecs.sh && bash goecs.sh env && bash goecs.sh install && goecs
+  ```
+
+#### **详细说明**
+
+**详细说明**中的命令**可控制是否安装依赖**，**是否更新包管理器**，**默认互动模式可进行选择**
+
+<details>
+<summary>展开查看详细说明</summary>
+
+1. **下载脚本**
+
+   **国际用户无加速：**
+
+   ```bash
+   curl -L https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh
+   ```
+
+   **国际/国内使用 CDN 加速：**
+
+   ```bash
+   curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh
+   ```
+
+   **国内用户使用 CNB 加速：**
+
+   ```bash
+   curl -L https://cnb.cool/oneclickvirt/ecs/-/git/raw/main/goecs.sh -o goecs.sh && chmod +x goecs.sh
+   ```
+
+2. **更新包管理器（可选择）并安装环境**
+
+   ```bash
+   ./goecs.sh env
+   ```
+
+   **非互动模式：**
+
+   ```bash
+   export noninteractive=true && ./goecs.sh env
+   ```
+
+3. **安装 `goecs`**
+
+   ```bash
+   ./goecs.sh install
+   ```
+
+4. **升级 `goecs`**
+
+   ```bash
+   ./goecs.sh upgrade
+   ```
+
+5. **卸载 `goecs`**
+
+   ```bash
+   ./goecs.sh uninstall
+   ```
+
+6. **帮助命令**
+
+   ```bash
+   ./goecs.sh -h
+   ```
+
+7. **唤起菜单**
+
+   ```bash
+   goecs
+   ```
+
+</details>
+
+---
+
+#### **命令参数化**
+
+<details>
+<summary>展开查看各参数说明</summary>
 
 ```bash
-curl -L https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh
+Usage: goecs [options]
+  -backtrace
+        Enable/Disable backtrace test (in 'en' language or on windows it always false) (default true)
+  -basic
+        Enable/Disable basic test (default true)
+  -comm
+        Enable/Disable common media test (default true)
+  -cpu
+        Enable/Disable CPU test (default true)
+  -cpum string
+        Set CPU test method (supported: sysbench, geekbench, winsat) (default "sysbench")
+  -cput string
+        Set CPU test thread mode (supported: single, multi) (default "multi")
+  -disk
+        Enable/Disable disk test (default true)
+  -diskm string
+        Set disk test method (supported: fio, dd, winsat) (default "fio")
+  -diskmc
+        Enable/Disable multiple disk checks, e.g., -diskmc=false
+  -diskp string
+        Set disk test path, e.g., -diskp /root
+  -email
+        Enable/Disable email port test (default true)
+  -h    Show help information
+  -l string
+        Set language (supported: en, zh) (default "zh")
+  -log
+        Enable/Disable logging in the current path
+  -memory
+        Enable/Disable memory test (default true)
+  -memorym string
+        Set memory test method (supported: sysbench, dd, winsat) (default "sysbench")
+  -menu
+        Enable/Disable menu mode, disable example: -menu=false (default true)
+  -nt3
+        Enable/Disable NT3 test (in 'en' language or on windows it always false) (default true)
+  -nt3loc string
+        Specify NT3 test location (supported: GZ, SH, BJ, CD for Guangzhou, Shanghai, Beijing, Chengdu) (default "GZ")
+  -nt3t string
+        Set NT3 test type (supported: both, ipv4, ipv6) (default "ipv4")
+  -security
+        Enable/Disable security test (default true)
+  -speed
+        Enable/Disable speed test (default true)
+  -spnum int
+        Set the number of servers per operator for speed test (default 2)
+  -upload
+        Enable/Disable upload the result (default true)
+  -ut
+        Enable/Disable unlock media test (default true)
+  -v    Display version information
+```
+</details>
+
+---
+
+### **Windows**
+
+1. 下载带 exe 文件的压缩包：[Releases](https://github.com/oneclickvirt/ecs/releases)
+2. 解压后，右键以管理员模式运行。
+
+---
+
+### **Docker**
+
+<details>
+<summary>展开查看使用说明</summary>
+
+国际镜像地址：https://hub.docker.com/r/spiritlhl/goecs
+
+请确保执行下述命令前本机已安装Docker
+
+特权模式+host网络
+
+```shell
+docker run --rm --privileged --network host spiritlhl/goecs:latest -menu=false -l zh
 ```
 
-或
+非特权模式+非host网络
 
+```shell
+docker run --rm spiritlhl/goecs:latest -menu=false -l zh
+```
+
+使用Docker执行测试，硬件测试会有一些偏差和虚拟化架构判断失效，还是推荐直接测试而不使用Docker测试。
+
+国内镜像地址：https://cnb.cool/oneclickvirt/ecs/-/packages/docker/ecs
+
+请确保执行下述命令前本机已安装Docker
+
+特权模式+host网络
+
+```shell
+docker run --rm --privileged --network host docker.cnb.cool/oneclickvirt/ecs:latest -menu=false -l zh
+```
+
+非特权模式+非host网络
+
+```shell
+docker run --rm docker.cnb.cool/oneclickvirt/ecs:latest -menu=false -l zh
+```
+
+</details>
+
+---
+
+### 从源码进行编译
+
+<details>
+<summary>展开查看编译说明</summary>
+
+1. 克隆仓库的 public 分支（不含私有依赖）
 ```bash
-curl -L https://github.com/spiritLHLS/ecs/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh
+git clone -b public https://github.com/oneclickvirt/ecs.git
+cd ecs
 ```
 
-或
-
-```
-bash <(wget -qO- bash.spiritlhl.net/ecs)
-```
-
-或
-
-```
-bash <(wget -qO- ecs.0s.hk)
-```
-
-或
-
-```
-bash <(wget -qO- ecs.12345.ing)
-```
-
-### 无交互形式-参数模式
-
+2. 安装 Go 环境（如已安装可跳过）
 ```bash
-curl -L https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh -m 1
+# 下载并安装 Go
+wget https://go.dev/dl/go1.23.4.linux-amd64.tar.gz
+rm -rf /usr/local/go && tar -C /usr/local -xzf go1.23.4.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
 ```
 
-或
-
+3. 编译
 ```bash
-curl -L https://github.com/spiritLHLS/ecs/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh -m 1
+go build -o goecs
 ```
 
-或通过
-
-```
-curl -L https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh
-```
-
-下载文件后使用类似
-
+4. 运行测试
 ```bash
-bash ecs.sh -m 1
+./goecs -menu=false -l zh
 ```
 
-这样的参数命令指定选项执行
+支持的编译参数：
+- GOOS：支持 linux、windows、darwin、freebsd、openbsd
+- GOARCH：支持 amd64、arm、arm64、386、mips、mipsle、s390x、riscv64
 
-以下为参数说明：
-
-| 指令 | 项目 | 说明 | 备注 |
-| ---- | ---- | ----------- | ---- |
-| -m | 必填项 | 可指定原本menu中的对应选项，最多支持三层选择，例如执行```bash ecs.sh -m 5 1 1```将选择主菜单第5选项下的第1选项下的子选项1的脚本执行 | 可缺省仅指定一个参数，如```-m 1```仅指定执行融合怪完全体，执行```-m 1 0```以及```-m 1 0 0```都是指定执行融合怪完全体 |
-| -en | 可选项 | 可指定强制输出为英文 | 无该指令则默认使用中文输出 |
-| -i | 可选项 | 可指定回程路由测试中的目标IPV4地址 | 可通过```ip.sb```、```ipinfo.io```等网站获取本地IPV4地址后指定 |
-| -r | 可选项 | 可指定回程路由测试中的目标IPV4地址，可选```b``` ```g``` ```s``` ```c``` 分别对应```北京```、```广州```、```上海、```成都``` | 如```-r b```指定测试北京回程(三网) |
-|   |   | 可指定仅测试IPV6三网，可选 ```b6``` ```g6``` ```s6``` 分别对应 ```北京```、```广州```、```上海``` 的三网的IPV6地址 | 如```-r b6``` 指定测试北京IPV6地址回程(三网) |
-| -base | 可选项 | 可指定仅测试基础的系统信息 | 无该指令则默认按照menu选项的组合测试 |
-| -ctype | 可选项 | 可指定通过何种方式测试cpu，可选```gb4```、```gb5```、```gb6```分别对应```geekbench```的```4```、```5```、```6```版本 | 无该指令则默认使用```sysbench```测试 |
-| -dtype | 可选项 | 可指定测试硬盘IO的程序，可选```dd```、```fio```，前者测试快后者测试慢 | 无该指令则默认都使用进行测试 |
-| -mdisk | 可选项 | 可指定测试多个挂载盘的IO | 注意本指令包含测试系统盘 |
-| -stype | 可选项 | 可指定使用```.cn```还是```.net```的数据进行测速 | 无该指令则默认使用```.net```数据测速优先，不可用时才替换为```.cn```数据 |
-| -bansp | 可选项 | 可指定强制不测试网速 | 无该指令则默认测试网速 |
-| -banup | 可选项 | 可指定强制不生成分享链接 | 无该指令则默认生成分享链接 |
-
-
-## IP质量检测
-
-- IP质量检测，含多家数据库查询，含DNS黑名单查询
-- 含 ```IPV4``` 和 ```IPV6``` 检测，含ASN和地址查询
-- 含邮件常用协议/端口检测，如果SMTP/SMTPS可用且本地端口开放，则可搭建邮局
-
+跨平台编译示例：
 ```bash
-bash <(wget -qO- bash.spiritlhl.net/ecs-ipcheck)
+# 编译 Windows 版本
+GOOS=windows GOARCH=amd64 go build -o goecs.exe
+# 编译 MacOS 版本
+GOOS=darwin GOARCH=amd64 go build -o goecs_darwin
 ```
+</details>
 
-或
+---
 
-```bash
-bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/spiritLHLS/ecs/main/ipcheck.sh)
-```
+## QA
 
-或
+#### Q: 为什么默认使用sysbench而不是geekbench
 
-需要事先安裝```dos2unix```
+#### A: 比较二者特点
 
-```bash
-wget -qO ipcheck.sh --no-check-certificate https://gitlab.com/spiritysdx/za/-/raw/main/ipcheck.sh
-dos2unix ipcheck.sh
-bash ipcheck.sh
-```
+| 比较项             | sysbench | geekbench |
+|------------------|----------|-----------|
+| 适用范围         | 轻量级，几乎可在任何服务器上运行 | 重量级，小型机器无法运行 |
+| 测试要求         | 无需网络，无特殊硬件需求 | 需联网，IPV4环境，至少1G内存 |
+| 开源情况         | 基于LUA，开源，可自行编译各架构版本 | 官方二进制闭源代码，不支持自行编译 |
+| 测试稳定性       | 核心测试组件10年以上未变 | 每个大版本更新测试项，分数不同版本间难以对比(每个版本对标当前最好的CPU) |
+| 测试内容         | 仅测试计算性能 | 覆盖多种性能测试，分数加权计算，但部分测试实际不常用 |
+| 适用场景         | 适合快速测试，仅测试计算性能 | 适合综合全面的测试 |
 
-## 融合怪说明
+且```goecs```测试使用何种CPU测试方式可使用参数指定，默认只是为了更多用户快速测试的需求
 
-融合怪脚本最好在 /root 路径下执行，避免各种奇奇怪怪的问题
+#### Q: 为什么使用Golang而不是Rust重构
 
-融合怪的执行结果保存在当前路径下的```test_result.txt```中，可在```screen```或```tmux```中执行，先退出SSH登录过一段时间后再查看文件
+#### A: 因为网络相关的项目目前以Golang语言为趋势，大多组件有开源生态维护，Rust很多得自己手搓，~~我懒得搞~~我没那个技术力
 
-**有时候想要测一些配置极其拉跨的机器时，上面这样执行这样可以避免IO或者CPU过于垃圾导致的测试过程中的SSH连接中断，就不会测一半啥都没了，假如screen中显示乱码，也没问题，分享链接中的结果是不带乱码的**
+#### Q: 为什么不继续开发Shell版本而是选择重构
 
-融合怪的完整版和精简版运行完毕会自动上传结果到pastebin并回传分享链接，如果测一半想要退出，那么按```Ctrl+C```同时按下可终止测试，此时会自动退出删除残余文件
+#### A: 因为太多千奇百怪的环境问题了，还是提前编译好测试的二进制文件比较容易解决环境问题(泛化性更好)
 
-最烂机器测试的例子(跑了47分钟一样测完)：[跳转](https://github.com/spiritLHLS/ecs/blob/main/lowpage/README.md)
+#### Q: 每个测试项目的说明有吗？
 
-使用**CDN**已支持**国内**和**国外**加速服务器环境安装和预制文件下载，但国内受CDN连通性或国内机器带宽大小的限制加载可能会慢很多
+#### A: 每个测试项目有对应的维护仓库，自行点击查看仓库说明
 
-融合怪测试说明以及部分测试结果的内容解释(初次使用推荐查看)：
+#### Q: 测试进行到一半如何手动终止？
 
-除了已标注的原创内容，其余所有分区均为借鉴并进行优化修改后的版本，与原始对应的脚本不一样
+#### A: 按ctrl键和c键终止程序，终止后依然会在当前目录下生成goecs.txt文件和分享链接，里面是已经测试到的信息。
 
-所有检测都有考虑过使用并行测试，并在部分环节使用了该技术，比正常的顺序执行优化了2~3分钟，属于是独有的，暂无哪家的测试有同类技术
+#### Q: 非Root环境如何进行测试？
 
-系统基础信息测试融合了多家还有我自己修补的部分检测(systl、NAT类型检测，并发ASN检测等)，应该是目前最全面最通用的了
+#### A: 手动执行安装命令，实在装不上也没问题，直接在release中下载对应架构的压缩包解压后执行即可，只要你能执行的了文件。或者你能使用docker的话用docker执行。
 
-CPU测试默认使用sysbench测试得分，不是yabs的gb4或gb5(虽然默认不是geekbench但可以通过指令指定geekbench常见版本进行测试)，前者只是简单的计算质数测试速度快，后者geekbench是综合测试系统算加权得分
+## 致谢
 
-使用sysbench测试得分是每秒处理的事件数目，这个指标无论在强还是弱性能的服务器上都能迅速测出来，而geekbench很多是测不动或者速度很慢起码2分半钟
+感谢 [he.net](https://he.net) [bgp.tools](https://bgp.tools) [ipinfo.io](https://ipinfo.io) [ip.sb](https://ip.sb) [cheervision.co](https://cheervision.co) [scamalytics.com](https://scamalytics.com) [abuseipdb.com](https://www.abuseipdb.com/) [virustotal.com](https://www.virustotal.com/) [ip2location.com](ip2location.com/) [ip-api.com](https://ip-api.com) [ipregistry.co](https://ipregistry.co/) [ipdata.co](https://ipdata.co/) [ipgeolocation.io](https://ipgeolocation.io) [ipwhois.io](https://ipwhois.io) [ipapi.com](https://ipapi.com/) [ipapi.is](https://ipapi.is/) [ipqualityscore.com](https://www.ipqualityscore.com/) [bigdatacloud.com](https://www.bigdatacloud.com/) 等网站提供的API进行检测，感谢互联网各网站提供的查询资源
 
-CPU测试单核sysbench得分在5000以上的可以算第一梯队，4000到5000分算第二梯队，每1000分算一档，自己看看自己在哪个档位吧
+感谢
 
-AMD的7950x单核满血性能得分在6500左右，AMD的5950x单核满血性能得分5700左右，Intel普通的CPU(E5之类的)在1000~800左右，低于500的单核CPU可以说是性能比较烂的了
+<a href="https://h501.io/?from=69" target="_blank">
+  <img src="https://github.com/spiritLHLS/ecs/assets/103393591/dfd47230-2747-4112-be69-b5636b34f07f" alt="h501">
+</a>
 
-IO测试收录了两种，来源于lemonbench的dd磁盘测试和yabs的fio磁盘测试，综合来看会比较好，前者可能误差偏大但测试速度快无硬盘大小限制，后者真实一点但测试速度慢有硬盘以及内存大小限制
+提供的免费托管支持本开源项目的共享测试结果存储
 
-流媒体测试收录了两种，一个是go编译的二进制文件和一个shell脚本版本，二者各有优劣，互相对比看即可
+同时感谢以下平台提供编辑和测试支持
 
-tiktok测试有superbench和lmc999两种版本，哪个失效了随时可能更新为其中一种版本，以最新的脚本为准
+<a href="https://www.jetbrains.com/go/" target="_blank">
+  <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/GoLand.png" alt="goland">
+</a>
 
-回程路由测试选用的GO编译的二进制版本和朋友PR的版本，本人做了优化适配多个IP列表以及融合部分查询
-
-IP质量检测纯原创，如有bug或者更多数据库来源可在issues中提出，日常看IP2Location数据库的IP类型即可，其中的25端口邮箱可达，则可搭建邮局
-
-融合怪的IP质量检测是简化过的，没有查询Cloudflare的威胁得分，个人原创区的IP质量检测才是完整版(或者仓库说明中列出的那个IP质量检测的命令也是完整版)
-
-三网测速使用自写的测速脚本，尽量使用最新节点最新组件进行测速，且有备用第三方go版本测速内核，做到自更新测速节点列表，自适应系统环境测速
-
-其他第三方脚本归纳到了第三方脚本区，里面有同类型脚本不同作者的各种竞品脚本，如果融合怪不能使你满意或者有错误，可以看看那部分
-
-原创脚本区是个人原创的部分，有事没事也可以看看，可能会更新某些偏门或者独到的脚本
-
-VPS测试，VPS测速，VPS综合性能测试，VPS回程线路测试，VPS流媒体测试等所有测试融合的脚本，本脚本能融合的都融合了
-
-## 融合怪功能
-
-- [x] 自由组合测试方向和单项测试以及合集收录第三方脚本，融合怪各项测试均自优化修复过，与原始脚本均不同
-- [x] 基础信息查询--感谢[bench.sh](https://github.com/teddysun/across/blob/master/bench.sh)、[superbench.sh](https://www.oldking.net/350.html)、[yabs](https://github.com/masonr/yet-another-bench-script)、[lemonbench](https://github.com/LemonBench/LemonBench)开源，本人整理修改优化，同原版均不一致
-- [x] CPU测试--感谢[lemonbench](https://github.com/LemonBench/LemonBench)和[yabs](https://github.com/masonr/yet-another-bench-script)开源，本人整理修改优化
-- [x] 内存测试--感谢[lemonbench](https://github.com/LemonBench/LemonBench)开源，本人整理修改优化
-- [x] 磁盘dd读写测试--感谢[lemonbench](https://github.com/LemonBench/LemonBench)开源，本人整理修改优化
-- [x] 硬盘fio读写测试--感谢[yabs](https://github.com/masonr/yet-another-bench-script)开源，本人整理修改优化
-- [x] 御三家流媒体解锁测试--感谢[netflix-verify](https://github.com/sjlleo/netflix-verify)、[VerifyDisneyPlus](https://github.com/sjlleo/VerifyDisneyPlus)、[TubeCheck](https://github.com/sjlleo/TubeCheck)开源，本人整理修改维护[CommonMediaTests](https://github.com/oneclickvirt/CommonMediaTests)使用
-- [x] 常用流媒体解锁测试--感谢[RegionRestrictionCheck](https://github.com/lmc999/RegionRestrictionCheck)开源，本人整理修改优化
-- [x] Tiktok解锁--感谢[TikTokCheck](https://github.com/lmc999/TikTokCheck)开源，本人整理修改优化
-- [x] 三网回程以及路由延迟--感谢[zhanghanyun/backtrace](https://github.com/zhanghanyun/backtrace)开源，本人整理修改维护[oneclickvirt/backtrace](https://github.com/oneclickvirt/backtrace)使用
-- [x] 回程路由及带宽类型检测(商宽/家宽/数据中心)--由[fscarmen](https://github.com/fscarmen)的PR以及本人的技术思路提供，本人修改优化维护
-- [x] IP质量(含IPV4和IPV6)与邮件端口检测--使用[oneclickvirt/securityCheck](https://github.com/oneclickvirt/securityCheck)和[oneclickvirt/portchecker](https://github.com/oneclickvirt/portchecker)进行测试，感谢互联网提供的查询资源
-- [x] speedtest测速--使用自写[ecsspeed](https://github.com/spiritLHLS/ecsspeed)仓库，自动更新测速服务器ID，一劳永逸解决老是要手动更新测速ID的问题
-
-# 友链
-
-## 测评频道
-
-### https://t.me/vps_reviews
-
-## 自动更新测速服务器节点列表的网络基准测试脚本
-
-### https://github.com/spiritLHLS/ecsspeed
-
-# 脚本概况
-
-主界面：
-
-![图片](https://github.com/spiritLHLS/ecs/assets/103393591/051f1a83-ecd6-4713-af2f-c8b494e33c7f)
-
-选项1融合怪完全体：
-
-![图片](https://github.com/spiritLHLS/ecs/assets/103393591/a769cb11-b416-4d40-a78c-265549bc4d49)
-![图片](https://github.com/spiritLHLS/ecs/assets/103393591/291854bf-4760-4a7f-8fad-33a114a2ba46)
-![图片](https://github.com/spiritLHLS/ecs/assets/103393591/6cad0c32-2409-4a92-b2c7-435f8eb66b3c)
-![图片](https://github.com/spiritLHLS/ecs/assets/103393591/e5e486e8-0791-43d6-919e-63b420cec022)
-![图片](https://github.com/spiritLHLS/ecs/assets/103393591/7296621e-76c0-41f1-bd9c-e3e696301dcc)
-![图片](https://github.com/spiritLHLS/ecs/assets/103393591/08289d71-9f91-4597-bcb1-0909622e16d4)
-![图片](https://github.com/spiritLHLS/ecs/assets/103393591/3a53758e-5fab-4fc5-a0b6-651c2f6b79a3)
-
-选项6原创区：
-
-![图片](https://github.com/spiritLHLS/ecs/assets/103393591/393db695-5c94-41a9-9b02-812ad9d64967)
+<a href="https://community.ibm.com/zsystems/form/l1cc-oss-vm-request/" target="_blank">
+  <img src="https://linuxone.cloud.marist.edu/oss/resources/images/linuxonelogo03.png" alt="ibm">
+</a>
