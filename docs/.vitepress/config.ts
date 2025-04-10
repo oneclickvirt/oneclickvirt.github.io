@@ -60,11 +60,11 @@ export default defineConfig({
               link: '/case/index', 
               activeMatch: '^/case/' 
             },
-            {
-              text: '开发手册',
-              link: '/developer/index',
-              activeMatch: '^/developer/'
-            },
+            // {
+            //   text: '开发手册',
+            //   link: '/developer/index',
+            //   activeMatch: '^/developer/'
+            // },
             { text: 'VPS余量监控', link: 'https://spiders.spiritlhl.net/' },
             { text: 'VPS测试存档', link: 'https://beta.spiritlhl.net/' }
           ],
@@ -91,7 +91,7 @@ export default defineConfig({
           },
           nav: [
             { text: 'One Click Virtualization', link: '/en/', activeMatch: '^/en/guide/' },
-            { text: 'Development Manual', link: '/en/developer/index', activeMatch: '^/en/developer/' },
+            // { text: 'Development Manual', link: '/en/developer/index', activeMatch: '^/en/developer/' },
             { text: 'VPS Stock Monitor', link: 'https://spiders.spiritlhl.net/' },
             { text: 'VPS Test Archive', link: 'https://beta.spiritlhl.net/' }
           ],
