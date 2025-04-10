@@ -134,6 +134,7 @@ function getGuideSidebarZhCN() {
         { text: 'PVE主体安装', link: '/guide/pve/pve_install.html' },
         { text: 'KVM虚拟化', link: '/guide/pve/pve_kvm.html' },
         { text: 'LXC虚拟化', link: '/guide/pve/pve_lxc.html' },
+        { text: '开设Windows虚拟机', link: '/guide/pve/pve_windows.html' },
         { text: '自定义', link: '/guide/pve/pve_custom.html' },
         { text: '致谢', link: '/guide/pve/pve_thanks.html' },
         { text: '常见问题答疑', link: '/guide/pve/pve_qa.html' }

@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-## 从带virtio的iso镜像文件开设win的虚拟机
+## 使用带virtio的iso镜像文件开设
 
 ### 1.下载镜像
 
@@ -84,17 +84,48 @@ https://github.com/ILLKX/Windows-VirtIO
 
 ![win7](https://github.com/user-attachments/assets/ba4370df-ba6d-48fb-9255-e285f2d27377)
 
+安装完成后首次登录会要求设置密码，正常设置即可
+
 ![win8](https://github.com/user-attachments/assets/b4a7e456-878a-4829-bda1-05c8a9d6b6a7)
+
+设置完成后，NOVNC页面左侧有一个弹出框，点击第一个按钮，然后根据登录提示，点击```Ctrl```+```Alt```+最后一个按钮，进入登录页面。
 
 ### 4.初始化网络
 
+由于通过本项目设置的PVE是静态网络，所以登陆后需要手动修改绑定的IP地址，不通过DHCP
+
+在桌面右下角右击点出```打开 网络和Internet设置```，点击后，在弹出的设置页面中点击```更改适配器设置```
+
 ![win9](https://github.com/user-attachments/assets/4adfdde0-8d19-49b8-9cf2-b8874b445e93)
+
+然后在```网络链接```中勾选```以太网```，点击```更改此连接的设置```
 
 ![win10](https://github.com/user-attachments/assets/0c4624a2-4805-4426-a08b-028c2e737418)
 
+在弹出框中点击```Internet协议版本4(TCP/IPV4)```选中后点击```属性```
+
 ![win11](https://github.com/user-attachments/assets/67d3b598-a4e3-4c64-a9e2-5738330d1cbe)
 
+在新弹出的弹出框中，选择并点击```使用下面的IP地址(s)```，然后分别填入
+
+IP地址(I)：```172.16.1.xxx```(xxx换成你想绑定的ip，我的vmid是100，为了方便写了100)
+
+子网掩码(U)：```255.255.255.0```
+
+默认网关(D)：```172.16.1.1```
+
+然后选择点击```使用下面的DNS服务器地址(E)```，分别填入
+
+```
+8.8.8.8
+144.144.144.144
+```
+
+然后右下角点击确定，注意不要勾选 退出时验证
+
 ![win12](https://github.com/user-attachments/assets/dd6195e3-38f6-4954-a70c-2f9480d15048)
+
+然后其他弹出框都选```确定```和```是```就行了，然后本虚拟机就有网络了。
 
 
 
