@@ -89,6 +89,7 @@ bash <(wget -qO- --no-check-certificate https://cdn.spiritlhl.net/https://raw.gi
 
 :::warning
 **使用前请保证重启过服务器且此时PVE能正常登录进WEB端再执行，重启机器后不要立即执行此命令，待WEB端启动并可登录成功后至少等1分钟再执行本命令**
+如果WEB端起不来，执行```systemctl status pveproxy```查看是否启动，如果卡住未启动，执行```systemctl start pveproxy```启动WEB端
 :::
 
 :::tip

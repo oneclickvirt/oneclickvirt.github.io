@@ -77,6 +77,7 @@ bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/onecli
 
 :::warning
 Before using this command, please make sure that you have restarted the server and that PVE can use the WEB terminal normally before executing this command. Do not execute this command immediately after restarting the machine, wait for at least 1 minute after the WEB terminal is successfully started before executing this command.
+If the WEB side doesn't start, run ```systemctl status pveproxy``` to see if it starts, if it's stuck, run ```systemctl start pveproxy``` to start the WEB side.
 :::
 
 :::tip
