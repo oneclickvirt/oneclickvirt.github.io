@@ -29,15 +29,15 @@ bash <(curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/fsc
 
 **执行本项目的检测环境的命令**，展示如下
 
-![图片](https://github.com/spiritLHLS/pages/blob/main/pve_kvm_1.png?raw=true)
+![图片](images/pve_kvm_1.png)
 
 查询如上的只需使用下面的一键脚本自动创建虚拟机即可，无需手动再修改WEB端设置
 
-![图片](https://github.com/spiritLHLS/pages/blob/main/pve_kvm_2.png?raw=true)
+![图片](images/pve_kvm_2.png)
 
 查询如上的在使用后续脚本创建了虚拟机后，**可能**需要手动修改WEB端设置，需要关闭对应每个虚拟机的硬件嵌套虚拟化，如下图
 
-![图片](https://github.com/spiritLHLS/pages/blob/main/pve_kvm_3.png?raw=true)
+![图片](images/pve_kvm_3.png)
 
 先停止虚拟机再修改，修改完后再开机才能使用NOVNC，不关闭**可能**导致这个虚拟机有BUG无法使用
 
