@@ -20,15 +20,15 @@ bash <(curl -sSL https://raw.githubusercontent.com/fscarmen/tools/main/root.sh) 
 
 **Commands to set up the testing environment for executing this project are as follows:**
 
-![图片](https://github.com/spiritLHLS/pages/blob/main/pve_kvm_1.png?raw=true)
+![图片](images/pve_kvm_1.png)
 
 To perform the above-mentioned query, you only need to use the one-click script below to automatically create a virtual machine. There is no need to manually modify settings on the web interface.
 
-![图片](https://github.com/spiritLHLS/pages/blob/main/pve_kvm_2.png?raw=true)
+![图片](images/pve_kvm_2.png)
 
 After creating the virtual machines using the subsequent script as mentioned above, it **may** be necessary to manually modify the settings on the web interface. You will need to disable hardware nested virtualization for each respective virtual machine, as shown in the following diagram.
 
-![图片](https://github.com/spiritLHLS/pages/blob/main/pve_kvm_3.png?raw=true)
+![图片](images/pve_kvm_3.png)
 
 Stop the virtual machine before making modifications. After the modifications are done, you can start the machine to use NOVNC. Failure to close it **may** result in bugs that render this virtual machine unusable.
 

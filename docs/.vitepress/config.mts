@@ -1,9 +1,10 @@
-import { createWriteStream } from 'node:fs'
-import { resolve } from 'node:path'
-import { SitemapStream } from 'sitemap'
-import { defineConfig } from 'vitepress'
+import { createWriteStream } from 'node:fs';
+import { resolve } from 'node:path';
+import { SitemapStream } from 'sitemap';
+import { defineConfig } from 'vitepress';
 
-const links = []
+const links: { url: string; lastmod: number }[] = [];
+
 export default defineConfig({
   lastUpdated: true,
   lang: 'zh-CN',
@@ -11,94 +12,93 @@ export default defineConfig({
     if (!/[\\/]404\.html$/.test(id)) {
       links.push({
         url: pageData.relativePath.replace(/\/index\.md$/, '/').replace(/\.md$/, '.html'),
-        lastmod: pageData.lastUpdated,
-      })
+        lastmod: pageData.lastUpdated ?? Date.now(),
+      });
     }
   },
   buildEnd: async ({ outDir }) => {
     const sitemap = new SitemapStream({
       hostname: 'https://www.spiritlhl.net/'
-    })
-    const writeStream = createWriteStream(resolve(outDir, 'sitemap.xml'))
-    sitemap.pipe(writeStream)
-    links.forEach((link) => sitemap.write(link))
-    sitemap.end()
-    await new Promise((r) => writeStream.on('finish', r))
+    });
+    const writeStream = createWriteStream(resolve(outDir, 'sitemap.xml'));
+    sitemap.pipe(writeStream);
+    links.forEach((link) => sitemap.write(link));
+    sitemap.end();
+    await new Promise((r) => writeStream.on('finish', r));
   },
   head: [
-    ['link', { rel: 'icon', href: 'https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png' }],
+    ['link', { rel: 'icon', href: 'https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png' }],
     ['meta', { name: 'google-site-verification', content: 'wdrGBim_2XmtMrqxivze70saMiPQAiOhpmN3KAWb0Sw' }],
-    // <meta name="google-site-verification" content="wdrGBim_2XmtMrqxivze70saMiPQAiOhpmN3KAWb0Sw" />
     ['meta', { name: 'msvalidate.01', content: 'FC9B6B8BEB3D3B56844ADA69766DBB24' }],
-    // <meta name="msvalidate.01" content="FC9B6B8BEB3D3B56844ADA69766DBB24" />
     ['script', {
-      async: true,
       src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5991535488582679",
       crossorigin: "anonymous"
     }],
   ],
   locales: {
     root: {
-        lang: 'zh-CN',
-        label: '简体中文',
-        title: '一键虚拟化项目',
-        description: '开源、易于使用的服务器虚拟化项目',
-        link: '/',
-        themeConfig: {
-          logo: { src: 'https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png', width: 24, height: 24 },
-          lastUpdatedText: '上次更新',
-          editLink: {
-            pattern: 'https://github.com/oneclickvirt/oneclickvirt.github.io/edit/main/docs/:path',
-            text: '在GitHub中编辑',
+      lang: 'zh-CN',
+      label: '简体中文',
+      title: '一键虚拟化项目',
+      description: '开源、易于使用的服务器虚拟化项目',
+      link: '/',
+      themeConfig: {
+        logo: { src: 'https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png' },
+        lastUpdatedText: '上次更新',
+        editLink: {
+          pattern: 'https://github.com/oneclickvirt/oneclickvirt.github.io/edit/main/docs/:path',
+          text: '在GitHub中编辑',
+        },
+        nav: [
+          {
+            text: '一键虚拟化',
+            link: '/',
+            activeMatch: '^/$|^/guide/'
           },
-          nav: [
-            { text: '一键虚拟化', 
-              link: '/', 
-              activeMatch: '^/$|^/guide/' 
-            },
-            { text: 'Linux相关项目', 
-              link: '/case/index', 
-              activeMatch: '^/case/' 
-            },
-            // {
-            //   text: '开发手册',
-            //   link: '/developer/index',
-            //   activeMatch: '^/developer/'
-            // },
-            { text: 'VPS余量监控', link: 'https://spiders.spiritlhl.net/' },
-            { text: 'VPS测试存档', link: 'https://beta.spiritlhl.net/' }
-          ],
-          sidebar: {
-            '/': getGuideSidebarZhCN(),
-            '/guide/': getGuideSidebarZhCN(),
-            '/case/': getCaseSidebarZhCN(),
-            '/developer/': getDeveloperSidebarZhCN(),
-          }
+          {
+            text: 'Linux相关项目',
+            link: '/case/index',
+            activeMatch: '^/case/'
+          },
+          // {
+          //   text: '开发手册',
+          //   link: '/developer/index',
+          //   activeMatch: '^/developer/'
+          // },
+          { text: 'VPS余量监控', link: 'https://spiders.spiritlhl.net/' },
+          { text: 'VPS测试存档', link: 'https://beta.spiritlhl.net/' }
+        ],
+        sidebar: {
+          '/': getGuideSidebarZhCN(),
+          '/guide/': getGuideSidebarZhCN(),
+          '/case/': getCaseSidebarZhCN(),
+          '/developer/': getDeveloperSidebarZhCN(),
         }
-      },
-      en: {
-        lang: 'en-US',
-        label: 'English',
-        title: 'One Click Virtualization',
-        description: 'Open source, easy to use server virtualization project',
-        link: '/en/',
-        themeConfig: {
-          logo: { src: 'https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png', width: 24, height: 24 },
-          lastUpdatedText: 'Last Updated',
-          editLink: {
-            text: 'Edit this page on GitHub',
-            pattern: 'https://github.com/oneclickvirt/oneclickvirt.github.io/edit/main/docs/:path',
-          },
-          nav: [
-            { text: 'One Click Virtualization', link: '/en/', activeMatch: '^/en/guide/' },
-            // { text: 'Development Manual', link: '/en/developer/index', activeMatch: '^/en/developer/' },
-            { text: 'VPS Stock Monitor', link: 'https://spiders.spiritlhl.net/' },
-            { text: 'VPS Test Archive', link: 'https://beta.spiritlhl.net/' }
-          ],
-          sidebar: {
-            '/en/': getGuideSidebarEnUS(),
-            '/en/guide/': getGuideSidebarEnUS(),
-            '/en/developer/': getDeveloperSidebarEnUS()
+      }
+    },
+    en: {
+      lang: 'en-US',
+      label: 'English',
+      title: 'One Click Virtualization',
+      description: 'Open source, easy to use server virtualization project',
+      link: '/en/',
+      themeConfig: {
+        logo: { src: 'https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png' },
+        lastUpdatedText: 'Last Updated',
+        editLink: {
+          text: 'Edit this page on GitHub',
+          pattern: 'https://github.com/oneclickvirt/oneclickvirt.github.io/edit/main/docs/:path',
+        },
+        nav: [
+          { text: 'One Click Virtualization', link: '/en/', activeMatch: '^/en/guide/' },
+          // { text: 'Development Manual', link: '/en/developer/index', activeMatch: '^/en/developer/' },
+          { text: 'VPS Stock Monitor', link: 'https://spiders.spiritlhl.net/' },
+          { text: 'VPS Test Archive', link: 'https://beta.spiritlhl.net/' }
+        ],
+        sidebar: {
+          '/en/': getGuideSidebarEnUS(),
+          '/en/guide/': getGuideSidebarEnUS(),
+          '/en/developer/': getDeveloperSidebarEnUS()
         },
       },
     },
@@ -117,7 +117,7 @@ export default defineConfig({
       copyright: 'Copyright © 2022-present oneclickvirt'
     }
   }
-})
+});
 
 function getGuideSidebarZhCN() {
   return [
@@ -191,7 +191,7 @@ function getGuideSidebarZhCN() {
         { text: '捐赠', link: '/guide/dashboardq.html' },
       ]
     }
-  ]
+  ];
 }
 
 function getCaseSidebarZhCN() {
@@ -210,7 +210,7 @@ function getCaseSidebarZhCN() {
         { text: '9. convoy面板安装脚本', link: '/case/case9.html' }
       ]
     }
-  ]
+  ];
 }
 
 function getDeveloperSidebarZhCN() {
@@ -221,7 +221,7 @@ function getDeveloperSidebarZhCN() {
         { text: 'l10n', link: '/developer/l10n.html' }
       ]
     }
-  ]
+  ];
 }
 
 function getGuideSidebarEnUS() {
@@ -239,6 +239,7 @@ function getGuideSidebarEnUS() {
         { text: 'PVE main installation', link: '/en/guide/pve/pve_install.html' },
         { text: 'KVM Virtualization', link: '/en/guide/pve/pve_kvm.html' },
         { text: 'LXC Virtualization', link: '/en/guide/pve/pve_lxc.html' },
+        { text: 'Windows Virtual Machine', link: '/en/guide/pve/pve_windows.html' },
         { text: 'Custom', link: '/en/guide/pve/pve_custom.html' },
         { text: 'Acknowledgements', link: '/en/guide/pve/pve_thanks.html' },
         { text: 'FAQ', link: '/en/guide/pve/pve_qa.html' }
@@ -295,7 +296,7 @@ function getGuideSidebarEnUS() {
         { text: 'Donation', link: '/guide/dashboardq.html' }
       ]
     }
-  ]
+  ];
 }
 
 function getDeveloperSidebarEnUS() {
@@ -306,5 +307,5 @@ function getDeveloperSidebarEnUS() {
         { text: 'l10n', link: '/en/developer/l10n.html' }
       ]
     }
-  ]
+  ];
 }
