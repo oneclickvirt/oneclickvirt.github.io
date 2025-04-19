@@ -40,6 +40,8 @@ curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scrip
 
 ### Hypervisor 计算节点安装
 
+#### 环境检测 
+
 > **建议配置**：
 > - CPU: 2 核  
 > - 内存: 4 GB  
