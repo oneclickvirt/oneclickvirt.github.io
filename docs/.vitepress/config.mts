@@ -51,20 +51,20 @@ export default defineConfig({
         },
         nav: [
           {
-            text: '一键虚拟化',
+            text: '一键虚拟化项目',
             link: '/',
             activeMatch: '^/$|^/guide/'
           },
           {
-            text: 'Linux相关项目',
+            text: '其他虚拟化项目',
+            link: '/incomplete/index',
+            activeMatch: '^/incomplete/'
+          },
+          {
+            text: '其他实用项目',
             link: '/case/index',
             activeMatch: '^/case/'
           },
-          // {
-          //   text: '开发手册',
-          //   link: '/developer/index',
-          //   activeMatch: '^/developer/'
-          // },
           { text: 'VPS余量监控', link: 'https://spiders.spiritlhl.net/' },
           { text: 'VPS测试存档', link: 'https://beta.spiritlhl.net/' }
         ],
@@ -72,6 +72,7 @@ export default defineConfig({
           '/': getGuideSidebarZhCN(),
           '/guide/': getGuideSidebarZhCN(),
           '/case/': getCaseSidebarZhCN(),
+          '/incomplete/': getIncompleteSidebarZhCN(),
           '/developer/': getDeveloperSidebarZhCN(),
         }
       }
@@ -91,14 +92,12 @@ export default defineConfig({
         },
         nav: [
           { text: 'One Click Virtualization', link: '/en/', activeMatch: '^/en/guide/' },
-          // { text: 'Development Manual', link: '/en/developer/index', activeMatch: '^/en/developer/' },
           { text: 'VPS Stock Monitor', link: 'https://spiders.spiritlhl.net/' },
           { text: 'VPS Test Archive', link: 'https://beta.spiritlhl.net/' }
         ],
         sidebar: {
           '/en/': getGuideSidebarEnUS(),
           '/en/guide/': getGuideSidebarEnUS(),
-          '/en/developer/': getDeveloperSidebarEnUS()
         },
       },
     },
@@ -194,6 +193,19 @@ function getGuideSidebarZhCN() {
   ];
 }
 
+function getIncompleteSidebarZhCN() {
+  return [
+    {
+      text: '其他虚拟化项目',
+      items: [
+        { text: 'pterodactyl', link: '/incomplete/pterodactyl.html' },
+        { text: 'webvirtcloud', link: '/incomplete/webvirtcloud.html' },
+        { text: 'convoy', link: '/incomplete/convoy.html' },
+      ]
+    }
+  ];
+}
+
 function getCaseSidebarZhCN() {
   return [
     {
@@ -206,8 +218,7 @@ function getCaseSidebarZhCN() {
         { text: '5. 御三家流媒体解锁测试脚本', link: '/case/case5.html' },
         { text: '6. 服务器资源占用脚本', link: '/case/case6.html' },
         { text: '7. 为linux服务器增加swap分区(虚拟内存)', link: '/case/case7.html' },
-        { text: '8. 为linux服务器启用zram设备(压缩内存)', link: '/case/case8.html' },
-        { text: '9. convoy面板安装脚本', link: '/case/case9.html' }
+        { text: '8. 为linux服务器启用zram设备(压缩内存)', link: '/case/case8.html' }
       ]
     }
   ];
@@ -294,17 +305,6 @@ function getGuideSidebarEnUS() {
       text: 'Donation',
       items: [
         { text: 'Donation', link: '/guide/dashboardq.html' }
-      ]
-    }
-  ];
-}
-
-function getDeveloperSidebarEnUS() {
-  return [
-    {
-      text: 'Development Manual',
-      items: [
-        { text: 'l10n', link: '/en/developer/l10n.html' }
       ]
     }
   ];

@@ -2,11 +2,11 @@
 outline: deep
 ---
 
-# 仓库
+## Repo
 
 https://github.com/oneclickvirt/convoypanel-scripts
 
-# convoypanel-scripts
+## convoypanel-scripts
 
 ### One-click installation of convoy panel
 
