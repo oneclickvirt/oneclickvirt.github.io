@@ -6,6 +6,8 @@ outline: deep
 
 https://github.com/oneclickvirt/convoypanel-scripts
 
+[![hits](https://hits.spiritlhl.net/convoy.svg?action=hit&title=hits&title_bg=%23555555&count_bg=%233aebee&edge_flat=false)](https://hits.spiritlhl.net)
+
 ## convoypanel-scripts
 
 ### One-click installation of convoy panel
