@@ -21,12 +21,6 @@ https://github.com/oneclickvirt/pterodactyl
 | Ubuntu      | 20.04(推荐), 22.04, 24.04  | 已支持       |
 | Debian      | 11(Bullseye), 12(Bookworm) | 已支持       |
 
-## 更新
-
-2025.04.15
-
-- 测试修复节点导入
-
 ## Panel
 
 panel端执行：
