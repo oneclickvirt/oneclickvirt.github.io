@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-## Repo 仓库地址
+## Repo
 
 https://github.com/oneclickvirt/webvirtcloud
 
@@ -105,4 +105,4 @@ journalctl -xeu webvirtcompute
 
 ## Thanks
 
-- [WebVirt.Cloud 官方网站](https://webvirt.cloud/)
+https://webvirt.cloud/
