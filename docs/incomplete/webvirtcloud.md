@@ -41,10 +41,26 @@ curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scrip
 ### Hypervisor 计算节点安装
 
 > **建议配置**：
-> - 测试环境: 2 核 CPU / 4 GB 内存 / 50 GB 空硬盘  
-> - 生产环境建议更高配置  
-> Minimum recommended for testing:  
-> - 2 cores CPU / 4GB RAM / 50GB disk (more for production use)
+> - CPU: 2 核  
+> - 内存: 4 GB  
+> - 硬盘: 空余 40 GB  
+> - 实际使用建议更高配置，测试环境只够开4台最小的虚拟机
+> - 服务器需要支持KVM嵌套虚拟化，如何测试建议使用 https://github.com/oneclickvirt/ecs 进行测试，需要检测项目```VM-x/AMD-V/Hyper-V```是启用的
+> - 跳过env检测安装，直接使用二进制文件，无需安装依赖
+```shell
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && ./goecs.sh install
+```
+
+> **Recommended Configuration**:  
+> - CPU: 2 cores  
+> - RAM: 4 GB  
+> - Disk: 40 GB free space  
+> - Higher specs are recommended for actual usage; this minimal setup is only sufficient to run 4 smallest VM in a test environment  
+> - The server must support KVM nested virtualization(Need ```VM-x/AMD-V/Hyper-V``` is enabled). To test compatibility, it's recommended to use: https://github.com/oneclickvirt/ecs  
+> - Skip the env detection installation, use the binary directly, no need to install dependencies:
+```shell
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && ./goecs.sh install
+```
 
 #### 下载并准备安装脚本
 
