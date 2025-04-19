@@ -87,7 +87,21 @@ Error: Failed to add 'br-ext' connection: connection.autoconnect-ports: unknown 
 安装完成后会生成一个 **Token**，用于在控制端（Admin 面板）中添加计算节点：
 
 路径：  
-`Admin Panel > Computers > Add Node`
+`Admin Panel > Computers > Add`
+
+### 纳管节点错误排查
+
+Controller端：
+
+```
+telnet <node ip> 8884
+```
+
+Hypervisor端：
+
+```
+journalctl -xeu webvirtcompute
+```
 
 ## Thanks
 
