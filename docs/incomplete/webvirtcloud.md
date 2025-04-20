@@ -35,7 +35,7 @@ https://github.com/oneclickvirt/webvirtcloud
 ```bash
 curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scripts/install_webvirt_cloud.sh -o install_webvirt_cloud.sh \
 && chmod +x install_webvirt_cloud.sh \
-&& bash install_webvirt_cloud.sh ctl
+&& bash install_webvirt_cloud.sh
 ```
 
 ### Hypervisor 计算节点安装
@@ -73,8 +73,8 @@ Select option 8 for performance testing: ```./goecs -l=en```
 #### 下载并准备安装脚本
 
 ```bash
-curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scripts/install_hypervisor1.sh -o install_hypervisor1.sh \
-&& chmod +x install_hypervisor1.sh
+curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scripts/install_hypervisor.sh -o install_hypervisor.sh \
+&& chmod +x install_hypervisor.sh
 ```
 
 #### 执行安装命令（替换 Controller IP）
@@ -82,7 +82,7 @@ curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scrip
 请将 `x.x.x.x` 替换为你的 **Controller 控制端的实际 IP 地址**：
 
 ```bash
-bash install_hypervisor1.sh x.x.x.x
+bash install_hypervisor.sh x.x.x.x
 ```
 
 ### 安装中可能出现的问题与提示
