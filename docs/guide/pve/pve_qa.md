@@ -33,7 +33,7 @@ deb cdrom:[
 
 这种开头的行，那么证明宿主机使用的是本地源而不是网络源，需要替换```/etc/apt/sources.list```的源，如
 
-![图片](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/c2a8d7ce-d2ae-439e-9875-3ef756e9a8a3)
+![图片](images/c2a8d7ce-d2ae-439e-9875-3ef756e9a8a3.png)
 
 一样替换为网络源才可使用PVE一键安装脚本进行安装。
 
@@ -86,7 +86,7 @@ cat /etc/resolv.conf
 
 需要在web端这个页面设置DNS
 
-![screenshot-1708136079861](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/2431b94e-fc84-4a9d-9ddc-bf7da9a2054f)
+![screenshot-1708136079861](images/2431b94e-fc84-4a9d-9ddc-bf7da9a2054f.png)
 
 设置完成后再次查看文件会发现有如下内容
 

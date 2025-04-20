@@ -8,7 +8,7 @@ tagline: 开源、易于使用的服务器虚拟化项目
 hero:
   name: 一键虚拟化项目
   text: 开源、易于使用的服务器虚拟化项目
-  image: https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png
+  image: https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png
   actions:
     - theme: brand
       text: 开始使用 →
