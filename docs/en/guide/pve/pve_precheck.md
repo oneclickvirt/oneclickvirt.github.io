@@ -89,6 +89,8 @@ Stop the virtual machine before making modifications. After the modifications ar
 
 If you forcibly install PVE to enable KVM, even if the startup fails, you can also disable this option and try to start the virtual machine to see if it works.
 
+The reason for these issues is what was stated above, the host does not support nested virtualized KVMs for acceleration.
+
 :::tip
 Please use the "screen" command to suspend execution before launching the virtual machine, in order to avoid prolonged startup times. Unstable SSH connections could lead to interruptions during the intermediate execution.
 :::
