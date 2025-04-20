@@ -40,6 +40,10 @@ curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scrip
 
 ### Hypervisor 计算节点安装
 
+Hypervisor 和 Controller 不能在同一个虚拟机上进行安装，网络会出现冲突问题。
+
+The Hypervisor and Controller cannot be installed on the same virtual machine; the network will have conflict issues.
+
 #### 环境检测 
 
 > **建议配置**：
@@ -49,9 +53,6 @@ curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scrip
 > - 实际使用建议更高配置，测试环境只够开4台最小的虚拟机
 > - 服务器需要支持KVM嵌套虚拟化，如何测试建议使用 https://github.com/oneclickvirt/ecs 进行测试，需要检测项目```VM-x/AMD-V/Hyper-V```是启用的
 > - 跳过env检测安装，直接使用二进制文件，无需安装依赖
-```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && ./goecs.sh install
-```
 
 > **Recommended Configuration**:  
 > - CPU: 2 cores  
@@ -59,10 +60,15 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 > - Disk: 40 GB free space  
 > - Higher specs are recommended for actual usage; this minimal setup is only sufficient to run 4 smallest VM in a test environment  
 > - The server must support KVM nested virtualization(Need ```VM-x/AMD-V/Hyper-V``` is enabled). To test compatibility, it's recommended to use: https://github.com/oneclickvirt/ecs  
-> - Skip the env detection installation, use the binary directly, no need to install dependencies:
+> - Skip the env detection installation, use the binary directly, no need to install dependencies
+
 ```shell
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && ./goecs.sh install
 ```
+
+选择选项8进行性能测试: ```./goecs```
+
+Select option 8 for performance testing: ```./goecs -l=en```
 
 #### 下载并准备安装脚本
 
