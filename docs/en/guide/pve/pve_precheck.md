@@ -52,12 +52,12 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 
 ## Detecting the environment
 
-- Before the execution of scripts related to this project, be sure to execute this script to detect the environment, if it does not meet the requirements of the installation of PVE will not be able to use the subsequent scripts.
-- Detecting the IPV6 network configuration of the machine (IPV6 can be installed with or without IPV6, it is just a query).
-- Detect whether the hardware configuration meets the minimum requirements
-- Detect whether the hardware environment can be nested virtualization KVM type of server
-- Detect whether the system environment can nest virtualized KVM-type servers.
-- Can not be nested virtualization KVM type of server can also open LXC virtualization server, but do not recommend installing PVE, rather use [LXD](https://github.com/spiritLHLS/lxd)
+- This project related scripts must be executed before the execution of this script to detect the environment, if it does not meet the requirements of the installation of PVE will not be able to use the subsequent scripts 
+- Detection of the local IPV6 network configuration (with or without IPV6 can be installed, just query) 
+- Detection of the hardware configuration meets the minimum requirements 
+- Detection of the hardware environment can be nested virtualization KVM type of servers, can not be nested virtualization KVM can also open QEMU TCG server, performance is poor 
+- Detect whether the system environment can be nested virtualization KVM type of server, can not be nested virtualization KVM can also open QEMU TCG server, performance is poor 
+- can not be nested virtualization KVM servers do not recommend the installation of the PVE, it is better to use [incus](https://github.com/oneclickvirt/incus) for better performance.
 
 Command:
 
@@ -72,6 +72,26 @@ rm -rf /usr/local/bin/pve_ipv6*
 rm -rf /usr/local/bin/pve_check_ipv6*
 rm -rf /usr/local/bin/pve_last_ipv6*
 ```
+
+**Commands to set up the testing environment for executing this project are as follows:**
+
+![图片](images/pve_kvm_1.png)
+
+To perform the above-mentioned query, you only need to use the one-click script below to automatically create a virtual machine. There is no need to manually modify settings on the web interface.
+
+![图片](images/pve_kvm_2.png)
+
+After creating the virtual machines using the subsequent script as mentioned above, it **may** be necessary to manually modify the settings on the web interface. You will need to disable hardware nested virtualization for each respective virtual machine, as shown in the following diagram.
+
+![图片](images/pve_kvm_3.png)
+
+Stop the virtual machine before making modifications. After the modifications are done, you can start the machine to use NOVNC. Failure to close it **may** result in bugs that render this virtual machine unusable.
+
+If you forcibly install PVE to enable KVM, even if the startup fails, you can also disable this option and try to start the virtual machine to see if it works.
+
+:::tip
+Please use the "screen" command to suspend execution before launching the virtual machine, in order to avoid prolonged startup times. Unstable SSH connections could lead to interruptions during the intermediate execution.
+:::
 
 <br/>
 <br/>

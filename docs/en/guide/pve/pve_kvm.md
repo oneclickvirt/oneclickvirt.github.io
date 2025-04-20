@@ -16,27 +16,6 @@ If the default username **is not ```root```, the default unset root password is 
 bash <(curl -sSL https://raw.githubusercontent.com/fscarmen/tools/main/root.sh) [PASSWORD]
 ```
 
-## Partial Notes
-
-**Commands to set up the testing environment for executing this project are as follows:**
-
-![图片](images/pve_kvm_1.png)
-
-To perform the above-mentioned query, you only need to use the one-click script below to automatically create a virtual machine. There is no need to manually modify settings on the web interface.
-
-![图片](images/pve_kvm_2.png)
-
-After creating the virtual machines using the subsequent script as mentioned above, it **may** be necessary to manually modify the settings on the web interface. You will need to disable hardware nested virtualization for each respective virtual machine, as shown in the following diagram.
-
-![图片](images/pve_kvm_3.png)
-
-Stop the virtual machine before making modifications. After the modifications are done, you can start the machine to use NOVNC. Failure to close it **may** result in bugs that render this virtual machine unusable.
-
-If you forcibly install PVE to enable KVM, even if the startup fails, you can also disable this option and try to start the virtual machine to see if it works.
-:::tip
-Please use the "screen" command to suspend execution before launching the virtual machine, in order to avoid prolonged startup times. Unstable SSH connections could lead to interruptions during the intermediate execution.
-:::
-
 ## Considerations for opening a KVM virtual machine with an IPV6 address
 
 Due to long-term inactivity IPV6 does not use may lead to NDP broadcast cache invalidation reset, generally idle for about 50 minutes will appear IPV6 unavailable, commonly known as "IPV6 cutoff", at this time it is necessary to set up a timer task.

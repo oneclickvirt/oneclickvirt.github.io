@@ -25,28 +25,6 @@ bash <(curl -sSL https://raw.githubusercontent.com/fscarmen/tools/main/root.sh) 
 bash <(curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/fscarmen/tools/main/root.sh) [PASSWORD]
 ```
 
-## 部分注意事项
-
-**执行本项目的检测环境的命令**，展示如下
-
-![图片](images/pve_kvm_1.png)
-
-查询如上的只需使用下面的一键脚本自动创建虚拟机即可，无需手动再修改WEB端设置
-
-![图片](images/pve_kvm_2.png)
-
-查询如上的在使用后续脚本创建了虚拟机后，**可能**需要手动修改WEB端设置，需要关闭对应每个虚拟机的硬件嵌套虚拟化，如下图
-
-![图片](images/pve_kvm_3.png)
-
-先停止虚拟机再修改，修改完后再开机才能使用NOVNC，不关闭**可能**导致这个虚拟机有BUG无法使用
-
-如果强行安装PVE开KVM，启动不了的也可以关闭这个选项试试能不能启动虚拟机
-
-:::tip
-开设虚拟机前请使用screen挂起执行，避免开设时间过长，SSH不稳定导致中间执行中断
-:::
-
 ## 开设带IPV6地址的KVM虚拟机的注意事项
 
 由于长期闲置IPV6不使用可能导致NDP广播缓存失效重置，一般闲置50分钟左右就会出现IPV6不可用的情况，俗称“IPV6断流”，此时需要设置一个定时任务

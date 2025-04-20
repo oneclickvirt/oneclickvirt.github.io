@@ -61,9 +61,9 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/a
 - 本项目相关脚本执行前务必执行本脚本检测环境，如果不符合安装PVE的要求则无法使用后续的脚本
 - 检测本机IPV6的网络配置情况(有无IPV6都可安装，只是查询一下罢了)
 - 检测硬件配置是否满足最低要求
-- 检测硬件环境是否可嵌套虚拟化KVM类型的服务器
-- 检测系统环境是否可嵌套虚拟化KVM类型的服务器
-- 不可嵌套虚拟化KVM类型的服务器也可以开LXC虚拟化的服务器，但不推荐安装PVE，不如使用[incus](https://github.com/oneclickvirt/incus)
+- 检测硬件环境是否可嵌套虚拟化KVM类型的服务器，不可嵌套虚拟化KVM的也可以开QEMU的TCG的服务器，性能较差
+- 检测系统环境是否可嵌套虚拟化KVM类型的服务器，不可嵌套虚拟化KVM的也可以开QEMU的TCG的服务器，性能较差
+- 不可嵌套虚拟化KVM的服务器不推荐安装PVE，不如使用[incus](https://github.com/oneclickvirt/incus)性能更好
 
 国际
 
@@ -84,6 +84,26 @@ rm -rf /usr/local/bin/pve_ipv6*
 rm -rf /usr/local/bin/pve_check_ipv6*
 rm -rf /usr/local/bin/pve_last_ipv6*
 ```
+
+**执行本项目的检测环境的命令**，展示如下
+
+![图片](images/pve_kvm_1.png)
+
+查询如上的只需使用下面的一键脚本自动创建虚拟机即可，无需手动再修改WEB端设置
+
+![图片](images/pve_kvm_2.png)
+
+查询如上的在使用后续脚本创建了虚拟机后，**可能**需要手动修改WEB端设置，需要关闭对应每个虚拟机的硬件嵌套虚拟化，如下图
+
+![图片](images/pve_kvm_3.png)
+
+先停止虚拟机再修改，修改完后再开机才能使用NOVNC，不关闭**可能**导致这个虚拟机有BUG无法使用
+
+如果强行安装PVE开KVM，启动不了的也可以关闭这个选项试试能不能启动虚拟机，导致这些问题的原因就是上面说的，宿主机不支持嵌套虚拟化KVM进行加速
+
+:::tip
+开设虚拟机前请使用screen挂起执行，避免开设时间过长，SSH不稳定导致中间执行中断
+:::
 
 <br/>
 <br/>
