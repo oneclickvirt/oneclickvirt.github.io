@@ -70,6 +70,10 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
    ```
    > Replace `x.x.x.x` with your Controller's actual IP address.
 
+3. Panel node 
+   After the execution is completed, there will be a prompt that needs to be filled in the Controller panel side of the content.
+   Panel side to fill in the Hostname is the IPV4 address of the current computing node, as well as to fill in the Token to identify the node.
+
 ## Troubleshooting
 
 ### NetworkManager Version Issue
@@ -180,6 +184,10 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
    bash install_hypervisor.sh x.x.x.x
    ```
    > 请将 `x.x.x.x` 替换为你的 Controller 控制端的实际 IP 地址。
+
+3. 面板纳管节点
+   执行完毕后会有提示需要在Controller面板端需要填写的内容。
+   面板端要填入Hostname的是当前计算节点的IPV4地址，还有要填入Token识别节点。
 
 ## 问题排查
 
