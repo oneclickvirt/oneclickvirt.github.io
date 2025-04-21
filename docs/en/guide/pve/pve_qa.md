@@ -167,7 +167,7 @@ Note: The cluster has no "master" or "slave" nodes—any node can be the one tha
 1. Log in to the web interface of the node to be added (e.g., `pve2`).
 2. Navigate to: **Datacenter → Cluster → Join Cluster**.
 3. Paste the **Join Information** from `pve1` into the input field.
-4. Enter the password of a privileged user on `pve1` (default is `root@pam`) in the **Peer Password** field.
+4. Enter the password of `root` user on `pve1` in the **Peer Password** field.
 5. Click **Join** to begin the joining process.
 6. Wait until the process completes successfully, then refresh the page or re-login. You should now see both nodes in the same cluster.
 
