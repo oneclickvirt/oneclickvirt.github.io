@@ -136,6 +136,46 @@ systemctl restart networking.service
 cat /etc/iptables/rules.v4 | iptables-restore
 ```
 
+## Adding a New Node to an Existing PVE Cluster (Create / Join Cluster)
+
+To form a cluster from two independent Proxmox VE instances, the following prerequisites must be met:
+
+### Cluster Prerequisites
+
+1. **Unique Hostnames**  
+   The `hostname` of each node must be unique to avoid conflicts. It is recommended to use names like `pve1`, `pve2`, etc.
+
+2. **Unique VMIDs**  
+   There must be no duplicate VMIDs across the two PVE nodes. If conflicts exist, adjust the VMIDs beforehand to prevent issues during cluster merge.
+
+3. **Network Connectivity & Low Latency**  
+   Both nodes must be able to `ping` each other. A low-latency network (LAN or high-speed public connection) is recommended for reliable cluster communication.
+
+### Creating the Cluster (Run on Any Node)
+
+1. Log in to the web interface of the node where the cluster will be created (e.g., `pve1`).
+2. Navigate to: **Datacenter → Cluster → Create Cluster**.
+3. Enter a name for the cluster (`Cluster Name`).
+4. Select the network interface to be used for cluster communication (e.g., public IP if only one interface is available).
+5. Click **Create** to initialize the cluster.
+6. Once the cluster is created, click **Join Information** and copy the displayed information for use on the joining node.
+
+Note: The cluster has no "master" or "slave" nodes—any node can be the one that initiates the cluster.
+
+### Joining the Cluster (Run on the Second Node)
+
+1. Log in to the web interface of the node to be added (e.g., `pve2`).
+2. Navigate to: **Datacenter → Cluster → Join Cluster**.
+3. Paste the **Join Information** from `pve1` into the input field.
+4. Enter the password of a privileged user on `pve1` (default is `root@pam`) in the **Peer Password** field.
+5. Click **Join** to begin the joining process.
+6. Wait until the process completes successfully, then refresh the page or re-login. You should now see both nodes in the same cluster.
+
+### Cluster Benefits
+
+- Nodes can share resources and migrate virtual machines.
+- ISO images and templates can be transferred more conveniently between nodes.
+
 ## Verified VPS Providers
 
 ### VPS Providers Offering KVM Virtualization with NAT
