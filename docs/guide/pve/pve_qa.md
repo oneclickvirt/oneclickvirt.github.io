@@ -156,6 +156,46 @@ systemctl restart networking.service
 cat /etc/iptables/rules.v4 | iptables-restore
 ```
 
+## 在现有的 PVE 中纳管新的 PVE（创建 / 加入集群）
+
+为了将两个独立的 Proxmox VE 实例组成一个集群，需满足以下前提条件：
+
+### 集群前提条件
+
+1. **主机名唯一**  
+   两个节点的 `hostname` 不可相同，避免命名冲突。建议使用诸如 `pve1`、`pve2` 等命名方式。
+
+2. **VMID 唯一**  
+   两台 PVE 上不能存在相同 VMID 的虚拟机或容器。若存在冲突，请调整 VMID 以避免合并时发生冲突。
+
+3. **网络互通、延迟低**  
+   两台主机之间必须能互相 `ping` 通，建议网络延迟低（局域网或高速公网），以保障集群通信质量。
+
+### 创建集群（在任意节点执行）
+
+1. 登录主节点（如 `pve1`）Web 管理界面。
+2. 依次点击：**Datacenter → Cluster → Create Cluster**。
+3. 输入集群名称（`Cluster Name`）。
+4. 选择要用于集群通信的网卡（如仅有公网 IP，可选择此网卡）。
+5. 点击 **Create** 创建集群。
+6. 创建成功后，点击 **Join Information**，复制该页面显示的信息备用。
+
+PS: 在哪个节点上创建集群都可以，集群中不分主从节点。
+
+### 加入集群（在第二个节点执行）
+
+1. 登录待加入节点（如 `pve2`）Web 管理界面。
+2. 依次点击：**Datacenter → Cluster → Join Cluster**。
+3. 将 `pve1` 的 **Join Information** 粘贴到输入框中。
+4. 填入 `pve1` 上具备权限的用户密码（默认是 `root@pam`）到 **Peer Password**。
+5. 点击 **Join** 开始加入过程。
+6. 等待页面提示成功后，刷新页面或重新登录，即可看到两个节点已组成集群。
+
+### 集群优势
+
+- 集群节点间可共享资源、迁移虚拟机。
+- 互传 ISO 镜像或模板更加便捷。
+
 ## 目前已验证的VPS商家
 
 ### 可开设KVM虚拟化的NAT的商家
