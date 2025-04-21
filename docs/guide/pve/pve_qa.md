@@ -187,7 +187,7 @@ PS: 在哪个节点上创建集群都可以，集群中不分主从节点。
 1. 登录待加入节点（如 `pve2`）Web 管理界面。
 2. 依次点击：**Datacenter → Cluster → Join Cluster**。
 3. 将 `pve1` 的 **Join Information** 粘贴到输入框中。
-4. 填入 `pve1` 上具备权限的用户密码（默认是 `root@pam`）到 **Peer Password**。
+4. 填入 `pve1` 上具的 `root` 用户密码到 **Peer Password**。
 5. 点击 **Join** 开始加入过程。
 6. 等待页面提示成功后，刷新页面或重新登录，即可看到两个节点已组成集群。
 
