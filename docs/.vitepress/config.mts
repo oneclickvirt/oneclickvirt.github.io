@@ -92,12 +92,14 @@ export default defineConfig({
         },
         nav: [
           { text: 'One Click Virtualization', link: '/en/', activeMatch: '^/en/guide/' },
+          { text: 'Other Virtualization Items', link: '/incomplete/index', activeMatch: '^/incomplete/' },
           { text: 'VPS Stock Monitor', link: 'https://spiders.spiritlhl.net/' },
           { text: 'VPS Test Archive', link: 'https://beta.spiritlhl.net/' }
         ],
         sidebar: {
           '/en/': getGuideSidebarEnUS(),
           '/en/guide/': getGuideSidebarEnUS(),
+          '/incomplete/': getIncompleteSidebarEnUS(),
         },
       },
     },
@@ -305,6 +307,19 @@ function getGuideSidebarEnUS() {
       text: 'Donation',
       items: [
         { text: 'Donation', link: '/guide/dashboardq.html' }
+      ]
+    }
+  ];
+}
+
+function getIncompleteSidebarEnUS() {
+  return [
+    {
+      text: 'Other Virtualization Items',
+      items: [
+        { text: 'pterodactyl', link: '/incomplete/pterodactyl_en.html' },
+        { text: 'webvirtcloud', link: '/incomplete/webvirtcloud_en.html' },
+        { text: 'convoy', link: '/incomplete/convoy_en.html' },
       ]
     }
   ];
