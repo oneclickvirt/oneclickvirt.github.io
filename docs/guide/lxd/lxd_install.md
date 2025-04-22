@@ -2,11 +2,11 @@
 outline: deep
 ---
 
-# LXD主体安装
+## LXD
 
 如果你的宿主机本身没有IPV6的子网又想给容器分配IPV6地址，那么请先查看```LXD```模块中的```自定义```分区中的```给宿主机附加免费的IPV6地址段```的内容，给宿主机附加上IPV6子网后再进行环境安装
 
-## 一键安装
+### LXD主体安装
 
 :::warning
 如果是全新的服务器，务必保证```apt update```和```apt install curl```都无问题再执行本脚本。建议预装```btrfs-progs```以加速后续的安装流程，安装后建议重启系统以加载设置，若未预安装也没问题，只需按照提示执行脚本即可。
@@ -37,11 +37,37 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 如果系统盘除去已占用空间还有18G硬盘空余，想开2G虚拟内存(2048MB的SWAP)，15G的存储池，按照命令行的提示则依次输入```2048```和```15```
 
-## 手动安装
+### 安装WEB控制面板
 
-新手推荐，避免有bug不知道怎么修，当然如果只是图方便又是老手懂排查BUG，用上面的一键安装也行
+自定义 教程中有关于官方面板怎么启用的教程，但这里不选择使用官方的面板，因为官方面板为了安全性，牺牲了很多用户体验，这块使用
 
-### 关闭防火墙
+https://github.com/turtle0x1/LxdMosaic
+
+的第三方面板
+
+```shell
+sudo snap install lxdmosaic
+```
+
+直接进行一键安装，然后打开当前宿主机的```https://<公网IP地址>/```，强制访问，就能进入设置页面
+
+![lxd](images/lxd1.png)
+
+![lxd](images/lxd2.png)
+
+![lxd](images/lxd3.png)
+
+这块如果你需要设置网站名字可以改改
+
+![lxd](images/lxd4.png)
+
+聊胜于无只能说，没有RBAC权限控制
+
+### 手动安装(备选)
+
+不推荐，只是为了一些奇葩环境一键脚本跑不动的时候进行安装
+
+#### 关闭防火墙
 
 ```bash
 apt update
@@ -49,7 +75,7 @@ apt install curl wget sudo dos2unix ufw jq -y
 ufw disable
 ```
 
-### 开设虚拟内存SWAP
+#### 开设虚拟内存SWAP
 
 内存看你开多少服务器，这里如果要开8个，换算需要2G内存，实际内存如果是512MB内存，还需要开1.5G，保守点开2G虚拟内存即可
 
@@ -67,7 +93,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/swap.sh 
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/swap.sh -o swap.sh && chmod +x swap.sh && bash swap.sh
 ```
 
-### 安装LXD
+#### 安装LXD
 
 实际swap开的虚拟内存应该是实际内存的2倍，也就是开1G是合理的，上面我描述的情况属于超开了
 
@@ -89,7 +115,7 @@ snap install core
 
 如果无异常，上面三行命令执行结果如下
 
-![图片](https://user-images.githubusercontent.com/103393591/233270028-5a43d0f7-45f5-4175-969e-d4d182cb877a.png)
+![图片](images/233270028-5a43d0f7-45f5-4175-969e-d4d182cb877a.png)
 
 一般的选项回车默认即可
 
