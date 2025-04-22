@@ -92,7 +92,7 @@ export default defineConfig({
         },
         nav: [
           { text: 'One Click Virtualization', link: '/en/', activeMatch: '^/en/guide/' },
-          { text: 'Other Virtualization Items', link: '/incomplete/index', activeMatch: '^/en/incomplete/' },
+          { text: 'Other Virtualization Projects', link: '/en/incomplete/index', activeMatch: '^/en/incomplete/' },
           { text: 'VPS Stock Monitor', link: 'https://spiders.spiritlhl.net/' },
           { text: 'VPS Test Archive', link: 'https://beta.spiritlhl.net/' }
         ],
@@ -315,11 +315,11 @@ function getGuideSidebarEnUS() {
 function getIncompleteSidebarEnUS() {
   return [
     {
-      text: 'Other Virtualization Items',
+      text: 'Other Virtualization Projects',
       items: [
-        { text: 'pterodactyl', link: '/incomplete/pterodactyl_en.html' },
-        { text: 'webvirtcloud', link: '/incomplete/webvirtcloud_en.html' },
-        { text: 'convoy', link: '/incomplete/convoy_en.html' },
+        { text: 'pterodactyl', link: '/en/incomplete/pterodactyl.html' },
+        { text: 'webvirtcloud', link: '/en/incomplete/webvirtcloud.html' },
+        { text: 'convoy', link: '/en/incomplete/convoy.html' },
       ]
     }
   ];
