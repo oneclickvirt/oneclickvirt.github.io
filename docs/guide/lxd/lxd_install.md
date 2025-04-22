@@ -61,7 +61,7 @@ sudo snap install lxdmosaic
 
 ![lxd](images/lxd4.png)
 
-聊胜于无只能说，没有RBAC权限控制
+聊胜于无只能说，没有RBAC权限控制进行分用户隔离
 
 ### 手动安装(备选)
 

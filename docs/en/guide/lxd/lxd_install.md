@@ -2,11 +2,11 @@
 outline: deep
 ---
 
-# LXD Installation Guide
+## LXD Installation Guide
 
 If your host does not have an IPV6 subnet and you want to assign IPV6 addresses to containers, then please check the ``Customize`` partition in the ``LXD`` module for the ``Attach a free IPV6 address segment`` to the host, and attach an IPV6 subnet to the host before installing the environment.
 
-## One-Click Installation
+### One-Click Installation
 
 :::warning
 If this is a new server, make sure that both ```apt update``` and ```apt install curl``` are working properly before executing this script. It is recommended to pre-install ```btrfs-progs``` to speed up the subsequent installation process, after installation it is recommended to reboot the system to load the settings, if it is not pre-installed it is no problem, just follow the prompts to execute the script.
@@ -31,11 +31,37 @@ Example of initialization configuration:
 
 If there is 18GB of unused disk space on the system disk, after deducting the space already occupied, and you want to allocate 2GB of virtual memory (2048MB of SWAP) and a 15GB storage pool, then following the prompts in the command line, enter ```2048``` and ```15```.
 
-## Manual Installation
+### Installation of WEB Control Panel
 
-Recommended for beginners to avoid potential troubleshooting. However, if you're experienced and comfortable with debugging bugs, you can also use the above one-click installation method for convenience.
+Customization There are tutorials on how to enable the official panel, but here do not choose to use the official panel, because the official panel in order to security, at the expense of a lot of user experience, this piece of using the
 
-### Disable Firewall
+https://github.com/turtle0x1/LxdMosaic
+
+third-party panels
+
+```shell
+sudo snap install lxdmosaic
+```
+
+Do a straightforward one-click install, then open the current host's ``https://<public IP address>/``` and force access to it to get to the setup page
+
+![lxd](images/lxd1.png)
+
+![lxd](images/lxd2.png)
+
+![lxd](images/lxd3.png)
+
+This piece can be changed if you need to set up the site name
+
+![lxd](images/lxd4.png)
+
+Better than nothing can only mean that there is no RBAC access control for sub-user segregation
+
+### Manual installation (optional)
+
+Not recommended, just for some odd environments where one-click scripts won't run.
+
+#### Disable Firewall
 
 ```bash
 apt update
@@ -43,7 +69,7 @@ apt install curl wget sudo dos2unix ufw jq -y
 ufw disable
 ```
 
-### Enabling Virtual Memory SWAP
+#### Enabling Virtual Memory SWAP
 
 The amount of memory depends on how many instances you want to run. If you want to run 8 instances and calculate, you'll need 2GB of memory. If your actual physical memory is 512MB, you'll need an additional 1.5GB. To be cautious, allocate 2GB of virtual memory.
 
@@ -55,7 +81,7 @@ Command:
 curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/swap.sh -o swap.sh && chmod +x swap.sh && bash swap.sh
 ```
 
-### Installing LXD
+#### Installing LXD
 
 Actually, the virtual memory allocated for swap should be twice the size of the actual memory. So, it's reasonable to allocate 1GB if the actual memory is 500MB. The scenario I described above is an excessive allocation.
 
@@ -77,7 +103,7 @@ snap install core
 
 If there are no exceptions, the results of the above three lines of commands are as follows
 
-![图片](https://user-images.githubusercontent.com/103393591/233270028-5a43d0f7-45f5-4175-969e-d4d182cb877a.png)
+![](images/233270028-5a43d0f7-45f5-4175-969e-d4d182cb877a.png)
 
 Just enter the default for the normal options
 
