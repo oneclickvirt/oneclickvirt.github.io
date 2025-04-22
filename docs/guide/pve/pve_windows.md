@@ -187,9 +187,11 @@ virtio也可以只下载msi包，本地用软件打包成iso压缩格式再本�
 
 而在更低版本的ProxmoxVE中，比如7.x和6.x的版本，OS这一栏默认无法选择virtio启动加载
 
+![lower][images/lower2.png]
+
 需要手动在```Hardware[硬件]```中点击```Add[添加]```添加```CD/DVD Drive```选择下载好的```virtio```的```ISO```文件
 
-![lower][images/lower.png]
+![lower][images/lower1.png]
 
 然后其他的一切照常，直到
 
