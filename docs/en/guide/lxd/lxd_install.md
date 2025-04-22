@@ -43,7 +43,7 @@ third-party panels
 sudo snap install lxdmosaic
 ```
 
-Do a straightforward one-click install, then open the current host's ``https://<public IP address>/``` and force access to it to get to the setup page
+Do a straightforward one-click install, then open the current host's ```https://<public IP address>/``` and force access to it to get to the setup page
 
 ![lxd](images/lxd1.png)
 
