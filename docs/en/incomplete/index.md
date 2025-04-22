@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: View Projects →
-      link: /incomplete/pterodactyl
+      link: /en/incomplete/pterodactyl
 
 features:
 - title: Notes
