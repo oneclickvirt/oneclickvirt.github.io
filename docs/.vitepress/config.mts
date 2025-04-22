@@ -92,14 +92,14 @@ export default defineConfig({
         },
         nav: [
           { text: 'One Click Virtualization', link: '/en/', activeMatch: '^/en/guide/' },
-          { text: 'Other Virtualization Items', link: '/incomplete/index', activeMatch: '^/incomplete/' },
+          { text: 'Other Virtualization Items', link: '/incomplete/index', activeMatch: '^/en/incomplete/' },
           { text: 'VPS Stock Monitor', link: 'https://spiders.spiritlhl.net/' },
           { text: 'VPS Test Archive', link: 'https://beta.spiritlhl.net/' }
         ],
         sidebar: {
           '/en/': getGuideSidebarEnUS(),
           '/en/guide/': getGuideSidebarEnUS(),
-          '/incomplete/': getIncompleteSidebarEnUS(),
+          '/en/incomplete/': getIncompleteSidebarEnUS(),
         },
       },
     },
