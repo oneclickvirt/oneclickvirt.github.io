@@ -4,11 +4,15 @@ outline: deep
 
 ## 开设时选择KVM虚拟化还是QEMU的TCG仿真
 
-宿主机本身如果支持嵌套虚拟化，那么就可用```host```或```qemu64```类型的CPU，优先host类型，qemu类型虚拟化性能损耗很多
+宿主机本身如果支持嵌套虚拟化，那么就可用```host```或```kvm64```或```qemu64```类型的CPU
 
-如果本身不支持嵌套虚拟化，那么只能用```qemu64```类型的CPU，且需要在启动虚拟机前修改 Options[选项] -- KVM hardware virtualization[KVM硬件虚拟化]
+从性能上来说，```host``` > ```kvm64``` > ```qemu64```
 
-设置为 no 取消 Enabled[启用] 的勾选
+```qemu```类型虚拟化性能损耗很多
+
+如果本身不支持嵌套虚拟化，那么只能用```qemu64```类型的CPU，且需要在启动虚拟机前修改```Options[选项]```中的```KVM hardware virtualization[KVM硬件虚拟化]```
+
+设置为```no```取消```Enabled[启用]```的勾选
 
 ![kvm](images/kvm.png)
 
@@ -26,7 +30,7 @@ outline: deep
 
 ```lsmod | grep -q kvm```检测是否已加载
 
-这些都支持的时候，才可选host类型
+这些都支持的时候，才可选```host```类型
 
 ## 使用带virtio的iso镜像文件开设
 
@@ -205,9 +209,23 @@ virtio也可以只下载msi包，本地用软件打包成iso压缩格式再本�
 
 ![nodisk](images/nodisk4.png)
 
-这样就能看得到硬盘了，选中后继续后续的安装步骤，选中后继续后续的安装步骤，直到系统安装完毕，进入桌面。
+这样就能看得到硬盘了，选中后继续后续的安装步骤，选中后继续后续的安装步骤如同前面的教程，直到系统安装完毕，进入桌面。
 
-### 安装网卡驱动
+### 通过virtio-win-guest-tools安装驱动
+
+此时安装成功，出现桌面后，还需要手动安装驱动
+
+打开```VirtIO```驱动所在的```CD```光驱目录，最下面有一个```virtio-win-guest-tools```程序，会安装用到的virtio驱动，这个驱动也会包含virtio的网卡驱动
+
+![wk](images/wk4.png)
+
+![wk](images/wk5.png)
+
+![wk](images/wk6.png)
+
+点击安装完毕后也能安装上网卡驱动
+
+### 安装网卡驱动(备选)
 
 此时安装成功，出现桌面后，还需要手动安装网卡驱动才能连通网络：
 
@@ -219,13 +237,14 @@ virtio也可以只下载msi包，本地用软件打包成iso压缩格式再本�
 6. 根据当前系统版本选择对应的驱动文件夹(和上面相同的操作，我会选择2k19文件夹，里面的amd64驱动)
 7. 确认安装，完成后即可成功加载```VirtIO```的网卡驱动
 
-### 通过virtio-win-guest-tools安装驱动(备选)
+![wk](images/wk1.png)
 
-此时安装成功，出现桌面后，打开```VirtIO```驱动所在的```CD```光驱目录，最下面有一个```virtio-win-guest-tools```程序，会安装用到的virtio驱动，这个驱动也会包含virtio的网卡驱动
+![wk](images/wk2.png)
 
-点击安装完毕后也能安装上网卡驱动
+![wk](images/wk3.png)
 
 ### 取消CD盘挂载
 
 在ProxmoxVE的web端手动在```Hardware[硬件]```中点击对应的```CD```选择```Remove[删除]```然后再重启虚拟机，这样就能直接使用了
 
+![wk](images/wk7.png)
