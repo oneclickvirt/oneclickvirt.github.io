@@ -61,29 +61,33 @@ curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scrip
 检测服务器是否支持 KVM 嵌套虚拟化：
 
 ```bash
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && ./goecs.sh install
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && ./goecs.sh install && goecs
 ```
+
+选择硬件单项测试
 
 ### 计算节点安装步骤
 
-1. 下载安装脚本：
+下载安装脚本：
 
-   ```bash
-   curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scripts/install_hypervisor.sh -o install_hypervisor.sh \
-   && chmod +x install_hypervisor.sh
-   ```
+```bash
+curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scripts/install_hypervisor.sh -o install_hypervisor.sh \
+&& chmod +x install_hypervisor.sh
+```
 
-2. 执行安装（替换为你的 Controller IP）：
+执行安装（替换为你的 Controller IP）：
 
-   ```bash
-   bash install_hypervisor.sh x.x.x.x
-   ```
+```bash
+bash install_hypervisor.sh x.x.x.x
+```
 
-   > 请将 `x.x.x.x` 替换为你的 Controller 控制端的实际 IP 地址。
+> 请将 `x.x.x.x` 替换为你的 Controller 控制端的实际 IP 地址。
 
-3. 面板纳管节点
-   执行完毕后会有提示需要在Controller面板端需要填写的内容。
-   面板端要填入Hostname的是当前计算节点的IPV4地址，还有要填入Token识别节点。
+面板纳管节点
+
+执行完毕后会有提示需要在Controller面板端需要填写的内容。
+
+面板端要填入Hostname的是当前计算节点的IPV4地址，还有要填入Token识别节点。
 
 ## 问题排查
 
@@ -172,6 +176,14 @@ docker logs webvirtcloud-backend -f
 ```bash
 docker start $(docker ps -a -q)
 ```
+
+### 缺点
+
+系统镜像是写死的，没法使用自己制作的镜像，也没办法导出使用
+
+网络配置非常奇怪，要NAT映射端口就没办法连通公网，要连通公网就没办法映射端口
+
+虚拟机删除有问题，前端删除实际上根本没有删掉
 
 ## 致谢
 
