@@ -111,6 +111,47 @@ After installation, a **Token** will be generated for adding the compute node to
 
 Path: `Admin Panel > Computers > Add`
 
+### Add IP Mapping for the Created Virtual Machine
+
+Assume your virtual machine appears in the user control panel as:
+
+![wv1](images/wv1.png)
+
+And the result of executing `ip a | head -n 15` on the host machine is:
+
+```shell
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: ens3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 52:54:00:f1:d6:8b brd ff:ff:ff:ff:ff:ff
+    altname enp0s3
+    inet your-public-IPV4-address/associated-subnet-mask scope global noprefixroute ens3
+       valid_lft forever preferred_lft forever
+    inet6 2a0b:4140:4c60::2/48 scope global noprefixroute
+       valid_lft forever preferred_lft forever
+    inet6 fe80::5054:ff:fef1:d68b/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+```
+
+It can be seen that the public IPV4 address is bound to the `ens3` interface, so the following commands will use `ens3`.
+
+To map port 22 of the current virtual machine to port 3322 of the public IPV4 address, run:
+
+```shell
+# Add a DNAT rule: forward traffic from public port 3322 to local 192.168.33.130:22
+iptables -t nat -A PREROUTING -i ens3 -p tcp --dport 3322 -j DNAT --to-destination 192.168.33.130:22
+# Add a POSTROUTING rule: enable NAT masquerading for proper return traffic
+iptables -t nat -A POSTROUTING -p tcp -d 192.168.33.130 --dport 22 -j MASQUERADE
+# Allow incoming traffic on port 3322 (required if firewalld is enabled)
+iptables -I INPUT -p tcp --dport 3322 -j ACCEPT
+```
+
+Now the internal virtual machine is exposed to the internet and can be accessed remotely.
+
 ### Troubleshooting Adding Compute Node
 
 On the Controller node, execute:
@@ -172,6 +213,10 @@ If Docker containers don't auto-restart after a system reboot, run:
 ```bash
 docker start $(docker ps -a -q)
 ```
+
+### Disadvantages
+
+The VM image is written to death, there is no way to use your own custom image, and there is no way to export it, and the original image does not have password login and ROOT login available.
 
 ## Thanks
 
