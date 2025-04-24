@@ -55,7 +55,8 @@ curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scrip
 > **Additional Notes:**
 >
 > - Higher specifications are recommended for production use. This minimal setup is only sufficient to run 4 small VMs in a test environment.
-> - The server must support KVM nested virtualization with VM-x/AMD-V/Hyper-V enabled.
+> - The server recommends using KVM nested virtualization with VM-x/AMD-V/Hyper-V enabled support.
+> - If `VM-x/AMD-V/Hyper-V` is not enabled and supported is not a problem, it will automatically switch to QEMU to open a VM using TCG emulation, except that in this case there will be a performance loss.
 > - The installation uses binary files directly, skipping dependency installation.
 
 ### Environment Testing
@@ -66,7 +67,7 @@ To test if your server supports KVM nested virtualization:
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && ./goecs.sh install && goecs -l=en
 ```
 
-Selecting the hardware single test, even if `VM-x/AMD-V/Hyper-V` is not enabled and supported is not a problem, it will automatically switch to QEMU to open a VM using TCG emulation, except that in this case there will be a performance loss.
+Selecting the hardware single test
 
 ### Hypervisor Installation Steps
 
