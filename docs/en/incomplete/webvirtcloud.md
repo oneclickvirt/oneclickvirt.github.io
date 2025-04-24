@@ -85,8 +85,6 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
    After the execution is completed, there will be a prompt that needs to be filled in the Controller panel side of the content.
    Panel side to fill in the Hostname is the IPV4 address of the current computing node, as well as to fill in the Token to identify the node.
 
-## Troubleshooting
-
 ### NetworkManager Version Issue
 
 You might see this error during installation:
@@ -111,7 +109,7 @@ After installation, a **Token** will be generated for adding the compute node to
 
 Path: `Admin Panel > Computers > Add`
 
-### Add IP Mapping for the Created Virtual Machine
+### Add Public IPV4 Ports Mapping for the Created Virtual Machine
 
 Assume your virtual machine appears in the user control panel as:
 
@@ -151,6 +149,8 @@ iptables -I INPUT -p tcp --dport 3322 -j ACCEPT
 ```
 
 Now the internal virtual machine is exposed to the internet and can be accessed remotely.
+
+## Troubleshooting
 
 ### Troubleshooting Adding Compute Node
 
@@ -206,7 +206,7 @@ docker logs webvirtcloud-backend -f
 
 Then trigger the error from the frontend; the log will now display the corresponding error in real time.
 
-### Restarting Docker Containers After Controller Reboot
+### Docker containers do not restart themselves after a Controller reboot
 
 If Docker containers don't auto-restart after a system reboot, run:
 
@@ -214,7 +214,7 @@ If Docker containers don't auto-restart after a system reboot, run:
 docker start $(docker ps -a -q)
 ```
 
-### Disadvantages
+## Disadvantages
 
 The VM image is written to death, there is no way to use your own custom image, and there is no way to export it, and the original image does not have password login and ROOT login available.
 

@@ -89,8 +89,6 @@ bash install_hypervisor.sh x.x.x.x
 
 面板端要填入Hostname的是当前计算节点的IPV4地址，还有要填入Token识别节点。
 
-## 问题排查
-
 ### NetworkManager 版本问题
 
 安装过程中可能会出现以下错误：
@@ -115,7 +113,7 @@ Error: Failed to add 'br-ext' connection: connection.autoconnect-ports: unknown 
 
 路径: `Admin Panel > Computers > Add`
 
-### 给开设的虚拟机添加IP映射
+### 给开设的虚拟机添加公网IP端口映射
 
 假设此时你的虚拟机在用户端控制面板显示为
 
@@ -155,6 +153,8 @@ iptables -I INPUT -p tcp --dport 3322 -j ACCEPT
 ```
 
 这样内网的虚拟机就被映射出来，可以直接远程登录使用了。
+
+## 问题排查
 
 ### 添加计算节点错误排查
 
@@ -210,7 +210,7 @@ docker logs webvirtcloud-backend -f
 
 然后前端去触发错误的位置，这块日志实时加载就会看到对应的报错了
 
-### Controller 重启后 Docker 容器重启
+### Controller 重启后 Docker 容器不自重启
 
 如果 Docker 容器在系统重启后没有自动重启，执行以下命令：
 
@@ -218,7 +218,7 @@ docker logs webvirtcloud-backend -f
 docker start $(docker ps -a -q)
 ```
 
-### 缺点
+## 缺点
 
 系统镜像是写死的，没法使用自己制作的自定义镜像，也没办法导出使用，同时原始的镜像没有设置远程可用密码登录和ROOT登录可用
 
