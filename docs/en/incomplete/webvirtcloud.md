@@ -17,6 +17,7 @@ Repository: <https://github.com/oneclickvirt/webvirtcloud>
 - CPU: 1 core
 - Memory: 1 GB RAM
 - Disk: 10 GB free space
+- Systems: Debian11+, Ubuntu20.04+
 
 ### Default Login Information
 
@@ -49,6 +50,7 @@ curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scrip
 - CPU: 2 cores
 - Memory: 4 GB RAM
 - Disk: 40 GB free space
+- Systems: AlmaLinux8+，RockyLinux8+
 
 > **Additional Notes:**
 >
@@ -61,29 +63,32 @@ curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scrip
 To test if your server supports KVM nested virtualization:
 
 ```bash
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && ./goecs.sh install
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && ./goecs.sh install && goecs -l=en
 ```
+
+Selecting the hardware single test, even if `VM-x/AMD-V/Hyper-V` is not enabled and supported is not a problem, it will automatically switch to QEMU to open a VM using TCG emulation, except that in this case there will be a performance loss.
 
 ### Hypervisor Installation Steps
 
-1. Download the installation script:
+Download the installation script:
 
-   ```bash
-   curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scripts/install_hypervisor.sh -o install_hypervisor.sh \
-   && chmod +x install_hypervisor.sh
-   ```
+```bash
+curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scripts/install_hypervisor.sh -o install_hypervisor.sh \
+&& chmod +x install_hypervisor.sh
+```
 
-2. Run the installation (replace with your Controller IP):
+Run the installation (replace with your Controller IP):
 
-   ```bash
-   bash install_hypervisor.sh x.x.x.x
-   ```
+```bash
+bash install_hypervisor.sh x.x.x.x
+```
 
-   > Replace `x.x.x.x` with your Controller's actual IP address.
+> Replace `x.x.x.x` with your Controller's actual IP address.
 
-3. Panel node
-   After the execution is completed, there will be a prompt that needs to be filled in the Controller panel side of the content.
-   Panel side to fill in the Hostname is the IPV4 address of the current computing node, as well as to fill in the Token to identify the node.
+Panel node
+
+After the execution is completed, there will be a prompt that needs to be filled in the Controller panel side of the content.
+Panel side to fill in the Hostname is the IPV4 address of the current computing node, as well as to fill in the Token to identify the node.
 
 ### NetworkManager Version Issue
 
