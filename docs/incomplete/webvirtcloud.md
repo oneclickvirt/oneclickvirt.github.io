@@ -17,6 +17,7 @@ outline: deep
 - CPU: 1 核
 - 内存: 1 GB RAM
 - 硬盘: 空余 10 GB
+- 系统：Debian11+，Ubuntu20.04+
 
 ### 默认登录信息
 
@@ -49,6 +50,7 @@ curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scrip
 - CPU: 2 核
 - 内存: 4 GB RAM
 - 硬盘: 空余 40 GB
+- 系统：AlmaLinux8+，RockyLinux8+
 
 > **额外说明:**
 >
@@ -64,7 +66,7 @@ curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scrip
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && ./goecs.sh install && goecs
 ```
 
-选择硬件单项测试
+选择硬件单项测试，即便```VM-x/AMD-V/Hyper-V```未启用和支持也没有问题，会自动切换为QEMU使用TCG仿真开设虚拟机，只不过这样的话性能会有所损耗。
 
 ### 计算节点安装步骤
 
