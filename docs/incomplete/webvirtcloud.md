@@ -105,8 +105,8 @@ Error: Failed to add 'br-ext' connection: connection.autoconnect-ports: unknown 
 
 ### 安装耗时提示
 
-- 整个过程大约耗时 **20~25 分钟**。
-- 大部分时间用于下载 `finnix-125.iso` 至 `/var/lib/libvirt/isos/finnix-125.iso`。
+- 整个过程大约耗时 **10~25 分钟**。
+- 大部分时间用于下载 `finnix-125.iso` 至 `/var/lib/libvirt/isos/finnix-125.iso`，有时候下载快有时候下载慢。
 - 该部分无法加速，**建议使用 tmux 或 screen** 等工具防止中断。
 
 ### 添加计算节点到控制面板
@@ -114,6 +114,47 @@ Error: Failed to add 'br-ext' connection: connection.autoconnect-ports: unknown 
 安装完成后会生成一个 **Token**，用于在控制端（Admin 面板）中添加计算节点：
 
 路径: `Admin Panel > Computers > Add`
+
+### 给开设的虚拟机添加IP映射
+
+假设此时你的虚拟机在用户端控制面板显示为
+
+![wv1](images/wv1.png)
+
+且宿主机的命令执行`ip a | head -n 15`结果为
+
+```shell
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: ens3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 52:54:00:f1:d6:8b brd ff:ff:ff:ff:ff:ff
+    altname enp0s3
+    inet 你的公网IPV4地址/对应的子网掩码 scope global noprefixroute ens3
+       valid_lft forever preferred_lft forever
+    inet6 2a0b:4140:4c60::2/48 scope global noprefixroute
+       valid_lft forever preferred_lft forever
+    inet6 fe80::5054:ff:fef1:d68b/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+```
+
+可见公网IPV4地址绑定的接口是`ens3`，所以后面的命令这里用`ens3`
+
+那么映射当前虚拟机的22端口到公网IPV4的3322端口的命令为
+
+```shell
+# 添加 DNAT 规则：将公网3322流量转发到宿主机本地的192.168.33.130:22
+iptables -t nat -A PREROUTING -i ens3 -p tcp --dport 3322 -j DNAT --to-destination 192.168.33.130:22
+# 添加 POSTROUTING：本机 NAT 伪装，以便连接正常返回
+iptables -t nat -A POSTROUTING -p tcp -d 192.168.33.130 --dport 22 -j MASQUERADE
+# 需要允许 INPUT 的3322端口通过（firewalld 默认是开启了的）
+iptables -I INPUT -p tcp --dport 3322 -j ACCEPT
+```
+
+这样内网的虚拟机就被映射出来，可以直接远程登录使用了。
 
 ### 添加计算节点错误排查
 
@@ -180,10 +221,6 @@ docker start $(docker ps -a -q)
 ### 缺点
 
 系统镜像是写死的，没法使用自己制作的镜像，也没办法导出使用，同时原始的镜像没有设置SSH登录可用密码登录和ROOT登录可用
-
-网络配置非常奇怪，要NAT映射端口就没办法连通公网，要连通公网就没办法映射端口
-
-虚拟机删除有问题，前端删除实际上根本没有删掉(如果前端要删除，删除前务必记得先关闭VNC)
 
 ## 致谢
 
