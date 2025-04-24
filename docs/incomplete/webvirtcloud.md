@@ -55,7 +55,7 @@ curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scrip
 > **额外说明:**
 >
 > - 实际使用建议更高配置，测试环境只够开 4 台最小的虚拟机。
-> - 服务器需要支持 KVM 嵌套虚拟化，需要检测项目 `VM-x/AMD-V/Hyper-V` 是启用的。
+> - 服务器推荐支持 KVM 嵌套虚拟化的，若```VM-x/AMD-V/Hyper-V```未启用也可以，会自动切换为QEMU使用TCG仿真开设虚拟机，只不过性能会有所损耗。
 > - 跳过 env 检测安装，直接使用二进制文件，无需安装依赖。
 
 ### 环境检测
@@ -66,7 +66,7 @@ curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scrip
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && ./goecs.sh install && goecs
 ```
 
-选择硬件单项测试，即便```VM-x/AMD-V/Hyper-V```未启用和支持也没有问题，会自动切换为QEMU使用TCG仿真开设虚拟机，只不过这样的话性能会有所损耗。
+选择硬件单项测试
 
 ### 计算节点安装步骤
 
