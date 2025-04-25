@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: 查看项目 →
-      link: /incomplete/pterodactyl
+      link: /incomplete/webvirtcloud
 
 features:
 - title: 注意事项
