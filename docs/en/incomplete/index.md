@@ -16,4 +16,6 @@ hero:
 features:
 - title: Notes
   details: Each item in this block has a corresponding drawback, and each item is not as easy to use as the previous ones, and has a certain learning cost.
+- title: Degree of difficulty
+  details: Based on the difficulty of using the program itself, sorted from easiest to hardest, the further back you go the less guidance you'll get with this guide.
 ---
