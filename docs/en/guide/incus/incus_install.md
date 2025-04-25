@@ -35,9 +35,13 @@ If there is 18GB of unused disk space on the system disk, after deducting the sp
 If the implementation of the final stuck more than 60 seconds without log display, it is recommended to force a restart of the server through your server's control panel, may be the last step of the installation is stuck in the restart of the network that step!
 :::
 
-## Manual Installation
+:::warning
+If you need to open more than 200 Incus containers on a single server, then it is not recommended to use this project, there may be problems with lxcfs access drift, which generates IO occupancy that cannot be released. (This is a native LXC problem that can't be fixed.)
+:::
 
-Recommended for beginners to avoid potential troubleshooting. However, if you're experienced and comfortable with debugging bugs, you can also use the above one-click installation method for convenience.
+## Manual Installation (optional)
+
+Not recommended, just for some odd environments where one-click scripts won't run.
 
 ### Disable Firewall
 

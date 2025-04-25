@@ -4,6 +4,10 @@ outline: deep
 
 # LXC Virtualization
 
+:::warning
+If you need to open more than 200 LXC containers on a single server, then it is not recommended to use this project, there may be problems with lxcfs access drift, which generates IO occupancy that cannot be released. (This is a native LXC problem that can't be fixed.)
+:::
+
 ## Images available for creating LXC Containers
 
 **x86_64:**
