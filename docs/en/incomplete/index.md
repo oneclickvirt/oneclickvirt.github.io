@@ -15,5 +15,5 @@ hero:
 
 features:
 - title: Notes
-  details: Please read the instructions for each project carefully. Some projects may cause irreparable damage to your system and require a full reinstall.
+  details: Each item in this block has a corresponding drawback, and each item is not as easy to use as the previous ones, and has a certain learning cost.
 ---

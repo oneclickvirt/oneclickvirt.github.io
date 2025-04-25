@@ -203,6 +203,7 @@ function getIncompleteSidebarZhCN() {
         { text: 'pterodactyl', link: '/incomplete/pterodactyl.html' },
         { text: 'webvirtcloud', link: '/incomplete/webvirtcloud.html' },
         { text: 'convoy', link: '/incomplete/convoy.html' },
+        { text: 'bashvm', link: '/incomplete/bashvm.html' },
       ]
     }
   ];
@@ -320,6 +321,7 @@ function getIncompleteSidebarEnUS() {
         { text: 'pterodactyl', link: '/en/incomplete/pterodactyl.html' },
         { text: 'webvirtcloud', link: '/en/incomplete/webvirtcloud.html' },
         { text: 'convoy', link: '/en/incomplete/convoy.html' },
+        { text: 'bashvm', link: '/en/incomplete/bashvm.html' },
       ]
     }
   ];
