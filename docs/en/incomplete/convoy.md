@@ -24,7 +24,7 @@ Prerequisites for installation:
 curl -L https://github.com/oneclickvirt/convoypanel-scripts/raw/main/installconvoy.sh -o installconvoy.sh && chmod +x installconvoy.sh && bash installconvoy.sh
 ```
 
-### Thanks
+## Thanks
 
 Base on https://github.com/oneclickvirt/pve
 
