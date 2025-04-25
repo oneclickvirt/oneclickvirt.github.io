@@ -10,8 +10,16 @@ https://github.com/spiritLHLS/addzram
 
 为linux服务器启用zram(压缩内存)
 
-```bash
+国际
+
+```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/addzram/main/addzram.sh -o addzram.sh && chmod +x addzram.sh && bash addzram.sh
+```
+
+国内
+
+```shell
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/addzram/main/addzram.sh -o addzram.sh && chmod +x addzram.sh && bash addzram.sh
 ```
 
 类同前面的addswap项目
