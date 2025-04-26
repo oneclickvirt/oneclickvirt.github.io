@@ -222,7 +222,7 @@ docker start $(docker ps -a -q)
 
 ## Disadvantages
 
-The VM image is written to death, there is no way to use your own custom image, and there is no way to export it, and the original image does not have password login and ROOT login available.
+The VM image is written to death, there is no way to use your own custom image, and there is no way to export it.
 
 ## Thanks
 
