@@ -8,6 +8,8 @@ outline: deep
 
 Repository: <https://github.com/oneclickvirt/webvirtcloud>
 
+Origin Repository:：<https://github.com/webvirtcloud/webvirtcloud>
+
 There are actually many parts of the official guide that are at odds with the way this project was deployed.
 
 ## Controller Installation

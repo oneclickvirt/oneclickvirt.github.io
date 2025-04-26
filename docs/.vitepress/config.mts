@@ -201,6 +201,7 @@ function getIncompleteSidebarZhCN() {
       text: '其他虚拟化项目',
       items: [
         { text: 'webvirtcloud', link: '/incomplete/webvirtcloud.html' },
+        { text: 'webvirtcloud_retspen', link: '/incomplete/webvirtcloud_retspen.html' },
         { text: 'pterodactyl', link: '/incomplete/pterodactyl.html' },
         { text: 'convoy', link: '/incomplete/convoy.html' },
         { text: 'virtualizor-docker', link: '/incomplete/virtualizor-docker.html' },
@@ -319,6 +320,7 @@ function getIncompleteSidebarEnUS() {
       text: 'Other Virtualization Projects',
       items: [
         { text: 'webvirtcloud', link: '/en/incomplete/webvirtcloud.html' },
+        { text: 'webvirtcloud_retspen', link: '/en/incomplete/webvirtcloud_retspen.html' },
         { text: 'pterodactyl', link: '/en/incomplete/pterodactyl.html' },
         { text: 'convoy', link: '/en/incomplete/convoy.html' },
         { text: 'virtualizor-docker', link: '/en/incomplete/virtualizor-docker.html' },
