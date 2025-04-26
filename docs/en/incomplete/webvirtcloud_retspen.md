@@ -10,7 +10,7 @@ Repository: <https://github.com/oneclickvirt/webvirtcloud>
 
 Origin Repository:：<https://github.com/retspen/webvirtcloud>
 
-## Controller Installation
+## Controller Node and Computer Node Installation
 
 ```bash
 curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scripts/install_webvirt_cloud_retspen.sh -o install_webvirt_cloud_retspen.sh \
