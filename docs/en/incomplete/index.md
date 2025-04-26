@@ -18,4 +18,6 @@ features:
   details: Each item in this block has a corresponding drawback, and each item is not as easy to use as the previous ones, and has a certain learning cost.
 - title: Degree of difficulty
   details: Based on the difficulty of using the program itself, sorted from easiest to hardest, the further back you go the less guidance you'll get with this guide.
+- title: Project disadvantages
+  details: Each project has some drawbacks that result in it not being considered a complete one-click project, and there are some operations that require manual execution of commands that cannot be one-clicked.
 ---

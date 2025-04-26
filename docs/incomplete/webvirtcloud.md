@@ -8,6 +8,8 @@ outline: deep
 
 仓库地址: <https://github.com/oneclickvirt/webvirtcloud>
 
+应该算是全网中文第一份完整的部署指南，官方的指南实际上有很多地方是和本项目部署的方式有出入的。
+
 ## 控制端安装
 
 ### 系统要求
@@ -223,6 +225,8 @@ docker start $(docker ps -a -q)
 ## 缺点
 
 系统镜像是写死的，没法使用自己制作的自定义镜像，也没办法导出使用
+
+同 https://github.com/retspen/webvirtcloud 不是同一个项目，不要搞混淆了。
 
 ## 致谢
 

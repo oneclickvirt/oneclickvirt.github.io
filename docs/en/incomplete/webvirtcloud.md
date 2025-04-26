@@ -8,6 +8,8 @@ outline: deep
 
 Repository: <https://github.com/oneclickvirt/webvirtcloud>
 
+There are actually many parts of the official guide that are at odds with the way this project was deployed.
+
 ## Controller Installation
 
 ### System Requirements
@@ -223,6 +225,8 @@ docker start $(docker ps -a -q)
 ## Disadvantages
 
 The VM image is written to death, there is no way to use your own custom image, and there is no way to export it.
+
+It is not the same program as https://github.com/retspen/webvirtcloud, so don't get confused.
 
 ## Thanks
 
