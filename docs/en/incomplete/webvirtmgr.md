@@ -13,7 +13,7 @@ Origin Repository: <https://github.com/retspen/webvirtmgr>
 ## Control nodes and compute nodes installed at the same time 
 
 - Supported systems: Debian9+, Ubuntu18.04+ 
-- The system will automatically compile python 2.7 installer and then deployed, there will be an error in the compilation process but do not pay attention to it, as long as the scripts are still running, it means that everything is fine!
+- The system will automatically compile python 3.3 installer and then deployed, there will be an error in the compilation process but do not pay attention to it, as long as the scripts are still running, it means that everything is fine!
 
 ```bash
 curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scripts/install_webvirtmgr.sh -o install_webvirtmgr.sh \
