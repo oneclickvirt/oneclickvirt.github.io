@@ -12,7 +12,7 @@ Origin Repository: <https://github.com/retspen/webvirtmgr>
 
 ## Control nodes and compute nodes installed at the same time 
 
-- Supported systems: Debian9+, Ubuntu18.04+ 
+- Supported systems: Debian[8,9,10]，Ubuntu[16.04,18.04,20.04]
 - The system will automatically compile python 3.3 installer and then deployed, there will be an error in the compilation process but do not pay attention to it, as long as the scripts are still running, it means that everything is fine!
 
 ```bash
