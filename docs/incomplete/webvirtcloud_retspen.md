@@ -12,6 +12,10 @@ outline: deep
 
 ## 控制节点和计算节点同时安装
 
+- 支持系统：Debian10+，Ubuntu18.04+
+- 推荐系统：Debian12+，Ubuntu22.04+
+- 低版本系统会自动编译python新版本的安装包后再进行部署，所以推荐使用新系统不必编译直接安装
+
 ```bash
 curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scripts/install_webvirt_cloud_retspen.sh -o install_webvirt_cloud_retspen.sh \
 && chmod +x install_webvirt_cloud_retspen.sh \
