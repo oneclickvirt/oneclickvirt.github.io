@@ -18,8 +18,16 @@ outline: deep
 
 **我不保证这个脚本没有错误，本项目未完整**
 
+国际
+
 ```shell
 curl -L https://github.com/oneclickvirt/convoypanel-scripts/raw/main/installconvoy.sh -o installconvoy.sh && chmod +x installconvoy.sh && bash installconvoy.sh
+```
+
+国内
+
+```shell
+curl -L https://cdn.spiritlhl.net/https://github.com/oneclickvirt/convoypanel-scripts/raw/main/installconvoy.sh -o installconvoy.sh && chmod +x installconvoy.sh && bash installconvoy.sh
 ```
 
 ## Thanks

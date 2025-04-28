@@ -23,4 +23,4 @@ curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scrip
 
 ## Disadvantages
 
-The project is no longer maintained and is not recommended at all.
+The origin project is no longer maintained and is not recommended at all.

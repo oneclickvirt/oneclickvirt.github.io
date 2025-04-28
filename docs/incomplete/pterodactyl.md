@@ -25,24 +25,48 @@ https://github.com/oneclickvirt/pterodactyl
 
 panel端执行：
 
+国际
+
 ```shell
 curl -slk https://raw.githubusercontent.com/oneclickvirt/pterodactyl/main/scripts/install_pterodactyl.sh -o install_pterodactyl.sh && chmod 777 install_pterodactyl.sh && bash install_pterodactyl.sh
+```
+
+国内
+
+```shell
+curl -slk https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pterodactyl/main/scripts/install_pterodactyl.sh -o install_pterodactyl.sh && chmod 777 install_pterodactyl.sh && bash install_pterodactyl.sh
 ```
 
 ## Wings
 
 wings端执行：
 
+国际
+
 ```shell
 curl -slk https://raw.githubusercontent.com/oneclickvirt/pterodactyl/main/scripts/install_wings.sh -o install_wings.sh && chmod 777 install_wings.sh && bash install_wings.sh
+```
+
+国内
+
+```shell
+curl -slk https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pterodactyl/main/scripts/install_wings.sh -o install_wings.sh && chmod 777 install_wings.sh && bash install_wings.sh
 ```
 
 ## Import
 
 panel端执行：
 
+国际
+
 ```shell
 curl -slk https://raw.githubusercontent.com/oneclickvirt/pterodactyl/main/scripts/import_node.sh -o import_node.sh && chmod 777 import_node.sh && bash import_node.sh
+```
+
+国内
+
+```shell
+curl -slk https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pterodactyl/main/scripts/import_node.sh -o import_node.sh && chmod 777 import_node.sh && bash import_node.sh
 ```
 
 会生成需要在wings端执行的命令

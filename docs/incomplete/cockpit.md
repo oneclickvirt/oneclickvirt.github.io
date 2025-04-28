@@ -12,8 +12,16 @@ https://github.com/oneclickvirt/cockpit
 
 支持的系统：Debian，Ubuntu，Almalinux，Rockylinux，Fedora，Centos，Arch
 
+国际
+
 ```shell
 curl -L https://raw.githubusercontent.com/oneclickvirt/cockpit/refs/heads/main/scripts/install.sh -o install.sh && chmod +x install.sh
+```
+
+国内
+
+```shell
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/cockpit/refs/heads/main/scripts/install.sh -o install.sh && chmod +x install.sh
 ```
 
 只安装带容器的

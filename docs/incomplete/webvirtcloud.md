@@ -37,8 +37,18 @@ outline: deep
 
 ### 安装命令
 
+国际
+
 ```bash
 curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scripts/install_webvirt_cloud.sh -o install_webvirt_cloud.sh \
+&& chmod +x install_webvirt_cloud.sh \
+&& bash install_webvirt_cloud.sh
+```
+
+国内
+
+```bash
+curl -slk https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scripts/install_webvirt_cloud.sh -o install_webvirt_cloud.sh \
 && chmod +x install_webvirt_cloud.sh \
 && bash install_webvirt_cloud.sh
 ```
@@ -76,8 +86,17 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 下载安装脚本：
 
+国际
+
 ```bash
 curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scripts/install_hypervisor.sh -o install_hypervisor.sh \
+&& chmod +x install_hypervisor.sh
+```
+
+国内
+
+```bash
+curl -slk https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scripts/install_hypervisor.sh -o install_hypervisor.sh \
 && chmod +x install_hypervisor.sh
 ```
 

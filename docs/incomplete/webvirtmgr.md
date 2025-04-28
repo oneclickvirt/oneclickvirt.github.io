@@ -15,12 +15,22 @@ outline: deep
 - 支持系统：Debian[8,9,10]，Ubuntu[16.04,18.04,20.04]
 - 系统会自动编译python的2.7的安装包后再进行部署，编译过程中会有报错提示但不用理会，只要脚本还在跑就说明一切正常
 
+国际
+
 ```bash
 curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scripts/install_webvirtmgr.sh -o install_webvirtmgr.sh \
 && chmod +x install_webvirtmgr.sh \
 && bash install_webvirtmgr.sh
 ```
 
+国内
+
+```bash
+curl -slk https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scripts/install_webvirtmgr.sh -o install_webvirtmgr.sh \
+&& chmod +x install_webvirtmgr.sh \
+&& bash install_webvirtmgr.sh
+```
+
 ## 缺点
 
-项目已经不再有维护，完全不推荐使用。
+原项目已经不再有维护，完全不推荐使用。
