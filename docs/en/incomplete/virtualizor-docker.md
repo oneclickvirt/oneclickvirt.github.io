@@ -10,7 +10,7 @@ https://github.com/ivstiv/virtualizor-docker
 
 The virtualizor opened in the docker
 
-The certificate is a trial certificate, and only OpenVZ is installed by default.
+The certificate used is a trial certificate, valid for one day, and only the OpenVZ virtualization method is installed by default
 
 ## Disadvantages
 

@@ -10,7 +10,7 @@ https://github.com/ivstiv/virtualizor-docker
 
 在docker中开设的 virtualizor
 
-证书用的是试用的证书，且默认只安装了OpenVZ的虚拟化方式
+证书用的是试用的证书，有效期一天，且默认只安装了OpenVZ的虚拟化方式
 
 ## 缺点
 
