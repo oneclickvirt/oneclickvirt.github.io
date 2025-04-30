@@ -206,8 +206,8 @@ function getIncompleteSidebarZhCN() {
         { text: 'convoy', link: '/incomplete/convoy.html' },
         { text: 'cockpit', link: '/incomplete/cockpit.html' },
         { text: 'bashvm', link: '/incomplete/bashvm.html' },
-        { text: 'virtualizor-docker', link: '/incomplete/virtualizor-docker.html' },
         { text: 'virtfusion', link: '/incomplete/virtfusion.html' },
+        { text: 'virtualizor-docker', link: '/incomplete/virtualizor-docker.html' },
         { text: 'webvirtmgr', link: '/incomplete/webvirtmgr.html' },
       ]
     }
@@ -328,8 +328,8 @@ function getIncompleteSidebarEnUS() {
         { text: 'convoy', link: '/en/incomplete/convoy.html' },
         { text: 'cockpit', link: '/en/incomplete/cockpit.html' },
         { text: 'bashvm', link: '/en/incomplete/bashvm.html' },
-        { text: 'virtualizor-docker', link: '/en/incomplete/virtualizor-docker.html' },
         { text: 'virtfusion', link: '/en/incomplete/virtfusion.html' },
+        { text: 'virtualizor-docker', link: '/en/incomplete/virtualizor-docker.html' },
         { text: 'webvirtmgr', link: '/en/incomplete/webvirtmgr.html' },
       ]
     }
