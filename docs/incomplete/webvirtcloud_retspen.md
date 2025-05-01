@@ -31,3 +31,81 @@ curl -slk https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvi
 && chmod +x install_webvirt_cloud_retspen.sh \
 && bash install_webvirt_cloud_retspen.sh
 ```
+
+安装完成后打开公网IP地址，就能看到登录页面。
+
+登录信息用户名和密码都是```admin```，记得登录后自行修改。
+
+## 开设Linux虚拟机
+
+进入控制面板后，修改完admin的密码后，需要自行设置计算节点。
+
+![vcr1](images/vcr1.jpg)  
+
+选择```本地```类型，添加命名为local。
+
+![vcr2](images/vcr2.jpg)  
+
+创建完成后，点击眼睛按钮，进入查看
+
+![vcr3](images/vcr3.jpg)  
+
+在```存储```一栏中添加存储，选择```Dir```类型，添加名字叫```local```。如果你需要使用```ISO```类型的系统引导，那么需要创建ISO类型的存储，如果不需要的话跟着本指南走，就仅需要创建```Dir```类型。
+
+![vcr4](images/vcr4.jpg)
+
+![vcr5](images/vcr5.jpg)
+
+创建完毕后，下载对应系统的qcow2文件，使用下面这个仓库的链接
+
+https://github.com/oneclickvirt/pve_kvm_images/releases/tag/images
+
+示例中下载使用debian12的qcow2镜像使用
+
+```shell
+cd /var/lib/libvirt/images
+wget https://github.com/oneclickvirt/pve_kvm_images/releases/download/images/debian12.qcow2
+chmod 777 debian12.qcow2
+```
+
+回到实例页面创建实例
+
+![vcr6](images/vcr6.jpg)  
+
+计算节点选择```local```
+
+![vcr7](images/vcr7.jpg)  
+
+芯片组使用默认的就行，换不换都没问题
+
+![vcr8](images/vcr8.jpg)  
+
+创建虚拟机可以使用预定义的配置大小，也可以自行使用自定义大小，看你的选择。
+
+![vcr9](images/vcr9.jpg)  
+
+注意这块填写的实例名字不能和系统名字重复，比如示例中就不能填写```debian12```。
+
+![vcr10](images/vcr10.jpg)  
+
+创建成功后不能立即点击开机。
+
+![vcr11](images/vcr11.jpg)  
+
+需要修改磁盘设置。
+
+![vcr12](images/vcr12.jpg)
+
+这块修改qcow2文件为```debian12.qcow2```，对应之前下载的qcow2的文件的名字，使用镜像。
+
+![vcr13](images/vcr13.jpg)  
+
+修改完成确认无误后，才可回到电源页面开机。
+
+![vcr14](images/vcr14.jpg)
+
+镜像的默认登录的用户名是```root```，密码是```password```或者是 ```oneclickvirt```。
+
+## 缺点
+
+网络还是没有自动配置，不如上一个项目智能，还得手动配置一下。
