@@ -12,7 +12,7 @@ Origin Repository:：<https://github.com/retspen/webvirtcloud>
 
 ## Controller Node and Computer Node Installation
 
-- Supported Systems: Debian10+, Ubuntu18.04+
+- Supported Systems: Debian10+, Ubuntu18.04+, Centos8+, AlmaLinux8+, RockyLinux8+
 - Recommended system: Debian12+, Ubuntu22.04+.
 - Lower versions of the system will automatically compile the new version of python installation package before deployment, so it is recommended to use a new system without compiling directly installed!
 
