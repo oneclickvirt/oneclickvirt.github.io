@@ -252,11 +252,14 @@ Virtance-1 192.168.33.114 52:54:00:5f:77:92 21422 31400 31409
 
 ##### 清理所有规则
 
-如需清理所有端口映射规则：
 ```bash
 systemctl stop vm-port-mapping
-iptables -t nat -F PREROUTING
-iptables -t nat -F POSTROUTING
+grep -f /etc/vm_port_mapping/mapping.txt | while read -r vm_name ip_address mac ssh_port port_start port_end; do
+  firewall-cmd --permanent --remove-forward-port="port=$ssh_port:proto=tcp:toport=22:toaddr=$ip_address"
+  for ((port=port_start; port<=port_end; port++)); do
+    firewall-cmd --permanent --remove-forward-port="port=$port:proto=tcp:toport=$port:toaddr=$ip_address"
+  done
+done
 firewall-cmd --reload
 ```
 
