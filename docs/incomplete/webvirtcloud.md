@@ -136,9 +136,178 @@ Error: Failed to add 'br-ext' connection: connection.autoconnect-ports: unknown 
 
 安装完成后会生成一个 **Token**，用于在控制端（Admin 面板）中添加计算节点：
 
-路径: `Admin Panel > Computers > Add`
+路径: `Admin Panel > Computers > Add Computer`
 
-### 给开设的虚拟机添加公网IP端口映射
+`HostName` 需要填写计算节点的公网IPV4地址
+
+`Token` 填在计算节点上获取到的token密钥
+
+### 公网IPV4端口映射
+
+### 自动映射
+
+- **自动监控**：实时监控虚拟机状态变化，自动应用或清理端口映射规则
+- **智能端口分配**：根据虚拟机IP地址自动计算和分配不冲突的端口
+- **规则持久化**：使用firewall-cmd确保端口映射规则在宿主机重启后依然有效
+- **映射记录**：自动维护映射信息记录文件，便于查看和管理
+- **冲突防护**：智能检测并避免端口冲突，确保每个虚拟机都有唯一的端口映射
+
+#### 安装方法
+
+1. 下载脚本到临时目录：
+
+```bash
+wget -O /tmp/vm_port_mapping_setup.sh https://your-script-url.com/vm_port_mapping_daemon.sh
+```
+
+2. 添加执行权限：
+
+```bash
+chmod +x /tmp/vm_port_mapping_setup.sh
+```
+
+3. 运行安装程序：
+
+```bash
+/tmp/vm_port_mapping_setup.sh
+```
+
+脚本会自动完成以下操作：
+- 将自身复制到系统目录 `/usr/local/sbin/vm_port_mapping_daemon.sh`
+- 创建systemd服务单元文件
+- 启用并启动服务
+
+#### 端口映射规则
+
+守护进程会为每个虚拟机分配以下端口：
+
+1. **SSH端口**：
+   - 计算公式：`(IP最后一段) × 100 + 22 + 10000`
+   - 示例：对于IP地址 192.168.33.114，映射的SSH端口为 114×100+22+10000 = 21422
+
+2. **额外端口**：
+   - 每个虚拟机分配10个额外端口
+   - 起始端口：20000 + (IP最后一段) × 100
+   - 结束端口：起始端口 + 9
+   - 示例：对于IP地址 192.168.33.114，额外端口范围为 20000+(114×100) 至 20000+(114×100)+9
+
+如果计算出的端口已被占用，程序会自动寻找下一个可用端口，确保不发生冲突。
+
+#### 映射文件
+
+所有端口映射信息保存在 `/etc/vm_port_mapping/mapping.txt` 文件中，格式为：
+
+```
+虚拟机名字 IP地址 MAC地址 SSH映射端口 额外端口起始 额外端口结束
+```
+
+例如：
+```
+Virtance-1 192.168.33.114 52:54:00:5f:77:92 21422 31400 31409
+```
+
+#### 服务管理
+
+##### 查看服务状态
+
+```bash
+systemctl status vm-port-mapping
+```
+
+##### 启动服务
+
+```bash
+systemctl start vm-port-mapping
+```
+
+##### 停止服务
+
+```bash
+systemctl stop vm-port-mapping
+```
+
+##### 禁用自启动
+
+```bash
+systemctl disable vm-port-mapping
+```
+
+##### 查看日志
+
+```bash
+journalctl -u vm-port-mapping
+# 或
+cat /var/log/vm_port_mapping.log
+```
+
+##### 手动触发规则更新
+
+如果需要手动触发规则更新，可以重启服务：
+
+```bash
+systemctl restart vm-port-mapping
+```
+
+#### 常见问题
+
+##### 端口映射不生效
+
+检查以下内容：
+- 确认服务正在运行：`systemctl status vm-port-mapping`
+- 检查日志文件：`cat /var/log/vm_port_mapping.log`
+- 确认防火墙服务正常：`systemctl status firewalld`
+- 验证虚拟机网络接口配置：`virsh domiflist 虚拟机名称`
+
+##### 手动添加映射规则
+
+通常不需要手动添加规则，但如果需要，可以这样操作：
+
+1. 停止服务：
+   ```bash
+   systemctl stop vm-port-mapping
+   ```
+
+2. 编辑映射文件：
+   ```bash
+   nano /etc/vm_port_mapping/mapping.txt
+   ```
+
+3. 启动服务：
+   ```bash
+   systemctl start vm-port-mapping
+   ```
+
+##### 清理所有规则
+
+如需清理所有端口映射规则：
+
+```bash
+systemctl stop vm-port-mapping
+iptables -t nat -F PREROUTING
+iptables -t nat -F POSTROUTING
+firewall-cmd --reload
+```
+
+##### 安全建议
+
+- 定期检查映射文件和日志，确保没有未授权的映射
+- 不要手动修改 `/etc/vm_port_mapping/` 目录下的文件，除非你完全了解其影响
+- 确保 `firewalld` 服务正常运行，以便规则能够正确持久化
+
+#### 卸载方法
+
+如需卸载此服务：
+
+```bash
+systemctl stop vm-port-mapping
+systemctl disable vm-port-mapping
+rm -f /etc/systemd/system/vm-port-mapping.service
+rm -f /usr/local/sbin/vm_port_mapping_daemon.sh
+rm -rf /etc/vm_port_mapping
+systemctl daemon-reload
+```
+
+#### 手动映射
 
 假设此时你的虚拟机在用户端控制面板显示为
 
