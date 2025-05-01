@@ -157,7 +157,7 @@ Error: Failed to add 'br-ext' connection: connection.autoconnect-ports: unknown 
 1. 下载脚本到临时目录：
 
 ```bash
-wget -O /tmp/vm_port_mapping_setup.sh https://your-script-url.com/vm_port_mapping_daemon.sh
+wget -O /tmp/vm_port_mapping_setup.sh https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/refs/heads/main/extra_scripts/vm_port_mapping_daemon.sh
 ```
 
 2. 添加执行权限：
