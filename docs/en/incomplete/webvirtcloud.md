@@ -38,7 +38,7 @@ curl -slk https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/main/scrip
 && bash install_webvirt_cloud.sh
 ```
 
-:::Tip
+:::tip
 The execution process may be stuck in the clone repository has not been moving, at this time, press ctrl + c to exit the implementation, re-execution of the installation script on the line, the Department of Docker installation is stuck in the stage of the build project.
 :::
 
