@@ -20,7 +20,7 @@ outline: deep
 - CPU: 1 核
 - 内存: 1 GB RAM
 - 硬盘: 空余 10 GB
-- 系统：Debian11+，Ubuntu20.04+
+- 系统：Debian11+，Ubuntu20.04+, Centos8+, AlmaLinux8+, RockyLinux8+
 
 ### 默认登录信息
 - 用户名: `admin@webvirt.cloud`
