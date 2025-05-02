@@ -48,7 +48,7 @@ curl -slk https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvi
 && bash install_webvirt_cloud.sh
 ```
 
-:::Tip
+:::tip
 执行过程中可能会卡在clone仓库后一直不动，此时按ctrl+c退出执行后，重新执行安装脚本就行了，系Docker安装后卡在build项目的阶段了。
 :::
 
