@@ -18,7 +18,7 @@ Original project repository: <https://github.com/webvirtcloud/webvirtcloud>
 - CPU: 1 core
 - Memory: 1 GB RAM
 - Storage: 10 GB free space
-- System: Debian11+, Ubuntu20.04+
+- System: Debian11+, Ubuntu20.04+, Centos8+, AlmaLinux8+, RockyLinux8+
 
 ### Default Login Information
 - Username: `admin@webvirt.cloud`
