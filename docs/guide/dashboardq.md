@@ -5,7 +5,7 @@ https://ko-fi.com/spiritlhl
 
 WeChat
 
-![WeChat](https://github.com/user-attachments/assets/0fd5d0c9-837f-45c1-8a56-f23f3d0bdbe7)
+![WeChat](images/photo_2025-05-05_22-20-49.jpg)
 
 USDT-TRC20
 
