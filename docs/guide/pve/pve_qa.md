@@ -232,7 +232,11 @@ bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linu
 
 此时dd后的系统用户名为```root```，密码为```oneclickvirt139```
 
-如果不成功，请查看 https://github.com/leitbogioro/Tools 中的issues和说明，一个常见的问题是OVH独立服务器进行dd，需要源系统重装为raid1，然后用参数指定dd为raid0，才能成功。
+如果不成功，请查看 https://github.com/leitbogioro/Tools 中的issues和说明。一个常见的问题是OVH独立服务器进行dd，需要源系统默认重装为raid1的debian12，然后用参数指定dd为raid0，才能成功，使用如下命令
+
+```shell
+wget --no-check-certificate -qO InstallNET.sh 'https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh' && chmod a+x InstallNET.sh && bash InstallNET.sh -debian 12  -mirror "http://ftp.debian.org/debian/" -pwd oneclickvirt139 -raid 0
+```
 
 ### 只可开设LXC虚拟化的NAT的商家
 

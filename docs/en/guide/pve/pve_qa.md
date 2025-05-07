@@ -212,7 +212,11 @@ bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linu
 
 At this point, the system username after dd is ``root``, and the password is ``oneclickvirt139``.
 
-If it doesn't work, check the issues and instructions in https://github.com/leitbogioro/Tools. A common problem is that OVH standalone servers are dd'd, which requires the source system to be reinstalled as raid1, and then parameterized to specify the dd as raid0 in order for it to work.
+If it doesn't work, please check the issues and instructions in https://github.com/leitbogioro/Tools. A common problem is that OVH standalone servers are dd'd, which requires the source system to be remounted as raid1 on debian12 by default, and then parameterized to specify dd'd as raid0 in order to be successful, using the following command
+
+```shell
+wget --no-check-certificate -qO InstallNET.sh 'https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh' && chmod a+x InstallNET.sh && bash InstallNET.sh -debian 12  -mirror "http://ftp.debian.org/debian/" -pwd oneclickvirt139 -raid 0
+```
 
 ### VPS Providers Offering NAT with LXC Virtualization
 
