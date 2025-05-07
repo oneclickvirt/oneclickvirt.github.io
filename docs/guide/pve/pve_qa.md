@@ -230,7 +230,9 @@ PS: 在哪个节点上创建集群都可以，集群中不分主从节点。
 bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh) -debian 12 -pwd 'oneclickvirt139' --network "static"
 ```
 
-此时dd后的系统用户名为```root```，密码为```oneclickvirt139```，如果不成功，请查看 https://github.com/leitbogioro/Tools 中的issues和说明，一个常见的问题是机器是raid0不是raid10，需要加参数指定raid的值
+此时dd后的系统用户名为```root```，密码为```oneclickvirt139```
+
+如果不成功，请查看 https://github.com/leitbogioro/Tools 中的issues和说明，一个常见的问题是OVH独立服务器进行dd，需要源系统重装为raid1，然后用参数指定dd为raid0，才能成功。
 
 ### 只可开设LXC虚拟化的NAT的商家
 
