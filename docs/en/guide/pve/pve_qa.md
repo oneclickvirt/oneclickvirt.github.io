@@ -210,7 +210,9 @@ Note: The cluster has no "master" or "slave" nodes—any node can be the one tha
 bash <(curl -sSL https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh) -debian 12 -pwd ' oneclickvirt139' --network "static"
 ```
 
-At this point, the system username after dd is ``root``, and the password is ``oneclickvirt139``. If it doesn't work, check the issues and descriptions in https://github.com/leitbogioro/Tools A common problem is that the machine is raid0 not raid10, and you need to add a parameter to specify the value of the raid.
+At this point, the system username after dd is ``root``, and the password is ``oneclickvirt139``.
+
+If it doesn't work, check the issues and instructions in https://github.com/leitbogioro/Tools. A common problem is that OVH standalone servers are dd'd, which requires the source system to be reinstalled as raid1, and then parameterized to specify the dd as raid0 in order for it to work.
 
 ### VPS Providers Offering NAT with LXC Virtualization
 
