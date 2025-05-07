@@ -18,17 +18,17 @@ outline: deep
 国际
 
 ```shell
-curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/macos_images_install.sh -o macos_images_install.sh && chmod +x macos_images_install.sh && bash macos_images_install.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/install_macos_images.sh -o install_macos_images.sh && chmod +x install_macos_images.sh && bash install_macos_images.sh
 ```
 
 国内
 
 ```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/macos_images_install.sh -o macos_images_install.sh && chmod +x macos_images_install.sh && bash macos_images_install.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/install_macos_images.sh -o install_macos_images.sh && chmod +x install_macos_images.sh && bash install_macos_images.sh
 ```
 
 或
 
 ```shell
-bash macos_images_install.sh
+bash install_macos_images.sh
 ```
