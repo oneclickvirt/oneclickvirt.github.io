@@ -14,7 +14,19 @@
 
 Documentation for one-click virtualization
 
-一键安装与使用 Proxmox-VE、incus、LXD、Docker 的说明文档
+一键安装与使用 Proxmox-VE、incus、LXD、Docker 的说明文档，同时包含其他项目指南：
+
+```
+webvirtcloud
+webvirtcloud_retspen
+pterodactyl
+convoy
+cockpit
+virtfusion
+virtualizor-docker
+bashvm
+webvirtmgr
+```
 
 支持中英双语
 
