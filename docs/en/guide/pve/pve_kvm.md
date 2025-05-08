@@ -6,7 +6,7 @@ outline: deep
 
 ## SSH Login Instructions
 
-When KVM virtualization opens a virtual machine, the default generated username **can be something other than** ```root```, in which case you need to run ```sudo -i``` to switch to root!
+When open a virtual machine, the default generated username **can be something other than** ```root```, in which case you need to run ```sudo -i``` to switch to root!
 
 If the default username **is not ```root```, the default unset root password is ```password``` or ```oneclickvirt```**.
 
@@ -16,7 +16,7 @@ If the default username **is not ```root```, the default unset root password is 
 bash <(curl -sSL https://raw.githubusercontent.com/fscarmen/tools/main/root.sh) [PASSWORD]
 ```
 
-## Considerations for opening a KVM virtual machine with an IPV6 address
+## Considerations for opening a virtual machine with an IPV6 address
 
 Due to long-term inactivity IPV6 does not use may lead to NDP broadcast cache invalidation reset, generally idle for about 50 minutes will appear IPV6 unavailable, commonly known as "IPV6 cutoff", at this time it is necessary to set up a timer task.
 
@@ -26,7 +26,7 @@ echo '*/1 * * * * curl -m 6 -s ipv6.ip.sb || curl -m 6 -s ipv6.ip.sb' | crontab 
 
 Executing the above commands in the opened virtual machine ensures that the IPV6 network is always used and does not fail over.
 
-## Images available for creating KVM virtual machines
+## Images available for creating virtual machines
 
 - Pre-installed with cloud-init enabled.
 - Enabled SSH login.
@@ -45,7 +45,7 @@ and
 
 Daily patch images stored in the Release of this repository.
 
-## Virtual machines with standalone NAT configuration in KVM virtualization.
+## Virtual machines with standalone NAT configuration.
 
 - Automatically deploy NAT servers with the default Debian 10 image, chosen for its minimal footprint.
 - It's possible to customize the image used through the command, and pre-configured images are available. These images come with storage settings ranging from 2 to 10 GB of disk space. For regular use, **at least 10 GB** of disk space is recommended. You can increase the disk size if certain images fail to start.
@@ -137,7 +137,7 @@ You can delete the VM with the corresponding VMID, as demonstrated here using th
 
 The actual number of deletions is not fixed, a space separates each VMID, and more than one can be deleted at a time.
 
-## Batch Creation of Virtual Machines with KVM Virtualization and NAT
+## Batch Creation of Virtual Machines with NAT
 
 :::warning
 Before initial use, ensure that the current Proxmox Virtual Environment (PVE) is clean and the host machine has not undergone any port forwarding, as conflicting settings may result in bugs.
@@ -322,7 +322,7 @@ Note that only VMIDs from 100 to 256 can be used here, no other numbers can be u
 ### Host manually appends an additional IPV4 address and then specifies the IPV4 address to open the virtual machine
 
 - You need to add the extra IPV4 address to ```vmbr0``` in ```/etc/network/interfaces``` (note that ```chattr -i``` unlocks the file and then ```chattr +i``` locks it back).
-- Other features are similar to opening a NAT-enabled KVM VM, except that here the mapping is no longer partial port mapping or mapping to the host's IPV4 address, but full-port one-by-one mapping to additional IPV4 addresses
+- Other features are similar to opening a NAT-enabled VM, except that here the mapping is no longer partial port mapping or mapping to the host's IPV4 address, but full-port one-by-one mapping to additional IPV4 addresses
 - Traffic coming into the VM from outside the VM goes to the bound additional IPV4 address, and traffic going out of the VM goes to the original host's IPV4 address
 
 :::tip
