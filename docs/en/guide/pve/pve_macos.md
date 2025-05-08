@@ -51,7 +51,7 @@ When the extraction task is complete and the current extraction task query shows
 
 Tasks of the same type can run concurrently, and any task can be canceled at any time by entering the PID value.
 
-Currently supported image compressed packages:
+Build from https://github.com/oneclickvirt/macos currently supported image compressed packages:
 
 ```
 # Listed by system release date from old to new
