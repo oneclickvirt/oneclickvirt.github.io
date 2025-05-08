@@ -2,11 +2,11 @@
 outline: deep
 ---
 
-# KVM虚拟化Linux虚拟机
+# Linux虚拟机(KVM/TCG)
 
 ## SSH登录说明
 
-KVM虚拟化开设出的虚拟机，默认生成的用户名**可以不是**```root```，此时你需要执行```sudo -i```切换为root用户
+开设出的虚拟机，默认生成的用户名**可以不是**```root```，此时你需要执行```sudo -i```切换为root用户
 
 默认设置的用户名**不是```root```时，未经过设置的默认的root密码是```password```或```oneclickvirt```**
 
@@ -25,7 +25,7 @@ bash <(curl -sSL https://raw.githubusercontent.com/fscarmen/tools/main/root.sh) 
 bash <(curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/fscarmen/tools/main/root.sh) [PASSWORD]
 ```
 
-## 开设带IPV6地址的KVM虚拟机的注意事项
+## 开设带IPV6地址的虚拟机的注意事项
 
 由于长期闲置IPV6不使用可能导致NDP广播缓存失效重置，一般闲置50分钟左右就会出现IPV6不可用的情况，俗称“IPV6断流”，此时需要设置一个定时任务
 
@@ -35,7 +35,7 @@ echo '*/1 * * * * curl -m 6 -s ipv6.ip.sb || curl -m 6 -s ipv6.ip.sb' | crontab 
 
 在开设出的虚拟机中执行上述命令，可保证IPV6网络一直被使用，不会失效断流
 
-## 开设KVM虚拟机可使用的镜像
+## 开设虚拟机可使用的镜像
 
 - 已预安装开启cloudinit
 - 开启SSH登陆
@@ -54,7 +54,7 @@ echo '*/1 * * * * curl -m 6 -s ipv6.ip.sb || curl -m 6 -s ipv6.ip.sb' | crontab 
 
 仓库的Release中存储的每日修补镜像
 
-## 单独开设NAT的KVM虚拟化的虚拟机
+## 单独开设NAT的虚拟化的虚拟机
 
 - 自动开设NAT服务器，默认使用Debian10镜像，因为该镜像占用最小
 - 可在命令中自定义需要使用的镜像，这里有给出配置好的镜像，镜像自带空间设置是2~10G硬盘，日常使用**至少10G以上**即可，除非某些镜像开不起来再增加硬盘大小
@@ -162,7 +162,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 实际删除数量不固定，空格分隔每个VMID即可，可一次性删除多个
 
-## 批量开设NAT的KVM虚拟化的虚拟机
+## 批量开设NAT的虚拟化的虚拟机
 
 :::warning
 初次使用前需要保证当前PVE纯净且宿主机未进行过任何端口映射，否则设置冲突可能出现BUG
@@ -368,7 +368,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 ### 宿主机手动附加额外IPV4地址后再指定IPV4地址开设虚拟机
 
 - 需要自己在```/etc/network/interfaces```中给```vmbr0```添加额外的IPV4地址(注意```chattr -i```解锁文件修改后再```chattr +i```加锁回去)
-- 其他功能类似开设NAT的KVM虚拟机，只不过这里映射不再是部分端口映射，也不再是映射到宿主机的IPV4地址上，而是全端口一一映射到额外的IPV4地址上
+- 其他功能类似开设NAT的虚拟机，只不过这里映射不再是部分端口映射，也不再是映射到宿主机的IPV4地址上，而是全端口一一映射到额外的IPV4地址上
 - 在虚拟机外进入虚拟机的流量走绑定的额外IPV4的地址，在虚拟机内发出的流量走原有的宿主机的IPV4地址
 
 :::tip
