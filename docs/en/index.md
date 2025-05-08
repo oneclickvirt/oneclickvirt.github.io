@@ -24,7 +24,7 @@ features:
 - title: Batch Virtualization
   details: Supports batch opening of containers or virtual machines using KVM, LXC, Docker virtualization
 - title: Multi-system and multi-environment support
-  details: Open containers or virtual machines that support mainstream systems, including Linux, Android, Windows, as well as pure browser or desktop environments.
+  details: Open containers or virtual machines that support mainstream systems, including Linux, Android, Windows, MacOS as well as pure browser or desktop environments.
 - title: Self-limiting abuse
   details: Some virtualized containers or VMs support the setting of masks and loading limits to avoid being used for abuse.
 ---
