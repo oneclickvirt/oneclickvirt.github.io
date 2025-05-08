@@ -2,6 +2,8 @@
 outline: deep
 ---
 
+# 开设Windows虚拟机
+
 ## 开设时选择KVM虚拟化还是QEMU的TCG仿真
 
 宿主机本身如果支持嵌套虚拟化，那么就可用```host```或```kvm64```或```qemu64```类型的CPU
@@ -16,13 +18,13 @@ outline: deep
 
 ![kvm](images/kvm.png)
 
-如果你实在不清楚本机是否支持嵌套虚拟化，那么
+如果你实在不清楚本机是否支持嵌套虚拟化，那么查看 系统与硬件配置要求 --> 检测环境 检测确保可用(含尝试性启用功能)
 
-借鉴
+它的主体逻辑在
 
 <https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/check_kernal.sh>
 
-这块的逻辑，主要检测
+这块的逻辑中，主要检测
 
 ```egrep -c '(vmx|svm)' /proc/cpuinfo``` 检测是否为1
 
@@ -30,7 +32,7 @@ outline: deep
 
 ```lsmod | grep -q kvm```检测是否已加载
 
-这些都支持的时候，才可选```host```类型
+这些都支持的时候，才可选```host```类型。
 
 ## 使用带virtio的iso镜像文件开设
 

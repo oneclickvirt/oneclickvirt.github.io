@@ -82,7 +82,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildct.
 **Meaning of each parameter**
 
 ```shell
-./buildct.sh CTID Password Number_of_CPU_Cores Memory Disk SSH_Port Port_80 Port_443 Start_Public_Port End_Public_Port System Storage_Disk Independent_IPV6_address(leave default N blank)
+# ./buildct.sh CTID Password Number_of_CPU_Cores Memory Disk SSH_Port Port_80 Port_443 Start_Public_Port End_Public_Port System Storage_Disk Independent_IPV6_address(leave default N blank)
 ```
 
 ### Test Example

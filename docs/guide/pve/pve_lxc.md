@@ -89,7 +89,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 **各参数含义**
 
 ```shell
-./buildct.sh CTID 密码 CPU核数 内存 硬盘 SSH端口 80端口 443端口 外网端口起 外网端口止 系统 存储盘 独立IPV6(默认为N)
+# ./buildct.sh CTID 密码 CPU核数 内存 硬盘 SSH端口 80端口 443端口 外网端口起 外网端口止 系统 存储盘 独立IPV6(默认为N)
 ```
 
 ### 测试示例
@@ -235,7 +235,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 **各参数含义**
 
 ```shell
-./buildct_onlyv6.sh CTID 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘
+# ./buildct_onlyv6.sh CTID 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘
 ```
 
 #### 创建示例

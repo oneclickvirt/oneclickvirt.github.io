@@ -2,6 +2,8 @@
 outline: deep
 ---
 
+# Setting Up Windows Visual Machine
+
 ## Using ISO Image with VirtIO for VM Setup
 
 ### 1. Download the Image

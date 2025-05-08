@@ -93,7 +93,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 **各参数含义**
 
 ```shell
-./buildvm.sh VMID 用户名 密码 CPU核数 内存 硬盘 SSH端口 80端口 443端口 外网端口起 外网端口止 系统 存储盘 独立IPV6地址(留空默认N)
+# ./buildvm.sh VMID 用户名 密码 CPU核数 内存 硬盘 SSH端口 80端口 443端口 外网端口起 外网端口止 系统 存储盘 独立IPV6地址(留空默认N)
 ```
 
 :::tip
@@ -264,7 +264,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 **各参数含义**
 
 ```shell
-./buildvm_extra_ip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 独立IPV6(默认为N)
+# ./buildvm_extra_ip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 独立IPV6(默认为N)
 ```
 
 :::tip
@@ -331,7 +331,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 **各参数含义**
 
 ```shell
-./buildvm_manual_ip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 IPV4地址 独立IPV6(默认为N) MAC地址(不提供时将不指定虚拟机的MAC地址)
+# ./buildvm_manual_ip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 IPV4地址 独立IPV6(默认为N) MAC地址(不提供时将不指定虚拟机的MAC地址)
 ```
 
 :::tip
@@ -394,7 +394,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 **各参数含义**
 
 ```shell
-./buildvm_fullnat_ip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 IPV4地址 独立IPV6(默认为N)
+# ./buildvm_fullnat_ip.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘 IPV4地址 独立IPV6(默认为N)
 ```
 
 :::tip
@@ -469,7 +469,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 **各参数含义**
 
 ```shell
-./buildvm_onlyv6.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘
+# ./buildvm_onlyv6.sh VMID 用户名 密码 CPU核数 内存大小以MB计算 硬盘大小以GB计算 系统 存储盘
 ```
 
 :::tip

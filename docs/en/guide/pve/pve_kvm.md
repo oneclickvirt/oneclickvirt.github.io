@@ -76,7 +76,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm.
 **Meaning of each parameter**
 
 ```shell
-./buildvm.sh VMID Username Password Number_of_CPU_Cores Memory Disk SSH_Port Port_80 Port_443 Public_Port_Start Public_Port_End System Storage_Disk Independent_IPV6_address(leave default N blank)
+# ./buildvm.sh VMID Username Password Number_of_CPU_Cores Memory Disk SSH_Port Port_80 Port_443 Public_Port_Start Public_Port_End System Storage_Disk Independent_IPV6_address(leave default N blank)
 ```
 
 :::tip
@@ -226,7 +226,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_
 **Meaning of each parameter**
 
 ```shell
-./buildvm_extra_ip.sh VMID Username Password Number_of_CPU_Cores Memory_Size_in_MB Disk_Size_in_GB OS Storage_Disk Attach_IPV6(Default is N)
+# ./buildvm_extra_ip.sh VMID Username Password Number_of_CPU_Cores Memory_Size_in_MB Disk_Size_in_GB OS Storage_Disk Attach_IPV6(Default is N)
 ```
 
 :::tip
@@ -285,7 +285,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_
 **Meaning of each parameter**
 
 ```shell
-./buildvm_manual_ip.sh VMID USERNAME PASSWORD CPU_CORES MEMORY_SIZE_GB STORAGE_SIZE_GB OS STORAGE_DISK IPV4_ADDRESS ATTACH_IPV6(defaults to N) MAC_ADDRESS(Optional whether to specify)
+# ./buildvm_manual_ip.sh VMID USERNAME PASSWORD CPU_CORES MEMORY_SIZE_GB STORAGE_SIZE_GB OS STORAGE_DISK IPV4_ADDRESS ATTACH_IPV6(defaults to N) MAC_ADDRESS(Optional whether to specify)
 ```
 
 :::tip
@@ -339,7 +339,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_
 **Meaning of each parameter**
 
 ```shell
-./buildvm_fullnat_ip.sh VMID USERNAME PASSWORD CPU_CORES MEMORY_SIZE_GB STORAGE_SIZE_GB OS STORAGE_DISK IPV4_ADDRESS ATTACH_IPV6(defaults to N)
+# ./buildvm_fullnat_ip.sh VMID USERNAME PASSWORD CPU_CORES MEMORY_SIZE_GB STORAGE_SIZE_GB OS STORAGE_DISK IPV4_ADDRESS ATTACH_IPV6(defaults to N)
 ```
 
 :::tip
@@ -407,7 +407,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_
 **Meaning of each parameter**
 
 ```shell
-./buildvm_onlyv6.sh VMID username password CPU_cores memory_GB disk_GB operating_system storage_disk
+# ./buildvm_onlyv6.sh VMID username password CPU_cores memory_GB disk_GB operating_system storage_disk
 ```
 
 :::tip
