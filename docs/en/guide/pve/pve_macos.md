@@ -119,7 +119,11 @@ Note that VMID can only use numbers from 100 to 256, other numbers are not avail
 
 After completing the previous steps, you can see a gray virtual machine waiting to be started in the panel.
 
+![mac0](images/mac0.png)
+
 After clicking start, enter the VNC panel. The selection box on the left has a full-screen button. It is recommended to operate in full screen to avoid resolution issues.
+
+![mac00](images/mac0.png)
 
 After about 3 minutes of boot disk loading, a startup disk will be displayed on the left center of the screen. Click directly or press Enter.
 
