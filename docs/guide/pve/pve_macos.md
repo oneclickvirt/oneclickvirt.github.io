@@ -147,7 +147,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 点击启动后，进入VNC面板，左侧选择框有一个全屏按钮，实际操作时建议全屏操作，避免分辨率问题
 
-![mac00](images/mac0.png)
+![mac00](images/mac00.png)
 
 经过大概3分钟的引导盘加载后，屏幕中央靠左侧会显示有一个启动盘可用，直接点击或回车
 
