@@ -133,8 +133,8 @@ function getGuideSidebarZhCN() {
       items: [
         { text: '系统和硬件配置要求', link: '/guide/pve/pve_precheck.html' },
         { text: 'PVE主体安装', link: '/guide/pve/pve_install.html' },
-        { text: 'KVM虚拟化', link: '/guide/pve/pve_kvm.html' },
-        { text: 'LXC虚拟化', link: '/guide/pve/pve_lxc.html' },
+        { text: 'Linux虚拟机(KVM/TCG)', link: '/guide/pve/pve_kvm.html' },
+        { text: 'Linux容器(LXC)', link: '/guide/pve/pve_lxc.html' },
         { text: 'Windows虚拟机', link: '/guide/pve/pve_windows.html' },
         { text: 'MacOS虚拟机', link: '/guide/pve/pve_macos.html' },
         { text: '自定义', link: '/guide/pve/pve_custom.html' },
@@ -256,8 +256,8 @@ function getGuideSidebarEnUS() {
       items: [
         { text: 'Configuration requirements', link: '/en/guide/pve/pve_precheck.html' },
         { text: 'PVE main installation', link: '/en/guide/pve/pve_install.html' },
-        { text: 'KVM Virtualization', link: '/en/guide/pve/pve_kvm.html' },
-        { text: 'LXC Virtualization', link: '/en/guide/pve/pve_lxc.html' },
+        { text: 'Linux Virtual Machine(KVM/TCG)', link: '/en/guide/pve/pve_kvm.html' },
+        { text: 'Linux Container(LXC)', link: '/en/guide/pve/pve_lxc.html' },
         { text: 'Windows Virtual Machine', link: '/en/guide/pve/pve_windows.html' },
         { text: 'MacOS Virtual Machine', link: '/en/guide/pve/pve_macos.html' },
         { text: 'Custom', link: '/en/guide/pve/pve_custom.html' },

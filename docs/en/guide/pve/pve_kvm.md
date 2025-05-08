@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# KVM Virtualization
+# Linux Virtual Machine (KVM/TCG Virtualization)
 
 ## SSH Login Instructions
 

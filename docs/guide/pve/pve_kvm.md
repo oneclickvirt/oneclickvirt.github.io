@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# KVM虚拟化
+# KVM虚拟化Linux虚拟机
 
 ## SSH登录说明
 
