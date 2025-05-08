@@ -67,7 +67,7 @@ bash install_macos_images.sh
 
 相同类型的任务可以并发，也可以随时取消某个任务，取消时需要输入PID的值。
 
-目前支持的镜像压缩包：
+通过 https://github.com/oneclickvirt/macos 制作的目前支持的镜像压缩包：
 
 ```
 # 按系统发布时间从旧到新
