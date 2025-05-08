@@ -24,7 +24,7 @@ features:
 - title: 批量虚拟化
   details: 支持使用 KVM、LXC、Docker 虚拟化批量开设容器或虚拟机
 - title: 多系统多环境支持
-  details: 开设出的容器或虚拟机已支持主流系统，涵盖 Linux、Android、Windows 系统，也支持纯粹的浏览器环境或桌面环境
+  details: 开设出的容器或虚拟机已支持主流系统，涵盖 Linux、Android、Windows、MacOS 系统，也支持纯粹的浏览器环境或桌面环境
 - title: 自限制滥用
   details: 部分虚拟化开设的容器或虚拟机支持设置屏蔽和装载限制，避免被用于滥用
 ---
