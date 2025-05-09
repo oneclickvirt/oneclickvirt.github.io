@@ -220,3 +220,13 @@ After filling in and applying, the top left of the settings will show that the n
 ![mac20](images/mac20.png)  
 
 Now, opening the default browser and visiting any website will allow you to access public network resources, proving that the network has worked.
+
+## Remove ISO
+
+Manually click on the corresponding ```CD``` in the ```Hardware``` on the web side of ProxmoxVE and select ```Remove```, then restart the VM and you can use it directly.
+
+![wk](images/wk7.png)
+
+Macos system is to uninstall ```opencore.iso``` and ```xxxx (the system image used for installation).iso```, similar to the Windows system uninstallation of win image and virtio image in the example picture above.
+
+
