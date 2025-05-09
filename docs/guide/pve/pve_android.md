@@ -4,7 +4,7 @@ outline: deep
 
 ## 安卓系统镜像下载
 
-镜像可选的下载地址：
+Android系统版本9及以前的镜像下载地址：
 
 国际
 
@@ -21,6 +21,10 @@ https://mirrors.tuna.tsinghua.edu.cn/osdn/android-x86/
 https://mirrors.tuna.tsinghua.edu.cn/osdn/android-x86/71931/android-x86_64-9.0-rc2.iso
 
 作为示例进行演示
+
+Android系统版本10及以后的新镜像下载地址：
+
+https://blissos.org/index.html#download
 
 ## 模板设置
 
