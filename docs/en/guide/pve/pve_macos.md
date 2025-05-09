@@ -34,13 +34,13 @@ After successful execution, it will show that the system will restart in 15 seco
 - You can check the status of current download and extraction tasks at any time. Virtual machines can only be created after completion.
 
 ```shell
-curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/install_macos_images.sh -o install_macos_images.sh && chmod +x install_macos_images.sh && bash install_macos_images.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/install_macos_images.sh -o install_macos_images.sh && chmod +x install_macos_images.sh && bash install_macos_images.sh --lang=en
 ```
 
 Or
 
 ```shell
-bash install_macos_images.sh
+bash install_macos_images.sh --lang=en
 ```
 
 After the background download task starts, you can close the SSH window and wait for 30 minutes to 3 hours (depending on your server bandwidth and connectivity) to download the ISO 7z compressed package.
