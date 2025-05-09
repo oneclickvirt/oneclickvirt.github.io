@@ -74,13 +74,13 @@ sequoia.iso.7z (Size: 15.02GB)
 ### Download Template Script
 
 ```shell
-curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/build_macos_vm.sh -o build_macos_vm.sh && chmod +x build_macos_vm.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_macos.sh -o buildvm_macos.sh && chmod +x buildvm_macos.sh
 ```
 
 ### Parameter Meanings
 
 ```shell
-# ./build_macos_vm.sh VMID CPU_cores Memory Disk SSH_port VNC_port System Storage_disk Independent_IPV6(default_N_if_empty)
+# ./buildvm_macos.sh VMID CPU_cores Memory Disk SSH_port VNC_port System Storage_disk Independent_IPV6(default_N_if_empty)
 ```
 
 :::tip
@@ -92,7 +92,7 @@ The disk size here is only the size of the virtual machine's disk. During the ac
 Using the oldest version (high-sierra) as an example, the supported configuration is as follows (very laggy)
 
 ```shell
-./build_macos_vm.sh 100 2 4096 45 44022 45901 high-sierra local N
+./buildvm_macos.sh 100 2 4096 45 44022 45901 high-sierra local N
 ```
 
 After the template is set up, you can run `cat vm100` to view information, or check the NOTES in the corresponding VM in the WEB interface.
