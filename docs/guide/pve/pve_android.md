@@ -8,9 +8,9 @@ outline: deep
 
 国际
 
-https://sourceforge.net/projects/android-x86/files/
-
 https://www.fosshub.com/Android-x86.html
+
+https://sourceforge.net/projects/android-x86/files/
 
 国内
 
@@ -23,3 +23,5 @@ https://mirrors.tuna.tsinghua.edu.cn/osdn/android-x86/71931/android-x86_64-9.0-r
 作为示例进行演示
 
 ## 模板设置
+
+
