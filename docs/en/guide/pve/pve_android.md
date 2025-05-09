@@ -168,7 +168,7 @@ Select `Quickstep`
 
 ![34](images/a34.png)
 
-#### Network configuration
+#### Network Configuration
 
 Then you'll enter the desktop. Now you need to set up the network. Click the settings icon in the upper left corner
 
