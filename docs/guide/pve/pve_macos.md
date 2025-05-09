@@ -92,19 +92,19 @@ sequoia.iso.7z (大小: 15.02GB)
 国际
 
 ```shell
-curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/build_macos_vm.sh -o build_macos_vm.sh && chmod +x build_macos_vm.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_macos.sh -o buildvm_macos.sh && chmod +x buildvm_macos.sh
 ```
 
 国内
 
 ```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/build_macos_vm.sh -o build_macos_vm.sh && chmod +x build_macos_vm.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_macos.sh -o buildvm_macos.sh && chmod +x buildvm_macos.sh
 ```
 
 ### 参数含义
 
 ```shell
-# ./build_macos_vm.sh VMID CPU核数 内存 硬盘 SSH端口 VNC端口 系统 存储盘 独立IPV6(留空默认N)
+# ./buildvm_macos.sh VMID CPU核数 内存 硬盘 SSH端口 VNC端口 系统 存储盘 独立IPV6(留空默认N)
 ```
 
 :::tip
@@ -116,7 +116,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 以最旧的版本(high-sierra)为例，实验支持的配置如下(非常卡顿)
 
 ```shell
-./build_macos_vm.sh 100 2 4096 45 44022 45901 high-sierra local N
+./buildvm_macos.sh 100 2 4096 45 44022 45901 high-sierra local N
 ```
 
 模板开设完毕可执行```cat vm100```查看信息，或到WEB端对应VM的NOTES中查看
