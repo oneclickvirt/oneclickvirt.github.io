@@ -92,6 +92,107 @@ Then select `Use the following DNS server addresses` and enter:
 ```
 
 Click OK in the bottom right corner, and make sure `Validate settings upon exit` is NOT checked.
+
 ![win12](images/net4.png)
 
 Click `OK` and `Yes` for any other dialog boxes, and your virtual machine will now have network connectivity.
+
+### 5. Unmounting the CD Drive
+
+Manually click on the corresponding ```CD``` in the ```Hardware``` on the web side of ProxmoxVE and select ```Remove```, then restart the VM and you can use it directly.
+
+![wk](images/wk7.png)
+
+## Using ISO Images without VirtIO for VM Installation
+
+### 1. Download Images
+
+For Windows images without VirtIO, you can use:
+
+<https://down.idc.wiki/ISOS/Windows/>
+
+For VirtIO ISO images, you can use:
+
+<https://down.idc.wiki/ISOS/Toolkit/>
+
+or
+
+<https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/>
+
+Alternatively, you can download just the MSI package, package it into an ISO format locally, and then upload it to ProxmoxVE.
+
+This way, the package is smaller. The official package contains support for all Windows images and is about 500MB, while a self-packaged one is around 5MB.
+
+### 2. VirtIO Import
+
+Note that in ProxmoxVE version 8.x and later, you can select VirtIO boot loading by default in the OS section, as shown in the image:
+
+![virtio](images/virtio.png)
+
+In lower versions of ProxmoxVE, such as 7.x and 6.x, you cannot select VirtIO boot loading by default in the OS section:
+
+![lower](images/lower2.png)
+
+You need to manually add `CD/DVD Drive` by clicking `Add` in the `Hardware` section and selecting the downloaded `VirtIO` `ISO` file:
+
+![lower](images/lower1.png)
+
+Then proceed as usual until you reach:
+
+![nodisk](images/nodisk.png)
+
+At this point, you can't find the hard disk. You need to select `Load Driver`:
+
+![nodisk](images/nodisk1.png)
+
+Then select the `VirtIO` as your driver disk, click open, and import the corresponding system driver from the `amd64` directory:
+
+![nodisk](images/nodisk2.png)
+
+I'm using a `Windows Server 2019` image, so I imported the `2k19` driver. After importing, select the imported driver and click `Next`:
+
+![nodisk](images/nodisk3.png)
+
+![nodisk](images/nodisk4.png)
+
+Now you should be able to see the hard disk. Select it and continue with the installation steps as in the previous tutorial until the system installation is complete and you reach the desktop.
+
+### 3. Installing Drivers via virtio-win-guest-tools
+
+Once successfully installed and at the desktop, you still need to manually install the drivers.
+
+Open the `VirtIO` driver's `CD` drive directory. At the bottom, there's a `virtio-win-guest-tools` program that will install the required VirtIO drivers, including the VirtIO network card driver:
+
+![wk](images/wk4.png)
+
+![wk](images/wk5.png)
+
+![wk](images/wk6.png)
+
+After clicking install, the network card driver will be installed. For subsequent network settings, refer to the network initialization tutorial mentioned earlier.
+
+### 4. Installing Network Card Driver (Alternative)
+
+After successful installation and reaching the desktop, you may still need to manually install the network card driver to connect to the network:
+
+1. Open **Control Panel** → **Device Manager**
+2. Find the **Ethernet Controller**, right-click and select **Update Driver**
+3. Select **Browse my computer for driver software (R)**
+4. Browse to the `VirtIO` driver's `CD` drive directory
+5. Open the **NetKVM** folder
+6. Select the driver folder corresponding to your current system version (like the above operation, I would choose the 2k19 folder with amd64 drivers)
+7. Confirm the installation, and after completion, the `VirtIO` network card driver will be successfully loaded
+
+![wk](images/wk1.png)
+
+![wk](images/wk2.png)
+
+![wk](images/wk3.png)
+
+For subsequent network settings, refer to the network initialization tutorial mentioned earlier.
+
+### 5. Unmounting the CD Drive
+
+In the ProxmoxVE web interface, manually click on the corresponding `CD` in the `Hardware` section, select `Remove`, and then restart the virtual machine. This way, you can use it directly:
+
+![wk](images/wk7.png)
