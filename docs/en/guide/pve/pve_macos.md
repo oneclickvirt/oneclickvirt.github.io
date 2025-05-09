@@ -67,7 +67,9 @@ sequoia.iso.7z (Size: 15.02GB)
 
 ## MACOS Virtual Machine Template Setup
 
-- `big‑sur` and newer MACOS systems require at least 6 cores, 6GB memory, and 50GB disk space to set up. Newer system versions (later download sequence numbers) require more hardware resources.
+- Systems ```high-sierra```, ```mojave```, ```catalina``` require at least 2 cores, 4G of RAM and 40G of hard disk to run.
+- ```big-sur``` and newer MACOS systems require at least 6 cores, 6G RAM and 50G hard disk.
+- The newer the version of the system (the later the serial number of the download), the more hardware is required.
 - All images are boot disk images without any personal data, so disk allocation, login information setup, and network settings need to be manually configured according to the instructions.
 - You need to manually start the virtual machine from the web interface. Before starting, you can check if all templates meet your expectations.
 
