@@ -93,21 +93,21 @@ After setup is completed, you can execute ```cat vm111``` to view the informatio
 
 Below is the information for the example VM that has been set up:
 
-| Attribute                | Value          |
-|-------------------------|----------------|
-| VMID                     | 111            |
-| SSH Username             | root          |
-| SSH Password             | oneclick123    |
-| Number of CPU Cores      | 1              |
-| Memory Size              | 512MB          |
-| Disk Size                | 10G            |
-| SSH Port                 | 40001          |
-| Port 80                  | 40002          |
-| Port 443                 | 40003          |
-| Port Range for NAT       | 50000 to 50025 |
-| Operating System         | debian11       |
-| Host Storage Disk        | local          |
-| IPV6 address             | N              |
+| Attribute           | Value          |
+| ------------------- | -------------- |
+| VMID                | 111            |
+| SSH Username        | root           |
+| SSH Password        | oneclick123    |
+| Number of CPU Cores | 1              |
+| Memory Size         | 512MB          |
+| Disk Size           | 10G            |
+| SSH Port            | 40001          |
+| Port 80             | 40002          |
+| Port 443            | 40003          |
+| Port Range for NAT  | 50000 to 50025 |
+| Operating System    | debian11       |
+| Host Storage Disk   | local          |
+| IPV6 address        | N              |
 
 :::tip
 Note that only VMIDs from 100 to 256 can be used here, no other numbers can be used.
@@ -241,16 +241,16 @@ Note that the Password here should be a mix of English and numbers only, and sta
 
 The above command is used to create a virtual machine with a dedicated IPv4 address.
 
-| Attribute  | Value          |
-|------------|----------------|
-| VMID       | 152            |
-| Username   | root          |
-| Password   | oneclick123    |
-| CPU        | 1 core         |
-| Memory     | 1024MB         |
-| Disk       | 10GB           |
-| OS         | debian12       |
-| Storage    | local disk     |
+| Attribute  | Value                   |
+| ---------- | ----------------------- |
+| VMID       | 152                     |
+| Username   | root                    |
+| Password   | oneclick123             |
+| CPU        | 1 core                  |
+| Memory     | 1024MB                  |
+| Disk       | 10GB                    |
+| OS         | debian12                |
+| Storage    | local disk              |
 | IPv6 Addon | Not attached by default |
 
 :::tip
@@ -300,20 +300,20 @@ Note that the PASSWORD here should be a mix of English and numbers only, and sta
 
 The above command is used to create a virtual machine with an independent IPV4 address.
 
-| Attribute    | Value             |
-|--------------|-------------------|
-| VMID         | 152               |
-| Username     | root             |
-| Password     | oneclick123       |
-| CPU          | 1 core            |
-| Memory       | 1024MB            |
-| Disk         | 10GB              |
-| Operating System | debian12       |
-| Storage Disk | Local Disk (System Disk) |
-| IPV4 Address | a.b.c.d           |
-| Subnet       | /24 Subnet        |
-| IPV6         | None              |
-| MAC_ADDRESS  | None              |
+| Attribute        | Value                    |
+| ---------------- | ------------------------ |
+| VMID             | 152                      |
+| Username         | root                     |
+| Password         | oneclick123              |
+| CPU              | 1 core                   |
+| Memory           | 1024MB                   |
+| Disk             | 10GB                     |
+| Operating System | debian12                 |
+| Storage Disk     | Local Disk (System Disk) |
+| IPV4 Address     | a.b.c.d                  |
+| Subnet           | /24 Subnet               |
+| IPV6             | None                     |
+| MAC_ADDRESS      | None                     |
 
 :::tip
 Note that only VMIDs from 100 to 256 can be used here, no other numbers can be used.
@@ -354,19 +354,19 @@ Note that the PASSWORD here should be a mix of English and numbers only, and sta
 
 The above command is used to create a virtual machine with an independent IPV4 address.
 
-| Attribute    | Value             |
-|--------------|-------------------|
-| VMID         | 152               |
-| Username     | root             |
-| Password     | oneclick123       |
-| CPU          | 1 core            |
-| Memory       | 1024MB            |
-| Disk         | 10GB              |
-| Operating System | debian12       |
-| Storage Disk | Local Disk (System Disk) |
-| IPV4 Address | a.b.c.d           |
-| IPV6         | None              |
-| MAC_ADDRESS  | None              |
+| Attribute        | Value                    |
+| ---------------- | ------------------------ |
+| VMID             | 152                      |
+| Username         | root                     |
+| Password         | oneclick123              |
+| CPU              | 1 core                   |
+| Memory           | 1024MB                   |
+| Disk             | 10GB                     |
+| Operating System | debian12                 |
+| Storage Disk     | Local Disk (System Disk) |
+| IPV4 Address     | a.b.c.d                  |
+| IPV6             | None                     |
+| MAC_ADDRESS      | None                     |
 
 :::tip
 Note that only VMIDs from 100 to 256 can be used here, no other numbers can be used.
@@ -422,16 +422,16 @@ Note that the password here should be a mix of English and numbers only, and sta
 
 The above command is used to create a virtual machine with only IPv6 addresses.
 
-| Parameter   | Value           |
-|-------------|-----------------|
-| VMID        | 152             |
-| Username    | root           |
-| Password    | oneclick123     |
-| CPU         | 1 core          |
-| Memory      | 1024MB          |
-| Disk        | 10GB            |
-| Operating System | debian12   |
-| Storage Disk| local           |
+| Parameter        | Value       |
+| ---------------- | ----------- |
+| VMID             | 152         |
+| Username         | root        |
+| Password         | oneclick123 |
+| CPU              | 1 core      |
+| Memory           | 1024MB      |
+| Disk             | 10GB        |
+| Operating System | debian12    |
+| Storage Disk     | local       |
 
 :::tip
 Note that only VMIDs from 100 to 256 can be used here, no other numbers can be used.

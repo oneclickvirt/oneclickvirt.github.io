@@ -97,21 +97,21 @@ Here is the information for the created example CT:
 
 Please note that "CT" and other technical terms might have specific meanings in different contexts. If "CT" stands for something specific in your domain, you might want to provide additional context for accurate translation.
 
-| Attribute                  | Value       |
-|---------------------------|-------------|
-| CTID                      | 111         |
-| SSH Username              | root        |
-| SSH Password              | oneclick123 |
-| Number of CPU Cores       | 1           |
-| Memory Size               | 512MB       |
-| Disk Size                 | 5G          |
-| SSH Port                  | 20001       |
-| Port 80                   | 20002       |
-| Port 443                  | 20003       |
-| Port Range for NAT        | 30000 to 30025|
-| Operating System          | debian11    |
-| Host Storage Disk         | local       |
-| IPV6 address              | N           |
+| Attribute           | Value          |
+| ------------------- | -------------- |
+| CTID                | 111            |
+| SSH Username        | root           |
+| SSH Password        | oneclick123    |
+| Number of CPU Cores | 1              |
+| Memory Size         | 512MB          |
+| Disk Size           | 5G             |
+| SSH Port            | 20001          |
+| Port 80             | 20002          |
+| Port 443            | 20003          |
+| Port Range for NAT  | 30000 to 30025 |
+| Operating System    | debian11       |
+| Host Storage Disk   | local          |
+| IPV6 address        | N              |
 
 :::tip
 Note that only CTIDs from 100 to 256 can be used here, no other numbers can be used.
@@ -218,17 +218,17 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildct_
 
 The above command signifies the creation of a container with a pure IPV6 address.
 
-| Attribute   | Value           |
-|------------ |-----------------|
-| Container Type | CT            |
-| CTID         | 152             |
-| Username     | root            |
-| Password     | oneclick123     |
-| CPU Cores    | 1               |
-| Memory       | 1024MB          |
-| Disk         | 10G             |
-| Operating System | debian12     |
-| Storage Disk | Local Disk (System Disk) |
+| Attribute        | Value                    |
+| ---------------- | ------------------------ |
+| Container Type   | CT                       |
+| CTID             | 152                      |
+| Username         | root                     |
+| Password         | oneclick123              |
+| CPU Cores        | 1                        |
+| Memory           | 1024MB                   |
+| Disk             | 10G                      |
+| Operating System | debian12                 |
+| Storage Disk     | Local Disk (System Disk) |
 
 :::tip
 Note that only CTIDs from 100 to 256 can be used here, no other numbers can be used.

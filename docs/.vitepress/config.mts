@@ -137,6 +137,7 @@ function getGuideSidebarZhCN() {
         { text: 'Linux容器(LXC)', link: '/guide/pve/pve_lxc.html' },
         { text: 'Windows虚拟机', link: '/guide/pve/pve_windows.html' },
         { text: 'MacOS虚拟机', link: '/guide/pve/pve_macos.html' },
+        { text: 'Android虚拟机', link: '/guide/pve/pve_android.html' },
         { text: '自定义', link: '/guide/pve/pve_custom.html' },
         { text: '致谢', link: '/guide/pve/pve_thanks.html' },
         { text: '常见问题答疑', link: '/guide/pve/pve_qa.html' }
@@ -260,6 +261,7 @@ function getGuideSidebarEnUS() {
         { text: 'Linux Container(LXC)', link: '/en/guide/pve/pve_lxc.html' },
         { text: 'Windows Virtual Machine', link: '/en/guide/pve/pve_windows.html' },
         { text: 'MacOS Virtual Machine', link: '/en/guide/pve/pve_macos.html' },
+        { text: 'Android Virtual Machine', link: '/en/guide/pve/pve_android.html' },
         { text: 'Custom', link: '/en/guide/pve/pve_custom.html' },
         { text: 'Acknowledgements', link: '/en/guide/pve/pve_thanks.html' },
         { text: 'FAQ', link: '/en/guide/pve/pve_qa.html' }

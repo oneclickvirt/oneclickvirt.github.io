@@ -110,21 +110,21 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 以下为开设的示例VM的信息：
 
-| 属性                     | 值             |
-|-------------------------|----------------|
-| VMID                    | 111            |
-| SSH登录的用户名          | root          |
-| SSH登录的密码            | oneclick123    |
-| CPU核数                  | 1              |
-| 内存大小                 | 512MB          |
-| 磁盘大小                 | 10G            |
-| SSH端口                  | 40001          |
-| 80端口                   | 40002          |
-| 443端口                  | 40003          |
-| 内外网映射端口一致的区间 | 50000到50025   |
-| 系统                     | debian11       |
-| 宿主机的存储盘           | local          |
-| 绑定独立IPV6(留空默认N)  | N          |
+| 属性                     | 值           |
+| ------------------------ | ------------ |
+| VMID                     | 111          |
+| SSH登录的用户名          | root         |
+| SSH登录的密码            | oneclick123  |
+| CPU核数                  | 1            |
+| 内存大小                 | 512MB        |
+| 磁盘大小                 | 10G          |
+| SSH端口                  | 40001        |
+| 80端口                   | 40002        |
+| 443端口                  | 40003        |
+| 内外网映射端口一致的区间 | 50000到50025 |
+| 系统                     | debian11     |
+| 宿主机的存储盘           | local        |
+| 绑定独立IPV6(留空默认N)  | N            |
 
 :::tip
 注意这里的VMID仅可使用100到256，其他数字不可用
@@ -279,17 +279,17 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 上述命令意义为开设一个带独立IPV4地址的虚拟机
 
-| 属性       | 值             |
-|------------|----------------|
-| VMID       | 152            |
-| 用户名     | root          |
-| 密码       | oneclick123    |
-| CPU        | 1核            |
-| 内存       | 1024MB         |
-| 硬盘       | 10G            |
-| 系统       | debian12       |
-| 存储盘     | local盘        |
-| IPV6附加   | 默认不附加     |
+| 属性     | 值          |
+| -------- | ----------- |
+| VMID     | 152         |
+| 用户名   | root        |
+| 密码     | oneclick123 |
+| CPU      | 1核         |
+| 内存     | 1024MB      |
+| 硬盘     | 10G         |
+| 系统     | debian12    |
+| 存储盘   | local盘     |
+| IPV6附加 | 默认不附加  |
 
 :::tip
 注意这里的VMID仅可使用100到256，其他数字不可用
@@ -346,20 +346,20 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 上述命令意义为开设一个带独立IPV4地址的虚拟机
 
-| 属性         | 值                |
-|--------------|-------------------|
-| VMID         | 152               |
-| 用户名       | root             |
-| 密码         | oneclick123       |
-| CPU          | 1核              |
-| 内存         | 1024MB            |
-| 硬盘         | 10G               |
-| 系统         | debian12          |
-| 存储盘       | local盘 (系统盘)  |
-| IPV4地址     | a.b.c.d           |
-| 子网         | /24 子网          |
-| IPV6         | 无                |
-| MAC地址      | 无                |
+| 属性     | 值               |
+| -------- | ---------------- |
+| VMID     | 152              |
+| 用户名   | root             |
+| 密码     | oneclick123      |
+| CPU      | 1核              |
+| 内存     | 1024MB           |
+| 硬盘     | 10G              |
+| 系统     | debian12         |
+| 存储盘   | local盘 (系统盘) |
+| IPV4地址 | a.b.c.d          |
+| 子网     | /24 子网         |
+| IPV6     | 无               |
+| MAC地址  | 无               |
 
 :::tip
 注意这里的VMID仅可使用100到256，其他数字不可用
@@ -409,18 +409,18 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 上述命令意义为开设一个带独立IPV4地址的虚拟机
 
-| 属性         | 值                |
-|--------------|-------------------|
-| VMID         | 152               |
-| 用户名       | root             |
-| 密码         | oneclick123       |
-| CPU          | 1核              |
-| 内存         | 1024MB            |
-| 硬盘         | 10G               |
-| 系统         | debian12          |
-| 存储盘       | local盘 (系统盘)  |
-| IPV4地址     | a.b.c.d           |
-| IPV6         | 无                |
+| 属性     | 值               |
+| -------- | ---------------- |
+| VMID     | 152              |
+| 用户名   | root             |
+| 密码     | oneclick123      |
+| CPU      | 1核              |
+| 内存     | 1024MB           |
+| 硬盘     | 10G              |
+| 系统     | debian12         |
+| 存储盘   | local盘 (系统盘) |
+| IPV4地址 | a.b.c.d          |
+| IPV6     | 无               |
 
 :::tip
 注意这里的VMID仅可使用100到256，其他数字不可用
@@ -484,16 +484,16 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 上述命令意义为开设一个纯IPV6地址的虚拟机
 
-| 参数         | 值               |
-|--------------|------------------|
-| VMID         | 152              |
-| 用户名       | root            |
-| 密码         | oneclick123      |
-| CPU          | 1核              |
-| 内存         | 1024MB           |
-| 硬盘         | 10G              |
-| 系统         | debian12         |
-| 存储盘       | local            |
+| 参数   | 值          |
+| ------ | ----------- |
+| VMID   | 152         |
+| 用户名 | root        |
+| 密码   | oneclick123 |
+| CPU    | 1核         |
+| 内存   | 1024MB      |
+| 硬盘   | 10G         |
+| 系统   | debian12    |
+| 存储盘 | local       |
 
 :::tip
 注意这里的VMID仅可使用100到256，其他数字不可用

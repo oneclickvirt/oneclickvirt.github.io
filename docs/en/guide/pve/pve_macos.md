@@ -101,17 +101,17 @@ After the template is set up, you can run `cat vm100` to view information, or ch
 
 Here is the information for the example VM:
 
-| Property             | Value         |
-|----------------------|---------------|
-| VMID                 | 100           |
-| CPU cores            | 2             |
-| Memory size          | 4096MB        |
-| Disk size            | 45G           |
-| SSH port             | 44022         |
-| VNC port             | 45901         |
-| System               | high-sierra   |
-| Host storage disk    | local         |
-| Independent IPV6     | N             |
+| Property          | Value       |
+| ----------------- | ----------- |
+| VMID              | 100         |
+| CPU cores         | 2           |
+| Memory size       | 4096MB      |
+| Disk size         | 45G         |
+| SSH port          | 44022       |
+| VNC port          | 45901       |
+| System            | high-sierra |
+| Host storage disk | local       |
+| Independent IPV6  | N           |
 
 :::tip
 Note that VMID can only use numbers from 100 to 256, other numbers are not available
