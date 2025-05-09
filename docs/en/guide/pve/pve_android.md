@@ -22,7 +22,7 @@ Android system version 10 and later new image download links:
 
 https://blissos.org/index.html#download
 
-## Template Setup
+## Visual Machine Setup
 
 ### Setting up Android Virtual Machine with Android Version 9 and Earlier Images
 
@@ -33,6 +33,8 @@ https://mirrors.tuna.tsinghua.edu.cn/osdn/android-x86/71931/android-x86_64-9.0-r
 as an example
 
 ![1](images/a1.png)
+
+#### Template Setup
 
 Create a virtual machine with VMID `100` and select the corresponding storage disk
 
@@ -65,6 +67,8 @@ Select `vmbr1` for bridge binding, choose `VirtIO (paravirtualized)` for `Model`
 After clicking the continue button, the template is successfully created. You need to manually click start and enter the VNC interface
 
 ![9](images/a9.png)  
+
+#### System Init
 
 After entering the boot screen, select the option starting with `Installation`
 
@@ -163,6 +167,8 @@ After a period of black screen, the main screen application selection will appea
 Select `Quickstep`
 
 ![34](images/a34.png)
+
+#### Network configuration
 
 Then you'll enter the desktop. Now you need to set up the network. Click the settings icon in the upper left corner
 
