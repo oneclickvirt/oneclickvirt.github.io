@@ -247,6 +247,12 @@ Router: ```172.16.1.1```
 
 ![mac21](images/mac21.png)  
 
+## 卸载iso镜像
 
+在ProxmoxVE的web端手动在```Hardware[硬件]```中点击对应的```CD```选择```Remove[删除]```然后再重启虚拟机，这样就能直接使用了
+
+![wk](images/wk7.png)
+
+Macos系统就是卸载```opencore.iso```和```xxxx(安装使用的系统镜像).iso```，类似上面示例图片的Windows系统卸载win镜像和virtio镜像一样。
 
 
