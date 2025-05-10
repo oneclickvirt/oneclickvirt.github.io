@@ -95,8 +95,8 @@ bash <(wget -qO- --no-check-certificate https://cdn.spiritlhl.net/https://raw.gi
 :::
 
 :::tip
-在执行本命令前如果宿主机需要附加IPV6隧道(给没有IPV6地址的宿主机添加IPV6子网)，请查看[IPV6免费子网附加](https://www.spiritlhl.net/guide/incus/incus_custom.html#%E7%BB%99%E5%AE%BF%E4%B8%BB%E6%9C%BA%E9%99%84%E5%8A%A0%E5%85%8D%E8%B4%B9%E7%9A%84ipv6%E5%9C%B0%E5%9D%80%E6%AE%B5)部分的内容附加到对应的配置文件中，但请**忽略**<初始环境修改>的操作，直接进行附加，附加后验证有IPV6地址了再执行下面的一键配置网关的命令
-:::**
+在执行本命令前如果宿主机需要附加IPV6隧道(给没有IPV6地址的宿主机添加IPV6子网)，请查看[IPV6免费子网附加](https://www.spiritlhl.net/guide/incus/incus_custom.html#%E7%BB%99%E5%AE%BF%E4%B8%BB%E6%9C%BA%E9%99%84%E5%8A%A0%E5%85%8D%E8%B4%B9%E7%9A%84ipv6%E5%9C%B0%E5%9D%80%E6%AE%B5)部分的内容附加到对应的配置文件中，但请**忽略**<初始环境修改>的操作，直接进行附加，附加后验证有IPV6地址了再执行下面的一键配置网关的命令。
+:::
 
 - 如果vmbr0未创建，则自动创建，逻辑同主体安装一致
 - 创建vmbr1(NAT网关)，支持开设NAT的IPV6网络的NAT的IPV4的服务器
