@@ -85,7 +85,7 @@ This step is most likely to cause SSH disconnections, the reason is to modify th
 :::
 
 :::tip
-Before executing this command, if the host needs to append the address of the IPV6 tunnel, see the ```incus Custom``` section for appending it to the corresponding file, but **please ignore the initial environment modification section for it**.
+If the host needs to attach an IPV6 tunnel (add an IPV6 subnet to a host that does not have an IPV6 address) before executing this command, please check the [IPV6 free subnet attachment](https://www.spiritlhl.net/en/guide/incus/incus_custom.html#attach- free-ipv6-address-segments-to-host-machines) section to attach to the corresponding configuration file, but please **ignore** <Initial environment modifications> and attach directly, and then execute the following one-click gateway configuration commands after verifying that you have an IPV6 address.
 :::
 
 - If vmbr0 is not created, it is automatically created with the same logic as the main installation
