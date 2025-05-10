@@ -87,15 +87,15 @@ bash <(wget -qO- --no-check-certificate https://cdn.spiritlhl.net/https://raw.gi
 
 :::warning
 **使用前请保证重启过服务器且此时PVE能正常登录进WEB端再执行，重启机器后不要立即执行此命令，待WEB端启动并可登录成功后至少等1分钟再执行本命令**
-如果WEB端起不来，执行```systemctl status pveproxy```查看是否启动，如果卡住未启动，执行```systemctl start pveproxy```启动WEB端
+如果WEB端起不来，执行```systemctl status pveproxy```查看是否启动，如果卡住未启动，执行```systemctl start pveproxy```启动WEB端。
 :::
 
 :::tip
-这一步是最容易造成SSH断开的，原因是未等待PVE内核启动就修改网络会造成设置冲突，所以至少等几分钟待内核启动也就是WEB端启动成功后再执行
+这一步是最容易造成SSH断开的，原因是未等待PVE内核启动就修改网络会造成设置冲突，所以至少等几分钟待内核启动也就是WEB端启动成功后再执行。
 :::
 
 :::tip
-在执行本命令前如果宿主机需要附加IPV6隧道的地址，请查看```incus的自定义分区```部分的内容附加到对应文件中，但**请忽略它的初始环境修改部分的内容**
+在执行本命令前如果宿主机需要附加IPV6隧道的地址(给没有IPV6地址的服务器添加IPV6子网)，请查看```incus-->自定义```部分的内容附加到对应的配置文件中，但**请忽略它的初始环境修改部分的内容**
 :::
 
 - 如果vmbr0未创建，则自动创建，逻辑同主体安装一致
