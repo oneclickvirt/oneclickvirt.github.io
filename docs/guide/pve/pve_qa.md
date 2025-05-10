@@ -168,9 +168,11 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/ecs/main/archive/eo6s.sh -o
 
 国内
 
-```
+```shell
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/ecs/main/archive/eo6s.sh -o eo6s.sh && chmod +x eo6s.sh && bash eo6s.sh
 ```
+
+如果检测结果为128证明商家虚标子网大小，仅一个IPV6地址无法额外分配给虚拟机/容器。
 
 ## 在现有的 PVE 中纳管新的 PVE（创建 / 加入集群）
 
