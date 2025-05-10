@@ -231,3 +231,13 @@ DNS ```8.8.8.8``` 或 ```144.144.144.144```
 https://psychz.dl.sourceforge.net/project/blissos-x86/Official/BlissOS15/Gapps/Generic/Bliss-v15.9.2-x86_64-OFFICIAL-gapps-20241012.iso?viasf=1
 
 作为示例进行演示
+
+#### 模板设置
+
+宿主机需要先执行以下命令安装图形环境依赖
+
+```shell
+apt install libgl1 libegl1 -y
+```
+
+如果宿主机本身携带有GPU，那么```Graphic card```选择```VirGL GPU```，如果宿主机本身不携带GPU，那么```Graphic card```选择```Vmware compatible```
