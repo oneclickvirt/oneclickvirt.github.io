@@ -242,8 +242,8 @@ https://psychz.dl.sourceforge.net/project/blissos-x86/Official/BlissOS15/Gapps/G
 apt install libgl1 libegl1 -y
 ```
 
-如果宿主机本身携带有GPU，那么```Graphic card```选择```VirGL GPU```(经验证无问题)
+如果宿主机本身携带有GPU，那么```Graphic card```选择```VirGL GPU```
 
-如果宿主机本身不携带GPU，那么```Graphic card```选择```Vmware compatible```(会导致引导系统崩溃，不推荐)
+如果宿主机本身不携带GPU，那么```Graphic card```选择```VirtIO```或```Vmware compatible```
 
 
