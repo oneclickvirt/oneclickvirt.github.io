@@ -52,7 +52,9 @@ https://mirrors.tuna.tsinghua.edu.cn/osdn/android-x86/71931/android-x86_64-9.0-r
 
 ![5](images/a5.png)  
 
-CPU的类型选择```host```，如果你的宿主机不支持嵌套虚拟化，请选择```qemu64```，同时在模板设置成功后，需要在```Options```中点击```KVM hardware virtualization```取消勾选后再启动虚拟机
+如果你的宿主机支持嵌套虚拟化，CPU的类型请选择```host```(经验证无问题)
+
+如果你的宿主机不支持嵌套虚拟化，CPU的类型请选择```qemu64```，同时在模板设置成功后，需要在```Options```中点击```KVM hardware virtualization```取消勾选后再启动虚拟机(不保证后面系统初始化无问题)
 
 ![6](images/a6.png)  
 
@@ -240,6 +242,8 @@ https://psychz.dl.sourceforge.net/project/blissos-x86/Official/BlissOS15/Gapps/G
 apt install libgl1 libegl1 -y
 ```
 
-如果宿主机本身携带有GPU，那么```Graphic card```选择```VirGL GPU```，如果宿主机本身不携带GPU，那么```Graphic card```选择```Vmware compatible```
+如果宿主机本身携带有GPU，那么```Graphic card```选择```VirGL GPU```(经验证无问题)
+
+如果宿主机本身不携带GPU，那么```Graphic card```选择```Vmware compatible```(会导致引导系统崩溃，不推荐)
 
 
