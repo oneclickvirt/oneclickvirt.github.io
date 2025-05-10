@@ -52,7 +52,7 @@ https://mirrors.tuna.tsinghua.edu.cn/osdn/android-x86/71931/android-x86_64-9.0-r
 
 ![5](images/a5.png)  
 
-CPU的类型选择```host```，如果你的宿主机不支持嵌套虚拟化，请选择```qemu64```，但这样不清楚是否可成功开设
+CPU的类型选择```host```，如果你的宿主机不支持嵌套虚拟化，请选择```qemu64```，同时在模板设置成功后，需要在```Options```中点击```KVM hardware virtualization```取消勾选后再启动虚拟机
 
 ![6](images/a6.png)  
 
@@ -241,3 +241,5 @@ apt install libgl1 libegl1 -y
 ```
 
 如果宿主机本身携带有GPU，那么```Graphic card```选择```VirGL GPU```，如果宿主机本身不携带GPU，那么```Graphic card```选择```Vmware compatible```
+
+
