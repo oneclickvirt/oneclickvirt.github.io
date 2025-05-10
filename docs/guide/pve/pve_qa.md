@@ -156,6 +156,22 @@ systemctl restart networking.service
 cat /etc/iptables/rules.v4 | iptables-restore
 ```
 
+## 检测是不是商家虚标IPV6子网大小导致无法开设独立IPV6地址的虚拟机/容器
+
+使用以下命令在纯净的未安装ProxmoxVE的机器上测试实际的子网掩码大小
+
+国际
+
+```shell
+curl -L https://raw.githubusercontent.com/spiritLHLS/ecs/main/archive/eo6s.sh -o eo6s.sh && chmod +x eo6s.sh && bash eo6s.sh
+```
+
+国内
+
+```
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/ecs/main/archive/eo6s.sh -o eo6s.sh && chmod +x eo6s.sh && bash eo6s.sh
+```
+
 ## 在现有的 PVE 中纳管新的 PVE（创建 / 加入集群）
 
 为了将两个独立的 Proxmox VE 实例组成一个集群，需满足以下前提条件：
