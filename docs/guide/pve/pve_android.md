@@ -228,4 +228,6 @@ DNS ```8.8.8.8``` 或 ```144.144.144.144```
 
 本指南以
 
+https://psychz.dl.sourceforge.net/project/blissos-x86/Official/BlissOS15/Gapps/Generic/Bliss-v15.9.2-x86_64-OFFICIAL-gapps-20241012.iso?viasf=1
+
 作为示例进行演示
