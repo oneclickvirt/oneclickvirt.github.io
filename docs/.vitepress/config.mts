@@ -133,7 +133,7 @@ function getGuideSidebarZhCN() {
       items: [
         { text: '系统和硬件配置要求', link: '/guide/pve/pve_precheck.html' },
         { text: 'PVE主体安装', link: '/guide/pve/pve_install.html' },
-        { text: 'Linux虚拟机(KVM/TCG)', link: '/guide/pve/pve_kvm.html' },
+        { text: 'Linux虚拟机(KVM/QEMU)', link: '/guide/pve/pve_kvm.html' },
         { text: 'Linux容器(LXC)', link: '/guide/pve/pve_lxc.html' },
         { text: 'Windows虚拟机', link: '/guide/pve/pve_windows.html' },
         { text: 'MacOS虚拟机', link: '/guide/pve/pve_macos.html' },
@@ -161,9 +161,9 @@ function getGuideSidebarZhCN() {
         { text: '系统和硬件配置要求', link: '/guide/docker/docker_precheck.html' },
         { text: 'Docker主体安装', link: '/guide/docker/docker_install.html' },
         { text: 'Linux系统容器(LXC)', link: '/guide/docker/docker_build.html' },
-        { text: 'Windows虚拟机(KVM/TCG)', link: '/guide/docker/docker_windows.html' },
+        { text: 'Windows虚拟机(KVM/QEMU)', link: '/guide/docker/docker_windows.html' },
         { text: 'Macos虚拟机(KVM)', link: '/guide/docker/docker_macos.html' },
-        { text: 'Android虚拟机(KVM)', link: '/guide/docker/docker_android.html' },
+        { text: 'Android虚拟机(KVM/QEMU)', link: '/guide/docker/docker_android.html' },
         { text: '自定义', link: '/guide/docker/docker_custom.html' },
         { text: '致谢', link: '/guide/docker/docker_thanks.html' },
         { text: '常见问题答疑', link: '/guide/docker/docker_qa.html' }
@@ -260,7 +260,7 @@ function getGuideSidebarEnUS() {
       items: [
         { text: 'Configuration requirements', link: '/en/guide/pve/pve_precheck.html' },
         { text: 'PVE main installation', link: '/en/guide/pve/pve_install.html' },
-        { text: 'Linux Virtual Machine(KVM/TCG)', link: '/en/guide/pve/pve_kvm.html' },
+        { text: 'Linux Virtual Machine(KVM/QEMU)', link: '/en/guide/pve/pve_kvm.html' },
         { text: 'Linux Container(LXC)', link: '/en/guide/pve/pve_lxc.html' },
         { text: 'Windows Virtual Machine', link: '/en/guide/pve/pve_windows.html' },
         { text: 'MacOS Virtual Machine', link: '/en/guide/pve/pve_macos.html' },
