@@ -160,7 +160,10 @@ function getGuideSidebarZhCN() {
       items: [
         { text: '系统和硬件配置要求', link: '/guide/docker/docker_precheck.html' },
         { text: 'Docker主体安装', link: '/guide/docker/docker_install.html' },
-        { text: 'Docker虚拟化', link: '/guide/docker/docker_build.html' },
+        { text: 'Linux系统容器(LXC)', link: '/guide/docker/docker_build.html' },
+        { text: 'Windows虚拟机(KVM/TCG)', link: '/guide/docker/docker_windows.html' },
+        { text: 'Macos虚拟机(KVM)', link: '/guide/docker/docker_macos.html' },
+        { text: 'Android虚拟机(KVM)', link: '/guide/docker/docker_android.html' },
         { text: '自定义', link: '/guide/docker/docker_custom.html' },
         { text: '致谢', link: '/guide/docker/docker_thanks.html' },
         { text: '常见问题答疑', link: '/guide/docker/docker_qa.html' }
