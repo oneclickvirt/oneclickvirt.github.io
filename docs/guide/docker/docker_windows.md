@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-## 开设Windows系统虚拟机
+# 在Docker中开设Windows系统虚拟机
 
 ## 一键开设(通过vagrant)
 
@@ -87,7 +87,7 @@ docker rmi 镜像的ID
 
 (在宿主机上使用Docker安装Windows系统，好像绕过了某些商家不允许DD成Win系统的TOS限制)
 
-## 通过dockur手动开设
+## 手动开设(通过dockur)
 
 原项目
 
