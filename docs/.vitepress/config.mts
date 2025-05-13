@@ -114,9 +114,7 @@ export default defineConfig({
       indexName: 'virt-spiritlhl'
     },
     footer: {
-      message: 'Under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">(CC BY-NC-SA 4.0) License.</a><br>
-                Thanks to <a href="https://evolution-host.com/ddos-protected-vps.php"><strong>Evolution Host</strong></a> for providing DDoS-protected VPS support.<br>
-                Also thanks to <a href="https://www.cloudflare.com/">Cloudflare</a> and <a href="https://blog.tanglu.me/">tanglu.me</a> for the CDN.',
+      message: 'Under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">(CC BY-NC-SA 4.0) License.</a><br>Thanks to <a href="https://evolution-host.com/ddos-protected-vps.php"><strong>Evolution Host</strong></a> for providing DDoS-protected VPS support.<br>Also thanks to <a href="https://www.cloudflare.com/">Cloudflare</a> and <a href="https://blog.tanglu.me/">tanglu.me</a> for the CDN.',
       copyright: 'Copyright © 2022-present oneclickvirt'
     }
   }
