@@ -30,5 +30,5 @@ features:
 - title: FAQ
   details: All questions and problems that may arise during the program are answered.
 - title: Development thanks
-  details: Thanks <a href="https://evolution-host.com/ddos-protected-vps.php"><strong>Evolution Host</strong></a> provides environment for test development
+  details: Thanks to <a href="https://evolution-host.com/ddos-protected-vps.php"><strong>Evolution Host</strong></a> for supporting us with a DDoS protected VPS
 ---
