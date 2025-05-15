@@ -27,8 +27,4 @@ features:
   details: 开设出的容器或虚拟机已支持主流系统，涵盖 Linux、Windows、MacOS、Android 系统，也支持纯粹的浏览器环境或桌面环境
 - title: 自限制滥用
   details: 部分虚拟化开设的容器或虚拟机支持设置屏蔽和装载限制，避免被用于滥用
-- title: 常见问题答疑
-  details: 所有项目当中可能出现的疑难杂症都进行了解答
-- title: 开发致谢
-  details: 感谢 <a href="https://evolution-host.com/ddos-protected-vps.php"><strong>Evolution Host</strong></a> 提供测试开发使用的环境
 ---
