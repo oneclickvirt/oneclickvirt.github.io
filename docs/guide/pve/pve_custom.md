@@ -166,3 +166,13 @@ lsof -i:33306
 ```
 
 可见端口映射规则是否生效
+
+## 开设Linux虚拟机的时候自定义CPU的TYPE
+
+在宿主机上使用类似
+
+```shell
+echo "kvm64" > /usr/local/bin/cpu_type
+```
+
+这样的方式指定默认的CPU的TYPE，可将```kvm64```替换为你需要的类型
