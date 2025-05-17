@@ -123,4 +123,15 @@ docker run -it -d -e RAM_SIZE="8G" -e CPU_CORES="4" --name win2022 -p 8006:8006 
 
 这里也提供一个成品的镜像，内置Windows镜像，内置自动硬盘扩容自启任务，docker导入后即可使用
 
+下载并合并切片
 
+```shell
+curl https://raw.githubusercontent.com/oneclickvirt/docker/refs/heads/main/extra_scripts/mergew.sh -o mergew.sh && chmod 777 mergew.sh
+bash mergew.sh
+```
+
+进行开设
+
+```shell
+docker load -i win2022.tar && docker run -it -d -e RAM_SIZE="4G" -e CPU_CORES="2" --name win2022 -p 8006:8006 --device=/dev/kvm --device=/dev/net/tun --cap-add NET_ADMIN --stop-timeout 120 windows:2022
+```
