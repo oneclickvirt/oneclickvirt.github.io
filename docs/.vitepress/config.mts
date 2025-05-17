@@ -135,9 +135,9 @@ function getGuideSidebarZhCN() {
         { text: 'PVE主体安装', link: '/guide/pve/pve_install.html' },
         { text: 'Linux虚拟机(KVM/QEMU)', link: '/guide/pve/pve_kvm.html' },
         { text: 'Linux容器(LXC)', link: '/guide/pve/pve_lxc.html' },
-        { text: 'Windows虚拟机', link: '/guide/pve/pve_windows.html' },
-        { text: 'MacOS虚拟机', link: '/guide/pve/pve_macos.html' },
-        { text: 'Android虚拟机', link: '/guide/pve/pve_android.html' },
+        { text: 'Windows虚拟机(KVM/QEMU)', link: '/guide/pve/pve_windows.html' },
+        { text: 'MacOS虚拟机(KVM)', link: '/guide/pve/pve_macos.html' },
+        { text: 'Android虚拟机(KVM)', link: '/guide/pve/pve_android.html' },
         { text: '自定义', link: '/guide/pve/pve_custom.html' },
         { text: '致谢', link: '/guide/pve/pve_thanks.html' },
         { text: '常见问题答疑', link: '/guide/pve/pve_qa.html' }
