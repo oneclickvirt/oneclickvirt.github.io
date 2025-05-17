@@ -166,3 +166,13 @@ lsof -i:33306
 ```
 
 To see if the port mapping rule is in effect
+
+## Customizing the CPU TYPE when opening a Linux virtual machine
+
+On the host computer, use something like
+
+```shell
+echo "kvm64" > /usr/local/bin/cpu_type
+```
+
+Specifying the default CPU TYPE in this way allows you to replace ```kvm64``` with the type you want
