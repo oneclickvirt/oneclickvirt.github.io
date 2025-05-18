@@ -9,11 +9,7 @@ If your host does not have an IPV6 subnet and you want to assign IPV6 addresses 
 ## One-Click Installation
 
 :::warning
-If this is a new server, make sure that both ```apt update``` and ```apt install curl``` are working properly before executing this script. It is recommended to pre-install ```btrfs-progs``` to speed up the subsequent installation process, after installation it is recommended to reboot the system to load the settings, if it is not pre-installed it is no problem, just follow the prompts to execute the script.
-:::
-
-:::tip
-It's recommended to wait for at least 5 minutes after the system boots up before executing the following commands. This is to avoid the script being executed by the default system settings, which could cause issues with apt sources.
+If this is a new server, make sure that both ```update``` and ```curl``` are working properly before executing this script. 
 :::
 
 - Prerequisites: Ubuntu 20+ (recommended), Debian 11+, RockyLinux 9+, AlmaLinux 9+, Centos 9+
@@ -38,7 +34,7 @@ Example of initialization configuration:
 If there is 18GB of unused disk space on the system disk, after deducting the space already occupied, and you want to allocate 2GB of virtual memory (2048MB of SWAP) and a 15GB storage pool, then following the prompts in the command line, enter ```2048``` and ```15```.
 
 :::tip
-If the implementation of the final stuck more than 60 seconds without log display, it is recommended to force a restart of the server through your server's control panel, may be the last step of the installation is stuck in the restart of the network that step!
+The execution process will require a manual reboot to load the storage type into the kernel, the installation is completed at the end of the execution will automatically reboot the server, the first time after the complete installation of the reboot will take about 400 ~ 500 seconds, please be patient
 :::
 
 :::warning
