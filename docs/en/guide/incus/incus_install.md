@@ -34,7 +34,7 @@ Example of initialization configuration:
 If there is 18GB of unused disk space on the system disk, after deducting the space already occupied, and you want to allocate 2GB of virtual memory (2048MB of SWAP) and a 15GB storage pool, then following the prompts in the command line, enter ```2048``` and ```15```.
 
 :::tip
-The execution process will require a manual reboot to load the storage type into the kernel, the installation is completed at the end of the execution will automatically reboot the server, the first time after the complete installation of the reboot will take about 400 ~ 500 seconds, please be patient
+The execution process **may** require a **manual reboot** to load the storage type into the kernel, the installation is completed at the end of the execution will **automatically reboot** the server, the first time after the complete installation of the reboot will take about 400 ~ 500 seconds, please be patient
 :::
 
 :::warning
