@@ -99,7 +99,9 @@ https://github.com/dockur/windows-arm
 
 注意，这两个项目都要求宿主机的CPU至少4核，内存至少4G，硬盘至少64G。如果不魔改启动脚本，那么这些最低限制是需要额外参数进行修改的。
 
-如果需要魔改脚本，可参考
+注意，原始项目本身只是一个启动器，不包含任何镜像，如果在境内使用你从原始项目开始启动win的容器需要至少4个小时(含镜像下载和开设)。
+
+如果需要魔改原始项目的启动脚本，可参考
 
 https://www.spiritysdx.top/20250405/
 
@@ -109,7 +111,7 @@ https://www.spiritysdx.top/20250315/
 
 对于X86_64架构：
 
-这里提供一个已经魔改好的单文件版本的docker容器的tar包，通过这个tar包可以自己制作新的Windows镜像
+这里提供一个已经魔改好的单文件版本的启动虚拟机使用的tar包，通过这个tar包可以自己制作新的Windows镜像(系统文件和镜像不再额外挂载出来，将都放入docker写入层)
 
 https://github.com/oneclickvirt/docker/releases/download/amd64_builder/builder.tar
 
@@ -123,10 +125,12 @@ docker run -it -d -e RAM_SIZE="8G" -e CPU_CORES="4" --name win2022 -p 8006:8006 
 
 这里也提供一个成品的镜像，内置Windows镜像，内置自动硬盘扩容自启任务，docker导入后即可使用
 
+原始镜像26G，含系统镜像和所有默认设置，如需使用宿主机的下载路径需要至少60G硬盘方便合并分文件
+
 下载并合并切片
 
 ```shell
-curl https://raw.githubusercontent.com/oneclickvirt/docker/refs/heads/main/extra_scripts/mergew.sh -o mergew.sh && chmod 777 mergew.sh
+curl https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/docker/refs/heads/main/extra_scripts/mergew.sh -o mergew.sh && chmod 777 mergew.sh
 bash mergew.sh
 ```
 
@@ -135,3 +139,5 @@ bash mergew.sh
 ```shell
 docker load -i win2022.tar && docker run -it -d -e RAM_SIZE="4G" -e CPU_CORES="2" --name win2022 -p 8006:8006 --device=/dev/kvm --device=/dev/net/tun --cap-add NET_ADMIN --stop-timeout 120 windows:2022
 ```
+
+当前镜像不推荐再使用commit存储修改，写入层会叠加导致二次commit大小超过40G，如需修改和默认加载东西，请从builder开始自行制作镜像。
