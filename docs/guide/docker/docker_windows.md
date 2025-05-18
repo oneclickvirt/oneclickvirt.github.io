@@ -87,57 +87,99 @@ docker rmi 镜像的ID
 
 (在宿主机上使用Docker安装Windows系统，好像绕过了某些商家不允许DD成Win系统的TOS限制)
 
-## 手动开设(通过dockur)
+## 手动开设（通过 Dockur 项目）
 
-本项目支持宿主机在不支持嵌套虚拟化的情况下使用QEMU进行虚拟机开设
+本项目支持在宿主机**不支持嵌套虚拟化**的情况下，使用 QEMU 进行虚拟机创建。
 
-原项目
+### 原始项目地址
 
-https://github.com/dockur/windows
+* [https://github.com/dockur/windows](https://github.com/dockur/windows)
+* [https://github.com/dockur/windows-arm](https://github.com/dockur/windows-arm)
 
-https://github.com/dockur/windows-arm
+**注意事项：**
 
-注意，这两个项目都要求宿主机的CPU至少4核，内存至少4G，硬盘至少64G。如果不魔改启动脚本，那么这些最低限制是需要额外参数进行修改的。
+* 原始项目仅为启动器，不包含 Windows 镜像；
+* 使用时需下载镜像文件，**在境内网络环境下首次启动容器需约 4 小时**（含镜像下载和安装）；
+* 默认要求宿主机具备以下最低硬件资源（可通过修改脚本进行调整）：
 
-注意，原始项目本身只是一个启动器，不包含任何镜像，如果在境内使用你从原始项目开始启动win的容器需要至少4个小时(含镜像下载和开设)。
+  * CPU：至少 4 核
+  * 内存：至少 4G
+  * 硬盘：至少 64G
 
-如果需要魔改原始项目的启动脚本，可参考
+如需魔改启动脚本以减少资源占用或调整其他参数，可参考以下文章：
 
-https://www.spiritysdx.top/20250405/
+* [https://www.spiritysdx.top/20250405/](https://www.spiritysdx.top/20250405/)
+* [https://www.spiritysdx.top/20250315/](https://www.spiritysdx.top/20250315/)
 
-https://www.spiritysdx.top/20250315/
+### 对于 x86_64 架构用户
 
-进行魔改
+提供一个已魔改的启动器（单文件版本），方便自行构建 Windows 镜像。该版本将系统文件和镜像直接写入 Docker 写入层中，**无需额外挂载镜像文件**：
 
-对于X86_64架构：
+下载链接：
+[https://github.com/oneclickvirt/docker/releases/download/amd64\_builder/builder.tar](https://github.com/oneclickvirt/docker/releases/download/amd64_builder/builder.tar)
 
-这里提供一个已经魔改好的单文件版本的启动虚拟机使用的tar包，通过这个tar包可以自己制作新的Windows镜像(系统文件和镜像不再额外挂载出来，将都放入docker写入层)
+导入 Docker 镜像：
 
-https://github.com/oneclickvirt/docker/releases/download/amd64_builder/builder.tar
-
-```shell
+```bash
 docker load -i builder.tar
 ```
 
-```shell
-docker run -it -d -e RAM_SIZE="8G" -e CPU_CORES="4" --name win2022 -p 8006:8006 --device=/dev/kvm --device=/dev/net/tun --cap-add NET_ADMIN -v ./当前路径下你下好的Windows的iso镜像名称带尾缀:/boot.iso --stop-timeout 120 windows:builder
+#### 使用自定义 Windows ISO 镜像启动容器
+
+首先从以下地址下载 Windows ISO 镜像：
+[https://down.idc.wiki/ISOS/Windows/](https://down.idc.wiki/ISOS/Windows/)
+
+启动容器示例命令：
+
+```bash
+docker run -it -d \
+  -e RAM_SIZE="8G" \
+  -e CPU_CORES="4" \
+  --name win2022 \
+  -p 8006:8006 \
+  --device=/dev/kvm \
+  --device=/dev/net/tun \
+  --cap-add NET_ADMIN \
+  -v "$(pwd)/Windows镜像文件.iso:/boot.iso" \
+  --stop-timeout 120 \
+  windows:builder
 ```
 
-这里也提供一个成品的镜像，内置Windows镜像，内置自动硬盘扩容自启任务，docker导入后即可使用
+### 使用内置镜像（推荐快速部署）
 
-原始镜像26G，含系统镜像和所有默认设置，如需使用宿主机的下载路径需要至少60G硬盘方便合并分文件
+我们也提供一个**已集成系统镜像和配置的成品镜像**，特点如下：
 
-下载并合并切片
+* 镜像大小约 26G（包含系统镜像与默认配置）；
+* 已集成自动磁盘扩容与开机任务；
+* 下载后导入 Docker 即可使用；
+* **注意**：合并下载路径需要约 60G 空间。
 
-```shell
-curl https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/docker/refs/heads/main/extra_scripts/mergew.sh -o mergew.sh && chmod 777 mergew.sh
+#### 下载与合并切片
+
+```bash
+curl https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/docker/refs/heads/main/extra_scripts/mergew.sh -o mergew.sh
+chmod +x mergew.sh
 bash mergew.sh
 ```
 
-进行开设
+#### 启动容器
 
-```shell
-docker load -i win2022.tar && docker run -it -d -e RAM_SIZE="4G" -e CPU_CORES="2" --name win2022 -p 8006:8006 --device=/dev/kvm --device=/dev/net/tun --cap-add NET_ADMIN --stop-timeout 120 windows:2022
+```bash
+docker load -i win2022.tar
+docker run -it -d \
+  -e RAM_SIZE="4G" \
+  -e CPU_CORES="2" \
+  --name win2022 \
+  -p 8006:8006 \
+  --device=/dev/kvm \
+  --device=/dev/net/tun \
+  --cap-add NET_ADMIN \
+  --stop-timeout 120 \
+  windows:2022
 ```
 
-当前镜像不推荐再使用commit存储修改，写入层会叠加导致二次commit大小超过40G，如需修改和默认加载东西，请从builder开始自行制作镜像。
+### 注意事项
+
+**不建议**在当前镜像基础上使用 `docker commit` 保存修改，因为写入层会不断叠加，导致二次生成的镜像体积可能超过 40G。
+
+如需进行个性化配置或集成应用，请**从 `builder` 镜像开始自行构建新镜像**，以保持镜像整洁与可维护性。
