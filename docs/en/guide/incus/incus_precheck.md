@@ -13,7 +13,7 @@ Feel free to give the project a ```Star``` for free support!-->[https://github.c
 ## Requirements
 
 Hardware requirements.
-- System: Debian 10+ (recommended 13+), Ubuntu 20.04+ (recommended 24.04+), Alpine, ArchLinux, Gentoo, RockyLinux, VoidLinux
+- System: Ubuntu 20+, Debian 11+, RockyLinux 9+, AlmaLinux 9+, Centos 9+
 - Virtualization: KVM, VMWARE recommended.
 - Memory: At least 512MB of RAM
 - Hard disk: hard disk (system disk) at least 10G
