@@ -49,15 +49,15 @@ sudo snap install lxdmosaic
 
 Do a straightforward one-click install, then open the current host's ```https://<public IP address>/``` and force access to it to get to the setup page
 
-![lxd](images/lxd1.png)
+![lxd](images/lxdd1.png)
 
-![lxd](images/lxd2.png)
+![lxd](images/lxdd2.png)
 
-![lxd](images/lxd3.png)
+![lxd](images/lxdd3.png)
 
 This piece can be changed if you need to set up the site name
 
-![lxd](images/lxd4.png)
+![lxd](images/lxdd4.png)
 
 Better than nothing can only mean that there is no RBAC access control for sub-user segregation
 
@@ -107,7 +107,7 @@ snap install core
 
 If there are no exceptions, the results of the above three lines of commands are as follows
 
-![](images/lxd0.png)
+![](images/lxdd0.png)
 
 Just enter the default for the normal options
 

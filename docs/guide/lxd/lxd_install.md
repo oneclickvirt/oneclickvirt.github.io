@@ -51,15 +51,15 @@ sudo snap install lxdmosaic
 
 直接进行一键安装，然后打开当前宿主机的```https://<公网IP地址>/```，强制访问，就能进入设置页面
 
-![lxd](images/lxd1.png)
+![lxd](images/lxdd1.png)
 
-![lxd](images/lxd2.png)
+![lxd](images/lxdd2.png)
 
-![lxd](images/lxd3.png)
+![lxd](images/lxdd3.png)
 
 这块如果你需要设置网站名字可以改改
 
-![lxd](images/lxd4.png)
+![lxd](images/lxdd4.png)
 
 聊胜于无只能说，没有RBAC权限控制进行分用户隔离
 
@@ -115,7 +115,7 @@ snap install core
 
 如果无异常，上面三行命令执行结果如下
 
-![图片](images/lxd0.png)
+![图片](images/lxdd0.png)
 
 一般的选项回车默认即可
 
