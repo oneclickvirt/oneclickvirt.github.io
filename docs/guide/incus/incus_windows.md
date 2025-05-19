@@ -66,9 +66,14 @@ incus start win11vm
 SERVER_IP=$(hostname -I | awk '{print $1}')
 nohup websockify --web /usr/share/spice-html5 6080 \
   --unix-target=/run/incus/win11vm/qemu.spice \
+  --pidfile /run/websockify-win11vm.pid \
   > /var/log/websockify-win11vm.log 2>&1 &
 echo "请在浏览器中访问："
 echo "    https://${SERVER_IP}:6080/spice_auto.html?port=6080"
+```
+
+```shell
+kill "$(cat /run/websockify-win11vm.pid)"
 ```
 
 ```shell
