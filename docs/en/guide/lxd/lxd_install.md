@@ -107,7 +107,7 @@ snap install core
 
 If there are no exceptions, the results of the above three lines of commands are as follows
 
-![](images/233270028-5a43d0f7-45f5-4175-969e-d4d182cb877a.png)
+![](images/lxd0.png)
 
 Just enter the default for the normal options
 

@@ -115,7 +115,7 @@ snap install core
 
 如果无异常，上面三行命令执行结果如下
 
-![图片](images/233270028-5a43d0f7-45f5-4175-969e-d4d182cb877a.png)
+![图片](images/lxd0.png)
 
 一般的选项回车默认即可
 

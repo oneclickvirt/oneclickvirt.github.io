@@ -33,7 +33,7 @@ deb cdrom:[
 
 A line starting like this proves that the host is using local sources instead of network sources, and you need to replace the sources in ```/etc/apt/sources.list``` with a line such as
 
-![pct](images/342053716-c2a8d7ce-d2ae-439e-9875-3ef756e9a8a3.png)
+![pct](images/onlinepkg.png)
 
 Replace the network source with the same to install using the PVE one-click install script.
 
@@ -76,7 +76,7 @@ Statements beginning with ```nameserver``` may be found to be absent.
 
 You need to set up DNS on this web page
 
-![screenshot-1708136079861](images/305591780-2431b94e-fc84-4a9d-9ddc-bf7da9a2054f.png)
+![screenshot-1708136079861](images/dns0.png)
 
 After setting up the DNS, check the file again and you will find the following content
 
