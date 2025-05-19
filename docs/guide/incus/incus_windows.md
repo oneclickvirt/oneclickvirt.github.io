@@ -13,11 +13,18 @@ rm -rf zh-cn_windows_server_2022_x64_dvd_6c73507d.iso
 ```
 
 ```shell
-incus info | grep -i driver
+incus info | grep -i driver:
 ```
 
+需要看到带有
+
+```
+driver: qemu | lxc
+```
+
+才可开设虚拟机，否则无法开设
+
 ```shell
-apt install -y qemu-system-x86 qemu-utils ovmf seabios
 incus init win22vm --empty --vm
 incus config device override win22vm root size=30GiB
 incus config set win22vm limits.cpu=3
