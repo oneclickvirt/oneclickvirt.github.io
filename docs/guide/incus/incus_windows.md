@@ -7,7 +7,7 @@ apt update
 apt install -y snapd libguestfs-tools wimtools rsync libhivex-bin libwin-hivex-perl genisoimage || apt install -y mkisofs
 snap install distrobuilder --classic
 wget https://down.idc.wiki/ISOS/Windows/Windows%2011/Win11_Chinese%28Simplified%29_x64v1.iso
-mv Win11_Chinese%28Simplified%29_x64v1.iso win11.iso
+mv Win11_Chinese\(Simplified\)_x64v1.iso win11.iso
 distrobuilder repack-windows \
   --windows-arch=amd64 \
   --windows-version=w11 \
