@@ -69,6 +69,7 @@ nohup websockify --web /usr/share/spice-html5 6080 \
   > /var/log/websockify-win11vm.log 2>&1 &
 echo "请在浏览器中访问："
 echo "    https://${SERVER_IP}:6080/spice_auto.html?port=6080"
+echo "首次启动需要按Ctrl+Alt+Delete按钮，重启才能装载ISO进行实际的安装"
 ```
 
 ```shell
