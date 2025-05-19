@@ -3,24 +3,15 @@
 在 `/root` 目录下按顺序执行以下命令：
 
 ```shell
-# 安装基础工具
 apt update
 apt install -y snapd libguestfs-tools wimtools rsync libhivex-bin libwin-hivex-perl genisoimage || apt install -y mkisofs
-
-# 安装 distrobuilder（用于打包 Windows ISO）
 snap install distrobuilder --classic
-
-# 下载原版 Windows Server 2022 ISO
-wget https://down.idc.wiki/ISOS/Windows/Server%202022/zh-cn_windows_server_2022_x64_dvd_6c73507d.iso
-
-# 使用 distrobuilder 重新打包为 Incus 支持的 ISO
+wget https://down.idc.wiki/ISOS/Windows/Windows%2011/Win11_Chinese%28Simplified%29_x64v1.iso
 distrobuilder repack-windows \
   --windows-arch=amd64 \
-  zh-cn_windows_server_2022_x64_dvd_6c73507d.iso \
-  zh-cn_windows_server_2022_x64_dvd_6c73507d.incus.iso
-
-# 清理原 ISO
-rm -f zh-cn_windows_server_2022_x64_dvd_6c73507d.iso
+  Win11_Chinese%28Simplified%29_x64v1.iso \
+  Win11_Chinese%28Simplified%29_x64v1.incus.iso
+rm -f Win11_Chinese%28Simplified%29_x64v1.iso
 ```
 
 ### 检查 Incus 驱动
@@ -39,19 +30,19 @@ incus info | grep -i driver:
 
 ```shell
 # 初始化空 VM
-incus init win22vm --empty --vm
+incus init win11vm --empty --vm
 
 # 调整根盘大小、CPU、内存
-incus config device override win22vm root size=30GiB
-incus config set win22vm limits.cpu=3
-incus config set win22vm limits.memory=4GiB
+incus config device override win11vm root size=30GiB
+incus config set win11vm limits.cpu=3
+incus config set win11vm limits.memory=4GiB
 
 # 添加 TPM 设备（Secure Boot/BitLocker 支持）
-incus config device add win22vm vtpm tpm path=/dev/tpm0
+incus config device add win11vm vtpm tpm path=/dev/tpm0
 
 # 挂载安装 ISO，设为第一启动项
-incus config device add win22vm install disk \
-  source=/root/zh-cn_windows_server_2022_x64_dvd_6c73507d.incus.iso \
+incus config device add win11vm install disk \
+  source=/root/Win11_Chinese%28Simplified%29_x64v1.incus.iso \
   boot.priority=10
 ```
 
@@ -61,20 +52,14 @@ incus config device add win22vm install disk \
 # 安装浏览器访问所需组件
 apt update
 apt install -y spice-html5 websockify
+```
 
-# 启动 VM（此时 VM 会自动使用 Spice 输出）
-incus start win22vm
-
-#incus console win22vm --type=vga
-
-# 启动 WebSocket 代理，将 Spice Socket 转为 WebSocket
-# 使用 hostname -I 取第一个 IP，供提示使用
+```shell
+incus start win11vm
 SERVER_IP=$(hostname -I | awk '{print $1}')
 nohup websockify --web /usr/share/spice-html5 6080 \
-  --unix-target=/run/incus/win22vm/qemu.spice \
-  > /var/log/websockify-win22vm.log 2>&1 &
-
-# 输出访问提示
+  --unix-target=/run/incus/win11vm/qemu.spice \
+  > /var/log/websockify-win11vm.log 2>&1 &
 echo "请在浏览器中访问："
 echo "    https://${SERVER_IP}:6080/spice_auto.html?port=6080"
 ```
@@ -82,10 +67,9 @@ echo "    https://${SERVER_IP}:6080/spice_auto.html?port=6080"
 ```shell
 # 安装完成后，先在控制台关闭/退出 Windows，
 # 然后移除 ISO 设备，保证下次从硬盘启动
-incus config device remove win22vm install
-
-# 再次启动 VM
-incus start win22vm
+incus stop win11vm
+incus config device remove win11vm install
+incus start win11vm
 ```
 
 ### 在浏览器中访问
