@@ -9,7 +9,7 @@ snap install distrobuilder --classic
 wget https://down.idc.wiki/ISOS/Windows/Server%202022/zh-cn_windows_server_2022_x64_dvd_6c73507d.iso
 apt install -y libguestfs-tools wimtools rsync libhivex-bin libwin-hivex-perl wimtools
 apt install genisoimage -y || apt install mkisofs -y
-sudo distrobuilder repack-windows --windows-arch=amd64 zh-cn_windows_server_2022_x64_dvd_6c73507d.iso zh-cn_windows_server_2022_x64_dvd_6c73507d.incus.iso
+distrobuilder repack-windows --windows-arch=amd64 zh-cn_windows_server_2022_x64_dvd_6c73507d.iso zh-cn_windows_server_2022_x64_dvd_6c73507d.incus.iso
 rm -rf zh-cn_windows_server_2022_x64_dvd_6c73507d.iso
 ```
 
