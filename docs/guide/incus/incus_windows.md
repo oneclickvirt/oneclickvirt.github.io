@@ -74,16 +74,7 @@ apt install -y spice-html5 websockify
 # 启动 VM（此时 VM 会自动使用 Spice 输出）
 incus start win22vm
 
-# 进入图形控制台开始安装
-incus console win22vm --type=vga
-# —— 在浏览器打开前，先完成 Windows 安装流程 —— #
-
-# 安装完成后，先在控制台关闭/退出 Windows，
-# 然后移除 ISO 设备，保证下次从硬盘启动
-incus config device remove win22vm install
-
-# 再次启动 VM
-incus start win22vm
+#incus console win22vm --type=vga
 
 # 启动 WebSocket 代理，将 Spice Socket 转为 WebSocket
 # 使用 hostname -I 取第一个 IP，供提示使用
@@ -95,6 +86,15 @@ nohup websockify --web /usr/share/spice-html5 6080 \
 # 输出访问提示
 echo "请在浏览器中访问："
 echo "    https://${SERVER_IP}:6080/spice_auto.html?port=6080"
+```
+
+```shell
+# 安装完成后，先在控制台关闭/退出 Windows，
+# 然后移除 ISO 设备，保证下次从硬盘启动
+incus config device remove win22vm install
+
+# 再次启动 VM
+incus start win22vm
 ```
 
 ---
