@@ -262,9 +262,9 @@ function getGuideSidebarEnUS() {
         { text: 'PVE main installation', link: '/en/guide/pve/pve_install.html' },
         { text: 'Linux Virtual Machine(KVM/QEMU)', link: '/en/guide/pve/pve_kvm.html' },
         { text: 'Linux Container(LXC)', link: '/en/guide/pve/pve_lxc.html' },
-        { text: 'Windows Virtual Machine', link: '/en/guide/pve/pve_windows.html' },
-        { text: 'MacOS Virtual Machine', link: '/en/guide/pve/pve_macos.html' },
-        { text: 'Android Virtual Machine', link: '/en/guide/pve/pve_android.html' },
+        { text: 'Windows Virtual Machine(KVM/QEMU)', link: '/en/guide/pve/pve_windows.html' },
+        { text: 'MacOS Virtual Machine(KVM)', link: '/en/guide/pve/pve_macos.html' },
+        { text: 'Android Virtual Machine(KVM)', link: '/en/guide/pve/pve_android.html' },
         { text: 'Custom', link: '/en/guide/pve/pve_custom.html' },
         { text: 'Acknowledgements', link: '/en/guide/pve/pve_thanks.html' },
         { text: 'FAQ', link: '/en/guide/pve/pve_qa.html' }
@@ -287,7 +287,10 @@ function getGuideSidebarEnUS() {
       items: [
         { text: 'Configuration requirements', link: '/en/guide/docker/docker_precheck.html' },
         { text: 'Docker main installation', link: '/en/guide/docker/docker_install.html' },
-        { text: 'Docker Virtualization', link: '/en/guide/docker/docker_build.html' },
+        { text: 'Linux Container(LXC)', link: '/en/guide/docker/docker_build.html' },
+        { text: 'Windows Virtual Machine(KVM/QEMU)', link: '/en/guide/docker/docker_windows.html' },
+        { text: 'Macos Virtual Machine(KVM)', link: '/en/guide/docker/docker_macos.html' },
+        { text: 'Android Virtual Machine(KVM/QEMU)', link: '/en/guide/docker/docker_android.html' },
         { text: 'Custom', link: '/en/guide/docker/docker_custom.html' },
         { text: 'Acknowledgements', link: '/en/guide/docker/docker_thanks.html' },
         { text: 'FAQ', link: '/en/guide/docker/docker_qa.html' }
