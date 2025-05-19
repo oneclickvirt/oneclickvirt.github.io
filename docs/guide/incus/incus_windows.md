@@ -10,8 +10,14 @@ wget https://down.idc.wiki/ISOS/Windows/Windows%2011/Win11_Chinese%28Simplified%
 mv Win11_Chinese%28Simplified%29_x64v1.iso win11.iso
 distrobuilder repack-windows \
   --windows-arch=amd64 \
+  --windows-version=w11 \
   win11.iso \
   win11.incus.iso
+```
+
+https://linuxcontainers.org/distrobuilder/docs/latest/tutorials/use/#repack-windows-iso
+
+```shell
 rm -f win11.iso
 ```
 
