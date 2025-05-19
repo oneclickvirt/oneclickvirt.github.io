@@ -7,11 +7,12 @@ apt update
 apt install -y snapd libguestfs-tools wimtools rsync libhivex-bin libwin-hivex-perl genisoimage || apt install -y mkisofs
 snap install distrobuilder --classic
 wget https://down.idc.wiki/ISOS/Windows/Windows%2011/Win11_Chinese%28Simplified%29_x64v1.iso
+mv Win11_Chinese%28Simplified%29_x64v1.iso win11.iso
 distrobuilder repack-windows \
   --windows-arch=amd64 \
-  Win11_Chinese%28Simplified%29_x64v1.iso \
-  Win11_Chinese%28Simplified%29_x64v1.incus.iso
-rm -f Win11_Chinese%28Simplified%29_x64v1.iso
+  win11.iso \
+  win11.incus.iso
+rm -f win11.iso
 ```
 
 ### 检查 Incus 驱动
@@ -42,7 +43,7 @@ incus config device add win11vm vtpm tpm path=/dev/tpm0
 
 # 挂载安装 ISO，设为第一启动项
 incus config device add win11vm install disk \
-  source=/root/Win11_Chinese%28Simplified%29_x64v1.incus.iso \
+  source=/root/win11.incus.iso \
   boot.priority=10
 ```
 
