@@ -15,7 +15,3 @@ Original Project:
 Original Project:
 
 [https://github.com/sickcodes/Docker-OSX](https://github.com/sickcodes/Docker-OSX)
-
----
-
-Let me know if you'd like me to expand or rephrase any part.
