@@ -105,34 +105,34 @@ The downside is that the addresses are dark/dirty, and cloudflare's cdn will mos
 1. Register an account at [https://tunnelbroker.net/](https://tunnelbroker.net/) and click```Create Regular Tunnel```on the left.
 
 
-![1](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/35923be5-821f-45c8-8401-962ea3f97726)
+![1](images/incus1.png)
 
 
 2. Fill in your server's IPV4 address in the red box, choose a connection point that is physically close to your server, for example, if your machine is in Los Angeles, choose a connection point on the west coast of the United States, and then click```Create Tunnel```to create the tunnel when you are prompted by the green box!
 
 
-![2](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/cab04113-4d6a-4d6f-9952-d3851057fc4a)
+![2](images/incus2.png)
 
 
-![3](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/518dc62a-c8d0-48e3-bb13-befc39348990)
+![3](images/incus3.png)
 
 
-![4](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/6188de3f-e83c-400e-9594-dd3f73aaf46a)
+![4](images/incus4.png)
 
 
 3. Wait for the following screen, click```Example Configurations```and select the corresponding system, for example, the host of incus is definitely Debian/Ubuntu.
 
 
-![5](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/9f0045fc-b1ac-4954-9ecd-1fba47d07d8a)
+![5](images/incus5.png)
 
 
-![6](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/2fb7c951-371c-452c-b775-78f69b980a2c)
+![6](images/incus6.png)
 
 
 4. The boxed part is the file to be modified and the content to be filled in.
 
 
-![7](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/c0156902-b4c0-4001-823e-50f611215393)
+![7](images/incus7.png)
 
 
 5. Exchange the format of the command then add IPV6 settings to your network configuration file.
@@ -167,7 +167,7 @@ systemctl restart networking
 Execute the```ifconfig```command, and there should be a he-ipv6 interface, similar to the following:
 
 
-![8](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/1760af85-2b60-4352-ad8c-3c69e49fc1e4)
+![8](images/incus8.png)
 
 
 Or execute:
@@ -218,26 +218,26 @@ Similar to the above, first register an account at [https://www.tunnelbroker.ch/
 Then you have to fill in the IPV4 address of your server.
 
 
-![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/e018c7bc-e73c-4c68-88b6-b073f0dbd150)
+![](images/incus9.png)
 
 
 After creating an account, you need to go to the Config page instead of the details page.
 
 
-![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/d919dda7-571d-45b1-9d2f-03f29866269e)
+![](images/incus10.png)
 
 
 Don't use the following page, first refresh the page without the light blue box and then stop refreshing it
 
 Don't stop refreshing after the light blue box pops up
 
-![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/aefd1477-d5f5-4a4e-a66c-80ef5f9250c6)
+![](images/incus11.png)
 
 
 Record the content of the last red box on the following page, and prepare to modify the host configuration file.
 
 
-![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/9329974c-9549-4ff2-a8a0-a53c00e2863d)
+![](images/incus12.png)
 
 
 Copy the last red box of the page without the blank lines.
@@ -273,7 +273,9 @@ Make sure the environment is OK before you do anything else
 
 Similar to the above, first register an account at [https://tb.ip4market.ru](https://tb.ip4market.ru/), the registered email address must be an unseen email address, the phone number can be written randomly without verification, and the IP address should be the IPV4 address of the host you want to attach.
 
-The IP address is the IPV4 address of the host computer you are attaching to![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/24df37f2-12fe-49b6-87df-f07213346fbe)
+The IP address is the IPV4 address of the host computer you are attaching to
+
+![](images/incus13.png)
 
 Then you have to go through Recaptcha's human-machine verification, and click register.
 
@@ -281,11 +283,11 @@ You will receive an activation email with your password, memorize it.
 
 Then login on the homepage
 
-![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/38b3f5a7-a5e1-47e0-b13e-8570e946c61c)
+![](images/incus14.png)
 
 Then you will be taken to this page
 
-![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/fc1d38b9-b45a-41de-a931-5dbe96e9791c)
+![](images/incus15.png)
 
 Hold down the right button and copy the four lines framed in red, which are
 
@@ -298,13 +300,13 @@ Client IPv6
 
 For these four lines, press ctrl+c to copy or right-click to copy
 
-![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/69c946e6-e82f-4665-b3c1-3c97e27f8487)
+![](images/incus16.png)
 
 Then open [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) and select```Option```for```ip4market```, another drop-down selection box to choose the name of the package you successfully installed previously, then paste what you copied in the input box.
 
 Then click```Covert```to convert the formatting
 
-![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/b9ca3ee1-4f13-4e10-bdc8-1ed1cc23ab05)
+![](images/incus17.png)
 
 Then the page will be refreshed automatically and you need to modify the contents of the```/etc/network/interfaces```file with vim or vi commands, or modify the following commands to add new contents.
 
@@ -331,13 +333,13 @@ Then fill in the IPV4 address of your server, you can change it later, just fill
 
 Then you will get to this page
 
-![a](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/4af680d4-3b01-495a-91d1-3cf4f187d0df)
+![a](images/incus18.png)
 
 The first red box is the location of your host's IPV4 address, if you want to modify it, modify it there, and then click change to save.
 
 The second red box is for```Linux``, and then click on show
 
-![b](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/099d43a0-0397-4e02-9275-9ec3099c0ff1)
+![b](images/incus19.png)
 
 The above content will appear, copy all the boxed parts without blank lines.
 
@@ -345,7 +347,7 @@ Then open [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/)
 
 Then click on```Covert```to convert the formatting
 
-![c](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/7324c7ff-d22f-4c17-b3c2-b5338ca6dfee)
+![c](images/incus20.png)
 
 Then the page will be refreshed automatically and you need to modify the contents of the```/etc/network/interfaces```file with vim or vi commands, or modify the following commands to add new contents.
 
@@ -474,7 +476,7 @@ The above deletion is only temporary, for permanent deletion you must modify and
 
 In fact [https://tunnelbroker.net/](https://tunnelbroker.net/) supports the application of IPV6 subnets of size ```/48```
 
-![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/07987e41-0158-430c-bcc5-f7cd8652b2c4)
+![](images/incus21.png)
 
 Make the request here, then when converting the format change the original ```/64``` IPV6 address to a ```/48``` IPV6 address and you'll get a larger IPV6 subnet!
 
@@ -518,7 +520,7 @@ yum install -y wireguard-tools
 
 Visit [https://warp.cloudflare.now.cc/?run=register&format=yaml](https://warp.cloudflare.now.cc/?run=register&format=yaml) and record private_key, v6 2 values
 
-![image.png](https://img.imgdd.com/f210f3.5085a04e-edd3-4294-bb34-9e8263360c42.png)
+![image.png](images/incus22.png)
 
 #### 2-3: Modifying Configuration Files
 
@@ -603,4 +605,4 @@ Project: https://github.com/fscarmen/warp-sh
 wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh
 ```
 
-![image.png](https://img.imgdd.com/f210f3.b94cf8fb-82f2-4160-95a7-c2859238284f.png)
+![image.png](images/incus23.png)

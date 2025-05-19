@@ -107,25 +107,25 @@ default_route=$(ip -6 route show | awk '/default via/{print $3}') && [ -n "$defa
 
 1. 在 [https://tunnelbroker.net/](https://tunnelbroker.net/) 注册账户，并点击左边的 ```Create Regular Tunnel```
 
-![1](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/35923be5-821f-45c8-8401-962ea3f97726)
+![1](images/incus1.png)
 
 2. 红框处填写你的服务器的IPV4地址，选择物理距离近的连接点，比如机器在美国洛杉矶，就选美国西海岸的连接点，然后显示绿框提示，点```Create Tunnel```创建即可
 
-![2](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/cab04113-4d6a-4d6f-9952-d3851057fc4a)
+![2](images/incus2.png)
 
-![3](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/518dc62a-c8d0-48e3-bb13-befc39348990)
+![3](images/incus3.png)
 
-![4](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/6188de3f-e83c-400e-9594-dd3f73aaf46a)
+![4](images/incus4.png)
 
 3. 等待出以下界面，点击```Example Configurations```然后选择对应的系统，比如incus的宿主机那肯定就是Debian/Ubuntu了
 
-![5](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/9f0045fc-b1ac-4954-9ecd-1fba47d07d8a)
+![5](images/incus5.png)
 
-![6](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/2fb7c951-371c-452c-b775-78f69b980a2c)
+![6](images/incus6.png)
 
 4. 框住的部分就是要修改的文件和需要复制的内容了
 
-![7](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/c0156902-b4c0-4001-823e-50f611215393)
+![7](images/incus7.png)
 
 复制的时候不要带空行
 
@@ -156,7 +156,7 @@ systemctl restart networking
 
 执行```ifconfig```命令，这时应该有一个 he-ipv6 接口，类似下面这样：
 
-![8](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/1760af85-2b60-4352-ad8c-3c69e49fc1e4)
+![8](images/incus8.png)
 
 或者执行：
 
@@ -193,19 +193,19 @@ route -A inet6 add ::/0 dev he-ipv6
 
 然后就是填写你的服务器IPV4地址
 
-![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/e018c7bc-e73c-4c68-88b6-b073f0dbd150)
+![](images/incus9.png)
 
 创建后需要进入Config页面而不是详情页面
 
-![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/d919dda7-571d-45b1-9d2f-03f29866269e)
+![](images/incus10.png)
 
 见到以下页面千万别使用，先刷新一下本页面，不要弹那个浅蓝色框后再停止刷新
 
-![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/aefd1477-d5f5-4a4e-a66c-80ef5f9250c6)
+![](images/incus11.png)
 
 记录以下页面的最后一个红框的内容，准备修改宿主机配置文件
 
-![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/9329974c-9549-4ff2-a8a0-a53c00e2863d)
+![](images/incus12.png)
 
 页面的最后一个红框框住的部分复制下来，不要带空行
 
@@ -234,7 +234,7 @@ systemctl restart networking
 
 类似上述的操作，先在 [https://tb.ip4market.ru](https://tb.ip4market.ru/) 注册一个账户先，注册邮箱得是非常见邮箱，电话可随便写不验证的，IP填上你要附加的宿主机的IPV4地址
 
-![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/24df37f2-12fe-49b6-87df-f07213346fbe)
+![](images/incus13.png)
 
 然后就是过Recaptcha的人机验证，点击注册
 
@@ -242,11 +242,11 @@ systemctl restart networking
 
 然后在首页进行登录
 
-![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/38b3f5a7-a5e1-47e0-b13e-8570e946c61c)
+![](images/incus14.png)
 
 然后就会进入这个页面
 
-![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/fc1d38b9-b45a-41de-a931-5dbe96e9791c)
+![](images/incus15.png)
 
 按住右键，然后复制红框框住的四行内容，也就是
 
@@ -259,13 +259,13 @@ Client IPv6
 
 这四行内容，按ctrl+c复制或者右键复制
 
-![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/69c946e6-e82f-4665-b3c1-3c97e27f8487)
+![](images/incus16.png)
 
 然后打开 [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) 选择```Option```为```ip4market```，另一个下拉选择框选择你之前安装成功的包名，然后在输入框内粘贴你复制的内容
 
 然后点击```Covert```转换格式
 
-![](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/b9ca3ee1-4f13-4e10-bdc8-1ed1cc23ab05)
+![](images/incus17.png)
 
 然后就会自动刷新页面出现需要自己用vim或者vi命令修改```/etc/network/interfaces```文件增加的内容了，或者修改以下命令新增
 
@@ -294,13 +294,13 @@ systemctl restart networking
 
 然后就到了这个页面了
 
-![a](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/4af680d4-3b01-495a-91d1-3cf4f187d0df)
+![a](images/incus18.png)
 
 第一个红框是你宿主机的IPV4地址需要填写的位置，要修改就修改那里，然后点change保存
 
 第二个下拉红框选择```Linux```，然后点击show
 
-![b](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/099d43a0-0397-4e02-9275-9ec3099c0ff1)
+![b](images/incus19.png)
 
 会出现上面的内容，全选框住的部分复制下来，不要带空行
 
@@ -308,7 +308,7 @@ systemctl restart networking
 
 然后点击```Covert```转换格式
 
-![c](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/7324c7ff-d22f-4c17-b3c2-b5338ca6dfee)
+![c](images/incus20.png)
 
 然后就会自动刷新页面出现需要自己用vim或者vi命令修改```/etc/network/interfaces```文件增加的内容了，或者修改以下命令新增
 
@@ -440,7 +440,7 @@ ip tunnel del user-ipv6
 
 实际上 [https://tunnelbroker.net/](https://tunnelbroker.net/) 支持申请```/48```大小的IPV6子网，只需要在
 
-![图片](https://github.com/oneclickvirt/oneclickvirt.github.io/assets/103393591/07987e41-0158-430c-bcc5-f7cd8652b2c4)
+![图片](images/incus21.png)
 
 这里进行申请，然后转换格式的时候将原先```/64```的IPV6地址改成```/48```的IPV6地址，你就能获得一个更大的IPV6子网了
 
@@ -485,7 +485,7 @@ yum install -y wireguard-tools
 
 访问 [https://warp.cloudflare.now.cc/?run=register&format=yaml](https://warp.cloudflare.now.cc/?run=register&format=yaml)，记录下 private_key, v6 2个值
 
-![image.png](https://img.imgdd.com/f210f3.5085a04e-edd3-4294-bb34-9e8263360c42.png)
+![image.png](images/incus22.png)
 
 #### 3.修改配置文件
 
@@ -567,4 +567,4 @@ systemctl enable --now wg-quick@warp
 wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh
 ```
 
-![image.png](https://img.imgdd.com/f210f3.b94cf8fb-82f2-4160-95a7-c2859238284f.png)
+![image.png](images/incus23.png)
