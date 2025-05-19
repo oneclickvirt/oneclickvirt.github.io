@@ -1,4 +1,4 @@
-### 1. 准备环境
+### 准备环境
 
 在 `/root` 目录下按顺序执行以下命令：
 
@@ -21,11 +21,9 @@ distrobuilder repack-windows \
 
 # 清理原 ISO
 rm -f zh-cn_windows_server_2022_x64_dvd_6c73507d.iso
-````
+```
 
----
-
-### 2. 检查 Incus 驱动
+### 检查 Incus 驱动
 
 确保 `incus info` 输出中含有 `driver: qemu`，否则无法创建 VM：
 
@@ -37,11 +35,6 @@ incus info | grep -i driver:
 
 若显示 `driver: lxc`，请在 `/etc/incus/daemon.conf` 中调整为 `driver = qemu` 并重启 Incus 服务。
 
----
-
-## 二、创建并启动 Windows VM（含浏览器安装）
-
-````markdown
 ### 1. 创建 VM 并挂载安装 ISO
 
 ```shell
@@ -60,11 +53,9 @@ incus config device add win22vm vtpm tpm path=/dev/tpm0
 incus config device add win22vm install disk \
   source=/root/zh-cn_windows_server_2022_x64_dvd_6c73507d.incus.iso \
   boot.priority=10
-````
+```
 
----
-
-### 2. 启动 VM 并通过 SPICE+HTML5 浏览器安装
+### 启动 VM 并通过 SPICE+HTML5 浏览器安装
 
 ```shell
 # 安装浏览器访问所需组件
@@ -97,9 +88,7 @@ incus config device remove win22vm install
 incus start win22vm
 ```
 
----
-
-### 3. 在浏览器中访问
+### 在浏览器中访问
 
 1. 打开浏览器，访问 `https://<上面获取的 SERVER_IP>:6080/spice_auto.html?port=6080`
 2. 你将看到 Windows 安装或已安装系统的 SPICE 界面，无需额外客户端。
