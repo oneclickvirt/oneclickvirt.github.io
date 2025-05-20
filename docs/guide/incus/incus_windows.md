@@ -22,6 +22,8 @@ incus info | grep -i driver:
 apt update
 apt install -y snapd libguestfs-tools wimtools rsync libhivex-bin libwin-hivex-perl genisoimage || apt install -y mkisofs
 snap install distrobuilder --classic
+# 重启加载一些配置
+reboot
 ```
 
 下载镜像并进行修补，如果你使用的是别的镜像，自行替换下载链接
