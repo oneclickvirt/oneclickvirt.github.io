@@ -52,7 +52,9 @@ rm -f win.iso
 
 ## 创建虚拟机并挂载安装ISO
 
-这里我使用的配置是3C4G30G，如果使用的是windows10等更新版本的镜像，至少需要4C6G50G，建议使用比我现在设置的资源更多的CPU和内存，避免系统卡到崩溃
+这里我使用的配置是3核5G内存30G硬盘，如果使用的是windows10等更新版本的镜像，至少需要4核6G内存40G硬盘，建议使用比我现在设置的资源更多的CPU和内存(主要是内存)，避免系统卡到崩溃。
+
+如果内存不够用，建议查看本指南的其他实用项目中的添加SWAP项目，自行添加更多虚拟内存。
 
 ```shell
 # 初始化空 VM
@@ -61,7 +63,7 @@ incus init winvm --empty --vm
 # 调整根盘大小、CPU、内存
 incus config device override winvm root size=30GiB
 incus config set winvm limits.cpu=3
-incus config set winvm limits.memory=4GiB
+incus config set winvm limits.memory=5GiB
 
 # 添加 TPM 设备（Secure Boot/BitLocker 支持）
 incus config device add winvm vtpm tpm path=/dev/tpm0
