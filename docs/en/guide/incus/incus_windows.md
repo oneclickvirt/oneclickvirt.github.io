@@ -131,7 +131,7 @@ Once the spinning stops, you'll enter the normal Windows VM installation process
 
 ![](images/win4.jpg)
 
-If the installation is complete, first shut down/exit Windows (from the browser), then remove the ISO device to ensure it boots from the hard disk next time:
+If the installation is complete(Execute to blue screen, mouse stuck and can't move, wait more than 5 minutes), first shut down/exit Windows (from the browser), then remove the ISO device to ensure it boots from the hard disk next time:
 
 ```shell
 incus stop winvm

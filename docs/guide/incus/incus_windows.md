@@ -135,7 +135,7 @@ echo "SPICE HTML5 console on http://${SERVER_IP}:6080/spice_auto.html"
 
 ![](images/win4.jpg)
 
-如果已经安装完成，先关闭/退出Windows(在浏览器上关机)，然后移除 ISO 设备，保证下次从硬盘启动
+如果已经安装完成(执行到蓝屏，鼠标卡住不能动了，等待超过5分钟)，先关闭/退出Windows(在浏览器上关机)，然后移除 ISO 设备，保证下次从硬盘启动
 
 ```shell
 incus stop winvm
