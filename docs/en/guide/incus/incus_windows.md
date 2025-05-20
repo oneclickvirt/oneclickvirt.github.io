@@ -18,6 +18,8 @@ Execute the following commands in sequence in the `/root` directory:
 apt update
 apt install -y snapd libguestfs-tools wimtools rsync libhivex-bin libwin-hivex-perl genisoimage || apt install -y mkisofs
 snap install distrobuilder --classic
+# reboot to load some config
+reboot
 ```
 
 Download the image and apply the patch. If you're using a different image, replace the download link accordingly.
