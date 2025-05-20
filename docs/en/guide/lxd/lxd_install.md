@@ -9,7 +9,7 @@ If your host does not have an IPV6 subnet and you want to assign IPV6 addresses 
 ### One-Click Installation
 
 :::warning
-If this is a new server, make sure that both ```apt update``` and ```apt install curl``` are working properly before executing this script. It is recommended to pre-install ```btrfs-progs``` to speed up the subsequent installation process, after installation it is recommended to reboot the system to load the settings, if it is not pre-installed it is no problem, just follow the prompts to execute the script.
+If this is a new server, make sure that both ```apt update``` and ```apt install curl``` are working properly before executing this script.
 :::
 
 :::tip
