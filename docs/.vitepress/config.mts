@@ -148,7 +148,8 @@ function getGuideSidebarZhCN() {
       items: [
         { text: '系统和硬件配置要求', link: '/guide/incus/incus_precheck.html' },
         { text: 'incus主体安装', link: '/guide/incus/incus_install.html' },
-        { text: 'LXC虚拟化', link: '/guide/incus/incus_lxc.html' },
+        { text: 'Linux容器(LXC)', link: '/guide/incus/incus_lxc.html' },
+        { text: 'Windows虚拟机(QEMU)', link: '/guide/incus/incus_windows.html' },
         { text: '更多配置', link: '/guide/incus/incus_extra_config.html' },
         { text: '自定义', link: '/guide/incus/incus_custom.html' },
         { text: '致谢', link: '/guide/incus/incus_thanks.html' },
@@ -275,7 +276,8 @@ function getGuideSidebarEnUS() {
       items: [
         { text: 'Configuration requirements', link: '/en/guide/incus/incus_precheck.html' },
         { text: 'incus main installation', link: '/en/guide/incus/incus_install.html' },
-        { text: 'LXC Virtualization', link: '/en/guide/incus/incus_lxc.html' },
+        { text: 'Linux Container(LXC)', link: '/en/guide/incus/incus_lxc.html' },
+        { text: 'Windows Virtual Machine(QEMU)', link: '/en/guide/incus/incus_windows.html' },
         { text: 'Extra configuration', link: '/en/guide/incus/incus_extra_config.html' },
         { text: 'Custom', link: '/en/guide/incus/incus_custom.html' },
         { text: 'Acknowledgements', link: '/en/guide/incus/incus_thanks.html' },

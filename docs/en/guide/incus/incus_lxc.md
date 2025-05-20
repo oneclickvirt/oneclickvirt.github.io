@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# incus virtualization
+# Running LXC Container in Incus
 
 ## Images available for creating LXC Containers
 

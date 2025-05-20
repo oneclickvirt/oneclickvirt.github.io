@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# 通过 Incus 开设 Windows 虚拟机
+# 在 Incus 中运行 Windows 虚拟机
 
 ## 检查 Incus 驱动
 
@@ -116,6 +116,8 @@ echo "SPICE HTML5 console on http://${SERVER_IP}:6080/spice_auto.html"
 最终会显示Zabbly的图标，这个图标在这里转圈圈需要至少10分钟，请耐心等待。
 
 ![](images/win1.png)
+
+转圈圈完毕就会进入正常的Win虚拟机安装流程，类比PVE的操作即可。
 
 如果发现资源没给够等原因需要删虚拟机重新开设，那么需要使用```pkill -f websockify```终止所有的spice信号转发，然后```incus delete -f winvm```强行删除虚拟机。
 

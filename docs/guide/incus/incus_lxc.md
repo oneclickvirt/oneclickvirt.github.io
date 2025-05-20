@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# LXC虚拟化
+# 在 Incus 中运行 LXC 容器
 
 ## 开设LXC容器可使用的镜像
 
