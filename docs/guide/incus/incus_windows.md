@@ -74,24 +74,6 @@ incus config device add winvm vtpm tpm path=/dev/tpm0
 incus config device add winvm install disk \
   source=/root/win.incus.iso \
   boot.priority=10
-
-# 配置静态IPV4地址
-DEV=$(lshw -C network | awk '/logical name:/{print $3}' | head -1)
-CIDR=$(incus network show incusbr0 | awk -F: '/ipv4.address/ {gsub(/ /,"",$2); print $2}')
-PREFIX=${CIDR%/*}             
-PLEN=${CIDR#*/}              
-BASE=${PREFIX%.*}            
-START=2                      
-END=$(( 2**(32-PLEN) - 2 ))
-USED=$(incus network list-leases incusbr0 | awk '{print $2}' | grep -E "^${BASE}\." || true)
-for i in $(seq $START $END); do
-    IP="${BASE}.${i}"
-    if ! grep -qx "$IP" <<< "$USED"; then
-        FREE_IP="$IP"
-        break
-    fi
-done
-incus config device override winvm "$DEV" ipv4.address="$FREE_IP"
 ```
 
 ## 启动虚拟机并通过浏览器远程访问桌面
