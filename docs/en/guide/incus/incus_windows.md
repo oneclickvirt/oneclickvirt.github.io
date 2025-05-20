@@ -159,4 +159,4 @@ The frontend lacks authentication, so you can't set user passwords.
 
 If you need frontend authentication, you'll need to use `Guacamole` with additional settings to implement it, which won't be covered in detail here.
 
-The VM piece doesn't have some of the interaction panels and adaptations molded into it, and spice is too ancient
+The VM piece doesn't have some well established interactive panels and adaptations, ```spice``` is too old (although there is a web-based spice client), and the official panels don't support rbac with a username and password and can only be used with certificates.
