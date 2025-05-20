@@ -1,23 +1,3 @@
-### 准备环境
-
-在 `/root` 目录下按顺序执行以下命令：
-
-```shell
-apt update
-apt install -y snapd libguestfs-tools wimtools rsync libhivex-bin libwin-hivex-perl genisoimage || apt install -y mkisofs
-snap install distrobuilder --classic
-wget https://down.idc.wiki/ISOS/Windows/Windows%2010/Windows%2010%2021H2%20%28amd64%29.iso -O win.iso
-distrobuilder repack-windows \
-  --windows-arch=amd64 \
-  win.iso \
-  win.incus.iso
-```
-
-https://linuxcontainers.org/distrobuilder/docs/latest/tutorials/use/#repack-windows-iso
-
-```shell
-rm -f win.iso
-```
 
 ### 检查 Incus 驱动
 
@@ -31,7 +11,43 @@ incus info | grep -i driver:
 
 若显示 `driver: lxc`，请在 `/etc/incus/daemon.conf` 中调整为 `driver = qemu` 并重启 Incus 服务。
 
-### 1. 创建 VM 并挂载安装 ISO
+### 准备环境
+
+在 `/root` 目录下按顺序执行以下命令：
+
+```shell
+apt update
+apt install -y snapd libguestfs-tools wimtools rsync libhivex-bin libwin-hivex-perl genisoimage || apt install -y mkisofs
+snap install distrobuilder --classic
+```
+
+下载镜像并进行修补，如果你使用的是别的镜像，自行替换下载链接
+
+自行下载Windows镜像的地址：https://down.idc.wiki/ISOS/Windows/
+
+支持修补的Windows镜像版本：https://linuxcontainers.org/distrobuilder/docs/latest/tutorials/use/#repack-windows-iso
+
+下面的指南将以windows10作为示例进行
+
+```shell
+wget https://down.idc.wiki/ISOS/Windows/Windows%2010/Windows%2010%2021H2%20%28amd64%29.iso -O win.iso
+distrobuilder repack-windows \
+  --windows-arch=amd64 \
+  win.iso \
+  win.incus.iso
+```
+
+修补时长取决于程序何时正确添加启动所需的驱动(未成功时会一个个尝试直到成功)，有的耗时短有的耗时长，最长可能超过30分钟，建议在```screen```或```tmux```中挂起执行
+
+修补完毕后可删除原始的镜像：
+
+```shell
+rm -f win.iso
+```
+
+### 创建 VM 并挂载安装 ISO
+
+这块使用的配置是3C4G30G，如果使用的是windows11等更新版本的镜像，至少需要4C6G50G
 
 ```shell
 # 初始化空 VM
@@ -66,23 +82,22 @@ nohup websockify --web /usr/share/spice-html5 6080 \
   --unix-target=/run/incus/winvm/qemu.spice \
   > /var/log/websockify-winvm.log 2>&1 &
 echo "请在浏览器中访问："
-echo "    https://${SERVER_IP}:6080/spice_auto.html?port=6080"
-echo "首次启动需要按Ctrl+Alt+Delete按钮，重启才能装载ISO进行实际的安装"
+echo "    http://${SERVER_IP}:6080/spice_auto.html?port=6080"
+echo "首次启动需要按Ctrl+Alt+Delete按钮，重启按回车等待几分钟才能装载ISO进行实际的安装"
 ```
+
+如果发现资源没给等原因需要删虚拟机重新开设，那么需要
 
 ```shell
 lsof -i :6080
 ```
 
+查询对应端口的PID号，使用```kill -9```删除
+
+如果已经安装完成，先关闭/退出Windows(在浏览器上关机)，然后移除 ISO 设备，保证下次从硬盘启动
+
 ```shell
-# 安装完成后，先在控制台关闭/退出 Windows，
-# 然后移除 ISO 设备，保证下次从硬盘启动
 incus stop winvm
 incus config device remove winvm install
 incus start winvm
 ```
-
-### 在浏览器中访问
-
-1. 打开浏览器，访问 `https://<上面获取的 SERVER_IP>:6080/spice_auto.html?port=6080`
-2. 你将看到 Windows 安装或已安装系统的 SPICE 界面，无需额外客户端。
