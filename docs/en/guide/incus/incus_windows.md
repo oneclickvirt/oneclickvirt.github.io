@@ -48,9 +48,11 @@ rm -f win.iso
 
 ## Create the VM and Mount the Installation ISO
 
-Here I'm using a configuration of 3 CPUs, 4GB RAM, and 30GB storage. If you're using Windows 10 or newer versions, you'll need at least 4 CPUs, 6GB RAM, and 50GB storage.
+Here I'm using a configuration of 3 CPUs, 5GB RAM, and 30GB storage. If you're using Windows 10 or newer versions, you'll need at least 4 CPUs, 6GB RAM, and 40GB storage.
 
 It's recommended to use more CPU and RAM than the resources I have set up now to avoid the system getting stuck to the point of crashing.
+
+If you don't have enough memory, we recommend checking the Add SWAP item in the Other Useful Items section of this guide to add more virtual memory on your own.
 
 ```shell
 # Initialize empty VM
@@ -59,7 +61,7 @@ incus init winvm --empty --vm
 # Adjust root disk size, CPU, and memory
 incus config device override winvm root size=30GiB
 incus config set winvm limits.cpu=3
-incus config set winvm limits.memory=4GiB
+incus config set winvm limits.memory=5GiB
 
 # Add TPM device (for Secure Boot/BitLocker support)
 incus config device add winvm vtpm tpm path=/dev/tpm0
