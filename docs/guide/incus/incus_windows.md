@@ -135,8 +135,26 @@ incus config device remove winvm install
 incus start winvm
 ```
 
+## 如果首次启动没过几分钟就崩溃停机了
+
+需要添加CPU直通
+
+```shell
+incus profile set windows raw.qemu="-device intel-hda -device hda-duplex -cpu host"
+```
+
+或
+
+```shell
+incus config set win11vm raw.qemu -- "-device intel-hda -device hda-duplex cpu host"
+```
+
+再次启动虚拟机即可
+
 ## 缺点
 
 前端无权限校验，没法设置用户密码
 
 如果需要前端鉴权，那么得使用```Guacamole```添加一些设置来实现，这里就不赘述了
+
+虚拟机这块没有成型的一些交互面板和适配，```spice```太古老了
