@@ -131,8 +131,26 @@ incus config device remove winvm install
 incus start winvm
 ```
 
+## If it crashes and stops within a few minutes of first startup
+
+Need to add CPU passthrough
+
+```shell
+incus profile set windows raw.qemu="-device intel-hda -device hda-duplex -cpu host"
+```
+
+OR
+
+```shell
+incus config set win11vm raw.qemu -- "-device intel-hda -device hda-duplex cpu host"
+```
+
+Just start the virtual machine again
+
 ## Disadvantages
 
 The frontend lacks authentication, so you can't set user passwords.
 
 If you need frontend authentication, you'll need to use `Guacamole` with additional settings to implement it, which won't be covered in detail here.
+
+The VM piece doesn't have some of the interaction panels and adaptations molded into it, and spice is too ancient
