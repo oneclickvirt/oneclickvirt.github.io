@@ -83,7 +83,7 @@ nohup websockify --web /usr/share/spice-html5 6080 \
   > /var/log/websockify-winvm.log 2>&1 &
 echo "请在浏览器中访问："
 echo "    http://${SERVER_IP}:6080/spice_auto.html?port=6080"
-echo "首次启动需要按Ctrl+Alt+Delete按钮，重启按回车等待几分钟才能装载ISO进行实际的安装"
+echo "首次启动需要按Ctrl+Alt+Delete按钮，重启后按回车等待5~10分钟才会正式装载ISO进行实际的安装显示Zabbly的图标"
 ```
 
 如果发现资源没给等原因需要删虚拟机重新开设，那么需要
