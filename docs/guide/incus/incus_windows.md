@@ -163,4 +163,4 @@ incus config set winvm raw.qemu -- "-cpu host"
 
 如果需要前端鉴权，那么得使用```Guacamole```添加一些设置来实现，这里就不赘述了
 
-虚拟机这块没有成型的一些交互面板和适配，```spice```太古老了(虽然有网页端的spice客户端)，官方的面板又不支持rbac使用用户名密码，只能通过证书使用
+虚拟机这块没有成型的一些交互面板和适配，```spice```太[古老](https://docs.redhat.com/zh-cn/documentation/red_hat_enterprise_linux/9/html/considerations_in_adopting_rhel_9/ref_changes-to-spice_assembly_virtualization)了(虽然有网页端的spice客户端)，官方的面板又不支持rbac使用用户名密码，只能通过证书使用
