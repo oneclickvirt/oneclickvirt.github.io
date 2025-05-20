@@ -103,11 +103,15 @@ apt install -y spice-html5 websockify lsof
 
 ```shell
 incus start winvm
+sleep 1
+SOCKET=$(ls ~/.config/incus/sockets/*.spice | \
+         grep "$(incus info winvm | awk '/^  ID:/ {print $2}')" | \
+         tail -n1)
 SERVER_IP=$(hostname -I | awk '{print $1}')
 nohup websockify --web /usr/share/spice-html5 6080 \
-  --unix-target=/run/incus/winvm/qemu.spice \
-  > /var/log/websockify-winvm.log 2>&1 &
-echo "请在浏览器中访问：http://${SERVER_IP}:6080/spice_auto.html?port=6080"
+         --unix-target="$SOCKET" \
+       > /var/log/websockify-winvm.log 2>&1 &
+echo "SPICE HTML5 console on http://${SERVER_IP}:6080/spice_auto.html"
 ```
 
 首次启动需要按浏览器页面左上角的```Ctrl+Alt+Delete```按钮，重启后在默认的界面按照提示，按回车等待5~10分钟才会正式装载ISO进行实际的安装
