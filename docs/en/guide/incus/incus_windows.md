@@ -136,7 +136,7 @@ incus start winvm
 Need to add CPU passthrough
 
 ```shell
-incus config set winvm raw.qemu -- "-device intel-hda -device hda-duplex cpu host"
+incus config set winvm raw.qemu -- "-cpu host"
 ```
 
 Just start the virtual machine again
