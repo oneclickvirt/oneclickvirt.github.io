@@ -32,10 +32,10 @@ snap install distrobuilder --classic
 
 支持修补的Windows镜像版本：https://linuxcontainers.org/distrobuilder/docs/latest/tutorials/use/#repack-windows-iso
 
-下面的指南将以windows10作为示例进行
+下面的指南将以windows2019作为示例进行
 
 ```shell
-wget https://down.idc.wiki/ISOS/Windows/Windows%2010/Windows%2010%2021H2%20%28amd64%29.iso -O win.iso
+wget https://down.idc.wiki/ISOS/Windows/Server%202019/cn_windows_server_2019_updated_july_2020_x64_dvd_2c9b67da.iso -O win.iso
 distrobuilder repack-windows \
   --windows-arch=amd64 \
   win.iso \
@@ -52,7 +52,7 @@ rm -f win.iso
 
 ## 创建虚拟机并挂载安装ISO
 
-这里我使用的配置是3C4G30G，如果使用的是windows11等更新版本的镜像，至少需要4C6G50G
+这里我使用的配置是3C4G30G，如果使用的是windows10等更新版本的镜像，至少需要4C6G50G
 
 ```shell
 # 初始化空 VM
