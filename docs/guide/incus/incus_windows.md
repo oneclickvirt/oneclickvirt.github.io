@@ -1,5 +1,10 @@
+---
+outline: deep
+---
 
-### 检查 Incus 驱动
+# 通过 Incus 开设 Windows 虚拟机
+
+## 检查 Incus 驱动
 
 确保 `incus info` 输出中含有 `driver: qemu`，否则无法创建 VM：
 
@@ -11,7 +16,7 @@ incus info | grep -i driver:
 
 若显示 `driver: lxc`，请在 `/etc/incus/daemon.conf` 中调整为 `driver = qemu` 并重启 Incus 服务。
 
-### 准备环境
+## 准备环境和修补镜像
 
 在 `/root` 目录下按顺序执行以下命令：
 
@@ -45,9 +50,9 @@ distrobuilder repack-windows \
 rm -f win.iso
 ```
 
-### 创建 VM 并挂载安装 ISO
+## 创建虚拟机并挂载安装ISO
 
-这块使用的配置是3C4G30G，如果使用的是windows11等更新版本的镜像，至少需要4C6G50G
+这里我使用的配置是3C4G30G，如果使用的是windows11等更新版本的镜像，至少需要4C6G50G
 
 ```shell
 # 初始化空 VM
@@ -67,13 +72,16 @@ incus config device add winvm install disk \
   boot.priority=10
 ```
 
-### 启动 VM 并通过 SPICE+HTML5 浏览器安装
+## 启动虚拟机并通过浏览器远程访问桌面
+
+安装浏览器访问所需组件
 
 ```shell
-# 安装浏览器访问所需组件
 apt update
 apt install -y spice-html5 websockify lsof
 ```
+
+启动虚拟机和远程访问的组件
 
 ```shell
 incus start winvm
@@ -86,7 +94,7 @@ echo "    http://${SERVER_IP}:6080/spice_auto.html?port=6080"
 echo "首次启动需要按Ctrl+Alt+Delete按钮，重启后按回车等待5~10分钟才会正式装载ISO进行实际的安装显示Zabbly的图标"
 ```
 
-如果发现资源没给等原因需要删虚拟机重新开设，那么需要
+如果发现资源没给够等原因需要删虚拟机重新开设，那么需要
 
 ```shell
 lsof -i :6080
@@ -101,3 +109,9 @@ incus stop winvm
 incus config device remove winvm install
 incus start winvm
 ```
+
+## 缺点
+
+前端无权限校验，没法设置用户密码
+
+如果需要前端鉴权，那么得使用```Guacamole```添加一些设置来实现，这里就不赘述了
