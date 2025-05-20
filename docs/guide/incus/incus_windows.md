@@ -143,6 +143,16 @@ incus config device remove winvm install
 incus start winvm
 ```
 
+启动后可见如下图
+
+![](images/win5.jpg)
+
+![](images/win6.jpg)
+
+![](images/win7.jpg)
+
+无需自行进行网络配置，incus将自动分配IPV4地址和连接网络
+
 ## 删除远程组件重新启动浏览器映射
 
 如果发现资源没给够等原因需要删虚拟机重新开设，那么需要使用```pkill -f websockify```终止所有的spice信号转发，然后```incus delete -f winvm```强行删除虚拟机。

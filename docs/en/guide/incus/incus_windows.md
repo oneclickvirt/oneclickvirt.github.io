@@ -139,6 +139,16 @@ incus config device remove winvm install
 incus start winvm
 ```
 
+The following image can be seen after startup
+
+![](images/win5.jpg)
+
+![](images/win6.jpg)
+
+![](images/win7.jpg)
+
+No need to configure your own network, incus will automatically assign IPV4 addresses and connect to the network.
+
 ## Remove the remote component to restart the browser mapping
 
 If you need to delete the VM and recreate it due to resource limitations or other reasons, use `pkill -f websockify` to terminate all SPICE signal forwarding, then `incus delete -f winvm` to forcibly delete the VM.
