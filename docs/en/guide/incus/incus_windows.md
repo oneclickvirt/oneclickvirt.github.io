@@ -50,6 +50,8 @@ rm -f win.iso
 
 Here I'm using a configuration of 3 CPUs, 4GB RAM, and 30GB storage. If you're using Windows 10 or newer versions, you'll need at least 4 CPUs, 6GB RAM, and 50GB storage.
 
+It's recommended to use more CPU and RAM than the resources I have set up now to avoid the system getting stuck to the point of crashing.
+
 ```shell
 # Initialize empty VM
 incus init winvm --empty --vm
