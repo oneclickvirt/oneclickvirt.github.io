@@ -40,7 +40,9 @@ distrobuilder repack-windows \
   win.incus.iso
 ```
 
-The patching time depends on when the program correctly adds the drivers needed for booting (it will try one by one until successful). Some may take a short time, others may take longer, potentially exceeding 30 minutes. It's recommended to run this in `screen` or `tmux`.
+The patching time depends on when the program adds the drivers needed for booting (it will add one by one until successful).
+
+Some may take a short time, others may take longer, potentially exceeding 10~30 minutes. It's recommended to run this in `screen` or `tmux`.
 
 After patching is complete, you can delete the original image:
 
