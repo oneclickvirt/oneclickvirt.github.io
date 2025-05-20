@@ -70,6 +70,24 @@ incus config device add winvm vtpm tpm path=/dev/tpm0
 incus config device add winvm install disk \
   source=/root/win.incus.iso \
   boot.priority=10
+
+# 配置静态IPV4地址
+DEV=$(lshw -C network | awk '/logical name:/{print $3}' | head -1)
+CIDR=$(incus network show incusbr0 | awk -F: '/ipv4.address/ {gsub(/ /,"",$2); print $2}')
+PREFIX=${CIDR%/*}             
+PLEN=${CIDR#*/}              
+BASE=${PREFIX%.*}            
+START=2                      
+END=$(( 2**(32-PLEN) - 2 ))
+USED=$(incus network list-leases incusbr0 | awk '{print $2}' | grep -E "^${BASE}\." || true)
+for i in $(seq $START $END); do
+    IP="${BASE}.${i}"
+    if ! grep -qx "$IP" <<< "$USED"; then
+        FREE_IP="$IP"
+        break
+    fi
+done
+incus config device override winvm "$DEV" ipv4.address="$FREE_IP"
 ```
 
 ## 启动虚拟机并通过浏览器远程访问桌面
@@ -98,13 +116,13 @@ echo "请在浏览器中访问：http://${SERVER_IP}:6080/spice_auto.html?port=6
 
 ![](images/win1.png)
 
-如果发现资源没给够等原因需要删虚拟机重新开设，那么需要
+如果发现资源没给够等原因需要删虚拟机重新开设，那么需要使用```pkill -f websockify```终止所有的spice信号转发，然后```incus delete -f winvm```强行删除虚拟机。
 
 ```shell
 lsof -i :6080
 ```
 
-查询对应端口的PID号，使用```kill -9```删除，或者```pkill -f websockify```终止。
+查询对应端口的PID号是否还存在，确保已完全停止(如果你有多个虚拟机的信号转发，那么最好不要用```pkill```删除所有，用```kill -9```删除对应端口的PID即可)。
 
 如果已经安装完成，先关闭/退出Windows(在浏览器上关机)，然后移除 ISO 设备，保证下次从硬盘启动
 
