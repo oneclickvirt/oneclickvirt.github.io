@@ -2,15 +2,13 @@
 
 ## Verify the Incus Driver
 
-Ensure that `incus info` output contains `driver: qemu`, otherwise you cannot create VMs:
+Ensure that `incus info` output contains `qemu`, otherwise you cannot create VMs:
 
 ```shell
 incus info | grep -i driver:
-# Correct example:
-# driver: qemu
 ```
 
-If it shows `driver: lxc`, adjust the setting in `/etc/incus/daemon.conf` to `driver = qemu` and restart the Incus service.
+If it only shows `lxc`, no need to read the subsequent tutorials, incus drivers don't support opening a VM.
 
 ## Prepare the Environment and Patch the Image
 
