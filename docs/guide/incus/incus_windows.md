@@ -6,19 +6,17 @@
 apt update
 apt install -y snapd libguestfs-tools wimtools rsync libhivex-bin libwin-hivex-perl genisoimage || apt install -y mkisofs
 snap install distrobuilder --classic
-wget https://down.idc.wiki/ISOS/Windows/Windows%2011/Win11_Chinese%28Simplified%29_x64v1.iso
-mv Win11_Chinese\(Simplified\)_x64v1.iso win11.iso
+wget https://down.idc.wiki/ISOS/Windows/Windows%2010/Windows%2010%2021H2%20%28amd64%29.iso -O win.iso
 distrobuilder repack-windows \
   --windows-arch=amd64 \
-  --windows-version=w11 \
-  win11.iso \
-  win11.incus.iso
+  win.iso \
+  win.incus.iso
 ```
 
 https://linuxcontainers.org/distrobuilder/docs/latest/tutorials/use/#repack-windows-iso
 
 ```shell
-rm -f win11.iso
+rm -f win.iso
 ```
 
 ### 检查 Incus 驱动
@@ -37,19 +35,19 @@ incus info | grep -i driver:
 
 ```shell
 # 初始化空 VM
-incus init win11vm --empty --vm
+incus init winvm --empty --vm
 
 # 调整根盘大小、CPU、内存
-incus config device override win11vm root size=30GiB
-incus config set win11vm limits.cpu=3
-incus config set win11vm limits.memory=4GiB
+incus config device override winvm root size=30GiB
+incus config set winvm limits.cpu=3
+incus config set winvm limits.memory=4GiB
 
 # 添加 TPM 设备（Secure Boot/BitLocker 支持）
-incus config device add win11vm vtpm tpm path=/dev/tpm0
+incus config device add winvm vtpm tpm path=/dev/tpm0
 
 # 挂载安装 ISO，设为第一启动项
-incus config device add win11vm install disk \
-  source=/root/win11.incus.iso \
+incus config device add winvm install disk \
+  source=/root/win.incus.iso \
   boot.priority=10
 ```
 
@@ -62,11 +60,11 @@ apt install -y spice-html5 websockify lsof
 ```
 
 ```shell
-incus start win11vm
+incus start winvm
 SERVER_IP=$(hostname -I | awk '{print $1}')
 nohup websockify --web /usr/share/spice-html5 6080 \
-  --unix-target=/run/incus/win11vm/qemu.spice \
-  > /var/log/websockify-win11vm.log 2>&1 &
+  --unix-target=/run/incus/winvm/qemu.spice \
+  > /var/log/websockify-winvm.log 2>&1 &
 echo "请在浏览器中访问："
 echo "    https://${SERVER_IP}:6080/spice_auto.html?port=6080"
 echo "首次启动需要按Ctrl+Alt+Delete按钮，重启才能装载ISO进行实际的安装"
@@ -79,9 +77,9 @@ lsof -i :6080
 ```shell
 # 安装完成后，先在控制台关闭/退出 Windows，
 # 然后移除 ISO 设备，保证下次从硬盘启动
-incus stop win11vm
-incus config device remove win11vm install
-incus start win11vm
+incus stop winvm
+incus config device remove winvm install
+incus start winvm
 ```
 
 ### 在浏览器中访问
