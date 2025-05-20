@@ -6,15 +6,13 @@ outline: deep
 
 ## 检查 Incus 驱动
 
-确保 `incus info` 输出中含有 `driver: qemu`，否则无法创建 VM：
+确保 `incus info` 输出中含有 `qemu`，否则无法创建 VM：
 
 ```shell
 incus info | grep -i driver:
-# 正确示例：
-# driver: qemu
 ```
 
-若显示 `driver: lxc`，请在 `/etc/incus/daemon.conf` 中调整为 `driver = qemu` 并重启 Incus 服务。
+若显示只有 `lxc`，则incus的驱动不支持开设虚拟机，不需要看后续的教程了。
 
 ## 准备环境和修补镜像
 
