@@ -24,6 +24,8 @@ reboot
 
 Download the image and apply the patch. If you're using a different image, replace the download link accordingly.
 
+(You don't need to download the image that comes with virtio, the original image will suffice)
+
 Windows image download link: https://down.idc.wiki/ISOS/Windows/
 
 Supported Windows image versions for patching: https://linuxcontainers.org/distrobuilder/docs/latest/tutorials/use/#repack-windows-iso
@@ -99,11 +101,15 @@ apt update
 apt install -y spice-html5 websockify lsof
 ```
 
-Start the VM and the remote access components:
+Start the VM:
 
 ```shell
 incus start winvm
-sleep 1
+```
+
+Start remote access components:
+
+```shell
 SERVER_IP=$(hostname -I | awk '{print $1}')
 nohup websockify --web /usr/share/spice-html5 6080 \
          --unix-target=/run/incus/winvm/qemu.spice \
@@ -113,19 +119,17 @@ echo "SPICE HTML5 console on http://${SERVER_IP}:6080/spice_auto.html"
 
 At the first boot, you'll need to press the `Ctrl+Alt+Delete` button in the upper left corner of the browser page. After restarting, follow the prompts on the default interface. You'll need to wait 5-10 minutes for the ISO to be loaded for the actual installation.
 
-Eventually, the Zabbly icon will appear and spin for at least 10 minutes. Please be patient.
+Eventually, the Zabbly icon will appear and spin for at least 2 minutes. Please be patient.
 
 ![](images/win1.png)
 
 Once the spinning stops, you'll enter the normal Windows VM installation process, similar to PVE operations.
 
-If you need to delete the VM and recreate it due to resource limitations or other reasons, use `pkill -f websockify` to terminate all SPICE signal forwarding, then `incus delete -f winvm` to forcibly delete the VM.
+![](images/win2.jpg)
 
-```shell
-lsof -i :6080
-```
+![](images/win3.jpg)
 
-Check if the PID for the corresponding port still exists to ensure it has completely stopped (if you have signal forwarding for multiple VMs, it's better not to use `pkill` to delete all of them; use `kill -9` to delete the PID for the specific port).
+![](images/win4.jpg)
 
 If the installation is complete, first shut down/exit Windows (from the browser), then remove the ISO device to ensure it boots from the hard disk next time:
 
@@ -134,6 +138,16 @@ incus stop winvm
 incus config device remove winvm install
 incus start winvm
 ```
+
+## Remove the remote component to restart the browser mapping
+
+If you need to delete the VM and recreate it due to resource limitations or other reasons, use `pkill -f websockify` to terminate all SPICE signal forwarding, then `incus delete -f winvm` to forcibly delete the VM.
+
+```shell
+lsof -i :6080
+```
+
+Check if the PID for the corresponding port still exists to ensure it has completely stopped (if you have signal forwarding for multiple VMs, it's better not to use `pkill` to delete all of them; use `kill -9` to delete the PID for the specific port).
 
 ## If it crashes and stops within a few minutes of first startup
 

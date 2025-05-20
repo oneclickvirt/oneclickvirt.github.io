@@ -26,7 +26,7 @@ snap install distrobuilder --classic
 reboot
 ```
 
-下载镜像并进行修补，如果你使用的是别的镜像，自行替换下载链接
+下载镜像并进行修补，如果你使用的是别的镜像，自行替换下载链接(不需要下载自带virtio的镜像，原始的镜像就够了)
 
 自行下载Windows镜像的地址：https://down.idc.wiki/ISOS/Windows/
 
@@ -52,7 +52,9 @@ rm -f win.iso
 
 ## 创建虚拟机并挂载安装ISO
 
-这里我使用的配置是3核5G内存30G硬盘，如果使用的是windows10等更新版本的镜像，至少需要4核6G内存40G硬盘，建议使用比我现在设置的资源更多的CPU和内存(主要是内存)，避免系统卡到崩溃。
+这里我使用的配置是3核5G内存30G硬盘，如果使用的是windows10等更新版本的镜像，至少需要4核6G内存40G硬盘。
+
+建议使用比我现在设置的资源更多的CPU和内存(主要是内存)，避免系统卡到崩溃。
 
 如果内存不够用，建议查看本指南的其他实用项目中的添加SWAP项目，自行添加更多虚拟内存。
 
@@ -101,11 +103,15 @@ apt update
 apt install -y spice-html5 websockify lsof
 ```
 
-启动虚拟机和远程访问的组件
+启动虚拟机
 
 ```shell
 incus start winvm
-sleep 1
+```
+
+无问题后启动远程访问的组件
+
+```shell
 SERVER_IP=$(hostname -I | awk '{print $1}')
 nohup websockify --web /usr/share/spice-html5 6080 \
          --unix-target=/run/incus/winvm/qemu.spice \
@@ -113,21 +119,21 @@ nohup websockify --web /usr/share/spice-html5 6080 \
 echo "SPICE HTML5 console on http://${SERVER_IP}:6080/spice_auto.html"
 ```
 
+浏览器打开输出提示的地址
+
 首次启动需要按浏览器页面左上角的```Ctrl+Alt+Delete```按钮，重启后在默认的界面按照提示，按回车等待5~10分钟才会正式装载ISO进行实际的安装
 
-最终会显示Zabbly的图标，这个图标在这里转圈圈需要至少10分钟，请耐心等待。
+最终会显示Zabbly的图标，这个图标在这里转圈圈需要至少2分钟，请耐心等待。
 
 ![](images/win1.png)
 
 转圈圈完毕就会进入正常的Win虚拟机安装流程，类比PVE的操作即可。
 
-如果发现资源没给够等原因需要删虚拟机重新开设，那么需要使用```pkill -f websockify```终止所有的spice信号转发，然后```incus delete -f winvm```强行删除虚拟机。
+![](images/win2.jpg)
 
-```shell
-lsof -i :6080
-```
+![](images/win3.jpg)
 
-查询对应端口的PID号是否还存在，确保已完全停止(如果你有多个虚拟机的信号转发，那么最好不要用```pkill```删除所有，用```kill -9```删除对应端口的PID即可)。
+![](images/win4.jpg)
 
 如果已经安装完成，先关闭/退出Windows(在浏览器上关机)，然后移除 ISO 设备，保证下次从硬盘启动
 
@@ -136,6 +142,16 @@ incus stop winvm
 incus config device remove winvm install
 incus start winvm
 ```
+
+## 删除远程组件重新启动浏览器映射
+
+如果发现资源没给够等原因需要删虚拟机重新开设，那么需要使用```pkill -f websockify```终止所有的spice信号转发，然后```incus delete -f winvm```强行删除虚拟机。
+
+```shell
+lsof -i :6080
+```
+
+查询对应端口的PID号是否还存在，确保已完全停止(如果你有多个虚拟机的信号转发，那么最好不要用```pkill```删除所有，用```kill -9```删除对应端口的PID即可)。
 
 ## 如果首次启动没过几分钟就崩溃停机了
 
