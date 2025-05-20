@@ -140,7 +140,7 @@ incus start winvm
 需要添加CPU直通
 
 ```shell
-incus config set winvm raw.qemu -- "-device intel-hda -device hda-duplex cpu host"
+incus config set winvm raw.qemu -- "-cpu host"
 ```
 
 再次启动虚拟机即可
