@@ -89,10 +89,12 @@ SERVER_IP=$(hostname -I | awk '{print $1}')
 nohup websockify --web /usr/share/spice-html5 6080 \
   --unix-target=/run/incus/winvm/qemu.spice \
   > /var/log/websockify-winvm.log 2>&1 &
-echo "请在浏览器中访问："
-echo "    http://${SERVER_IP}:6080/spice_auto.html?port=6080"
-echo "首次启动需要按Ctrl+Alt+Delete按钮，重启后按回车等待5~10分钟才会正式装载ISO进行实际的安装显示Zabbly的图标"
+echo "请在浏览器中访问：http://${SERVER_IP}:6080/spice_auto.html?port=6080"
 ```
+
+首次启动需要按浏览器页面左上角的```Ctrl+Alt+Delete```按钮，重启后在默认的界面按照提示，按回车等待5~10分钟才会正式装载ISO进行实际的安装
+
+最终会显示Zabbly的图标，这个图标在这里转圈圈需要至少10分钟，请耐心等待。
 
 ![](images/win1.png)
 
@@ -102,7 +104,7 @@ echo "首次启动需要按Ctrl+Alt+Delete按钮，重启后按回车等待5~10�
 lsof -i :6080
 ```
 
-查询对应端口的PID号，使用```kill -9```删除
+查询对应端口的PID号，使用```kill -9```删除，或者```pkill -f websockify```终止。
 
 如果已经安装完成，先关闭/退出Windows(在浏览器上关机)，然后移除 ISO 设备，保证下次从硬盘启动
 
