@@ -104,12 +104,9 @@ apt install -y spice-html5 websockify lsof
 ```shell
 incus start winvm
 sleep 1
-SOCKET=$(ls ~/.config/incus/sockets/*.spice | \
-         grep "$(incus info winvm | awk '/^  ID:/ {print $2}')" | \
-         tail -n1)
 SERVER_IP=$(hostname -I | awk '{print $1}')
 nohup websockify --web /usr/share/spice-html5 6080 \
-         --unix-target="$SOCKET" \
+         --unix-target="/root/spice.socket" \
        > /var/log/websockify-winvm.log 2>&1 &
 echo "SPICE HTML5 console on http://${SERVER_IP}:6080/spice_auto.html"
 ```
