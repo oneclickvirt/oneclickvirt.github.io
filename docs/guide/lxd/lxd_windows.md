@@ -92,3 +92,11 @@ echo "SPICE HTML5 console on http://${SERVER_IP}:6080/spice_auto.html"
 首次启动需要按浏览器页面左上角的```Ctrl+Alt+Delete```按钮，重启后在默认的界面按照提示，按回车等待5~10分钟才会正式装载ISO进行实际的安装
 
 最终会显示三个立方体的图标，这个图标在这里转圈圈需要至少2分钟，请耐心等待。
+
+
+
+```shell
+lxc stop winvm
+lxc config device remove winvm install
+lxc start winvm
+```
