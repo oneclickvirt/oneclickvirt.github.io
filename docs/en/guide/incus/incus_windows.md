@@ -95,9 +95,7 @@ Start remote access components:
 
 ```shell
 SERVER_IP=$(hostname -I | awk '{print $1}')
-nohup websockify --web /usr/share/spice-html5 6080 \
-         --unix-target=/run/incus/winvm/qemu.spice \
-       > /var/log/websockify-winvm.log 2>&1 &
+nohup websockify --web /usr/share/spice-html5 6080 --unix-target=/run/incus/winvm/qemu.spice > /var/log/websockify-winvm.log 2>&1 &
 echo "SPICE HTML5 console on http://${SERVER_IP}:6080/spice_auto.html"
 ```
 
@@ -113,9 +111,21 @@ Once the spinning stops, you'll enter the normal Windows VM installation process
 
 ![](images/win3.jpg)
 
+Here the hard disk can not be selected, choose to view the yellow tips in the lower left corner, and then follow the prompts will be offline hard disk online point to confirm the button, you can select the hard disk.
+
+![](images/wintj.jpg)
+
+![](images/wincf.jpg)
+
 ![](images/win4.jpg)
 
-If the installation is complete(Execute to blue screen, mouse stuck and can't move, wait more than 5 minutes), first shut down/exit Windows (from the browser), then remove the ISO device to ensure it boots from the hard disk next time:
+Once the installation is complete, the virtual machine will automatically reboot a few times to update the network, and the web side of spice will show up in the user setup interface, while in the background you can use the ```incus list``` to see that the network is automatically attached.
+
+![](images/win5.jpg)
+
+![](images/win7.jpg)
+
+After setting up the user to enter the system login page, execute the following command to shut down/exit Windows, then remove the ISO device to ensure that the next boot is from the hard disk, and then start the virtual machine again.
 
 ```shell
 incus stop winvm
@@ -123,13 +133,9 @@ incus config device remove winvm install
 incus start winvm
 ```
 
-The following image can be seen after startup
-
-![](images/win5.jpg)
+The following image can be seen after startup (test visit a website)
 
 ![](images/win6.jpg)
-
-![](images/win7.jpg)
 
 No need to configure your own network, incus will automatically assign IPV4 addresses and connect to the network.
 

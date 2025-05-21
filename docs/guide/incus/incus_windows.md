@@ -97,9 +97,7 @@ incus start winvm
 
 ```shell
 SERVER_IP=$(hostname -I | awk '{print $1}')
-nohup websockify --web /usr/share/spice-html5 6080 \
-         --unix-target=/run/incus/winvm/qemu.spice \
-       > /var/log/websockify-winvm.log 2>&1 &
+nohup websockify --web /usr/share/spice-html5 6080 --unix-target=/run/incus/winvm/qemu.spice > /var/log/websockify-winvm.log 2>&1 &
 echo "SPICE HTML5 console on http://${SERVER_IP}:6080/spice_auto.html"
 ```
 
@@ -117,9 +115,21 @@ echo "SPICE HTML5 console on http://${SERVER_IP}:6080/spice_auto.html"
 
 ![](images/win3.jpg)
 
+这里硬盘不可选中，选择在左下角查看黄色的提示，然后按照提示将脱机的硬盘联机点确认按钮，就可以选中硬盘了。
+
+![](images/wintj.jpg)
+
+![](images/wincf.jpg)
+
 ![](images/win4.jpg)
 
-如果已经安装完成(执行到蓝屏，鼠标卡住不能动了，等待超过5分钟)，先关闭/退出Windows(在浏览器上关机)，然后移除 ISO 设备，保证下次从硬盘启动
+安装完成后，虚拟机会自动重新启动几次更新网络，spice的网页端显示进入用户设置界面，同时后台可使用```incus list```查看到网络被自动附加。
+
+![](images/win5.jpg)
+
+![](images/win7.jpg)
+
+设置完用户进入系统登录页面后，执行下述命令关闭/退出Windows，然后移除 ISO 设备，保证下次从硬盘启动，然后再次启动虚拟机
 
 ```shell
 incus stop winvm
@@ -127,13 +137,9 @@ incus config device remove winvm install
 incus start winvm
 ```
 
-启动后可见如下图
-
-![](images/win5.jpg)
+启动后可见如下图(测试访问一个网站)
 
 ![](images/win6.jpg)
-
-![](images/win7.jpg)
 
 无需自行进行网络配置，incus将自动分配IPV4地址和连接网络
 
