@@ -175,7 +175,8 @@ function getGuideSidebarZhCN() {
       items: [
         { text: '系统和硬件配置要求', link: '/guide/lxd/lxd_precheck.html' },
         { text: 'LXD主体安装', link: '/guide/lxd/lxd_install.html' },
-        { text: 'LXC虚拟化', link: '/guide/lxd/lxd_lxc.html' },
+        { text: 'Linux容器(LXC)', link: '/guide/lxd/lxd_lxc.html' },
+        { text: 'Windows虚拟机(QEMU)', link: '/guide/lxd/lxd_windows.html' },
         { text: '更多配置', link: '/guide/lxd/lxd_extra_config.html' },
         { text: '自定义', link: '/guide/lxd/lxd_custom.html' },
         { text: '致谢', link: '/guide/lxd/lxd_thanks.html' },
@@ -303,7 +304,8 @@ function getGuideSidebarEnUS() {
       items: [
         { text: 'Configuration requirements', link: '/en/guide/lxd/lxd_precheck.html' },
         { text: 'LXD main installation', link: '/en/guide/lxd/lxd_install.html' },
-        { text: 'LXC Virtualization', link: '/en/guide/lxd/lxd_lxc.html' },
+        { text: 'Linux Container(LXC)', link: '/en/guide/lxd/lxd_lxc.html' },
+        { text: 'Windows Virtual Machine(QEMU)', link: '/en/guide/lxd/lxd_windows.html' },
         { text: 'Extra configuration', link: '/en/guide/lxd/lxd_extra_config.html' },
         { text: 'Custom', link: '/en/guide/lxd/lxd_custom.html' },
         { text: 'Acknowledgements', link: '/en/guide/lxd/lxd_thanks.html' },

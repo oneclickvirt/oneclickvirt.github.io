@@ -1,3 +1,8 @@
+---
+outline: deep
+---
+
+# 在 LXD 中运行 Windows 虚拟机
 
 ## 检查 lxd 驱动
 
@@ -16,15 +21,14 @@ lxc info | grep -i driver:
 ```shell
 apt update
 apt install -y snapd libguestfs-tools wimtools rsync libhivex-bin libwin-hivex-perl genisoimage || apt install -y mkisofs
-sudo snap install lxd-imagebuilder --classic --edge
+snap install lxd-imagebuilder --classic --edge
+# 重启加载一些配置
 reboot
 ```
 
 下载镜像并进行修补，如果你使用的是别的镜像，自行替换下载链接(不需要下载自带virtio的镜像，原始的镜像就够了)
 
 自行下载Windows镜像的地址：https://down.idc.wiki/ISOS/Windows/
-
-支持修补的Windows镜像版本：https://linuxcontainers.org/distrobuilder/docs/latest/tutorials/use/#repack-windows-iso
 
 下面的指南将以windows2019作为示例进行
 
@@ -93,10 +97,58 @@ echo "SPICE HTML5 console on http://${SERVER_IP}:6080/spice_auto.html"
 
 最终会显示三个立方体的图标，这个图标在这里转圈圈需要至少2分钟，请耐心等待。
 
+![](images/win1.png)
 
+转圈圈完毕就会进入正常的Win虚拟机安装流程，类比PVE的操作即可。
+
+![](images/win2.jpg)
+
+![](images/win3.jpg)
+
+![](images/win4.jpg)
+
+如果已经安装完成(执行到蓝屏，鼠标卡住不能动了，等待超过5分钟)，先关闭/退出Windows(在浏览器上关机)，然后移除 ISO 设备，保证下次从硬盘启动
 
 ```shell
 lxc stop winvm
 lxc config device remove winvm install
 lxc start winvm
 ```
+
+启动后可见如下图
+
+![](images/win5.jpg)
+
+![](images/win6.jpg)
+
+![](images/win7.jpg)
+
+无需自行进行网络配置，lxd将自动分配IPV4地址和连接网络
+
+## 删除远程组件重新启动浏览器映射
+
+如果发现资源没给够等原因需要删虚拟机重新开设，那么需要使用```pkill -f websockify```终止所有的spice信号转发，然后```lxc delete -f winvm```强行删除虚拟机。
+
+```shell
+lsof -i :6080
+```
+
+查询对应端口的PID号是否还存在，确保已完全停止(如果你有多个虚拟机的信号转发，那么最好不要用```pkill```删除所有，用```kill -9```删除对应端口的PID即可)。
+
+## 如果首次启动没过几分钟就崩溃停机了
+
+需要添加CPU直通
+
+```shell
+lxc config set winvm raw.qemu -- "-cpu host"
+```
+
+再次启动虚拟机即可
+
+## 缺点
+
+前端无权限校验，没法设置用户密码
+
+如果需要前端鉴权，那么得使用```Guacamole```添加一些设置来实现，这里就不赘述了
+
+虚拟机这块没有成型的一些交互面板和适配，```spice```太[古老](https://docs.redhat.com/zh-cn/documentation/red_hat_enterprise_linux/9/html/considerations_in_adopting_rhel_9/ref_changes-to-spice_assembly_virtualization)了(虽然有网页端的spice客户端)，官方的面板又不支持rbac使用用户名密码，只能通过证书使用
