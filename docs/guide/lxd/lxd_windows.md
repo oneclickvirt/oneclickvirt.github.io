@@ -1,7 +1,17 @@
 
+## 检查 lxd 驱动
+
+确保```lxc info```输出中含有```qemu```，否则无法创建VM：
+
 ```shell
 lxc info | grep -i driver:
 ```
+
+若显示只有```lxc```，则lxd的驱动不支持开设虚拟机，不需要看后续的教程了。
+
+## 准备环境和修补镜像
+
+在```/root```目录下按顺序执行以下命令：
 
 ```shell
 apt update
@@ -52,15 +62,22 @@ lxc config device add winvm vtpm tpm path=/dev/tpm0
 lxc config device add winvm install disk source=/root/win.lxd.iso boot.priority=10
 ```
 
+## 启动虚拟机并通过浏览器远程访问桌面
+
+安装浏览器访问所需组件
+
 ```shell
 apt update
 apt install -y spice-html5 websockify lsof
 ```
 
+启动虚拟机
+
 ```shell
 lxc start winvm
 ```
 
+无问题后启动远程访问的组件
 
 ```shell
 SERVER_IP=$(hostname -I | awk '{print $1}')
@@ -69,3 +86,9 @@ nohup websockify --web /usr/share/spice-html5 6080 \
          > /var/log/websockify-winvm.log 2>&1 &
 echo "SPICE HTML5 console on http://${SERVER_IP}:6080/spice_auto.html"
 ```
+
+浏览器打开输出提示的地址
+
+首次启动需要按浏览器页面左上角的```Ctrl+Alt+Delete```按钮，重启后在默认的界面按照提示，按回车等待5~10分钟才会正式装载ISO进行实际的安装
+
+最终会显示三个立方体的图标，这个图标在这里转圈圈需要至少2分钟，请耐心等待。
