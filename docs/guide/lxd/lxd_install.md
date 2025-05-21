@@ -29,6 +29,12 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/lxdinsta
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/lxdinstall.sh -o lxdinstall.sh && chmod +x lxdinstall.sh && bash lxdinstall.sh
 ```
 
+或
+
+```shell
+bash lxdinstall.sh
+```
+
 初始化配置的例子：
 
 如果系统盘除去已占用空间还有18G硬盘空余，想开2G虚拟内存(2048MB的SWAP)，15G的存储池，按照命令行的提示则依次输入```2048```和```15```
