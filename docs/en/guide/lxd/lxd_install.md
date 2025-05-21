@@ -16,7 +16,7 @@ If this is a new server, make sure that both ```apt update``` and ```apt install
 It's recommended to wait for at least 5 minutes after the system boots up before executing the following commands. This is to avoid the script being executed by the default system settings, which could cause issues with apt sources.
 :::
 
-- Prerequisites: Ubuntu 18+ (recommended), Debian 8+ (x86_64 architecture only)
+- Prerequisites: Ubuntu 18+ (recommended above 20.04), Debian 8+ (recommended above 11)
 - The virtual memory here is talking about the size of the SWAP to be opened, and the storage pool is the sum of the sizes of the disks occupied by all your servers to be opened
 - The server needs to be restarted after the environment installation process to load some default configurations
 - By default, lxd's lxcfs-related configuration is enabled, so that in-container querying of container information changes to information about the container itself rather than the host
