@@ -69,8 +69,8 @@ echo '*/1 * * * * curl -m 6 -s ipv6.ip.sb || curl -m 6 -s ipv6.ip.sb' | crontab 
 ### 使用方法
 
 - 系统支持：
-  - x86_64架构的详见 [跳转](https://github.com/oneclickvirt/kvm_images/releases/tag/v1.0) 中列出的系统，使用时只需写文件名字，不需要.qcow2尾缀
-  - arm架构的详见 [跳转](http://cloud-images.ubuntu.com/) 中列出的系统，使用时只需要写系统名字+系统版本号，如ubuntu20、ubutnu22这种
+  - x86_64架构的详见 [pve_kvm_images](https://github.com/oneclickvirt/pve_kvm_images) 或 [kvm_images](https://github.com/oneclickvirt/kvm_images) 中列出的系统，使用时只需写文件名字，不需要.qcow2尾缀
+  - arm架构的详见 [ubuntu](http://cloud-images.ubuntu.com/) 或 [debian](https://cloud.debian.org/) 中列出的系统，使用时只需要写系统名字+系统版本号，如ubuntu20、ubutnu22、debian11、debian12这种
 
 :::tip
 注意这里的用户名不能是纯数字，会造成cloudinit出问题，最好是纯英文或英文开头
