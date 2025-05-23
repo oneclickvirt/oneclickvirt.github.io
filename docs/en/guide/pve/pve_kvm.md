@@ -34,7 +34,6 @@ Executing the above commands in the opened virtual machine ensures that the IPV6
 - Enabled password authentication for login.
 - Enabled root login.
 - Partially pre-installed QEMU guest agent.
-
 - System support:
   - See [pve_kvm_images](https://github.com/oneclickvirt/pve_kvm_images) or [kvm_images](https://github.com/oneclickvirt/kvm) for details on the x86_64 architecture, you only need to write the system name + system version number, such as ubuntu20, ubutnu22, debian11, debian12, and so on.
   - For arm architecture, see the systems listed in [ubuntu](http://cloud-images.ubuntu.com/) or [debian](https://cloud.debian.org/), you only need to write the system name + system version number, such as ubuntu20, ubutnu22, debian11, debian12, and so on.
@@ -52,10 +51,6 @@ Executing the above commands in the opened virtual machine ensures that the IPV6
 - Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet
 
 ### Usage Instructions
-
-System Support:
-- For x86_64 architecture systems listed in [this link](https://github.com/oneclickvirt/kvm_images/releases/tag/v1.0), simply use the filename without the .qcow2 extension when using. 
-- For arm architecture systems listed at [this link](http://cloud-images.ubuntu.com/), use the system name and version number, such as ubuntu20 or ubuntu22.
 
 :::tip
 Note that usernames consisting of only numbers may cause issues with cloud-init. It's preferable to use usernames that are entirely in English or start with an English character.
