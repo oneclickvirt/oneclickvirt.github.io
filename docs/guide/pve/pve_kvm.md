@@ -43,16 +43,9 @@ echo '*/1 * * * * curl -m 6 -s ipv6.ip.sb || curl -m 6 -s ipv6.ip.sb' | crontab 
 - 开启允许密码验证登陆
 - 开启允许root登陆
 - 部分预安装Qemu-guest-agent
-
-目前可使用的镜像名字的列表为
-
-[https://github.com/oneclickvirt/kvm_images/blob/main/list.text](https://github.com/oneclickvirt/kvm_images/blob/main/list.text)
-
-以及
-
-[https://github.com/oneclickvirt/pve_kvm_images](https://github.com/oneclickvirt/pve_kvm_images)
-
-仓库的Release中存储的每日修补镜像
+- 系统支持：
+  - x86_64架构的详见 [pve_kvm_images](https://github.com/oneclickvirt/pve_kvm_images) 或 [kvm_images](https://github.com/oneclickvirt/kvm_images) 中列出的系统，使用时只需要写系统名字+系统版本号，如ubuntu20、ubutnu22、debian11、debian12这种
+  - arm架构的详见 [ubuntu](http://cloud-images.ubuntu.com/) 或 [debian](https://cloud.debian.org/) 中列出的系统，使用时只需要写系统名字+系统版本号，如ubuntu20、ubutnu22、debian11、debian12这种
 
 ## 单独开设NAT的虚拟化的虚拟机
 
@@ -67,10 +60,6 @@ echo '*/1 * * * * curl -m 6 -s ipv6.ip.sb || curl -m 6 -s ipv6.ip.sb' | crontab 
 - 可选择是否开启独立IPV6，需要宿主机至少有一个/104的子网，最好是/64的子网
 
 ### 使用方法
-
-- 系统支持：
-  - x86_64架构的详见 [pve_kvm_images](https://github.com/oneclickvirt/pve_kvm_images) 或 [kvm_images](https://github.com/oneclickvirt/kvm_images) 中列出的系统，使用时只需写文件名字，不需要.qcow2尾缀
-  - arm架构的详见 [ubuntu](http://cloud-images.ubuntu.com/) 或 [debian](https://cloud.debian.org/) 中列出的系统，使用时只需要写系统名字+系统版本号，如ubuntu20、ubutnu22、debian11、debian12这种
 
 :::tip
 注意这里的用户名不能是纯数字，会造成cloudinit出问题，最好是纯英文或英文开头
