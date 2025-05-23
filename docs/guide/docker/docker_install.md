@@ -31,11 +31,11 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
 ```
 
-## 环境预设
+## 环境安装
 
 - 检测系统环境，安装对应组件
 - 安装docker和docker-compose，这里有判断为国际服务器还是国内服务器，自动安装对应源的docker
-- 下载默认需要的一些配置脚本
+- 下载默认需要的一些配置脚本，设置默认的网络配置
 - 检测如果存在IPV6地址，检测其是否大于或等于/112，如果符合条件，则配置docker的ipv6的网络
 - 如果上述条件都符合，创建ndpresponder的docker和radvd，使得IPV6的分配支持ndp广播和自动分配
 - 支持x86_64和ARM架构的服务器
