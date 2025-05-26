@@ -99,6 +99,10 @@ Using the oldest version (high-sierra) as an example, the supported configuratio
 
 After the template is set up, you can run `cat vm100` to view information, or check the NOTES in the corresponding VM in the WEB interface.
 
+:::tip
+If you did not install PVE on Debian through this project, but installed PVE directly using the official ISO, and did not merge the local and local-lvm partitions, or the local partition is not enabled to support the VM disk type, then the local in the one-click command above should be changed to local-lvm, and you need to use a VM disk-supporting Partitioning for virtual machine creation
+:::
+
 Here is the information for the example VM:
 
 | Property          | Value       |
