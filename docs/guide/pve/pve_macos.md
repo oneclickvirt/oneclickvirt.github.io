@@ -123,6 +123,10 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 模板开设完毕可执行```cat vm100```查看信息，或到WEB端对应VM的NOTES中查看
 
+:::tip
+如果你不是通过本项目在Debian上安装的PVE，而是直接使用的官方ISO安装的PVE，且没有合并local和local-lvm分区，或者local分区未启用支持虚拟机磁盘类型，那么上面的一键命令中的local请改成local-lvm，需要使用支持虚拟机磁盘的分区进行虚拟机创建
+:::
+
 以下为开设的示例VM的信息：
 
 | 属性                    | 值          |
