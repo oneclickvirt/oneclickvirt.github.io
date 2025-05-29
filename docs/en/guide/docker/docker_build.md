@@ -120,7 +120,7 @@ The following command offload ignores ndpresponder to prevent IPV6 configuration
 ```shell
 docker ps -a --format '{{.Names}}' | grep -vE '^ndpresponder' | xargs -r docker rm -f
 docker images --format '{{.Repository}}:{{.Tag}} {{.ID}}' | grep -v 'ndpresponder' | awk '{print $2}' | xargs -r docker rmi
-rm -rf dclog
+rm -rf dclog test
 ls
 ```
 
