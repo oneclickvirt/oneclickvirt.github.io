@@ -40,6 +40,8 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 - debian
 - ubuntu
 - almalinux
+- rockylinux
+- openeuler
 
 默认不填则是debian
 
