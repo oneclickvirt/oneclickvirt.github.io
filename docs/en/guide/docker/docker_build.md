@@ -34,6 +34,8 @@ Currently, the system only supports selecting:
 - debian
 - ubuntu
 - almalinux
+- rockylinux
+- openeuler
 
 with Debian being the default choice.
 
