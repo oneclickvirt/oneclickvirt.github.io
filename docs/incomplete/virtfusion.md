@@ -53,3 +53,5 @@ curl https://install.virtfusion.net/install-control-ubuntu-24.04.sh | sh -s -- -
 ## 缺点
 
 每台服务器每个邮箱只有一次30天试用的证书，无永久的免费的证书
+
+仅支持 amd64/x86_64 架构
