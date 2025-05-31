@@ -53,3 +53,5 @@ curl https://install.virtfusion.net/install-control-ubuntu-24.04.sh | sh -s -- -
 ## Disadvantages
 
 Only one 30-day trial certificate per server per mailbox, no permanent free certificates
+
+Supports only amd64/x86_64 architectures
