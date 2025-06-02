@@ -18,7 +18,14 @@ Feel free to give the project a ```Star``` for free support!-->[https://github.c
 
 It is recommended that debian try to use the latest stable version of the system before use.
 
-**Do not use this set of scripts in the dynamic IP server (reboot the machine automatically switch the local IP server is not supported, reboot the machine after the IP does not automatically switch the support)**
+**Warning: This project only supports servers with a dedicated public IPv4 address**
+
+This project relies on a fixed IPv4 address for network allocation and does not support the following scenarios:
+
+* Environments with dynamic IPv4 (e.g., servers whose IP address changes after reboot)
+* Environments without a dedicated public IPv4 address (e.g., accessing the internet via home router NAT and requiring DHCP to obtain an address)
+
+If your server does not have a publicly routable static IPv4 address, please do not use this project.
 
 The one-click installation script of this project only adapts to Debian systems, non-Debian can not be installed through the APT source, the official only gives the image of Debian, other systems can only use the ISO installation, or use custom partitions and other ways to solve the problem in the FAQ partition.
 
