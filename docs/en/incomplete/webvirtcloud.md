@@ -8,8 +8,6 @@ outline: deep
 
 Repository: <https://github.com/oneclickvirt/webvirtcloud>
 
-Original project repository: <https://github.com/webvirtcloud/webvirtcloud>
-
 ## 1. Controller Installation
 
 ### System Requirements
@@ -357,7 +355,3 @@ docker start $(docker ps -a -q)
 System images are hard-coded; you can't use your own custom images, nor export them for use.
 
 This is not the same project as https://github.com/retspen/webvirtcloud, don't confuse them.
-
-## Acknowledgements
-
-<https://webvirt.cloud/>
