@@ -21,7 +21,7 @@ outline: deep
 - 系统：Debian11+，Ubuntu20.04+, Centos8+, AlmaLinux8+, RockyLinux8+
 
 ### 默认登录信息
-- 用户名: `admin@webvirt.cloud`
+- 用户名: `admin@spiritlhl.net`
 - 密码: `admin`
 
 ### 面板地址
