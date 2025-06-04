@@ -19,7 +19,7 @@ Repository: <https://github.com/oneclickvirt/webvirtcloud>
 - System: Debian11+, Ubuntu20.04+, Centos8+, AlmaLinux8+, RockyLinux8+
 
 ### Default Login Information
-- Username: `admin@webvirt.cloud`
+- Username: `admin@spiritlhl.net`
 - Password: `admin`
 
 ### Panel Access
