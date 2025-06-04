@@ -379,3 +379,5 @@ docker start $(docker ps -a -q)
 系统镜像是写死的，没法使用自己制作的自定义镜像，也没办法导出使用。
 
 同 https://github.com/retspen/webvirtcloud 不是同一个项目，不要搞混淆了。
+
+![webvirtcloud](images/webvirtcloud.png)
