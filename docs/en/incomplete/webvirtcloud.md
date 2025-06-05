@@ -8,6 +8,8 @@ outline: deep
 
 Repository: <https://github.com/oneclickvirt/webvirtcloud>
 
+The original official deleted the project is no longer maintained, here can only be deployed with my personal fixes and changes to the code.
+
 ## 1. Controller Installation
 
 ### System Requirements
