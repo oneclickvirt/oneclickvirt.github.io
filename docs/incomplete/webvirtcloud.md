@@ -8,7 +8,7 @@ outline: deep
 
 仓库地址: <https://github.com/oneclickvirt/webvirtcloud>
 
-官方删除了项目不再维护了，这里只能用我个人修改过的归档的内容进行部署
+原官方删除了项目不再维护了，这里只能用我个人修复和更改后的代码进行部署。
 
 ## 1. 控制端安装
 
