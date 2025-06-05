@@ -168,6 +168,12 @@ All port mapping information is saved in the `/etc/vm_port_mapping/mapping.txt` 
 VM name IP address MAC address SSH mapped port Extra ports start Extra ports end
 ```
 
+This can be viewed using the following command
+
+```shell
+cat /etc/vm_port_mapping/mapping.txt
+```
+
 For example:
 ```
 Virtance-1 192.168.33.114 52:54:00:5f:77:92 21422 31400 31409
