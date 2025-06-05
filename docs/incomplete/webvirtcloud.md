@@ -187,11 +187,19 @@ Error: Failed to add 'br-ext' connection: connection.autoconnect-ports: unknown 
 #### 映射文件
 
 所有端口映射信息保存在 `/etc/vm_port_mapping/mapping.txt` 文件中，格式为：
+
 ```
 虚拟机名字 IP地址 MAC地址 SSH映射端口 额外端口起始 额外端口结束
 ```
 
-例如：
+可使用以下命令进行查看
+
+```shell
+cat /etc/vm_port_mapping/mapping.txt
+```
+
+显示示例：
+
 ```
 Virtance-1 192.168.33.114 52:54:00:5f:77:92 21422 31400 31409
 ```
