@@ -12,13 +12,13 @@ outline: deep
 
 **x86_64：**
 
-自动修补镜像：https://github.com/oneclickvirt/lxc_amd64_images/blob/main/fixed_images.txt
+自动修补镜像：https://github.com/oneclickvirt/lxc_amd64_images/blob/main/all_images.txt
 
 :::tip
 每日自动拉取进行编译和修补
 :::
 
-手动修补镜像: https://github.com/oneclickvirt/pve_lxc_images/blob/main/fixed_images.txt
+手动修补镜像: https://github.com/oneclickvirt/pve_lxc_images/blob/main/all_images.txt
 
 :::tip
 其中的部分镜像有缺陷，不保证所有PVE可用，名字为 ```ubuntu16.04```、```debian6```、```centos7```、```opensuse42.2```、```opensuse42.3``` 非必要不要使用。
@@ -34,7 +34,7 @@ outline: deep
 
 **arm：**
 
-[https://github.com/oneclickvirt/lxc_arm_images/blob/main/fixed_images.txt](https://github.com/oneclickvirt/lxc_arm_images/blob/main/fixed_images.txt)
+[https://github.com/oneclickvirt/lxc_arm_images/blob/main/all_images.txt](https://github.com/oneclickvirt/lxc_arm_images/blob/main/all_images.txt)
 
 可在上面的文件中查看支持的系统，其中列出的debian和ubuntu系统不要使用里面的别名，使用数字代号即可。
 

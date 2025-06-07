@@ -21,7 +21,7 @@ outline: deep
 * 版本号可以带英文小数点，为了适配alpine的版本号已支持
 * 开不起来的可能是硬盘或内存不够大或者本身就不适配宿主机，自行尝试查看开不起来的报错
 * 目前使用的容器系统有三重筛选，优先级：[自编译](https://github.com/oneclickvirt/incus_images)、[官方](https://images.linuxcontainers.org/)、[opsmaru](https://images.opsmaru.com/)
-* 自编译镜像完整的支持系统的列表：[x86_64_fixed_images.txt](https://github.com/oneclickvirt/incus_images/blob/main/x86_64_fixed_images.txt) 和 [arm64_fixed_images.txt](https://github.com/oneclickvirt/incus_images/blob/main/arm64_fixed_images.txt)
+* 自编译镜像完整的支持系统的列表：[x86_64_all_images.txt](https://github.com/oneclickvirt/incus_images/blob/main/x86_64_all_images.txt) 和 [arm64_all_images.txt](https://github.com/oneclickvirt/incus_images/blob/main/arm64_all_images.txt)
 
 ## 单独生成一个NAT服务器
 

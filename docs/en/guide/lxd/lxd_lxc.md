@@ -37,7 +37,7 @@ Support for customizing the system of the server, do not fill out the default us
 * The version number can be with English decimal point, in order to adapt to the alpine version number has been supported.
 * If you can't open it, it may be that the hard disk is not big enough or it doesn't fit the host, try it by yourself.
 * The images currently in use are triple filtered and prioritized: [self-hosted](https://github.com/oneclickvirt/lxd_images)、[official-hosted](https://images.lxd.canonical.com/)、[opsmaru](https://images.opsmaru.com/)
-* A complete list of supported systems for self-compiling images: [x86_64_fixed_images.txt](https://github.com/oneclickvirt/lxd_images/blob/main/x86_64_fixed_images.txt) and [arm64_fixed_images.txt](https://github.com/oneclickvirt/lxd_images/blob/main/arm64_fixed_images.txt)
+* A complete list of supported systems for self-compiling images: [x86_64_all_images.txt](https://github.com/oneclickvirt/lxd_images/blob/main/x86_64_all_images.txt) and [arm64_all_images.txt](https://github.com/oneclickvirt/lxd_images/blob/main/arm64_all_images.txt)
 
 
 ### Example

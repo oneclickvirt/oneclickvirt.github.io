@@ -12,13 +12,13 @@ If you need to open more than 200 LXC containers on a single server, then it is 
 
 **x86_64:**
 
-Auto-patching images: https://github.com/oneclickvirt/lxc_amd64_images/blob/main/fixed_images.txt
+Auto-patching images: https://github.com/oneclickvirt/lxc_amd64_images/blob/main/all_images.txt
 
 :::tip
 Automated daily pulls for compilation and patching
 :::
 
-Self-patching images: https://github.com/oneclickvirt/pve_lxc_images/blob/main/fixed_images.txt
+Self-patching images: https://github.com/oneclickvirt/pve_lxc_images/blob/main/all_images.txt
 
 :::tip
 Some of these images are flawed and not guaranteed to be available for all PVEs, with names like ```ubuntu16.04```, ```debian6```, ```centos7```, ```opensuse42.2```, ```opensuse42.3``` Don't use them unless necessary.
@@ -35,7 +35,7 @@ The version has been automatically recognized by a script to use the correspondi
 
 **arm:**
 
-[https://github.com/oneclickvirt/lxc_arm_images/blob/main/fixed_images.txt](https://github.com/oneclickvirt/lxc_arm_images/blob/main/fixed_images.txt)
+[https://github.com/oneclickvirt/lxc_arm_images/blob/main/all_images.txt](https://github.com/oneclickvirt/lxc_arm_images/blob/main/all_images.txt)
 
 Supported systems can be viewed in the file above, which lists debian and ubuntu systems do not use the aliases in it, just use the numeric designators.
 
