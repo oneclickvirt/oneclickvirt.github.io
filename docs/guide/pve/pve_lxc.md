@@ -201,6 +201,7 @@ iptables -t nat -F
 iptables -t filter -F
 ip6tables -t nat -F
 ip6tables -t filter -F
+rm -rf /usr/local/bin/ipv6_nat_rules.sh
 service networking restart
 systemctl restart networking.service
 systemctl restart ndpresponder.service
