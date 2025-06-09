@@ -181,6 +181,9 @@ pct list | awk 'NR>1{print $1}' | xargs -I {} sh -c 'pct stop {}; pct destroy {}
 rm -rf ct*
 iptables -t nat -F
 iptables -t filter -F
+ip6tables -t nat -F
+ip6tables -t filter -F
+rm -rf /usr/local/bin/ipv6_nat_rules.sh
 service networking restart
 systemctl restart networking.service
 systemctl restart ndpresponder.service
@@ -233,12 +236,3 @@ The above command signifies the creation of a container with a pure IPV6 address
 :::tip
 Note that only CTIDs from 100 to 256 can be used here, no other numbers can be used.
 :::
-
-#### Deletion Example
-
-```shell
-rm -rf ct*
-pct stop 152 
-pct destroy 152
-systemctl restart ndpresponder.service
-```
