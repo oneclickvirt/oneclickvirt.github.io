@@ -425,12 +425,3 @@ The above command is used to create a virtual machine with only IPv6 addresses.
 :::tip
 Note that only VMIDs from 100 to 256 can be used here, no other numbers can be used.
 :::
-
-### Delete Example vm152
-
-```shell
-qm stop 152
-qm destroy 152
-systemctl restart ndpresponder.service
-rm -rf vm152
-```
