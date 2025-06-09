@@ -122,7 +122,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 注意这里的CTID仅可使用100到256，其他数字不可用
 :::
 
-## 删除指定容器
+## 自定义删除指定容器
 
 - 停止CT
 - 删除CT
@@ -199,6 +199,8 @@ pct list | awk 'NR>1{print $1}' | xargs -I {} sh -c 'pct stop {}; pct destroy {}
 rm -rf ct*
 iptables -t nat -F
 iptables -t filter -F
+ip6tables -t nat -F
+ip6tables -t filter -F
 service networking restart
 systemctl restart networking.service
 systemctl restart ndpresponder.service
@@ -261,12 +263,3 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 :::tip
 注意这里的CTID仅可使用100到256，其他数字不可用
 :::
-
-#### 删除示例
-
-```shell
-rm -rf ct*
-pct stop 152 
-pct destroy 152
-systemctl restart ndpresponder.service
-```
