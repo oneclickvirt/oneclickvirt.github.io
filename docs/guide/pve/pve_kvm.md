@@ -487,12 +487,3 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 :::tip
 注意这里的VMID仅可使用100到256，其他数字不可用
 :::
-
-### 删除vm152示例
-
-```shell
-qm stop 152
-qm destroy 152
-systemctl restart ndpresponder.service
-rm -rf vm152
-```
