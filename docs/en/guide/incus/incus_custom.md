@@ -4,6 +4,18 @@ outline: deep
 
 # Custom
 
+## Adding a customized mirror source
+
+https://incusimages.spiritlhl.net/
+
+This mirror source is obtained by me through daily patching, and will be updated daily, what exactly is patched can be found at https://github.com/oneclickvirt/incus_images for details.
+
+```shell
+incus remote remove spiritlhl
+incus remote add spiritlhl https://incusimages.spiritlhl.net --protocol simplestreams --public
+incus image list spiritlhl:debian
+```
+
 ## Attach free IPV6 address segments to host machines
 
 Some machines don't have an IPV6 /64 subnet on the machine itself, here is a method given to attach an IPV6 subnet for free.

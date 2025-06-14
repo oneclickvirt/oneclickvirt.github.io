@@ -9,6 +9,18 @@ outline: deep
 
 见 [给机房的Ubuntu22.04安装LXD共享GPU资源-配置web](https://www.spiritysdx.top/20240513/#%E9%85%8D%E7%BD%AEweb) 部分的内容
 
+## 添加自定义的镜像源
+
+https://lxdimages.spiritlhl.net/
+
+本镜像源是本人通过每日修补得到的，每日会进行更新，具体进行了什么修补在 https://github.com/oneclickvirt/lxd_images 可见详细说明。
+
+```shell
+lxc remote remove spiritlhl
+lxc remote add spiritlhl https://lxdimages.spiritlhl.net --protocol simplestreams --public
+lxc image list spiritlhl:debian
+```
+
 ## 给宿主机附加免费的IPV6地址段
 
 有的机器本身没有IPV6的/64子网，这里给出一个方法免费附加IPV6的子网。
