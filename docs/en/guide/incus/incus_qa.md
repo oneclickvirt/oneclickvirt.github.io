@@ -26,6 +26,16 @@ Reboot the system for the changes to take effect
 
 If the above changes still do not support the opening of centos7, try using a different host system.
 
+## Requires both Incus and Docker compatibility to exist
+
+If left unaddressed, docker will override the iptables setting and cause Incus to have no network link
+
+You need to install a scheduled task to detect and fix this issue
+
+```shell
+curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/extra_scripts/docker-coexistence.sh -o docker-coexistence.sh && chmod +x docker-coexistence.sh && bash docker-coexistence.sh
+```
+
 ## Currently verified VPS vendors that can open containers with separate IPV6 addresses.
 
 [kuroit](https://my.kuroit.com/aff.php?aff=5) Phoenix, USA regular
