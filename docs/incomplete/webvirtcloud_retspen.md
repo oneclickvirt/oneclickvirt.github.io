@@ -8,7 +8,7 @@ outline: deep
 
 仓库地址: <https://github.com/oneclickvirt/webvirtcloud>
 
-原项目对应仓库：<https://github.com/retspen/webvirtcloud>
+原项目对应仓库：<https://github.com/oneclickvirt/webvirtcloud_retspen>
 
 ## 控制节点和计算节点同时安装
 
@@ -64,7 +64,7 @@ https://github.com/oneclickvirt/pve_kvm_images/releases/tag/images
 
 ```shell
 cd /var/lib/libvirt/images
-wget https://github.com/oneclickvirt/pve_kvm_images/releases/download/images/debian12.qcow2
+wget https://cdn.spiritlhl.net/https://github.com/oneclickvirt/pve_kvm_images/releases/download/images/debian12.qcow2
 chmod 777 debian12.qcow2
 ```
 
@@ -84,7 +84,7 @@ chmod 777 debian12.qcow2
 
 ![vcr9](images/vcr9.jpg)  
 
-注意这块填写的实例名字不能和系统名字重复，比如示例中就不能填写```debian12```。
+注意这块填写的实例名字不能和刚刚下载的镜像的文件名字重复，比如示例中就不能填写```debian12```。
 
 ![vcr10](images/vcr10.jpg)  
 
@@ -100,6 +100,10 @@ chmod 777 debian12.qcow2
 
 ![vcr13](images/vcr13.jpg)  
 
+修改确认后会在原来的计算节点的存储的```local```卷里看到有一个多余的盘，比如这里的```test.qcow2```，最好删除，避免占用磁盘
+
+![deadimage](images/deadimage.jpg)  
+
 修改完成确认无误后，才可回到电源页面开机。
 
 ![vcr14](images/vcr14.jpg)
@@ -109,3 +113,11 @@ chmod 777 debian12.qcow2
 ## 缺点
 
 网络还是没有自动配置，不如上一个项目智能，还得手动配置一下。
+
+需要在已经开好的虚拟机的VNC中，登录后执行
+
+```shell
+systemctl start cloud-init
+```
+
+手动启用配置。

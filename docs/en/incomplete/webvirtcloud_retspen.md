@@ -8,7 +8,7 @@ outline: deep
 
 Repository: <https://github.com/oneclickvirt/webvirtcloud>
 
-Origin Repository:：<https://github.com/retspen/webvirtcloud>
+Origin Repository:：<https://github.com/oneclickvirt/webvirtcloud_retspen>
 
 ## Controller Node and Computer Node Installation
 
@@ -90,6 +90,10 @@ Change the disk file to `debian12.qcow2`, which matches the qcow2 image you prev
 
 ![vcr13](images/vcr13.jpg)
 
+After the modification is confirmed you will see a redundant disk in the ```local``` volume of the original compute node's storage, such as ```test.qcow2``` here, which is best deleted to avoid hogging the disk
+
+![deadimage](images/deadimage.jpg)  
+
 Once confirmed and configured correctly, return to the power page and turn on the VM.
 
 ![vcr14](images/vcr14.jpg)
@@ -102,3 +106,12 @@ The default login for the image is:
 ## Disadvantages
 
 Networking is not auto-configured — not as smart as the previous project — you still need to configure it manually. 
+
+
+You need to be in the VNC of the opened VM, logged in and execute
+
+```shell
+systemctl start cloud-init
+```
+
+Enable the configuration manually.
