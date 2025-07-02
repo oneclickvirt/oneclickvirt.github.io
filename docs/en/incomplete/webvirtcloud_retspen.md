@@ -103,15 +103,56 @@ The default login for the image is:
 - **Username**: `root`  
 - **Password**: `password` or `oneclickvirt`
 
+
+After booting, you will find that the hard disk is only the size of the original image, at this time you need to adjust the size of the hard disk, you need to shut down the computer again, at this time, you can see the buttons on the following page is available and the size of the hard disk is also recognized.
+
+Without the first boot, the size of the hard disk is not recognized, recognition can not be modified, so the first switch is necessary.
+
+![resize](images/resize.jpg)
+
+After the modification and restart the virtual machine, you will find that there is new disk space unallocated, at this time you need to follow the following method broad disk.
+
+Check the disk path and remaining blank space unallocated:
+
+```shell
+lsblk
+```
+
+Then use the following command to broaden the disk
+
+```shell
+fdisk /dev/vda
+```
+
+Do this in the following order:
+
+Type ```d``` to delete the old partition (yes, you need to delete the old vda1, no data will be lost as it will not be formatted later).
+
+Type ```n``` and enter to create a new partition.
+
+Select primary for type (default p) and just enter.
+
+Partition number is also ```1```.
+
+The start position must be the same as the old partition (default is right), just press enter.
+
+Show if you want to erase fingerprints, type ```Y``` and enter.
+
+Press enter at the end position to use all the remaining space.
+
+Type ```w``` to save and exit.
+
+At this point, use ```lsblk``` to confirm that the new free disk has been successfully allocated.
+
 ## Disadvantages
 
 Networking is not auto-configured — not as smart as the previous project — you still need to configure it manually. 
 
-
 You need to be in the VNC of the opened VM, logged in and execute
 
 ```shell
-systemctl start cloud-init
+systemctl enable cloud-init
+reboot
 ```
 
-Enable the configuration manually.
+Manually enable the configuration to self-start after reboot, then reboot the server and you have internet.
