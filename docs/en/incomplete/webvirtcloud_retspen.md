@@ -110,7 +110,7 @@ Without the first boot, the size of the hard disk is not recognized, recognition
 
 ![resize](images/resize.jpg)
 
-After the modification and restart the virtual machine, you will find that there is new disk space unallocated, at this time you need to follow the following method broad disk.
+After the modification and restart the virtual machine, you will find that there is new disk space unallocated, at this time you need to follow the following method resize disk.
 
 Check the disk path and remaining blank space unallocated:
 
@@ -118,7 +118,7 @@ Check the disk path and remaining blank space unallocated:
 lsblk
 ```
 
-Then use the following command to broaden the disk
+Then use the following command to resizeen the disk
 
 ```shell
 fdisk /dev/vda
