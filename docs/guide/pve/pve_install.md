@@ -10,7 +10,9 @@ outline: deep
 低配置的宿主机，建议所有内容安装完毕后，查看```自定义```分区的内容，进行内存调优，减少内存占用。
 :::
 
-## 一键安装PVE
+## 在非物理机器上进行安装
+
+### 一键安装PVE
 
 :::tip
 建议debian12，实测部分独立服务器的debian11系统会出现一重启网络就失联的情况，debian12没有这种问题
@@ -62,7 +64,7 @@ bash install_pve.sh
 
 登录的信息是你SSH的账户和密码
 
-## 预配置环境
+### 预配置环境
 
 - 创建资源池mypool(local)
 - 移除订阅弹窗
@@ -83,7 +85,7 @@ bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/onecli
 bash <(wget -qO- --no-check-certificate https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/build_backend.sh)
 ```
 
-## 自动配置宿主机的网关
+### 自动配置宿主机的网关
 
 :::warning
 **使用前请保证重启过服务器且此时PVE能正常登录进WEB端再执行，重启机器后不要立即执行此命令，待WEB端启动并可登录成功后至少等1分钟再执行本命令**
@@ -125,3 +127,86 @@ bash <(wget -qO- --no-check-certificate https://cdn.spiritlhl.net/https://raw.gi
 :::tip
 这一步是可能需要你执行成功几分钟后重启系统，详见脚本最后执行完毕的提示，但重启可以保证部分隐藏设置加载成功，有条件务必重启一次服务器
 :::
+
+到这一步主体安装完毕。
+
+## 在物理机器上进行安装
+
+本方法未大规模测试和适配，仅作者本人在本地机器上安装了PVE8.4，如有问题对应仓库再开issues
+
+### U盘刻录官方ISO
+
+官方ISO下载地址：
+
+https://www.proxmox.com/en/downloads/proxmox-virtual-environment/iso
+
+需要提前下载到本地
+
+同时还需要一个读写速率比较好的U盘，用于制作启动盘，由于启动盘需要使用rufus进行启动盘制作，所以需要U盘格式化，需要确保U盘制作前为空U盘
+
+rufus下载地址(下载到你的本地，不是U盘中)：
+
+https://rufus.ie/zh/
+
+或
+
+https://github.com/pbatard/rufus
+
+刻录需要使用DD方式进行刻录，刻录完毕后U盘原数据会被完全擦除。
+
+### PVE主体安装
+
+查找宿主机本身如何进入BIOS，进入BIOS后修改两处地方
+
+1. 安全启动需要关闭
+
+2. Boot的顺序需要将USB的顺序移动到第一位
+
+然后保存设置，然后插入U盘，重新启动系统，选择使用图形界面进行安装
+
+FQDN需要填写一个网址，可以填写类似 pve.spiritlhl.net 这样的网址，最好是你拥有的域名的一个子域名，不是实际的域名的话写成类似 pve.localsite.com 也行，后续不一定用得到
+
+安装完毕后会自动关机重启，重启黑屏后可以拔掉USB，避免又从U盘重启安装了，当然如果忘了又重启到安装页面了，关闭机器后拔掉U盘再启动也行
+
+### 无线网络配置
+
+下载所需的压缩文件和shell脚本
+
+https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/refs/heads/main/extra_scripts/wireless/wireless.zip
+
+https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/refs/heads/main/extra_scripts/wireless/wireless.sh
+
+下载完成后，解压压缩包，将```wireless```的文件夹拖入一个新的U盘的根目录，同时```wireless.sh```文件也得放到根目录。
+
+U盘插到物理机器后，需要挂载U盘，这里的sdx1是第一条命令查询到的U盘的实际路径，需要自行修改
+
+```shell
+fdisk -l
+mount /dev/sdx1 /mnt
+```
+
+U盘内的```wireless.zip```需要确保已解压，打开可见其中的deb文件
+
+此时直接执行一键配置
+
+```shell
+bash /mnt/wireless.sh
+```
+
+配置完毕会自动重启系统，重启后会有公共网络
+
+配置脚本执行过程中会提示输入WIFI的名字和密码，由于纯CI环境无中文输入法，WIFI的名字必须仅英文数字组成，密码也是
+
+### 其他相关默认配置
+
+下载脚本，类似上面一步那样导入文件
+
+https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/refs/heads/main/extra_scripts/wireless/default.sh
+
+使用前务必确保```curl ip.sb```无问题
+
+```shell
+bash default.sh
+```
+
+执行会非常耗时，但装完后会自带xfce的桌面环境，且换源阿里云，且去除无效订阅，且设置合并local和loacl-lvm，且设置清华镜像容器源
