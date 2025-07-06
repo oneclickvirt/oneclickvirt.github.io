@@ -132,7 +132,7 @@ bash <(wget -qO- --no-check-certificate https://cdn.spiritlhl.net/https://raw.gi
 
 ## 在物理机器上进行安装
 
-本方法未大规模测试和适配，仅作者本人在本地机器上安装了PVE8.4，如有问题对应仓库再开issues
+本方法未大规模测试和适配，仅作者本人在本地机器上安装了PVE8.4，路由器本身使用的不是 自动获取IP地址 而是 固定IP地址连接 的方式，如有问题对应仓库再开issues
 
 ### U盘刻录官方ISO
 
