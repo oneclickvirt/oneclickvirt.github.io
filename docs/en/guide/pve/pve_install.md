@@ -180,3 +180,7 @@ bash /mnt/wireless.sh
 After the configuration is complete, the system will automatically reboot and the public network will be available after the reboot.
 
 During the execution of the configuration script, you will be prompted to enter the name and password of the WIFI. Since there is no Chinese input method in the pure CI environment, the name of the WIFI must be composed of English numbers only, and the password must be the same.
+
+### Cautions
+
+Physical machines can not use NAT to directly connect virtual machines to access the network after the installation of unlimited modules, so the project's subsequent tutorials do not support this method of access to the bridge, the project's subsequent tutorials only support the installation of the PVE on non-physical machines (through the automatic configuration of the host gateway of the PVE)
