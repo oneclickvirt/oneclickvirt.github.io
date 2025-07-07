@@ -16,6 +16,7 @@ If this is a new server, make sure that both ```update``` and ```curl``` are wor
 - The virtual memory here is talking about the size of the SWAP to be opened, and the storage pool is the sum of the sizes of the disks occupied by all your servers to be opened
 - The server needs to be restarted after the environment installation process to load some default configurations
 - By default, lxd's lxcfs-related configuration is enabled, so that in-container querying of container information changes to information about the container itself rather than the host
+- This installer has been tested to work on either physical or non-physical machines
 
 Command:
 

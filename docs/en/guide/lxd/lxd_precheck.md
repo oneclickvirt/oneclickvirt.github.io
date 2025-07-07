@@ -13,11 +13,11 @@ Feel free to give the project a ```Star``` for free support!-->[https://github.c
 ## Requirements
 
 Hardware requirements.
-- System: Debian 8+, Ubuntu 18+ (20.04 recommended).
+- System: Debian 8+, Ubuntu 18+ (22.04 recommended).
 - Virtualization: KVM, VMWARE recommended.
 - Memory: At least 512MB of RAM
 - Hard disk: hard disk (system disk) at least 10G
-- Network: Independent IPV4 address, IPV6 is optional, bandwidth can download scripts on the line, the network can connect to the Github raw page on the line
+- Network: Independent IPV4 address, IPV6 is optional, bandwidth can download scripts on the line, the network can connect to the public network.
 
 PS: If the hardware is very good and has a lot of resources, you can use PVE to batch open KVM virtualized VMs [Jump](https://github.com/oneclickvirt/pve)
 

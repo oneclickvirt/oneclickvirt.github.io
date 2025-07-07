@@ -12,6 +12,8 @@ For low-configuration hosts, it is recommended to check the contents of the ```C
 
 ## Installation on non-physical machines
 
+Proxmox installed by this method can subsequently use all scripts of this project.
+
 ### One-click PVE installation
 
 :::tip
@@ -116,7 +118,9 @@ To this point the main body is installed.
 
 ## Installation on a physical machine
 
-This method has not been tested and adapted on a large scale, only the author himself installed PVE8.4 on the local machine, if there are problems corresponding to the warehouse and then open issues
+Proxmox installed by this method **NOT** to be used subsequently with all scripts of this project.
+
+This method has not been tested and adapted on a large scale, only I installed PVE8.4 on the local machine, the router itself is not ```automatically obtain an IP address``` but ```fixed IP address connection``` way, if there is a problem corresponding to the warehouse open issues.
 
 ### U disk burning official ISO
 
@@ -183,4 +187,6 @@ During the execution of the configuration script, you will be prompted to enter 
 
 ### Cautions
 
-Physical machines can not use NAT to directly connect virtual machines to access the network after the installation of unlimited modules, so the project's subsequent tutorials do not support this method of access to the bridge, the project's subsequent tutorials only support the installation of the PVE on non-physical machines (through the automatic configuration of the host gateway of the PVE)
+Physical machine after the installation of unlimited modules can not use NAT to connect directly to the virtual machine to access the network, so the subsequent tutorials of this project does not support this method of access to the bridge, the subsequent scripts of this project does not support this method of installation of Proxmox.
+
+Currently feasible wireless module used on the PVE success stories, are required to WIFI router access to the network is ```automatically obtain an IP address (DHCP)``` (the subsequent use of openwrt or ikuai or directly nat after the network available within the virtual machine), or can be modified in the router static routing table, if the WIFI router to use a ```fixed IP address Connection to the network```, for the time being did not find success stories.
