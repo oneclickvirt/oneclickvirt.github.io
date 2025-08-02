@@ -21,7 +21,7 @@ Suggest debian12, the actual test part of the independent server debian11 system
 :::
 
 - The installation is the latest PVE from the apt source at the moment.
-- For example, debian10 is pve6.4, debian11 is pve7.x, debian12 is pve8.x
+- For example, debian10 is pve6.4, debian11 is pve7.x, debian12 is pve8.x, debian13 is pve9.x
 - Changes to the ```/etc/hosts``` file (to fix the wrong hostname setting for merchants and to add the required content for PVE)
 - ```/etc/cloud/cloud.cfg``` file modification (to avoid overwriting modified hostname etc.)
 - ```/etc/network/interfaces``` file modification (fix auto, dhcp type to static, add vmbr0 gateway)

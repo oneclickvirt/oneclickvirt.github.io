@@ -21,7 +21,7 @@ outline: deep
 :::
 
 - 安装的是当下apt源最新的PVE
-- 比如debian10则是pve6.4，debian11则是pve7.x，debian12则是pve8.x
+- 比如debian10则是pve6.4，debian11则是pve7.x，debian12则是pve8.x，debian13则是pve9.x
 - ```/etc/hosts```文件修改(修正商家hostname设置错误以及新增PVE所需的内容)
 - ```/etc/cloud/cloud.cfg```文件修改(避免覆写已修改的hostname等配置)
 - ```/etc/network/interfaces```文件修改(修复auto、dhcp类型为static、增加vmbr0网关)
