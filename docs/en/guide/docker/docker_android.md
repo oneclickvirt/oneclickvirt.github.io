@@ -55,3 +55,9 @@ rm -rf /etc/nginx/sites-available/reverse-proxy
 rm -rf /etc/nginx/passwd_scrcpy_web
 rm -rf /root/android_info
 ```
+
+## Install the APK file
+
+Click ```list files``` to open the file directory, switch to the ```/storage/emulated/0/Download``` directory, drag and drop the ```apk``` into it to install it, and wait for the progress to finish running, and the apk will be uploaded to the Android container.
+
+At this point, go back to the Android interface, open the file manager, it will show the file you just uploaded, click on it to install.

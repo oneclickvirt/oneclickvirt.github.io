@@ -62,3 +62,9 @@ rm -rf /etc/nginx/sites-available/reverse-proxy
 rm -rf /etc/nginx/passwd_scrcpy_web
 rm -rf /root/android_info
 ```
+
+## 安装APK文件
+
+点击```list files```打开文件目录，切换到```/storage/emulated/0/Download```目录，把```apk```拖拽进来进行安装，等待进度跑完，apk就上传到安卓容器里面了。
+
+此时回到安卓的界面，打开文件管理器，就会显示你刚上传的文件，点击后可进行安装。
