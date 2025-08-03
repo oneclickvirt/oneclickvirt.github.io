@@ -12,7 +12,7 @@ If your host does not have an IPV6 subnet and you want to assign IPV6 addresses 
 If this is a new server, make sure that both ```update``` and ```curl``` are working properly before executing this script. 
 :::
 
-- Prerequisites: Ubuntu 20+, Debian 11+, RockyLinux 9+, AlmaLinux 9+, Centos 9+
+- Prerequisites: Ubuntu 20+(Not recommended to use Incus, please use LXD), Debian 11+(Recommended), RockyLinux 9+, AlmaLinux 9+, Centos 9+
 - The virtual memory here is talking about the size of the SWAP to be opened, and the storage pool is the sum of the sizes of the disks occupied by all your servers to be opened
 - The server needs to be restarted after the environment installation process to load some default configurations
 - By default, lxd's lxcfs-related configuration is enabled, so that in-container querying of container information changes to information about the container itself rather than the host

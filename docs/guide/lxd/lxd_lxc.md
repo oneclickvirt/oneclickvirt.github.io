@@ -138,7 +138,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 开出的服务器配置：
 
-- 1核128MB内存300MB硬盘限速300Mbit带宽
+- 1核128MB内存1GB硬盘限速300Mbit带宽
 - 只有一个SSH端口
 - 无法挂载warp
 

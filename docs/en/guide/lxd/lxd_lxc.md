@@ -118,7 +118,7 @@ Sometimes there is a problem with the path where init.sh is run, in this case it
 
 Opened Chick Configuration:
 
-- 1 core 128MB RAM 300MB hard disk limited to 300Mbit bandwidth
+- 1 core 128MB RAM 1GB hard disk limited to 300Mbit bandwidth
 - Only one SSH port
 - Unable to mount warp
 

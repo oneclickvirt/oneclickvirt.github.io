@@ -12,7 +12,7 @@ outline: deep
 如果是全新的服务器，务必保证```curl```命令可用且```update```无问题再执行本脚本。
 :::
 
-- 环境要求：Ubuntu 20+, Debian 11+, RockyLinux 9+, AlmaLinux 9+, Centos 9+
+- 环境要求：Ubuntu 20+(不推荐Incus请使用LXD), Debian 11+(推荐), RockyLinux 9+, AlmaLinux 9+, Centos 9+
 - 这里的虚拟内存是说要开的SWAP大小，存储池则是你所有要开的服务器占的盘的大小的总和
 - 环境安装过程后需要重启服务器以加载一些默认配置
 - 默认启用lxd的lxcfs相关配置，使得容器内查询容器信息变更为容器本身的信息而不是宿主机信息
