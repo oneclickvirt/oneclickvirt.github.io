@@ -32,7 +32,11 @@ bash incus_install.sh
 
 Example of initialization configuration:
 
-If there is 18GB of unused disk space on the system disk, after deducting the space already occupied, and you want to allocate 2GB of virtual memory (2048MB of SWAP) and a 15GB storage pool, then following the prompts in the command line, enter ```2048``` and ```15```.
+If you don't need to specify the path of a non-system disk as the default storage pool, then you can directly enter or type ```n``` when choosing whether to customize the storage pool path, and you don't need to specify the path.
+
+If you need to specify the path of a non-system disk as the default pool, then you need to select ```y``` and enter the corresponding path (the actual absolute path of the disk you mounted).
+
+If the corresponding disk has 18G of free hard disk space in addition to the occupied space, and you want to open 2G of virtual memory (2048MB of SWAP), 15G of storage pool, according to the prompts on the command line, then enter ```2048``` and ```15``` in turn.
 
 :::tip
 The execution process **may** require a **manual reboot** to load the storage type into the kernel, the installation is completed at the end of the execution will **automatically reboot** the server, the first time after the complete installation of the reboot will take about 400 ~ 500 seconds, please be patient
@@ -99,3 +103,4 @@ Just enter the default for the normal options
 Choose the size of the physical disk (hint: select the default option with a minimum of 1GB). Generally, I fill in the available disk space minus the memory size, then multiply by 0.95 and round down. Here, I entered 10GB.
 
 Remember to select 'no' for options containing 'auto' when prompted to update the image, in order to avoid occupying the system.
+
