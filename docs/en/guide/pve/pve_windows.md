@@ -4,6 +4,34 @@ outline: deep
 
 # Setting Up Windows Visual Machine
 
+## Choose KVM virtualization or QEMU's TCG emulation at startup
+
+The host itself, if it supports nested virtualization, can use ```host``` or ```kvm64``` or ```qemu64``` type CPUs
+
+In terms of performance, ```host``` > ```kvm64``` > ```qemu64```
+
+The ```qemu``` type of virtualization has a lot of performance loss
+
+If you don't support nested virtualization, you can only use ```qemu64``` type CPU, and you need to change ```KVM hardware virtualization``` in ```Options``` before you start the VM
+
+Set it to ```no``` to uncheck ```Enabled[enabled]```.
+
+If you're really not sure if your machine supports nested virtualization, then check System and Hardware Configuration Requirements --> Detecting the Environment Detecting to ensure it's available (with attempts to enable the feature)
+
+The main logic for this is in the
+
+<https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/check_kernal.sh>
+
+It is recommended to use PVE's System and Hardware Requirements --> Environment Detection in this tutorial for one-click detection, or the following detection logic:
+
+```egrep -c '(vmx|svm)' /proc/cpuinfo``` if it is 1
+
+```cat /sys/module/kvm_intel/parameters/nested``` if it exists and is 1
+
+```lsmod | grep -q kvm```  if it is loaded.
+
+If all of these are supported, choose the ```host``` type to be 100% problem-free, in other cases there may be unknown errors try it yourself.
+
 ## Using ISO Image with VirtIO for VM Setup
 
 ### 1. Download the Image
