@@ -24,7 +24,7 @@ outline: deep
 
 <https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/check_kernal.sh>
 
-推荐直接使用PVE的 系统和硬件配置要求 --> 环境检测 进行一键检测，或者如下检测逻辑：
+推荐直接使用本教程中的PVE的 系统和硬件配置要求 --> 环境检测 进行一键检测，或者如下检测逻辑：
 
 ```egrep -c '(vmx|svm)' /proc/cpuinfo``` 检测是否为1
 
@@ -32,7 +32,7 @@ outline: deep
 
 ```lsmod | grep -q kvm```检测是否已加载
 
-这些都支持的时候，才可选```host```类型。
+这些都支持的时候，选```host```类型才100%无问题，其他情况下使用可能存在未知报错自行尝试。
 
 ## 使用带virtio的iso镜像文件开设
 
