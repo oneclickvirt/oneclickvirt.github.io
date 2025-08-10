@@ -10,6 +10,12 @@ Repository: <https://github.com/oneclickvirt/webvirtcloud>
 
 The original official deleted the project is no longer maintained, here can only be deployed with my personal fixes and changes to the code.
 
+## Rendering display
+
+![admin](images/admin.png)
+
+![user](images/user.png)
+
 ## 1. Controller Installation
 
 ### System Requirements

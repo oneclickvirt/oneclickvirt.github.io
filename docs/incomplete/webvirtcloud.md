@@ -10,6 +10,12 @@ outline: deep
 
 原官方删除了项目不再维护了，这里只能用我个人修复和更改后的代码进行部署。
 
+## 效果图展示
+
+![admin](images/admin.png)
+
+![user](images/user.png)
+
 ## 1. 控制端安装
 
 ### 系统要求
