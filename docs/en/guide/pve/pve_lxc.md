@@ -216,7 +216,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildct_
 ```
 
 ```shell
-./buildct_onlyv6.sh 152 oneclick123 1 1024 10 debian12 local
+./buildct_onlyv6.sh 152 oneclick123 1 1024 10 debian13 local
 ```
 
 The above command signifies the creation of a container with a pure IPV6 address.
@@ -230,7 +230,7 @@ The above command signifies the creation of a container with a pure IPV6 address
 | CPU Cores        | 1                        |
 | Memory           | 1024MB                   |
 | Disk             | 10G                      |
-| Operating System | debian12                 |
+| Operating System | debian13                 |
 | Storage Disk     | Local Disk (System Disk) |
 
 :::tip

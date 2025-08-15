@@ -32,7 +32,7 @@ outline: deep
 - 系统要求：Debian 8+
 
 :::tip
-建议debian12而不是debian11，debian11在部分独立服务器上有网络重启的BUG。
+建议debian12+而不是debian11，debian11在部分独立服务器上有网络重启的BUG。
 :::
 
 - 硬件要求：2核2G内存```x86_64```或```arm```架构服务器硬盘至少20G

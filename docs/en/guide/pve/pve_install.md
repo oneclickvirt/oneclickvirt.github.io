@@ -17,7 +17,7 @@ Proxmox installed by this method can subsequently use all scripts of this projec
 ### One-click PVE installation
 
 :::tip
-Suggest debian12, the actual test part of the independent server debian11 system will appear a reboot network will be lost, debian12 does not have such a problem!
+Suggest debian12+, the actual test part of the independent server debian11 system will appear a reboot network will be lost, debian12 does not have such a problem!
 :::
 
 - The installation is the latest PVE from the apt source at the moment.

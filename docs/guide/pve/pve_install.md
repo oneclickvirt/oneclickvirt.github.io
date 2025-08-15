@@ -17,7 +17,7 @@ outline: deep
 ### 一键安装PVE
 
 :::tip
-建议debian12，实测部分独立服务器的debian11系统会出现一重启网络就失联的情况，debian12没有这种问题
+建议debian12+，实测部分独立服务器的debian11系统会出现一重启网络就失联的情况，debian12没有这种问题
 :::
 
 - 安装的是当下apt源最新的PVE

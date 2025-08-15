@@ -8,7 +8,7 @@ outline: deep
 
 A portion of the available system parameters are shown here for your reference:
 
-- debian10, debian11, debian12
+- debian10, debian11, debian12, debian13
 - ubuntu18, ubuntu20, ubuntu22
 - centos8, centos9 (actually opened out of the Stream version)
 - alpine3.15, alpine3.16, alpine3.17, alpine3.18

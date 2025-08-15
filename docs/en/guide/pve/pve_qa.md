@@ -14,7 +14,7 @@ systemctl restart networking
 
 See if it is not directly offline, if so that is the machine native problem, hot plug or dhcp caused by the network can not restart, it is recommended to replace the host system or DD a new system to try!
 
-Generally speaking, this situation occurs in the exclusive service Debian11 system, switch to Debian12 system will not be a problem!
+Generally speaking, this situation occurs in the exclusive service Debian11 system, switch to Debian12+ system will not be a problem!
 
 ## Installation of PVE fails with an error saying that some packages do not exist.
 

@@ -32,7 +32,7 @@ The one-click installation script of this project only adapts to Debian systems,
 - System requirements: Debian 8+
 
 :::tip
-It is recommended to install debian11 instead of debian12, because the latter is a beta version, and the debian11 installation is the stable version.
+It is recommended to install debian11 instead of debian12+, because the latter is a beta version, and the debian11 installation is the stable version.
 :::
 
 - Hardware requirements: 2 cores 2G RAM ``x86_64`` or ``arm`` architecture server hard disk at least 20G

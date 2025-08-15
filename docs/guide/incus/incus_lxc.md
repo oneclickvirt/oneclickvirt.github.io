@@ -8,7 +8,7 @@ outline: deep
 
 这里展示一部分可使用的系统参数供你参考：
 
-- debian10，debian11，debian12
+- debian10，debian11，debian12, debian13
 - ubuntu18，ubuntu20，ubuntu22
 - centos8，centos9 (实际开设出来都是Stream版本)
 - alpine3.15，alpine3.16，alpine3.17，alpine3.18

@@ -244,7 +244,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 #### 创建示例
 
 ```shell
-./buildct_onlyv6.sh 152 oneclick123 1 1024 10 debian12 local
+./buildct_onlyv6.sh 152 oneclick123 1 1024 10 debian13 local
 ```
 
 上述命令意义为开设一个纯IPV6地址的容器
@@ -258,7 +258,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | CPU核心数 | 1                |
 | 内存      | 1024MB           |
 | 硬盘      | 10G              |
-| 系统      | debian12         |
+| 系统      | debian13         |
 | 存储盘    | local盘 (系统盘) |
 
 :::tip
