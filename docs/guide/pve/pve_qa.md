@@ -174,6 +174,15 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/e
 
 如果检测结果为128证明商家虚标子网大小，仅一个IPV6地址无法额外分配给虚拟机/容器。
 
+还有一种情况，就是商家只给了权限附加，实际上没有给完整的IPV6子网到机器上，典型的如 virtfusion 这种阿三面板，需要后台一个个加IPV6的IP进去，这种情况下也无法开设。
+
+virtfusion的客服对于这种情况的说明
+
+```
+您获得的所有IPv6地址块均为1个/64，但您需要自行将它们一个个添加并路由到VPS。
+添加1个IPv6地址后，您需要ping网关（在控制面板的网络设置下），然后ping该IPv6地址，之后对添加的每个IPv6地址重复此操作。
+```
+
 ## 在现有的 PVE 中纳管新的 PVE（创建 / 加入集群）
 
 为了将两个独立的 Proxmox VE 实例组成一个集群，需满足以下前提条件：
@@ -279,3 +288,4 @@ wget --no-check-certificate -qO InstallNET.sh 'https://raw.githubusercontent.com
 [aws](https://aws.amazon.com/lightsail/) 中的ec2实例
 
 [Google cloud platform - GCP](https://console.cloud.google.com/) 的 AMD 服务器
+
