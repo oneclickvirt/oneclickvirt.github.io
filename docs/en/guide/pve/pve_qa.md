@@ -136,6 +136,26 @@ systemctl restart networking.service
 cat /etc/iptables/rules.v4 | iptables-restore
 ```
 
+## Detect whether the merchant has falsely declared the IPV6 subnet size, resulting in the inability to set up virtual machines/containers with independent IPV6 addresses.
+
+Use the following command to test the actual subnet mask size on a clean machine that does not have Proxmox VE installed.
+
+```shell
+curl -L https://raw.githubusercontent.com/spiritLHLS/ecs/main/archive/eo6s.sh -o eo6s.sh && chmod +x eo6s.sh && bash eo6s.sh
+```
+
+If the test result is 128, it proves that the merchant has falsely labelled the subnet size, and only one IPV6 address cannot be additionally allocated to virtual machines/containers.
+
+Another situation is that the merchant only gives permission to add, but does not actually give the complete IPV6 subnet to the machine. A typical example is virtfusion, which requires adding IPV6 IPs one by one in the background. In this case, it is also impossible to open.
+
+virtfusion's customer service explanation for this situation:
+
+```
+All of the blocks you get for IPv6 are 1 x /64 however you need to add and route them to the VPS.
+Once you add 1 IPv6 you need to ping the gateway (its in the panel under networking) and then ping the IPv6 address, then repeat for every IPv6 address you add.
+```
+
+
 ## Adding a New Node to an Existing PVE Cluster (Create / Join Cluster)
 
 To form a cluster from two independent Proxmox VE instances, the following prerequisites must be met:
@@ -241,3 +261,4 @@ wget --no-check-certificate -qO InstallNET.sh 'https://raw.githubusercontent.com
 [aws](https://aws.amazon.com/lightsail/) EC2 servers
 
 [Google cloud platform - GCP](https://console.cloud.google.com/) AMD servers
+
