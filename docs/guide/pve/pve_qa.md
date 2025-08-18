@@ -176,7 +176,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/e
 
 还有一种情况，就是商家只给了权限附加，实际上没有给完整的IPV6子网到机器上，典型的如 virtfusion 这种阿三面板，需要后台一个个加IPV6的IP进去，这种情况下也无法开设。
 
-virtfusion的客服对于这种情况的说明
+virtfusion的客服对于这种情况的说明：
 
 ```
 您获得的所有IPv6地址块均为1个/64，但您需要自行将它们一个个添加并路由到VPS。
@@ -288,4 +288,5 @@ wget --no-check-certificate -qO InstallNET.sh 'https://raw.githubusercontent.com
 [aws](https://aws.amazon.com/lightsail/) 中的ec2实例
 
 [Google cloud platform - GCP](https://console.cloud.google.com/) 的 AMD 服务器
+
 
