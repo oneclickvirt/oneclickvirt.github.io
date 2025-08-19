@@ -65,7 +65,7 @@ export default defineConfig({
             link: '/case/index',
             activeMatch: '^/case/'
           },
-          { text: 'AList', link: 'https://storage.spiritlhl.net/' },
+          { text: '常用镜像', link: 'https://storage.spiritlhl.net/' },
           { text: 'VPS余量监控', link: 'https://spiders.spiritlhl.net/' },
           { text: 'VPS测试存档', link: 'https://beta.spiritlhl.net/' }
         ],
@@ -94,7 +94,7 @@ export default defineConfig({
         nav: [
           { text: 'One Click Virtualization', link: '/en/', activeMatch: '^/en/guide/' },
           { text: 'Other Virtualization Projects', link: '/en/incomplete/index', activeMatch: '^/en/incomplete/' },
-          { text: 'AList', link: 'https://storage.spiritlhl.net/' },
+          { text: 'Common Images', link: 'https://storage.spiritlhl.net/' },
           { text: 'VPS Stock Monitor', link: 'https://spiders.spiritlhl.net/' },
           { text: 'VPS Test Archive', link: 'https://beta.spiritlhl.net/' }
         ],
