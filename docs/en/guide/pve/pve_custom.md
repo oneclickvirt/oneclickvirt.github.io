@@ -139,17 +139,21 @@ The above commands require the ```sudo``` and ```crontab``` commands to be avail
 
 ## Self-mapping of public ports on KVM VMs with open NATs
 
+All of the following operations are performed on the PVE host computer
+
 Use the ```nano``` or ```vim``` command to modify the file to add port mapping:
 
 ```
 /etc/iptables/rules.v4
 ```
 
-For example, if I have a KVM VM with an intranet IP of ```172.16.1.152```, and MYSQL has been set up to listen to ```3306```, and I need to use the ```tcp``` protocol to map out to the ```33306``` port on the host IP, I would add the following line to the ```COMMIT``` line in the file above, then add the following line
+For example, if I have a KVM VM with an intranet IP of ```172.16.1.152``` (VMs can view the intranet IP address on the web side no matter what system they are on), and MYSQL has been set up to listen to ```3306```, and I need to use the ```tcp``` protocol to map out to the ```33306``` port on the host IP, I would add the following line to the ```COMMIT``` line in the file above, then add the following line
 
 ```
 -A PREROUTING -i vmbr0 -p tcp -m tcp -dport 33306 -j DNAT --to-destination 172.16.1.152:3306
 ```
+
+If it's udp protocol, just change ```tcp``` to ```udp``` in the code above
 
 Save the file and exit file editing and then execute:
 
@@ -176,3 +180,4 @@ echo "kvm64" > /usr/local/bin/cpu_type
 ```
 
 Specifying the default CPU TYPE in this way allows you to replace ```kvm64``` with the type you want
+
