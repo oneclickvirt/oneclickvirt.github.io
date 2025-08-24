@@ -49,3 +49,16 @@ bash dockerinstall.sh
 :::tip
 The environment installation process may require you to reboot the server and then execute the script again, see the instructions after the script is run for more details
 :::
+
+## Detect whether Docker supports limiting container hard disk size
+
+```shell
+curl -L https://raw.githubusercontent.com/oneclickvirt/docker/refs/heads/main/extra_scripts/disk_test.sh -o disk_test.sh && chmod +x disk_test.sh && bash disk_test.sh
+```
+
+Or specify a different storage limit size (in MB), the default test of the 500MB limit of the container whether the limit is successful
+
+```shell
+# 1GB Limit
+bash disk_test.sh 1000
+```

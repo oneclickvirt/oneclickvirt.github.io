@@ -62,3 +62,24 @@ bash dockerinstall.sh
 :::tip
 环境安装过程中可能要求你重启服务器后再次执行脚本，详见脚本运行后的说明
 :::
+
+## 检测Docker是否支持限制容器硬盘大小
+
+国际
+
+```shell
+curl -L https://raw.githubusercontent.com/oneclickvirt/docker/refs/heads/main/extra_scripts/disk_test.sh -o disk_test.sh && chmod +x disk_test.sh && bash disk_test.sh
+```
+
+国内
+
+```shell
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/docker/refs/heads/main/extra_scripts/disk_test.sh -o disk_test.sh && chmod +x disk_test.sh && bash disk_test.sh
+```
+
+或者指定不同的存储限制大小（单位：MB），默认测试500MB限制的容器是否限制成功
+
+```shell
+# 1GB限制
+bash disk_test.sh 1000
+```
