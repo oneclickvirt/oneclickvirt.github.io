@@ -28,10 +28,10 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 ### 示例
 
-运行支持的变量
+运行支持的变量如下(硬盘大小仅在前面安装时选择了支持限制硬盘大小的，这块才可设置硬盘大小)
 
 ```
-./onedocker.sh name cpu memory password sshport startport endport <independent_ipv6> <system>
+./onedocker.sh name cpu memory password sshport startport endport <independent_ipv6> <system> <disk>
 ```
 
 目前system仅支持选择
@@ -46,7 +46,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 默认不填则是debian
 
 ```shell
-./onedocker.sh test 1 512 123456 25000 34975 35000 N debian
+./onedocker.sh test 1 512 123456 25000 34975 35000 N debian 5
 ```
 
 以下为开设的示例容器的信息：
@@ -62,6 +62,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | 内外网映射端口一致的区间 | 34975到35000   |
 | 系统                   | debian         |
 | 是否绑定独立的IPV6地址   | N             |
+| 硬盘大小                | 5G            |
 
 ### 相关操作
 
@@ -124,7 +125,7 @@ cat dclog
 输出格式
 
 ```
-容器名字 SSH端口 登陆的root密码 核数 内存 外网端口起 外网端口止 
+容器名字 SSH端口 登陆的root密码 核数 内存 外网端口起 外网端口止 硬盘大小
 ```
 
 一行一个容器对应的信息，docker的ipv6地址只能在容器内自己查询，在docker的配置中是不存在的

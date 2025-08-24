@@ -21,7 +21,7 @@ The default creation of unprivileged containers, and does not mount and host doc
 
 By default, lxcfs is installed and enabled, so that when querying resources within a container, CPU and memory use the configured view instead of the host's view.
 
-Since most cloud servers have ext4 filesystems, even xfs filesystems do not enable the pquota option, so **sharing the host's hard disk by default does not limit the disk size of each container**.
+By default, you can choose whether or not to share the hard disk of the host machine, and you can choose whether or not to install it as an environment that can limit the size of the hard disk during Docker installation.
 
 ## Configuration requirements
 

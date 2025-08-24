@@ -39,6 +39,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/a
 - 检测如果存在IPV6地址，检测其是否大于或等于/112，如果符合条件，则配置docker的ipv6的网络
 - 如果上述条件都符合，创建ndpresponder的docker和radvd，使得IPV6的分配支持ndp广播和自动分配
 - 支持x86_64和ARM架构的服务器
+- 安装过程中会要求你输入一些选项，选择Docker安装路径，选择Docker安装是否可限制硬盘
 
 国际
 

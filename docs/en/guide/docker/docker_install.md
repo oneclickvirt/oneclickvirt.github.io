@@ -32,6 +32,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 - Detect if there is an IPV6 address, check if it is greater than or equal to /112, and if so, configure the docker's ipv6 network.
 - If all the above conditions are met, create ndpresponder docker and radvd so that IPV6 allocation supports ndp broadcasting and auto-allocation.
 - Support for x86_64 and ARM architecture servers
+- The installation process will ask you to enter some options, select the Docker installation path, select whether the Docker installation can limit the hard disk
 
 Command:
 

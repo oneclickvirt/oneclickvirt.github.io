@@ -22,10 +22,10 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/onedo
 
 ### Example
 
-Run
+Running the supported variables are as follows (hard disk size can be set in this block only if the support for limiting the hard disk size was selected during the previous installation)
 
 ```
-./onedocker.sh name cpu memory password sshport startport endport <independent_ipv6> <system>
+./onedocker.sh name cpu memory password sshport startport endport <independent_ipv6> <system> <disk>
 ```
 
 Currently, the system only supports selecting:
@@ -52,9 +52,10 @@ The following is the information for the created example container:
 | Port Range for Internal and External Mapping | 34975 to 35000   |
 | Operating System       | debian         |
 | Whether to bind a separate IPV6 address| N     |
+| Disk Size              | 5G             |
 
 ```shell
-./onedocker.sh test 1 512 123456 25000 34975 35000 N debian
+./onedocker.sh test 1 512 123456 25000 34975 35000 N debian 5
 ```
 
 ### Related operations
@@ -110,7 +111,7 @@ cat dclog
 The output format is
 
 ```
-Container_Name SSH_Port Root_Password Number_of_Cores Memory Start_of_Public_Port End_of_Public_Port
+Container_Name SSH_Port Root_Password Number_of_Cores Memory Start_of_Public_Port End_of_Public_Port Disk_Size
 ```
 
 One line corresponds to information about a container, the docker's ipv6 address can only be looked up within the container itself, it doesn't exist in the docker's configuration.
