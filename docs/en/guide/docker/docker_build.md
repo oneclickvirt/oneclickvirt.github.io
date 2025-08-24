@@ -22,7 +22,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/onedo
 
 ### Example
 
-Running the supported variables are as follows (hard disk size can be set in this block only if the support for limiting the hard disk size was selected during the previous installation)
+Running the supported variables are as follows
 
 ```
 ./onedocker.sh name cpu memory password sshport startport endport <independent_ipv6> <system> <disk>
@@ -39,6 +39,12 @@ Currently, the system only supports selecting:
 
 with Debian being the default choice.
 
+The hard disk size can only be set by filling in the value if you have selected the option to support limiting the hard disk size during the previous Docker installation, it is not limited when not filled in by default.
+
+```shell
+./onedocker.sh test 1 512 123456 25000 34975 35000 N debian 5
+```
+
 The following is the information for the created example container:
 
 | Attribute               | Value          |
@@ -53,10 +59,6 @@ The following is the information for the created example container:
 | Operating System       | debian         |
 | Whether to bind a separate IPV6 address| N     |
 | Disk Size              | 5G             |
-
-```shell
-./onedocker.sh test 1 512 123456 25000 34975 35000 N debian 5
-```
 
 ### Related operations
 

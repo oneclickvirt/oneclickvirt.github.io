@@ -28,9 +28,9 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 ### 示例
 
-运行支持的变量如下(硬盘大小仅在前面安装时选择了支持限制硬盘大小的，这块才可设置硬盘大小)
+运行支持的变量如下
 
-```
+```bash
 ./onedocker.sh name cpu memory password sshport startport endport <independent_ipv6> <system> <disk>
 ```
 
@@ -44,6 +44,8 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 - openeuler
 
 默认不填则是debian
+
+硬盘大小仅在前面Docker安装时选择了支持限制硬盘大小的选项，这块才可填写数值设置硬盘大小，默认不填时不限制
 
 ```shell
 ./onedocker.sh test 1 512 123456 25000 34975 35000 N debian 5
