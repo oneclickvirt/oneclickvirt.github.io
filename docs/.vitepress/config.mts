@@ -164,7 +164,7 @@ function getGuideSidebarZhCN() {
       items: [
         { text: '系统和硬件配置要求', link: '/guide/docker/docker_precheck.html' },
         { text: 'Docker主体安装', link: '/guide/docker/docker_install.html' },
-        { text: 'Linux系统容器(LXC)', link: '/guide/docker/docker_build.html' },
+        { text: 'Linux容器(LXC)', link: '/guide/docker/docker_build.html' },
         { text: 'Windows虚拟机(KVM/QEMU)', link: '/guide/docker/docker_windows.html' },
         { text: 'Macos虚拟机(KVM)', link: '/guide/docker/docker_macos.html' },
         { text: 'Android虚拟机(KVM/QEMU)', link: '/guide/docker/docker_android.html' },
@@ -178,6 +178,7 @@ function getGuideSidebarZhCN() {
       items: [
         { text: '系统和硬件配置要求', link: '/guide/lxd/lxd_precheck.html' },
         { text: 'LXD主体安装', link: '/guide/lxd/lxd_install.html' },
+        { text: 'Linux虚拟机(QEMU)', link: '/guide/lxd/lxd_qemu.html' },
         { text: 'Linux容器(LXC)', link: '/guide/lxd/lxd_lxc.html' },
         { text: 'Windows虚拟机(QEMU)', link: '/guide/lxd/lxd_windows.html' },
         { text: '更多配置', link: '/guide/lxd/lxd_extra_config.html' },
@@ -280,6 +281,7 @@ function getGuideSidebarEnUS() {
       items: [
         { text: 'Configuration requirements', link: '/en/guide/incus/incus_precheck.html' },
         { text: 'Incus main installation', link: '/en/guide/incus/incus_install.html' },
+        { text: 'Linux Virtual Machine(QEMU)', link: '/en/guide/incus/incus_qemu.html' },
         { text: 'Linux Container(LXC)', link: '/en/guide/incus/incus_lxc.html' },
         { text: 'Windows Virtual Machine(QEMU)', link: '/en/guide/incus/incus_windows.html' },
         { text: 'Extra configuration', link: '/en/guide/incus/incus_extra_config.html' },
@@ -307,6 +309,7 @@ function getGuideSidebarEnUS() {
       items: [
         { text: 'Configuration requirements', link: '/en/guide/lxd/lxd_precheck.html' },
         { text: 'LXD main installation', link: '/en/guide/lxd/lxd_install.html' },
+        { text: 'Linux Virtual Machine(QEMU)', link: '/en/guide/lxd/lxd_qemu.html' },
         { text: 'Linux Container(LXC)', link: '/en/guide/lxd/lxd_lxc.html' },
         { text: 'Windows Virtual Machine(QEMU)', link: '/en/guide/lxd/lxd_windows.html' },
         { text: 'Extra configuration', link: '/en/guide/lxd/lxd_extra_config.html' },
