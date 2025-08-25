@@ -13,7 +13,7 @@ The following configurations may increase the load on the server. Only install t
 - (Optional, not required if not using)
 - **This script is only suitable for servers that have an ```IPV6``` subnet with a prefix, and the server has bound the ```first IP``` of the subnet as its ```IPV6 address or IPV6 gateway```.**
 - Automatically configures ```IPV6``` addresses for incus containers created with incus.
-- Integrated into ```buildone.sh``` and can be controlled by variables without needing to be downloaded beforehand. You don't need to manually use this script; when using ```buildone.sh```, configure with variable Y to enable it.
+- Integrated into ```buildct.sh``` and can be controlled by variables without needing to be downloaded beforehand. You don't need to manually use this script; when using ```buildct.sh```, configure with variable Y to enable it.
 
 Download Script
 

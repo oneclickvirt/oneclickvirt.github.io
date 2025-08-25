@@ -13,13 +13,13 @@ Downloading the boot script is **NOT REQUIRED**, if you have used the command to
 Command:
 
 ```shell
-curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/buildct.sh -o buildct.sh && chmod +x buildct.sh && dos2unix buildct.sh
 ```
 
 ### Usage
 
 ```
-. /buildone.sh name Cpu_num Memory_size Hard_disk_size SSH_port Extranet_start_port Extranet_stop_port Download_speed Upload_speed Whether_IPV6_is_enabled(Y or N) System(leave blank for debian12)
+. /buildct.sh name Cpu_num Memory_size Hard_disk_size SSH_port Extranet_start_port Extranet_stop_port Download_speed Upload_speed Whether_IPV6_is_enabled(Y or N) System(leave blank for debian12)
 ```
 
 Memory size is calculated in MB, hard disk size is calculated in GB, download speed upload speed is calculated in Mbit, whether to enable IPV6 does not have to fill in Y or N, no this parameter can also be left blank default does not enable IPV6
@@ -59,7 +59,7 @@ Here is the information about the example chick that is being raised:
 | Operating System            | Debian 12       |
 
 ```
-./buildone.sh test 1 256 2 20001 20002 20025 500 500 N debian13
+./buildct.sh test 1 256 2 20001 20002 20025 500 500 N debian13
 ```
 
 If you need to see the information, run
@@ -249,7 +249,7 @@ rm -rf /usr/local/bin/check-dns.sh
 rm -rf /root/ssh_sh.sh
 rm -rf /root/config.sh
 rm -rf /root/ssh_bash.sh
-rm -rf /root/buildone.sh
+rm -rf /root/buildct.sh
 rm -rf /root/add_more.sh
 rm -rf /root/build_ipv6_network.sh
 ```
@@ -262,7 +262,7 @@ wget https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/config.sh -
 wget https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/ssh_bash.sh -O /usr/local/bin/ssh_bash.sh && chmod +x /usr/local/bin/ssh_bash.sh
 wget https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/ssh_sh.sh -O /usr/local/bin/ssh_sh.sh && chmod +x /usr/local/bin/ssh_sh.sh
 wget https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/build_ipv6_network.sh -O /root/build_ipv6_network.sh && chmod +x /root/build_ipv6_network.sh
-wget https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/buildone.sh -O /root/buildone.sh && chmod +x /root/buildone.sh
+wget https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/buildct.sh -O /root/buildct.sh && chmod +x /root/buildct.sh
 ```
 
 Just download the other one-click scripts yourself.
