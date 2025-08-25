@@ -27,9 +27,9 @@ A portion of the available system parameters are shown here for your reference:
 The version number has ended the long-term maintenance of the general no longer have an official mirror, temporarily did not find the archive address of the historical mirror, if you find welcome to leave a message I will add support!
 :::
 
-## Generate only one NAT server
+## Generate only one NAT container
 
-- Generate only one NAT server, with customizable restrictions on all content.
+- Generate only one NAT container, with customizable restrictions on all content.
 
 ### Download script
 
@@ -51,7 +51,7 @@ Memory size is calculated in MB, hard disk size is calculated in GB, download sp
 
 If ```external start port`` and ```external stop port`` are both set to 0, then we don't do interval port mapping, only the basic SSH port is mapped, note that ```can't be null``, and it needs to be set to 0 if it's not to be mapped.
 
-Support custom server system, do not fill in the leave blank default use debian11, pay attention to the incoming parameters for the system name + version number
+Support custom container system, do not fill in the leave blank default use debian11, pay attention to the incoming parameters for the system name + version number
 
 ### Example
 
@@ -59,7 +59,7 @@ Here is the information about the example chick that is being raised:
 
 | Attribute                   | Value           |
 |-----------------------------|-----------------|
-| server's Name              | test            |
+| container's Name              | test            |
 | Username for SSH Login      | root            |
 | Password for SSH Login      | Randomly generated |
 | Number of CPU Cores         | 1               |
@@ -108,7 +108,7 @@ Opened Chick Configuration:
 - Default memory and hard disk size
 
 :::tip
-incus if the command is no problem, the execution of the initialization of the opening of the servers, this step is best to put ```screen`` in the background to suspend the execution of the opening of the servers, the length of time with you to open a few and the mother hen configuration-related
+incus if the command is no problem, the execution of the initialization of the opening of the containers, this step is best to put ```screen`` in the background to suspend the execution of the opening of the containers, the length of time with you to open a few and the mother hen configuration-related
 :::
 
 Execute the following command to load the boot script
@@ -160,7 +160,7 @@ Sometimes there is a problem with the path where last.sh is run, in this case it
 - Customizable memory and hard disk sizes
 - It's also fine if you have manually executed the above batch generation before; the configuration inherits without overwriting
 
-If you need to batch-generate servers multiple times, you can use the following:
+If you need to batch-generate containers multiple times, you can use the following:
 
 Command:
 
@@ -175,8 +175,8 @@ Can be run multiple times to batch generate chicks, and inherit the previous par
 After opening the chicks, the specific information will be generated in the log file in the current directory, with the following format
 
 ```shell
-Server_1_Name Password SSH_Port Public_Port_Start Public_Port_End
-Server_2_Name Password SSH_Port Public_Port_Start Public_Port_End
+container_1_Name Password SSH_Port Public_Port_Start Public_Port_End
+container_2_Name Password SSH_Port Public_Port_Start Public_Port_End
 ```
 
 To view it, simply print the log file by executing the following command in the current directory
