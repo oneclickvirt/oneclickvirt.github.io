@@ -32,13 +32,15 @@ webvirtmgr
 
 支持中英双语
 
+Supports both Chinese and English
+
 ## PVE相关的各种一键脚本
 
 [https://github.com/oneclickvirt/pve](https://github.com/oneclickvirt/pve)
 
 [![Hits](https://hits.spiritlhl.net/pve.svg?action=hit&title=Hits&title_bg=%23555555&count_bg=%230eecf8&edge_flat=false)](https://hits.spiritlhl.net)
 
-## incus相关的各种一键脚本
+## Incus相关的各种一键脚本
 
 [https://github.com/oneclickvirt/incus](https://github.com/oneclickvirt/incus)
 
