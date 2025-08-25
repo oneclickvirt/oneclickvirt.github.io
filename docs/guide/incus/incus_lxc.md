@@ -34,19 +34,19 @@ outline: deep
 国际
 
 ```shell
-curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/buildct.sh -o buildct.sh && chmod +x buildct.sh && dos2unix buildct.sh
 ```
 
 国内
 
 ```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/buildone.sh -o buildone.sh && chmod +x buildone.sh && dos2unix buildone.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/buildct.sh -o buildct.sh && chmod +x buildct.sh && dos2unix buildct.sh
 ```
 
 ### 使用方法
 
 ```
-./buildone.sh 服务器名称 CPU核数 内存大小 硬盘大小 SSH端口 外网起端口 外网止端口 下载速度 上传速度 是否启用IPV6(Y or N) 系统(留空则为debian11)
+./buildct.sh 服务器名称 CPU核数 内存大小 硬盘大小 SSH端口 外网起端口 外网止端口 下载速度 上传速度 是否启用IPV6(Y or N) 系统(留空则为debian11)
 ```
 
 CPU核数需要小于或等于宿主机的核数，内存大小以MB计算，硬盘大小以GB计算，下载速度上传速度以Mbit计算，是否启用IPV6不一定要填Y或者N，没有这个参数也行，留空默认不开启IPV6
@@ -74,7 +74,7 @@ CPU核数需要小于或等于宿主机的核数，内存大小以MB计算，硬
 | 系统                       | debian11       |
 
 ```
-./buildone.sh test 1 256 2 20001 20002 20025 500 500 N debian11
+./buildct.sh test 1 256 2 20001 20002 20025 500 500 N debian11
 ```
 
 需要进入容器内部则执行
@@ -290,7 +290,7 @@ rm -rf /usr/local/bin/check-dns.sh
 rm -rf /root/ssh_sh.sh
 rm -rf /root/config.sh
 rm -rf /root/ssh_bash.sh
-rm -rf /root/buildone.sh
+rm -rf /root/buildct.sh
 rm -rf /root/add_more.sh
 rm -rf /root/build_ipv6_network.sh
 ```
@@ -303,7 +303,7 @@ wget https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/config.sh
 wget https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/ssh_bash.sh -O /usr/local/bin/ssh_bash.sh && chmod +x /usr/local/bin/ssh_bash.sh
 wget https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/ssh_sh.sh -O /usr/local/bin/ssh_sh.sh && chmod +x /usr/local/bin/ssh_sh.sh
 wget https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/build_ipv6_network.sh -O /root/build_ipv6_network.sh && chmod +x /root/build_ipv6_network.sh
-wget https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/buildone.sh -O /root/buildone.sh && chmod +x /root/buildone.sh
+wget https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/buildct.sh -O /root/buildct.sh && chmod +x /root/buildct.sh
 ```
 
 其他一键脚本自己对应下载回来就行了
