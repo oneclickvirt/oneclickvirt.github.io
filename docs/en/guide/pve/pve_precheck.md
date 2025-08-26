@@ -47,9 +47,18 @@ If you use IPV6 tunnels for IPV6 subnet attachment on the host, be sure to add t
 Memory to open some swap lest the machine blow up, if your host computer does not have enough memory and a lot of free hard disk.
 :::
 
-Unit conversion: Enter 1024 to generate 1G SWAP-virtual memory, virtual memory takes up hard disk space, when the actual memory is not enough to use the virtual memory will automatically use the virtual memory for memory use, but then bring the IO high occupancy and CPU performance occupancy!
+Unit conversion: Enter 1024 to generate 1G SWAP-virtual memory, virtual memory occupies hard disk space.
 
-It is recommended to use only twice the size of the actual memory as virtual memory.
+When the actual memory is not enough, the virtual memory will be automatically used for memory usage, but it will bring high IO usage and CPU performance.
+
+Refer to the description of the organization's related project [Jump](https://github.com/oneclickvirt/ecs/blob/master/README_NEW_USER.md) This opens the size of virtual memory
+
+| Physical Memory Size | Recommended SWAP Size |
+| -------------------- | --------------------- |
+| ≤ 2G                | 2x memory size        |
+| 2G < memory ≤ 8G    | Equal to physical memory |
+| ≥ 8G                | About 8G is sufficient |
+| Hibernation needed  | At least equal to physical memory |
 
 Command:
 
