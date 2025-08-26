@@ -4,7 +4,11 @@ outline: deep
 
 # 仓库
 
-[![Hits](https://hits.spiritlhl.net/ecs.svg?action=hit&title=Hits&title_bg=%23555555&count_bg=%230eecf8&edge_flat=false)](https://hits.spiritlhl.net)
+[![Build and Release](https://github.com/oneclickvirt/ecs/actions/workflows/build_binary.yaml/badge.svg)](https://github.com/oneclickvirt/ecs/actions/workflows/build_binary.yaml)
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Foneclickvirt%2Fecs.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Foneclickvirt%2Fecs?ref=badge_shield)
+
+[![Downloads](https://ghdownload.spiritlhl.net/oneclickvirt/ecs?color=36c600)](https://github.com/oneclickvirt/ecs/releases)
 
 [![Hits](https://hits.spiritlhl.net/goecs.svg?action=hit&title=Hits&title_bg=%23555555&count_bg=%230eecf8&edge_flat=false)](https://hits.spiritlhl.net)
 
@@ -23,16 +27,17 @@ Shell 版本：[https://github.com/spiritLHLS/ecs](https://github.com/spiritLHLS
 ## **适配系统和架构**
 
 ### **编译与测试支持情况**
-| 编译支持的架构 | 测试支持的架构 | 编译支持的系统 | 测试支持的系统 |
-|---------------------------|-----------|---------|-----------|
-| amd64                     | amd64     | Linux   | Linux     |
-| arm                       | arm       | Windows | Windows   |
-| arm64                     | arm64     | FreeBSD | FreeBSD   |
-| 386                       | 386       | OpenBSD |           |
-| mips                      |           | MacOS   | MacOS     |
-| mipsle                    |           |         |           |
-| s390x                     | s390x     |         |           |
-| riscv64                   |           |         |           |
+| 编译支持的架构             | 测试支持的架构 | 编译支持的系统             | 测试支持的系统 |
+|---------------------------|--------------|---------------------------|---------------|
+| amd64                     | amd64        | Linux                     | Linux         |
+| arm64                     | arm64        | Windows                   | Windows       |
+| arm                       |              | MacOS(Darwin)             | MacOS         |
+| 386                       |              | FreeBSD                   |               |
+| mips,mipsle               |              | Android                   |               |
+| mips64,mips64le           |              |                           |               | 
+| ppc64,ppc64le             |              |                           |               |
+| s390x                     | s390x        |                           |               |
+| riscv64                   |              |                           |               |
 
 ---
 
@@ -67,19 +72,19 @@ Shell 版本：[https://github.com/spiritLHLS/ecs](https://github.com/spiritLHLS
 - **国际用户无加速：**
 
   ```bash
-  export noninteractive=true && curl -L https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && bash goecs.sh env && bash goecs.sh install && goecs
+  export noninteractive=true && curl -L https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && ./goecs.sh env && ./goecs.sh install && goecs
   ```
 
 - **国际/国内使用 CDN 加速：**
 
   ```bash
-  export noninteractive=true && curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && bash goecs.sh env && bash goecs.sh install && goecs
+  export noninteractive=true && curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && ./goecs.sh env && ./goecs.sh install && goecs
   ```
 
 - **国内用户使用 CNB 加速：**
 
   ```bash
-  export noninteractive=true && curl -L https://cnb.cool/oneclickvirt/ecs/-/git/raw/main/goecs.sh -o goecs.sh && chmod +x goecs.sh && bash goecs.sh env && bash goecs.sh install && goecs
+  export noninteractive=true && curl -L https://cnb.cool/oneclickvirt/ecs/-/git/raw/main/goecs.sh -o goecs.sh && chmod +x goecs.sh && ./goecs.sh env && ./goecs.sh install && goecs
   ```
 
 #### **详细说明**
@@ -219,8 +224,6 @@ Usage: goecs [options]
 
 ### **Docker**
 
-
-
 国际镜像地址：https://hub.docker.com/r/spiritlhl/goecs
 
 请确保执行下述命令前本机已安装Docker
@@ -239,23 +242,23 @@ docker run --rm spiritlhl/goecs:latest -menu=false -l zh
 
 使用Docker执行测试，硬件测试会有一些偏差和虚拟化架构判断失效，还是推荐直接测试而不使用Docker测试。
 
-国内镜像地址：https://cnb.cool/oneclickvirt/ecs/-/packages/docker/ecs
+国内阿里云镜像加速
 
 请确保执行下述命令前本机已安装Docker
 
 特权模式+host网络
 
 ```shell
-docker run --rm --privileged --network host docker.cnb.cool/oneclickvirt/ecs:latest -menu=false -l zh
+docker run --rm --privileged --network host crpi-8tmognxgyb86bm61.cn-guangzhou.personal.cr.aliyuncs.com/oneclickvirt/ecs:latest -menu=false -l zh
 ```
 
 非特权模式+非host网络
 
 ```shell
-docker run --rm docker.cnb.cool/oneclickvirt/ecs:latest -menu=false -l zh
+docker run --rm crpi-8tmognxgyb86bm61.cn-guangzhou.personal.cr.aliyuncs.com/oneclickvirt/ecs:latest -menu=false -l zh
 ```
 
-
+实际上还有CNB镜像地址 https://cnb.cool/oneclickvirt/ecs/-/packages/docker/ecs 但很可惜组织空间不足无法推送了，更推荐使用阿里云镜像加速
 
 ---
 
@@ -269,11 +272,11 @@ cd ecs
 ```
 
 2. 安装 Go 环境（如已安装可跳过）
+
+选择 go 1.24.5 的版本进行安装
+
 ```bash
-# 下载并安装 Go
-wget https://go.dev/dl/go1.23.4.linux-amd64.tar.gz
-rm -rf /usr/local/go && tar -C /usr/local -xzf go1.23.4.linux-amd64.tar.gz
-export PATH=$PATH:/usr/local/go/bin
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/install_scripts/go.sh -o go.sh && chmod +x go.sh && bash go.sh 
 ```
 
 3. 编译
@@ -339,12 +342,13 @@ GOOS=darwin GOARCH=amd64 go build -o goecs_darwin
 
 ## 致谢
 
-感谢 [he.net](https://he.net) [bgp.tools](https://bgp.tools) [ipinfo.io](https://ipinfo.io) [ip.sb](https://ip.sb) [cheervision.co](https://cheervision.co) [scamalytics.com](https://scamalytics.com) [abuseipdb.com](https://www.abuseipdb.com/) [virustotal.com](https://www.virustotal.com/) [ip2location.com](https://ip2location.com/) [ip-api.com](https://ip-api.com) [ipregistry.co](https://ipregistry.co/) [ipdata.co](https://ipdata.co/) [ipgeolocation.io](https://ipgeolocation.io) [ipwhois.io](https://ipwhois.io) [ipapi.com](https://ipapi.com/) [ipapi.is](https://ipapi.is/) [ipqualityscore.com](https://www.ipqualityscore.com/) [bigdatacloud.com](https://www.bigdatacloud.com/) 等网站提供的API进行检测，感谢互联网各网站提供的查询资源
+
+感谢 [he.net](https://he.net) [bgp.tools](https://bgp.tools) [ipinfo.io](https://ipinfo.io) [maxmind.com](https://www.maxmind.com/en/home) [cloudflare.com](https://www.cloudflare.com/) [ip.sb](https://ip.sb) [scamalytics.com](https://scamalytics.com) [abuseipdb.com](https://www.abuseipdb.com/) [ip2location.com](https://ip2location.com/) [ip-api.com](https://ip-api.com) [ipregistry.co](https://ipregistry.co/) [ipdata.co](https://ipdata.co/) [ipgeolocation.io](https://ipgeolocation.io) [ipwhois.io](https://ipwhois.io) [ipapi.com](https://ipapi.com/) [ipapi.is](https://ipapi.is/) [ipqualityscore.com](https://www.ipqualityscore.com/) [bigdatacloud.com](https://www.bigdatacloud.com/) [dkly.net](https://data.dkly.net) [virustotal.com](https://www.virustotal.com/) 等网站提供的API进行检测，感谢互联网各网站提供的查询资源
 
 感谢
 
 <a href="https://h501.io/?from=69" target="_blank">
-  <img src="https://github.com/spiritLHLS/ecs/assets/103393591/dfd47230-2747-4112-be69-b5636b34f07f" alt="h501">
+  <img src="https://github.com/spiritLHLS/ecs/assets/103393591/dfd47230-2747-4112-be69-b5636b34f07f" alt="h501" style="height: 50px;">
 </a>
 
 提供的免费托管支持本开源项目的共享测试结果存储
@@ -352,9 +356,17 @@ GOOS=darwin GOARCH=amd64 go build -o goecs_darwin
 同时感谢以下平台提供编辑和测试支持
 
 <a href="https://www.jetbrains.com/go/" target="_blank">
-  <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/GoLand.png" alt="goland">
+  <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/GoLand.png" alt="goland" style="height: 50px;">
 </a>
 
 <a href="https://community.ibm.com/zsystems/form/l1cc-oss-vm-request/" target="_blank">
-  <img src="https://linuxone.cloud.marist.edu/oss/resources/images/linuxonelogo03.png" alt="ibm">
+  <img src="https://linuxone.cloud.marist.edu/oss/resources/images/linuxonelogo03.png" alt="ibm" style="height: 50px;">
 </a>
+
+<a href="https://console.zmto.com/?affid=1524" target="_blank">
+  <img src="https://console.zmto.com/templates/2019/dist/images/logo_dark.svg" alt="zmto" style="height: 50px;">
+</a>
+
+## History Usage
+
+![goecs](https://hits.spiritlhl.net/chart/goecs.svg)
