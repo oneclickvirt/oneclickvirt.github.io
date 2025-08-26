@@ -36,7 +36,7 @@ PVE项目可能造成宿主机出现问题，如果你不会看Bug和修复系�
 
 [![Hits](https://hits.spiritlhl.net/pve.svg?action=hit&title=Hits&title_bg=%23555555&count_bg=%230eecf8&edge_flat=false)](https://hits.spiritlhl.net)
 
-## incus
+## Incus
 
 [https://github.com/oneclickvirt/incus](https://github.com/oneclickvirt/incus)
 
