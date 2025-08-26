@@ -32,7 +32,7 @@ Welcome Star and Fork, all resources are open source, no non-open source parts, 
 
 [![Hits](https://hits.spiritlhl.net/pve.svg?action=hit&title=Hits&title_bg=%23555555&count_bg=%230eecf8&edge_flat=false)](https://hits.spiritlhl.net)
 
-## incus
+## Incus
 
 [https://github.com/oneclickvirt/incus](https://github.com/oneclickvirt/incus)
 
