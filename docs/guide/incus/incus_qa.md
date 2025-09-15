@@ -90,4 +90,4 @@ bash incus_fixed_restart.sh uninstall
 
 [kuroit](https://my.kuroit.com/aff.php?aff=5) 中的 美国凤凰城 regular
 
-[datalix](https://t.me/vps_reviews/338) 中的 德国AMD 促销款
+[datalix](https://t.me/+UHVoo2U4VyA5NTQ1/338) 中的 德国AMD 促销款

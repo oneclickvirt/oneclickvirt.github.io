@@ -74,4 +74,4 @@ Removes ```cron``` tasks, script files, log files, and count files.
 
 [kuroit](https://my.kuroit.com/aff.php?aff=5) Phoenix, USA regular
 
-[datalix](https://t.me/vps_reviews/338) German AMD Promotions
+[datalix](https://t.me/+UHVoo2U4VyA5NTQ1/338) German AMD Promotions
