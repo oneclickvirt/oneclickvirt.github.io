@@ -181,3 +181,16 @@ echo "kvm64" > /usr/local/bin/cpu_type
 
 这样的方式指定默认的CPU的TYPE，可将```kvm64```替换为你需要的类型
 
+## 开设虚拟机或容器的时候需要使用自定义的IPV6列表
+
+可在 ```/usr/local/bin/pve_appended_content.txt``` 中一行一个写入你待分配的IPV6地址，如
+
+```shell
+2a01:4f8:1c1c:94de::2
+2a01:4f8:1c1c:94de::3
+2a01:4f8:1c1c:94de::4
+2a01:4f8:1c1c:94de::5
+2a01:4f8:1c1c:94de::6
+```
+
+这种方式可用于宿主机未完整分配/80以上大小的子网的时候，仅带几个IPV6的时候，又需要开设独立的IPV6地址的实例

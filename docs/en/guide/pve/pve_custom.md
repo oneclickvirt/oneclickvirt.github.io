@@ -181,3 +181,16 @@ echo "kvm64" > /usr/local/bin/cpu_type
 
 Specifying the default CPU TYPE in this way allows you to replace ```kvm64``` with the type you want
 
+## When creating virtual machines or containers, you must use a custom IPv6 list
+
+Enter each IPv6 address to be assigned on a separate line in ```/usr/local/bin/pve_appended_content.txt```, such as:
+
+```shell
+2a01:4f8:1c1c:94de::2
+2a01:4f8:1c1c:94de::3
+2a01:4f8:1c1c:94de::4
+2a01:4f8:1c1c:94de::5
+2a01:4f8:1c1c:94de::6
+```
+
+This approach can be used when the host machine has not been fully allocated a subnet larger than /80, possesses only a few IPv6 addresses, yet requires the creation of instances with independent IPv6 addresses.
