@@ -34,6 +34,10 @@ webvirtmgr
 
 Supports both Chinese and English
 
+## OneClickVirt
+
+https://github.com/oneclickvirt/oneclickvirt
+
 ## PVE相关的各种一键脚本
 
 [https://github.com/oneclickvirt/pve](https://github.com/oneclickvirt/pve)

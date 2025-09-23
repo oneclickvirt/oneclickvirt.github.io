@@ -26,6 +26,10 @@ The PVE project might cause problems on the host machine. If you're not familiar
 
 Welcome Star and Fork, all resources are open source, no non-open source parts, reproduced as well as the use of please write on the source of this site, thank you!
 
+## OneClickVirt
+
+https://github.com/oneclickvirt/oneclickvirt
+
 ## PVE
 
 [https://github.com/oneclickvirt/pve](https://github.com/oneclickvirt/pve)

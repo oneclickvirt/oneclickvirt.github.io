@@ -30,6 +30,10 @@ PVE项目可能造成宿主机出现问题，如果你不会看Bug和修复系�
 
 欢迎Star和Fork，所有资源均开源，无非开源部分，转载以及使用请写上来源于本站，谢谢
 
+## OneClickVirt
+
+https://github.com/oneclickvirt/oneclickvirt
+
 ## PVE
 
 [https://github.com/oneclickvirt/pve](https://github.com/oneclickvirt/pve)
