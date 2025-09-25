@@ -102,8 +102,14 @@ After downloading the `web-dist.zip` file, extract it and use the corresponding 
 
 After installing MySQL, create an empty database named ```oneclickvirt```. It is recommended to allow access only from local ```127.0.0.1```. Keep the corresponding username and password safe.
 
-After opening the corresponding frontend page, it will automatically redirect to the initialization page. Fill in the database information and related user information, then click to initialize the system.
+After opening the corresponding page of the front-end, it will automatically jump to the initialization interface, fill in the database information and related user information, test the database link without problems, then you can click the initialization system.
 
-Once initialization is complete, it will automatically redirect to the homepage, where you can explore and use the system.
+After completing the initialization, it will automatically jump to the home page, you can explore and use it by yourself.
+
+If you are using the default user information for initialization, then the default account is:
+
+Administrator account: admin / Admin123!@#
+
+Ordinary user: testuser / TestUser123!@#
 
 ## Configuration File (Optional)
