@@ -8,7 +8,7 @@ Distinguishes between panel side and controlled side. The controlled side needs 
 
 ## Controlled Side
 
-Corresponds to other main installations in this documentation for environment installation, which will not be elaborated here.
+For the main installation corresponding to this guide, the environment setup is covered elsewhere and will not be repeated here. Installation commands for the main setup of the four major virtualization technologies are provided in this tutorial; please refer to them as needed.
 
 ## Panel Side
 
