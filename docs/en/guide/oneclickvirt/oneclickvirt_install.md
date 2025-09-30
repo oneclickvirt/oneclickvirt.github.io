@@ -4,15 +4,15 @@ outline: deep
 
 # OneClickVirt
 
-Distinguish between the panel side and the controlled side. The controlled side needs to have the corresponding virtualization environment installed in advance. You can use the main installation instructions from other parts of this documentation to install the environment.
+Distinguishes between panel side and controlled side. The controlled side needs to have the corresponding virtualization environment installed in advance, which can be installed using the main installation instructions in this documentation.
 
 ## Controlled Side
 
-For environment installation, refer to the main installation instructions from other parts of this documentation. This section will not go into excessive detail. This tutorial provides corresponding installation commands for the four mainstream virtualization technologies. Please refer to them as needed.
+Corresponds to the main installation instructions in this documentation for environment installation. This will not be elaborated here. This tutorial has corresponding installation commands for the four major mainstream virtualization technologies. Please refer to them yourself.
 
 ## Panel Side
 
-The host machine needs to have one of ```nginx```, ```caddy```, or ```OpenResty``` installed, as well as ```mysql``` version ```8.4.6```. It requires at least 1G of free memory and 2G of free disk space.
+The host machine needs to have one of ```nginx``` or ```caddy``` or ```OpenResty``` installed, as well as ```mysql``` version ```8.4.6```, requiring at least 1G of free memory and 2G of free disk space.
 
 After installation is complete, the default startup addresses are:
 
@@ -24,9 +24,15 @@ API Documentation: ```http://localhost:8888/swagger/index.html```
 
 ### Installation via Docker
 
+:::tip
+Since the database starts together when starting, do not operate immediately when the container just starts. You need to wait at least 12 seconds.
+:::
+
 #### Method 1: Using Pre-built Images
 
-Use the pre-built multi-architecture image, which will automatically download the version corresponding to your current system architecture:
+**Setup in Fresh Environment**
+
+Use pre-built ```amd64``` or ```arm64``` images, which will automatically download the corresponding version based on the current system architecture:
 
 ```bash
 docker run -d \
@@ -50,7 +56,41 @@ docker run -d \
   ghcr.io/oneclickvirt/oneclickvirt:latest
 ```
 
-#### Method 2: Build and Package Yourself
+The above methods are only for new installations.
+
+**Setup in Existing Environment**
+
+If you are installing again after deleting the container, you need to ensure that the originally mounted data is also deleted, so that the database will be reinitialized when the container is rebuilt.
+
+```shell
+docker rm -f oneclickvirt
+docker volume rm oneclickvirt-data oneclickvirt-storage
+```
+
+Then follow the steps for fresh environment setup.
+
+**Delete Container Image**
+
+```shell
+docker images rm -f spiritlhl/oneclickvirt:latest
+docker images rm -f ghcr.io/oneclickvirt/oneclickvirt:latest
+```
+
+Only by deleting the container image and re-pulling the image can you ensure that the image used is the latest one; otherwise, the image will not be automatically updated.
+
+**Re-pull Container Image**
+
+```shell
+docker pull spiritlhl/oneclickvirt:latest
+```
+
+or
+
+```shell
+docker pull ghcr.io/oneclickvirt/oneclickvirt:latest
+```
+
+#### Method 2: Self-compile and Package
 
 If you need to modify the source code or customize the build:
 
@@ -73,31 +113,31 @@ docker run -d \
   oneclickvirt
 ```
 
-### Manual Installation
+### Installation via Pre-compiled Binary Files
 
 #### Linux
 
 Download and execute
 
-International:
+International
 
 ```shell
 curl -L https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/install.sh -o install.sh && chmod +x install.sh
 ```
 
-Domestic (China):
+Domestic (China)
 
 ```shell
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/install.sh -o install.sh && chmod +x install.sh
 ```
 
-Interactive environment installation:
+Install environment with interaction
 
 ```
 ./install.sh
 ```
 
-Non-interactive environment installation:
+Install environment without interaction
 
 ```
 noninteractive=true ./install.sh
@@ -145,7 +185,7 @@ Stop service:
 systemctl restart oneclickvirt
 ```
 
-The installation script will extract static files to
+The previous installation script will extract the static files to
 
 ```shell
 cd /opt/oneclickvirt/web/
@@ -153,15 +193,15 @@ cd /opt/oneclickvirt/web/
 
 this path.
 
-Use ```nginx```, ```caddy```, or ```OpenResty``` to establish a static website with this path. You can choose whether to bind a domain name.
+Use ```nginx``` or ```caddy``` to establish a static website with this path. Whether you need domain binding is your choice.
 
-After deploying the static files, you need to reverse proxy the backend address for frontend use. Here is a specific example using ```OpenResty```:
+After the static files are deployed, you need to reverse proxy the backend address for frontend use. Here is a specific example using ```OpenResty```:
 
 ![](./images/proxy.png)
 
-You need to reverse proxy the path ```/api``` to the backend address ```http://127.0.0.1:8888```. If you are using ```1panel```, you only need to fill in these details, and the default backend domain uses the default ```$host``` without modification.
+You need to reverse proxy the path ```/api``` to the backend address ```http://127.0.0.1:8888```. If you are using ```1panel```, you only need to fill in these settings. The default backend domain uses the default ```$host``` and does not need to be modified.
 
-If you are using ```nginx``` or ```caddy```, please refer to the proxy source code below and modify it accordingly for proxying:
+If you are using ```nginx``` or ```caddy```, please refer to the proxy source code below and modify it yourself for proxying:
 
 ```shell
 location /api {
@@ -188,53 +228,53 @@ Check
 
 https://github.com/oneclickvirt/oneclickvirt/releases/latest
 
-Download the latest compressed file for the corresponding architecture, extract it, and execute.
+Download the latest compressed file for the corresponding architecture, extract and execute in the background.
 
-In the same directory as the binary file being executed, download
+In the same directory as the executed binary file, download
 
 https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/server/config.yaml
 
-This is the configuration file needed for subsequent use.
+This is the configuration file that will be needed subsequently.
 
-After downloading the ```web-dist.zip``` file, extract it and use the corresponding program to establish a static website, setting up the reverse proxy similar to Linux.
+After downloading the ```web-dist.zip``` file, extract it and use the corresponding program to establish a static website, and set up the reverse proxy similar to Linux.
 
-## Database Initialization
+#### Database Initialization
 
-After installing ```mysql```, create an empty database ```oneclickvirt``` using type ```utf8mb4```. It's best to make it accessible only locally at ```127.0.0.1```. Save the corresponding username and password.
+After installing and starting ```mysql```, create an empty database ```oneclickvirt``` with type ```utf8mb4```. It's best to make it accessible only locally ```127.0.0.1```. Save the corresponding username and password.
 
 After opening the corresponding frontend page, it will automatically redirect to the initialization interface.
 
 ![](./images/init.png)
 
-Fill in the database information and related user information. Test the database connection, and if there are no issues, you can click to initialize the system.
+Fill in the database information and related user information. If the database connection test is successful, you can click to initialize the system.
 
 ![](./images/init_success.png)
 
-After completing initialization, it will automatically redirect to the homepage, where you can explore and use it on your own.
+After completing initialization, it will automatically redirect to the homepage, and you can explore and use it yourself.
 
 ![](./images/home.png)
 
-If you used the default user information for initialization, the default accounts are:
+If you use the default user information for initialization, the default accounts are:
 
-Administrator username:
+Administrator account name
 
 ```
 admin
 ```
 
-Administrator password:
+Administrator password
 
 ```
 Admin123!@#
 ```
 
-Regular user username:
+Regular user account name
 
 ```
 testuser
 ```
 
-Regular user password:
+Regular user password
 
 ```
 TestUser123!@#

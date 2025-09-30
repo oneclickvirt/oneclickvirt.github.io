@@ -24,9 +24,15 @@ API 文档：```http://localhost:8888/swagger/index.html```
 
 ### 通过Docker安装
 
+:::tip
+由于启动的时候连带数据库一起启动，所以容器刚启动的时候不要立即操作，需要至少等待12秒。
+:::
+
 #### 方式一：使用预构建镜像
 
-使用已构建好的多架构镜像，会自动根据当前系统架构下载对应版本：
+**全新环境下开设**
+
+使用已构建好的```amd64```或```arm64```镜像，会自动根据当前系统架构下载对应版本：
 
 ```bash
 docker run -d \
@@ -48,6 +54,40 @@ docker run -d \
   -v oneclickvirt-storage:/app/storage \
   --restart unless-stopped \
   ghcr.io/oneclickvirt/oneclickvirt:latest
+```
+
+以上的方式仅限于新安装
+
+**旧有环境下开设**
+
+如果是删除了容器再次进行安装，那么需要确保原挂载的数据也进行删除，这样后续重建容器才会数据库重新初始化。
+
+```shell
+docker rm -f oneclickvirt
+docker volume rm oneclickvirt-data oneclickvirt-storage
+```
+
+然后再按全新环境下开设的步骤来
+
+**删除容器镜像**
+
+```shell
+docker images rm -f spiritlhl/oneclickvirt:latest
+docker images rm -f ghcr.io/oneclickvirt/oneclickvirt:latest
+```
+
+删除了容器镜像重新拉取镜像，才能确保镜像使用的是最新的镜像，否则不会自动更新镜像。
+
+**重新拉取容器镜像**
+
+```shell
+docker pull spiritlhl/oneclickvirt:latest
+```
+
+或
+
+```shell
+docker pull ghcr.io/oneclickvirt/oneclickvirt:latest
 ```
 
 #### 方式二：自己编译打包
@@ -73,7 +113,7 @@ docker run -d \
   oneclickvirt
 ```
 
-### 手动进行安装
+### 通过预编译二进制文件安装
 
 #### Linux
 
@@ -198,9 +238,9 @@ https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/oneclic
 
 下载```web-dist.zip```文件后，解压并使用对应的程序建立静态网站，类似Linux那样设置好反向代理即可。
 
-## 数据库初始化
+#### 数据库初始化
 
-安装```mysql```后，创建一个空的数据库```oneclickvirt```，使用类型```utf8mb4```，最好仅本地```127.0.0.1```可访问，对应用户名和密码保存好。
+安装启动了```mysql```后，创建一个空的数据库```oneclickvirt```，使用类型```utf8mb4```，最好仅本地```127.0.0.1```可访问，对应用户名和密码保存好。
 
 打开前端对应的页面后，将自动跳转到初始化界面。
 
