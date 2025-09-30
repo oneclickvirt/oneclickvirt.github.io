@@ -12,7 +12,7 @@ outline: deep
 
 ## 面板端
 
-宿主机需要安装好```nginx```或```caddy```或```OpenResty```之一，以及```8.4.6```版本的```mysql```，需要至少1G空闲内存和1G空闲硬盘。
+宿主机需要安装好```nginx```或```caddy```或```OpenResty```之一，以及```8.4.6```版本的```mysql```，需要至少1G空闲内存和2G空闲硬盘。
 
 安装完成后，默认启动的地址
 
@@ -22,7 +22,58 @@ outline: deep
 
 API 文档：```http://localhost:8888/swagger/index.html```
 
-### 后端安装
+### 通过Docker安装
+
+#### 方式一：使用预构建镜像
+
+使用已构建好的多架构镜像，会自动根据当前系统架构下载对应版本：
+
+```bash
+docker run -d \
+  --name oneclickvirt \
+  -p 80:80 \
+  -v oneclickvirt-data:/var/lib/mysql \
+  -v oneclickvirt-storage:/app/storage \
+  --restart unless-stopped \
+  spiritlhl/oneclickvirt:latest
+```
+
+或者使用 GitHub Container Registry：
+
+```bash
+docker run -d \
+  --name oneclickvirt \
+  -p 80:80 \
+  -v oneclickvirt-data:/var/lib/mysql \
+  -v oneclickvirt-storage:/app/storage \
+  --restart unless-stopped \
+  ghcr.io/oneclickvirt/oneclickvirt:latest
+```
+
+#### 方式二：自己编译打包
+
+如果需要修改源码或自定义构建：
+
+```bash
+git clone https://github.com/oneclickvirt/oneclickvirt.git
+cd oneclickvirt
+```
+
+```bash
+docker build -t oneclickvirt .
+```
+
+```bash
+docker run -d \
+  --name oneclickvirt \
+  -p 80:80 \
+  -v oneclickvirt-data:/var/lib/mysql \
+  -v oneclickvirt-storage:/app/storage \
+  --restart unless-stopped \
+  oneclickvirt
+```
+
+### 手动进行安装
 
 #### Linux
 
@@ -94,24 +145,6 @@ journalctl -u oneclickvirt -f
 systemctl restart oneclickvirt
 ```
 
-#### Windows
-
-查看
-
-https://github.com/oneclickvirt/oneclickvirt/releases/latest
-
-下载最新的对应架构的压缩文件，解压后挂起执行。
-
-执行的二进制文件的同级目录下，下载
-
-https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/server/config.yaml
-
-文件，这是后续需要使用的配置文件。
-
-### 前端安装
-
-#### Linux
-
 前面安装脚本会将静态文件解压到
 
 ```shell
@@ -151,11 +184,23 @@ location /api {
 
 #### Windows
 
+查看
+
+https://github.com/oneclickvirt/oneclickvirt/releases/latest
+
+下载最新的对应架构的压缩文件，解压后挂起执行。
+
+执行的二进制文件的同级目录下，下载
+
+https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/server/config.yaml
+
+文件，这是后续需要使用的配置文件。
+
 下载```web-dist.zip```文件后，解压并使用对应的程序建立静态网站，类似Linux那样设置好反向代理即可。
 
-## MYSQL
+## 数据库初始化
 
-安装mysql后，创建一个空的数据库```oneclickvirt```，使用类型```utf8mb4```，最好仅本地```127.0.0.1```可访问，对应用户名和密码保存好。
+安装```mysql```后，创建一个空的数据库```oneclickvirt```，使用类型```utf8mb4```，最好仅本地```127.0.0.1```可访问，对应用户名和密码保存好。
 
 打开前端对应的页面后，将自动跳转到初始化界面。
 
