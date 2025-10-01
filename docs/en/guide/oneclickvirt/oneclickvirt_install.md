@@ -72,8 +72,8 @@ Then follow the steps for fresh environment setup.
 **Delete Container Image**
 
 ```shell
-docker images rm -f spiritlhl/oneclickvirt:latest
-docker images rm -f ghcr.io/oneclickvirt/oneclickvirt:latest
+docker image rm -f spiritlhl/oneclickvirt:latest
+docker image rm -f ghcr.io/oneclickvirt/oneclickvirt:latest
 ```
 
 Only by deleting the container image and re-pulling the image can you ensure that the image used is the latest one; otherwise, the image will not be automatically updated.

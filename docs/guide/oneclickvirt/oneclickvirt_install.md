@@ -72,8 +72,8 @@ docker volume rm oneclickvirt-data oneclickvirt-storage
 **删除容器镜像**
 
 ```shell
-docker images rm -f spiritlhl/oneclickvirt:latest
-docker images rm -f ghcr.io/oneclickvirt/oneclickvirt:latest
+docker image rm -f spiritlhl/oneclickvirt:latest
+docker image rm -f ghcr.io/oneclickvirt/oneclickvirt:latest
 ```
 
 删除了容器镜像重新拉取镜像，才能确保镜像使用的是最新的镜像，否则不会自动更新镜像。
