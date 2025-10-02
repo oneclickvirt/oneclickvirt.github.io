@@ -8,6 +8,10 @@ This is a control panel for interfacing with mainstream virtualization technolog
 
 Welcome to give the project a ```Star``` for free support --> [https://github.com/oneclickvirt/oneclickvirt](https://github.com/oneclickvirt/oneclickvirt)
 
+:::warning
+This is a project in the early stages of development, there may be a variety of bugs and instability, if you use it at your own discretion and risk, updates will be more frequent
+:::
+
 ## Environment Requirements
 
 Supported architectures: amd64 or arm64

@@ -8,6 +8,10 @@ outline: deep
 
 欢迎给项目一个```Star```进行免费的支持-->[https://github.com/oneclickvirt/oneclickvirt](https://github.com/oneclickvirt/oneclickvirt)
 
+:::warning
+这是一个处于早期开发的项目，可能有各种BUG和不稳定之处，若使用则自行斟酌风险，更新会比较频繁
+:::
+
 ## 环境需求
 
 支持的架构：amd64或arm64

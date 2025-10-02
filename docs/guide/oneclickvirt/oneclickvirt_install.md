@@ -280,4 +280,148 @@ testuser
 TestUser123!@#
 ```
 
+默认加载了所有的镜像，但是默认仅启用了```debian```和```alpine```相关版本的镜像，避免过多镜像启用导致用户选择困难。如果你需要额外类型的镜像，则需要在管理员权限下，在镜像管理界面按照类型架构版本搜索并进行启用。
+
 ## 配置文件(可选)
+
+默认的设置已经足够轻度使用了，如果需要高级自定义则需要修改配置文件，或初始化后在管理员界面进行修改。
+
+https://github.com/oneclickvirt/oneclickvirt/blob/main/server/config.yaml
+
+这里是完整的初始化的配置文件，下面将讲解具体的配置项目
+
+```shell
+auth:
+    email-password: ""
+    email-smtp-host: ""
+    email-smtp-port: "3306"
+    email-username: root
+    enable-email: false
+    enable-oauth2: false
+    enable-public-registration: false
+    enable-qq: false
+    enable-telegram: false
+    qq-app-id: ""
+    qq-app-key: ""
+    telegram-bot-token: ""
+```
+
+默认的系统配置项目，初始化的时候会从这里读取配置，更新系统配置时会自动回写
+
+```shell
+captcha:
+    enabled: true
+    expire-time: 300
+    height: 40
+    length: 4
+    width: 120
+```
+
+前端登录注册时的图片验证码的配置项
+
+```shell
+cdn:
+    base-endpoint: https://cdn.spiritlhl.net/
+    endpoints:
+        - https://cdn0.spiritlhl.top/
+        - http://cdn3.spiritlhl.net/
+        - http://cdn1.spiritlhl.net/
+        - http://cdn2.spiritlhl.net/
+```
+
+镜像下载的时候，尝试使用的加速地址，一般不需要修改，因为预载的系统镜像都是本组织下的仓库，这些cdn足够进行加速下载了
+
+```shell
+mysql:
+    auto-create: true
+    config: charset=utf8mb4&parseTime=True&loc=Local
+    db-name: oneclickvirt
+    engine: InnoDB
+    log-mode: error
+    log-zap: false
+    max-idle-conns: 10
+    max-lifetime: 3600
+    max-open-conns: 100
+    password: ""
+    path:
+    port:
+    prefix: ""
+    singular: false
+    username: root
+```
+
+初始化的判断如果这块的```path```和```port```都为空，则判断需要进行初始化，此时你填入的初始化的数据库务必保证是空数据库。
+
+```shell
+quota:
+    default-level: 1
+    instance-type-permissions:
+        min-level-for-container: 1
+        min-level-for-delete: 2
+        min-level-for-vm: 1
+    level-limits:
+        1:
+            max-instances: 1
+            max-resources:
+                bandwidth: 10
+                cpu: 1
+                disk: 1025
+                memory: 350
+            max-traffic: 102400
+        2:
+            max-instances: 3
+            max-resources:
+                bandwidth: 20
+                cpu: 2
+                disk: 20480
+                memory: 1024
+            max-traffic: 204800
+        3:
+            max-instances: 5
+            max-resources:
+                bandwidth: 50
+                cpu: 4
+                disk: 40960
+                memory: 2048
+            max-traffic: 307200
+        4:
+            max-instances: 10
+            max-resources:
+                bandwidth: 100
+                cpu: 8
+                disk: 81920
+                memory: 4096
+            max-traffic: 409600
+        5:
+            max-instances: 20
+            max-resources:
+                bandwidth: 200
+                cpu: 16
+                disk: 163840
+                memory: 8192
+            max-traffic: 512000
+```
+
+这块是等级与配额限制的配置项，内存、硬盘、流量的默认单位为```mb```，```min-level```配置是配置系统配置中的最低权限，默认最低等级1可开设容器，等级2可在普通用户端删除操作，默认等级1可开设虚拟机，```default-level```是默认的注册的用户的等级。
+
+```shell
+zap:
+    compress-logs: true
+    director: storage/logs
+    encode-level: LowercaseLevelEncoder
+    format: console
+    level: info
+    log-in-console: false
+    max-array-elements: 5
+    max-backups: 15
+    max-file-size: 5
+    max-log-length: 2000
+    max-string-length: 1000
+    prefix: '[oneclickvirt]'
+    retention-day: 3
+    show-line: false
+    stacktrace-key: stacktrace
+```
+
+这块唯一需要注意的是```level```字段，默认为```info```日志，如果需要调试日志，请改成```debug```。
+

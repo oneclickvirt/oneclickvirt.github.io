@@ -280,4 +280,147 @@ Regular user password
 TestUser123!@#
 ```
 
+All images are loaded by default, but only images related to ```debian``` and ```alpine``` are enabled by default, so as to avoid too many images being enabled and making it difficult for users to choose. If you need additional types of images, you need to search and enable them by type of architecture version in the image management interface under administrator privileges.
+
 ## Configuration File (Optional)
+
+The default settings are sufficient for light usage. If you need advanced customization, you need to modify the configuration file or make changes in the admin interface after initialization.
+
+https://github.com/oneclickvirt/oneclickvirt/blob/main/server/config.yaml
+
+Here is the complete initialization configuration file. The specific configuration items will be explained below.
+
+```shell
+auth:
+    email-password: ""
+    email-smtp-host: ""
+    email-smtp-port: "3306"
+    email-username: root
+    enable-email: false
+    enable-oauth2: false
+    enable-public-registration: false
+    enable-qq: false
+    enable-telegram: false
+    qq-app-id: ""
+    qq-app-key: ""
+    telegram-bot-token: ""
+```
+
+Default system configuration items. The configuration will be read from here during initialization, and will be automatically written back when updating system configuration.
+
+```shell
+captcha:
+    enabled: true
+    expire-time: 300
+    height: 40
+    length: 4
+    width: 120
+```
+
+Configuration items for the image captcha on the frontend login and registration pages.
+
+```shell
+cdn:
+    base-endpoint: https://cdn.spiritlhl.net/
+    endpoints:
+        - https://cdn0.spiritlhl.top/
+        - http://cdn3.spiritlhl.net/
+        - http://cdn1.spiritlhl.net/
+        - http://cdn2.spiritlhl.net/
+```
+
+Acceleration addresses to try when downloading images. Generally, no modification is needed, as the preloaded system images are all from repositories under this organization, and these CDNs are sufficient for accelerated downloads.
+
+```shell
+mysql:
+    auto-create: true
+    config: charset=utf8mb4&parseTime=True&loc=Local
+    db-name: oneclickvirt
+    engine: InnoDB
+    log-mode: error
+    log-zap: false
+    max-idle-conns: 10
+    max-lifetime: 3600
+    max-open-conns: 100
+    password: ""
+    path:
+    port:
+    prefix: ""
+    singular: false
+    username: root
+```
+
+During initialization, if both ```path``` and ```port``` in this section are empty, initialization is required. In this case, the database you enter for initialization must be an empty database.
+
+```shell
+quota:
+    default-level: 1
+    instance-type-permissions:
+        min-level-for-container: 1
+        min-level-for-delete: 2
+        min-level-for-vm: 1
+    level-limits:
+        1:
+            max-instances: 1
+            max-resources:
+                bandwidth: 10
+                cpu: 1
+                disk: 1025
+                memory: 350
+            max-traffic: 102400
+        2:
+            max-instances: 3
+            max-resources:
+                bandwidth: 20
+                cpu: 2
+                disk: 20480
+                memory: 1024
+            max-traffic: 204800
+        3:
+            max-instances: 5
+            max-resources:
+                bandwidth: 50
+                cpu: 4
+                disk: 40960
+                memory: 2048
+            max-traffic: 307200
+        4:
+            max-instances: 10
+            max-resources:
+                bandwidth: 100
+                cpu: 8
+                disk: 81920
+                memory: 4096
+            max-traffic: 409600
+        5:
+            max-instances: 20
+            max-resources:
+                bandwidth: 200
+                cpu: 16
+                disk: 163840
+                memory: 8192
+            max-traffic: 512000
+```
+
+This section contains configuration items for level and quota restrictions. The default unit for memory, disk, and traffic is ```mb```. The ```min-level``` configuration sets the minimum permissions in the system configuration. By default, level 1 can create containers, level 2 can perform delete operations on the regular user side, and level 1 can create virtual machines by default. ```default-level``` is the default level for newly registered users.
+
+```shell
+zap:
+    compress-logs: true
+    director: storage/logs
+    encode-level: LowercaseLevelEncoder
+    format: console
+    level: info
+    log-in-console: false
+    max-array-elements: 5
+    max-backups: 15
+    max-file-size: 5
+    max-log-length: 2000
+    max-string-length: 1000
+    prefix: '[oneclickvirt]'
+    retention-day: 3
+    show-line: false
+    stacktrace-key: stacktrace
+```
+
+The only field that needs attention in this section is ```level```, which defaults to ```info``` logging. If you need debug logs, please change it to ```debug```.
