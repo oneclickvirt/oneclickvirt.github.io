@@ -10,6 +10,12 @@ Distinguishes between panel side and controlled side. The controlled side needs 
 
 Corresponds to the main installation instructions in this documentation for environment installation. This will not be elaborated here. This tutorial has corresponding installation commands for the four major mainstream virtualization technologies. Please refer to them yourself.
 
+If you need to use the panel's traffic control, you need to install the ```vnstat``` tool, download it yourself, like
+
+```shell 
+apt install -y vnstat 
+```
+
 ## Panel Side
 
 The host machine needs to have one of ```nginx``` or ```caddy``` or ```OpenResty``` installed, as well as ```mysql``` version ```8.4.6```, requiring at least 1G of free memory and 2G of free disk space.
