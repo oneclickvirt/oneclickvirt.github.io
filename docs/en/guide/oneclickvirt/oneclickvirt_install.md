@@ -310,9 +310,12 @@ auth:
     qq-app-id: ""
     qq-app-key: ""
     telegram-bot-token: ""
+    frontend-url: ""
 ```
 
-Default system configuration items. The configuration will be read from here during initialization, and will be automatically written back when updating system configuration.
+If you need to use the OAuth2 functionality, you must enter the ```frontend-url``` here as the final address displayed in your frontend. Include the ```http``` or ```https``` protocol prefix, and the trailing slash (```/```) is optional.
+
+Other default system configuration items. The configuration will be read from here during initialization, and will be automatically written back when updating system configuration.
 
 ```shell
 captcha:
