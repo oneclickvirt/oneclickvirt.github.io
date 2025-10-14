@@ -15,6 +15,7 @@ Feel free to give the project a ```Star``` for free support!-->[https://github.c
 Hardware requirements.
 - System: Ubuntu 20+, Debian 11+, RockyLinux 9+, AlmaLinux 9+, Centos 9+
 - Virtualization: KVM, VMWARE recommended.
+- CPU: The number of cores should be greater than or equal to 2, otherwise there may be a kernel idling slice cycle resulting in 100% occupancy
 - Memory: At least 512MB of RAM
 - Hard disk: hard disk (system disk) at least 10G
 - Network: Independent IPV4 address, IPV6 is optional, bandwidth can download scripts on the line, the network can connect to the Github raw page on the line
