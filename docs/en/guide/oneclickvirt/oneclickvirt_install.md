@@ -36,9 +36,22 @@ Since the database starts together when starting, do not operate immediately whe
 
 #### Method 1: Using Pre-built Images
 
-**Setup in Fresh Environment**
+**Image Tag Description**
 
-Use pre-built ```amd64``` or ```arm64``` images, which will automatically download the corresponding version based on the current system architecture:
+| Image Tag | Description | Use Case |
+|---------|------|---------|
+| `spiritlhl/oneclickvirt:latest` | Integrated version (built-in database) latest | Quick deployment |
+| `spiritlhl/oneclickvirt:20251015` | Integrated version specific date version | Need fixed version |
+| `spiritlhl/oneclickvirt:no-db` | Independent database version latest | Without built-in database |
+| `spiritlhl/oneclickvirt:no-db-20251015` | Independent database version specific date | Without built-in database |
+
+All images support `linux/amd64` and `linux/arm64` architectures.
+
+**Deployment in Fresh Environment**
+
+Using pre-built `amd64` or `arm64` images, will automatically download the corresponding version based on current system architecture:
+
+Without domain configuration:
 
 ```bash
 docker run -d \
@@ -50,66 +63,78 @@ docker run -d \
   spiritlhl/oneclickvirt:latest
 ```
 
-Or use GitHub Container Registry:
+With domain access configuration:
+
+If you need to configure a domain, you need to set the `FRONTEND_URL` environment variable:
 
 ```bash
 docker run -d \
   --name oneclickvirt \
   -p 80:80 \
+  -e FRONTEND_URL="https://your-domain.com" \
   -v oneclickvirt-data:/var/lib/mysql \
   -v oneclickvirt-storage:/app/storage \
   --restart unless-stopped \
-  ghcr.io/oneclickvirt/oneclickvirt:latest
+  spiritlhl/oneclickvirt:latest
 ```
 
-The above methods are only for new installations.
+The above methods are only for fresh installation
 
-**Setup in Existing Environment**
+**Upgrade Frontend and Backend Only in Existing Environment**
 
-If you are installing again after deleting the container, you need to ensure that the originally mounted data is also deleted, so that the database will be reinitialized when the container is rebuilt.
+No need to delete mounted volumes, just delete the container itself
+
+```shell
+docker rm -f oneclickvirt
+```
+
+Then delete the original image
+
+```shell
+docker image rm -f spiritlhl/oneclickvirt:latest
+```
+
+Pull the container image again
+
+```shell
+docker pull spiritlhl/oneclickvirt:latest
+```
+
+Then follow the steps for deployment in fresh environment, note that after waiting 12 seconds to open the frontend, you will find it automatically skips the initialization interface because the data has been saved and is available
+
+**Redeploy in Existing Environment**
+
+Need to delete not only the container but also the corresponding mounts:
 
 ```shell
 docker rm -f oneclickvirt
 docker volume rm oneclickvirt-data oneclickvirt-storage
 ```
 
-Then follow the steps for fresh environment setup.
-
-**Delete Container Image**
+Then delete the original image
 
 ```shell
 docker image rm -f spiritlhl/oneclickvirt:latest
-docker image rm -f ghcr.io/oneclickvirt/oneclickvirt:latest
 ```
 
-Only by deleting the container image and re-pulling the image can you ensure that the image used is the latest one; otherwise, the image will not be automatically updated.
-
-**Re-pull Container Image**
+Pull the container image again
 
 ```shell
 docker pull spiritlhl/oneclickvirt:latest
 ```
 
-or
+Then follow the steps for deployment in fresh environment, this will prompt for reinitialization, all original data has been deleted.
 
-```shell
-docker pull ghcr.io/oneclickvirt/oneclickvirt:latest
-```
+#### Method 2: Build and Package Yourself
 
-#### Method 2: Self-compile and Package
+If you need to modify source code or custom build:
 
-If you need to modify the source code or customize the build:
+**Integrated version (built-in database)**
 
 ```bash
 git clone https://github.com/oneclickvirt/oneclickvirt.git
 cd oneclickvirt
-```
-
-```bash
 docker build -t oneclickvirt .
-```
-
-```bash
 docker run -d \
   --name oneclickvirt \
   -p 80:80 \
@@ -117,6 +142,26 @@ docker run -d \
   -v oneclickvirt-storage:/app/storage \
   --restart unless-stopped \
   oneclickvirt
+```
+
+**Independent database version:**
+
+```bash
+git clone https://github.com/oneclickvirt/oneclickvirt.git
+cd oneclickvirt
+docker build -f Dockerfile.no-db -t oneclickvirt:no-db .
+docker run -d \
+  --name oneclickvirt \
+  -p 80:80 \
+  -e FRONTEND_URL="https://your-domain.com" \
+  -e DB_HOST="your-mysql-host" \
+  -e DB_PORT="3306" \
+  -e DB_NAME="oneclickvirt" \
+  -e DB_USER="root" \
+  -e DB_PASSWORD="your-password" \
+  -v oneclickvirt-storage:/app/storage \
+  --restart unless-stopped \
+  oneclickvirt:no-db
 ```
 
 ### Installation via Pre-compiled Binary Files

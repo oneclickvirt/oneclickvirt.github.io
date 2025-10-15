@@ -38,9 +38,22 @@ API 文档：```http://localhost:8888/swagger/index.html```
 
 #### 方式一：使用预构建镜像
 
+**镜像标签说明**
+
+| 镜像标签 | 说明 | 适用场景 |
+|---------|------|---------|
+| `spiritlhl/oneclickvirt:latest` | 一体化版本（内置数据库）最新版 | 快速部署 |
+| `spiritlhl/oneclickvirt:20251015` | 一体化版本特定日期版本 | 需要固定版本 |
+| `spiritlhl/oneclickvirt:no-db` | 独立数据库版本最新版 | 不内置数据库 |
+| `spiritlhl/oneclickvirt:no-db-20251015` | 独立数据库版本特定日期 | 不内置数据库 |
+
+所有镜像均支持 `linux/amd64` 和 `linux/arm64` 架构。
+
 **全新环境下开设**
 
 使用已构建好的```amd64```或```arm64```镜像，会自动根据当前系统架构下载对应版本：
+
+不配置域名：
 
 ```bash
 docker run -d \
@@ -52,66 +65,78 @@ docker run -d \
   spiritlhl/oneclickvirt:latest
 ```
 
-或者使用 GitHub Container Registry：
+配置域名访问：
+
+如果你需要配置域名，需要设置 `FRONTEND_URL` 环境变量：
 
 ```bash
 docker run -d \
   --name oneclickvirt \
   -p 80:80 \
+  -e FRONTEND_URL="https://your-domain.com" \
   -v oneclickvirt-data:/var/lib/mysql \
   -v oneclickvirt-storage:/app/storage \
   --restart unless-stopped \
-  ghcr.io/oneclickvirt/oneclickvirt:latest
+  spiritlhl/oneclickvirt:latest
 ```
 
 以上的方式仅限于新安装
 
-**旧有环境下开设**
+**旧有环境下仅升级前后端**
 
-如果是删除了容器再次进行安装，那么需要确保原挂载的数据也进行删除，这样后续重建容器才会数据库重新初始化。
+不需要删除挂载盘仅删除容器本身即可
+
+```shell
+docker rm -f oneclickvirt
+```
+
+然后删除原始的镜像
+
+```shell
+docker image rm -f spiritlhl/oneclickvirt:latest
+```
+
+重新拉取容器镜像
+
+```shell
+docker pull spiritlhl/oneclickvirt:latest
+```
+
+然后再按全新环境下开设的步骤来，注意等待12秒后打开前端，会发现已自动越过初始化界面，因为数据已保存可用
+
+**旧有环境下重新开设**
+
+不仅需要删除容器还得删除对应的挂载：
 
 ```shell
 docker rm -f oneclickvirt
 docker volume rm oneclickvirt-data oneclickvirt-storage
 ```
 
-然后再按全新环境下开设的步骤来
-
-**删除容器镜像**
+然后删除原始的镜像
 
 ```shell
 docker image rm -f spiritlhl/oneclickvirt:latest
-docker image rm -f ghcr.io/oneclickvirt/oneclickvirt:latest
 ```
 
-删除了容器镜像重新拉取镜像，才能确保镜像使用的是最新的镜像，否则不会自动更新镜像。
-
-**重新拉取容器镜像**
+重新拉取容器镜像
 
 ```shell
 docker pull spiritlhl/oneclickvirt:latest
 ```
 
-或
-
-```shell
-docker pull ghcr.io/oneclickvirt/oneclickvirt:latest
-```
+然后再按全新环境下开设的步骤来，这样会提示重新初始化，所有原始数据已删除。
 
 #### 方式二：自己编译打包
 
 如果需要修改源码或自定义构建：
 
+**一体化版本（内置数据库）**
+
 ```bash
 git clone https://github.com/oneclickvirt/oneclickvirt.git
 cd oneclickvirt
-```
-
-```bash
 docker build -t oneclickvirt .
-```
-
-```bash
 docker run -d \
   --name oneclickvirt \
   -p 80:80 \
@@ -119,6 +144,26 @@ docker run -d \
   -v oneclickvirt-storage:/app/storage \
   --restart unless-stopped \
   oneclickvirt
+```
+
+**独立数据库版本：**
+
+```bash
+git clone https://github.com/oneclickvirt/oneclickvirt.git
+cd oneclickvirt
+docker build -f Dockerfile.no-db -t oneclickvirt:no-db .
+docker run -d \
+  --name oneclickvirt \
+  -p 80:80 \
+  -e FRONTEND_URL="https://your-domain.com" \
+  -e DB_HOST="your-mysql-host" \
+  -e DB_PORT="3306" \
+  -e DB_NAME="oneclickvirt" \
+  -e DB_USER="root" \
+  -e DB_PASSWORD="your-password" \
+  -v oneclickvirt-storage:/app/storage \
+  --restart unless-stopped \
+  oneclickvirt:no-db
 ```
 
 ### 通过预编译二进制文件安装
