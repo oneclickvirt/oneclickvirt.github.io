@@ -4,34 +4,35 @@ outline: deep
 
 # OneClickVirt
 
-Distinguishes between panel side and controlled side. The controlled side needs to have the corresponding virtualization environment installed in advance, which can be installed using the main installation instructions in this documentation.
+Distinguish between the control panel and the controlled end. The controlled end needs to have the corresponding virtualization environment installed in advance. You can use the installation instructions from other sections of this document for environment installation. The control panel is actually just a panel without virtualization environment requirements.
 
-## Controlled Side
+## Controlled End
 
-Corresponds to the main installation instructions in this documentation for environment installation. This will not be elaborated here. This tutorial has corresponding installation commands for the four major mainstream virtualization technologies. Please refer to them yourself.
+Refer to the installation instructions from other sections of this document for environment installation. This won't be elaborated further here. This tutorial provides corresponding installation commands for the four mainstream virtualization technologies. Please refer to them on your own.
 
-If you need to use the panel's traffic control, you need to install the ```vnstat``` tool, download it yourself, like
+If you need to use the panel's traffic control feature, you'll need to additionally install the ```vnstat``` tool. Download it yourself. If using apt package management, you can use:
 
-```shell 
-apt install -y vnstat 
+```shell
+apt install -y vnstat
 ```
 
-## Panel Side
+to download it. The same applies to other systems.
 
-The host machine needs to have one of ```nginx``` or ```caddy``` or ```OpenResty``` installed, as well as ```mysql``` version ```8.4.6```, requiring at least 1G of free memory and 2G of free disk space.
+## Control Panel
 
-After installation is complete, the default startup addresses are:
+Hardware requirements: at least 1GB of free memory and 2GB of free disk space. Installation can be completed through any of the following methods.
 
-Frontend: ```http://your-IP-or-domain```
-
-Backend API: ```http://localhost:8888```
-
-API Documentation: ```http://localhost:8888/swagger/index.html```
+| Installation Method | Use Case | Advantages | Disadvantages |
+|---------|---------|------|------|
+| Docker Deployment (Pre-built Image) | Quick deployment, larger footprint | One-click installation, data persistence | Requires Docker environment, large image download  |
+| Frontend-Backend Separation Deployment | High performance, minimal footprint | Best performance, flexible configuration | Complex configuration, requires reverse proxy setup |
+| All-in-One Deployment | Works with or without public IPv4 address | Simple deployment, no reverse proxy needed | Lower performance |
+| Dockerfile Self-compilation | Suitable for secondary development and source code release | Highly customizable | Requires Docker environment, long compilation time |
 
 ### Installation via Docker
 
 :::tip
-Since the database starts together when starting, do not operate immediately when the container just starts. You need to wait at least 12 seconds.
+Since the database starts together with the container, do not operate immediately after container startup. Wait at least 12 seconds.
 :::
 
 Available image tags can be found at:
@@ -40,22 +41,22 @@ https://hub.docker.com/r/spiritlhl/oneclickvirt
 
 https://github.com/oneclickvirt/oneclickvirt/pkgs/container/oneclickvirt
 
-#### Method 1: Using Pre-built Images
+#### Method 1: Deploy Using Pre-built Images
 
 **Image Tag Description**
 
 | Image Tag | Description | Use Case |
 |---------|------|---------|
-| `spiritlhl/oneclickvirt:latest` | Integrated version (built-in database) latest | Quick deployment |
-| `spiritlhl/oneclickvirt:20251015` | Integrated version specific date version | Need fixed version |
-| `spiritlhl/oneclickvirt:no-db` | Independent database version latest | Without built-in database |
-| `spiritlhl/oneclickvirt:no-db-20251015` | Independent database version specific date | Without built-in database |
+| `spiritlhl/oneclickvirt:latest` | All-in-one version (with built-in database) latest | Quick deployment |
+| `spiritlhl/oneclickvirt:20251015` | All-in-one version specific date | Need fixed version |
+| `spiritlhl/oneclickvirt:no-db` | Independent database version latest | No built-in database |
+| `spiritlhl/oneclickvirt:no-db-20251015` | Independent database version specific date | No built-in database |
 
-All images support `linux/amd64` and `linux/arm64` architectures.
+All images support both `linux/amd64` and `linux/arm64` architectures.
 
-**Deployment in Fresh Environment**
+**Deploy in Fresh Environment**
 
-Using pre-built `amd64` or `arm64` images, will automatically download the corresponding version based on current system architecture:
+Using pre-built ```amd64``` or ```arm64``` images, the corresponding version will be automatically downloaded based on the current system architecture:
 
 Without domain configuration:
 
@@ -84,58 +85,58 @@ docker run -d \
   spiritlhl/oneclickvirt:latest
 ```
 
-The above methods are only for fresh installation
+The above methods are only for new installations.
 
 **Upgrade Frontend and Backend Only in Existing Environment**
 
-No need to delete mounted volumes, just delete the container itself
+Delete only the container itself without removing mounted volumes:
 
 ```shell
 docker rm -f oneclickvirt
 ```
 
-Then delete the original image
+Then delete the original image:
 
 ```shell
 docker image rm -f spiritlhl/oneclickvirt:latest
 ```
 
-Pull the container image again
+Pull the container image again:
 
 ```shell
 docker pull spiritlhl/oneclickvirt:latest
 ```
 
-Then follow the steps for deployment in fresh environment, note that after waiting 12 seconds to open the frontend, you will find it automatically skips the initialization interface because the data has been saved and is available
+Then follow the steps for fresh environment deployment. Note that after waiting 12 seconds and opening the frontend, you'll find it automatically skips the initialization interface because the data has been persisted and imported.
 
 **Redeploy in Existing Environment**
 
-Need to delete not only the container but also the corresponding mounts:
+This will completely delete existing data before deployment. You need to delete not only the container but also the corresponding mount points:
 
 ```shell
 docker rm -f oneclickvirt
 docker volume rm oneclickvirt-data oneclickvirt-storage
 ```
 
-Then delete the original image
+Then delete the original image:
 
 ```shell
 docker image rm -f spiritlhl/oneclickvirt:latest
 ```
 
-Pull the container image again
+Pull the container image again:
 
 ```shell
 docker pull spiritlhl/oneclickvirt:latest
 ```
 
-Then follow the steps for deployment in fresh environment, this will prompt for reinitialization, all original data has been deleted.
+Then follow the steps for fresh environment deployment. This will prompt for re-initialization, and all original data has been deleted.
 
-#### Method 2: Build and Package Yourself
+#### Method 2: Self-compile and Deploy via Dockerfile
 
-If you need to modify source code or custom build:
+This method is suitable for modifying source code and custom builds:
 
-**Integrated version (built-in database)**
+**All-in-One Version (with built-in database)**
 
 ```bash
 git clone https://github.com/oneclickvirt/oneclickvirt.git
@@ -150,7 +151,7 @@ docker run -d \
   oneclickvirt
 ```
 
-**Independent database version:**
+**Independent Database Version (no built-in database)**
 
 ```bash
 git clone https://github.com/oneclickvirt/oneclickvirt.git
@@ -172,29 +173,35 @@ docker run -d \
 
 ### Installation via Pre-compiled Binary Files
 
-#### Linux
+There are also two methods here:
+- Frontend-backend separation deployment (backend and frontend are compiled separately into corresponding files for deployment), better performance
+- All-in-one deployment (frontend and backend are integrated into one file for deployment), lower performance
+
+#### Frontend-Backend Separation Deployment
+
+##### Linux
 
 Download and execute
 
-International
+International:
 
 ```shell
 curl -L https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/install.sh -o install.sh && chmod +x install.sh
 ```
 
-Domestic (China)
+Domestic:
 
 ```shell
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/install.sh -o install.sh && chmod +x install.sh
 ```
 
-Install environment with interaction
+Interactive environment installation:
 
 ```
 ./install.sh
 ```
 
-Install environment without interaction
+Non-interactive environment installation:
 
 ```
 noninteractive=true ./install.sh
@@ -236,13 +243,11 @@ journalctl -u oneclickvirt -f
 
 Restart service:
 
-Stop service:
-
 ```shell
 systemctl restart oneclickvirt
 ```
 
-The previous installation script will extract the static files to
+The installation script will extract static files to:
 
 ```shell
 cd /opt/oneclickvirt/web/
@@ -250,15 +255,15 @@ cd /opt/oneclickvirt/web/
 
 this path.
 
-Use ```nginx``` or ```caddy``` to establish a static website with this path. Whether you need domain binding is your choice.
+Use ```nginx``` or ```caddy``` to establish a static website with this path. Whether to bind a domain name is your choice.
 
-After the static files are deployed, you need to reverse proxy the backend address for frontend use. Here is a specific example using ```OpenResty```:
+After deploying the static files, you need to reverse proxy the backend address for frontend use. Here's a specific example using ```OpenResty```:
 
 ![](./images/proxy.png)
 
-You need to reverse proxy the path ```/api``` to the backend address ```http://127.0.0.1:8888```. If you are using ```1panel```, you only need to fill in these settings. The default backend domain uses the default ```$host``` and does not need to be modified.
+You need to reverse proxy the path ```/api``` to the backend address ```http://127.0.0.1:8888```. If you're using ```1panel```, you only need to fill in these fields, and the default backend domain uses the default ```$host``` without modification.
 
-If you are using ```nginx``` or ```caddy```, please refer to the proxy source code below and modify it yourself for proxying:
+If you're using ```nginx``` or ```caddy```, please refer to the proxy source code below and modify it for your own proxy setup:
 
 ```shell
 location /api {
@@ -279,208 +284,104 @@ location /api {
 }
 ```
 
-#### Windows
+##### Windows
 
-Check
+Check:
 
 https://github.com/oneclickvirt/oneclickvirt/releases/latest
 
-Download the latest compressed file for the corresponding architecture, extract and execute in the background.
+Download the latest compressed file for the corresponding architecture, extract and execute.
 
-In the same directory as the executed binary file, download
+In the same directory as the executing binary file, download:
 
 https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/server/config.yaml
 
-This is the configuration file that will be needed subsequently.
+This is the configuration file needed for subsequent use.
 
-After downloading the ```web-dist.zip``` file, extract it and use the corresponding program to establish a static website, and set up the reverse proxy similar to Linux.
+After downloading the ```web-dist.zip``` file, extract it and use the corresponding program to establish a static website, setting up the reverse proxy similar to Linux.
 
-#### Database Initialization
+#### All-in-One Deployment
 
-After installing and starting ```mysql```, create an empty database ```oneclickvirt``` with type ```utf8mb4```. It's best to make it accessible only locally ```127.0.0.1```. Save the corresponding username and password.
+Here we no longer distinguish between frontend and backend concepts. From:
+
+https://github.com/oneclickvirt/oneclickvirt/releases/latest
+
+Find the compressed package with the ```allinone``` tag to download. Note the distinction between ```amd64``` and ```arm64``` architectures, as well as the corresponding systems.
+
+In Linux, use the ```tar -zxvf``` command to extract the ```tar.gz``` compressed package. In Windows, use the corresponding extraction tool to extract the ```zip``` compressed package, and copy the binary file to the location where you need to deploy the project.
+
+It's best to move it to a dedicated folder, as structured log files will be generated during operation.
+
+(The following instructions will use the amd64 architecture Linux system file as an example)
+
+In Linux, grant executable permissions to the file, such as:
+
+```shell
+chmod 777 server-allinone-linux-amd64
+```
+
+Then download:
+
+https://github.com/oneclickvirt/oneclickvirt/blob/main/server/config.yaml
+
+to the same folder.
+
+In Linux, use ```screen``` or ```tmux``` or ```nohup``` commands to execute the binary file in the background, such as:
+
+```shell
+./server-allinone-linux-amd64
+```
+
+Then open port 8888 of the corresponding IP address to see the frontend for use, such as:
+
+```
+http://your-IP-address:8888
+```
+
+If you're on a Windows system, you need to start the exe file with administrator privileges, and ensure that the ```config.yaml``` configuration file exists in the same folder as the exe file before starting, otherwise startup will result in a white screen or connection issues. As for how to execute it in the background, explore on your own. You can also directly run it with the cmd window open.
+
+The all-in-one deployment mode is suitable for situations where the local machine doesn't have a public IP. Your IP address can be ```localhost``` or ```127.0.0.1```, or it can be the corresponding public IPv4 address. Test in your specific deployment environment.
+
+## Database Initialization
+
+After installing and starting ```mysql```, create an empty database ```oneclickvirt```, using type ```utf8mb4```, preferably accessible only locally via ```127.0.0.1```. Save the corresponding username and password. (If you're using the all-in-one Docker deployment container, the database is included and you don't need to create an empty database yourself. By default, the corresponding database has already been started in the container and is available.)
 
 After opening the corresponding frontend page, it will automatically redirect to the initialization interface.
 
 ![](./images/init.png)
 
-Fill in the database information and related user information. If the database connection test is successful, you can click to initialize the system.
+Fill in the database information and related user information. Test the database connection, and if there are no issues, you can click to initialize the system.
 
 ![](./images/init_success.png)
 
-After completing initialization, it will automatically redirect to the homepage, and you can explore and use it yourself.
+After completing initialization, it will automatically redirect to the homepage, where you can explore and use it on your own.
 
 ![](./images/home.png)
 
-If you use the default user information for initialization, the default accounts are:
+If you used the default user information for initialization, the default account is:
 
-Administrator account name
+Administrator account username and password are:
 
 ```
 admin
 ```
 
-Administrator password
-
 ```
 Admin123!@#
 ```
 
-Regular user account name
+Regular user account username and password are:
 
 ```
 testuser
 ```
 
-Regular user password
-
 ```
 TestUser123!@#
 ```
 
-All images are loaded by default, but only images related to ```debian``` and ```alpine``` are enabled by default, so as to avoid too many images being enabled and making it difficult for users to choose. If you need additional types of images, you need to search and enable them by type of architecture version in the image management interface under administrator privileges.
+During initialization, all image seed data is loaded into the database by default, but by default only ```debian``` and ```alpine``` related version images are enabled. This is to avoid user choice paralysis caused by too many enabled images.
 
-## Configuration File (Optional)
+If you need additional types of images, you need to search and enable them by type, architecture, and version in the system image management interface under administrator privileges.
 
-The default settings are sufficient for light usage. If you need advanced customization, you need to modify the configuration file or make changes in the admin interface after initialization.
-
-https://github.com/oneclickvirt/oneclickvirt/blob/main/server/config.yaml
-
-Here is the complete initialization configuration file. The specific configuration items will be explained below.
-
-```shell
-auth:
-    email-password: ""
-    email-smtp-host: ""
-    email-smtp-port: "3306"
-    email-username: root
-    enable-email: false
-    enable-oauth2: false
-    enable-public-registration: false
-    enable-qq: false
-    enable-telegram: false
-    qq-app-id: ""
-    qq-app-key: ""
-    telegram-bot-token: ""
-    frontend-url: ""
-```
-
-If you need to use the OAuth2 functionality, you must enter the ```frontend-url``` here as the final address displayed in your frontend. Include the ```http``` or ```https``` protocol prefix, and the trailing slash (```/```) is optional.
-
-Other default system configuration items. The configuration will be read from here during initialization, and will be automatically written back when updating system configuration.
-
-```shell
-captcha:
-    enabled: true
-    expire-time: 300
-    height: 40
-    length: 4
-    width: 120
-```
-
-Configuration items for the image captcha on the frontend login and registration pages.
-
-```shell
-cdn:
-    base-endpoint: https://cdn.spiritlhl.net/
-    endpoints:
-        - https://cdn0.spiritlhl.top/
-        - http://cdn3.spiritlhl.net/
-        - http://cdn1.spiritlhl.net/
-        - http://cdn2.spiritlhl.net/
-```
-
-Acceleration addresses to try when downloading images. Generally, no modification is needed, as the preloaded system images are all from repositories under this organization, and these CDNs are sufficient for accelerated downloads.
-
-```shell
-mysql:
-    auto-create: true
-    config: charset=utf8mb4&parseTime=True&loc=Local
-    db-name: oneclickvirt
-    engine: InnoDB
-    log-mode: error
-    log-zap: false
-    max-idle-conns: 10
-    max-lifetime: 3600
-    max-open-conns: 100
-    password: ""
-    path:
-    port:
-    prefix: ""
-    singular: false
-    username: root
-```
-
-During initialization, if both ```path``` and ```port``` in this section are empty, initialization is required. In this case, the database you enter for initialization must be an empty database.
-
-```shell
-quota:
-    default-level: 1
-    instance-type-permissions:
-        min-level-for-container: 1
-        min-level-for-delete: 2
-        min-level-for-vm: 1
-    level-limits:
-        1:
-            max-instances: 1
-            max-resources:
-                bandwidth: 10
-                cpu: 1
-                disk: 1025
-                memory: 350
-            max-traffic: 102400
-        2:
-            max-instances: 3
-            max-resources:
-                bandwidth: 20
-                cpu: 2
-                disk: 20480
-                memory: 1024
-            max-traffic: 204800
-        3:
-            max-instances: 5
-            max-resources:
-                bandwidth: 50
-                cpu: 4
-                disk: 40960
-                memory: 2048
-            max-traffic: 307200
-        4:
-            max-instances: 10
-            max-resources:
-                bandwidth: 100
-                cpu: 8
-                disk: 81920
-                memory: 4096
-            max-traffic: 409600
-        5:
-            max-instances: 20
-            max-resources:
-                bandwidth: 200
-                cpu: 16
-                disk: 163840
-                memory: 8192
-            max-traffic: 512000
-```
-
-This section contains configuration items for level and quota restrictions. The default unit for memory, disk, and traffic is ```mb```. The ```min-level``` configuration sets the minimum permissions in the system configuration. By default, level 1 can create containers, level 2 can perform delete operations on the regular user side, and level 1 can create virtual machines by default. ```default-level``` is the default level for newly registered users.
-
-```shell
-zap:
-    compress-logs: true
-    director: storage/logs
-    encode-level: LowercaseLevelEncoder
-    format: console
-    level: info
-    log-in-console: false
-    max-array-elements: 5
-    max-backups: 15
-    max-file-size: 5
-    max-log-length: 2000
-    max-string-length: 1000
-    prefix: '[oneclickvirt]'
-    retention-day: 3
-    show-line: false
-    stacktrace-key: stacktrace
-```
-
-The only field that needs attention in this section is ```level```, which defaults to ```info``` logging. If you need debug logs, please change it to ```debug```.
+Please immediately change the default administrator username and password after initialization, and disable or delete the default enabled test user. This can be done in the administrator's user management page.
