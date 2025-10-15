@@ -34,6 +34,12 @@ API Documentation: ```http://localhost:8888/swagger/index.html```
 Since the database starts together when starting, do not operate immediately when the container just starts. You need to wait at least 12 seconds.
 :::
 
+Available image tags can be found at:
+
+https://hub.docker.com/r/spiritlhl/oneclickvirt
+
+https://github.com/oneclickvirt/oneclickvirt/pkgs/container/oneclickvirt
+
 #### Method 1: Using Pre-built Images
 
 **Image Tag Description**

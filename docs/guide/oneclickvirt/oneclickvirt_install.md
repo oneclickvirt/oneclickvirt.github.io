@@ -36,6 +36,14 @@ API 文档：```http://localhost:8888/swagger/index.html```
 由于启动的时候连带数据库一起启动，所以容器刚启动的时候不要立即操作，需要至少等待12秒。
 :::
 
+可使用的镜像tag可在 
+
+https://hub.docker.com/r/spiritlhl/oneclickvirt
+
+https://github.com/oneclickvirt/oneclickvirt/pkgs/container/oneclickvirt
+
+中查询
+
 #### 方式一：使用预构建镜像
 
 **镜像标签说明**
