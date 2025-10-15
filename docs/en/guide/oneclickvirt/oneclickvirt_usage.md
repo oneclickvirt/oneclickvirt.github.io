@@ -2,6 +2,10 @@
 outline: deep
 ---
 
+# Instructions for use
+
+The use of this panel will be explained in detail here, if you have any questions, please add the group to ask for help from the administrators or group members: https://t.me/oneclickvirt
+
 ## Configuration File
 
 The default settings are sufficient for light usage. If advanced customization is needed, you need to modify the configuration file or make modifications in the admin interface after initialization.

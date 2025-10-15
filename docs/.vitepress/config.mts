@@ -133,7 +133,7 @@ function getGuideSidebarZhCN() {
       items: [
         { text: '系统和硬件配置要求', link: '/guide/oneclickvirt/oneclickvirt_precheck.html' },
         { text: '主体安装', link: '/guide/oneclickvirt/oneclickvirt_install.html' },
-        { text: '自定义', link: '/guide/oneclickvirt/oneclickvirt_custom.html' },
+        { text: '使用说明', link: '/guide/oneclickvirt/oneclickvirt_usage.html' },
         { text: '致谢', link: '/guide/oneclickvirt/oneclickvirt_thanks.html' },
         { text: '常见问题答疑', link: '/guide/oneclickvirt/oneclickvirt_qa.html' }
       ]
@@ -274,7 +274,7 @@ function getGuideSidebarEnUS() {
       items: [
         { text: 'Configuration requirements', link: '/en/guide/oneclickvirt/oneclickvirt_precheck.html' },
         { text: 'Main installation', link: '/en/guide/oneclickvirt/oneclickvirt_install.html' },
-        { text: 'Custom', link: '/en/guide/oneclickvirt/oneclickvirt_custom.html' },
+        { text: 'Instructions for use', link: '/en/guide/oneclickvirt/oneclickvirt_usage.html' },
         { text: 'Acknowledgements', link: '/en/guide/oneclickvirt/oneclickvirt_thanks.html' },
         { text: 'FAQ', link: '/en/guide/oneclickvirt/oneclickvirt_qa.html' }
       ]
