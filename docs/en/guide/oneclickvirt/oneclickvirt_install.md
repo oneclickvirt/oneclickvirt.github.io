@@ -370,16 +370,6 @@ admin
 Admin123!@#
 ```
 
-Regular user account username and password are:
-
-```
-testuser
-```
-
-```
-TestUser123!@#
-```
-
 During initialization, all image seed data is loaded into the database by default, but by default only ```debian``` and ```alpine``` related version images are enabled. This is to avoid user choice paralysis caused by too many enabled images.
 
 If you need additional types of images, you need to search and enable them by type, architecture, and version in the system image management interface under administrator privileges.
