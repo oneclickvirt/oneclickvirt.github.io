@@ -18,6 +18,8 @@ apt install -y vnstat
 
 to download it. The same applies to other systems.
 
+The controlled side only needs to install the virtualization environment, there is no need to install additional agent for control, just make sure that SSH can log in.
+
 ## Control Panel
 
 Hardware requirements: at least 1GB of free memory and 2GB of free disk space. Installation can be completed through any of the following methods.
