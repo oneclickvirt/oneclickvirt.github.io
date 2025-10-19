@@ -70,7 +70,7 @@ If the corresponding disk has 18 Gigabytes of free hard disk space in addition t
 If you need to open more than 200 LXD containers on a single server, then it is not recommended to use this project, there may be problems with lxcfs access drift, which generates IO occupancy that cannot be released. (This is a native LXC problem that can't be fixed.)
 :::
 
-### Installation of WEB Control Panel
+## Installation of WEB Control Panel
 
 Customization There are tutorials on how to enable the official panel, but here do not choose to use the official panel, because the official panel in order to security, at the expense of a lot of user experience, this piece of using the
 
@@ -96,11 +96,11 @@ This piece can be changed if you need to set up the site name
 
 Better than nothing can only mean that there is no RBAC access control for sub-user segregation
 
-### Manual installation (optional)
+## Manual installation (optional)
 
 Not recommended, just to install for some oddball environments where one-click scripts won't run, or if you want to understand the most basic LXD installation process.
 
-#### Disable Firewall
+### Disable Firewall
 
 ```bash
 apt update
@@ -108,7 +108,7 @@ apt install curl wget sudo dos2unix ufw jq -y
 ufw disable
 ```
 
-#### Enabling Virtual Memory SWAP
+### Enabling Virtual Memory SWAP
 
 The amount of memory depends on how many instances you want to run. If you want to run 8 instances and calculate, you'll need 2GB of memory. If your actual physical memory is 512MB, you'll need an additional 1.5GB. To be cautious, allocate 2GB of virtual memory.
 
@@ -120,7 +120,7 @@ Command:
 curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/swap.sh -o swap.sh && chmod +x swap.sh && bash swap.sh
 ```
 
-#### Installing LXD
+### Installing LXD
 
 Actually, the virtual memory allocated for swap should be twice the size of the actual memory. So, it's reasonable to allocate 1GB if the actual memory is 500MB. The scenario I described above is an excessive allocation.
 
@@ -164,4 +164,5 @@ export PATH=$PATH:/snap/bin
 ```
 
 After connecting, test the lxc command again to see if there is an error about not being able to find it
+
 
