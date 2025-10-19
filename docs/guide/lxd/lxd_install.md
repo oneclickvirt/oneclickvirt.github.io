@@ -109,7 +109,7 @@ sudo snap install lxdmosaic
 
 不推荐，只是为了一些奇葩环境一键脚本跑不动的时候进行安装，或则你想要了解最基础的LXD安装流程。
 
-#### 关闭防火墙
+### 关闭防火墙
 
 ```bash
 apt update
@@ -117,7 +117,7 @@ apt install curl wget sudo dos2unix ufw jq -y
 ufw disable
 ```
 
-#### 开设虚拟内存SWAP
+### 开设虚拟内存SWAP
 
 内存看你开多少服务器，这里如果要开8个，换算需要2G内存，实际内存如果是512MB内存，还需要开1.5G，保守点开2G虚拟内存即可
 
@@ -135,7 +135,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/swap.sh 
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/swap.sh -o swap.sh && chmod +x swap.sh && bash swap.sh
 ```
 
-#### 安装LXD
+### 安装LXD
 
 实际swap开的虚拟内存应该是实际内存的2倍，也就是开1G是合理的，上面我描述的情况属于超开了
 
@@ -179,5 +179,6 @@ export PATH=$PATH:/snap/bin
 ```
 
 连接后再测试lxc命令是否有报错找不到
+
 
 
