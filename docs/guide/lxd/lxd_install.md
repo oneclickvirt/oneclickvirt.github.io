@@ -37,7 +37,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
 ```
 
-### LXD主体安装
+## LXD主体安装
 
 :::warning
 如果是全新的服务器，务必保证```apt update```和```apt install curl```都无问题再执行本脚本。
@@ -79,7 +79,7 @@ bash lxdinstall.sh
 如果你需要在一台服务器上开启超过200个LXD容器，那么不推荐你使用本项目，可能会出现lxcfs访问漂移的问题，产生IO占用无法释放。(系lxc原生问题无法修复)
 :::
 
-### 安装WEB控制面板
+## 安装WEB控制面板
 
 自定义 教程中有关于官方面板怎么启用的教程，但这里不选择使用官方的面板，因为官方面板为了安全性，牺牲了很多用户体验，这块使用
 
@@ -105,7 +105,7 @@ sudo snap install lxdmosaic
 
 聊胜于无只能说，没有RBAC权限控制进行分用户隔离
 
-### 手动安装(备选)
+## 手动安装(备选)
 
 不推荐，只是为了一些奇葩环境一键脚本跑不动的时候进行安装，或则你想要了解最基础的LXD安装流程。
 
@@ -179,4 +179,5 @@ export PATH=$PATH:/snap/bin
 ```
 
 连接后再测试lxc命令是否有报错找不到
+
 
