@@ -70,6 +70,7 @@ docker run -d \
   -p 80:80 \
   -v oneclickvirt-data:/var/lib/mysql \
   -v oneclickvirt-storage:/app/storage \
+  -v oneclickvirt-config:/app/config.yaml \
   --restart unless-stopped \
   spiritlhl/oneclickvirt:latest
 ```
@@ -85,6 +86,7 @@ docker run -d \
   -e FRONTEND_URL="https://your-domain.com" \
   -v oneclickvirt-data:/var/lib/mysql \
   -v oneclickvirt-storage:/app/storage \
+  -v oneclickvirt-config:/app/config.yaml \
   --restart unless-stopped \
   spiritlhl/oneclickvirt:latest
 ```
@@ -119,7 +121,7 @@ docker pull spiritlhl/oneclickvirt:latest
 
 ```shell
 docker rm -f oneclickvirt
-docker volume rm oneclickvirt-data oneclickvirt-storage
+docker volume rm oneclickvirt-data oneclickvirt-storage oneclickvirt-config
 ```
 
 然后删除原始的镜像：
@@ -151,6 +153,7 @@ docker run -d \
   -p 80:80 \
   -v oneclickvirt-data:/var/lib/mysql \
   -v oneclickvirt-storage:/app/storage \
+  -v oneclickvirt-config:/app/config.yaml \
   --restart unless-stopped \
   oneclickvirt
 ```
@@ -171,6 +174,7 @@ docker run -d \
   -e DB_USER="root" \
   -e DB_PASSWORD="your-password" \
   -v oneclickvirt-storage:/app/storage \
+  -v oneclickvirt-config:/app/config.yaml \
   --restart unless-stopped \
   oneclickvirt:no-db
 ```

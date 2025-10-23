@@ -65,7 +65,7 @@ EXIT;
 执行
 
 ```shell
-docker volume rm oneclickvirt-data oneclickvirt-storage
+docker volume rm oneclickvirt-data oneclickvirt-storage oneclickvirt-config
 ```
 
 进行删除
