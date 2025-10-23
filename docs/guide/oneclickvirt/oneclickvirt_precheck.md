@@ -26,6 +26,8 @@ outline: deep
 
 ## 平台特点
 
+- 对接国际化，前端支持中英双语切换显示，默认使用中文显示
+
 - 对接Provider: 支持 ProxmoxVE、Incus、Docker、LXD 四大主流虚拟化平台
 
 - 灵活实例类型: 支持创建虚拟机(VM)和容器(Container)，通过抽象化设计提供统一的虚拟化资源管理体验

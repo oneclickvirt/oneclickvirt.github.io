@@ -26,6 +26,8 @@ Frontend static files can be deployed through ```nginx``` or ```caddy``` or ```O
 
 ## Platform Features
 
+- Aligned with internationalization standards, the frontend supports switching between Chinese and English display modes, with Chinese as the default.
+
 - Provider Integration: Supports four major mainstream virtualization platforms: ProxmoxVE, Incus, Docker, LXD
 
 - Flexible Instance Types: Supports creating Virtual Machines (VM) and Containers, providing a unified virtualization resource management experience through abstracted design

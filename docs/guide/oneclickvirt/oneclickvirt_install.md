@@ -58,7 +58,7 @@ https://github.com/oneclickvirt/oneclickvirt/pkgs/container/oneclickvirt
 
 所有镜像均支持 `linux/amd64` 和 `linux/arm64` 架构。
 
-**全新环境下部署**
+##### 全新环境下部署
 
 使用已构建好的```amd64```或```arm64```镜像，会自动根据当前系统架构下载对应版本：
 
@@ -70,7 +70,6 @@ docker run -d \
   -p 80:80 \
   -v oneclickvirt-data:/var/lib/mysql \
   -v oneclickvirt-storage:/app/storage \
-  -v oneclickvirt-config:/app/config.yaml \
   --restart unless-stopped \
   spiritlhl/oneclickvirt:latest
 ```
@@ -86,14 +85,19 @@ docker run -d \
   -e FRONTEND_URL="https://your-domain.com" \
   -v oneclickvirt-data:/var/lib/mysql \
   -v oneclickvirt-storage:/app/storage \
-  -v oneclickvirt-config:/app/config.yaml \
   --restart unless-stopped \
   spiritlhl/oneclickvirt:latest
 ```
 
 以上的方式仅限于新安装
 
-**旧有环境下仅升级前后端**
+##### 旧有环境下仅升级前后端
+
+先备份配置文件到当前路径下：
+
+```shell
+docker cp oneclickvirt:/app/config.yaml .
+```
 
 不需要删除挂载盘仅删除容器本身：
 
@@ -115,7 +119,13 @@ docker pull spiritlhl/oneclickvirt:latest
 
 然后再按全新环境下开设的步骤来，注意等待12秒后打开前端，会发现已自动越过初始化界面，因为数据已持久化导入。
 
-**旧有环境下重新部署**
+然后覆写原有的配置文件：
+
+```shell
+docker cp config.yaml oneclickvirt:/app/config.yaml
+```
+
+##### 旧有环境下重新部署
 
 这将完全删除原有数据再部署，不仅需要删除容器还得删除对应的挂载点：
 
@@ -142,7 +152,7 @@ docker pull spiritlhl/oneclickvirt:latest
 
 这种方式适合自行修改源码与自定义构建：
 
-**一体化版本（内置数据库）**
+##### 一体化版本（内置数据库）
 
 ```bash
 git clone https://github.com/oneclickvirt/oneclickvirt.git
@@ -153,12 +163,11 @@ docker run -d \
   -p 80:80 \
   -v oneclickvirt-data:/var/lib/mysql \
   -v oneclickvirt-storage:/app/storage \
-  -v oneclickvirt-config:/app/config.yaml \
   --restart unless-stopped \
   oneclickvirt
 ```
 
-**独立数据库版本（不内置数据库）**
+##### 独立数据库版本（不内置数据库）
 
 ```bash
 git clone https://github.com/oneclickvirt/oneclickvirt.git
@@ -174,7 +183,6 @@ docker run -d \
   -e DB_USER="root" \
   -e DB_PASSWORD="your-password" \
   -v oneclickvirt-storage:/app/storage \
-  -v oneclickvirt-config:/app/config.yaml \
   --restart unless-stopped \
   oneclickvirt:no-db
 ```

@@ -4,13 +4,13 @@ outline: deep
 
 # OneClickVirt
 
-Distinguish between the control panel and the controlled end. The controlled end needs to have the corresponding virtualization environment installed in advance. You can use the installation instructions from other sections of this document for environment installation. The control panel is actually just a panel without virtualization environment requirements.
+Distinguish between the panel side and the controlled side. The controlled side needs to have the corresponding virtualization environment installed in advance. You can use other sections of this documentation for environment installation. The control side is actually just a panel and has no virtualization environment requirements.
 
-## Controlled End
+## Controlled Side
 
-Refer to the installation instructions from other sections of this document for environment installation. This won't be elaborated further here. This tutorial provides corresponding installation commands for the four mainstream virtualization technologies. Please refer to them on your own.
+Refer to other sections of this documentation for environment installation. This will not be elaborated here. This tutorial provides corresponding installation commands for the four mainstream virtualization technologies. Please refer to them yourself.
 
-If you need to use the panel's traffic control feature, you'll need to additionally install the ```vnstat``` tool. Download it yourself. If using apt package management, you can use:
+If you need to use the panel's traffic control feature, you need to additionally install the ```vnstat``` tool. Download it yourself. If using apt package management, you can use
 
 ```shell
 apt install -y vnstat
@@ -18,47 +18,47 @@ apt install -y vnstat
 
 to download it. The same applies to other systems.
 
-The controlled side only needs to install the virtualization environment, there is no need to install additional agent for control, just make sure that SSH can log in.
+The controlled side only needs to have the virtualization environment installed, and does not require additional agent installation for control. Just ensure that SSH login is available.
 
-## Control Panel
+## Panel Side
 
-Hardware requirements: at least 1GB of free memory and 2GB of free disk space. Installation can be completed through any of the following methods.
+Hardware requirements include at least 1G of free memory and 2G of free disk space. Installation can be completed using any of the methods below.
 
-| Installation Method | Use Case | Advantages | Disadvantages |
+| Installation Method | Application Scenario | Advantages | Disadvantages |
 |---------|---------|------|------|
 | Docker Deployment (Pre-built Image) | Quick deployment, larger footprint | One-click installation, data persistence | Requires Docker environment, large image download  |
-| Frontend-Backend Separation Deployment | High performance, minimal footprint | Best performance, flexible configuration | Complex configuration, requires reverse proxy setup |
-| All-in-One Deployment | Works with or without public IPv4 address | Simple deployment, no reverse proxy needed | Lower performance |
+| Separate Front-end and Back-end Deployment | High performance, minimal footprint | Best performance, flexible configuration | Complex configuration, requires reverse proxy setup |
+| Integrated Deployment | Works with or without public IPv4 address | Simple deployment, no reverse proxy needed | Poor performance |
 | Dockerfile Self-compilation | Suitable for secondary development and source code release | Highly customizable | Requires Docker environment, long compilation time |
 
 ### Installation via Docker
 
 :::tip
-Since the database starts together with the container, do not operate immediately after container startup. Wait at least 12 seconds.
+Since the database starts together with the container, do not operate immediately after the container starts. Wait at least 12 seconds.
 :::
 
-Available image tags can be found at:
+Available image tags can be queried at:
 
 https://hub.docker.com/r/spiritlhl/oneclickvirt
 
 https://github.com/oneclickvirt/oneclickvirt/pkgs/container/oneclickvirt
 
-#### Method 1: Deploy Using Pre-built Images
+#### Method 1: Deploy Using Pre-built Image
 
 **Image Tag Description**
 
-| Image Tag | Description | Use Case |
+| Image Tag | Description | Application Scenario |
 |---------|------|---------|
-| `spiritlhl/oneclickvirt:latest` | All-in-one version (with built-in database) latest | Quick deployment |
-| `spiritlhl/oneclickvirt:20251022` | All-in-one version specific date | Need fixed version |
-| `spiritlhl/oneclickvirt:no-db` | Independent database version latest | No built-in database |
-| `spiritlhl/oneclickvirt:no-db-20251022` | Independent database version specific date | No built-in database |
+| `spiritlhl/oneclickvirt:latest` | Integrated version (built-in database) latest | Quick deployment |
+| `spiritlhl/oneclickvirt:20251023` | Integrated version specific date | Requires fixed version |
+| `spiritlhl/oneclickvirt:no-db` | Separate database version latest | Without built-in database |
+| `spiritlhl/oneclickvirt:no-db-20251023` | Separate database version specific date | Without built-in database |
 
 All images support both `linux/amd64` and `linux/arm64` architectures.
 
-**Deploy in Fresh Environment**
+##### Deploy in Fresh Environment
 
-Using pre-built ```amd64``` or ```arm64``` images, the corresponding version will be automatically downloaded based on the current system architecture:
+Use pre-built ```amd64``` or ```arm64``` images, which will automatically download the corresponding version based on the current system architecture:
 
 Without domain configuration:
 
@@ -68,14 +68,13 @@ docker run -d \
   -p 80:80 \
   -v oneclickvirt-data:/var/lib/mysql \
   -v oneclickvirt-storage:/app/storage \
-  -v oneclickvirt-config:/app/config.yaml \
   --restart unless-stopped \
   spiritlhl/oneclickvirt:latest
 ```
 
-With domain access configuration:
+Configure domain access:
 
-If you need to configure a domain, you need to set the `FRONTEND_URL` environment variable:
+If you need to configure a domain, set the `FRONTEND_URL` environment variable:
 
 ```bash
 docker run -d \
@@ -84,16 +83,21 @@ docker run -d \
   -e FRONTEND_URL="https://your-domain.com" \
   -v oneclickvirt-data:/var/lib/mysql \
   -v oneclickvirt-storage:/app/storage \
-  -v oneclickvirt-config:/app/config.yaml \
   --restart unless-stopped \
   spiritlhl/oneclickvirt:latest
 ```
 
 The above methods are only for new installations.
 
-**Upgrade Frontend and Backend Only in Existing Environment**
+##### Upgrade Only Front-end and Back-end in Existing Environment
 
-Delete only the container itself without removing mounted volumes:
+First backup the configuration file to the current path:
+
+```shell
+docker cp oneclickvirt:/app/config.yaml .
+```
+
+Delete only the container without removing the mounted volumes:
 
 ```shell
 docker rm -f oneclickvirt
@@ -111,11 +115,17 @@ Pull the container image again:
 docker pull spiritlhl/oneclickvirt:latest
 ```
 
-Then follow the steps for fresh environment deployment. Note that after waiting 12 seconds and opening the frontend, you'll find it automatically skips the initialization interface because the data has been persisted and imported.
+Then follow the steps for deployment in a fresh environment. Note that after waiting 12 seconds and opening the front-end, you will find it automatically skips the initialization interface because the data has been persisted and imported.
 
-**Redeploy in Existing Environment**
+Then overwrite the original configuration file:
 
-This will completely delete existing data before deployment. You need to delete not only the container but also the corresponding mount points:
+```shell
+docker cp config.yaml oneclickvirt:/app/config.yaml
+```
+
+##### Redeploy in Existing Environment
+
+This will completely delete the original data before redeployment. You need to delete not only the container but also the corresponding mount points:
 
 ```shell
 docker rm -f oneclickvirt
@@ -134,13 +144,13 @@ Pull the container image again:
 docker pull spiritlhl/oneclickvirt:latest
 ```
 
-Then follow the steps for fresh environment deployment. This will prompt for re-initialization, and all original data has been deleted.
+Then follow the steps for deployment in a fresh environment. This will prompt for reinitialization, as all original data has been deleted.
 
 #### Method 2: Self-compile and Deploy via Dockerfile
 
-This method is suitable for modifying source code and custom builds:
+This method is suitable for self-modifying source code and custom builds:
 
-**All-in-One Version (with built-in database)**
+##### Integrated Version (Built-in Database)
 
 ```bash
 git clone https://github.com/oneclickvirt/oneclickvirt.git
@@ -151,12 +161,11 @@ docker run -d \
   -p 80:80 \
   -v oneclickvirt-data:/var/lib/mysql \
   -v oneclickvirt-storage:/app/storage \
-  -v oneclickvirt-config:/app/config.yaml \
   --restart unless-stopped \
   oneclickvirt
 ```
 
-**Independent Database Version (no built-in database)**
+##### Separate Database Version (Without Built-in Database)
 
 ```bash
 git clone https://github.com/oneclickvirt/oneclickvirt.git
@@ -172,7 +181,6 @@ docker run -d \
   -e DB_USER="root" \
   -e DB_PASSWORD="your-password" \
   -v oneclickvirt-storage:/app/storage \
-  -v oneclickvirt-config:/app/config.yaml \
   --restart unless-stopped \
   oneclickvirt:no-db
 ```
