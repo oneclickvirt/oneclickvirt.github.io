@@ -69,3 +69,26 @@ docker volume rm oneclickvirt-data oneclickvirt-storage oneclickvirt-config
 ```
 
 to delete
+
+## Excessive Instance Creation Causes Node Abnormalities
+
+A prominent symptom is extremely slow operation execution, with commands taking several minutes to complete.
+
+This commonly occurs when a node has poor I/O performance and is over-allocated with SWAP memory.
+For example, in an LXD environment, executing ```lxc list``` may result in an error:
+
+```shell
+internal error, please report: running “lxd.lxc” failed: cannot create transient scope: DBus error “org.freedesktop.DBus.Error.TimedOut”: [Failed to activate service ‘org.freedesktop.systemd1’: timed out (service_start_timeout=25000ms)]
+```
+
+The root cause is setting too many instances while the provider imposes strict I/O restrictions.
+
+![](./images/iofailed.png)
+
+At this point, only one solution remains: force-reboot the node server.
+
+Immediately after reboot, log into SSH and use the corresponding script to clear swap usage, then delete some instances to free resources.
+
+Since containers take time to restart individually after reboot, this window may not delete many instances, but each reboot clears some.
+
+Ultimately, when limiting instance counts, carefully assess node performance. Avoid overloading weaker nodes or those with strict constraints.

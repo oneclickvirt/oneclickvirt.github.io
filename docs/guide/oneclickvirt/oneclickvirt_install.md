@@ -58,7 +58,7 @@ https://github.com/oneclickvirt/oneclickvirt/pkgs/container/oneclickvirt
 
 所有镜像均支持 `linux/amd64` 和 `linux/arm64` 架构。
 
-##### 全新环境下部署
+##### 全新部署
 
 使用已构建好的```amd64```或```arm64```镜像，会自动根据当前系统架构下载对应版本：
 
@@ -91,7 +91,7 @@ docker run -d \
 
 以上的方式仅限于新安装
 
-##### 旧有环境下仅升级前后端
+##### 旧环境下仅升级
 
 先备份配置文件到当前路径下：
 
@@ -125,7 +125,7 @@ docker pull spiritlhl/oneclickvirt:latest
 docker cp config.yaml oneclickvirt:/app/config.yaml
 ```
 
-##### 旧有环境下重新部署
+##### 旧环境下新部署
 
 这将完全删除原有数据再部署，不仅需要删除容器还得删除对应的挂载点：
 
