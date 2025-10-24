@@ -129,7 +129,7 @@ This will completely delete the original data before redeployment. You need to d
 
 ```shell
 docker rm -f oneclickvirt
-docker volume rm oneclickvirt-data oneclickvirt-storage oneclickvirt-config
+docker volume rm oneclickvirt-data oneclickvirt-storage
 ```
 
 Then delete the original image:
