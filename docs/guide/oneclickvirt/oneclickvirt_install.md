@@ -131,7 +131,7 @@ docker cp config.yaml oneclickvirt:/app/config.yaml
 
 ```shell
 docker rm -f oneclickvirt
-docker volume rm oneclickvirt-data oneclickvirt-storage oneclickvirt-config
+docker volume rm oneclickvirt-data oneclickvirt-storage
 ```
 
 然后删除原始的镜像：
