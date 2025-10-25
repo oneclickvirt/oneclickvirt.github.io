@@ -183,6 +183,18 @@ virtfusion的客服对于这种情况的说明：
 添加1个IPv6地址后，您需要ping网关（在控制面板的网络设置下），然后ping该IPv6地址，之后对添加的每个IPv6地址重复此操作。
 ```
 
+## 宿主机的IPV6网段更换需要对应更新配置
+
+需要更新三个地方：
+
+```/etc/network/interfaces```
+
+```/etc/systemd/system/ndpresponder.service```
+
+```/usr/local/bin/``` 中的带ipv6的文件
+
+更新完毕后，重启宿主机再进行开设，应该就可以使用新的网段了
+
 ## 在现有的 PVE 中纳管新的 PVE（创建 / 加入集群）
 
 为了将两个独立的 Proxmox VE 实例组成一个集群，需满足以下前提条件：

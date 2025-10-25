@@ -155,6 +155,17 @@ All of the blocks you get for IPv6 are 1 x /64 however you need to add and route
 Once you add 1 IPv6 you need to ping the gateway (its in the panel under networking) and then ping the IPv6 address, then repeat for every IPv6 address you add.
 ```
 
+## Host IPv6 Subnet Change Requires Corresponding Configuration Updates
+
+Three areas require updating:
+
+```/etc/network/interfaces```
+
+```/etc/systemd/system/ndpresponder.service```
+
+```/usr/local/bin/``` Files containing IPv6 addresses
+
+After completing the update, restart the host machine and proceed with the setup. You should then be able to use the new network segment.
 
 ## Adding a New Node to an Existing PVE Cluster (Create / Join Cluster)
 
