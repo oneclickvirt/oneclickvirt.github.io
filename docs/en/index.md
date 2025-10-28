@@ -27,8 +27,4 @@ features:
   details: Open containers or virtual machines that support mainstream systems, including Linux, Windows, MacOS, Android as well as pure browser or desktop environments.
 - title: Self-limiting abuse
   details: Some virtualized containers or VMs support the setting of masks and loading limits to avoid being used for abuse.
-- title: FAQ
-  details: All questions and problems that may arise during the program are answered.
-- title: Development thanks
-  details: Thanks to <a href="https://evolution-host.com/ddos-protected-vps.php"><strong>Evolution Host</strong></a> for supporting us with a DDoS protected VPS
 ---
