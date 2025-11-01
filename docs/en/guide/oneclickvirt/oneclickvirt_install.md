@@ -26,10 +26,191 @@ Hardware requirements include at least 1G of free memory and 2G of free disk spa
 
 | Installation Method | Application Scenario | Advantages | Disadvantages |
 |---------|---------|------|------|
-| Docker Deployment (Pre-built Image) | Quick deployment, larger footprint | One-click installation, data persistence | Requires Docker environment, large image download  |
 | Separate Front-end and Back-end Deployment | High performance, minimal footprint | Best performance, flexible configuration | Complex configuration, requires reverse proxy setup |
 | Integrated Deployment | Works with or without public IPv4 address | Simple deployment, no reverse proxy needed | Poor performance |
+| Docker Deployment (Pre-built Image) | Quick deployment, larger footprint | One-click installation, data persistence | Requires Docker environment, large image download  |
 | Dockerfile Self-compilation | Suitable for secondary development and source code release | Highly customizable | Requires Docker environment, long compilation time |
+
+### Installation via Pre-compiled Binary Files
+
+There are also two methods here:
+- Frontend-backend separation deployment (backend and frontend are compiled separately into corresponding files for deployment), better performance
+- All-in-one deployment (frontend and backend are integrated into one file for deployment), lower performance
+
+#### Frontend-Backend Separation Deployment
+
+##### Linux
+
+###### Download Script
+
+```shell
+curl -L https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/install.sh -o install.sh && chmod +x install.sh
+```
+
+###### Environment Installation
+
+Interactive environment installation:
+
+```
+./install.sh env
+```
+
+Non-interactive environment installation:
+
+```
+noninteractive=true ./install.sh env
+```
+
+###### Body Installation
+
+```
+./install.sh install
+```
+
+Installation directory: ```/opt/oneclickvirt```
+
+After successful installation, you need to manually start the service:
+
+```shell
+systemctl start oneclickvirt
+```
+
+Other usage methods:
+
+Stop service:
+
+```shell
+systemctl stop oneclickvirt
+```
+
+Enable auto-start on boot:
+
+```shell
+systemctl enable oneclickvirt
+```
+
+Check status:
+
+```shell
+systemctl status oneclickvirt
+```
+
+View logs:
+
+```shell
+journalctl -u oneclickvirt -f
+```
+
+Restart service:
+
+```shell
+systemctl restart oneclickvirt
+```
+
+###### Upgrade frontend and backend
+
+```
+./install.sh upgrade
+```
+
+In addition to configuration files, both backend and frontend files will be upgraded.
+
+###### Deploy the frontend
+
+The installation script will extract static files to:
+
+```shell
+cd /opt/oneclickvirt/web/
+```
+
+this path.
+
+Use ```nginx``` or ```caddy``` to establish a static website with this path. Whether to bind a domain name is your choice.
+
+After deploying the static files, you need to reverse proxy the backend address for frontend use. Here's a specific example using ```OpenResty```:
+
+![](./images/proxy.png)
+
+You need to reverse proxy the path ```/api``` to the backend address ```http://127.0.0.1:8888```. If you're using ```1panel```, you only need to fill in these fields, and the default backend domain uses the default ```$host``` without modification.
+
+If you're using ```nginx``` or ```caddy```, please refer to the proxy source code below and modify it for your own proxy setup:
+
+```shell
+location /api {
+    proxy_pass http://127.0.0.1:8888; 
+    proxy_set_header Host $host; 
+    proxy_set_header X-Real-IP $remote_addr; 
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; 
+    proxy_set_header REMOTE-HOST $remote_addr; 
+    proxy_set_header Upgrade $http_upgrade; 
+    proxy_set_header Connection $http_connection; 
+    proxy_set_header X-Forwarded-Proto $scheme; 
+    proxy_set_header X-Forwarded-Port $server_port; 
+    proxy_http_version 1.1; 
+    add_header X-Cache $upstream_cache_status; 
+    add_header Cache-Control no-cache; 
+    proxy_ssl_server_name off; 
+    proxy_ssl_name $proxy_host; 
+}
+```
+
+##### Windows
+
+Check:
+
+https://github.com/oneclickvirt/oneclickvirt/releases/latest
+
+Download the latest compressed file for the corresponding architecture, extract and execute.
+
+In the same directory as the executing binary file, download:
+
+https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/server/config.yaml
+
+This is the configuration file needed for subsequent use.
+
+After downloading the ```web-dist.zip``` file, extract it and use the corresponding program to establish a static website, setting up the reverse proxy similar to Linux.
+
+#### All-in-One Deployment
+
+Here we no longer distinguish between frontend and backend concepts. From:
+
+https://github.com/oneclickvirt/oneclickvirt/releases/latest
+
+Find the compressed package with the ```allinone``` tag to download. Note the distinction between ```amd64``` and ```arm64``` architectures, as well as the corresponding systems.
+
+In Linux, use the ```tar -zxvf``` command to extract the ```tar.gz``` compressed package. In Windows, use the corresponding extraction tool to extract the ```zip``` compressed package, and copy the binary file to the location where you need to deploy the project.
+
+It's best to move it to a dedicated folder, as structured log files will be generated during operation.
+
+(The following instructions will use the amd64 architecture Linux system file as an example)
+
+In Linux, grant executable permissions to the file, such as:
+
+```shell
+chmod 777 server-allinone-linux-amd64
+```
+
+Then download:
+
+https://github.com/oneclickvirt/oneclickvirt/blob/main/server/config.yaml
+
+to the same folder.
+
+In Linux, use ```screen``` or ```tmux``` or ```nohup``` commands to execute the binary file in the background, such as:
+
+```shell
+./server-allinone-linux-amd64
+```
+
+Then open port 8888 of the corresponding IP address to see the frontend for use, such as:
+
+```
+http://your-IP-address:8888
+```
+
+If you're on a Windows system, you need to start the exe file with administrator privileges, and ensure that the ```config.yaml``` configuration file exists in the same folder as the exe file before starting, otherwise startup will result in a white screen or connection issues. As for how to execute it in the background, explore on your own. You can also directly run it with the cmd window open.
+
+The all-in-one deployment mode is suitable for situations where the local machine doesn't have a public IP. Your IP address can be ```localhost``` or ```127.0.0.1```, or it can be the corresponding public IPv4 address. Test in your specific deployment environment.
 
 ### Installation via Docker
 
@@ -184,177 +365,6 @@ docker run -d \
   --restart unless-stopped \
   oneclickvirt:no-db
 ```
-
-### Installation via Pre-compiled Binary Files
-
-There are also two methods here:
-- Frontend-backend separation deployment (backend and frontend are compiled separately into corresponding files for deployment), better performance
-- All-in-one deployment (frontend and backend are integrated into one file for deployment), lower performance
-
-#### Frontend-Backend Separation Deployment
-
-##### Linux
-
-Download and execute
-
-International:
-
-```shell
-curl -L https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/install.sh -o install.sh && chmod +x install.sh
-```
-
-Domestic:
-
-```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/install.sh -o install.sh && chmod +x install.sh
-```
-
-Interactive environment installation:
-
-```
-./install.sh
-```
-
-Non-interactive environment installation:
-
-```
-noninteractive=true ./install.sh
-```
-
-Installation directory: ```/opt/oneclickvirt```
-
-After successful installation, you need to manually start the service:
-
-```shell
-systemctl start oneclickvirt
-```
-
-Other usage methods:
-
-Stop service:
-
-```shell
-systemctl stop oneclickvirt
-```
-
-Enable auto-start on boot:
-
-```shell
-systemctl enable oneclickvirt
-```
-
-Check status:
-
-```shell
-systemctl status oneclickvirt
-```
-
-View logs:
-
-```shell
-journalctl -u oneclickvirt -f
-```
-
-Restart service:
-
-```shell
-systemctl restart oneclickvirt
-```
-
-The installation script will extract static files to:
-
-```shell
-cd /opt/oneclickvirt/web/
-```
-
-this path.
-
-Use ```nginx``` or ```caddy``` to establish a static website with this path. Whether to bind a domain name is your choice.
-
-After deploying the static files, you need to reverse proxy the backend address for frontend use. Here's a specific example using ```OpenResty```:
-
-![](./images/proxy.png)
-
-You need to reverse proxy the path ```/api``` to the backend address ```http://127.0.0.1:8888```. If you're using ```1panel```, you only need to fill in these fields, and the default backend domain uses the default ```$host``` without modification.
-
-If you're using ```nginx``` or ```caddy```, please refer to the proxy source code below and modify it for your own proxy setup:
-
-```shell
-location /api {
-    proxy_pass http://127.0.0.1:8888; 
-    proxy_set_header Host $host; 
-    proxy_set_header X-Real-IP $remote_addr; 
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; 
-    proxy_set_header REMOTE-HOST $remote_addr; 
-    proxy_set_header Upgrade $http_upgrade; 
-    proxy_set_header Connection $http_connection; 
-    proxy_set_header X-Forwarded-Proto $scheme; 
-    proxy_set_header X-Forwarded-Port $server_port; 
-    proxy_http_version 1.1; 
-    add_header X-Cache $upstream_cache_status; 
-    add_header Cache-Control no-cache; 
-    proxy_ssl_server_name off; 
-    proxy_ssl_name $proxy_host; 
-}
-```
-
-##### Windows
-
-Check:
-
-https://github.com/oneclickvirt/oneclickvirt/releases/latest
-
-Download the latest compressed file for the corresponding architecture, extract and execute.
-
-In the same directory as the executing binary file, download:
-
-https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/server/config.yaml
-
-This is the configuration file needed for subsequent use.
-
-After downloading the ```web-dist.zip``` file, extract it and use the corresponding program to establish a static website, setting up the reverse proxy similar to Linux.
-
-#### All-in-One Deployment
-
-Here we no longer distinguish between frontend and backend concepts. From:
-
-https://github.com/oneclickvirt/oneclickvirt/releases/latest
-
-Find the compressed package with the ```allinone``` tag to download. Note the distinction between ```amd64``` and ```arm64``` architectures, as well as the corresponding systems.
-
-In Linux, use the ```tar -zxvf``` command to extract the ```tar.gz``` compressed package. In Windows, use the corresponding extraction tool to extract the ```zip``` compressed package, and copy the binary file to the location where you need to deploy the project.
-
-It's best to move it to a dedicated folder, as structured log files will be generated during operation.
-
-(The following instructions will use the amd64 architecture Linux system file as an example)
-
-In Linux, grant executable permissions to the file, such as:
-
-```shell
-chmod 777 server-allinone-linux-amd64
-```
-
-Then download:
-
-https://github.com/oneclickvirt/oneclickvirt/blob/main/server/config.yaml
-
-to the same folder.
-
-In Linux, use ```screen``` or ```tmux``` or ```nohup``` commands to execute the binary file in the background, such as:
-
-```shell
-./server-allinone-linux-amd64
-```
-
-Then open port 8888 of the corresponding IP address to see the frontend for use, such as:
-
-```
-http://your-IP-address:8888
-```
-
-If you're on a Windows system, you need to start the exe file with administrator privileges, and ensure that the ```config.yaml``` configuration file exists in the same folder as the exe file before starting, otherwise startup will result in a white screen or connection issues. As for how to execute it in the background, explore on your own. You can also directly run it with the cmd window open.
-
-The all-in-one deployment mode is suitable for situations where the local machine doesn't have a public IP. Your IP address can be ```localhost``` or ```127.0.0.1```, or it can be the corresponding public IPv4 address. Test in your specific deployment environment.
 
 ## Database Initialization
 

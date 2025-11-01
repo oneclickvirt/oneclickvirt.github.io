@@ -26,10 +26,201 @@ apt install -y vnstat
 
 | 安装方式 | 适用场景 | 优点 | 缺点 |
 |---------|---------|------|------|
-| Docker部署(预构建镜像) | 快速部署，占用较大 | 一键安装、数据持久化 | 需要Docker环境，下载镜像较大  |
 | 前后端分离部署 | 高性能，占用最小 | 性能最佳、灵活配置 | 配置复杂，需配置反向代理 |
 | 一体化部署 | 本地有无公网IPV4地址皆可 | 部署简单、无需反向代理 | 性能较差 |
+| Docker部署(预构建镜像) | 快速部署，占用较大 | 一键安装、数据持久化 | 需要Docker环境，下载镜像较大  |
 | Dockerfile自编译 | 适合二次开发源码发布 | 高度自定义 | 需要Docker环境，编译耗时长 |
+
+### 通过预编译二进制文件安装
+
+这里也区分两种方式：
+- 前后端分离部署(后端前端分开编译出对应文件进行部署)，性能更好
+- 一体化部署(前后端合二为一只需要部署一个文件)，性能较差
+
+#### 前后端分离部署
+
+##### Linux
+
+###### 下载脚本
+
+国际
+
+```shell
+curl -L https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/install.sh -o install.sh && chmod +x install.sh
+```
+
+国内
+
+```shell
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/install.sh -o install.sh && chmod +x install.sh
+```
+
+###### 环境安装
+
+有交互地安装环境
+
+```
+./install.sh env
+```
+
+无交互地安装环境
+
+```
+noninteractive=true ./install.sh env
+```
+
+###### 本体安装
+
+```
+./install.sh install
+```
+
+安装目录: ```/opt/oneclickvirt```
+
+安装成功后，需要手动启动服务: 
+
+```shell
+systemctl start oneclickvirt
+```
+
+其他使用方法：
+
+停止服务: 
+
+```shell
+systemctl stop oneclickvirt
+```
+
+开机自启: 
+
+```shell
+systemctl enable oneclickvirt
+```
+
+查看状态: 
+
+```shell
+systemctl status oneclickvirt
+```
+
+查看日志: 
+
+```shell
+journalctl -u oneclickvirt -f
+```
+
+重启服务：
+
+停止服务: 
+
+```shell
+systemctl restart oneclickvirt
+```
+
+###### 升级前后端
+
+```
+./install.sh upgrade
+```
+
+除了配置文件，后端和前端文件都会升级
+
+###### 部署前端
+
+前面安装脚本会将静态文件解压到
+
+```shell
+cd /opt/oneclickvirt/web/
+```
+
+这个路径下
+
+使用```nginx```或```caddy```以这个路径建立静态网站即可，是否需要域名绑定自行选择
+
+静态文件部署完毕后，需要反代后端地址给前端使用，这里具体以```OpenResty```为例：
+
+![](./images/proxy.png)
+
+需要反代路径```/api```到后端的```http://127.0.0.1:8888```地址上，如果你使用的的是```1panel```，那么就只需要填写这些即可，默认的后端域名使用默认的```$host```不需要修改。
+
+如果你使用的是```nginx```或```caddy```，请参考下方的代理源码自行修改进行代理
+
+```shell
+location /api {
+    proxy_pass http://127.0.0.1:8888; 
+    proxy_set_header Host $host; 
+    proxy_set_header X-Real-IP $remote_addr; 
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; 
+    proxy_set_header REMOTE-HOST $remote_addr; 
+    proxy_set_header Upgrade $http_upgrade; 
+    proxy_set_header Connection $http_connection; 
+    proxy_set_header X-Forwarded-Proto $scheme; 
+    proxy_set_header X-Forwarded-Port $server_port; 
+    proxy_http_version 1.1; 
+    add_header X-Cache $upstream_cache_status; 
+    add_header Cache-Control no-cache; 
+    proxy_ssl_server_name off; 
+    proxy_ssl_name $proxy_host; 
+}
+```
+
+##### Windows
+
+查看
+
+https://github.com/oneclickvirt/oneclickvirt/releases/latest
+
+下载最新的对应架构的压缩文件，解压后挂起执行。
+
+执行的二进制文件的同级目录下，下载
+
+https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/server/config.yaml
+
+文件，这是后续需要使用的配置文件。
+
+下载```web-dist.zip```文件后，解压并使用对应的程序建立静态网站，类似Linux那样设置好反向代理即可。
+
+#### 一体化部署
+
+这里不再区分前后端的概念，从
+
+https://github.com/oneclickvirt/oneclickvirt/releases/latest
+
+中找到带```allinone```标签的压缩包进行下载，注意区分```amd64```和```arm64```架构，以及对应的系统。
+
+Linux中使用```tar -zxvf```命令解压```tar.gz```压缩包，Windows中使用对应解压工具解压```zip```压缩包，将其中的二进制文件复制粘贴到你需要部署项目的位置。
+
+最好移动到一个专门的文件夹中，因为运行过程中将产生结构化的日志文件。
+
+(以下说明将以amd64架构的linux系统的文件进行示例)
+
+Linux中赋予文件可执行权限，如
+
+```shell
+chmod 777 server-allinone-linux-amd64
+```
+
+然后下载
+
+https://github.com/oneclickvirt/oneclickvirt/blob/main/server/config.yaml
+
+文件到同一个文件夹中。
+
+Linux中，使用```screen```或```tmux```或```nohup```命令挂起执行二进制文件即可，如
+
+```shell
+./server-allinone-linux-amd64
+```
+
+然后打开对应的IP地址的8888端口即可看到前端进行使用了，如
+
+```
+http://你的IP地址:8888
+```
+
+如果你是Windows系统，那么需要使用管理员权限启动exe文件，同时确保启动前exe文件同一个文件夹中存在```config.yaml```配置文件，否则启动将出现白屏或不通的情况。至于怎么挂起执行，自行探索吧，直接挂着cmd界面运行也行。
+
+一体化部署的模式适合本机没有公网IP的情况，你的IP地址可以是```localhost```或者```127.0.0.1```，也可以是对应的公网IPV4地址，具体部署环境下自测。
 
 ### 通过Docker安装
 
@@ -186,179 +377,6 @@ docker run -d \
   --restart unless-stopped \
   oneclickvirt:no-db
 ```
-
-### 通过预编译二进制文件安装
-
-这里也区分两种方式：
-- 前后端分离部署(后端前端分开编译出对应文件进行部署)，性能更好
-- 一体化部署(前后端合二为一只需要部署一个文件)，性能较差
-
-#### 前后端分离部署
-
-##### Linux
-
-下载并执行
-
-国际
-
-```shell
-curl -L https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/install.sh -o install.sh && chmod +x install.sh
-```
-
-国内
-
-```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/install.sh -o install.sh && chmod +x install.sh
-```
-
-有交互地安装环境
-
-```
-./install.sh
-```
-
-无交互地安装环境
-
-```
-noninteractive=true ./install.sh
-```
-
-安装目录: ```/opt/oneclickvirt```
-
-安装成功后，需要手动启动服务: 
-
-```shell
-systemctl start oneclickvirt
-```
-
-其他使用方法：
-
-停止服务: 
-
-```shell
-systemctl stop oneclickvirt
-```
-
-开机自启: 
-
-```shell
-systemctl enable oneclickvirt
-```
-
-查看状态: 
-
-```shell
-systemctl status oneclickvirt
-```
-
-查看日志: 
-
-```shell
-journalctl -u oneclickvirt -f
-```
-
-重启服务：
-
-停止服务: 
-
-```shell
-systemctl restart oneclickvirt
-```
-
-前面安装脚本会将静态文件解压到
-
-```shell
-cd /opt/oneclickvirt/web/
-```
-
-这个路径下
-
-使用```nginx```或```caddy```以这个路径建立静态网站即可，是否需要域名绑定自行选择
-
-静态文件部署完毕后，需要反代后端地址给前端使用，这里具体以```OpenResty```为例：
-
-![](./images/proxy.png)
-
-需要反代路径```/api```到后端的```http://127.0.0.1:8888```地址上，如果你使用的的是```1panel```，那么就只需要填写这些即可，默认的后端域名使用默认的```$host```不需要修改。
-
-如果你使用的是```nginx```或```caddy```，请参考下方的代理源码自行修改进行代理
-
-```shell
-location /api {
-    proxy_pass http://127.0.0.1:8888; 
-    proxy_set_header Host $host; 
-    proxy_set_header X-Real-IP $remote_addr; 
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; 
-    proxy_set_header REMOTE-HOST $remote_addr; 
-    proxy_set_header Upgrade $http_upgrade; 
-    proxy_set_header Connection $http_connection; 
-    proxy_set_header X-Forwarded-Proto $scheme; 
-    proxy_set_header X-Forwarded-Port $server_port; 
-    proxy_http_version 1.1; 
-    add_header X-Cache $upstream_cache_status; 
-    add_header Cache-Control no-cache; 
-    proxy_ssl_server_name off; 
-    proxy_ssl_name $proxy_host; 
-}
-```
-
-##### Windows
-
-查看
-
-https://github.com/oneclickvirt/oneclickvirt/releases/latest
-
-下载最新的对应架构的压缩文件，解压后挂起执行。
-
-执行的二进制文件的同级目录下，下载
-
-https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/server/config.yaml
-
-文件，这是后续需要使用的配置文件。
-
-下载```web-dist.zip```文件后，解压并使用对应的程序建立静态网站，类似Linux那样设置好反向代理即可。
-
-#### 一体化部署
-
-这里不再区分前后端的概念，从
-
-https://github.com/oneclickvirt/oneclickvirt/releases/latest
-
-中找到带```allinone```标签的压缩包进行下载，注意区分```amd64```和```arm64```架构，以及对应的系统。
-
-Linux中使用```tar -zxvf```命令解压```tar.gz```压缩包，Windows中使用对应解压工具解压```zip```压缩包，将其中的二进制文件复制粘贴到你需要部署项目的位置。
-
-最好移动到一个专门的文件夹中，因为运行过程中将产生结构化的日志文件。
-
-(以下说明将以amd64架构的linux系统的文件进行示例)
-
-Linux中赋予文件可执行权限，如
-
-```shell
-chmod 777 server-allinone-linux-amd64
-```
-
-然后下载
-
-https://github.com/oneclickvirt/oneclickvirt/blob/main/server/config.yaml
-
-文件到同一个文件夹中。
-
-Linux中，使用```screen```或```tmux```或```nohup```命令挂起执行二进制文件即可，如
-
-```shell
-./server-allinone-linux-amd64
-```
-
-然后打开对应的IP地址的8888端口即可看到前端进行使用了，如
-
-```
-http://你的IP地址:8888
-```
-
-如果你是Windows系统，那么需要使用管理员权限启动exe文件，同时确保启动前exe文件同一个文件夹中存在```config.yaml```配置文件，否则启动将出现白屏或不通的情况。至于怎么挂起执行，自行探索吧，直接挂着cmd界面运行也行。
-
-一体化部署的模式适合本机没有公网IP的情况，你的IP地址可以是```localhost```或者```127.0.0.1```，也可以是对应的公网IPV4地址，具体部署环境下自测。
 
 ## 数据库初始化
 
