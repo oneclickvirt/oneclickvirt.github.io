@@ -142,15 +142,28 @@ location /api {
     proxy_set_header X-Real-IP $remote_addr; 
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; 
     proxy_set_header REMOTE-HOST $remote_addr; 
-    proxy_set_header Upgrade $http_upgrade; 
-    proxy_set_header Connection $http_connection; 
     proxy_set_header X-Forwarded-Proto $scheme; 
     proxy_set_header X-Forwarded-Port $server_port; 
+    
+    # WebSocket support
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    
     proxy_http_version 1.1; 
-    add_header X-Cache $upstream_cache_status; 
-    add_header Cache-Control no-cache; 
+    
+    # SSL settings
     proxy_ssl_server_name off; 
-    proxy_ssl_name $proxy_host; 
+    proxy_ssl_name $proxy_host;
+    
+    # Timeout settings
+    proxy_connect_timeout 60s;
+    proxy_send_timeout 600s;
+    proxy_read_timeout 600s;
+    
+    # Cache and buffering
+    proxy_buffering off;
+    add_header X-Cache $upstream_cache_status;
+    add_header Cache-Control no-cache;
 }
 ```
 
