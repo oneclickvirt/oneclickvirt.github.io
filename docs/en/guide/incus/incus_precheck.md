@@ -13,7 +13,7 @@ Feel free to give the project a ```Star``` for free support!-->[https://github.c
 ## Requirements
 
 Hardware requirements.
-- System: Ubuntu 20+, Debian 11+, RockyLinux 9+, AlmaLinux 9+, Centos 9+
+- System: Ubuntu 20+, Debian 11+, RockyLinux 9+, AlmaLinux 9+, Centos 9+, Alpine(After installing bash on your own), Arch
 - Virtualization: KVM, VMWARE recommended.
 - CPU: The number of cores should be greater than or equal to 2, otherwise there may be a kernel idling slice cycle resulting in 100% occupancy
 - Memory: At least 512MB of RAM

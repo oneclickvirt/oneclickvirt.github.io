@@ -40,7 +40,7 @@ If this is a new server, make sure that both ```apt update``` and ```apt install
 It's recommended to wait for at least 5 minutes after the system boots up before executing the following commands. This is to avoid the script being executed by the default system settings, which could cause issues with apt sources.
 :::
 
-- Prerequisites: Ubuntu 18+ (recommended above 22.04), Debian 8+ (recommended above 11), Alpine, Arch
+- Prerequisites: Ubuntu 18+ (recommended above 22.04), Debian 8+ (recommended above 11), Alpine(After installing bash on your own), Arch
 - During installation, you will be prompted to enter the storage pool creation path as well as the size, and all the VMs or containers you want to open end up taking up space in the storage pool
 - The server needs to be restarted after the environment installation process to load some default configurations
 - By default, lxd's lxcfs-related configuration is enabled, so that in-container querying of container information changes to information about the container itself rather than the host

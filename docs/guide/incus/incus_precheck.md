@@ -13,7 +13,7 @@ outline: deep
 ## 要求
 
 硬件要求:
-- 系统：Ubuntu 20+, Debian 11+, RockyLinux 9+, AlmaLinux 9+, Centos 9+
+- 系统：Ubuntu 20+, Debian 11+, RockyLinux 9+, AlmaLinux 9+, Centos 9+, Alpine(自行安装bash后), Arch
 - 虚拟化：推荐KVM、VMWARE虚拟化
 - CPU：内核数最好大于或等于2，否则可能出现内核空转切片循环导致占用100%
 - 内存：内存至少512MB

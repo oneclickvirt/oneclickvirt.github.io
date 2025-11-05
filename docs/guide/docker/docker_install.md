@@ -33,7 +33,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/a
 
 ## 环境安装
 
-- 支持系统：Ubuntu, Debian, Alpine, Arch 等主流Linux发行版
+- 支持系统：Ubuntu, Debian, RockyLinux 9+, AlmaLinux 9+, Centos 9+, Alpine(自行安装bash后), Arch
 - 检测系统环境，安装对应组件
 - 安装docker和docker-compose，这里有判断为国际服务器还是国内服务器，自动安装对应源的docker
 - 下载默认需要的一些配置脚本，设置默认的网络配置

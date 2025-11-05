@@ -13,7 +13,7 @@ Feel free to give the project a ```Star``` for free support!-->[https://github.c
 ## Requirements
 
 Hardware requirements.
-- System: Debian 8+, Ubuntu 18+ (22.04 recommended).
+- System: Debian 8+, Ubuntu 18+ (22.04 recommended), Alpine(After installing bash on your own), Arch
 - Virtualization: KVM, VMWARE recommended.
 - Memory: At least 512MB of RAM
 - Hard disk: hard disk (system disk) at least 10G
