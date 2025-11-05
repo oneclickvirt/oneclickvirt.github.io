@@ -43,7 +43,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/a
 如果是全新的服务器，务必保证```apt update```和```apt install curl```都无问题再执行本脚本。
 :::
 
-- 环境要求：Ubuntu 18+(推荐22.04以上)，Debian 8+(推荐11以上)
+- 环境要求：Ubuntu 18+(推荐22.04以上)，Debian 8+(推荐11以上)，Alpine，Arch
 - 安装过程中会提示输入存储池创建路径以及大小，你所有要开的虚拟机或容器最终占用的空间是在存储池中
 - 环境安装过程后需要重启服务器以加载一些默认配置
 - 默认启用lxd的lxcfs相关配置，使得容器内查询容器信息变更为容器本身的信息而不是宿主机信息

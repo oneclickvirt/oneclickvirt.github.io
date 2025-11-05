@@ -35,7 +35,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 If this is a new server, make sure that both ```update``` and ```curl``` are working properly before executing this script. 
 :::
 
-- Prerequisites: Ubuntu 20+(Not recommended to use Incus, please use LXD), Debian 11+(Recommended), RockyLinux 9+, AlmaLinux 9+, Centos 9+
+- Prerequisites: Ubuntu 20+(Not recommended to use Incus, please use LXD), Debian 11+(Recommended), RockyLinux 9+, AlmaLinux 9+, Centos 9+, Alpine, Arch
 - During installation, you will be prompted to enter the storage pool creation path as well as the size, and all the VMs or containers you want to open end up taking up space in the storage pool
 - The server needs to be restarted after the environment installation process to load some default configurations
 - By default, lxd's lxcfs-related configuration is enabled, so that in-container querying of container information changes to information about the container itself rather than the host

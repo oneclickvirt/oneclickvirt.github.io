@@ -26,6 +26,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 
 ## Environment Setup
 
+- Supported systems: Ubuntu, Debian, Alpine, Arch and other mainstream Linux distributions
 - Detect the system environment and install the corresponding components
 - Install docker and docker-compose.
 - Download some configuration scripts required by default
