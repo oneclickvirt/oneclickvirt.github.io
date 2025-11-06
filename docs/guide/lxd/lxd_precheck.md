@@ -13,7 +13,7 @@ outline: deep
 ## 要求
 
 硬件要求:
-- 系统：Debian 8+, Ubuntu 18+(推荐22.04)，Alpine(自行安装bash后)，Arch
+- 系统：Ubuntu 18+(推荐)，Debian 8+(更推荐Incus)
 - 虚拟化：推荐KVM、VMWARE虚拟化
 - 内存：内存至少512MB
 - 硬盘：硬盘(系统盘)至少10G
