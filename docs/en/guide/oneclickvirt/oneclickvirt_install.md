@@ -10,14 +10,6 @@ Distinguish between the panel side and the controlled side. The controlled side 
 
 Refer to other sections of this documentation for environment installation. This will not be elaborated here. This tutorial provides corresponding installation commands for the four mainstream virtualization technologies. Please refer to them yourself.
 
-If you need to use the panel's traffic control feature, you need to additionally install the ```vnstat``` tool. Download it yourself. If using apt package management, you can use
-
-```shell
-apt install -y vnstat
-```
-
-to download it. The same applies to other systems.
-
 The controlled side only needs to have the virtualization environment installed, and does not require additional agent installation for control. Just ensure that SSH login is available.
 
 ## Panel Side
