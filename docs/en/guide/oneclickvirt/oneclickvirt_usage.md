@@ -142,6 +142,8 @@ It is not recommended to modify the mapping method unless you know what this set
 
 Literal meaning. Set the maximum bandwidth and available traffic total calculated by natural month for instances created on the node. Traffic monitoring and traffic statistics are automatically enabled by default.
 
+(Current traffic statistics are flawed, as they cannot distinguish between public and internal network traffic, leading to inflated and inaccurate figures. Do not enable.)
+
 When instance traffic exceeds the node limit or user limit, the instance will be automatically stopped; when the node's total traffic is exceeded, all instances on the entire node will be stopped.
 
 At the beginning of the month, statistics data will be reset, and all instances that were automatically stopped due to reaching traffic limits will be restarted.
