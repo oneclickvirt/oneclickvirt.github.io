@@ -144,9 +144,11 @@ Literal meaning. Set the maximum bandwidth and available traffic total calculate
 
 (Current traffic statistics are flawed, as they cannot distinguish between public and internal network traffic, leading to inflated and inaccurate figures. Do not enable.)
 
-When instance traffic exceeds the node limit or user limit, the instance will be automatically stopped; when the node's total traffic is exceeded, all instances on the entire node will be stopped.
+(and due to design flaws, may even be closed still in the statistics, at this time it is recommended to the user level of this node, the user level of the system, the node's traffic limit are set to 1000T traffic to avoid triggering automatic restrictions, temporarily have no time to fix the vicious BUG)
 
-At the beginning of the month, statistics data will be reset, and all instances that were automatically stopped due to reaching traffic limits will be restarted.
+~~When instance traffic exceeds the node limit or user limit, the instance will be automatically stopped; when the node's total traffic is exceeded, all instances on the entire node will be stopped.~~
+
+~~At the beginning of the month, statistics data will be reset, and all instances that were automatically stopped due to reaching traffic limits will be restarted.~~
 
 ### Level Restrictions (Required)
 
