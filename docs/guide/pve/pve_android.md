@@ -22,6 +22,8 @@ Android系统版本10及以后的新镜像下载地址：
 
 https://blissos.org/index.html#download
 
+https://sourceforge.net/projects/blissos-x86/files/Official/
+
 ## 虚拟机开设
 
 ### 以安卓版本9及以前的镜像开设Android虚拟机
