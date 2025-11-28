@@ -22,6 +22,8 @@ Download links for Android system version 10 and later:
 
 https://blissos.org/index.html#download
 
+https://sourceforge.net/projects/blissos-x86/files/Official/
+
 ## Virtual Machine Setup
 
 ### Setting up an Android Virtual Machine with version 9 and earlier images
