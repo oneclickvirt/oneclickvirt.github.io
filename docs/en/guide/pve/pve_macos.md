@@ -6,7 +6,7 @@ outline: deep
 
 ## Prerequisites
 
-System and hardware configuration requirements --> Environment detection
+System and hardware configuration requirements left bar --> Configuration requirements
 
 You can only set up a MacOS virtual machine when the environment detection confirms that the host machine supports KVM nested virtualization. Otherwise, it will be detected by hardware and cannot be set up.
 
