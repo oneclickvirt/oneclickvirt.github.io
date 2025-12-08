@@ -46,7 +46,7 @@ Pure IPv6
 
 - Flexible Port Mapping Methods: Automatically selects the best mapping solution based on different Providers (native, device proxy, iptables, etc.)
 
-- Integrated vnStat for accurate network traffic statistics, forced synchronization of traffic data during sensitive operations to ensure data accuracy
+- Integrate IP-level and network interface-level statistics for precise network traffic monitoring, with mandatory synchronisation of traffic data during sensitive operations to ensure data accuracy
 
 - Unified reset of user traffic usage statistics at the beginning of each month, supports user-level, instance-level, and Provider-level traffic statistics and limitations
 
