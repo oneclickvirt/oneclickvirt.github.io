@@ -4,37 +4,37 @@ outline: deep
 
 # Preface
 
-This is a control panel for interfacing with mainstream virtualization technologies, supplementing features not supported by virtualization technologies themselves, such as user management, traffic monitoring, NAT port mapping, and custom system images.
+This is a control panel for interfacing with mainstream virtualization technologies, supplementing features not natively supported by virtualization platforms such as user management, traffic monitoring, NAT port mapping, and custom system images.
 
-Welcome to give the project a ```Star``` for free support --> [https://github.com/oneclickvirt/oneclickvirt](https://github.com/oneclickvirt/oneclickvirt)
+Welcome to support the project with a ```Star``` for free --> [https://github.com/oneclickvirt/oneclickvirt](https://github.com/oneclickvirt/oneclickvirt)
 
 :::warning
-This is a project in the early stages of development, there may be a variety of bugs and instability, if you use it at your own discretion and risk, updates will be more frequent
+This is a project in early development and may have various bugs and instabilities. Please assess the risks before use. Updates will be relatively frequent.
 :::
 
 ## Environment Requirements
 
 Supported architectures: amd64 or arm64
 
-Supported systems: Linux, Windows
+Supported systems: Linux, Windows, or any self-compiled system architecture
 
-Only a public network connection is required. The deployed machine does not need to have an independent public IP address; this is just a virtualization control panel that only needs port access to display the frontend.
+Only requires public network access. The deployed machine does not need an independent public IP address. This is just a virtualization control panel that only needs port display for the frontend. In fact, one important reason for development is that I need to manage multiple virtualization environments without a public IPv4 address.
 
-This control panel has no environment dependency requirements, only a daemon-started backend and a corresponding frontend static file folder.
+This control panel has no special environmental dependency requirements. For one-click deployment, you can use the all-in-one Docker image with database included or docker-compose deployment with separated containers.
 
-Frontend static files can be deployed through ```nginx``` or ```caddy``` or ```OpenResty```. Non-source code deployment and non-Docker deployment require API path reverse proxy to the backend port.
+Frontend static files are deployed through ```nginx``` or ```caddy``` or ```OpenResty```. For non-source code deployment and non-Docker deployment, API path reverse proxy to the backend port is required.
 
 ## Platform Features
 
-- Aligned with internationalization standards, the frontend supports switching between Chinese and English display modes, with Chinese as the default.
+- Language internationalization: Frontend supports bilingual display in Chinese and English, defaults to Chinese display, with switchable default system language
 
-- Provider Integration: Supports four major mainstream virtualization platforms: ProxmoxVE, Incus, Docker, LXD
+- Provider Integration: Supports ProxmoxVE, Incus, Docker, LXD - four major mainstream virtualization platforms, with more platforms coming soon
 
-- Flexible Instance Types: Supports creating Virtual Machines (VM) and Containers, providing a unified virtualization resource management experience through abstracted design
+- Flexible Instance Types: Supports automatic creation of virtual machines (VM) and containers (Container), providing a unified virtualization resource management experience through abstraction design
 
-- Built-in image seed data, no need to search for corresponding platform images yourself. All platforms come with self-compiled image loading and support unified management
+- Built-in Image Seed Data: No need to search for platform-specific images yourself. All platforms come with self-compiled image loading, supporting unified management or custom image download URLs
 
-- Automatic NAT Port Mapping: Supports automatic port mapping for IPv4/IPv6, multiple network types:
+- Automatic NAT Port Mapping: Supports automatic port mapping for IPv4/IPv6, with mapped IPs supporting non-public IPs. Supports multiple network types:
 
 ```
 NAT IPv4
@@ -44,14 +44,14 @@ Independent IPv4 + IPv6
 Pure IPv6
 ```
 
-- Flexible Port Mapping Methods: Automatically selects the best mapping solution based on different Providers (native, device proxy, iptables, etc.)
+- Port Mapping Methods: Flexibly selects the best mapping solution automatically based on different Providers (native, device proxy, iptables, etc.)
 
-- Integrate IP-level and network interface-level statistics for precise network traffic monitoring, with mandatory synchronisation of traffic data during sensitive operations to ensure data accuracy
+- Traffic Statistics: Integrates IP-level and network interface-level precise network traffic statistics. Forces traffic data synchronization during sensitive operations to ensure data accuracy
 
-- Unified reset of user traffic usage statistics at the beginning of each month, supports user-level, instance-level, and Provider-level traffic statistics and limitations
+- Monthly traffic usage statistics reset at the beginning of each month. Supports traffic statistics and limits at user, instance, and Provider levels
 
-- Supports invitation code system, implementing non-public registration mechanism, setting different resource quota limits based on user levels
+- Invitation Code System: Supports non-public registration invitation mechanism, with different resource quota limits based on user levels
 
-- Supports multiple resource restrictions: instance count/CPU/memory/disk/bandwidth quota management, traffic usage limitations
+- Resource Limits: Supports setting instance quantity/CPU/memory/disk/bandwidth quota management and traffic usage restrictions
 
-- All code is open source, but commercial use is not permitted
+- All code is open source, but no commercial development will be undertaken

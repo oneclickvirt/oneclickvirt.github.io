@@ -4,119 +4,129 @@ outline: deep
 
 # Usage Guide
 
-This document provides detailed instructions on how to use this panel. If you have any questions, please join the group for help from administrators or group members: https://t.me/oneclickvirt
+This document provides detailed instructions on how to use this panel. If you have any questions, please join the group for assistance from administrators: https://t.me/oneclickvirt
 
 ## User Management
 
-After logging into the administrator interface, open the user management page and you must click reset password to ensure that the admin account password is a strong password, ensuring it won't be maliciously brute-forced. If you used a custom password during initialization, then resetting the password is optional.
+After logging into the administrator interface, open the user management page and you must click reset password to ensure the admin account password is a strong password, preventing malicious brute force attacks. If you defined your own password during initialization, you may skip resetting the password.
 
 ![](./images/resetuserpassword.png)
 
-Resetting the password will automatically generate a strong password, displayed only once. Make sure to copy and save it to avoid forgetting it.
+Resetting the password will automatically generate a strong password, which is displayed only once. Be sure to copy and save it to avoid forgetting it.
 
 ![](./images/resetuserpasswordsuccess.png)
 
 ![](./images/edituser.png)
 
-If you need to change the user type, you need to click on the corresponding user to edit them. The edit popup supports changing the user type.
+If you need to change a user's type, click on the corresponding user to edit. The edit popup supports changing the user type.
 
 ![](./images/switch.png)
 
-Administrators can click on the avatar in the upper right corner. The dropdown menu has buttons to switch between administrator and normal user views. If you need to test any features, you can directly use the administrator account for testing. (Normal users do not have this view switching button)
+Administrators can click on the avatar in the upper right corner, where the dropdown menu has a button to switch between administrator and regular user views. If you need to test any features, you can directly use the administrator user for testing. (Regular users do not have this view switching button)
 
 ## Managing Nodes
 
 First, you need to ensure that the node to be managed has one of the four major virtualization technologies installed.
 
-Ping the node's IP from the machine where this panel is deployed. The latency should preferably be within 300ms and the packet loss rate should not be too high, otherwise connection issues may occur, resulting in missed command execution in control.
+Ping the node's IP from the machine where this panel is deployed. Ideally, the latency should be within 300ms and the packet loss rate should not be too high, otherwise connection failures may occur, resulting in missed command execution in control.
 
-Here are the steps for setting up nodes:
+Below are the steps for setting up nodes. Required and mandatory steps must be followed, while optional steps depend on your needs.
 
 ### Basic Information (Required)
 
 ![](./images/base.png)
 
-The server name should preferably only contain English letters and numbers, no special characters, and should ideally be within 6 characters. When creating containers or virtual machines later, this server name prefix will be automatically added.
+The server name should preferably use only English letters and numbers, avoid special characters, and ideally be within 6 characters. When creating containers or virtual machines later, this server name will be automatically added as a prefix.
 
 Select the virtualization technology name you actually installed for the server type. Docker can only create containers by default, while other virtualization technologies can create virtual machines.
 
-Fill in the node's public IPv4 address or internal SSH connection address for the SSH address. This address will be used for SSH connections and API connections.
+For SSH address, fill in the node's public IPv4 address or internal SSH connection address. This address will be used for SSH connections and API connections.
 
-NAT port mapping will prioritize using the port IP for mapping. If no specific port IP is provided, the SSH address IP will be used for mapping.
+NAT port mapping prioritizes using the port IP for mapping. If no specific port IP is provided, the SSH address IP will be used for mapping. Neither needs to be a public IPv4 address.
 
-Fill in the SSH connection port for the port field.
+In the port field, fill in the port for SSH connection to the node.
 
-The description can note some information about the current node, visible only to administrators.
+Description can note some information about the current node, visible only to administrators.
 
-The status is enabled by default, allowing normal users to apply and claim instances after the subsequent health check.
+Status is enabled by default, allowing regular users to apply and claim instances after health checks.
 
-Architecture is the node's own architecture. Currently, managing amd64 and arm64 architecture nodes is supported. Select accordingly.
+Architecture is the node's own architecture. Currently supports managing amd64 and arm64 architecture nodes, select accordingly.
+
+(Nodes with existing instances are temporarily not supported for management. The feature to synchronize and manage existing instances has not yet been developed)
 
 ### Connection Configuration (Required)
 
 ![](./images/connect.png)
 
-It is recommended to use the root user for the username, as corresponding dependencies need to be downloaded when automatically configuring the API later.
+Username is recommended to be root user, as automatic API configuration later requires downloading some dependencies. Non-root users may encounter permission issues.
 
-The password is the one used for SSH login. Of course, if you don't use a password and use key login instead, that's also acceptable.
+Password is the password used for SSH login. Of course, if you don't use a password and use key-based login, that's also acceptable.
 
-The SSH timeout configuration is designed to test connectivity and optimize fault tolerance.
+SSH timeout configuration is designed to test connectivity and optimize fault tolerance, and can also be used to check connectivity.
 
 ![](./images/sshtest.png)
 
-After filling in the previous information, click test, and corresponding prompt values will appear. Click apply to proceed. Of course, not applying is also fine, with higher fault tolerance.
+After filling in the previous information, click test and corresponding prompt values will appear. Click apply to proceed. Of course, not applying is also fine, with higher fault tolerance.
+
+The latency here is the latency of actually executing commands on the corresponding node via ping, so it's generally around 2s or more, which is normal latency.
 
 This design is to accommodate nodes with extremely poor connectivity to the panel machine. Increasing these parameter values means higher fault tolerance.
 
-The execution timeout generally does not need to be modified unless your node itself has particularly weak performance and command execution takes a long time.
+Execution timeout generally doesn't need modification unless your node's performance is particularly weak and command execution takes a long time.
 
 ### Location Information (Optional)
 
 ![](./images/location.png)
 
-Directly enter a specific country and click to check it. Most countries already have presets with corresponding flag icons.
+Directly enter a specific country and click to select. Most countries already have presets with corresponding flag icons.
 
-After setting the location, normal users will be able to see the corresponding flag and region in the application claim interface, along with the automatically matched continent.
+After setting the location, regular users will be able to see the corresponding flag and region in the application interface, along with the automatically matched continent.
+
+You can optionally fill in the corresponding city. Not filling it in is fine and doesn't affect usage.
 
 ### Instance Type and Quantity Limits (Required)
 
 ![](./images/setvirt.png)
 
-For docker type nodes, only containers can be created. Other virtualization types support creating both containers and virtual machines (provided the node itself supports it).
+For docker type nodes, only containers can be created. Other virtualization types support creating both containers and virtual machines (provided the node itself supports it; forced creation on unsupported nodes will automatically fail).
 
 If you don't need to create virtual machines, be sure to uncheck the virtual machine option.
 
-If the quantity limit maintains the default parameter of 0, it means there is no node-level instance quantity limit for this type.
+If the quantity limit maintains the default parameter of 0, it means no node-level quantity limit for this type of instance.
 
-For container types, it is recommended to set the quantity according to the following formula:
+For container type, it's recommended to set the quantity according to the following formula:
 
-Node free storage disk size / Minimum disk size of instances to be distributed = Maximum instance quantity
+Node free storage disk size / Minimum disk size of instances to be distributed = Maximum number of instances
 
-For virtual machine types:
+For virtual machine type:
 
-Node free memory size (including virtual memory) / Minimum memory size of instances to be distributed = Instance quantity
+Node free memory size (including virtual memory) / Minimum memory size of instances to be distributed = Number of instances
 
-The reason for this calculation is that containers generally do not limit the total CPU quantity and memory size, but limit disk size, while virtual machines generally have memory as the bottleneck for the number of instances created.
+The reason for this calculation is that containers generally don't limit total CPU quantity and memory size, but limit disk size, while memory is usually the bottleneck for the number of virtual machines that can be created.
 
-### Resource Overcommit Configuration (Optional)
+If you need to overcommit, the values obtained from the above calculation rules can be appropriately increased, and the following configuration should be set up.
+
+### Resource Overcommitment Configuration (Optional)
+
+Overcommitment resource configuration means whether to strictly limit corresponding resources. Removing limits means no checks will be performed and forced creation may occur, which may lead to creation task failures.
 
 ![](./images/setct.png)
 
-By default, container types do not limit the total amount of CPU and memory pre-allocation, but limit the total amount of pre-allocated disk, to achieve optimal resource sharing and maximum instance quantity.
+By default, container type doesn't limit total CPU and memory pre-allocation, but limits total pre-allocated disk capacity to achieve optimal resource sharing and maximum number of instances. Generally doesn't need modification.
 
 ![](./images/setvm.png)
 
-By default, virtual machine types limit all resources, with the maximum total pre-allocated resources not exceeding the actual resource size.
+By default, virtual machine type limits all resources, with the maximum total pre-allocated resources not exceeding actual resource size.
 
-For ProxmoxVE, there is also a storage pool name setting where the created disk will be located. If PVE has multiple disks, you need to set which storage pool to create on.
+For ProxmoxVE, there's also a storage pool name setting for the disk to be created. If it's a multi-disk PVE, you need to set which storage pool to create on.
 
-Other types of virtualization environments have already asked about the specific storage pool creation location during installation, so no setting is needed.
+Other types of virtualization environments have asked about the specific storage pool creation location during installation, so there's no need to set it.
 
-In general, if you need to limit which resource from being overcommitted, click to limit it. After limiting, the corresponding resource cannot be overcommitted. If not limited, the corresponding resource can be overcommitted.
+In general, if you need to limit which resources cannot be overcommitted, click limit. After limiting, corresponding resources cannot be overcommitted; without limiting, corresponding resources can be overcommitted.
 
-The limitation here is the total resource usage of this type of instance on this node, used to calculate available resources and limit instance creation.
+The limit here is for the total resource usage of this type of instance on this node, used to calculate available resources and limit instance creation.
 
-It is not recommended to modify unless you know what this setting does.
+Not recommended to modify unless you know what this setting does.
 
 ### IP Mapping Configuration (Optional)
 
@@ -124,15 +134,15 @@ It is not recommended to modify unless you know what this setting does.
 
 ![](./images/ipt2.png)
 
-Generally no modification is needed. Here you can set the port mapping quantity, range, network configuration method, and port mapping method for each instance.
+Generally doesn't need modification. Here you can set the number of port mappings, range, network configuration method, and port mapping method for each instance.
 
-By default, instances are created with NAT-mapped public IPv4 ports.
+By default, instances are created with NAT-mapped public IPv4 ports. The priority of mapped IPs is: Port IP > SSH connection IP (used when port IP is not set)
 
-If the node itself has an IPv6 subnet greater than or equal to /80 in size, then by changing the network configuration, instances with independent public IPv6 addresses can be created.
+If the node itself has an IPv6 subnet greater than or equal to /80 in size, change the network configuration to create instances with independent public IPv6 addresses.
 
-To an extreme, instances with only independent IPv6 addresses can also be created. Choose for yourself.
+Extremely, you can also create instances with only independent IPv6 addresses. Make your own choice.
 
-It is not recommended to modify the mapping method unless you know what this setting does.
+Not recommended to modify the mapping method unless you know what this setting does. The default configuration is already the best configuration.
 
 ### Bandwidth and Traffic Configuration (Required)
 
@@ -140,25 +150,45 @@ It is not recommended to modify the mapping method unless you know what this set
 
 ![](./images/bw2.png)
 
-Literal meaning. Set the maximum bandwidth and available traffic total calculated by natural month for instances created on the node. Traffic monitoring and traffic statistics are automatically enabled by default.
+![](./images/bw3.png)
 
-(Current traffic statistics are flawed, as they cannot distinguish between public and internal network traffic, leading to inflated and inaccurate figures. Do not enable.)
+Literal meaning: set the maximum bandwidth and total available traffic calculated by natural month for instances created on the node. Traffic monitoring and traffic statistics are not automatically enabled by default.
 
-(and due to design flaws, may even be closed still in the statistics, at this time it is recommended to the user level of this node, the user level of the system, the node's traffic limit are set to 1000T traffic to avoid triggering automatic restrictions, temporarily have no time to fix the vicious BUG)
+Starting traffic monitoring will have a corresponding memory burden because traffic statistics data needs to be cached. Even after extreme optimization by this project, it will still increase with bandwidth. Don't enable traffic statistics if you don't have enough memory.
 
-~~When instance traffic exceeds the node limit or user limit, the instance will be automatically stopped; when the node's total traffic is exceeded, all instances on the entire node will be stopped.~~
+If traffic statistics are enabled, pay attention to the statistics mode. The default statistics mode is the most universal. If your local performance is good enough (mainly enough memory), you can choose higher collection frequency and collection quantity. If performance is very poor, it's recommended to choose the last tier. Custom parameters are also supported, but not recommended for beginners to modify; the preset modes are sufficient.
 
-~~At the beginning of the month, statistics data will be reset, and all instances that were automatically stopped due to reaching traffic limits will be restarted.~~
+If traffic statistics are enabled, note that the allocated bandwidth for levels should not be too large. Monitoring will dynamically generate configuration files according to the allocated bandwidth for monitoring. The larger the bandwidth, the more memory monitoring occupies.
+
+| Level | Instance Bandwidth | `plugin_pipe_size` | `sql_cache_entries` | Base Usage | Burst Usage |
+|---:|:---:|:---:|:---:|:---:|:---|
+| Low | ≤50 Mbps | 2 MB | 32 | 5~8 MB | 8~12 MB |
+| Medium-Low | 51~100 Mbps | 10 MB | 64 | 10~15 MB | 15~30 MB |
+| Medium | 101~200 Mbps | 25 MB | 128 | 15~20 MB | 30~50 MB |
+| Medium-High | 201~500 Mbps | 50 MB | 256 | 20~30 MB | 50~80 MB |
+| High | 501~1000 Mbps | 128 MB | 512 | 30~50 MB | 80~150 MB |
+| Very High | 1001~2000 Mbps | 256 MB | 768 | 50~80 MB | 150~300 MB |
+| Extremely High | >2000 Mbps | 512 MB | 1024 | 80~120 MB | 300~600 MB |
+
+Traffic statistics error margin is about 0.1G deviation per 10G. NAT mapping and instances with independent IPv6 IPs are automatically handled, no manual management needed.
+
+However, if traffic statistics were previously enabled and need to be disabled and monitoring uninstalled later, you need to delete the monitoring in the following place first before disabling traffic statistics. This ensures complete uninstallation, otherwise it will still collect statistics in the background.
+
+![](./images/cz.png)
+
+Only after enabling traffic control will the traffic monitoring management button appear here. After entering, three buttons are visible, mainly for manually synchronizing monitoring situations. Generally, if traffic monitoring is not enabled after some instances are created, manual management is not needed. If needed, just click detect traffic monitoring, which will batch detect the monitoring situation of all instances under the current instance.
+
+![](./images/pcz.png)
 
 ### Level Restrictions (Required)
 
 ![](./images/level.png)
 
-This preset has 5 levels, which will go through this restriction filtering configuration when users apply and claim.
+Five levels are preset here, and users will be filtered through this restriction configuration when applying and claiming.
 
-During the actual instance creation process, the node-level level restrictions will be compared with the global user level resource restrictions, taking the minimum value as the resource limit available to the user on the current node.
+During the actual instance creation process, the node-level level restrictions will be compared with the global user level resource restrictions, taking the minimum value as the user's available resource limit on the current node.
 
-This setting is to specialize the configuration limits of instances that can be created by users of corresponding levels on the current node, avoiding situations where global restrictions are not applicable to the current node. Global restrictions can be set in system configuration and are generally used for resource restrictions at the user's entire account level.
+This setting is to specialize the configuration limits of instances that users of corresponding levels can create on the current node, avoiding situations where global limits are not suitable for the current node. Global limits can be set in system configuration and are generally used for user account-level resource usage restrictions.
 
 ### Advanced Settings (Optional)
 
@@ -168,27 +198,27 @@ This setting is to specialize the configuration limits of instances that can be 
 
 Expiration time:
 
-Prevents users from continuing to operate expired nodes. Expired nodes will be automatically frozen. At this time, corresponding instances will not allow any operations, but will not be automatically deleted. If a node is frozen, please clean up and delete the node in time.
+Prevents users from continuing to operate expired nodes. Expired nodes will be automatically frozen, at which time corresponding instances will not allow any operations but will not be automatically deleted. If a node is frozen, please clean and delete it in time.
 
 Task concurrency control:
 
-By default, single-threaded serial execution is used. At the same time, only one add/delete/modify task will exist (corresponding to instance creation, deletion, and reset operations).
+Default is single-threaded serial execution. At the same time, only one add/delete/modify task (corresponding to instance creation, deletion, and reset operations) will exist.
 
-It can be changed to multi-threaded concurrent execution. At the same time, multiple add/delete/modify tasks can exist. Only when concurrent execution is used does the concurrency quantity setting make sense.
+Can be changed to multi-threaded concurrent execution, where multiple add/delete/modify tasks can exist at the same time. Only when concurrent execution is used does the concurrency number setting make sense.
 
 Serial execution is suitable for situations where the node itself has weak performance or the platform has few users. Concurrent operation is suitable for situations where the node itself has strong performance or there are many users. Please choose the mode yourself.
 
-Personally, I recommend using the default settings. Concurrent execution may have boundary conditions that have not been fully tested and may have bugs.
+Personally recommend using default settings. Concurrent execution may have boundary conditions that have not been fully tested and may have bugs.
 
 Task polling settings:
 
-Controls whether to enable task execution and the interval for polling to check status. Generally keep the default.
+Controls whether to enable task execution and the interval for polling to check status. Generally keep default.
 
 Operation execution rules:
 
-Node operation mode supports API only, SSH only, and automatic switching. The automatic switching mode is used by default. Generally, there is no need to modify unless there are special needs.
+Node operation mode supports API only, SSH only, and automatic switching. By default, automatic switching mode is used. Generally, there's no need to modify unless there are special requirements.
 
-If you need to enable API operation mode, after successfully saving the node settings, click the auto-configure API button outside. This will execute a background task to automatically interface with the virtualization platform's API without manual configuration. After waiting for about 15-20 seconds, it should have been configured successfully. Click the button to see the configuration history tasks and corresponding logs. After successful configuration, click health check again to ensure the API status is green and online, then the API has been successfully configured and enabled.
+If you need to enable API operation mode, after successfully saving the node settings, click the auto-configure API button outside to execute background tasks to automatically interface with the virtualization platform API, no manual configuration required. After waiting for about 15-20 seconds, it should have been configured successfully. Click the button to see the configuration history tasks and corresponding logs. After successful configuration, click health check again to ensure the API status is green online status, and you've successfully configured and enabled the API.
 
 ![](./images/autoapi1.png)
 
@@ -196,49 +226,61 @@ If you need to enable API operation mode, after successfully saving the node set
 
 ![](./images/autoapi3.png)
 
+### Hardware Configuration (Optional)
+
+![](./images/hardware.png)
+
+Only lxd and incus support setting default instance parameter configurations. Generally use the defaults unless you need to manually limit certain special hardware resources; otherwise, generally no modification is needed.
+
 ### Health Check (Required)
 
 ![](./images/autoapi4.png)
 
-After saving the node, after clicking health check and completing it, normal users can see the corresponding server and can apply for creation. If no health check is performed, users cannot apply for creation and claiming.
+Click the operation button
 
-After the health check, it will display whether the connection status of the corresponding type is online, and will automatically detect the actual total resources of the entire machine. This total resource amount is the limit for total resource amount that will not be overcommitted as set earlier.
+![](./images/autoapi45.png)
+
+After saving the node, after completing the health check, regular users can see the corresponding server and can apply for creation. If health check is not performed, users cannot apply for creation and claiming.
+
+After health check, it will display whether the corresponding type of connection status is online and will automatically detect the actual total resources of the entire machine. This total resource amount is the total resource limit for non-overcommitted creation set above.
+
+Whether the API is available does not affect specific usage. Auto-configuring the API is not mandatory.
 
 ## System Images
 
 ![](./images/images.png)
 
-By default, seed data will record all available images for all virtualization environments. Only alpine and debian images are enabled by default to avoid too many available images for users.
+By default, seed data will include all available images for all virtualization environments. By default, only alpine and debian images are enabled to avoid too many available images for users.
 
-If you need images for any system, any virtualization environment, and any architecture, please search and enable them yourself, otherwise users cannot select the corresponding images.
+If you need images for any system, any virtualization environment, any architecture, please search and enable them yourself, otherwise users cannot select the corresponding images.
 
-Custom image addresses are not currently supported. The front-end entry function is currently unavailable. Do not manually enter images.
+Custom image addresses are temporarily not supported. The current frontend entry function is not available. Do not manually enter images.
 
 ## System Configuration
 
-Most options here do not need much elaboration. There are two configurations that need special explanation.
+General options here won't be elaborated on. There are two configurations that need special explanation.
 
 ### User Level Configuration (Required)
 
 ![](./images/userlevel.png)
 
-This limits the total available resource amount for the normal user level's corresponding total account.
+This limits the total account available resources for regular user levels.
 
-When creating instances on corresponding nodes, this global configuration will be filtered together with the node's own level configuration to provide users with configurations that meet both conditions.
+When creating instances on corresponding nodes, this global configuration will work together with the node's own level configuration to filter and provide users with configurations that meet both conditions.
 
 ### Instance Permission Configuration (Required)
 
 ![](./images/usercontrol.png)
 
-Here you can control the minimum level required for users' sensitive operations. You can control the minimum user level required for instance creation, instance deletion, and instance system reset.
+Here you can control the minimum level required for users to perform sensitive operations. You can control the minimum user level required for instance creation, instance deletion, and instance system reset.
 
 ## Configuration File
 
-The default system configuration is sufficient for light use. If advanced customization is needed, you need to modify the configuration file or modify it in the administrator interface after initialization.
+The default system configuration is already sufficient for light usage. If advanced customization is needed, you need to modify the configuration file or modify it in the administrator interface after initialization.
 
 https://github.com/oneclickvirt/oneclickvirt/blob/main/server/config.yaml
 
-Here is the complete initialized configuration file. The following will explain the specific configuration items:
+This is the complete initialization configuration file. Below we will explain the specific configuration items:
 
 ### auth Authentication Configuration
 
@@ -259,21 +301,21 @@ auth:
     frontend-url: ""
 ```
 
-Authentication module configuration items, used to control user login registration methods and third-party login integration.
+Authentication module configuration items, used to control user login and registration methods and third-party login integration.
 
-- `email-password`: Email service authentication password, used for identity verification when sending emails via SMTP
+- `email-password`: Email service authentication password, used for authentication when sending emails via SMTP
 - `email-smtp-host`: SMTP server address, such as `smtp.gmail.com`
-- `email-smtp-port`: SMTP server port, commonly used ports are `25`, `465` (SSL), `587` (TLS)
+- `email-smtp-port`: SMTP server port, common ports are `25`, `465` (SSL), `587` (TLS)
 - `email-username`: SMTP server login username, usually the complete email address
 - `enable-email`: Whether to enable email login functionality
 - `enable-oauth2`: Whether to enable OAuth2 third-party login functionality
-- `enable-public-registration`: Whether to allow public registration. When closed, only administrators can create accounts
+- `enable-public-registration`: Whether to allow public registration. When disabled, only administrators can create accounts
 - `enable-qq`: Whether to enable QQ login
 - `enable-telegram`: Whether to enable Telegram login
 - `qq-app-id`: App ID applied for on QQ Connect platform
 - `qq-app-key`: App Key applied for on QQ Connect platform
 - `telegram-bot-token`: Telegram Bot's API Token
-- `frontend-url`: Frontend access address, must include protocol header (`http://` or `https://`), trailing slash is optional. OAuth2 callback address depends on this configuration
+- `frontend-url`: Frontend access address, needs to include protocol header (`http://` or `https://`), trailing slash is optional. OAuth2 callback address depends on this configuration
 
 ### captcha Verification Code Configuration
 
@@ -286,13 +328,13 @@ captcha:
     width: 120
 ```
 
-Graphic verification code generation and verification configuration, used for security verification on frontend login registration pages.
+Graphic verification code generation and verification configuration, used for security verification on frontend login and registration pages.
 
 - `enabled`: Whether to enable verification code functionality
-- `expire-time`: Verification code expiration time, in seconds
-- `height`: Verification code image height, in pixels
+- `expire-time`: Verification code expiration time in seconds
+- `height`: Verification code image height in pixels
 - `length`: Verification code character length
-- `width`: Verification code image width, in pixels
+- `width`: Verification code image width in pixels
 
 ### cdn Content Delivery Network Configuration
 
@@ -308,10 +350,10 @@ cdn:
 
 CDN acceleration node configuration used when downloading system images.
 
-- `base-endpoint`: Main CDN node address, used with priority
-- `endpoints`: Backup CDN node list, retried in order. The system will automatically select available nodes for image downloads
+- `base-endpoint`: Primary CDN node address, used first
+- `endpoints`: Backup CDN node list, retried in order. The system will automatically select available nodes for image download
 
-Generally, there is no need to modify this configuration. Preloaded system images are all hosted in this organization's repository, and the default CDN nodes can already provide good download acceleration.
+Generally, this configuration doesn't need modification. Preloaded system images are all hosted in this organization's repository, and default CDN nodes can already provide good download acceleration.
 
 ### mysql Database Configuration
 
@@ -334,16 +376,16 @@ mysql:
     username: root
 ```
 
-MySQL database connection and behavior configuration. Initialization judgment logic: When both `path` and `port` are empty, the system considers initialization is needed. At this time, the target database must be an empty database.
+MySQL database connection and behavior configuration. Initialization judgment logic: when both `path` and `port` are empty, the system considers initialization is needed, and at this time the target database must be an empty database.
 
 - `auto-create`: Whether to automatically create the database (if it doesn't exist)
 - `config`: Database connection parameters, including character set, time parsing, etc.
 - `db-name`: Database name
 - `engine`: Database storage engine, InnoDB is recommended
-- `log-mode`: Database log mode, optional values are `silent`, `error`, `warn`, `info`
+- `log-mode`: Database log mode, options are `silent`, `error`, `warn`, `info`
 - `log-zap`: Whether to use zap log library to record database logs
 - `max-idle-conns`: Maximum number of idle connections
-- `max-lifetime`: Maximum connection lifetime, in seconds
+- `max-lifetime`: Connection maximum lifetime in seconds
 - `max-open-conns`: Maximum number of open connections
 - `password`: Database password
 - `path`: Database server address
@@ -357,47 +399,43 @@ MySQL database connection and behavior configuration. Initialization judgment lo
 ```yaml
 quota:
     default-level: 1
-    instance-type-permissions:
-        min-level-for-container: 1
-        min-level-for-delete: 2
-        min-level-for-vm: 1
     level-limits:
-        1:
+        "1":
             max-instances: 1
             max-resources:
-                bandwidth: 10
+                bandwidth: 100
                 cpu: 1
                 disk: 1025
                 memory: 350
             max-traffic: 102400
-        2:
+        "2":
             max-instances: 3
             max-resources:
-                bandwidth: 20
+                bandwidth: 200
                 cpu: 2
                 disk: 20480
                 memory: 1024
             max-traffic: 204800
-        3:
+        "3":
             max-instances: 5
             max-resources:
-                bandwidth: 50
+                bandwidth: 500
                 cpu: 4
                 disk: 40960
                 memory: 2048
             max-traffic: 307200
-        4:
+        "4":
             max-instances: 10
             max-resources:
-                bandwidth: 100
+                bandwidth: 1000
                 cpu: 8
                 disk: 81920
                 memory: 4096
             max-traffic: 409600
-        5:
+        "5":
             max-instances: 20
             max-resources:
-                bandwidth: 200
+                bandwidth: 2000
                 cpu: 16
                 disk: 163840
                 memory: 8192
@@ -412,25 +450,25 @@ User level and resource quota control configuration. The default unit for memory
 
 #### instance-type-permissions Instance Type Permissions
 
-Controls the types of operations that users of different levels can perform.
+Controls what operation types users of different levels can perform.
 
 - `min-level-for-container`: Minimum user level required to create container instances
-- `min-level-for-delete`: Minimum level required to perform deletion operations on the normal user side
+- `min-level-for-delete`: Minimum level required to perform delete operations on the regular user side
 - `min-level-for-vm`: Minimum user level required to create virtual machine instances
 
 #### level-limits Level Quota Limits
 
 Defines the resource quota upper limits corresponding to each user level, with keys being level numbers.
 
-Each level includes the following configuration:
+Each level contains the following configurations:
 
-- `max-instances`: Maximum number of instances that can be created by users of this level
+- `max-instances`: Maximum number of instances this level user can create
 - `max-resources`: Maximum resource limits for a single instance
-  - `bandwidth`: Maximum bandwidth, in Mbps
+  - `bandwidth`: Maximum bandwidth in Mbps
   - `cpu`: Maximum CPU cores
-  - `disk`: Maximum disk space, in MB
-  - `memory`: Maximum memory, in MB
-- `max-traffic`: Maximum total traffic for users of this level, in MB
+  - `disk`: Maximum disk space in MB
+  - `memory`: Maximum memory in MB
+- `max-traffic`: Maximum total traffic for this level user in MB
 
 ### zap Log Configuration
 
@@ -459,16 +497,16 @@ Detailed configuration for system log recording, based on the zap log library.
 - `director`: Log file storage directory
 - `encode-level`: Log level encoding method, options are `LowercaseLevelEncoder` (lowercase), `CapitalLevelEncoder` (uppercase)
 - `format`: Log output format, options are `console` (console format), `json` (JSON format)
-- `level`: Log level, options are `debug`, `info`, `warn`, `error`. It is recommended to use `debug` during development and debugging, and `info` or `warn` in production environments
-- `log-in-console`: Whether to output logs to the console simultaneously
-- `max-array-elements`: Maximum number of elements recorded for array type fields
+- `level`: Log level, options are `debug`, `info`, `warn`, `error`. It's recommended to use `debug` during development and debugging, and `info` or `warn` in production environments
+- `log-in-console`: Whether to output logs to console simultaneously
+- `max-array-elements`: Maximum number of elements to record for array type fields
 - `max-backups`: Maximum number of historical log files to retain
-- `max-file-size`: Maximum size of a single log file, in MB
-- `max-log-length`: Maximum length of a single log entry, excess parts will be truncated
+- `max-file-size`: Maximum size of a single log file in MB
+- `max-log-length`: Maximum length of a single log entry, excess will be truncated
 - `max-string-length`: Maximum recording length for string fields
 - `prefix`: Log prefix identifier
-- `retention-day`: Number of days to retain log files, automatically deleted when expired
-- `show-line`: Whether to display the filename and line number of the log call
+- `retention-day`: Log file retention days, automatically deleted after expiration
+- `show-line`: Whether to display the filename and line number of log calls
 - `stacktrace-key`: Key name for stack trace information
 
 Note: When debugging issues, `level` should be set to `debug` to obtain detailed log information.
