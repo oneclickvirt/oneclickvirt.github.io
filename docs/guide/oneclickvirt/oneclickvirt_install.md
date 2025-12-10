@@ -104,8 +104,6 @@ journalctl -u oneclickvirt -f
 
 重启服务：
 
-停止服务: 
-
 ```shell
 systemctl restart oneclickvirt
 ```
