@@ -244,7 +244,7 @@ https://github.com/oneclickvirt/oneclickvirt/pkgs/container/oneclickvirt
 
 中查询
 
-#### 方式一：使用预构建镜像部署
+#### 方式一：预构建镜像
 
 **镜像标签说明**
 
@@ -347,7 +347,7 @@ docker pull spiritlhl/oneclickvirt:latest
 
 然后再按全新环境下开设的步骤来，这样会提示重新初始化，所有原始数据已删除。
 
-#### 方式二：通过DockerCompose自行编译部署
+#### 方式二：DockerCompose自编译
 
 使用 Docker Compose 可以一键部署完整的开发环境，采用**分容器部署**架构，包括独立的前端容器、后端容器和数据库容器：
 
@@ -405,7 +405,7 @@ docker-compose down
 rm -rf ./data
 ```
 
-#### 方式三：通过Dockerfile自行编译部署
+#### 方式三：Dockerfile自编译
 
 这种方式适合自行修改源码与自定义构建：
 
