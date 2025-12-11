@@ -92,3 +92,11 @@ Immediately after reboot, log into SSH and use the corresponding script to clear
 Since containers take time to restart individually after reboot, this window may not delete many instances, but each reboot clears some.
 
 Ultimately, when limiting instance counts, carefully assess node performance. Avoid overloading weaker nodes or those with strict constraints.
+
+## Issues Arising from Self-Compilation
+
+Commonly encountered in source code deployment, Dockerfile, and Docker Compose deployment methods
+
+Frequently observed in frontend compilation errors on ARM architectures
+
+Directly deploy using pre-compiled Docker container images or binary files (most reliable approach)

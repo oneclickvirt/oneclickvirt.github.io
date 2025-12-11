@@ -93,3 +93,11 @@ internal error, please report: running “lxd.lxc” failed: cannot create trans
 由于重启后容器虚拟机需要一段时间一个个自动重启，打这个时间差可能删不了多少，但每次重启都能删一些
 
 最终还是需要在限制实例数量的时候，慎重考虑节点的性能，较弱或者限制较多的节点，建议不要开设过多实例
+
+## 自编译出现问题
+
+常见于 源码部署、Dockerfile、DockerCompose 方式部署
+
+常见于 ARM 架构下前端编译出错
+
+直接使用 预编译的Docker容器镜像 或 直接使用二进制文件部署(最稳妥)

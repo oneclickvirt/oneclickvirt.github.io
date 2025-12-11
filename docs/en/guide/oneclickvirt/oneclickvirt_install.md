@@ -98,8 +98,6 @@ journalctl -u oneclickvirt -f
 
 Restart service:
 
-Stop service:
-
 ```shell
 systemctl restart oneclickvirt
 ```
