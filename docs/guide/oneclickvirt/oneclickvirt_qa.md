@@ -94,10 +94,63 @@ internal error, please report: running “lxd.lxc” failed: cannot create trans
 
 最终还是需要在限制实例数量的时候，慎重考虑节点的性能，较弱或者限制较多的节点，建议不要开设过多实例
 
-## 自编译出现问题
+## 自编译出现依赖缺失或者兼容性问题
 
 常见于 源码部署、Dockerfile、DockerCompose 方式部署
 
 常见于 ARM 架构下前端编译出错
 
 直接使用 预编译的Docker容器镜像 或 直接使用二进制文件部署(最稳妥)
+
+## incus 和 lxd 进行 NAT 映射一些命令查不到映射规则
+
+这是正常现象。
+
+Incus / LXD 的端口映射默认使用 **内核态 NAT（DNAT + FORWARD）** 实现，并 **不会在宿主机上创建端口监听进程**。
+因此，使用传统的端口占用查询工具通常**无法看到任何结果**。
+
+例如，以下命令都 **查不到宿主机端口占用**：
+
+```shell
+ss -lntup
+lsof -i
+netstat -lntp
+```
+
+只有通过：
+
+```shell
+incus config device show 实例1
+```
+
+或：
+
+```shell
+lxd config device show 实例1
+```
+
+才能看到已配置的端口映射规则，因为流量不过宿主机直接对外转发。
+
+正确的端口映射查找方式是查看 nftables 规则
+
+```shell
+nft list ruleset
+```
+
+或仅查看 NAT 表：
+
+```shell
+nft list table ip nat
+```
+
+在使用 `iptables` 的系统中可使用：
+
+```shell
+iptables -t nat -L
+```
+
+如果有流量进出，查看真实连接状态可使用：
+
+```shell
+conntrack -L | grep <端口>
+```

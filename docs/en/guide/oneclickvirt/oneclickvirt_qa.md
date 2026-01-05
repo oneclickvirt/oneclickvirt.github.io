@@ -100,3 +100,57 @@ Commonly encountered in source code deployment, Dockerfile, and Docker Compose d
 Frequently observed in frontend compilation errors on ARM architectures
 
 Directly deploy using pre-compiled Docker container images or binary files (most reliable approach)
+
+
+## Some commands cannot detect NAT mapping rules for Incus and LXD.
+
+This is normal behavior.
+
+Incus/LXD port mapping defaults to **kernel-level NAT (DNAT + FORWARD)** and **does not create port listening processes on the host machine**.
+Therefore, traditional port occupancy tools typically **will not show any results**.
+
+For example, the following commands will **not detect host port usage**:
+
+```shell
+ss -lntup
+lsof -i
+netstat -lntp
+```
+
+Only by running:
+
+```shell
+incus config device show instance1
+```
+
+or:
+
+```shell
+lxd config device show instance1
+```
+
+to view configured port mapping rules, as traffic bypasses the host and forwards directly externally.
+
+The correct method to check port mappings is to examine nftables rules
+
+```shell
+nft list ruleset
+```
+
+or view only the NAT table:
+
+```shell
+nft list table ip nat
+```
+
+On systems using `iptables`, use:
+
+```shell
+iptables -t nat -L
+```
+
+If traffic is flowing in or out, inspect actual connection states with:
+
+```shell
+conntrack -L | grep <port>
+```
