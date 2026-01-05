@@ -8,9 +8,11 @@ Distinguish between the panel side and the controlled side. The controlled side 
 
 ## Controlled Side
 
-Perform environment installation according to the main installation instructions elsewhere in this documentation. This won't be elaborated on here. The tutorial has corresponding installation commands for the four mainstream virtualization technologies. Please refer to them yourself.
+For other virtual environments corresponding to this guide, their main installation scripts can be used to set up the environment. We won't elaborate further here. This tutorial provides installation commands for the main setup of the four major virtualization technologies. Please refer to them directly.
 
-The controlled side only needs to have the virtualization environment installed, and does not need to install an agent for control. Just ensure that SSH login is available (the SSH login address can be either public or private network, as long as connectivity is not an issue).
+If possible, always use the scripts to install the corresponding environment. Otherwise, you may encounter strange issues like inconsistent presets. If you lack technical expertise, do not manually install the environment. Use scripts for everything.
+
+The controlled end only requires the virtualization environment to be installed. There is no need to install an additional agent for control. Simply ensure SSH login is possible (the SSH login address can be public or internal network, as long as connectivity is unimpeded).
 
 ## Panel Side
 

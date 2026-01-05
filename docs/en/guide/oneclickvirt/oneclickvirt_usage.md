@@ -228,9 +228,11 @@ If you need to enable API operation mode, after successfully saving the node set
 
 ### Hardware Configuration (Optional)
 
-![](./images/hardware.png)
+![](./images/hardwareconfig.png)
 
 Only lxd and incus support setting default instance parameter configurations. Generally use the defaults unless you need to manually limit certain special hardware resources; otherwise, generally no modification is needed.
+
+If you need to set the maximum percentage of CPU usage or similar parameters, the settings here can meet your requirements.
 
 ### Health Check (Required)
 
