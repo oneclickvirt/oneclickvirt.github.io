@@ -38,7 +38,7 @@ If this is a new server, make sure that both ```update``` and ```curl``` are wor
 - Prerequisites: Ubuntu 20+(Not recommended to use Incus, please use LXD), Debian 11+(Recommended), RockyLinux 9+, AlmaLinux 9+, Centos 9+, Alpine(After installing bash on your own), Arch
 - During installation, you will be prompted to enter the storage pool creation path as well as the size, and all the VMs or containers you want to open end up taking up space in the storage pool
 - The server needs to be restarted after the environment installation process to load some default configurations
-- By default, lxd's lxcfs-related configuration is enabled, so that in-container querying of container information changes to information about the container itself rather than the host
+- By default, lxcfs-related configuration is enabled, so that in-container querying of container information changes to information about the container itself rather than the host
 - This installer has been tested to work on either physical or non-physical machines
 
 Command:
@@ -126,4 +126,5 @@ Just enter the default for the normal options
 Choose the size of the physical disk (hint: select the default option with a minimum of 1GB). Generally, I fill in the available disk space minus the memory size, then multiply by 0.95 and round down. Here, I entered 10GB.
 
 Remember to select 'no' for options containing 'auto' when prompted to update the image, in order to avoid occupying the system.
+
 
