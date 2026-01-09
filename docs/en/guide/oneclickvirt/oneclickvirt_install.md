@@ -14,6 +14,10 @@ If possible, always use the scripts to install the corresponding environment. Ot
 
 The controlled end only requires the virtualization environment to be installed. There is no need to install an additional agent for control. Simply ensure SSH login is possible (the SSH login address can be public or internal network, as long as connectivity is unimpeded).
 
+:::warning
+Managed nodes require the host machine's network interface to be directly bound to a public IP address. Host machines accessing the public network via methods such as port mapping (e.g., Alibaba Cloud VPC) or NAT forwarding are not supported. Host machines providing public network access through full-port NAT or port forwarding cannot serve as node machines.
+:::
+
 ## Panel Side
 
 Hardware requirements include at least 1G of free memory and 2G of free disk space. Installation can be completed through any of the following methods.

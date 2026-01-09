@@ -24,6 +24,10 @@ This control panel has no special environmental dependency requirements. For one
 
 Frontend static files are deployed through ```nginx``` or ```caddy``` or ```OpenResty```. For non-source code deployment and non-Docker deployment, API path reverse proxy to the backend port is required.
 
+:::warning
+Managed nodes require the host machine's network interface to be directly bound to a public IP address. Host machines accessing the public network via methods such as port mapping (e.g., Alibaba Cloud VPC) or NAT forwarding are not supported. Host machines providing public network access through full-port NAT or port forwarding cannot serve as node machines.
+:::
+
 ## Platform Features
 
 - Language internationalization: Frontend supports bilingual display in Chinese and English, defaults to Chinese display, with switchable default system language

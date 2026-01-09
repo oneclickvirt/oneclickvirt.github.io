@@ -9,7 +9,7 @@ outline: deep
 欢迎给项目一个```Star```进行免费的支持-->[https://github.com/oneclickvirt/oneclickvirt](https://github.com/oneclickvirt/oneclickvirt)
 
 :::warning
-这是一个处于早期开发的项目，可能有各种BUG和不稳定之处，若使用则自行斟酌风险，更新会比较频繁
+这是一个处于早期开发的项目，可能有各种BUG和不稳定之处，若使用则自行斟酌风险，更新会比较频繁，如若使用不了不要强行使用。
 :::
 
 ## 环境需求
@@ -23,6 +23,10 @@ outline: deep
 本控制面板无特殊的环境依赖需求，需要一键部署的可使用包含数据库的一体化Docker镜像或者分容器的docker-compose部署。
 
 前端静态文件通过```nginx```或```caddy```或```OpenResty```之一部署，非源码部署且非Docker部署的需要进行API路径反代到后端端口。
+
+:::warning
+纳管的节点要求宿主机网卡直接绑定公网 IP。不支持通过类似阿里云 VPC 的端口映射、NAT 转发等方式访问公网的宿主机。使用全端口 NAT 或端口转发方式提供公网访问的宿主机，无法作为节点机器。
+:::
 
 ## 平台特点
 
