@@ -15,7 +15,7 @@ If possible, always use the scripts to install the corresponding environment. Ot
 The controlled end only requires the virtualization environment to be installed. There is no need to install an additional agent for control. Simply ensure SSH login is possible (the SSH login address can be public or internal network, as long as connectivity is unimpeded).
 
 :::warning
-Managed nodes require the host machine's network interface to be directly bound to a public IP address. Host machines accessing the public network via methods such as port mapping (e.g., Alibaba Cloud VPC) or NAT forwarding are not supported. Host machines providing public network access through full-port NAT or port forwarding cannot serve as node machines.
+Managed nodes require the host machine's network interface to be directly bound to the IP address to be mapped, such as a public IP. Host machines providing the IP to be mapped via methods like port mapping (e.g., Alibaba Cloud VPC) or NAT forwarding are not supported. Host machines providing the IP to be mapped using full-port NAT or port forwarding cannot serve as node machines. (Simply put, if a cloud server has a public IP address, this IP must be directly bound to the network interface card. It cannot be a scenario where the NIC only has an internal IP without a public IP, with traffic routing through the internal IP and then being forwarded to the public IP.)
 :::
 
 ## Panel Side

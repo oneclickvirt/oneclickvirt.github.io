@@ -25,7 +25,7 @@ This control panel has no special environmental dependency requirements. For one
 Frontend static files are deployed through ```nginx``` or ```caddy``` or ```OpenResty```. For non-source code deployment and non-Docker deployment, API path reverse proxy to the backend port is required.
 
 :::warning
-Managed nodes require the host machine's network interface to be directly bound to a public IP address. Host machines accessing the public network via methods such as port mapping (e.g., Alibaba Cloud VPC) or NAT forwarding are not supported. Host machines providing public network access through full-port NAT or port forwarding cannot serve as node machines.
+Managed nodes require the host machine's network interface to be directly bound to the IP address to be mapped, such as a public IP. Host machines providing the IP to be mapped via methods like port mapping (e.g., Alibaba Cloud VPC) or NAT forwarding are not supported. Host machines providing the IP to be mapped using full-port NAT or port forwarding cannot serve as node machines. (Simply put, if a cloud server has a public IP address, this IP must be directly bound to the network interface card. It cannot be a scenario where the NIC only has an internal IP without a public IP, with traffic routing through the internal IP and then being forwarded to the public IP.)
 :::
 
 ## Platform Features
