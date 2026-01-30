@@ -26,6 +26,8 @@ Refer to the description of the organization's related project [Jump](https://gi
 | ≥ 8G                | About 8G is sufficient |
 | Hibernation needed  | At least equal to physical memory |
 
+The above values are only recommended settings, the actual value according to their own needs, do not blindly copy the value!
+
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
 ```

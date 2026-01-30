@@ -26,14 +26,14 @@ Download the image and apply the patch. If you're using a different image, repla
 
 (You don't need to download the image that comes with virtio, the original image will suffice)
 
-Windows image download link: https://down.idc.wiki/ISOS/Windows/
+Windows image download link: https://github.com/ILLKX/Windows
 
 Supported Windows image versions for patching: https://linuxcontainers.org/distrobuilder/docs/latest/tutorials/use/#repack-windows-iso
 
 The following guide will use Windows 2019 as an example:
 
 ```shell
-wget https://down.idc.wiki/ISOS/Windows/Server%202019/cn_windows_server_2019_updated_july_2020_x64_dvd_2c9b67da.iso -O win.iso
+wget https://download.testip.xyz/Windows/zh-cn_windows_server_2019_x64_dvd_19d65722.iso -O win.iso
 distrobuilder repack-windows \
   --windows-arch=amd64 \
   win.iso \

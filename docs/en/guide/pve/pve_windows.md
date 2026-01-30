@@ -152,13 +152,9 @@ Manually click on the corresponding ```CD``` in the ```Hardware``` on the web si
 
 For Windows images without VirtIO, you can use:
 
-<https://down.idc.wiki/ISOS/Windows/>
+<https://github.com/ILLKX/Windows>
 
 For VirtIO ISO images, you can use:
-
-<https://down.idc.wiki/ISOS/Toolkit/>
-
-or
 
 <https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/>
 

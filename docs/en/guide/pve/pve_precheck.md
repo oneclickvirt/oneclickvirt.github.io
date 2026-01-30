@@ -41,6 +41,8 @@ It is recommended to install debian11 instead of debian12+, because the latter i
 
 If you use IPV6 tunnels for IPV6 subnet attachment on the host, be sure to add the contents in the corresponding file when PVE is successfully installed but the gateway is not automatically set, and do not add IPV6 tunnels at the very beginning (without installing PVE).
 
+**Warning: If the host is a standalone server without IPMI can not reinstall the system themselves, do not use this script, please directly entrust the technician to manually ISO install PVE, do not use this project, otherwise it may result in loss of connectivity (some of the standalone servers network settings do not support hot-plugging)**
+
 ## Setting up virtual memory (SWAP) (optional, not required)
 
 :::tip
@@ -59,6 +61,8 @@ Refer to the description of the organization's related project [Jump](https://gi
 | 2G < memory ≤ 8G    | Equal to physical memory |
 | ≥ 8G                | About 8G is sufficient |
 | Hibernation needed  | At least equal to physical memory |
+
+The above values are only recommended settings, the actual value according to their own needs, do not blindly copy the value!
 
 Command:
 

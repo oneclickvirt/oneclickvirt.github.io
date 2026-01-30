@@ -28,14 +28,14 @@ reboot
 
 下载镜像并进行修补，如果你使用的是别的镜像，自行替换下载链接(不需要下载自带virtio的镜像，原始的镜像就够了)
 
-自行下载Windows镜像的地址：https://down.idc.wiki/ISOS/Windows/
+自行下载Windows镜像的地址：https://github.com/ILLKX/Windows
 
 支持修补的Windows镜像版本：https://linuxcontainers.org/distrobuilder/docs/latest/tutorials/use/#repack-windows-iso
 
 下面的指南将以windows2019作为示例进行
 
 ```shell
-wget https://down.idc.wiki/ISOS/Windows/Server%202019/cn_windows_server_2019_updated_july_2020_x64_dvd_2c9b67da.iso -O win.iso
+wget https://download.testip.xyz/Windows/zh-cn_windows_server_2019_x64_dvd_19d65722.iso -O win.iso
 distrobuilder repack-windows \
   --windows-arch=amd64 \
   win.iso \

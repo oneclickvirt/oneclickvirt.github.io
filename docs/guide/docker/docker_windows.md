@@ -127,7 +127,7 @@ docker load -i builder.tar
 #### 使用自定义 Windows ISO 镜像启动容器
 
 首先从以下地址下载 Windows ISO 镜像：
-[https://down.idc.wiki/ISOS/Windows/](https://down.idc.wiki/ISOS/Windows/)
+[https://github.com/ILLKX/Windows](https://github.com/ILLKX/Windows)
 
 启动容器示例命令：
 

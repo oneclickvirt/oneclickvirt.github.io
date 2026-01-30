@@ -171,15 +171,11 @@ IP地址(I)：```172.16.1.xxx```(xxx换成你想绑定的ip，我的vmid是100�
 
 无virtio的win镜像下载可使用
 
-<https://down.idc.wiki/ISOS/Windows/>
+<https://github.com/ILLKX/Windows>
 
 这块的镜像
 
 virtio的iso镜像可使用
-
-<https://down.idc.wiki/ISOS/Toolkit/>
-
-或者
 
 <https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/>
 
