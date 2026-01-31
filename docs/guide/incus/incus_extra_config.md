@@ -102,3 +102,25 @@ incus config set core.https_address [::]
 ```https://你的公网IPV4地址:8443```
 
 即可进入官方可视化操作面板，后续的操作配置按照UI提示操作即可
+
+如果提示找不到ui安装包，那么说明你之前使用的是官方的incus源安装的环境，不是走的zabbly的源
+
+此时需要额外添加源，假设你使用的是debian13系统，可使用以下命令添加源后再尝试安装：
+
+```shell
+sudo -i
+mkdir -p /etc/apt/keyrings/
+curl -fsSL https://pkgs.zabbly.com/key.asc | gpg --dearmor -o /etc/apt/keyrings/zabbly.gpg
+sh -c 'cat <<EOF > /etc/apt/sources.list.d/zabbly-incus-stable.sources
+Enabled: yes
+Types: deb
+URIs: https://pkgs.zabbly.com/incus/stable
+Suites: $(. /etc/os-release && echo ${VERSION_CODENAME})
+Components: main
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/zabbly.gpg
+EOF'
+apt-get update
+```
+
+其他系统如何添加源可参考 <https://github.com/zabbly/incus?tab=readme-ov-file#installation> 官方仓库的说明

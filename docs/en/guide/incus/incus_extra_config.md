@@ -90,3 +90,25 @@ Then you can type in your browser
 ```https://your_public_ipv4_address:8443```
 
 You can enter the official visualization panel, subsequent operation configuration in accordance with the UI prompts can be operated.
+
+If you receive a prompt stating that the UI installation package cannot be found, this indicates that your previous installation utilized the official Incus repository rather than the Zabbly repository.
+
+In this case, you need to add an additional repository. Assuming you are using Debian 13, you can add the repository using the following command before attempting the installation again:
+
+```shell
+sudo -i
+mkdir -p /etc/apt/keyrings/
+curl -fsSL https://pkgs.zabbly.com/key.asc | gpg --dearmor -o /etc/apt/keyrings/zabbly.gpg
+sh -c 'cat <<EOF > /etc/apt/sources.list.d/zabbly-incus-stable.sources
+Enabled: yes
+Types: deb
+URIs: https://pkgs.zabbly.com/incus/stable
+Suites: $(. /etc/os-release && echo ${VERSION_CODENAME})
+Components: main
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/zabbly.gpg
+EOF'
+apt-get update
+```
+
+For instructions on adding sources to other systems, refer to the official repository documentation at <https://github.com/zabbly/incus?tab=readme-ov-file#installation>.
