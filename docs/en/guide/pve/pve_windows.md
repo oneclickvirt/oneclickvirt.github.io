@@ -235,3 +235,13 @@ For subsequent network settings, refer to the network initialization tutorial me
 In the ProxmoxVE web interface, manually click on the corresponding `CD` in the `Hardware` section, select `Remove`, and then restart the virtual machine. This way, you can use it directly:
 
 ![wk](images/wk7.png)
+
+## The old Windows image only includes Internet Explorer.
+
+Manually enter the following URL in IE:
+```https://www.microsoft.com/zh-cn/edge/download```
+to download the file.
+
+Since IE does not automatically whitelist certificates, multiple pop-ups will appear. Click “Add Domain,” save the changes, and only then will the download button appear on the page.
+
+Additionally, older systems lack the WebView2 component by default. A prompt will appear indicating that this component must be downloaded and installed separately to enable modern browser functionality.

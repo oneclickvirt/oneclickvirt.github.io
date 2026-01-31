@@ -147,6 +147,16 @@ lxc config set winvm raw.qemu -- "-cpu host"
 
 Just start the virtual machine again
 
+## The old Windows image only includes Internet Explorer.
+
+Manually enter the following URL in IE:
+```https://www.microsoft.com/zh-cn/edge/download```
+to download the file.
+
+Since IE does not automatically whitelist certificates, multiple pop-ups will appear. Click “Add Domain,” save the changes, and only then will the download button appear on the page.
+
+Additionally, older systems lack the WebView2 component by default. A prompt will appear indicating that this component must be downloaded and installed separately to enable modern browser functionality.
+
 ## Disadvantages
 
 The frontend lacks authentication, so you can't set user passwords.
