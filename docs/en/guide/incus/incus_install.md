@@ -97,8 +97,6 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/swap.s
 
 ### Installing incus
 
-Actually, the virtual memory allocated for swap should be twice the size of the actual memory. So, it's reasonable to allocate 1GB if the actual memory is 500MB. The scenario I described above is an excessive allocation.
-
 ```
 sudo -i
 mkdir -p /etc/apt/keyrings/

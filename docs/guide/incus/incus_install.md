@@ -117,7 +117,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 ### 安装incus
 
-实际swap开的虚拟内存应该是实际内存的2倍，也就是开1G是合理的，上面我描述的情况属于超开了
+下述命令直接通过zabbly源进行安装
 
 ```
 sudo -i

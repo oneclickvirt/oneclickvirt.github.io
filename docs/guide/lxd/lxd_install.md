@@ -139,7 +139,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 ### 安装LXD
 
-实际swap开的虚拟内存应该是实际内存的2倍，也就是开1G是合理的，上面我描述的情况属于超开了
+执行下述命令进行安装和初始化
 
 ```
 apt install snapd -y

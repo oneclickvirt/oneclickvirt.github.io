@@ -163,6 +163,10 @@ lxc config set winvm raw.qemu -- "-cpu host"
 
 又由于默认老系统没有webview2组件，提示下载需要额外下载安装组件后才能正常使用现代浏览器
 
+<https://learn.microsoft.com/zh-cn/answers/questions/3866296/msvcp140-dll>
+
+某些旧镜像无法运行程序，提示报错MSVCP140这个dll缺失，需要访问上述地址下载安装相应的C++运行时依赖
+
 ## 缺点
 
 前端无权限校验，没法设置用户密码
