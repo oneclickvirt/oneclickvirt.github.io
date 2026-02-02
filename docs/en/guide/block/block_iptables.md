@@ -88,10 +88,7 @@ strings=(
     "antpool.one"
     "antpool.com"
     "pool.bar"
-    "get_peers"
-    "announce_peer"
-    "find_node"
-    "seed_hash"
+    "c3pool"
 )
 
 for str in "${strings[@]}"; do
@@ -105,13 +102,7 @@ done
 strings=(
     "torrent"
     ".torrent"
-    "peer_id="
-    "announce"
-    "info_hash"
-    "get_peers"
-    "find_node"
     "BitTorrent"
-    "announce_peer"
     "BitTorrent protocol"
     "announce.php?passkey="
     "magnet:"
