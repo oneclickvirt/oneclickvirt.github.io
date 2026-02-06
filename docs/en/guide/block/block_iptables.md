@@ -89,6 +89,8 @@ strings=(
     "antpool.com"
     "pool.bar"
     "c3pool"
+    "xmrig.com"
+    "blackcat.host"
 )
 
 for str in "${strings[@]}"; do
