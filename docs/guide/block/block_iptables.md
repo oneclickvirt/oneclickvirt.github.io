@@ -83,61 +83,139 @@ sudo iptables-restore < /etc/iptables/rules.v4
 ```
 strings=(
     "ethermine.com"
+    "ethermine.org"
     "antpool.one"
     "antpool.com"
     "pool.bar"
     "c3pool"
     "xmrig.com"
     "blackcat.host"
+    "minexmr.com"
+    "supportxmr.com"
+    "monerohash.com"
+    "hashvault.pro"
+    "xmrpool.eu"
+    "minergate.com"
+    "webminepool.com"
+    "nanopool.org"
+    "2miners.com"
+    "f2pool.com"
+    "sparkpool.com"
+    "nicehash.com"
+    "prohashing.com"
+    "coinhive.com"
+    "coinimp.com"
+    "cryptoloot.pro"
+    "xmrig"
+    "xmr-stak"
+    "cpuminer"
+    "cgminer"
+    "ethminer"
+    "stratum+tcp"
+    "stratum+ssl"
+    "stratum+http"
+    "stratum"
+    "raw.githubusercontent.com/xmrig"
+    "github.com/xmrig"
 )
 
+iptables -N MINING_BLOCK 2>/dev/null
+iptables -C OUTPUT -j MINING_BLOCK 2>/dev/null || iptables -A OUTPUT -j MINING_BLOCK
 for str in "${strings[@]}"; do
-    iptables -A OUTPUT -m string --string "$str" --algo bm -j DROP
+    iptables -A MINING_BLOCK -m string --string "$str" --algo bm -j DROP
 done
 ```
 
 ### 屏蔽BT行为
 
-```
+```shell
 strings=(
-    "torrent"
-    ".torrent"
     "BitTorrent"
     "BitTorrent protocol"
-    "announce.php?passkey="
+    "BitTorrent protocol\x13"
     "magnet:"
+    ".torrent"
+    "d1:ad2:id20"
+    "d1:rd2:id20"
+    "ut_metadata"
+    "ut_pex"
+    "lt_metadata"
+    "lt_donthave"
+    "qBittorrent"
+    "Transmission"
+    "Deluge"
+    "aria2"
+    "libtorrent"
+    "uTorrent"
+    "BiglyBT"
+    "Vuze"
     "xunlei"
-    "sandai"
     "Thunder"
     "XLLiveUD"
 )
 
+iptables -N BT_BLOCK 2>/dev/null
+iptables -C OUTPUT -j BT_BLOCK 2>/dev/null || iptables -A OUTPUT -j BT_BLOCK
 for str in "${strings[@]}"; do
-    iptables -A OUTPUT -m string --string "$str" --algo bm -j DROP
+    iptables -A BT_BLOCK -m string --string "$str" --algo bm -j DROP
 done
 ```
 
 ### 屏蔽测速行为
 
-```
+```shell
 strings=(
-    ".speed"
-    "speed."
-    ".speed."
+    "speedtest"
     "fast.com"
     "speedtest.net"
     "speedtest.com"
     "speedtest.cn"
+    "ookla.com"
+    "speedtestcustom.com"
+    "ovo.speedtestcustom.com"
+    "speed.cloudflare.com"
     "test.ustc.edu.cn"
     "10000.gd.cn"
     "db.laomoe.com"
     "jiyou.cloud"
-    "ovo.speedtestcustom.com"
-    "speed.cloudflare.com"
-    "speedtest"
+    "mirrors.ustc.edu.cn"
+    "mirrors.tuna.tsinghua.edu.cn"
+    "mirrors.aliyun.com"
+    ".speed"
+    ".speed."
+    "/speedtest"
+    "/speed-test"
 )
 
+iptables -N SPEED_BLOCK 2>/dev/null
+iptables -C OUTPUT -j SPEED_BLOCK 2>/dev/null || iptables -A OUTPUT -j SPEED_BLOCK
 for str in "${strings[@]}"; do
-    iptables -A OUTPUT -m string --string "$str" --algo bm -j DROP
+    iptables -A SPEED_BLOCK -m string --string "$str" --algo bm -j DROP
 done
+```
+
+### 解除屏蔽行为
+
+解除挖矿限制
+
+```shell
+iptables -D OUTPUT -j MINING_BLOCK
+iptables -F MINING_BLOCK
+iptables -X MINING_BLOCK
+```
+
+解除BT限制
+
+```shell
+iptables -D OUTPUT -j BT_BLOCK
+iptables -F BT_BLOCK
+iptables -X BT_BLOCK
+```
+
+解除测速限制
+
+```shell
+iptables -D OUTPUT -j SPEED_BLOCK
+iptables -F SPEED_BLOCK
+iptables -X SPEED_BLOCK
 ```
