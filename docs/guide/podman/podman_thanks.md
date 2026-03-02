@@ -17,5 +17,3 @@ https://github.com/lxc/lxcfs
 https://github.com/SuperManito/LinuxMirrors
 
 https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/
-
-感谢 [@spiritlhls](https://github.com/spiritlhls) 提供的 Podman 容器运行时方案

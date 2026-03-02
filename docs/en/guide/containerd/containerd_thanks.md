@@ -15,5 +15,3 @@ https://github.com/yoursunny/ndpresponder
 https://github.com/lxc/lxcfs
 
 https://github.com/SuperManito/LinuxMirrors
-
-Thanks to [@spiritlhls](https://github.com/spiritlhls) for providing the containerd container runtime solution.

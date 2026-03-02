@@ -17,5 +17,3 @@ https://github.com/lxc/lxcfs
 https://github.com/SuperManito/LinuxMirrors
 
 https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/
-
-Thanks to [@spiritlhls](https://github.com/spiritlhls) for providing the Podman container runtime solution.
