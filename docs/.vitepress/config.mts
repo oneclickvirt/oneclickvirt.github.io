@@ -8,6 +8,12 @@ const links: { url: string; lastmod: number }[] = [];
 export default defineConfig({
   lastUpdated: true,
   lang: 'zh-CN',
+  markdown: {
+    lineNumbers: true,
+    image: {
+      lazyLoading: true,
+    },
+  },
   transformHtml: (_, id, { pageData }) => {
     if (!/[\\/]404\.html$/.test(id)) {
       links.push({
@@ -49,11 +55,17 @@ export default defineConfig({
           pattern: 'https://github.com/oneclickvirt/oneclickvirt.github.io/edit/main/docs/:path',
           text: '在GitHub中编辑',
         },
+        docFooter: {
+          prev: '上一页',
+          next: '下一页',
+        },
+        returnToTopLabel: '回到顶部',
+        sidebarMenuLabel: '菜单',
+        darkModeSwitchLabel: '主题',
+        lightModeSwitchTitle: '切换到浅色模式',
+        darkModeSwitchTitle: '切换到深色模式',
+        externalLinkIcon: true,
         nav: [
-          {
-            text: '一键虚拟化项目',
-            link: '/'
-          },
           {
             text: '虚拟化平台',
             activeMatch: '^/guide/',
@@ -121,8 +133,12 @@ export default defineConfig({
           text: 'Edit this page on GitHub',
           pattern: 'https://github.com/oneclickvirt/oneclickvirt.github.io/edit/main/docs/:path',
         },
+        docFooter: {
+          prev: 'Previous page',
+          next: 'Next page',
+        },
+        externalLinkIcon: true,
         nav: [
-          { text: 'One Click Virtualization', link: '/en/' },
           {
             text: 'Virtualization Platforms',
             activeMatch: '^/en/guide/',
@@ -164,6 +180,7 @@ export default defineConfig({
     },
   },
   themeConfig: {
+    outline: 'deep',
     socialLinks: [
       { icon: 'github', link: 'https://github.com/oneclickvirt' }
     ],
@@ -183,12 +200,14 @@ function getGuideSidebarZhCN() {
   return [
     {
       text: '所有项目的前置条件',
+      collapsed: false,
       items: [
         { text: '准备工作', link: '/guide/dashboard.html' },
       ]
     },
     {
       text: 'OneClickVirt',
+      collapsed: false,
       items: [
         { text: '系统和硬件配置要求', link: '/guide/oneclickvirt/oneclickvirt_precheck.html' },
         { text: '主体安装', link: '/guide/oneclickvirt/oneclickvirt_install.html' },
@@ -199,6 +218,7 @@ function getGuideSidebarZhCN() {
     },
     {
       text: 'Proxmox VE',
+      collapsed: false,
       items: [
         { text: '系统和硬件配置要求', link: '/guide/pve/pve_precheck.html' },
         { text: 'PVE主体安装', link: '/guide/pve/pve_install.html' },
@@ -214,6 +234,7 @@ function getGuideSidebarZhCN() {
     },
     {
       text: 'Incus',
+      collapsed: false,
       items: [
         { text: '系统和硬件配置要求', link: '/guide/incus/incus_precheck.html' },
         { text: 'Incus主体安装', link: '/guide/incus/incus_install.html' },
@@ -228,6 +249,7 @@ function getGuideSidebarZhCN() {
     },
     {
       text: 'Docker',
+      collapsed: false,
       items: [
         { text: '系统和硬件配置要求', link: '/guide/docker/docker_precheck.html' },
         { text: 'Docker主体安装', link: '/guide/docker/docker_install.html' },
@@ -242,6 +264,7 @@ function getGuideSidebarZhCN() {
     },
     {
       text: 'LXD',
+      collapsed: false,
       items: [
         { text: '系统和硬件配置要求', link: '/guide/lxd/lxd_precheck.html' },
         { text: 'LXD主体安装', link: '/guide/lxd/lxd_install.html' },
@@ -256,6 +279,7 @@ function getGuideSidebarZhCN() {
     },
     {
       text: '屏蔽滥用',
+      collapsed: false,
       items: [
         { text: '通过iptables', link: '/guide/block/block_iptables.html' },
         { text: '在PVE上', link: '/guide/block/block_pve.html' },
@@ -266,6 +290,7 @@ function getGuideSidebarZhCN() {
     },
     {
       text: 'Containerd',
+      collapsed: false,
       items: [
         { text: '系统和配置要求', link: '/guide/containerd/containerd_precheck.html' },
         { text: 'Containerd主体安装', link: '/guide/containerd/containerd_install.html' },
@@ -276,6 +301,7 @@ function getGuideSidebarZhCN() {
     },
     {
       text: 'Podman',
+      collapsed: false,
       items: [
         { text: '系统和配置要求', link: '/guide/podman/podman_precheck.html' },
         { text: 'Podman主体安装', link: '/guide/podman/podman_install.html' },
@@ -286,6 +312,7 @@ function getGuideSidebarZhCN() {
     },
     {
       text: '捐赠',
+      collapsed: false,
       items: [
         { text: '捐赠', link: '/guide/dashboardq.html' },
       ]
@@ -297,6 +324,7 @@ function getIncompleteSidebarZhCN() {
   return [
     {
       text: '其他虚拟化项目',
+      collapsed: false,
       items: [
         { text: 'webvirtcloud', link: '/incomplete/webvirtcloud.html' },
         { text: 'webvirtcloud_retspen', link: '/incomplete/webvirtcloud_retspen.html' },
@@ -316,6 +344,7 @@ function getCaseSidebarZhCN() {
   return [
     {
       text: 'Linux相关',
+      collapsed: false,
       items: [
         { text: '1. VPS融合怪服务器测评脚本', link: '/case/case1.html' },
         { text: '2. 一键修复与安装脚本(各种linux系统修复与服务器环境安装脚本)', link: '/case/case2.html' },
@@ -333,6 +362,7 @@ function getDeveloperSidebarZhCN() {
   return [
     {
       text: '开发手册',
+      collapsed: false,
       items: [
         { text: 'l10n', link: '/developer/l10n.html' }
       ]
@@ -344,12 +374,14 @@ function getGuideSidebarEnUS() {
   return [
     {
       text: 'Pre-requisites for all projects',
+      collapsed: false,
       items: [
         { text: 'Preparation', link: '/en/guide/dashboard.html' }
       ]
     },
     {
       text: 'OneClickVirt',
+      collapsed: false,
       items: [
         { text: 'Configuration requirements', link: '/en/guide/oneclickvirt/oneclickvirt_precheck.html' },
         { text: 'Main installation', link: '/en/guide/oneclickvirt/oneclickvirt_install.html' },
@@ -360,6 +392,7 @@ function getGuideSidebarEnUS() {
     },
     {
       text: 'Proxmox VE',
+      collapsed: false,
       items: [
         { text: 'Configuration requirements', link: '/en/guide/pve/pve_precheck.html' },
         { text: 'PVE main installation', link: '/en/guide/pve/pve_install.html' },
@@ -375,6 +408,7 @@ function getGuideSidebarEnUS() {
     },
     {
       text: 'Incus',
+      collapsed: false,
       items: [
         { text: 'Configuration requirements', link: '/en/guide/incus/incus_precheck.html' },
         { text: 'Incus main installation', link: '/en/guide/incus/incus_install.html' },
@@ -389,6 +423,7 @@ function getGuideSidebarEnUS() {
     },
     {
       text: 'Docker',
+      collapsed: false,
       items: [
         { text: 'Configuration requirements', link: '/en/guide/docker/docker_precheck.html' },
         { text: 'Docker main installation', link: '/en/guide/docker/docker_install.html' },
@@ -403,6 +438,7 @@ function getGuideSidebarEnUS() {
     },
     {
       text: 'LXD',
+      collapsed: false,
       items: [
         { text: 'Configuration requirements', link: '/en/guide/lxd/lxd_precheck.html' },
         { text: 'LXD main installation', link: '/en/guide/lxd/lxd_install.html' },
@@ -417,6 +453,7 @@ function getGuideSidebarEnUS() {
     },
     {
       text: 'Block Abuse',
+      collapsed: false,
       items: [
         { text: 'via iptables', link: '/en/guide/block/block_iptables.html' },
         { text: 'In PVE', link: '/en/guide/block/block_pve.html' },
@@ -427,6 +464,7 @@ function getGuideSidebarEnUS() {
     },
     {
       text: 'Containerd',
+      collapsed: false,
       items: [
         { text: 'System & configuration requirements', link: '/en/guide/containerd/containerd_precheck.html' },
         { text: 'Containerd main installation', link: '/en/guide/containerd/containerd_install.html' },
@@ -437,6 +475,7 @@ function getGuideSidebarEnUS() {
     },
     {
       text: 'Podman',
+      collapsed: false,
       items: [
         { text: 'System & configuration requirements', link: '/en/guide/podman/podman_precheck.html' },
         { text: 'Podman main installation', link: '/en/guide/podman/podman_install.html' },
@@ -447,6 +486,7 @@ function getGuideSidebarEnUS() {
     },
     {
       text: 'Donation',
+      collapsed: false,
       items: [
         { text: 'Donation', link: '/en/guide/dashboardq.html' }
       ]
@@ -459,6 +499,7 @@ function getIncompleteSidebarEnUS() {
   return [
     {
       text: 'Other Virtualization Projects',
+      collapsed: false,
       items: [
         { text: 'webvirtcloud', link: '/en/incomplete/webvirtcloud.html' },
         { text: 'webvirtcloud_retspen', link: '/en/incomplete/webvirtcloud_retspen.html' },
