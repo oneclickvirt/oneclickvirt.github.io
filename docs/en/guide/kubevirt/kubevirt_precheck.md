@@ -53,15 +53,3 @@ This project will automatically deploy k3s. There is no need to prepare a Kubern
 :::
 
 It is recommended to add some SWAP virtual memory before creating virtual machines to avoid sudden memory usage causing the host to crash.
-
-International
-
-```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
-```
-
-China
-
-```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
-```
