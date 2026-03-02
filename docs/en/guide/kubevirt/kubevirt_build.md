@@ -14,17 +14,8 @@ Two ways to create virtual machines.
 
 ### Download Script
 
-International
-
 ```shell
 wget -q https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/onekubevirt.sh
-chmod +x onekubevirt.sh
-```
-
-China
-
-```shell
-wget -q https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/onekubevirt.sh
 chmod +x onekubevirt.sh
 ```
 
@@ -113,18 +104,8 @@ kubectl delete pvc vm1-pvc -n default
 
 ### Run
 
-International
-
 ```shell
 wget -q https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/create_kubevirt.sh
-chmod +x create_kubevirt.sh
-./create_kubevirt.sh
-```
-
-China
-
-```shell
-wget -q https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/create_kubevirt.sh
 chmod +x create_kubevirt.sh
 ./create_kubevirt.sh
 ```
