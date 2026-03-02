@@ -22,13 +22,13 @@ The QEMU/KVM environment was not installed correctly. Please re-run the installa
 International
 
 ```shell
-bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/qemuinstall.sh)
+bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuinstall.sh)
 ```
 
 China
 
 ```shell
-bash <(wget -qO- https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/qemuinstall.sh)
+bash <(wget -qO- https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuinstall.sh)
 ```
 
 ## VM cannot access the internet (IPv4)
@@ -94,12 +94,12 @@ International
 
 ```shell
 bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/qemuuninstall.sh)
-bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/qemuinstall.sh)
+bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuinstall.sh)
 ```
 
 China
 
 ```shell
 bash <(wget -qO- https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/qemuuninstall.sh)
-bash <(wget -qO- https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/qemuinstall.sh)
+bash <(wget -qO- https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuinstall.sh)
 ```

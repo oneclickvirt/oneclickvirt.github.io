@@ -39,13 +39,13 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/a
 国际
 
 ```shell
-bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/qemuinstall.sh)
+bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuinstall.sh)
 ```
 
 国内
 
 ```shell
-bash <(wget -qO- https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/qemuinstall.sh)
+bash <(wget -qO- https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuinstall.sh)
 ```
 
 :::tip

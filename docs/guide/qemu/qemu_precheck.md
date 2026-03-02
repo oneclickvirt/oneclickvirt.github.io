@@ -52,15 +52,3 @@ egrep -c '(vmx|svm)' /proc/cpuinfo
 :::
 
 推荐在开设虚拟机前先增加部分 SWAP 虚拟内存，避免突发的内存占用导致宿主机卡死
-
-国际
-
-```shell
-curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
-```
-
-国内
-
-```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
-```

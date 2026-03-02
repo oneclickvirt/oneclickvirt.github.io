@@ -40,13 +40,13 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/a
 International
 
 ```shell
-bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/kubevirtinstall.sh)
+bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/kubevirtinstall.sh)
 ```
 
 China
 
 ```shell
-bash <(wget -qO- https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/kubevirtinstall.sh)
+bash <(wget -qO- https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/kubevirtinstall.sh)
 ```
 
 :::tip
