@@ -14,17 +14,8 @@ Two ways to create virtual machines.
 
 ### Download Script
 
-International
-
 ```shell
 wget -q https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/oneqemu.sh
-chmod +x oneqemu.sh
-```
-
-China
-
-```shell
-wget -q https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/oneqemu.sh
 chmod +x oneqemu.sh
 ```
 
@@ -119,18 +110,8 @@ virsh dominfo vm1
 
 ### Run
 
-International
-
 ```shell
 wget -q https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/create_qemu.sh
-chmod +x create_qemu.sh
-./create_qemu.sh
-```
-
-China
-
-```shell
-wget -q https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/create_qemu.sh
 chmod +x create_qemu.sh
 ./create_qemu.sh
 ```
