@@ -51,7 +51,7 @@ bash oalive.sh
 或
 
 ```
-bash <(wget -qO- --no-check-certificate https://gitlab.com/spiritysdx/Oracle-server-keep-alive-script/-/raw/main/oalive.sh)
+bash <(curl -sSLk https://gitlab.com/spiritysdx/Oracle-server-keep-alive-script/-/raw/main/oalive.sh)
 ```
 
 ### 说明

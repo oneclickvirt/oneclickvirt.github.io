@@ -33,7 +33,7 @@ Supported Windows image versions for patching: https://linuxcontainers.org/distr
 The following guide will use Windows 2019 as an example:
 
 ```shell
-wget https://download.testip.xyz/Windows/zh-cn_windows_server_2019_x64_dvd_19d65722.iso -O win.iso
+curl -sSL https://download.testip.xyz/Windows/zh-cn_windows_server_2019_x64_dvd_19d65722.iso -o win.iso
 distrobuilder repack-windows \
   --windows-arch=amd64 \
   win.iso \

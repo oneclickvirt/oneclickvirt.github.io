@@ -86,13 +86,13 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/a
 国际
 
 ```bash
-bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/check_kernal.sh)
+bash <(curl -sSLk https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/check_kernal.sh)
 ```
 
 国内
 
 ```bash
-bash <(wget -qO- --no-check-certificate https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/check_kernal.sh)
+bash <(curl -sSLk https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/check_kernal.sh)
 ```
 
 如果你需要更新IPV6信息再查询，那么执行以下命令后再查询

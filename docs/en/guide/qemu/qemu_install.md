@@ -29,7 +29,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 - Supports x86_64 and ARM64 architecture servers
 
 ```shell
-bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuinstall.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuinstall.sh)
 ```
 
 :::tip
@@ -41,7 +41,7 @@ After installation, it is recommended to run `virsh list --all` to verify that t
 One-click uninstall of the complete QEMU/KVM environment, including all virtual machines, images, networks, and auxiliary files:
 
 ```shell
-bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/qemuuninstall.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/qemuuninstall.sh)
 ```
 
 :::warning

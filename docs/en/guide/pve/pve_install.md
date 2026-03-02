@@ -74,7 +74,7 @@ The login information is your SSH account and password.
 Command:
 
 ```shell
-bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/build_backend.sh)
+bash <(curl -sSLk https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/build_backend.sh)
 ```
 
 ### Automatically configure the host's gateway
@@ -107,7 +107,7 @@ Use vmbr1 for IPV4 VM with NAT, ```172.16.1.1``` for gateway, ```172.16.1.x/24``
 Command:
 
 ```shell
-bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/build_nat_network.sh)
+bash <(curl -sSLk https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/build_nat_network.sh)
 ```
 
 :::tip

@@ -82,7 +82,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 Command:
 
 ```bash
-bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/check_kernal.sh)
+bash <(curl -sSLk https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/check_kernal.sh)
 ```
 
 If you need to update the IPV6 information before querying, then execute the following command before querying

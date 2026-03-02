@@ -78,13 +78,13 @@ bash install_pve.sh
 国际
 
 ```shell
-bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/build_backend.sh)
+bash <(curl -sSLk https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/build_backend.sh)
 ```
 
 国内
 
 ```shell
-bash <(wget -qO- --no-check-certificate https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/build_backend.sh)
+bash <(curl -sSLk https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/build_backend.sh)
 ```
 
 ### 自动配置宿主机的网关
@@ -117,13 +117,13 @@ bash <(wget -qO- --no-check-certificate https://cdn.spiritlhl.net/https://raw.gi
 国际
 
 ```shell
-bash <(wget -qO- --no-check-certificate https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/build_nat_network.sh)
+bash <(curl -sSLk https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/build_nat_network.sh)
 ```
 
 国内
 
 ```shell
-bash <(wget -qO- --no-check-certificate https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/build_nat_network.sh)
+bash <(curl -sSLk https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/build_nat_network.sh)
 ```
 
 :::tip

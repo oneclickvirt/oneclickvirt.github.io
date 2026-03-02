@@ -80,7 +80,7 @@ curl -L https://cdn.spiritlhl.workers.dev/https://raw.githubusercontent.com/spir
 比如：https://github.com/fscarmen/warp
 
 ```bash
-wget -N https://raw.githubusercontent.com/fscarmen/warp/main/menu.sh && bash menu.sh [option] [lisence]
+curl -sSLO https://raw.githubusercontent.com/fscarmen/warp/main/menu.sh && bash menu.sh [option] [lisence]
 ```
 
 非纯V6的，带V4切换优先级到IPV4可用以下命令

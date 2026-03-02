@@ -17,14 +17,14 @@ outline: deep
 国际
 
 ```shell
-wget -q https://raw.githubusercontent.com/oneclickvirt/containerd/main/scripts/onecontainerd.sh
+curl -sSLO https://raw.githubusercontent.com/oneclickvirt/containerd/main/scripts/onecontainerd.sh
 chmod +x onecontainerd.sh
 ```
 
 国内
 
 ```shell
-wget -q https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/containerd/main/scripts/onecontainerd.sh
+curl -sSLO https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/containerd/main/scripts/onecontainerd.sh
 chmod +x onecontainerd.sh
 ```
 
@@ -113,7 +113,7 @@ nerdctl logs ct1
 国际
 
 ```shell
-wget -q https://raw.githubusercontent.com/oneclickvirt/containerd/main/scripts/create_containerd.sh
+curl -sSLO https://raw.githubusercontent.com/oneclickvirt/containerd/main/scripts/create_containerd.sh
 chmod +x create_containerd.sh
 ./create_containerd.sh
 ```
@@ -121,7 +121,7 @@ chmod +x create_containerd.sh
 国内
 
 ```shell
-wget -q https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/containerd/main/scripts/create_containerd.sh
+curl -sSLO https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/containerd/main/scripts/create_containerd.sh
 chmod +x create_containerd.sh
 ./create_containerd.sh
 ```

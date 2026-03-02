@@ -35,7 +35,7 @@ reboot
 下面的指南将以windows2019作为示例进行
 
 ```shell
-wget https://download.testip.xyz/Windows/zh-cn_windows_server_2019_x64_dvd_19d65722.iso -O win.iso
+curl -sSL https://download.testip.xyz/Windows/zh-cn_windows_server_2019_x64_dvd_19d65722.iso -o win.iso
 distrobuilder repack-windows \
   --windows-arch=amd64 \
   win.iso \

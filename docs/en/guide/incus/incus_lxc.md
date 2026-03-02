@@ -270,12 +270,12 @@ rm -rf /root/build_ipv6_network.sh
 Download back the relevant configuration scripts for the new version
 
 ```bash
-wget https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/check-dns.sh -O /usr/local/bin/check-dns.sh && chmod +x /usr/local/bin/check-dns.sh
-wget https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/config.sh -O /usr/local/bin/config.sh && chmod +x /usr/local/bin/config.sh
-wget https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/ssh_bash.sh -O /usr/local/bin/ssh_bash.sh && chmod +x /usr/local/bin/ssh_bash.sh
-wget https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/ssh_sh.sh -O /usr/local/bin/ssh_sh.sh && chmod +x /usr/local/bin/ssh_sh.sh
-wget https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/build_ipv6_network.sh -O /root/build_ipv6_network.sh && chmod +x /root/build_ipv6_network.sh
-wget https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/buildct.sh -O /root/buildct.sh && chmod +x /root/buildct.sh
+curl -sSL https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/check-dns.sh -o /usr/local/bin/check-dns.sh && chmod +x /usr/local/bin/check-dns.sh
+curl -sSL https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/config.sh -o /usr/local/bin/config.sh && chmod +x /usr/local/bin/config.sh
+curl -sSL https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/ssh_bash.sh -o /usr/local/bin/ssh_bash.sh && chmod +x /usr/local/bin/ssh_bash.sh
+curl -sSL https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/ssh_sh.sh -o /usr/local/bin/ssh_sh.sh && chmod +x /usr/local/bin/ssh_sh.sh
+curl -sSL https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/build_ipv6_network.sh -o /root/build_ipv6_network.sh && chmod +x /root/build_ipv6_network.sh
+curl -sSL https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/buildct.sh -o /root/buildct.sh && chmod +x /root/buildct.sh
 ```
 
 Just download the other one-click scripts yourself.

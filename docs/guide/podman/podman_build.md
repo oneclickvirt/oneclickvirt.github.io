@@ -17,14 +17,14 @@ outline: deep
 国际
 
 ```shell
-wget -q https://raw.githubusercontent.com/oneclickvirt/podman/main/scripts/onepodman.sh
+curl -sSLO https://raw.githubusercontent.com/oneclickvirt/podman/main/scripts/onepodman.sh
 chmod +x onepodman.sh
 ```
 
 国内
 
 ```shell
-wget -q https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/podman/main/scripts/onepodman.sh
+curl -sSLO https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/podman/main/scripts/onepodman.sh
 chmod +x onepodman.sh
 ```
 
@@ -113,7 +113,7 @@ podman logs ct1
 国际
 
 ```shell
-wget -q https://raw.githubusercontent.com/oneclickvirt/podman/main/scripts/create_podman.sh
+curl -sSLO https://raw.githubusercontent.com/oneclickvirt/podman/main/scripts/create_podman.sh
 chmod +x create_podman.sh
 ./create_podman.sh
 ```
@@ -121,7 +121,7 @@ chmod +x create_podman.sh
 国内
 
 ```shell
-wget -q https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/podman/main/scripts/create_podman.sh
+curl -sSLO https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/podman/main/scripts/create_podman.sh
 chmod +x create_podman.sh
 ./create_podman.sh
 ```

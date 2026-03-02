@@ -574,7 +574,7 @@ systemctl enable --now wg-quick@warp
 
 ```
 # 运动脚本
-wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh
+curl -sSLO https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh
 ```
 
 ![image.png](images/lxd23.png)

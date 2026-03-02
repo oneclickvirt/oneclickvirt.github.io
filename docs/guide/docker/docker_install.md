@@ -92,13 +92,13 @@ bash disk_test.sh 1000
 国际
 
 ```shell
-bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/docker/main/dockeruninstall.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/dockeruninstall.sh)
 ```
 
 国内
 
 ```shell
-bash <(wget -qO- https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/docker/main/dockeruninstall.sh)
+bash <(curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/docker/main/dockeruninstall.sh)
 ```
 
 :::warning

@@ -614,7 +614,7 @@ Finally, the one-click script for fscarmen is introduced. The script is mentione
 Project: https://github.com/fscarmen/warp-sh
 ```
 # Run one-key script
-wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh
+curl -sSLO https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh
 ```
 
 ![image.png](images/incus23.png)

@@ -64,7 +64,7 @@ https://github.com/oneclickvirt/pve_kvm_images/releases/tag/images
 
 ```shell
 cd /var/lib/libvirt/images
-wget https://cdn.spiritlhl.net/https://github.com/oneclickvirt/pve_kvm_images/releases/download/images/debian12.qcow2
+curl -sSLO https://cdn.spiritlhl.net/https://github.com/oneclickvirt/pve_kvm_images/releases/download/images/debian12.qcow2
 chmod 777 debian12.qcow2
 ```
 

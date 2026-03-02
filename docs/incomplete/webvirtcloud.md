@@ -151,12 +151,12 @@ Error: Failed to add 'br-ext' connection: connection.autoconnect-ports: unknown 
 
    国际版本：
    ```bash
-   wget -O /tmp/vm_port_mapping_setup.sh https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/refs/heads/main/extra_scripts/vm_port_mapping_daemon.sh
+   curl -sSL https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/refs/heads/main/extra_scripts/vm_port_mapping_daemon.sh -o /tmp/vm_port_mapping_setup.sh
    ```
 
    国内版本：
    ```bash
-   wget -O /tmp/vm_port_mapping_setup.sh https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/refs/heads/main/extra_scripts/vm_port_mapping_daemon.sh
+   curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/refs/heads/main/extra_scripts/vm_port_mapping_daemon.sh -o /tmp/vm_port_mapping_setup.sh
    ```
 
 2. 添加执行权限：

@@ -20,7 +20,7 @@ If you cannot use KVM on a VPS, the host may not support nested virtualization. 
 The QEMU/KVM environment was not installed correctly. Please re-run the installation script:
 
 ```shell
-bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuinstall.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuinstall.sh)
 ```
 
 ## VM cannot access the internet (IPv4)
@@ -83,6 +83,6 @@ iptables -t nat -L PREROUTING -n -v | grep 25000
 Uninstall first, then reinstall:
 
 ```shell
-bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/qemuuninstall.sh)
-bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuinstall.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/qemuuninstall.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuinstall.sh)
 ```

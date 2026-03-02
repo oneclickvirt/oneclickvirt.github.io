@@ -9,7 +9,7 @@ outline: deep
 The Podman environment is not correctly installed. Re-run the installation script:
 
 ```shell
-bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/podman/main/podmaninstall.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/podman/main/podmaninstall.sh)
 ```
 
 ## Container cannot access external network (IPv4)
@@ -75,8 +75,8 @@ podman pull ghcr.io/oneclickvirt/podman:debian-amd64
 Uninstall, then reinstall:
 
 ```shell
-bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/podman/main/podmanuninstall.sh)
-bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/podman/main/podmaninstall.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/podman/main/podmanuninstall.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/podman/main/podmaninstall.sh)
 ```
 
 ## Podman vs containerd: which to choose?

@@ -133,7 +133,7 @@ Automatic mapping features:
 
 1. Download the script to a temporary directory:
    ```bash
-   wget -O /tmp/vm_port_mapping_setup.sh https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/refs/heads/main/extra_scripts/vm_port_mapping_daemon.sh
+   curl -sSL https://raw.githubusercontent.com/oneclickvirt/webvirtcloud/refs/heads/main/extra_scripts/vm_port_mapping_daemon.sh -o /tmp/vm_port_mapping_setup.sh
    ```
 
 3. Add execution permission:

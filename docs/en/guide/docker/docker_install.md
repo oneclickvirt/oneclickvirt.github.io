@@ -71,13 +71,13 @@ One-click uninstall of the entire Docker environment, including all containers, 
 International
 
 ```shell
-bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/docker/main/dockeruninstall.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/dockeruninstall.sh)
 ```
 
 China Mainland
 
 ```shell
-bash <(wget -qO- https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/docker/main/dockeruninstall.sh)
+bash <(curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/docker/main/dockeruninstall.sh)
 ```
 
 :::warning

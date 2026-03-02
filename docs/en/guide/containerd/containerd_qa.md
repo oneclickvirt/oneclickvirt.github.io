@@ -19,7 +19,7 @@ source /etc/profile
 If still not found, re-run the installation script:
 
 ```shell
-bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/containerd/main/containerdinstall.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/containerd/main/containerdinstall.sh)
 ```
 
 ## containerd service not running
@@ -79,8 +79,8 @@ curl -4 -sL -k "https://cdn0.spiritlhl.top/https://raw.githubusercontent.com/spi
 Uninstall, then reinstall:
 
 ```shell
-bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/containerd/main/containerduninstall.sh)
-bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/containerd/main/containerdinstall.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/containerd/main/containerduninstall.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/containerd/main/containerdinstall.sh)
 ```
 
 ## lxcfs related issues

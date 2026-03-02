@@ -23,19 +23,19 @@ Network benchmarking script that automatically updates the list of speed measure
 日常推荐使用
 
 ```
-bash <(wget -qO- bash.spiritlhl.net/ecs-net)
+bash <(curl -sSL http://bash.spiritlhl.net/ecs-net)
 ```
 
 或
 
 ```
-bash <(wget -qO- --no-check-certificate https://github.com/spiritLHLS/ecsspeed/raw/main/script/ecsspeed-net.sh)
+bash <(curl -sSLk https://github.com/spiritLHLS/ecsspeed/raw/main/script/ecsspeed-net.sh)
 ```
 
 或国内用
 
 ```
-bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/ecsspeed/main/script/ecsspeed-net.sh)
+bash <(curl -sSLk https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/ecsspeed/main/script/ecsspeed-net.sh)
 ```
 
 支持测速的架构：i386, x86_64, amd64, arm64, s390x, riscv64, ppc64le, ppc64
@@ -51,19 +51,19 @@ bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubus
 单线程测速
 
 ```
-bash <(wget -qO- bash.spiritlhl.net/ecs-cn)
+bash <(curl -sSL http://bash.spiritlhl.net/ecs-cn)
 ```
 
 或
 
 ```
-bash <(wget -qO- --no-check-certificate https://github.com/spiritLHLS/ecsspeed/raw/main/script/ecsspeed-cn.sh)
+bash <(curl -sSLk https://github.com/spiritLHLS/ecsspeed/raw/main/script/ecsspeed-cn.sh)
 ```
 
 或国内用
 
 ```
-bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/ecsspeed/main/script/ecsspeed-cn.sh)
+bash <(curl -sSLk https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/ecsspeed/main/script/ecsspeed-cn.sh)
 ```
 
 支持测速的架构：i386, x86_64, amd64, arm64, s390x, riscv64, ppc64le, ppc64
@@ -77,19 +77,19 @@ bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubus
 平均耗时10~15秒
 
 ```
-bash <(wget -qO- bash.spiritlhl.net/ecs-ping)
+bash <(curl -sSL http://bash.spiritlhl.net/ecs-ping)
 ```
 
 或
 
 ```
-bash <(wget -qO- --no-check-certificate https://github.com/spiritLHLS/ecsspeed/raw/main/script/ecsspeed-ping.sh)
+bash <(curl -sSLk https://github.com/spiritLHLS/ecsspeed/raw/main/script/ecsspeed-ping.sh)
 ```
 
 或国内用
 
 ```
-bash <(wget -qO- --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/ecsspeed/main/script/ecsspeed-ping.sh)
+bash <(curl -sSLk https://ghproxy.com/https://raw.githubusercontent.com/spiritLHLS/ecsspeed/main/script/ecsspeed-ping.sh)
 ```
 
 效果图

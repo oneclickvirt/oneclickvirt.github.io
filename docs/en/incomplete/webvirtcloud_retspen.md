@@ -54,7 +54,7 @@ In the example, a Debian 12 qcow2 image is used:
 
 ```shell
 cd /var/lib/libvirt/images
-wget https://github.com/oneclickvirt/pve_kvm_images/releases/download/images/debian12.qcow2
+curl -sSLO https://github.com/oneclickvirt/pve_kvm_images/releases/download/images/debian12.qcow2
 chmod 777 debian12.qcow2
 ```
 

@@ -146,12 +146,12 @@ rm -rf /root/create_docker.sh
 Download back the relevant configuration scripts for the new version
 
 ```bash
-wget https://raw.githubusercontent.com/oneclickvirt/docker/main/extra_scripts/check-dns.sh -O /usr/local/bin/check-dns.sh && chmod +x /usr/local/bin/check-dns.sh
-wget https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/config.sh -O /usr/local/bin/config.sh && chmod +x /usr/local/bin/config.sh
-wget https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/ssh_bash.sh -O /usr/local/bin/ssh_bash.sh && chmod +x /usr/local/bin/ssh_bash.sh
-wget https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/ssh_sh.sh -O /usr/local/bin/ssh_sh.sh && chmod +x /usr/local/bin/ssh_sh.sh
-wget https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/onedocker.sh -O /root/onedocker.sh && chmod +x /root/onedocker.sh
-wget https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/create_docker.sh -O /root/create_docker.sh && chmod +x /root/create_docker.sh
+curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/extra_scripts/check-dns.sh -o /usr/local/bin/check-dns.sh && chmod +x /usr/local/bin/check-dns.sh
+curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/config.sh -o /usr/local/bin/config.sh && chmod +x /usr/local/bin/config.sh
+curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/ssh_bash.sh -o /usr/local/bin/ssh_bash.sh && chmod +x /usr/local/bin/ssh_bash.sh
+curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/ssh_sh.sh -o /usr/local/bin/ssh_sh.sh && chmod +x /usr/local/bin/ssh_sh.sh
+curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/onedocker.sh -o /root/onedocker.sh && chmod +x /root/onedocker.sh
+curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/create_docker.sh -o /root/create_docker.sh && chmod +x /root/create_docker.sh
 ```
 
 ## Start all containers after host reboot

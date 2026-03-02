@@ -30,7 +30,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 - Supports x86_64 and ARM64 architecture servers
 
 ```shell
-bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/kubevirtinstall.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/kubevirtinstall.sh)
 ```
 
 :::tip
@@ -46,7 +46,7 @@ The k3s + KubeVirt installation takes some time (usually 5–15 minutes). Please
 One-click uninstall of the complete environment, including all virtual machines, k3s, KubeVirt, and auxiliary files:
 
 ```shell
-bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/kubevirtuninstall.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/kubevirtuninstall.sh)
 ```
 
 :::warning

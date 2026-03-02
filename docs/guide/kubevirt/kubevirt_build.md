@@ -17,14 +17,14 @@ outline: deep
 国际
 
 ```shell
-wget -q https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/onekubevirt.sh
+curl -sSLO https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/onekubevirt.sh
 chmod +x onekubevirt.sh
 ```
 
 国内
 
 ```shell
-wget -q https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/onekubevirt.sh
+curl -sSLO https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/onekubevirt.sh
 chmod +x onekubevirt.sh
 ```
 
@@ -116,7 +116,7 @@ kubectl delete pvc vm1-pvc -n default
 国际
 
 ```shell
-wget -q https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/create_kubevirt.sh
+curl -sSLO https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/create_kubevirt.sh
 chmod +x create_kubevirt.sh
 ./create_kubevirt.sh
 ```
@@ -124,7 +124,7 @@ chmod +x create_kubevirt.sh
 国内
 
 ```shell
-wget -q https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/create_kubevirt.sh
+curl -sSLO https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/create_kubevirt.sh
 chmod +x create_kubevirt.sh
 ./create_kubevirt.sh
 ```
