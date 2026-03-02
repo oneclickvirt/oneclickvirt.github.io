@@ -16,16 +16,8 @@ Unit conversion: entering 1024 creates 1GB of SWAP virtual memory. Virtual memor
 
 It is recommended to create swap no larger than twice the actual memory size.
 
-International
-
 ```shell
 curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
-```
-
-China
-
-```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
 ```
 
 ## Environment Installation
@@ -37,16 +29,8 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/a
 - Automatically detects public IPv6 address and configures IPv6 network (if present)
 - Supports x86_64 and ARM64 architecture servers
 
-International
-
 ```shell
 bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/kubevirtinstall.sh)
-```
-
-China
-
-```shell
-bash <(wget -qO- https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/kubevirtinstall.sh)
 ```
 
 :::tip
@@ -61,16 +45,8 @@ The k3s + KubeVirt installation takes some time (usually 5–15 minutes). Please
 
 One-click uninstall of the complete environment, including all virtual machines, k3s, KubeVirt, and auxiliary files:
 
-International
-
 ```shell
 bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/kubevirtuninstall.sh)
-```
-
-China
-
-```shell
-bash <(wget -qO- https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/kubevirtuninstall.sh)
 ```
 
 :::warning
