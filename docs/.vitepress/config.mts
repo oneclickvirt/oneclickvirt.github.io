@@ -77,6 +77,8 @@ export default defineConfig({
               { text: 'LXD', link: '/guide/lxd/lxd_precheck.html' },
               { text: 'Containerd', link: '/guide/containerd/containerd_precheck.html' },
               { text: 'Podman', link: '/guide/podman/podman_precheck.html' },
+              { text: 'QEMU', link: '/guide/qemu/qemu_precheck.html' },
+              { text: 'KubeVirt', link: '/guide/kubevirt/kubevirt_precheck.html' },
               { text: '屏蔽滥用', link: '/guide/block/block_iptables.html' },
             ]
           },
@@ -150,6 +152,8 @@ export default defineConfig({
               { text: 'LXD', link: '/en/guide/lxd/lxd_precheck.html' },
               { text: 'Containerd', link: '/en/guide/containerd/containerd_precheck.html' },
               { text: 'Podman', link: '/en/guide/podman/podman_precheck.html' },
+              { text: 'QEMU', link: '/en/guide/qemu/qemu_precheck.html' },
+              { text: 'KubeVirt', link: '/en/guide/kubevirt/kubevirt_precheck.html' },
               { text: 'Block Abuse', link: '/en/guide/block/block_iptables.html' },
             ]
           },
@@ -308,6 +312,28 @@ function getGuideSidebarZhCN() {
         { text: 'Linux容器(LXC)', link: '/guide/podman/podman_build.html' },
         { text: '致谢', link: '/guide/podman/podman_thanks.html' },
         { text: '常见问题答疑', link: '/guide/podman/podman_qa.html' }
+      ]
+    },
+    {
+      text: 'QEMU',
+      collapsed: false,
+      items: [
+        { text: '系统和配置要求', link: '/guide/qemu/qemu_precheck.html' },
+        { text: 'QEMU主体安装', link: '/guide/qemu/qemu_install.html' },
+        { text: 'Linux虚拟机(KVM/QEMU)', link: '/guide/qemu/qemu_build.html' },
+        { text: '致谢', link: '/guide/qemu/qemu_thanks.html' },
+        { text: '常见问题答疑', link: '/guide/qemu/qemu_qa.html' }
+      ]
+    },
+    {
+      text: 'KubeVirt',
+      collapsed: false,
+      items: [
+        { text: '系统和配置要求', link: '/guide/kubevirt/kubevirt_precheck.html' },
+        { text: 'KubeVirt主体安装', link: '/guide/kubevirt/kubevirt_install.html' },
+        { text: 'Linux虚拟机(KVM)', link: '/guide/kubevirt/kubevirt_build.html' },
+        { text: '致谢', link: '/guide/kubevirt/kubevirt_thanks.html' },
+        { text: '常见问题答疑', link: '/guide/kubevirt/kubevirt_qa.html' }
       ]
     },
     {
@@ -482,6 +508,28 @@ function getGuideSidebarEnUS() {
         { text: 'Linux Container(LXC)', link: '/en/guide/podman/podman_build.html' },
         { text: 'Acknowledgements', link: '/en/guide/podman/podman_thanks.html' },
         { text: 'FAQ', link: '/en/guide/podman/podman_qa.html' }
+      ]
+    },
+    {
+      text: 'QEMU',
+      collapsed: false,
+      items: [
+        { text: 'System & configuration requirements', link: '/en/guide/qemu/qemu_precheck.html' },
+        { text: 'QEMU main installation', link: '/en/guide/qemu/qemu_install.html' },
+        { text: 'Linux Virtual Machine(KVM/QEMU)', link: '/en/guide/qemu/qemu_build.html' },
+        { text: 'Acknowledgements', link: '/en/guide/qemu/qemu_thanks.html' },
+        { text: 'FAQ', link: '/en/guide/qemu/qemu_qa.html' }
+      ]
+    },
+    {
+      text: 'KubeVirt',
+      collapsed: false,
+      items: [
+        { text: 'System & configuration requirements', link: '/en/guide/kubevirt/kubevirt_precheck.html' },
+        { text: 'KubeVirt main installation', link: '/en/guide/kubevirt/kubevirt_install.html' },
+        { text: 'Linux Virtual Machine(KVM)', link: '/en/guide/kubevirt/kubevirt_build.html' },
+        { text: 'Acknowledgements', link: '/en/guide/kubevirt/kubevirt_thanks.html' },
+        { text: 'FAQ', link: '/en/guide/kubevirt/kubevirt_qa.html' }
       ]
     },
     {
