@@ -84,3 +84,24 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 # 1GB限制
 bash disk_test.sh 1000
 ```
+
+## 卸载 Docker 环境
+
+一键卸载 Docker 全套环境，包括所有容器、镜像、网络、systemd 服务、二进制文件：
+
+国际
+
+```shell
+bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/docker/main/dockeruninstall.sh)
+```
+
+国内
+
+```shell
+bash <(wget -qO- https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/docker/main/dockeruninstall.sh)
+```
+
+:::warning
+脚本会在执行前要求输入 `yes` 确认，操作不可逆。薐删内容包括所有容器、镜像、网络配置。
+复测流程：先执行卸载，再执行安装，即可从零验证整个安装流程。
+:::

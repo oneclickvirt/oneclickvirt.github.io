@@ -52,18 +52,49 @@ export default defineConfig({
         nav: [
           {
             text: '一键虚拟化项目',
-            link: '/',
-            activeMatch: '^/$|^/guide/'
+            link: '/'
+          },
+          {
+            text: '虚拟化平台',
+            activeMatch: '^/guide/',
+            items: [
+              { text: 'OneClickVirt', link: '/guide/oneclickvirt/oneclickvirt_precheck.html' },
+              { text: 'Proxmox VE', link: '/guide/pve/pve_precheck.html' },
+              { text: 'Incus', link: '/guide/incus/incus_precheck.html' },
+              { text: 'Docker', link: '/guide/docker/docker_precheck.html' },
+              { text: 'LXD', link: '/guide/lxd/lxd_precheck.html' },
+              { text: 'Containerd', link: '/guide/containerd/containerd_precheck.html' },
+              { text: 'Podman', link: '/guide/podman/podman_precheck.html' },
+              { text: '屏蔽滥用', link: '/guide/block/block_iptables.html' },
+            ]
           },
           {
             text: '其他虚拟化项目',
-            link: '/incomplete/index',
-            activeMatch: '^/incomplete/'
+            activeMatch: '^/incomplete/',
+            items: [
+              { text: 'webvirtcloud', link: '/incomplete/webvirtcloud.html' },
+              { text: 'webvirtcloud_retspen', link: '/incomplete/webvirtcloud_retspen.html' },
+              { text: 'pterodactyl', link: '/incomplete/pterodactyl.html' },
+              { text: 'convoy', link: '/incomplete/convoy.html' },
+              { text: 'cockpit', link: '/incomplete/cockpit.html' },
+              { text: 'virtfusion', link: '/incomplete/virtfusion.html' },
+              { text: 'virtualizor-docker', link: '/incomplete/virtualizor-docker.html' },
+              { text: 'bashvm', link: '/incomplete/bashvm.html' },
+              { text: 'webvirtmgr', link: '/incomplete/webvirtmgr.html' },
+            ]
           },
           {
             text: '其他实用项目',
-            link: '/case/index',
-            activeMatch: '^/case/'
+            activeMatch: '^/case/',
+            items: [
+              { text: '1. VPS融合怪服务器测评脚本', link: '/case/case1.html' },
+              { text: '2. 一键修复与安装脚本', link: '/case/case2.html' },
+              { text: '3. 自动更新测试服务器节点列表的网络基准测试脚本', link: '/case/case3.html' },
+              { text: '4. 三网回程路由线路测试脚本', link: '/case/case4.html' },
+              { text: '5. 服务器资源占用脚本', link: '/case/case5.html' },
+              { text: '6. 为linux服务器增加swap分区', link: '/case/case6.html' },
+              { text: '7. 为linux服务器启用zram设备', link: '/case/case7.html' },
+            ]
           },
           { text: '融合怪商家收录', link: 'https://paste.spiritlhl.net/' },
           { text: 'VPS余量监控', link: 'https://spiders.spiritlhl.net/' },
@@ -91,8 +122,36 @@ export default defineConfig({
           pattern: 'https://github.com/oneclickvirt/oneclickvirt.github.io/edit/main/docs/:path',
         },
         nav: [
-          { text: 'One Click Virtualization', link: '/en/', activeMatch: '^/en/guide/' },
-          { text: 'Other Virtualization Projects', link: '/en/incomplete/index', activeMatch: '^/en/incomplete/' },
+          { text: 'One Click Virtualization', link: '/en/' },
+          {
+            text: 'Virtualization Platforms',
+            activeMatch: '^/en/guide/',
+            items: [
+              { text: 'OneClickVirt', link: '/en/guide/oneclickvirt/oneclickvirt_precheck.html' },
+              { text: 'Proxmox VE', link: '/en/guide/pve/pve_precheck.html' },
+              { text: 'Incus', link: '/en/guide/incus/incus_precheck.html' },
+              { text: 'Docker', link: '/en/guide/docker/docker_precheck.html' },
+              { text: 'LXD', link: '/en/guide/lxd/lxd_precheck.html' },
+              { text: 'Containerd', link: '/en/guide/containerd/containerd_precheck.html' },
+              { text: 'Podman', link: '/en/guide/podman/podman_precheck.html' },
+              { text: 'Block Abuse', link: '/en/guide/block/block_iptables.html' },
+            ]
+          },
+          {
+            text: 'Other Virtualization Projects',
+            activeMatch: '^/en/incomplete/',
+            items: [
+              { text: 'webvirtcloud', link: '/en/incomplete/webvirtcloud.html' },
+              { text: 'webvirtcloud_retspen', link: '/en/incomplete/webvirtcloud_retspen.html' },
+              { text: 'pterodactyl', link: '/en/incomplete/pterodactyl.html' },
+              { text: 'convoy', link: '/en/incomplete/convoy.html' },
+              { text: 'cockpit', link: '/en/incomplete/cockpit.html' },
+              { text: 'virtfusion', link: '/en/incomplete/virtfusion.html' },
+              { text: 'virtualizor-docker', link: '/en/incomplete/virtualizor-docker.html' },
+              { text: 'bashvm', link: '/en/incomplete/bashvm.html' },
+              { text: 'webvirtmgr', link: '/en/incomplete/webvirtmgr.html' },
+            ]
+          },
           { text: 'Merchant List', link: 'https://paste.spiritlhl.net/' },
           { text: 'VPS Stock Monitor', link: 'https://spiders.spiritlhl.net/' },
         ],
@@ -203,6 +262,26 @@ function getGuideSidebarZhCN() {
         { text: '在INCUS上', link: '/guide/block/block_incus.html' },
         { text: '在LXD上', link: '/guide/block/block_lxd.html' },
         { text: '在DOCKER上', link: '/guide/block/block_docker.html' },
+      ]
+    },
+    {
+      text: 'Containerd',
+      items: [
+        { text: '系统和配置要求', link: '/guide/containerd/containerd_precheck.html' },
+        { text: 'Containerd主体安装', link: '/guide/containerd/containerd_install.html' },
+        { text: 'Linux容器(LXC)', link: '/guide/containerd/containerd_build.html' },
+        { text: '致谢', link: '/guide/containerd/containerd_thanks.html' },
+        { text: '常见问题答疑', link: '/guide/containerd/containerd_qa.html' }
+      ]
+    },
+    {
+      text: 'Podman',
+      items: [
+        { text: '系统和配置要求', link: '/guide/podman/podman_precheck.html' },
+        { text: 'Podman主体安装', link: '/guide/podman/podman_install.html' },
+        { text: 'Linux容器(LXC)', link: '/guide/podman/podman_build.html' },
+        { text: '致谢', link: '/guide/podman/podman_thanks.html' },
+        { text: '常见问题答疑', link: '/guide/podman/podman_qa.html' }
       ]
     },
     {
@@ -339,17 +418,37 @@ function getGuideSidebarEnUS() {
     {
       text: 'Block Abuse',
       items: [
-        { text: 'via iptables', link: '/guide/block/block_iptables.html' },
-        { text: 'In PVE', link: '/guide/block/block_pve.html' },
-        { text: 'In INCUS', link: '/guide/block/block_incus.html' },
-        { text: 'In LXD', link: '/guide/block/block_lxd.html' },
-        { text: 'In DOCKER', link: '/guide/block/block_docker.html' },
+        { text: 'via iptables', link: '/en/guide/block/block_iptables.html' },
+        { text: 'In PVE', link: '/en/guide/block/block_pve.html' },
+        { text: 'In INCUS', link: '/en/guide/block/block_incus.html' },
+        { text: 'In LXD', link: '/en/guide/block/block_lxd.html' },
+        { text: 'In DOCKER', link: '/en/guide/block/block_docker.html' },
+      ]
+    },
+    {
+      text: 'Containerd',
+      items: [
+        { text: 'System & configuration requirements', link: '/en/guide/containerd/containerd_precheck.html' },
+        { text: 'Containerd main installation', link: '/en/guide/containerd/containerd_install.html' },
+        { text: 'Linux Container(LXC)', link: '/en/guide/containerd/containerd_build.html' },
+        { text: 'Acknowledgements', link: '/en/guide/containerd/containerd_thanks.html' },
+        { text: 'FAQ', link: '/en/guide/containerd/containerd_qa.html' }
+      ]
+    },
+    {
+      text: 'Podman',
+      items: [
+        { text: 'System & configuration requirements', link: '/en/guide/podman/podman_precheck.html' },
+        { text: 'Podman main installation', link: '/en/guide/podman/podman_install.html' },
+        { text: 'Linux Container(LXC)', link: '/en/guide/podman/podman_build.html' },
+        { text: 'Acknowledgements', link: '/en/guide/podman/podman_thanks.html' },
+        { text: 'FAQ', link: '/en/guide/podman/podman_qa.html' }
       ]
     },
     {
       text: 'Donation',
       items: [
-        { text: 'Donation', link: '/guide/dashboardq.html' }
+        { text: 'Donation', link: '/en/guide/dashboardq.html' }
       ]
     }
   ];

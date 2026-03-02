@@ -63,3 +63,24 @@ Or specify a different storage limit size (in MB), the default test of the 500MB
 # 1GB Limit
 bash disk_test.sh 1000
 ```
+
+## Uninstall Docker Environment
+
+One-click uninstall of the entire Docker environment, including all containers, images, networks, systemd services, and binaries:
+
+International
+
+```shell
+bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/docker/main/dockeruninstall.sh)
+```
+
+China Mainland
+
+```shell
+bash <(wget -qO- https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/docker/main/dockeruninstall.sh)
+```
+
+:::warning
+The script requires entering `yes` to confirm before execution. This operation is irreversible. Deleted content includes all containers, images, and network configurations.
+Retest workflow: Run uninstall first, then run install to verify the entire installation process from scratch.
+:::
