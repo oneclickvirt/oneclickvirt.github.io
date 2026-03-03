@@ -35,7 +35,7 @@ Currently supported systems:
 Default is debian if not specified.
 
 ```shell
-./oneqemu.sh vm1 1 1024 10 MyPassword 25000 34975 35000 n debian
+./oneqemu.sh vm1 1 1024 10 passwordhere 25000 34975 35000 n debian13
 ```
 
 Example VM details:

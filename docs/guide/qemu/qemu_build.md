@@ -44,7 +44,7 @@ chmod +x oneqemu.sh
 默认不填则是 debian
 
 ```shell
-./oneqemu.sh vm1 1 1024 10 MyPassword 25000 34975 35000 n debian
+./oneqemu.sh vm1 1 1024 10 passwordhere 25000 34975 35000 n debian13
 ```
 
 以下为开设的示例虚拟机的信息：
