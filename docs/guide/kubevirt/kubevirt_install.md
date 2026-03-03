@@ -64,13 +64,13 @@ k3s + KubeVirt 安装时间较长（通常 5~15 分钟），请在 screen 或 tm
 国际
 
 ```shell
-bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/kubevirtuninstall.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/kubevirtuninstall.sh)
 ```
 
 国内
 
 ```shell
-bash <(curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/kubevirtuninstall.sh)
+bash <(curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/kubevirtuninstall.sh)
 ```
 
 :::warning
