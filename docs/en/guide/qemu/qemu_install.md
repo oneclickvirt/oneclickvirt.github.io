@@ -41,7 +41,7 @@ After installation, it is recommended to run `virsh list --all` to verify that t
 One-click uninstall of the complete QEMU/KVM environment, including all virtual machines, images, networks, and auxiliary files:
 
 ```shell
-bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/qemuuninstall.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuuninstall.sh)
 ```
 
 :::warning
