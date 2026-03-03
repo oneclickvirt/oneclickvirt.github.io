@@ -59,13 +59,13 @@ bash <(curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/one
 国际
 
 ```shell
-bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/qemuuninstall.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuuninstall.sh)
 ```
 
 国内
 
 ```shell
-bash <(curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/qemuuninstall.sh)
+bash <(curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuuninstall.sh)
 ```
 
 :::warning
