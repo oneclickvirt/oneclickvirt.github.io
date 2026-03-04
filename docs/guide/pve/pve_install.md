@@ -132,6 +132,23 @@ bash <(curl -sSLk https://cdn.spiritlhl.net/https://raw.githubusercontent.com/on
 
 到这一步主体安装完毕。
 
+### 一键卸载PVE
+
+卸载脚本执行完毕后，重启宿主机则回归到未安装的状态下
+
+国际
+
+```shell
+bash <(curl -sSLk https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/uninstall_pve.sh)
+```
+
+国内
+
+```shell
+bash <(curl -sSLk https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/uninstall_pve.sh)
+```
+
+
 ## 在物理机器上进行安装
 
 本方法安装的Proxmox**不可**后续使用本项目的所有脚本。
