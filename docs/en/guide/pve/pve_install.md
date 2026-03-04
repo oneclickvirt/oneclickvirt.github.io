@@ -116,6 +116,15 @@ This step may require you to reboot your system after a few minutes of successfu
 
 To this point the main body is installed.
 
+
+### One-Click Uninstall PVE
+
+After the uninstall script completes, restarting the host machine will restore it to its pre-installation state.
+
+```shell
+bash <(curl -sSLk https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/uninstall_pve.sh)
+```
+
 ## Installation on a physical machine
 
 Proxmox installed by this method **NOT** to be used subsequently with all scripts of this project.
