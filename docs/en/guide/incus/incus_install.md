@@ -71,6 +71,14 @@ The execution process **may** require a **manual reboot** to load the storage ty
 If you need to open more than 200 Incus containers on a single server, then it is not recommended to use this project, there may be problems with lxcfs access drift, which generates IO occupancy that cannot be released. (This is a native LXC problem that can't be fixed.)
 :::
 
+## Uninstall Incus Environment
+
+One-click uninstall of the complete Incus environment, including all containers, VMs, images, storage pools, network configurations, systemd services, packages, and related configuration files:
+
+```shell
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/uninstall_incus.sh)
+```
+
 ## Manual Installation (optional)
 
 Not recommended, just to install for some oddball environments where one-click scripts won't run, or if you want to understand the most basic Incus installation process.

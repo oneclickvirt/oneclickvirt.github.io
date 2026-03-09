@@ -85,6 +85,22 @@ bash incus_install.sh
 如果你需要在一台服务器上开启超过200个INCUS容器，那么不推荐你使用本项目，可能会出现lxcfs访问漂移的问题，产生IO占用无法释放。(系lxc原生问题无法修复)
 :::
 
+## 卸载 Incus 环境
+
+一键卸载 Incus 全套环境，包括所有容器、虚拟机、镜像、存储池、网络配置、systemd 服务、软件包及相关配置文件：
+
+国际
+
+```shell
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/uninstall_incus.sh)
+```
+
+国内
+
+```shell
+bash <(curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/uninstall_incus.sh)
+```
+
 ## 手动安装(备选)
 
 不推荐，只是为了一些奇葩环境一键脚本跑不动的时候进行安装，或则你想要了解最基础的Incus安装流程。
