@@ -56,3 +56,20 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/extra_scripts/
 [kuroit](https://my.kuroit.com/aff.php?aff=5) Phoenix, USA regular
 
 [datalix](https://t.me/+UHVoo2U4VyA5NTQ1/338) German AMD Promotions
+
+## No-CDN mode (WITHOUTCDN)
+
+If your network is stable and useful, or you want to fully disable CDN acceleration, set this before running scripts:
+
+```shell
+export WITHOUTCDN=TRUE
+```
+
+You can also apply it to a single command only:
+
+```shell
+WITHOUTCDN=TRUE
+```
+
+When enabled, scripts will no longer try CDN acceleration URLs during execution.
+

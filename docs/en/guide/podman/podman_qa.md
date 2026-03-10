@@ -99,3 +99,20 @@ Manual DNS fix:
 echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 echo "nameserver 1.1.1.1" >> /etc/resolv.conf
 ```
+
+## No-CDN mode (WITHOUTCDN)
+
+If your network is stable and useful, or you want to fully disable CDN acceleration, set this before running scripts:
+
+```shell
+export WITHOUTCDN=TRUE
+```
+
+You can also apply it to a single command only:
+
+```shell
+WITHOUTCDN=TRUE
+```
+
+When enabled, scripts will no longer try CDN acceleration URLs during execution.
+

@@ -115,3 +115,20 @@ yum install -y lxcfs       # CentOS/RHEL
 磁盘限制需要 xfs 或 btrfs snapshotter 支持，默认 overlay snapshotter 不支持容器级磁盘限制。
 
 如需磁盘限制，请查看 docker 方案或 incus 方案中对应的说明。
+
+## 无 CDN 模式（WITHOUTCDN）
+
+如果服务器网络非常好无需加速，或希望完全禁用 CDN 加速，可在执行脚本前设置：
+
+```shell
+export WITHOUTCDN=TRUE
+```
+
+也可以只对单次命令生效：
+
+```shell
+WITHOUTCDN=TRUE
+```
+
+设置后，脚本执行过程中将不再尝试使用 CDN 加速地址。
+

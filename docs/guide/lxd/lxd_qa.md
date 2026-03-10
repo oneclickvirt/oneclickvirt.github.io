@@ -64,3 +64,20 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 [kuroit](https://my.kuroit.com/aff.php?aff=5) 中的 美国凤凰城 regular
 
 [datalix](https://t.me/+UHVoo2U4VyA5NTQ1/338) 中的 德国AMD 促销
+
+## 无 CDN 模式（WITHOUTCDN）
+
+如果服务器网络非常好无需加速，或希望完全禁用 CDN 加速，可在执行脚本前设置：
+
+```shell
+export WITHOUTCDN=TRUE
+```
+
+也可以只对单次命令生效：
+
+```shell
+WITHOUTCDN=TRUE
+```
+
+设置后，脚本执行过程中将不再尝试使用 CDN 加速地址。
+
