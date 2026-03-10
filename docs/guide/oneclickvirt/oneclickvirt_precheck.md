@@ -32,7 +32,7 @@ outline: deep
 
 - 语言国际化，前端支持中英双语切换显示，默认使用中文显示，可切换默认的系统语言
 
-- 对接Provider: 支持 ProxmoxVE、Incus、Docker、LXD 四大主流虚拟化平台，更多平台敬请期待
+- 对接Provider: 支持 ProxmoxVE、Incus、Docker、LXD、Podman、Containerd 6大主流虚拟化平台，更多平台敬请期待
 
 - 灵活实例类型: 支持自动创建虚拟机(VM)和容器(Container)，通过抽象化设计提供统一的虚拟化资源管理体验
 
