@@ -32,7 +32,7 @@ Managed nodes require the host machine's network interface to be directly bound 
 
 - Language internationalization: Frontend supports bilingual display in Chinese and English, defaults to Chinese display, with switchable default system language
 
-- Provider Integration: Supports ProxmoxVE, Incus, Docker, LXD - four major mainstream virtualization platforms, with more platforms coming soon
+- Provider Integration: Supports ProxmoxVE、Incus、Docker、LXD、Podman、Containerd - 6 major mainstream virtualization platforms, with more platforms coming soon
 
 - Flexible Instance Types: Supports automatic creation of virtual machines (VM) and containers (Container), providing a unified virtualization resource management experience through abstraction design
 
