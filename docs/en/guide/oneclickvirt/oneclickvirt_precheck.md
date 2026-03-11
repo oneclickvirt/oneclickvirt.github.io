@@ -58,4 +58,4 @@ Pure IPv6
 
 - Resource Limits: Supports setting instance quantity/CPU/memory/disk/bandwidth quota management and traffic usage restrictions
 
-- All code is open source, but no commercial development will be undertaken
+- All code is open-source, but no commercial development will be undertaken. If you modify the code, you must retain the original source. This project does not handle any commercial development requests.
