@@ -254,7 +254,7 @@ Application and Claim Control:
 
 By default, regular users can choose the system and create instances using configurations within their level. If you enable redemption-code-only claiming, you need to batch-generate redemption codes in Redemption Code Management after the corresponding instances are generated, and then distribute the codes to users for redemption. In short, only enable this feature if you need to batch-create instances or revoke regular users' ability to freely choose the system and configuration.
 
-![](./images/duihuan1.png)
+![](./images/duihuan1.jpg)
 
 ![](./images/duihuan2.png)
 
