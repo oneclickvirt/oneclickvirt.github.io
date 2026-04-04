@@ -282,17 +282,6 @@ function getGuideSidebarZhCN() {
       ]
     },
     {
-      text: '屏蔽滥用',
-      collapsed: true,
-      items: [
-        { text: '通过iptables', link: '/guide/block/block_iptables.html' },
-        { text: '在PVE上', link: '/guide/block/block_pve.html' },
-        { text: '在INCUS上', link: '/guide/block/block_incus.html' },
-        { text: '在LXD上', link: '/guide/block/block_lxd.html' },
-        { text: '在DOCKER上', link: '/guide/block/block_docker.html' },
-      ]
-    },
-    {
       text: 'Containerd',
       collapsed: true,
       items: [
@@ -334,6 +323,17 @@ function getGuideSidebarZhCN() {
         { text: 'Linux虚拟机(KVM)', link: '/guide/kubevirt/kubevirt_build.html' },
         { text: '致谢', link: '/guide/kubevirt/kubevirt_thanks.html' },
         { text: '常见问题答疑', link: '/guide/kubevirt/kubevirt_qa.html' }
+      ]
+    },
+    {
+      text: '屏蔽滥用',
+      collapsed: true,
+      items: [
+        { text: '通过iptables', link: '/guide/block/block_iptables.html' },
+        { text: '在PVE上', link: '/guide/block/block_pve.html' },
+        { text: '在INCUS上', link: '/guide/block/block_incus.html' },
+        { text: '在LXD上', link: '/guide/block/block_lxd.html' },
+        { text: '在DOCKER上', link: '/guide/block/block_docker.html' },
       ]
     },
     {
@@ -478,17 +478,6 @@ function getGuideSidebarEnUS() {
       ]
     },
     {
-      text: 'Block Abuse',
-      collapsed: true,
-      items: [
-        { text: 'via iptables', link: '/en/guide/block/block_iptables.html' },
-        { text: 'In PVE', link: '/en/guide/block/block_pve.html' },
-        { text: 'In INCUS', link: '/en/guide/block/block_incus.html' },
-        { text: 'In LXD', link: '/en/guide/block/block_lxd.html' },
-        { text: 'In DOCKER', link: '/en/guide/block/block_docker.html' },
-      ]
-    },
-    {
       text: 'Containerd',
       collapsed: true,
       items: [
@@ -530,6 +519,17 @@ function getGuideSidebarEnUS() {
         { text: 'Linux Virtual Machine(KVM)', link: '/en/guide/kubevirt/kubevirt_build.html' },
         { text: 'Acknowledgements', link: '/en/guide/kubevirt/kubevirt_thanks.html' },
         { text: 'FAQ', link: '/en/guide/kubevirt/kubevirt_qa.html' }
+      ]
+    },
+    {
+      text: 'Block Abuse',
+      collapsed: true,
+      items: [
+        { text: 'via iptables', link: '/en/guide/block/block_iptables.html' },
+        { text: 'In PVE', link: '/en/guide/block/block_pve.html' },
+        { text: 'In INCUS', link: '/en/guide/block/block_incus.html' },
+        { text: 'In LXD', link: '/en/guide/block/block_lxd.html' },
+        { text: 'In DOCKER', link: '/en/guide/block/block_docker.html' },
       ]
     },
     {

@@ -34,7 +34,9 @@ Below are the steps for setting up nodes. Required and mandatory steps must be f
 
 ### Basic Information (Required)
 
-![](./images/base.png)
+![](./images/base1.png)
+
+![](./images/base2.png)
 
 The server name should preferably use only English letters and numbers, avoid special characters, and ideally be within 6 characters. When creating containers or virtual machines later, this server name will be automatically added as a prefix.
 
@@ -43,6 +45,8 @@ Select the virtualization technology name you actually installed for the server 
 For SSH address, fill in the node's public IPv4 address or internal SSH connection address. This address will be used for SSH connections and API connections.
 
 NAT port mapping prioritizes using the port IP for mapping. If no specific port IP is provided, the SSH address IP will be used for mapping. Neither needs to be a public IPv4 address.
+
+Node mode can be set to either a clean node or a node with existing instances. If you choose the latter, the system will automatically detect the existing instances on that node and generate the corresponding redemption codes in Redemption Code Management, bound to the current administrator by default. After switching to the regular user view, the imported existing instances will be visible.
 
 In the port field, fill in the port for SSH connection to the node.
 
@@ -152,13 +156,33 @@ Not recommended to modify the mapping method unless you know what this setting d
 
 ![](./images/bw3.png)
 
-Literal meaning: set the maximum bandwidth and total available traffic calculated by natural month for instances created on the node. Traffic monitoring and traffic statistics are not automatically enabled by default.
+Simply put, this sets the maximum bandwidth for instances created on the node and the total available traffic calculated on a natural-month basis. Traffic monitoring and traffic statistics are not enabled by default.
 
-Starting traffic monitoring will have a corresponding memory burden because traffic statistics data needs to be cached. Even after extreme optimization by this project, it will still increase with bandwidth. Don't enable traffic statistics if you don't have enough memory.
+#### agent (Recommended)
 
-If traffic statistics are enabled, pay attention to the statistics mode. The default statistics mode is the most universal. If your local performance is good enough (mainly enough memory), you can choose higher collection frequency and collection quantity. If performance is very poor, it's recommended to choose the last tier. Custom parameters are also supported, but not recommended for beginners to modify; the preset modes are sufficient.
+A traffic and resource statistics project built with Rust. After enabling traffic monitoring and selecting agent monitoring, choose Deploy in the monitoring management page.
 
-If traffic statistics are enabled, note that the allocated bandwidth for levels should not be too large. Monitoring will dynamically generate configuration files according to the allocated bandwidth for monitoring. The larger the bandwidth, the more memory monitoring occupies.
+![](./images/bw4.png)
+
+![](./images/bw5.png)
+
+After deployment completes, click Detect Agent Status to check whether it loaded successfully.
+
+This method is suitable for nodes running a Linux kernel and supporting iptables or nftables. By default it uses nftables for monitoring. If you need custom iptables monitoring or want to exclude traffic for a specific inbound or outbound IP from monitoring, you need to click Edit Configuration in the current popup and then save and synchronize monitoring before the configuration is actually applied.
+
+![](./images/bw6.png)
+
+Generally, custom configuration is not needed. The default configuration is sufficient for daily use.
+
+#### pmacct (Not Recommended)
+
+This method is for nodes that do not support nftables or iptables commands, such as Alpine hosts or non-Linux kernels. In those cases only, use this traffic monitoring method. In other scenarios, agent mode is still recommended.
+
+Enabling pmacct traffic monitoring creates a memory burden because traffic statistics data must be cached. Even after this project is heavily optimized, memory usage still grows with bandwidth, so do not enable traffic statistics if you do not have enough memory.
+
+If traffic statistics are enabled, pay attention to the statistics mode. The default mode is the most universal. If your local performance is good enough, mainly with sufficient memory, you can choose a higher collection frequency and quantity. If performance is very poor, it is recommended to choose the last tier. Custom parameters are supported as well, but beginners should not modify them; the preset modes are sufficient.
+
+If traffic statistics are enabled, note that the bandwidth assigned per level should not be too large. Monitoring will dynamically generate configuration files based on the assigned bandwidth. The larger the bandwidth, the more memory the monitor uses.
 
 | Level | Instance Bandwidth | `plugin_pipe_size` | `sql_cache_entries` | Base Usage | Burst Usage |
 |---:|:---:|:---:|:---:|:---:|:---|
@@ -225,6 +249,22 @@ If you need to enable API operation mode, after successfully saving the node set
 ![](./images/autoapi2.png)
 
 ![](./images/autoapi3.png)
+
+Application and Claim Control:
+
+By default, regular users can choose the system and create instances using configurations within their level. If you enable redemption-code-only claiming, you need to batch-generate redemption codes in Redemption Code Management after the corresponding instances are generated, and then distribute the codes to users for redemption. In short, only enable this feature if you need to batch-create instances or revoke regular users' ability to freely choose the system and configuration.
+
+![](./images/duihuan1.png)
+
+![](./images/duihuan2.png)
+
+Hardware Monitoring:
+
+If you want to enable this feature, you must also enable agent monitoring in Monitoring Management. Without deploying the corresponding agent monitoring, hardware monitoring cannot be used. The collection interval and related parameters can be customized on the configuration edit page in Monitoring Management.
+
+![](./images/bw6.png)
+
+By default, the system monitors CPU, memory, and disk usage for instances over the last 24 hours, and only keeps 24 hours of data.
 
 ### Hardware Configuration (Optional)
 

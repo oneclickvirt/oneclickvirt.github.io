@@ -322,7 +322,7 @@ docker image rm -f spiritlhl/oneclickvirt:latest
 docker pull spiritlhl/oneclickvirt:latest
 ```
 
-然后再按全新环境下开设的步骤来，注意等待12秒后打开前端，会发现已自动越过初始化界面，因为数据已持久化导入。
+然后再部署开设容器即可(按全新部署那样来)，注意等待12秒后打开前端，会发现已自动越过初始化界面，因为数据已持久化导入。
 
 然后覆写原有的配置文件：
 
