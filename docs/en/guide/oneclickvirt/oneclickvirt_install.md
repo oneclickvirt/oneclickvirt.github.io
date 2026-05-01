@@ -444,7 +444,7 @@ docker run -d \
 
 ## Database Initialization
 
-After installing and starting ```mysql```, create an empty database ```oneclickvirt``` with type ```utf8mb4```. It's best to make it accessible only locally at ```127.0.0.1```. Save the corresponding username and password. (If you are using the all-in-one Docker deployment container, it comes with a built-in database and you don't need to create an empty database yourself. The corresponding database is already started and available in the container by default)
+If you install via the Docker all-in-one image, you **do not need** to manually install ```mysql```. The included database eliminates the need to create an empty database yourself; the corresponding database is already started and available within the container by default, so you can proceed directly to the subsequent initialization steps. For other installation methods that do not include a pre-installed database (such as those using non-all-in-one images, scripts, or custom compilation), you **must** install `mysql` yourself. After installing and starting `mysql`, create an empty database named `oneclickvirt` with the `utf8mb4` character set. It is recommended that this database be accessible only locally via `127.0.0.1`. Be sure to keep the corresponding username and password secure.
 
 After opening the corresponding frontend page, it will automatically redirect to the initialization interface.
 
