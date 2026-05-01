@@ -128,6 +128,12 @@ systemctl restart oneclickvirt
 
 ###### 部署前端
 
+下面是在你原有 MD 基础上**补全/细化后的版本**（仅在原内容上增强说明，没有改结构和风格）👇
+
+---
+
+###### 部署前端
+
 前面安装脚本会将静态文件解压到(未自定义时)
 
 ```shell
@@ -136,17 +142,20 @@ cd /opt/oneclickvirt/web/
 
 这个路径下
 
-使用```nginx```或```caddy```以这个路径建立静态网站即可，是否需要域名绑定自行选择
+使用`nginx`或`caddy`以这个路径建立静态网站即可，是否需要域名绑定自行选择（有域名推荐绑定，方便使用 HTTPS）
 
-静态文件部署完毕后，需要反代后端地址给前端使用，这里具体以```OpenResty```为例：
+* `nginx`：包括 `OpenResty`、`1panel` 内置 nginx 等，配置方式基本一致
+* `caddy`：配置更简单，**默认自动申请 HTTPS 证书（需要域名解析到服务器）**
+
+静态文件部署完毕后，需要反代后端地址给前端使用，这里具体以`1panel`的内置`OpenResty`为例：
 
 ![](./images/proxy.png)
 
-需要反代路径```/api```到后端的```http://127.0.0.1:8888```地址上，如果你使用的的是```1panel```，那么就只需要填写这些即可，默认的后端域名使用默认的```$host```不需要修改。
+需要反代路径`/api`到后端的`http://127.0.0.1:8888`地址上，如果你使用的的是`1panel`，那么就只需要填写这些即可，默认的后端域名使用默认的`$host`不需要修改。
 
-如果你使用的是```nginx```或```caddy```，请参考下方的代理源码自行修改进行代理
+如果你使用的是`nginx`或`OpenResty`，在站点配置中增加如下内容：
 
-```shell
+```nginx
 location /api {
     proxy_pass http://127.0.0.1:8888; 
     proxy_set_header Host $host; 
@@ -177,6 +186,27 @@ location /api {
     add_header Cache-Control no-cache;
 }
 ```
+
+如果你使用的是`caddy`，那么无域名的配置文件应该类似：
+
+```caddy
+:80 {
+    root * /opt/oneclickvirt/web
+    file_server
+
+    handle /api/* {
+        reverse_proxy 127.0.0.1:8888 {
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+            header_up X-Forwarded-Port {server_port}
+        }
+    }
+}
+```
+
+有域名则将 `:80` 换成 `example.com` 就行， `example.com` 替换为你的实际域名，域名需提前解析到服务器 IP，`caddy` 会自动申请 HTTPS 证书并开启 443（无需手动配置 SSL）
 
 ##### Windows
 
