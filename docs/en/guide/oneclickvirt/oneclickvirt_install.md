@@ -122,25 +122,26 @@ This setting is mainly to accommodate the issue that 1panel cannot customize the
 
 ###### Deploy Frontend
 
-The previous installation script will extract the static files to (when not customized)
+The installation script will extract the static files to the following directory (if not customized):
 
 ```shell
 cd /opt/oneclickvirt/web/
-```
+````
 
-This path
+You can use `nginx` or `caddy` to serve a static website from this directory. Binding a domain name is optional (but recommended if you want to enable HTTPS easily).
 
-Use ```nginx``` or ```caddy``` to establish a static website with this path. Whether you need to bind a domain name is your choice
+* `nginx`: Includes `OpenResty`, `1Panel` built-in nginx, etc. Configuration is generally similar.
+* `caddy`: Easier to configure, **automatically obtains HTTPS certificates by default** (requires your domain to point to the server).
 
-After the static files are deployed, you need to reverse proxy the backend address for frontend use. Here is a specific example using ```OpenResty```:
+After deploying the static files, you need to configure a reverse proxy so the frontend can access the backend. Below is an example using `OpenResty` built into `1Panel`:
 
 ![](./images/proxy.png)
 
-You need to reverse proxy the path ```/api``` to the backend ```http://127.0.0.1:8888``` address. If you are using ```1panel```, you only need to fill in these, and the default backend domain name uses the default ```$host``` without modification.
+You need to proxy the `/api` path to the backend address `http://127.0.0.1:8888`. If you are using `1Panel`, you only need to fill in these values. The default backend domain `$host` does not need to be modified.
 
-If you are using ```nginx``` or ```caddy```, please refer to the proxy source code below and modify it yourself for proxying
+If you are using `nginx` or `OpenResty`, add the following configuration to your site:
 
-```shell
+```nginx
 location /api {
     proxy_pass http://127.0.0.1:8888; 
     proxy_set_header Host $host; 
@@ -171,6 +172,27 @@ location /api {
     add_header Cache-Control no-cache;
 }
 ```
+
+If you are using `caddy`, a configuration without a domain would look like this:
+
+```caddy
+:80 {
+    root * /opt/oneclickvirt/web
+    file_server
+
+    handle /api/* {
+        reverse_proxy 127.0.0.1:8888 {
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+            header_up X-Forwarded-Port {server_port}
+        }
+    }
+}
+```
+
+If you have a domain, simply replace `:80` with `example.com`. Replace `example.com` with your actual domain. The domain must be pointed to your server IP in advance. `caddy` will automatically obtain an HTTPS certificate and enable port 443 (no need to manually configure SSL).
 
 ##### Windows
 
