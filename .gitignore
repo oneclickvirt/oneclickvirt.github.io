@@ -11,3 +11,4 @@ TODOs.md
 .idea
 pnpm-global
 docs/.vitepress/cache
+/.vitepress
