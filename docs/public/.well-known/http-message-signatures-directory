@@ -1,0 +1,21 @@
+{
+  "keys": [
+    {
+      "kty": "RSA",
+      "use": "sig",
+      "kid": "spiritlhl-2026-05-01",
+      "alg": "RS256",
+      "n": "0vx7agoebGcQSuuPiLJXZptN9nndrQmbXEps2aiAFbWhM78LhWx4cbbfAAtVT86zwu1RK7aPFFxuhDR1L6tSoc_BJECPebWKRXjBZCiFV4n3oknjhMstn64tZ_2W-5JsGY4Hc5n9yBXArwl93lqt7_RN5w6Cf0h4QyQ5v-65YGjQR0_FDW2QvzqY368QQMicAtaSqzs8KJZgnYb9c7d0zgdAZHzu6qMQvRL5hajrn1n91CbOpbISD08qNLyrdkt-bFTWhAI4vMQFh6WeZu0fM4lFd2NcRwr3XPksINHaQ-G_xBniIqbw0Ls1jF44-csFCur-kEgU8awapJzKnqDKgw",
+      "e": "AQAB"
+    }
+  ],
+  "metadata": {
+    "issuer": "https://www.spiritlhl.net/",
+    "contact": "https://github.com/oneclickvirt/oneclickvirt.github.io",
+    "updated": "2026-05-16T00:00:00Z",
+    "jwks_uri": "https://www.spiritlhl.net/.well-known/http-message-signatures-directory",
+    "id_token_signing_alg_values_supported": ["RS256"],
+    "token_endpoint_auth_methods_supported": ["private_key_jwt"],
+    "description": "Web Bot Auth JWKS for verifying signed HTTP requests from this site"
+  }
+}

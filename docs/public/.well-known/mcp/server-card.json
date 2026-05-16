@@ -1,0 +1,95 @@
+{
+  "serverInfo": {
+    "name": "OneClick Virtualization Documentation",
+    "version": "1.0.0",
+    "description": "MCP server providing access to comprehensive virtualization guides, documentation, and developer resources for cloud infrastructure automation",
+    "homepage": "https://www.spiritlhl.net/",
+    "logo": "https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png"
+  },
+  "transport": {
+    "type": "http",
+    "endpoint": "https://www.spiritlhl.net/.well-known/mcp/server-card.json"
+  },
+  "capabilities": {
+    "resources": [
+      {
+        "name": "virtualization-guides",
+        "type": "documentation",
+        "uri": "https://www.spiritlhl.net/guide/",
+        "description": "Guides for OneClickVirt, Proxmox VE, Incus, Docker, LXD, Containerd, Podman, QEMU, KubeVirt"
+      },
+      {
+        "name": "practical-cases",
+        "type": "tutorial",
+        "uri": "https://www.spiritlhl.net/case/",
+        "description": "Practical implementation cases and real-world examples"
+      },
+      {
+        "name": "developer-documentation",
+        "type": "documentation",
+        "uri": "https://www.spiritlhl.net/developer/",
+        "description": "Developer guide, localization guidelines, and project structure"
+      },
+      {
+        "name": "api-catalog",
+        "type": "service-catalog",
+        "uri": "https://www.spiritlhl.net/.well-known/api-catalog",
+        "description": "RFC 9727 API catalog with comprehensive link relations"
+      }
+    ],
+    "tools": [
+      {
+        "name": "search-guides",
+        "description": "Search through virtualization platform guides",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "platform": {
+              "type": "string",
+              "description": "Virtualization platform (OneClickVirt, Proxmox VE, Incus, Docker, LXD, Containerd, Podman, QEMU, KubeVirt)"
+            },
+            "topic": {
+              "type": "string",
+              "description": "Topic to search (precheck, install, config, qa, thanks)"
+            }
+          }
+        }
+      },
+      {
+        "name": "get-documentation",
+        "description": "Retrieve documentation page content",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "description": "Path to documentation page (e.g., /guide/oneclickvirt/)"
+            }
+          },
+          "required": ["path"]
+        }
+      },
+      {
+        "name": "list-platforms",
+        "description": "List all supported virtualization platforms with their documentation status",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "filter": {
+              "type": "string",
+              "enum": ["all", "complete", "incomplete"],
+              "description": "Filter by documentation completeness"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "metadata": {
+    "author": "OneClick Virtualization Project",
+    "license": "ISC",
+    "repository": "https://github.com/oneclickvirt/oneclickvirt.github.io",
+    "documentation": "https://www.spiritlhl.net/developer/",
+    "supportedLanguages": ["zh-CN", "en-US"]
+  }
+}

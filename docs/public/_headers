@@ -1,3 +1,36 @@
+# Homepage and root responses with agent discovery headers
+/
+  link: </.well-known/api-catalog>; rel="api-catalog"
+  link: </.well-known/agent-skills/index.json>; rel="service-doc"
+  link: </.well-known/mcp/server-card.json>; rel="service-doc"
+  content-type: text/html; charset=utf-8
+
+# API Catalog endpoint
+/.well-known/api-catalog
+  content-type: application/linkset+json
+  cache-control: public, max-age=86400
+
+# Agent Skills index
+/.well-known/agent-skills/index.json
+  content-type: application/json
+  cache-control: public, max-age=86400
+
+# MCP Server Card
+/.well-known/mcp/server-card.json
+  content-type: application/json
+  cache-control: public, max-age=86400
+
+# Web Bot Auth JWKS
+/.well-known/http-message-signatures-directory
+  content-type: application/json
+  cache-control: public, max-age=86400
+
+# Static assets caching
 /assets/*
   cache-control: max-age=31536000
   cache-control: immutable
+
+# Support Markdown for Agents (RFC)
+/*
+  content-type: text/html; charset=utf-8
+  vary: Accept

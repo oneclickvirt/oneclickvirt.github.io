@@ -1,0 +1,73 @@
+# OneClick Virtualization Project - robots.txt
+# Last Updated: 2026-05-16
+# Specification: RFC 9309 (https://www.rfc-editor.org/rfc/rfc9309)
+
+# Default rules for all crawlers
+User-agent: *
+Allow: /
+Disallow: /_astro/
+Disallow: /node_modules/
+Disallow: /.vitepress/
+Disallow: /**/.*
+
+# Search engines are welcome
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# AI Training and Inference Crawlers
+# OpenAI GPT crawlers
+User-agent: GPTBot
+Allow: /guide/
+Allow: /case/
+Allow: /developer/
+Disallow: /en/
+Disallow: /incomplete/
+
+User-agent: OAI-SearchBot
+Allow: /guide/
+Allow: /case/
+Allow: /developer/
+Disallow: /en/
+Disallow: /incomplete/
+
+# Anthropic Claude Web Crawler
+User-agent: Claude-Web
+Allow: /guide/
+Allow: /case/
+Allow: /developer/
+Disallow: /en/
+Disallow: /incomplete/
+
+# Google Extended
+User-agent: Google-Extended
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /guide/
+Allow: /case/
+Allow: /developer/
+Disallow: /en/
+Disallow: /incomplete/
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+# Apple
+User-agent: AppleBot
+Allow: /
+
+# Microsoft Copilot
+User-agent: Copilot
+Allow: /
+
+# Content Signals (https://contentsignals.org/)
+# Declares preferences for content usage
+Content-Signal: ai-train=partially, search=yes, ai-input=yes
+
+# Sitemap
+Sitemap: https://www.spiritlhl.net/sitemap.xml
