@@ -1,0 +1,64 @@
+{
+  "$schema": "https://schema.agentskills.io/v0.2.0/agent-skills-index.json",
+  "name": "OneClick Virtualization Project",
+  "description": "Agent skills for discovering virtualization guides, documentation, and developer resources",
+  "version": "1.0.0",
+  "skills": [
+    {
+      "name": "virtualization-guides",
+      "type": "documentation",
+      "description": "Browse virtualization platform guides including OneClickVirt, Proxmox VE, Incus, Docker, LXD, Containerd, Podman, QEMU, and KubeVirt",
+      "url": "https://www.spiritlhl.net/guide/",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "practical-cases",
+      "type": "documentation",
+      "description": "Practical use cases and tutorials including server testing, automation, and system optimization",
+      "url": "https://www.spiritlhl.net/case/",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "developer-docs",
+      "type": "documentation",
+      "description": "Developer documentation including localization (l10n) guides and project structure",
+      "url": "https://www.spiritlhl.net/developer/",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "api-catalog",
+      "type": "catalog",
+      "description": "RFC 9727 API catalog with service descriptions and documentation links",
+      "url": "https://www.spiritlhl.net/.well-known/api-catalog",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "github-repository",
+      "type": "repository",
+      "description": "GitHub repository containing source code and issue tracking",
+      "url": "https://github.com/oneclickvirt/oneclickvirt.github.io",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "sitemap",
+      "type": "sitemap",
+      "description": "XML sitemap for crawling all available pages",
+      "url": "https://www.spiritlhl.net/sitemap.xml",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "robots-rules",
+      "type": "rules",
+      "description": "Robots.txt with AI crawler rules, content signals, and crawl policies (RFC 9309)",
+      "url": "https://www.spiritlhl.net/robots.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "mcp-server-card",
+      "type": "server-metadata",
+      "description": "MCP Server Card for tool discovery and integration",
+      "url": "https://www.spiritlhl.net/.well-known/mcp/server-card.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

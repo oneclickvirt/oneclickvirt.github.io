@@ -1,0 +1,66 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://www.spiritlhl.net/",
+      "links": [
+        {
+          "rel": "service-doc",
+          "href": "https://www.spiritlhl.net/guide/oneclickvirt/oneclickvirt_precheck.html",
+          "type": "text/html",
+          "title": "OneClickVirt Documentation"
+        },
+        {
+          "rel": "service-desc",
+          "href": "https://www.spiritlhl.net/docs/developer/",
+          "type": "text/html",
+          "title": "Developer Guide"
+        },
+        {
+          "rel": "status",
+          "href": "https://www.spiritlhl.net/",
+          "type": "text/html",
+          "title": "Health Status"
+        }
+      ]
+    },
+    {
+      "anchor": "https://www.spiritlhl.net/guide/",
+      "links": [
+        {
+          "rel": "service-doc",
+          "href": "https://www.spiritlhl.net/guide/",
+          "type": "text/html",
+          "title": "Virtualization Guides"
+        }
+      ]
+    },
+    {
+      "anchor": "https://www.spiritlhl.net/case/",
+      "links": [
+        {
+          "rel": "service-doc",
+          "href": "https://www.spiritlhl.net/case/",
+          "type": "text/html",
+          "title": "Practical Use Cases"
+        }
+      ]
+    },
+    {
+      "anchor": "https://www.spiritlhl.net/developer/",
+      "links": [
+        {
+          "rel": "service-doc",
+          "href": "https://www.spiritlhl.net/developer/",
+          "type": "text/html",
+          "title": "Developer Documentation"
+        },
+        {
+          "rel": "related",
+          "href": "https://github.com/oneclickvirt/oneclickvirt.github.io",
+          "type": "text/html",
+          "title": "GitHub Repository"
+        }
+      ]
+    }
+  ]
+}
