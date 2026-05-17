@@ -147,9 +147,19 @@ cd /opt/oneclickvirt/web/
 
 需要反代路径`/api`到后端的`http://127.0.0.1:8888`地址上，如果你使用的的是`1panel`，那么就只需要填写这些即可，默认的后端域名使用默认的`$host`不需要修改。
 
-如果你使用的是`nginx`或`OpenResty`，在站点配置中增加如下内容：
+如果你使用的是`nginx`或`OpenResty`，在站点的反代配置源码中覆写如下内容：
 
 ```nginx
+location /api/v1/ws/ {
+    proxy_pass http://127.0.0.1:8888;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_buffering off;
+    proxy_read_timeout 3600s;
+    proxy_send_timeout 3600s;
+}
+
 location /api {
     proxy_pass http://127.0.0.1:8888; 
     proxy_set_header Host $host; 
@@ -185,16 +195,37 @@ location /api {
 
 ```caddy
 :80 {
+
     root * /opt/oneclickvirt/web
     file_server
 
-    handle /api/* {
-        reverse_proxy 127.0.0.1:8888 {
-            header_up Host {host}
-            header_up X-Real-IP {remote_host}
-            header_up X-Forwarded-For {remote_host}
-            header_up X-Forwarded-Proto {scheme}
-            header_up X-Forwarded-Port {server_port}
+    # WebSocket
+    @ws path /api/v1/ws/*
+    reverse_proxy @ws 127.0.0.1:8888 {
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+        header_up X-Forwarded-Port {server_port}
+
+        transport http {
+            read_timeout 3600s
+            write_timeout 3600s
+        }
+    }
+
+    # Normal API
+    @api path /api/*
+    reverse_proxy @api 127.0.0.1:8888 {
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+        header_up X-Forwarded-Port {server_port}
+
+        transport http {
+            read_timeout 600s
+            write_timeout 600s
         }
     }
 }
