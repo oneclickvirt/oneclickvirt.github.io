@@ -142,6 +142,16 @@ You need to proxy the `/api` path to the backend address `http://127.0.0.1:8888`
 If you are using `nginx` or `OpenResty`, add the following configuration to your site:
 
 ```nginx
+location /api/v1/ws/ {
+    proxy_pass http://127.0.0.1:8888;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_buffering off;
+    proxy_read_timeout 3600s;
+    proxy_send_timeout 3600s;
+}
+
 location /api {
     proxy_pass http://127.0.0.1:8888; 
     proxy_set_header Host $host; 
@@ -177,16 +187,37 @@ If you are using `caddy`, a configuration without a domain would look like this:
 
 ```caddy
 :80 {
+
     root * /opt/oneclickvirt/web
     file_server
 
-    handle /api/* {
-        reverse_proxy 127.0.0.1:8888 {
-            header_up Host {host}
-            header_up X-Real-IP {remote_host}
-            header_up X-Forwarded-For {remote_host}
-            header_up X-Forwarded-Proto {scheme}
-            header_up X-Forwarded-Port {server_port}
+    # WebSocket
+    @ws path /api/v1/ws/*
+    reverse_proxy @ws 127.0.0.1:8888 {
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+        header_up X-Forwarded-Port {server_port}
+
+        transport http {
+            read_timeout 3600s
+            write_timeout 3600s
+        }
+    }
+
+    # Normal API
+    @api path /api/*
+    reverse_proxy @api 127.0.0.1:8888 {
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+        header_up X-Forwarded-Port {server_port}
+
+        transport http {
+            read_timeout 600s
+            write_timeout 600s
         }
     }
 }
