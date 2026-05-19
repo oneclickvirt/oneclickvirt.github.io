@@ -172,6 +172,26 @@ export default defineConfig({
               { text: 'webvirtmgr', link: '/en/incomplete/webvirtmgr.html' },
             ]
           },
+          {
+            text: 'Utility Projects',
+            activeMatch: '^/en/case/',
+            items: [
+              { text: '1. ECS benchmark script for VPS', link: '/en/case/case1.html' },
+              { text: '2. One-click repair and install scripts', link: '/en/case/case2.html' },
+              { text: '3. Auto-updating network benchmark script', link: '/en/case/case3.html' },
+              { text: '4. CN return-route tracing script', link: '/en/case/case4.html' },
+              { text: '5. Server resource occupancy script', link: '/en/case/case5.html' },
+              { text: '6. Add swap space on Linux servers', link: '/en/case/case6.html' },
+              { text: '7. Enable zram on Linux servers', link: '/en/case/case7.html' },
+            ]
+          },
+          {
+            text: 'Developers',
+            activeMatch: '^/en/developer/',
+            items: [
+              { text: 'l10n', link: '/en/developer/l10n.html' },
+            ]
+          },
           { text: 'Merchant List', link: 'https://paste.spiritlhl.net/' },
           { text: 'VPS Stock Monitor', link: 'https://spiders.spiritlhl.net/' },
         ],
@@ -179,6 +199,8 @@ export default defineConfig({
           '/en/': getGuideSidebarEnUS(),
           '/en/guide/': getGuideSidebarEnUS(),
           '/en/incomplete/': getIncompleteSidebarEnUS(),
+          '/en/case/': getCaseSidebarEnUS(),
+          '/en/developer/': getDeveloperSidebarEnUS(),
         },
       },
     },
@@ -560,6 +582,36 @@ function getIncompleteSidebarEnUS() {
         { text: 'virtualizor-docker', link: '/en/incomplete/virtualizor-docker.html' },
         { text: 'bashvm', link: '/en/incomplete/bashvm.html' },
         { text: 'webvirtmgr', link: '/en/incomplete/webvirtmgr.html' },
+      ]
+    }
+  ];
+}
+
+function getCaseSidebarEnUS() {
+  return [
+    {
+      text: 'Linux Utilities',
+      collapsed: true,
+      items: [
+        { text: '1. ECS benchmark script for VPS', link: '/en/case/case1.html' },
+        { text: '2. One-click repair and install scripts', link: '/en/case/case2.html' },
+        { text: '3. Auto-updating network benchmark script', link: '/en/case/case3.html' },
+        { text: '4. CN return-route tracing script', link: '/en/case/case4.html' },
+        { text: '5. Server resource occupancy script', link: '/en/case/case5.html' },
+        { text: '6. Add swap space on Linux servers', link: '/en/case/case6.html' },
+        { text: '7. Enable zram on Linux servers', link: '/en/case/case7.html' }
+      ]
+    }
+  ];
+}
+
+function getDeveloperSidebarEnUS() {
+  return [
+    {
+      text: 'Development Manual',
+      collapsed: true,
+      items: [
+        { text: 'l10n', link: '/en/developer/l10n.html' }
       ]
     }
   ];

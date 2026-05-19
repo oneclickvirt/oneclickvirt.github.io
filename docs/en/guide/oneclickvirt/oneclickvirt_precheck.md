@@ -20,6 +20,10 @@ Supported systems: Linux, Windows, or any self-compiled system architecture
 
 Only requires public network access. The deployed machine does not need an independent public IP address. This is just a virtualization control panel that only needs port display for the frontend. In fact, one important reason for development is that I need to manage multiple virtualization environments without a public IPv4 address.
 
+:::warning
+If intranet penetration is required, the controller must be deployed on a Linux host with a dedicated public IPv4 address.
+:::
+
 This control panel has no special environmental dependency requirements. For one-click deployment, you can use the all-in-one Docker image with database included or docker-compose deployment with separated containers.
 
 Frontend static files are deployed through ```nginx``` or ```caddy``` or ```OpenResty```. For non-source code deployment and non-Docker deployment, API path reverse proxy to the backend port is required.
@@ -46,6 +50,7 @@ NAT IPv4 + Independent IPv6
 Independent IPv4
 Independent IPv4 + IPv6
 Pure IPv6
+No Port Mapping
 ```
 
 - Port Mapping Methods: Flexibly selects the best mapping solution automatically based on different Providers (native, device proxy, iptables, etc.)

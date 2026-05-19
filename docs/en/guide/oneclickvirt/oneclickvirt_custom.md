@@ -14,11 +14,36 @@ When adding a new node, click the corresponding mode, then enter the Basic Infor
 
 ![](./images/agent1.png)
 
-Unlike standard mode, IP address and port are no longer required fields. You can still manage the node if they are left empty. For local nodes, do not fill these two fields. For cloud servers or other nodes with a fixed public IPv4 address, you can fill them in. If they are left empty, only the `Network Type` option `No Port Mapping` is supported later. If filled in, the `Network Type` options are the same as standard mode.
+Unlike standard mode, in Agent mode:
+
+- `IP Address`
+- `Port`
+
+These two fields are no longer required. The node can be managed normally even if they are left empty.
+
+**Local nodes / home broadband nodes / NAT network nodes** should leave IP address and port empty.
+
+**Cloud servers / servers with a fixed IPv4 address** can fill them in normally.
+
+Note:
+
+- If `IP Address` and `Port` are left empty, only `No Port Mapping` is supported for `Network Type` later.
+- If filled in, all `Network Type` options are the same as standard mode.
 
 ![](./images/agent2.png)
 
-After clicking Save, you can see the command generation button in `Connection Configuration`. Once saved, the node token is fixed. If you need to update the token, you must delete and re-add the node, and all configuration must be filled again. So do not leak the token.
+After clicking Save, you can see the command generation button in the `Connection Configuration` section.
+
+Important:
+
+- After saving, the system generates and locks the `Token` for this node.
+- The token cannot be refreshed or changed independently.
+- If the token is leaked, you must:
+  1. Delete the current node
+  2. Re-add the node
+  3. Re-fill all configuration
+
+Keep the token safe and do not leak it.
 
 ![](./images/agent3.png)
 
@@ -32,17 +57,69 @@ After detection succeeds, the following configuration pages can be operated acco
 
 ![](./images/agent5.png)
 
-Only this section differs for local nodes: choose `No Port Mapping`, so you can later manually perform `Manual Add Port` from the administrator `Port Management` page, and tunnel ports to the controller's IPv4 address for use.
+For local nodes, only this section differs: choose `No Port Mapping`. You can then manually use `Add Port` from the administrator `Port Management` page to tunnel node ports (intranet penetration) to the controller server's IPv4 address for external access.
 
 ![](./images/agent6.png)
 
-When manually adding port mapping, choose `Controller Forwarding (Intranet Penetration)`. Non-required fields can be left empty. The system will automatically select controller ports for mapping.
+When manually adding port mapping, choose `Controller Forwarding (Intranet Penetration)`. Non-required fields can be left empty; the system will automatically select available controller ports for mapping.
 
-There is one limitation: make sure the `Controller Panel` is deployed by `Script Deployment` or local compiled deployment. Docker or Docker Compose deployment is not supported. Non-`Linux` deployment is also not supported, because the controller deployment must have firewall control over the server where it is deployed, so deployment in a `root environment` is required.
+### Controller Deployment Requirements
 
-The `Intranet Penetration Port` feature is `only for nodes managed in Agent mode`, forwarding via WSS proxy. During deployment, make sure your reverse proxy is configured for WS/WSS according to the instructions. Do not forget this when configuring your own reverse proxy.
+Because intranet penetration requires the controller to have control over the host machine's network and firewall, the controller must meet the following conditions:
 
-Also, if the controller is upgraded, make sure to upgrade the node side accordingly. Click Edit Node, go to `Connection Configuration`, regenerate the command, and run the installation again.
+- Use one of:
+  - `Script Deployment`
+  - `Bare-metal compiled deployment`
+
+- Deployed on:
+  - A Linux server with a dedicated public IPv4 address
+
+- Must have:
+  - `Root privileges`
+
+The following deployment methods are **not** supported:
+
+- `Docker`
+- `Docker Compose`
+- Non-Linux systems
+
+Otherwise, intranet penetration features will not work.
+
+### Intranet Penetration Feature Notes
+
+The `Intranet Penetration Port` feature:
+
+- **Only supports nodes managed in Agent mode**
+- Tunnels traffic via `WS/WSS` WebSocket forwarding
+
+When configuring your reverse proxy, make sure protocol forwarding is correctly configured for:
+
+- `WS`
+- `WSS`
+
+Otherwise, intranet penetration will not function properly.
+
+#### Security Recommendations
+
+If the managed node requires:
+
+- Anti-probing
+- Anti-blocking
+- Tunnel confidentiality
+
+It is strongly recommended to:
+
+1. Bind a domain name to the controller
+2. Configure HTTPS
+3. Use `WSS protocol` instead of `WS protocol` when adding the node
+
+This effectively reduces the risk of the tunnel being detected, probed, or blocked.
+
+#### Version Update Notes
+
+After upgrading the controller, make sure to upgrade the node-side Agent as well.
+
+During the update, `source` is `controller` — the script and Agent files are downloaded directly from a specific path on the controller.
 
 ## Use LXD/INCUS to create containers with shared GPU devices
 

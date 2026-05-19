@@ -11,5 +11,5 @@ hero:
   actions:
     - theme: brand
       text: Start Now →
-      link: /en_US/developer/l10n
+      link: /en/developer/l10n
 ---
