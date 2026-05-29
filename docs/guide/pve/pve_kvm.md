@@ -194,13 +194,31 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 ```shell
 for vmid in $(qm list | awk '{if(NR>1) print $1}'); do qm stop $vmid; qm destroy $vmid; rm -rf /var/lib/vz/images/$vmid*; done
-iptables -t nat -F
-iptables -t filter -F
-service networking restart
-systemctl restart networking.service
-systemctl restart ndpresponder.service
-iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
-iptables-save > /etc/iptables/rules.v4
+if command -v nft >/dev/null 2>&1; then
+  for family in ip ip6 inet; do
+    for table in nat filter; do
+      nft list table "$family" "$table" >/dev/null 2>&1 && nft flush table "$family" "$table"
+    done
+  done
+fi
+if command -v iptables >/dev/null 2>&1; then
+  iptables -t nat -F 2>/dev/null || true
+  iptables -t filter -F 2>/dev/null || true
+fi
+if command -v ip6tables >/dev/null 2>&1; then
+  ip6tables -t nat -F 2>/dev/null || true
+  ip6tables -t filter -F 2>/dev/null || true
+fi
+if command -v systemctl >/dev/null 2>&1; then
+  systemctl restart networking.service 2>/dev/null || service networking restart
+  systemctl list-unit-files | grep -q '^ndpresponder.service' && systemctl restart ndpresponder.service
+else
+  service networking restart
+fi
+if command -v iptables-save >/dev/null 2>&1 && command -v iptables-restore >/dev/null 2>&1; then
+  iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
+  iptables-save > /etc/iptables/rules.v4
+fi
 rm -rf vmlog
 rm -rf vm*
 ```
