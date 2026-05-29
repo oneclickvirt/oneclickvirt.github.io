@@ -44,6 +44,11 @@ Because the original environment may be missing ```ifupdown``` or ```ifupdown2``
 
 If the host itself exists SLAAC assigned IPV6 address, will be able to choose whether to use the largest IPV6 subnet range, the default carriage return does not use the largest IPV6 subnet range only use the local IPV6, if you subsequently need to attach a separate IPV6 address to the virtual machine/container, the option must be selected ```y```.
 
+:::tip
+If you are installing on an ARM architecture (such as a server running the Oracle platform), after installing Debian via DD, be sure to switch to the [linuxmirrors](https://linuxmirrors.cn/) repository. Use the Alibaba Cloud repository to avoid missing dependencies in the native environment, and then use the following command to install PVE.
+:::
+
+
 Command:
 
 ```shell
