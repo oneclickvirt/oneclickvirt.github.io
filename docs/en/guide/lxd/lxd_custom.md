@@ -139,7 +139,7 @@ The downside is that the addresses are dark/dirty, and cloudflare's cdn will mos
 
 Then open [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) and select```Option```for```TunnelBrokerNet```, another drop-down selection box to choose the name of the package you successfully installed previously, then paste what you copied in the input box.
 
-Then click```Covert```to convert the format, and wait for the page to refresh to show the converted configuration file.
+Then click ```Convert``` to convert the format, and wait for the page to refresh to show the converted configuration file.
 
 
 Then use vim or vi to modify the```/etc/network/interfaces```file to add content, or modify the following command to add new content
@@ -246,7 +246,7 @@ Copy the last red box of the page without the blank lines.
 Then open [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) and select```Option```for```TunnelBrokerCh```, another drop-down selection box to choose the name of the package you successfully installed previously, then paste what you copied in the input box.
 
 
-Then click```Covert```to convert the format, and wait for the page to refresh to show the converted configuration file.
+Then click ```Convert``` to convert the format, and wait for the page to refresh to show the converted configuration file.
 
 
 Then use vim or vi to modify the```/etc/network/interfaces```file to add content, or modify the following command to add new content
@@ -304,7 +304,7 @@ For these four lines, press ctrl+c to copy or right-click to copy
 
 Then open [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) and select```Option```for```ip4market```, another drop-down selection box to choose the name of the package you successfully installed previously, then paste what you copied in the input box.
 
-Then click```Covert```to convert the formatting
+Then click ```Convert``` to convert the formatting
 
 ![](images/lxd17.png)
 
@@ -345,7 +345,7 @@ The above content will appear, copy all the boxed parts without blank lines.
 
 Then open [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) and select```Option```for```NetAssist```, another drop-down selection box to choose the name of the package you successfully installed previously, then paste what you copied in the input box.
 
-Then click on```Covert```to convert the formatting
+Then click ```Convert``` to convert the formatting
 
 ![c](images/lxd20.png)
 

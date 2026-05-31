@@ -64,7 +64,7 @@ If you need to specify the path of a non-system disk as the default pool, then y
 If the corresponding disk has 18 Gigabytes of free hard disk space in addition to the occupied space and you want to open a 15 Gigabyte storage pool, follow the command line prompts to enter ```15```.
 
 :::tip
-The execution process **may** require a **manual reboot** to load the storage type into the kernel, the installation is completed at the end of the execution will **automatically reboot** the server, the first time after the complete installation of the reboot will take about 400 ~ 500 seconds, please be patient
+The process **may** require a **manual reboot** to load storage drivers into the kernel. At the end of installation, the server may **automatically reboot**. The first full reboot can take about 400-500 seconds.
 :::
 
 :::warning
@@ -123,16 +123,16 @@ apt-get install incus -y
 incus -h
 ```
 
-If there are no exceptions, continue execution
+If no errors occur, continue with:
 
 ```
 incus admin init
 ```
 
-Just enter the default for the normal options
+For standard options, keep the defaults.
 
 Choose the size of the physical disk (hint: select the default option with a minimum of 1GB). Generally, I fill in the available disk space minus the memory size, then multiply by 0.95 and round down. Here, I entered 10GB.
 
-Remember to select 'no' for options containing 'auto' when prompted to update the image, in order to avoid occupying the system.
+When prompted about automatic image updates, choose `no` to avoid unnecessary resource usage.
 
 

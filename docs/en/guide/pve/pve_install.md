@@ -38,7 +38,7 @@ All modified files have been set to read-only mode to avoid overwriting after re
 
 If you need to edit these files later, run ```chattr -i <file>``` first to remove read-only protection, then run ```chattr +i <file>``` after editing.
 
-You will be prompted to reboot your system once during the execution process, **After rebooting, be sure to wait at least 20 seconds to make sure the system does not reboot automatically again**.
+During execution, you may be prompted to reboot once. After reboot, wait at least 20 seconds to confirm there is no additional automatic reboot.
 
 Some source environments are missing ```ifupdown``` or ```ifupdown2```. The installer may deploy helper components and trigger an additional reboot. Wait about 20 seconds after boot to confirm no further automatic reboot is pending.
 
@@ -89,7 +89,7 @@ This step can cause SSH disconnections if networking changes are applied before 
 :::
 
 :::tip
-If the host needs to attach an IPv6 tunnel (add an IPv6 subnet to a host that does not have an IPv6 address) before executing this command, please check the [IPv6 free subnet attachment](https://www.spiritlhl.net/en/guide/incus/incus_custom.html#attach-free-ipv6-address-segments-to-host-machines) section to attach to the corresponding configuration file, but please **ignore** 'initial environment modifications' and attach directly, and then execute the following one-click gateway configuration commands after verifying that you have an IPv6 address.
+If the host needs an IPv6 tunnel (to attach an IPv6 subnet on a host without native IPv6), see [IPv6 free subnet attachment](https://www.spiritlhl.net/en/guide/incus/incus_custom.html#attach-free-ipv6-address-segments-to-host-machines). In that guide, skip the "initial environment modifications" section, apply only the tunnel attachment steps, confirm IPv6 is available, then run the gateway configuration command below.
 :::
 
 - If vmbr0 is not created, it is automatically created with the same logic as the main installation

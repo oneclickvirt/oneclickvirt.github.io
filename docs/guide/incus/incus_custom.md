@@ -145,7 +145,7 @@ default_route=$(ip -6 route show | awk '/default via/{print $3}') && [ -n "$defa
 
 然后打开 [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) 选择```Option```为```TunnelBrokerNet```，另一个下拉选择框选择你之前安装成功的包名，然后在输入框内粘贴你复制的内容
 
-然后点击```Covert```转换格式，等待页面刷新显示转换格式后的配置文件内容
+然后点击```Convert```转换格式，等待页面刷新显示转换格式后的配置文件内容
 
 然后用vim或者vi命令修改```/etc/network/interfaces```文件增加内容，或者修改以下命令新增
 
@@ -223,7 +223,7 @@ route -A inet6 add ::/0 dev he-ipv6
 
 然后打开 [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) 选择```Option```为```TunnelBrokerCh```，另一个下拉选择框选择你之前安装成功的包名，然后在输入框内粘贴你复制的内容
 
-然后点击```Covert```转换格式，等待页面刷新显示转换格式后的配置文件内容
+然后点击```Convert```转换格式，等待页面刷新显示转换格式后的配置文件内容
 
 然后用vim或者vi命令修改```/etc/network/interfaces```文件增加内容，或者修改以下命令新增
 
@@ -275,7 +275,7 @@ Client IPv6
 
 然后打开 [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) 选择```Option```为```ip4market```，另一个下拉选择框选择你之前安装成功的包名，然后在输入框内粘贴你复制的内容
 
-然后点击```Covert```转换格式
+然后点击```Convert```转换格式
 
 ![](images/incus17.png)
 
@@ -298,7 +298,7 @@ systemctl restart networking
 
 #### netassist_ua
 
-这个平台你在切换网络管理时务必使用```ifupdown2```而不是```ifupdown2```安装包，该平台使用sit协议，而sit协议需要在```ifupdown2```控制的环境中使用
+这个平台在切换网络管理时务必使用```ifupdown2```，而不是```ifupdown```；该平台使用 sit 协议，需在该网络管理环境中使用。
 
 类似上述的操作，先在 [https://tb.netassist.ua/](https://tb.netassist.ua/) 注册一个账户先，注册后点击激活的邮件，激活页面会有密码显示，记得记录
 
@@ -318,7 +318,7 @@ systemctl restart networking
 
 然后打开 [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) 选择```Option```为```NetAssist```，另一个下拉选择框选择你之前安装成功的包名，然后在输入框内粘贴你复制的内容
 
-然后点击```Covert```转换格式
+然后点击```Convert```转换格式
 
 ![c](images/incus20.png)
 

@@ -41,6 +41,6 @@ containerd 方案**不支持 KVM/QEMU 虚拟机**，仅支持 Linux 容器（LXC
 - 宿主机系统：Ubuntu、Debian、RockyLinux 9+、AlmaLinux 9+、CentOS 9+、Alpine、Arch
 - 架构：x86_64（amd64）或 ARM64
 - 内核需支持 overlay 文件系统
-- 网络能连接 Github 的 raw 界面即可
+- 网络能连接 GitHub 的 Raw 页面即可
 - 空闲硬盘有 3G 以上即可
 - **不需要 KVM 硬件支持**

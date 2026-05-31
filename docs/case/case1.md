@@ -29,7 +29,7 @@ Shell 版本：[https://github.com/spiritLHLS/ecs](https://github.com/spiritLHLS
 |---------------------------|--------------|---------------------------|---------------|
 | amd64                     | amd64        | Linux                     | Linux         |
 | arm64                     | arm64        | Windows                   | Windows       |
-| arm                       |              | MacOS(Darwin)             | MacOS         |
+| arm                       |              | macOS(Darwin)             | macOS         |
 | 386                       |              | FreeBSD                   |               |
 | mips,mipsle               |              | Android                   |               |
 | mips64,mips64le           |              |                           |               | 
@@ -68,7 +68,7 @@ Shell 版本：[https://github.com/spiritLHLS/ecs](https://github.com/spiritLHLS
 
 ## **使用说明**
 
-### **Linux/FreeBSD/MacOS**
+### **Linux/FreeBSD/macOS**
 
 #### **一键命令**
 
@@ -355,7 +355,7 @@ go build -o goecs
 ```bash
 # 编译 Windows 版本
 GOOS=windows GOARCH=amd64 go build -o goecs.exe
-# 编译 MacOS 版本
+# 编译 macOS 版本
 GOOS=darwin GOARCH=amd64 go build -o goecs_darwin
 ```
 </details>

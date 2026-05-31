@@ -4,9 +4,9 @@ outline: deep
 
 # Preface
 
-The following is the introduction of the non-customized part, the customized part has its own corresponding introduction, do not get confused!
+This page covers the standard (non-customized) workflow. Custom sections are documented separately.
 
-If your host does not have an IPv6 subnet and you want to assign IPv6 addresses to containers, then please check the ``Customize`` partition in the ``LXD`` module for the ``Attach a free IPv6 address segment`` to the host, and attach an IPv6 subnet to the host before installing the environment.
+If your host has no IPv6 subnet but you want to assign IPv6 addresses to containers, check the ``Customize`` section in the ``LXD`` module for ``Attach a free IPv6 address segment to the host``, then attach an IPv6 subnet before installation.
 
 Feel free to give the project a ```Star``` for free support!-->[https://github.com/oneclickvirt/lxd](https://github.com/oneclickvirt/lxd)
 
@@ -17,7 +17,7 @@ Hardware requirements.
 - Virtualization: KVM, VMWARE recommended.
 - Memory: At least 512MB of RAM
 - Hard disk: hard disk (system disk) at least 10G
-- Network: Independent IPv4 address, IPv6 is optional, bandwidth can download scripts on the line, the network can connect to the public network.
+- Network: dedicated IPv4 address recommended; IPv6 optional; outbound Internet access required to download scripts.
 
 PS: If the hardware is very good and has a lot of resources, you can use PVE to batch open KVM virtualized VMs [Jump](https://github.com/oneclickvirt/pve)
 
@@ -33,9 +33,9 @@ PS: If the hardware resources are even worse, virtualization is not supported, y
 
 - lxcfs has been set to be enabled by default, so that querying resources within a container uses the configured view rather than the host's view
 
-- Have blocked the container may be used to abuse the toolkit and IPv4 network TCP/UDP protocol ports ( 3389 8888 54321 65432 ), to prevent the container is used for scanning and blasting, and can be external process checking for problems automatically shut down
+- Includes default restrictions for abuse-prone toolchains and TCP/UDP ports (3389, 8888, 54321, 65432) to reduce scanning/bruteforce misuse risk.
 
-- Has supported one-click configuration of IPv6 addresses for LXC containers (provided that the mother hen has an IPv6 subnet, no IPv6 address is not configured), automatically adapted to the size of the subnet
+- Supports one-click IPv6 configuration for LXC containers when the host has a valid IPv6 subnet; subnet size is auto-detected.
 
 - Ensure that the disk you want to open is the default system disk (sda or sda1) and not the mounted disk (sdb and so on), if you are not sure, use ``fdisk -l`` and ``df`` to check.
 
@@ -45,7 +45,7 @@ PS: If the hardware resources are even worse, virtualization is not supported, y
 
 ## Detecting the environment
 
-**Use the subsequent script must execute this command to detect the hen whether it meets the requirements**
+**Before running subsequent scripts, execute this check to confirm the host meets requirements.**
 
 Command:
 

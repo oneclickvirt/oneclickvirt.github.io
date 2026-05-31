@@ -4,12 +4,12 @@ outline: deep
 
 # Introduction
 
-There are two methods of building
+There are two deployment methods.
 
 ## Setting Up Standalone
 
-- Generate only one docker
-- Can be configured to bind a separate IPv6 address, but requires a docker previously installed using the environment installation command of this set of scripts, and requires the host to be bound to at least the /112 IPv6 subnet
+- Generate a single Docker container
+- Can bind an independent IPv6 address, but requires Docker to be installed with this project's installer and a host IPv6 subnet of at least /112
 - Support for x86_64 and ARM architecture servers
 
 ### Download the Script
@@ -22,7 +22,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/onedo
 
 ### Example
 
-Running the supported variables are as follows
+Supported parameters are as follows:
 
 ```
 ./onedocker.sh name cpu memory password sshport startport endport <independent_ipv6> <system> <disk>
@@ -39,7 +39,7 @@ Currently, the system only supports selecting:
 
 with Debian being the default choice.
 
-The hard disk size can only be set by filling in the value if you have selected the option to support limiting the hard disk size during the previous Docker installation, it is not limited when not filled in by default.
+Disk size can be set only if you previously enabled disk-limit support during Docker installation. If omitted, disk size is unlimited by default.
 
 ```shell
 ./onedocker.sh test 1 512 123456 25000 34975 35000 N debian 5
@@ -78,7 +78,7 @@ docker exec -it test /bin/bash
 
 To exit the container, simply execute ```exit```.
 
-Inquiry Information
+Query Information
 
 ```shell
 cat Container_Name(change me)
@@ -90,7 +90,7 @@ The output format is
 Container_Name SSH_Port Root_Password Number_of_Cores Memory Start_of_Public_Port End_of_Public_Port
 ```
 
-The docker's ipv6 address can only be looked up within the container itself, it doesn't exist in the docker's configuration
+The container IPv6 address can only be checked from inside the container; it is not exposed in the default Docker output here.
 
 ## Batch Deployment
 
@@ -116,11 +116,11 @@ The output format is
 Container_Name SSH_Port Root_Password Number_of_Cores Memory Start_of_Public_Port End_of_Public_Port Disk_Size
 ```
 
-One line corresponds to information about a container, the docker's ipv6 address can only be looked up within the container itself, it doesn't exist in the docker's configuration.
+Each line corresponds to one container. The IPv6 address can only be checked from inside that container.
 
 ## Uninstall all Docker containers and images
 
-The following command offload ignores ndpresponder to prevent IPv6 configuration failure
+The following cleanup command keeps `ndpresponder` to avoid breaking IPv6 configuration.
 
 ```shell
 docker ps -a --format '{{.Names}}' | grep -vE '^ndpresponder' | xargs -r docker rm -f
@@ -156,7 +156,7 @@ curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/cre
 
 ## Start all containers after host reboot
 
-The default containers are not set to restart themselves after stopping, you need to execute the following command to start all stopped containers.
+By default, containers are not configured for auto-restart after host reboot. Run the following command to start all stopped containers.
 
 ```
 docker start $(docker ps -aq)
@@ -164,7 +164,7 @@ docker start $(docker ps -aq)
 
 ## Start SSH service for all containers after host reboot
 
-Since the container itself does not have a daemon, the SSH service cannot start itself, and you need to execute the following command to start the SSH process for all containers.
+Because these containers do not run a full init system by default, SSH may not auto-start. Use the following command to start SSH in all running containers.
 
 ```
 container_ids=$(docker ps -q)

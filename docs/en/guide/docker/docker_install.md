@@ -6,7 +6,7 @@ outline: deep
 
 Support for running Docker virtualization on various systems, including Linux, Android, and Windows.
 
-If your host does not have an IPv6 subnet and you want to assign IPv6 addresses to containers, then please check the ``Customize`` partition in the ``LXD`` module for the ``Attach a free IPv6 address segment`` to the host, and attach an IPv6 subnet to the host before installing the environment.
+If your host has no IPv6 subnet but you want to assign IPv6 addresses to containers, check the ``Customize`` section in the ``Docker`` module for ``Attach a free IPv6 address segment to the host``, then attach an IPv6 subnet before installation.
 
 ## Setting Up Virtual Memory
 
@@ -48,7 +48,7 @@ bash dockerinstall.sh
 ```
 
 :::tip
-The environment installation process may require you to reboot the server and then execute the script again, see the instructions after the script is run for more details
+The installation process may require a reboot. If prompted, reboot the server and run the script again.
 :::
 
 ## Detect whether Docker supports limiting container hard disk size

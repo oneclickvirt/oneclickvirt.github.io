@@ -1,11 +1,11 @@
 # Introduction
 
-The following is an introduction to the non-customized sections. Please ensure that you don't confuse them with the customized parts.
+This page introduces the standard (non-customized) workflow.
 
-If your host does not have an IPv6 subnet and you want to assign IPv6 addresses to containers, then please check the ``Customize`` partition in the ``incus`` module for the ``Attach a free IPv6 address segment`` to the host, and attach an IPv6 subnet to the host before installing the environment.
+If your host has no IPv6 subnet but you want to assign IPv6 addresses to containers, check the ``Customize`` section in the ``Docker`` module for ``Attach a free IPv6 address segment to the host``, then attach an IPv6 subnet before installation.
 
 :::warning
-If the host has an IPv6 network, the installation will change the network structure of the host, please make sure that the host can reset the system at any time and that there is no important data on the host before running.
+If the host has IPv6 networking, installation may change host network structure. Ensure the host can be recovered/reinstalled at any time, and do not run on machines with critical data.
 :::
 
 Feel free to give the project a ```Star``` for free support!-->[https://github.com/oneclickvirt/docker](https://github.com/oneclickvirt/docker)
@@ -21,7 +21,7 @@ Containers are created as unprivileged by default, and Docker daemon sockets are
 
 By default, lxcfs is installed and enabled, so that when querying resources within a container, CPU and memory use the configured view instead of the host's view.
 
-By default, you can choose whether or not to share the hard disk of the host machine, and you can choose whether or not to install it as an environment that can limit the size of the hard disk during Docker installation.
+By default, the installer lets you choose whether to share host disk space and whether to enable container disk-size limits.
 
 ## Configuration requirements
 

@@ -4,20 +4,20 @@ outline: deep
 
 # LXD
 
-If your host does not have an IPv6 subnet and you want to assign IPv6 addresses to containers, then please check the ```Customize``` partition in the ```LXD``` module for the ```Attach a free IPv6 address segment``` to the host, and attach an IPv6 subnet to the host before installing the environment.
+If your host has no IPv6 subnet but you want to assign IPv6 addresses to containers, check the ```Customize``` section in the ```LXD``` module for ```Attach a free IPv6 address segment to the host```, then attach an IPv6 subnet before installation.
 
 
 ## Setting up virtual memory (SWAP) (optional, not required)
 
 :::tip
-Memory to open some swap lest the machine blow up, if your host computer does not have enough memory and a lot of free hard disk.
+If your host has limited memory and enough free disk space, add swap to reduce OOM risk.
 :::
 
 Unit conversion: Enter 1024 to generate 1G SWAP-virtual memory, virtual memory occupies hard disk space.
 
 When the actual memory is not enough, the virtual memory will be automatically used for memory usage, but it will bring high IO usage and CPU performance.
 
-Refer to the description of the organization's related project [Jump](https://github.com/oneclickvirt/ecs/blob/master/README_NEW_USER.md) This opens the size of virtual memory
+For swap sizing guidance, refer to [this guide](https://github.com/oneclickvirt/ecs/blob/master/README_NEW_USER.md).
 
 | Physical Memory Size | Recommended SWAP Size |
 | -------------------- | --------------------- |
@@ -142,15 +142,15 @@ Use the command patch before installing lxd
 snap install core
 ```
 
-If there are no exceptions, the results of the above three lines of commands are as follows
+If no errors occur, the result of the commands above should look like this:
 
 ![](images/lxdd0.png)
 
-Just enter the default for the normal options
+For standard options, keep the defaults.
 
 Choose the size of the physical disk (hint: select the default option with a minimum of 1GB). Generally, I fill in the available disk space minus the memory size, then multiply by 0.95 and round down. Here, I entered 10GB.
 
-Remember to select 'no' for options containing 'auto' when prompted to update the image, in order to avoid occupying the system.
+When prompted about automatic image updates, choose `no` to avoid unnecessary resource usage.
 
 Test whether symbolic links are functioning in LXC.
 
@@ -158,13 +158,13 @@ Test whether symbolic links are functioning in LXC.
 lxc -h
 ```
 
-If an error is reported then execute the following command to soft connect the lxc command
+If an error is reported, run the following command to add an `lxc` alias:
 
 ```bash
 ! lxc -h >/dev/null 2>&1 && echo 'alias lxc="/snap/bin/lxc"' >> /root/.bashrc && source /root/.bashrc
 export PATH=$PATH:/snap/bin
 ```
 
-After connecting, test the lxc command again to see if there is an error about not being able to find it
+Then test `lxc` again to confirm it can be found.
 
 

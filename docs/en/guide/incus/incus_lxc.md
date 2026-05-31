@@ -12,10 +12,10 @@ A portion of the available system parameters are shown here for your reference:
 - ubuntu18, ubuntu20, ubuntu22
 - centos8, centos9 (actually opened out of the Stream version)
 - alpine3.15, alpine3.16, alpine3.17, alpine3.18
-- openwrt21，openwrt22，fedora37，fedora38，fedora39
-- rockylinux8，rockylinux9，oralce8，oracle9
-- oralce7，centos7 (CGroupV1 needs to be enabled in GRUB or it won't start.)
-- kali，archlinux
+- openwrt21, openwrt22, fedora37, fedora38, fedora39
+- rockylinux8, rockylinux9, oracle8, oracle9
+- oracle7, centos7 (CGroupV1 needs to be enabled in GRUB or it won't start.)
+- kali, archlinux
 
 * Note that **the combination of lowercase letters + numbers** or **only lowercase letters**, try it yourself, if the search is not the system will automatically exit the script
 * The version number can be with English decimal point, in order to adapt to the alpine version number has been supported.
@@ -47,19 +47,19 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/buildc
 . /buildct.sh name Cpu_num Memory_size Hard_disk_size SSH_port Extranet_start_port Extranet_stop_port Download_speed Upload_speed Whether_IPV6_is_enabled(Y or N) System(leave blank for debian11)
 ```
 
-Memory size is calculated in MB, hard disk size is calculated in GB, download speed upload speed is calculated in Mbit, whether to enable IPv6 does not have to fill in Y or N, no this parameter can also be left blank default does not enable IPv6
+Memory is in MB, disk size in GB, and download/upload speeds in Mbit. For IPv6, you can provide `Y` or `N`, or leave it empty (default: disabled).
 
-If ```external start port`` and ```external stop port`` are both set to 0, then we don't do interval port mapping, only the basic SSH port is mapped, note that ```can't be null``, and it needs to be set to 0 if it's not to be mapped.
+If both ```external start port``` and ```external stop port``` are set to `0`, no port-range mapping is created and only SSH is mapped. These fields cannot be empty.
 
-Support custom container system, do not fill in the leave blank default use debian11, pay attention to the incoming parameters for the system name + version number
+Custom container systems are supported. If left empty, `debian11` is used by default. Use the format `system + version`.
 
 ### Example
 
-Here is the information about the example chick that is being raised:
+Example container configuration:
 
 | Attribute                   | Value           |
 |-----------------------------|-----------------|
-| container's Name              | test            |
+| Container Name               | test            |
 | Username for SSH Login      | root            |
 | Password for SSH Login      | Randomly generated |
 | Number of CPU Cores         | 1               |
@@ -87,9 +87,9 @@ For example, the information for the query example is
 cat test
 ```
 
-If you have already generated chicks through the above methods and still need to batch generate chicks, you can use a customized batch generation version of the script, but note that you should first delete the test chicks before batch generating chicks
+If you already created a test container and want to do batch generation, delete the test container first.
 
-### Delete Test Chick
+### Delete Test Container
 
 ```shell
 incus stop test
@@ -101,14 +101,14 @@ ls
 
 ## Normal version batch generation
 
-Opened Chick Configuration:
+Batch Profile:
 
 - 1 core 256MB RAM 1GB hard disk limited to 300Mbit bandwidth
 - With 1 SSH port, 24 extranet ports
 - Default memory and hard disk size
 
 :::tip
-incus if the command is no problem, the execution of the initialization of the opening of the containers, this step is best to put ```screen`` in the background to suspend the execution of the opening of the containers, the length of time with you to open a few and the mother hen configuration-related
+If `incus` commands run normally, proceed with initialization. It is recommended to run this in a `screen` session because runtime depends on host resources and the number of containers.
 :::
 
 Execute the following command to load the boot script
@@ -119,24 +119,24 @@ Command:
 curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/init.sh -o init.sh && chmod +x init.sh && dos2unix init.sh
 ```
 
-The following command opens **10** chicks with the name prefix **tj**.
+The following command opens **10** containers with prefix **tj**.
 
 ```shell
 ./init.sh tj 10
 ```
 
-Sometimes there is a problem with the path where init.sh is run, in this case it is recommended to add sudo in front of it to force it to run in the root directory
+If path issues occur when running `init.sh`, prepend `sudo` and run it from the root directory.
 
 ## Bulk generation of pure SSH port versions
 
-Opened Chick Configuration:
+Batch Profile:
 
 - 1 core 128MB RAM 1GB hard disk limited to 300Mbit bandwidth
 - Only one SSH port
 - Unable to mount warp
 
 :::tip
-incus if the command is no problem, the execution of the initialization of the opening of the chick, this step is best to put the ```screen`` in the background to hang the execution of the opening of the chick, the length of time you open the chick with the opening of a few and the mother hen configuration-related
+If `incus` commands run normally, proceed with initialization. Use a `screen` session to avoid interruption; runtime depends on host resources and container count.
 :::
 
 Load boot script
@@ -147,13 +147,13 @@ Command:
 curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/least.sh -o least.sh && chmod +x least.sh && dos2unix least.sh
 ```
 
-The last line of the following command opens **10** chicks with the chick name prefix **tj**
+The last command below opens **10** containers with prefix **tj**.
 
 ```shell
 ./least.sh tj 10
 ```
 
-Sometimes there is a problem with the path where last.sh is run, in this case it is recommended to force the root directory to run by adding sudo in front of it.
+If path issues occur when running `least.sh`, prepend `sudo` and run it from the root directory.
 
 ## Custom Batch Generation of Versions
 
@@ -168,28 +168,28 @@ Command:
 curl -L https://github.com/oneclickvirt/incus/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
 ```
 
-Can be run multiple times to batch generate chicks, and inherit the previous part has been generated in the back to add, customizable memory and hard disk size
+This script can be run multiple times. It appends new containers while inheriting previous configuration, with customizable memory and disk size.
 
-## View the information of the batch opened chicks
+## View Batch Container Information
 
-After opening the chicks, the specific information will be generated in the log file in the current directory, with the following format
+After creation, container information is written to a log file in the current directory in this format:
 
 ```shell
 container_1_Name Password SSH_Port Public_Port_Start Public_Port_End
 container_2_Name Password SSH_Port Public_Port_Start Public_Port_End
 ```
 
-To view it, simply print the log file by executing the following command in the current directory
+To view it, print the log file from the current directory:
 
 ```shell
 cat log
 ```
 
 :::warning
-Don't use the chicks opened by this script as a production environment, incus virtualization doesn't support changing kernel, dd, turning on bbr, etc.
+Do not use containers created by this script as production environments. Incus containers do not support kernel replacement, DD reinstall flows, BBR toggling, and similar host-level changes.
 :::
 
-## Some common incus commands
+## Common Incus Commands
 
 View all containers:
 

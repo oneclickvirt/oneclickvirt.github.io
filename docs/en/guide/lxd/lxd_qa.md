@@ -23,9 +23,9 @@ to see if the lxc command is fixed.
 
 Enable CGroup V1: To enable CGroup V1 on an Ubuntu system, you need to edit the kernel boot parameters.
 
-Please note that before changing kernel boot parameters, make sure to backup important data and settings to prevent unexpected problems.
+Please note that before changing kernel boot parameters, make sure to back up important data and settings to prevent unexpected problems.
 
-Edit the ```/etc/default/grub`` file and add ``systemd.unified_cgroup_hierarchy=0`` to the end of the parameters in ``GRUB_CMDLINE_LINUX_DEFAULT``, just like:
+Edit the ```/etc/default/grub``` file and add ``systemd.unified_cgroup_hierarchy=0`` to the end of ``GRUB_CMDLINE_LINUX_DEFAULT``, like this:
 
 ```
 GRUB_CMDLINE_LINUX_DEFAULT="quiet splash systemd.unified_cgroup_hierarchy=0"
@@ -39,11 +39,11 @@ sudo update-grub
 
 Reboot the system for the changes to take effect
 
-If the above changes still do not support the opening of centos7, try using a different host system.
+If CentOS 7 still cannot start after this change, try a different host system.
 
 ## Requires both LXD and Docker compatibility to exist
 
-If left unaddressed, docker will override the iptables setting and cause LXD to have no network link
+If left unaddressed, Docker can override iptables rules and break LXD networking.
 
 You need to install a scheduled task to detect and fix this issue
 
