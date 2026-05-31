@@ -6,7 +6,7 @@ outline: deep
 
 Support for running Docker virtualization on various systems, including Linux, Android, and Windows.
 
-If your host does not have an IPV6 subnet and you want to assign IPV6 addresses to containers, then please check the ``Customize`` partition in the ``LXD`` module for the ``Attach a free IPV6 address segment`` to the host, and attach an IPV6 subnet to the host before installing the environment.
+If your host does not have an IPv6 subnet and you want to assign IPv6 addresses to containers, then please check the ``Customize`` partition in the ``LXD`` module for the ``Attach a free IPv6 address segment`` to the host, and attach an IPv6 subnet to the host before installing the environment.
 
 ## Setting Up Virtual Memory
 
@@ -26,14 +26,14 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 
 ## Environment Setup
 
-- Supported systems: Ubuntu, Debian, RockyLinux 9+, AlmaLinux 9+, Centos 9+, Alpine(After installing bash on your own), Arch
-- Detect the system environment and install the corresponding components
-- Install docker and docker-compose.
-- Download some configuration scripts required by default
-- Detect if there is an IPV6 address, check if it is greater than or equal to /112, and if so, configure the docker's ipv6 network.
-- If all the above conditions are met, create ndpresponder docker and radvd so that IPV6 allocation supports ndp broadcasting and auto-allocation.
-- Support for x86_64 and ARM architecture servers
-- The installation process will ask you to enter some options, select the Docker installation path, select whether the Docker installation can limit the hard disk
+- Supported systems: Ubuntu, Debian, RockyLinux 9+, AlmaLinux 9+, CentOS 9+, Alpine (install bash first), Arch
+- Detects system environment and installs required components
+- Installs Docker and Docker Compose
+- Downloads required helper scripts
+- Detects IPv6 availability; if subnet size is >= /112, configures Docker IPv6 networking
+- If requirements are met, deploys `ndpresponder` and `radvd` for IPv6 NDP and auto-allocation behavior
+- Supports x86_64 and ARM servers
+- Installer prompts include Docker install path and optional disk-limit capability
 
 Command:
 
@@ -57,7 +57,7 @@ The environment installation process may require you to reboot the server and th
 curl -L https://raw.githubusercontent.com/oneclickvirt/docker/refs/heads/main/extra_scripts/disk_test.sh -o disk_test.sh && chmod +x disk_test.sh && bash disk_test.sh
 ```
 
-Or specify a different storage limit size (in MB), the default test of the 500MB limit of the container whether the limit is successful
+Or specify a different storage limit size (in MB). By default, the script tests whether a 500MB container disk limit works.
 
 ```shell
 # 1GB Limit
@@ -68,16 +68,8 @@ bash disk_test.sh 1000
 
 One-click uninstall of the entire Docker environment, including all containers, images, networks, systemd services, and binaries:
 
-International
-
 ```shell
 bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/dockeruninstall.sh)
-```
-
-China Mainland
-
-```shell
-bash <(curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/docker/main/dockeruninstall.sh)
 ```
 
 :::warning

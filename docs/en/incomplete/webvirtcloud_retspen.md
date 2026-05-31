@@ -106,7 +106,7 @@ The default login for the image is:
 
 After booting, you will find that the hard disk is only the size of the original image, at this time you need to adjust the size of the hard disk, you need to shut down the computer again, at this time, you can see the buttons on the following page is available and the size of the hard disk is also recognized.
 
-Without the first boot, the size of the hard disk is not recognized, recognition can not be modified, so the first switch is necessary.
+Without the first boot, the virtual disk size is not fully recognized and cannot be resized correctly. So this first boot step is required.
 
 ![resize](images/resize.jpg)
 
@@ -118,7 +118,7 @@ Check the disk path and remaining blank space unallocated:
 lsblk
 ```
 
-Then use the following command to resizeen the disk
+Then use the following command to resize the disk
 
 ```shell
 fdisk /dev/vda

@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# OneClickVirt
+# OneClickVirt Installation
 
 Distinguish between the panel side and the controlled side. The controlled side needs to have the corresponding virtualization environment installed in advance. You can use the main installation of other virtualization in one-click virtualization for environment installation. The control side is actually just a panel, with no virtualization environment requirements.
 
@@ -41,8 +41,6 @@ Two methods are distinguished here:
 ##### Linux
 
 ###### Download Script
-
-International
 
 ```shell
 curl -L https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/install.sh -o install.sh && chmod +x install.sh

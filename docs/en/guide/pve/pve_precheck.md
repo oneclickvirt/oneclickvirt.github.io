@@ -4,19 +4,19 @@ outline: deep
 
 # Preface
 
-The following is the introduction of the non-customized part, the customized part has its own corresponding introduction, do not get confused!
+This page describes the standard (non-customized) workflow. Custom workflows are documented separately.
 
-If there are unadapted merchants or machines welcome to contact [@spiritlhl_bot](https://t.me/spiritlhl_bot), will try to support it sometime!
+If your provider or machine is not yet supported, contact [@spiritlhl_bot](https://t.me/spiritlhl_bot); support may be added in a future update.
 
 :::warning
-Will change the network structure of the host, please make sure that the host can reset the system at any time and that there is no important data on the host before running it.
+This process modifies host networking. Ensure the host can be reinstalled/recovered at any time and avoid running on hosts with critical data.
 :::
 
 Feel free to give the project a ```Star``` for free support!-->[https://github.com/oneclickvirt/pve](https://github.com/oneclickvirt/pve)
 
 ## Various requirements
 
-It is recommended that debian try to use the latest stable version of the system before use.
+Use the latest stable Debian release whenever possible.
 
 **Warning: This project only supports servers with a dedicated public IPv4 address**
 
@@ -27,33 +27,33 @@ This project relies on a fixed IPv4 address for network allocation and does not 
 
 If your server does not have a publicly routable static IPv4 address, please do not use this project.
 
-The one-click installation script of this project only adapts to Debian systems, non-Debian can not be installed through the APT source, the official only gives the image of Debian, other systems can only use the ISO installation, or use custom partitions and other ways to solve the problem in the FAQ partition.
+The one-click installation script currently targets Debian systems only. Non-Debian systems are not supported through the APT workflow in this project. For other systems, use ISO installation or the manual/custom methods described in the FAQ section.
 
 - System requirements: Debian 8+
 
 :::tip
-It is recommended to install debian11 instead of debian12+, because the latter is a beta version, and the debian11 installation is the stable version.
+Debian 11 was historically the most conservative choice for this workflow. If your environment supports it, newer stable Debian releases can also be used.
 :::
 
-- Hardware requirements: 2 cores 2G RAM ``x86_64`` or ``arm`` architecture server hard disk at least 20G
+- Hardware requirements: >= 2 CPU cores, >= 2 GB RAM, >= 20 GB disk on ``x86_64`` or ``arm`` architecture
 - Hardware requirements for KVM: VM-X or AMD-V support (some VPS and all Dedicated servers support).
 - If hardware or system requirements are not met, you can use ```incus``` to batch open LXC containers [Jump](https://github.com/oneclickvirt/incus)
 
-If you use IPV6 tunnels for IPV6 subnet attachment on the host, be sure to add the contents in the corresponding file when PVE is successfully installed but the gateway is not automatically set, and do not add IPV6 tunnels at the very beginning (without installing PVE).
+If you use IPv6 tunnels for IPv6 subnet attachment on the host, be sure to add the contents in the corresponding file when PVE is successfully installed but the gateway is not automatically set, and do not add IPv6 tunnels at the very beginning (without installing PVE).
 
-**Warning: If the host is a standalone server without IPMI can not reinstall the system themselves, do not use this script, please directly entrust the technician to manually ISO install PVE, do not use this project, otherwise it may result in loss of connectivity (some of the standalone servers network settings do not support hot-plugging)**
+**Warning: If your dedicated server has no IPMI or other remote rescue channel, and you cannot reinstall the system yourself, do not use this script. Ask your provider/technician to perform a manual ISO installation of PVE. Otherwise, you may lose connectivity on hosts that do not support safe hot network changes.**
 
 ## Setting up virtual memory (SWAP) (optional, not required)
 
 :::tip
-Memory to open some swap lest the machine blow up, if your host computer does not have enough memory and a lot of free hard disk.
+If your host has limited memory and enough free disk, adding swap can reduce OOM risk.
 :::
 
 Unit conversion: Enter 1024 to generate 1G SWAP-virtual memory, virtual memory occupies hard disk space.
 
 When the actual memory is not enough, the virtual memory will be automatically used for memory usage, but it will bring high IO usage and CPU performance.
 
-Refer to the description of the organization's related project [Jump](https://github.com/oneclickvirt/ecs/blob/master/README_NEW_USER.md) This opens the size of virtual memory
+For swap sizing reference, see [this guide](https://github.com/oneclickvirt/ecs/blob/master/README_NEW_USER.md).
 
 | Physical Memory Size | Recommended SWAP Size |
 | -------------------- | --------------------- |
@@ -72,12 +72,12 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 
 ## Detecting the environment
 
-- This project related scripts must be executed before the execution of this script to detect the environment, if it does not meet the requirements of the installation of PVE will not be able to use the subsequent scripts 
-- Detection of the local IPV6 network configuration (with or without IPV6 can be installed, just query) 
-- Detection of the hardware configuration meets the minimum requirements 
-- Detection of the hardware environment can be nested virtualization KVM type of servers, can not be nested virtualization KVM can also open QEMU TCG server, performance is poor 
-- Detect whether the system environment can be nested virtualization KVM type of server, can not be nested virtualization KVM can also open QEMU TCG server, performance is poor 
-- can not be nested virtualization KVM servers do not recommend the installation of the PVE, it is better to use [incus](https://github.com/oneclickvirt/incus) for better performance.
+- This pre-check must be run before other related scripts. If prerequisites are not met, later PVE scripts may fail.
+- Detects local IPv6 network status (informational; install itself does not require IPv6)
+- Verifies whether hardware meets minimum requirements
+- Detects whether the hardware supports nested KVM virtualization. If KVM is unavailable, VMs can still run with QEMU TCG emulation, but performance will be poor.
+- Detects whether the current system environment is suitable for nested KVM usage.
+- If nested KVM is unavailable, PVE is usually not recommended; [incus](https://github.com/oneclickvirt/incus) is often a better fit for performance and stability.
 
 Command:
 
@@ -85,7 +85,7 @@ Command:
 bash <(curl -sSLk https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/check_kernal.sh)
 ```
 
-If you need to update the IPV6 information before querying, then execute the following command before querying
+If you need to update the IPv6 information before querying, then execute the following command before querying
 
 ```bash
 rm -rf /usr/local/bin/pve_ipv6*

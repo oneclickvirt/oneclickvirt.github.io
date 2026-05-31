@@ -21,7 +21,6 @@
   },
   "homepage": "https://github.com/oneclickvirt/oneclickvirt.github.io#readme",
   "devDependencies": {
-    "sitemap": "^7.1.1",
     "vitepress": "^1.6.4"
   }
 }

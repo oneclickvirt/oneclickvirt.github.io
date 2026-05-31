@@ -2,13 +2,13 @@
 outline: deep
 ---
 
-# Setting Up MacOS Virtual Machine
+# Setting Up macOS Virtual Machine
 
 ## Prerequisites
 
-System and hardware configuration requirements left bar --> Configuration requirements
+See the left sidebar section `Configuration requirements` for system and hardware prerequisites.
 
-You can only set up a MacOS virtual machine when the environment detection confirms that the host machine supports KVM nested virtualization. Otherwise, it will be detected by hardware and cannot be set up.
+You can set up a macOS VM only when environment checks confirm nested KVM support on the host.
 
 ## Setting Up the Prerequisites
 
@@ -65,10 +65,10 @@ sonoma.iso.7z (Size: 14.41GB)
 sequoia.iso.7z (Size: 15.02GB)
 ```
 
-## MACOS Virtual Machine Template Setup
+## macOS Virtual Machine Template Setup
 
 - Systems ```high-sierra```, ```mojave```, ```catalina``` require at least 2 cores, 4G of RAM and 40G of hard disk to run.
-- ```big-sur``` and newer MACOS systems require at least 6 cores, 6G RAM and 50G hard disk.
+- ```big-sur``` and newer macOS versions require at least 6 cores, 6G RAM and 50G disk.
 - The newer the version of the system (the later the serial number of the download), the more hardware is required.
 - All images are boot disk images without any personal data, so disk allocation, login information setup, and network settings need to be manually configured according to the instructions.
 - You need to manually start the virtual machine from the web interface. Before starting, you can check if all templates meet your expectations.
@@ -115,13 +115,13 @@ Here is the information for the example VM:
 | VNC port          | 45901       |
 | System            | high-sierra |
 | Host storage disk | local       |
-| Independent IPV6  | N           |
+| Independent IPv6  | N           |
 
 :::tip
 Note that VMID can only use numbers from 100 to 256, other numbers are not available
 :::
 
-## MACOS System Boot and Installation
+## macOS System Boot and Installation
 
 After completing the previous steps, you can see a gray virtual machine waiting to be started in the panel.
 
@@ -203,15 +203,15 @@ After entering the settings interface, click the `Advanced` button to enter the 
 
 Fill in the static network configuration in the `TCP/IP` tab.
 
-Configure IPV4: `Manually`
+Configure IPv4: `Manually`
 
-IPV4 Address: `172.16.1.xxx` (replace xxx with the IP you want to bind, my vmid is 100, so I wrote 100 for convenience)
+IPv4 Address: `172.16.1.xxx` (replace xxx with the IP you want to bind, my vmid is 100, so I wrote 100 for convenience)
 
 Subnet Mask: `255.255.255.0`
 
 Router: `172.16.1.1`
 
-If you need to configure an IPV6 network, similar to the IPV4 settings above, you will need to fill in the public IPV6 address bound to the virtual machine (written in the Note box in the PVE panel), subnet mask 128, and the default gateway obtained by executing `cat /usr/local/bin/pve_check_ipv6` on the host.
+If you need to configure an IPv6 network, similar to the IPv4 settings above, you will need to fill in the public IPv6 address bound to the virtual machine (written in the Note box in the PVE panel), subnet mask 128, and the default gateway obtained by executing `cat /usr/local/bin/pve_check_ipv6` on the host.
 
 ![mac18](images/mac18.png)  
 
@@ -229,10 +229,10 @@ Now, opening the default browser and visiting any website will allow you to acce
 
 ## Remove ISO
 
-Manually click on the corresponding ```CD``` in the ```Hardware``` on the web side of ProxmoxVE and select ```Remove```, then restart the VM and you can use it directly.
+In Proxmox VE, open the VM ```Hardware``` tab, select the corresponding ```CD``` device, click ```Remove```, then restart the VM.
 
 ![wk](images/wk7.png)
 
-Macos system is to uninstall ```opencore.iso``` and ```xxxx (the system image used for installation).iso```, similar to the Windows system uninstallation of win image and virtio image in the example picture above.
+For macOS VMs, remove ```opencore.iso``` and ```<installation-image>.iso```, similar to how Windows examples remove installer/driver ISO devices.
 
 

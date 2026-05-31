@@ -8,23 +8,14 @@ Two methods for provisioning containers.
 
 ## Single Container Provisioning
 
-- Creates a single containerd container, automatically detects international or China mainland server
+- Creates a single containerd container
 - Can configure binding of an independent IPv6 address (requires host with public IPv6 and containerd-ipv6 network configured during installation)
 - Supports x86_64 and ARM64 architecture servers
 
 ### Download Script
 
-International
-
 ```shell
 curl -sSLO https://raw.githubusercontent.com/oneclickvirt/containerd/main/scripts/onecontainerd.sh
-chmod +x onecontainerd.sh
-```
-
-China Mainland
-
-```shell
-curl -sSLO https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/containerd/main/scripts/onecontainerd.sh
 chmod +x onecontainerd.sh
 ```
 
@@ -109,18 +100,8 @@ nerdctl logs ct1
 
 ### Run
 
-International
-
 ```shell
 curl -sSLO https://raw.githubusercontent.com/oneclickvirt/containerd/main/scripts/create_containerd.sh
-chmod +x create_containerd.sh
-./create_containerd.sh
-```
-
-China Mainland
-
-```shell
-curl -sSLO https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/containerd/main/scripts/create_containerd.sh
 chmod +x create_containerd.sh
 ./create_containerd.sh
 ```

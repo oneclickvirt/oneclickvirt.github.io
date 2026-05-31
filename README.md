@@ -10,13 +10,11 @@
 
 [https://www.spiritlhl.net/en/](https://www.spiritlhl.net/en/)
 
-一键虚拟化项目(One click virtualization) 
+一键虚拟化项目文档站点（OneClickVirt documentation site）
 
-Documentation for one-click virtualization
+提供 Proxmox VE、Incus、LXD、Docker 等虚拟化项目的一键安装与使用说明，同时收录相关工具与扩展项目文档。
 
-一键安装与使用 Proxmox-VE、incus、LXD、Docker 的说明文档，同时包含其他项目指南
-
-Documentation for one-click installation and use of Proxmox-VE, incus, LXD, Docker, and other project guides
+Documentation for one-click installation and usage of Proxmox VE, Incus, LXD, Docker, and related tools in the OneClickVirt ecosystem.
 
 ```
 webvirtcloud
@@ -30,9 +28,9 @@ bashvm
 webvirtmgr
 ```
 
-支持中英双语
+支持中英双语。
 
-Supports both Chinese and English
+Chinese and English are both supported.
 
 ## OneClickVirt
 

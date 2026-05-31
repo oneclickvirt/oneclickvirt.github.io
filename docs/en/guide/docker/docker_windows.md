@@ -10,7 +10,7 @@ outline: deep
 - Shares IP; Docker's NAT mapping is employed. You can choose whether to map to the external network or just the internal network.
 - The configured Windows system is set to use a maximum of 1 core, 2GB RAM, and 50GB hard disk by default. Actual usage may vary based on usage patterns.
 - No need for iptables for NAT mapping; port mappings are automatically deleted when containers are removed, making maintenance easier.
-- Ensure that the host machine supports nested virtualization, and currently, only X86_64 architecture systems are supported. I haven't compiled corresponding images for ARM devices at the moment.
+- Ensure that the host supports nested virtualization. Currently only x86_64 systems are supported; ARM images are not provided in this workflow.
 
 **The host machine needs to support nested virtualization and currently only supports systems based on the X86_64 architecture; I don't have an ARM machine on hand to compile the corresponding image at the moment.**
 
@@ -67,7 +67,7 @@ Before initiating the setup, ensure that the host machine has a disk size at lea
 
 During the creation process, the peak disk usage will be ```host_system_size + image_size + container_size```.
 
-For example, to set up a container with the name ```test```, the container with the lowest occupancy ```Windows 2019``` system, map the extranet RDP port ```13389``` and set it to ```extranet mapping``` (mapping to your server's extranet IPV4 address)
+For example, to set up a container with the name ```test```, the container with the lowest occupancy ```Windows 2019``` system, map the extranet RDP port ```13389``` and set it to ```extranet mapping``` (mapping to your server's extranet IPv4 address)
 
 ```shell
 ./onewindows.sh test 2019 13389 Y
@@ -75,7 +75,7 @@ For example, to set up a container with the name ```test```, the container with 
 
 After it, the default usernames are ```Administrator``` and ```vagrant```, with the default password being ```vagrant```.
 
-If you choose to open a mapped extranet port, be sure to log in and change the password of the corresponding account (both accounts may have, try it yourself), otherwise it may be abused by someone blasting
+If you expose an external mapped port, log in immediately and change passwords for all default accounts; otherwise the service may be abused by brute-force attacks.
 
 **Deletion**
 
@@ -166,7 +166,7 @@ We also offer a ready-to-use image with the system and configuration already int
 #### Download and Merge Split Files
 
 ```bash
-curl https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/docker/refs/heads/main/extra_scripts/mergew.sh -o mergew.sh
+curl https://raw.githubusercontent.com/oneclickvirt/docker/refs/heads/main/extra_scripts/mergew.sh -o mergew.sh
 chmod +x mergew.sh
 bash mergew.sh
 ```

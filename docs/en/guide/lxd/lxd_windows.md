@@ -99,7 +99,7 @@ Once the spinning stops, you'll enter the normal Windows VM installation process
 
 ![](images/win3.jpg)
 
-Here the hard disk can not be selected, choose to view the yellow tips in the lower left corner, and then follow the prompts will be offline hard disk online point to confirm the button, you can select the hard disk.
+If the disk is not selectable at this step, follow the yellow hint in the lower-left corner and set the disk from offline to online, then confirm. The disk will become selectable afterward.
 
 ![](images/wintj.jpg)
 
@@ -107,7 +107,7 @@ Here the hard disk can not be selected, choose to view the yellow tips in the lo
 
 ![](images/win4.jpg)
 
-Once the installation is complete, the virtual machine will automatically reboot a few times to update the network, and the web side of spice will show up in the user setup interface, while in the background you can use the ```lxc list``` to see that the network is automatically attached.
+After installation, the VM may reboot several times while network setup is finalized. In the SPICE web console you should see the user setup screen. In parallel, run ```lxc list``` to confirm network attachment.
 
 ![](images/win5.jpg)
 
@@ -125,7 +125,7 @@ The following image can be seen after startup (test visit a website)
 
 ![](images/win6.jpg)
 
-No need to configure your own network, lxd will automatically assign IPV4 addresses and connect to the network.
+No need to configure your own network, lxd will automatically assign IPv4 addresses and connect to the network.
 
 ## Remove the remote component to restart the browser mapping
 

@@ -8,9 +8,9 @@ outline: deep
 
 Enable CGroup V1: To enable CGroup V1 on an Ubuntu system, you need to edit the kernel boot parameters.
 
-Please note that before changing kernel boot parameters, make sure to backup important data and settings to prevent unexpected problems.
+Please note that before changing kernel boot parameters, make sure to back up important data and settings to prevent unexpected problems.
 
-Edit the ```/etc/default/grub`` file and add ``systemd.unified_cgroup_hierarchy=0`` to the end of the parameters in ``GRUB_CMDLINE_LINUX_DEFAULT``, just like:
+Edit the ```/etc/default/grub``` file and add ``systemd.unified_cgroup_hierarchy=0`` to the end of ``GRUB_CMDLINE_LINUX_DEFAULT``, like this:
 
 ```
 GRUB_CMDLINE_LINUX_DEFAULT="quiet splash systemd.unified_cgroup_hierarchy=0"
@@ -24,11 +24,11 @@ sudo update-grub
 
 Reboot the system for the changes to take effect
 
-If the above changes still do not support the opening of centos7, try using a different host system.
+If CentOS 7 still cannot start after this change, try a different host system.
 
 ## Requires both Incus and Docker compatibility to exist
 
-If left unaddressed, docker will override the iptables setting and cause Incus to have no network link
+If left unaddressed, Docker can override iptables rules and break Incus networking.
 
 You need to install a scheduled task to detect and fix this issue
 
@@ -45,7 +45,7 @@ You need to install a timed task to detect and fix the problem, and check the us
 * Download
 
 ```shell 
-curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/extra_scripts/incus_fixed_restart.sh -o incus_fixed_restart. sh && chmod +x incus_fixed_restart.sh && bash incus_fixed_restart.sh 
+curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/extra_scripts/incus_fixed_restart.sh -o incus_fixed_restart.sh && chmod +x incus_fixed_restart.sh && bash incus_fixed_restart.sh
 ```
 
 * Installation
@@ -70,24 +70,9 @@ Removes ```cron``` tasks, script files, log files, and count files.
 /usr/local/bin/incus_fixed_restart.sh 
 ```
 
-## Currently verified VPS vendors that can open containers with separate IPV6 addresses.
+## Currently verified VPS vendors that can open containers with separate IPv6 addresses.
 
 [kuroit](https://my.kuroit.com/aff.php?aff=5) Phoenix, USA regular
 
 [datalix](https://t.me/+UHVoo2U4VyA5NTQ1/338) German AMD Promotions
-## No-CDN mode (WITHOUTCDN)
-
-If your network is stable and useful, or you want to fully disable CDN acceleration, set this before running scripts:
-
-```shell
-export WITHOUTCDN=TRUE
-```
-
-You can also apply it to a single command only:
-
-```shell
-WITHOUTCDN=TRUE
-```
-
-When enabled, scripts will no longer try CDN acceleration URLs during execution.
 

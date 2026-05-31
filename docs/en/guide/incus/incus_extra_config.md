@@ -8,11 +8,11 @@ outline: deep
 The following configurations may increase the load on the server. Only install them if necessary.
 :::
 
-## Automatic IPV6 Address Configuration
+## Automatic IPv6 Address Configuration
 
 - (Optional, not required if not using)
-- **This script is only suitable for servers that have an ```IPV6``` subnet with a prefix, and the server has bound the ```first IP``` of the subnet as its ```IPV6 address or IPV6 gateway```.**
-- Automatically configures ```IPV6``` addresses for incus containers created with incus.
+- **This script is only suitable for servers that have an ```IPv6``` subnet with a prefix, and the server has bound the ```first IP``` of the subnet as its ```IPv6 address or IPv6 gateway```.**
+- Automatically configures ```IPv6``` addresses for incus containers created with incus.
 - Integrated into ```buildct.sh``` and can be controlled by variables without needing to be downloaded beforehand. You don't need to manually use this script; when using ```buildct.sh```, configure with variable Y to enable it.
 
 Download Script
@@ -23,7 +23,7 @@ Command:
 curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/build_ipv6_network.sh -o build_ipv6_network.sh && chmod +x build_ipv6_network.sh
 ```
 
-Automatically configure IPV6 mapped addresses for containers
+Automatically configure IPv6 mapped addresses for containers
 
 ```bash
 bash build_ipv6_network.sh Container_Name(change_me)
@@ -31,7 +31,7 @@ bash build_ipv6_network.sh Container_Name(change_me)
 
 A message is printed when the mapping is complete (Default mapping without iptables)
 
-Example (automatically configure the test container with an IPV6 address, a test_v6 file is written when the configuration is complete)
+Example (automatically configure the test container with an IPv6 address, a test_v6 file is written when the configuration is complete)
 
 ```bash
 bash build_ipv6_network.sh test
@@ -45,7 +45,7 @@ Use ip6tables for mapping
 bash build_ipv6_network.sh Container_name Y
 ```
 
-If ip6tables is used for mapping, remove all IPV6 mapped rules available:
+If ip6tables is used for mapping, remove all IPv6 mapped rules available:
 
 ```bash
 ip6tables -t nat -F PREROUTING
@@ -56,7 +56,7 @@ netfilter-persistent reload
 service netfilter-persistent restart
 ```
 
-Uninstall the IPV6 address binding daemon and corresponding files
+Uninstall the IPv6 address binding daemon and corresponding files
 
 ```shell
 systemctl stop add-ipv6.service

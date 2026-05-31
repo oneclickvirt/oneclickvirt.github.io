@@ -26,11 +26,11 @@ Administrators can click on the avatar in the upper right corner, where the drop
 
 ## Managing Nodes
 
-First, you need to ensure that the node to be managed has one of the four major virtualization technologies installed.
+Before adding a node, make sure at least one supported virtualization stack is already installed on that node.
 
-Ping the node's IP from the machine where this panel is deployed. Ideally, the latency should be within 300ms and the packet loss rate should not be too high, otherwise connection failures may occur, resulting in missed command execution in control.
+From the panel host, test connectivity to the node IP first. A latency below 300 ms with low packet loss is recommended. Otherwise, SSH/API operations may fail intermittently.
 
-Below are the steps for setting up nodes. Required and mandatory steps must be followed, while optional steps depend on your needs.
+The setup process below is divided into required and optional sections. Complete all required sections first, then apply optional settings as needed.
 
 ### Basic Information (Required)
 
@@ -38,43 +38,43 @@ Below are the steps for setting up nodes. Required and mandatory steps must be f
 
 ![](./images/base2.png)
 
-The server name should preferably use only English letters and numbers, avoid special characters, and ideally be within 6 characters. When creating containers or virtual machines later, this server name will be automatically added as a prefix.
+Use only letters and numbers for the server name, avoid special characters, and keep it short (recommended within 6 characters). This name is used as the default prefix when new instances are created.
 
-Select the virtualization technology name you actually installed for the server type. Docker can only create containers by default, while other virtualization technologies can create virtual machines.
+For server type, select the virtualization technology that is actually installed on the node. Docker nodes create containers only by default; other types can create virtual machines.
 
-For SSH address, fill in the node's public IPv4 address or internal SSH connection address. This address will be used for SSH connections and API connections.
+For SSH address, enter the node's public IPv4 address or reachable private SSH address. This value is used for both SSH and API access.
 
-NAT port mapping prioritizes using the port IP for mapping. If no specific port IP is provided, the SSH address IP will be used for mapping. Neither needs to be a public IPv4 address.
+For NAT port mapping, port IP has higher priority. If port IP is empty, the SSH address IP is used. Neither field must be a public IPv4 address.
 
-Node mode can be set to either a clean node or a node with existing instances. If you choose the latter, the system will automatically detect the existing instances on that node and generate the corresponding redemption codes in Redemption Code Management, bound to the current administrator by default. After switching to the regular user view, the imported existing instances will be visible.
+Node mode can be either a clean node or a node with existing instances. For existing-instance mode, the system detects current instances automatically and generates redemption codes in Redemption Code Management. They are bound to the current admin by default and become visible in regular-user view.
 
 In the port field, fill in the port for SSH connection to the node.
 
-Description can note some information about the current node, visible only to administrators.
+Description is optional metadata for admins only.
 
-Status is enabled by default, allowing regular users to apply and claim instances after health checks.
+Status is enabled by default. After health check passes, regular users can apply for and claim instances.
 
-Architecture is the node's own architecture. Currently supports managing amd64 and arm64 architecture nodes, select accordingly.
+Architecture must match the node architecture. Currently supported: amd64 and arm64.
 
-(Nodes with existing instances are temporarily not supported for management. The feature to synchronize and manage existing instances has not yet been developed)
+(Management for nodes that already contain instances is still limited. Full synchronization and unified management for pre-existing instances is not fully implemented yet.)
 
 ### Connection Configuration (Required)
 
 ![](./images/connect.png)
 
-Username is recommended to be root user, as automatic API configuration later requires downloading some dependencies. Non-root users may encounter permission issues.
+Using the root account is recommended because automatic API setup installs required dependencies. Non-root accounts may hit permission issues.
 
-Password is the password used for SSH login. Of course, if you don't use a password and use key-based login, that's also acceptable.
+Password is the SSH login password. Key-based login is also supported.
 
-SSH timeout configuration is designed to test connectivity and optimize fault tolerance, and can also be used to check connectivity.
+SSH timeout values are used for connectivity probing and fault tolerance tuning.
 
 ![](./images/sshtest.png)
 
-After filling in the previous information, click test and corresponding prompt values will appear. Click apply to proceed. Of course, not applying is also fine, with higher fault tolerance.
+After filling the fields above, click Test to get recommended values, then click Apply if you want to use them.
 
-The latency here is the latency of actually executing commands on the corresponding node via ping, so it's generally around 2s or more, which is normal latency.
+The latency displayed here reflects command execution round-trip time, not just ICMP ping, so values around 2 seconds can still be normal.
 
-This design is to accommodate nodes with extremely poor connectivity to the panel machine. Increasing these parameter values means higher fault tolerance.
+These settings are designed to support nodes with unstable links to the panel host. Higher values mean higher fault tolerance.
 
 Execution timeout generally doesn't need modification unless your node's performance is particularly weak and command execution takes a long time.
 
@@ -377,25 +377,6 @@ Graphic verification code generation and verification configuration, used for se
 - `height`: Verification code image height in pixels
 - `length`: Verification code character length
 - `width`: Verification code image width in pixels
-
-### cdn Content Delivery Network Configuration
-
-```yaml
-cdn:
-    base-endpoint: https://cdn.spiritlhl.net/
-    endpoints:
-        - https://cdn0.spiritlhl.top/
-        - http://cdn3.spiritlhl.net/
-        - http://cdn1.spiritlhl.net/
-        - http://cdn2.spiritlhl.net/
-```
-
-CDN acceleration node configuration used when downloading system images.
-
-- `base-endpoint`: Primary CDN node address, used first
-- `endpoints`: Backup CDN node list, retried in order. The system will automatically select available nodes for image download
-
-Generally, this configuration doesn't need modification. Preloaded system images are all hosted in this organization's repository, and default CDN nodes can already provide good download acceleration.
 
 ### mysql Database Configuration
 

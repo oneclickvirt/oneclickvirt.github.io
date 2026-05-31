@@ -1,1 +1,1 @@
-暂存图片
+Temporary image placeholder.

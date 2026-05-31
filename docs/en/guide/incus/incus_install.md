@@ -4,19 +4,19 @@ outline: deep
 
 # Incus
 
-If your host does not have an IPV6 subnet and you want to assign IPV6 addresses to containers, then please check the ```Customize``` partition in the ```incus``` module for the ```Attach a free IPV6 address segment``` to the host, and attach an IPV6 subnet to the host before installing the environment.
+If your host has no IPv6 subnet but you want to assign IPv6 addresses to containers, check the ```Customize``` section in the ```Incus``` module for ```Attach a free IPv6 address segment to the host```, then attach an IPv6 subnet before installation.
 
 ## Setting up virtual memory (SWAP) (optional, not required)
 
 :::tip
-Memory to open some swap lest the machine blow up, if your host computer does not have enough memory and a lot of free hard disk.
+If your host has limited memory and enough free disk space, add swap to reduce the risk of OOM crashes.
 :::
 
 Unit conversion: Enter 1024 to generate 1G SWAP-virtual memory, virtual memory occupies hard disk space.
 
 When the actual memory is not enough, the virtual memory will be automatically used for memory usage, but it will bring high IO usage and CPU performance.
 
-Refer to the description of the organization's related project [Jump](https://github.com/oneclickvirt/ecs/blob/master/README_NEW_USER.md) This opens the size of virtual memory
+For swap sizing guidance, refer to [this guide](https://github.com/oneclickvirt/ecs/blob/master/README_NEW_USER.md).
 
 | Physical Memory Size | Recommended SWAP Size |
 | -------------------- | --------------------- |
@@ -37,7 +37,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 If this is a new server, make sure that both ```update``` and ```curl``` are working properly before executing this script. 
 :::
 
-- Prerequisites: Ubuntu 20+(Not recommended to use Incus, please use LXD), Debian 11+(Recommended), RockyLinux 9+, AlmaLinux 9+, Centos 9+, Alpine(After installing bash on your own), Arch
+- Prerequisites: Ubuntu 20+ (LXD is usually preferred there), Debian 11+ (recommended), RockyLinux 9+, AlmaLinux 9+, CentOS 9+, Alpine (install bash first), Arch
 - During installation, you will be prompted to enter the storage pool creation path as well as the size, and all the VMs or containers you want to open end up taking up space in the storage pool
 - The server needs to be restarted after the environment installation process to load some default configurations
 - By default, lxcfs-related configuration is enabled, so that in-container querying of container information changes to information about the container itself rather than the host
@@ -68,7 +68,7 @@ The execution process **may** require a **manual reboot** to load the storage ty
 :::
 
 :::warning
-If you need to open more than 200 Incus containers on a single server, then it is not recommended to use this project, there may be problems with lxcfs access drift, which generates IO occupancy that cannot be released. (This is a native LXC problem that can't be fixed.)
+If you plan to run more than 200 Incus containers on one server, this solution is not recommended. `lxcfs` drift can cause persistent I/O load that is hard to recover from. (This is an upstream LXC limitation.)
 :::
 
 ## Uninstall Incus Environment
@@ -81,7 +81,7 @@ bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/incus/main/scrip
 
 ## Manual Installation (optional)
 
-Not recommended, just to install for some oddball environments where one-click scripts won't run, or if you want to understand the most basic Incus installation process.
+Not recommended for normal usage. Use it only when one-click scripts cannot run in your environment, or when you want to learn the base Incus installation process.
 
 ### Disable Firewall
 
@@ -103,7 +103,7 @@ Command:
 curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/swap.sh -o swap.sh && chmod +x swap.sh && bash swap.sh
 ```
 
-### Installing incus
+### Installing Incus
 
 ```
 sudo -i

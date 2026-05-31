@@ -29,16 +29,8 @@ Here are some of the available system parameters for your reference:
 
 ### Download Script
 
-International:
-
 ```shell
 curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/buildvm.sh -o buildvm.sh && chmod +x buildvm.sh && dos2unix buildvm.sh
-```
-
-Domestic (China):
-
-```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/buildvm.sh -o buildvm.sh && chmod +x buildvm.sh && dos2unix buildvm.sh
 ```
 
 ### Usage
@@ -47,7 +39,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 ./buildvm.sh ServerName CPUCores MemorySize DiskSize SSHPort ExternalStartPort ExternalEndPort DownloadSpeed UploadSpeed EnableIPV6(Y or N) System(leave empty for debian11)
 ```
 
-CPU cores must be less than or equal to the host machine's cores. Memory size is calculated in MB, disk size in GB, download and upload speeds in Mbit. EnableIPV6 doesn't necessarily need to be Y or N - it can be omitted, defaulting to disabled IPV6.
+CPU cores must be less than or equal to the host machine's cores. Memory size is calculated in MB, disk size in GB, download and upload speeds in Mbit. EnableIPV6 doesn't necessarily need to be Y or N - it can be omitted, defaulting to disabled IPv6.
 
 If both ```ExternalStartPort``` and ```ExternalEndPort``` are set to 0, no external port range mapping will be performed - only the basic SSH port will be mapped. Note that these ```cannot be empty``` - set them to 0 if no mapping is needed.
 
@@ -70,7 +62,7 @@ Here's the information for the example server being created:
 | Internal/External Port Mapping Range | 20002 to 20025 |
 | Upload Bandwidth                 | 500Mbit        |
 | Download Bandwidth               | 500Mbit        |
-| Auto-configure External IPV6     | N              |
+| Auto-configure External IPv6     | N              |
 | System                           | debian13       |
 
 ```shell

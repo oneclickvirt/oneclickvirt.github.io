@@ -29,16 +29,8 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 - Installs DNS liveness check service (check-dns.service)
 - Supports x86_64 and ARM64 architecture servers
 
-International
-
 ```shell
 bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/containerd/main/containerdinstall.sh)
-```
-
-China Mainland
-
-```shell
-bash <(curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/containerd/main/containerdinstall.sh)
 ```
 
 :::tip
@@ -49,16 +41,8 @@ After installation, run `nerdctl ps -a` to verify the containerd environment is 
 
 One-click uninstall of the entire containerd environment, including all containers, images, CNI networks, systemd services, and nerdctl/containerd binaries:
 
-International
-
 ```shell
 bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/containerd/main/containerduninstall.sh)
-```
-
-China Mainland
-
-```shell
-bash <(curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/containerd/main/containerduninstall.sh)
 ```
 
 :::warning

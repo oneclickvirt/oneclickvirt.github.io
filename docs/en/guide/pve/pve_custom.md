@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# Customized partitions
+# Custom Sections
 
 ## Installing Proxmox VE 7 on a non-Debian system
 
@@ -21,9 +21,9 @@ Then use ```uname -m``` to query the architecture and use the command correspond
 
 The opened PVE panel information is:
 
-Login username and password are both ``root``, after logging in be sure to use web SSH to change the password to avoid being blown up.
+The default login username and password are both ``root``. After login, change the password immediately in web SSH to avoid brute-force risk.
 
-When using host SSH, be sure to log into the corresponding ``https://IPV4:8006`` to use SSH on the web panel, do not use the host's port 22 to manipulate the PVE.
+When using host SSH, be sure to log into the corresponding ``https://IPv4:8006`` to use SSH on the web panel, do not use the host's port 22 to manipulate the PVE.
 
 Because the SSH on the web panel is inside Docker, it does not support subsequent one-click configurations, so please configure your own gateway, etc. to use it.
 
@@ -49,11 +49,11 @@ docker run -idt --network host \
 spiritlhl/pve:7_aarch64
 ```
 
-The web panel is actually opened in the container, but the network has used the host mode, the port of the PVE is about the same as the port of the host used.
+The web panel runs inside the container, but networking uses host mode, so PVE ports are exposed on host network interfaces.
 
 But here the login username and password become ```root``` and ```root```, if you need to change it please ```docker exec -it pve /bin/bash``` enter and change the password of root, then press ```ctrl``` key and ```A+D``` to exit.
 
-There are many bugs need to be fixed, welcome to PR to solve the problem, the actual test on the Ubuntu system host machine to install ```Proxmox VE``` panel success, solved the problem of installing ```Proxmox VE``` over the network can only be used to use the Debian system as a host machine!
+This path is experimental and may contain unresolved bugs. PRs are welcome. It has been validated on Ubuntu hosts to provide an alternative to Debian-only host assumptions in standard workflows.
 
 ## Optimizing the memory footprint of Proxmox-VE on low-configuration systems
 
@@ -102,7 +102,7 @@ systemctl stop pve-firewall.service
 systemctl disable pve-firewall.service 
 ```
 
-### Discontinuation of cheduler service
+### Discontinuation of scheduler service
 
 If you don't need scheduled tasks, such as backups and synchronizations, you can deactivate the service by executing the following command:
 
@@ -147,7 +147,7 @@ Use the ```nano``` or ```vim``` command to modify the file to add port mapping:
 /etc/iptables/rules.v4
 ```
 
-For example, if I have a KVM VM with an intranet IP of ```172.16.1.152``` (VMs can view the intranet IP address on the web side no matter what system they are on), and MYSQL has been set up to listen to ```3306```, and I need to use the ```tcp``` protocol to map out to the ```33306``` port on the host IP, I would add the following line to the ```COMMIT``` line in the file above, then add the following line
+For example, assume a KVM VM has internal IP ```172.16.1.152```, MySQL listens on ```3306```, and you want to map host port ```33306``` over ```tcp```. Add the following rule above the ```COMMIT``` line in the file:
 
 ```
 -A PREROUTING -i vmbr0 -p tcp -m tcp -dport 33306 -j DNAT --to-destination 172.16.1.152:3306

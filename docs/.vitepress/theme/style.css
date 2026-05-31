@@ -1,0 +1,37 @@
+@media (min-width: 768px) {
+  html[lang^='en'] .VPNavBar .content,
+  html[lang^='en'] .VPNavBar .menu,
+  html[lang^='en'] .VPNavBar .menu > * {
+    min-width: 0;
+  }
+
+  html[lang^='en'] .VPNavBar .content-body,
+  html[lang^='en'] .VPNavBar .menu {
+    overflow: hidden;
+  }
+
+  html[lang^='en'] .VPNavBar .menu {
+    flex: 1 1 auto;
+    justify-content: flex-end;
+  }
+
+  html[lang^='en'] .VPNavBar .translations,
+  html[lang^='en'] .VPNavBar .appearance,
+  html[lang^='en'] .VPNavBar .social-links,
+  html[lang^='en'] .VPNavBar .extra {
+    flex-shrink: 0;
+  }
+
+  html[lang^='en'] .VPNavBar .VPNavBarMenuLink,
+  html[lang^='en'] .VPNavBar .VPNavBarMenuGroup .button {
+    min-width: 0;
+    max-width: clamp(96px, 11vw, 168px);
+    overflow: hidden;
+  }
+
+  html[lang^='en'] .VPNavBar .VPNavBarMenuLink > span,
+  html[lang^='en'] .VPNavBar .VPNavBarMenuGroup .button .text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

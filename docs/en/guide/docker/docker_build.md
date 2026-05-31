@@ -9,7 +9,7 @@ There are two methods of building
 ## Setting Up Standalone
 
 - Generate only one docker
-- Can be configured to bind a separate IPV6 address, but requires a docker previously installed using the environment installation command of this set of scripts, and requires the host to be bound to at least the /112 IPV6 subnet
+- Can be configured to bind a separate IPv6 address, but requires a docker previously installed using the environment installation command of this set of scripts, and requires the host to be bound to at least the /112 IPv6 subnet
 - Support for x86_64 and ARM architecture servers
 
 ### Download the Script
@@ -57,7 +57,7 @@ The following is the information for the created example container:
 | SSH Port               | 25000          |
 | Port Range for Internal and External Mapping | 34975 to 35000   |
 | Operating System       | debian         |
-| Whether to bind a separate IPV6 address| N     |
+| Whether to bind a separate IPv6 address| N     |
 | Disk Size              | 5G             |
 
 ### Related operations
@@ -120,7 +120,7 @@ One line corresponds to information about a container, the docker's ipv6 address
 
 ## Uninstall all Docker containers and images
 
-The following command offload ignores ndpresponder to prevent IPV6 configuration failure
+The following command offload ignores ndpresponder to prevent IPv6 configuration failure
 
 ```shell
 docker ps -a --format '{{.Names}}' | grep -vE '^ndpresponder' | xargs -r docker rm -f

@@ -7,7 +7,7 @@ titleTemplate: Practical Linux-related tools
 hero:
   name: Utility Projects
   text: Practical Linux-related tools
-  image: https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png
+  image: https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png
   actions:
     - theme: brand
       text: Explore Projects →

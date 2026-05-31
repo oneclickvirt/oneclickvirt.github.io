@@ -10,9 +10,9 @@ outline: deep
 
 [![Hits](https://hits.spiritlhl.net/goecs.svg?action=hit&title=Hits&title_bg=%23555555&count_bg=%230eecf8&edge_flat=false)](https://hits.spiritlhl.net) [![Downloads](https://ghdownload.spiritlhl.net/oneclickvirt/ecs?color=36c600)](https://github.com/oneclickvirt/ecs/releases)
 
-融合怪测评项目 - GO版本
+融合怪测评项目 - Go 版本
 
-(仅环境安装[非必须]使用shell外无额外shell文件依赖，环境安装只是为了测的更准，极端情况下无环境依赖安装也可全测项目)
+除可选的环境安装步骤仍会调用 shell 外，项目本体不依赖额外 shell 文件。环境安装只是为了提升测试准确度，极端情况下即使不安装这些依赖，也依然可以完成大部分测试。
 
 如有问题请 [issues](https://github.com/oneclickvirt/ecs/issues) 反馈。
 
@@ -43,7 +43,7 @@ Shell 版本：[https://github.com/spiritLHLS/ecs](https://github.com/spiritLHLS
 
 | 系统           | 说明                       |
 |----------------|---------------------------|
-| OpenBSD/NetBSD | 部分Goalng的官方库未支持本系统(尤其是net相关项目)  |
+| OpenBSD/NetBSD | 部分Golang的官方库暂未支持本系统(尤其是 net 相关项目) |
 
 ---
 
@@ -58,7 +58,7 @@ Shell 版本：[https://github.com/spiritLHLS/ecs](https://github.com/spiritLHLS
 - 邮件端口测试：[portchecker](https://github.com/oneclickvirt/portchecker)
 - 上游及回程路由线路检测：借鉴 [zhanghanyun/backtrace](https://github.com/zhanghanyun/backtrace)，二次开发至 [oneclickvirt/backtrace](https://github.com/oneclickvirt/backtrace)
 - 三网路由测试：基于 [NTrace-core](https://github.com/nxtrace/NTrace-core)，二次开发至 [nt3](https://github.com/oneclickvirt/nt3)
-- 网速测试：基于 [speedtest.net](https://github.com/spiritLHLS/speedtest.net-CN-ID) 和 [speedtest.cn](https://github.com/spiritLHLS/speedtest.cn-CN-ID) 数据，开发至 [oneclickvirt/speedtest](https://github.com/oneclickvirt/speedtest)
+- 网速测试：基于 [speedtest.net](https://github.com/spiritLHLS/speedtest.net-CN-ID) 和 [speedtest.cn](https://github.com/spiritLHLS/speedtest.cn-CN-ID) 数据，开发至 [oneclickvirt/speedtest](https://github.com/oneclickvirt/speedtest)，同时融合私有国内测速节点
 - 三网 Ping 值测试：借鉴 [ecsspeed](https://github.com/spiritLHLS/ecsspeed)，二次开发至 [pingtest](https://github.com/oneclickvirt/pingtest)
 - 支持root或admin环境下测试，支持非root或非admin环境下测试，支持离线环境下进行测试，**暂未**支持无DNS的在线环境下进行测试
 
@@ -89,7 +89,7 @@ Shell 版本：[https://github.com/spiritLHLS/ecs](https://github.com/spiritLHLS
 - **国内用户使用 CNB 加速：**
 
   ```bash
-  export noninteractive=true && curl -L https://cnb.cool/oneclickvirt/ecs/-/git/raw/main/goecs.sh -o goecs.sh && chmod +x goecs.sh && ./goecs.sh install && goecs
+      export noninteractive=true && export CN=true && curl -L https://cnb.cool/oneclickvirt/ecs/-/git/raw/main/goecs.sh -o goecs.sh && chmod +x goecs.sh && ./goecs.sh install && goecs
   ```
 
 - **短链接：**
@@ -130,7 +130,7 @@ Shell 版本：[https://github.com/spiritLHLS/ecs](https://github.com/spiritLHLS
    **国内用户使用 CNB 加速：**
 
    ```bash
-   curl -L https://cnb.cool/oneclickvirt/ecs/-/git/raw/main/goecs.sh -o goecs.sh && chmod +x goecs.sh
+      export CN=true && curl -L https://cnb.cool/oneclickvirt/ecs/-/git/raw/main/goecs.sh -o goecs.sh && chmod +x goecs.sh
    ```
 
 2. **更新包管理器（可选择）并安装环境**
@@ -268,8 +268,8 @@ Usage: goecs [options]
 1. 下载带 exe 文件的压缩包：[Releases](https://github.com/oneclickvirt/ecs/releases)
 2. 解压后，右键以管理员模式运行。
 
-PS：如果是虚拟机环境，不以管理员模式运行也行，因为虚拟机无原生的测试工具，将自动启用替代方法测试。
-PPS: 暂时不要下载带GUI标签的exe文件，未完整适配，CI版本的压缩包是没问题的。
+PS：如果是在虚拟机环境中运行，不以管理员模式启动通常也可以，因为虚拟机缺少部分原生测试工具时会自动启用替代方案。
+PPS：暂时不要下载带 GUI 标签的 exe 文件，相关适配还不完整，优先使用常规 CI 产物压缩包。
 
 ---
 
@@ -312,7 +312,7 @@ docker run --rm --privileged --network host crpi-8tmognxgyb86bm61.cn-guangzhou.p
 docker run --rm crpi-8tmognxgyb86bm61.cn-guangzhou.personal.cr.aliyuncs.com/oneclickvirt/ecs:latest -menu=false -l zh
 ```
 
-实际上还有CNB镜像地址 https://cnb.cool/oneclickvirt/ecs/-/packages/docker/ecs 但很可惜组织空间不足无法推送了，更推荐使用阿里云镜像加速
+实际上还有 CNB 镜像地址 https://cnb.cool/oneclickvirt/ecs/-/packages/docker/ecs ，但由于组织空间不足，目前无法继续推送，因此更推荐直接使用阿里云镜像加速。
 
 </details>
 
@@ -331,7 +331,7 @@ cd ecs
 
 2. 安装 Go 环境（如已安装可跳过）
 
-选择 go 1.25.3 的版本进行安装
+选择 Go 1.25.4 版本进行安装
 
 ```bash
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/one-click-installation-script/main/install_scripts/go.sh -o go.sh && chmod +x go.sh && bash go.sh 
@@ -394,11 +394,11 @@ GOOS=darwin GOARCH=amd64 go build -o goecs_darwin
 
 #### Q: 测试进行到一半如何手动终止？
 
-#### A: 按ctrl键和c键终止程序，终止后依然会在当前目录下生成goecs.txt文件和分享链接，里面是已经测试到的信息。
+#### A: 按 `Ctrl+C` 终止程序。终止后依然会在当前目录下生成 `goecs.txt` 文件和分享链接，里面会保留已经完成的测试结果。
 
 #### Q: 非Root环境如何进行测试？
 
-#### A: 手动执行安装命令，实在装不上也没问题，直接在release中下载对应架构的压缩包解压后执行即可，只要你能执行的了文件。或者你能使用docker的话用docker执行。
+#### A: 可以先尝试手动执行安装命令。若确实无法安装依赖，也没关系，直接去 release 页面下载对应架构的压缩包，解压后执行即可，只要当前环境允许运行该文件。若可用 Docker，也可以直接通过 Docker 运行。
 
 ## 致谢
 

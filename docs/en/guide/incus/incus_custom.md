@@ -2,33 +2,21 @@
 outline: deep
 ---
 
-# Custom
+# Custom Configuration
 
-## Adding a customized mirror source
+## Attach free IPv6 address segments to host machines
 
-https://incusimages.spiritlhl.net/
+Some machines don't have an IPv6 /64 subnet on the machine itself, here is a method given to attach an IPv6 subnet for free.
 
-This mirror source is obtained by me through daily patching, and will be updated daily, what exactly is patched can be found at https://github.com/oneclickvirt/incus_images for details.
-
-```shell
-incus remote remove spiritlhl
-incus remote add spiritlhl https://incusimages.spiritlhl.net --protocol simplestreams --public
-incus image list spiritlhl:debian
-```
-
-## Attach free IPV6 address segments to host machines
-
-Some machines don't have an IPV6 /64 subnet on the machine itself, here is a method given to attach an IPV6 subnet for free.
-
-Here is a solution using the 6in4 method for a host machine that doesn't have an IPV6 address on its own.
+Here is a solution using the 6in4 method for a host machine that doesn't have an IPv6 address on its own.
 
 :::tip
 The operations on this page must be performed on the original system, and ensure that no other scripts from this project are installed(Except for PVE, which needs to be installed first), as this may lead to environment conflicts.
 :::
 
-Here are the platforms that are currently running in 2023 that offer IPV6 subnets for free.
+Here are the platforms that are currently running in 2023 that offer IPv6 subnets for free.
 
-| Supported Platforms | Corresponding Required Installation Packages | Protocols | Number of Channels/Subnets
+| Supported Platforms | Corresponding Required Installation Packages | Protocols | Number of Channels/Subnets |
 |---------------------------|----------------|----------------|----------------|
 | tunnelbroker.net              | ifupdown OR ifupdown2         | v4tunnel OR sit          | 3✖/64 OR 5✖/64            |
 | tunnelbroker.ch              | ifupdown OR ifupdown2          | v4tunnel OR sit        | 3✖/64          |
@@ -36,7 +24,7 @@ Here are the platforms that are currently running in 2023 that offer IPV6 subnet
 | netassist.ua                | ifupdown OR ifupdown2          | v4tunnel OR sit           | 1✖/64          |
 | https://github.com/oneclickvirt/6in4               | ifupdown2          | sit、gre、ipip           | custom          |
 
-The free platform only solves the problem that IPV6 is not available, it does not provide premium IPV6 bandwidth.
+The free platform only solves the problem that IPv6 is not available, it does not provide premium IPv6 bandwidth.
 
 If you need high quality bandwidth, please build your own tunnel. When both ifupdown and ifupdown2 are available, try ifupdown first to see if it can be installed successfully, otherwise install ifupdown2.
 
@@ -95,7 +83,7 @@ Then restart the server, check whether the machine's network will be rebooted du
 
 If it is inactive and active, there is no need to switch the network management program and you can proceed directly to the next step.
 
-Since some servers have default intranet IPV6 routes that will conflict with the tunnel, you can use the following command to remove the default IPV6 routes
+Since some servers have default intranet IPv6 routes that will conflict with the tunnel, you can use the following command to remove the default IPv6 routes
 
 ```
 default_route=$(ip -6 route show | awk '/default via/{print $3}') && [ -n "$default_route" ] && ip -6 route del default via $default_route dev eth0
@@ -108,7 +96,7 @@ This assumes that your client's server's default NIC is ```eth0```, you can use 
 #### tunnelbroker_net
 
 
-Combined with a script that opens containers with IPV6 addresses with a single click, you can attach an IPV6 address from he to each container
+Combined with a script that opens containers with IPv6 addresses with a single click, you can attach an IPv6 address from he to each container
 
 
 The downside is that the addresses are dark/dirty, and cloudflare's cdn will most likely not be able to latch on, test it yourself
@@ -120,7 +108,7 @@ The downside is that the addresses are dark/dirty, and cloudflare's cdn will mos
 ![1](images/incus1.png)
 
 
-2. Fill in your server's IPV4 address in the red box, choose a connection point that is physically close to your server, for example, if your machine is in Los Angeles, choose a connection point on the west coast of the United States, and then click```Create Tunnel```to create the tunnel when you are prompted by the green box!
+2. Fill in your server's IPv4 address in the red box, choose a connection point that is physically close to your server, for example, if your machine is in Los Angeles, choose a connection point on the west coast of the United States, and then click```Create Tunnel```to create the tunnel when you are prompted by the green box!
 
 
 ![2](images/incus2.png)
@@ -147,11 +135,11 @@ The downside is that the addresses are dark/dirty, and cloudflare's cdn will mos
 ![7](images/incus7.png)
 
 
-5. Exchange the format of the command then add IPV6 settings to your network configuration file.
+5. Exchange the format of the command then add IPv6 settings to your network configuration file.
 
 Then open [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) and select```Option```for```TunnelBrokerNet```, another drop-down selection box to choose the name of the package you successfully installed previously, then paste what you copied in the input box.
 
-Then click```Covert```to convert the format, and wait for the page to refresh to show the converted configuration file.
+Then click ```Convert``` to convert the format, and wait for the page to refresh with the converted configuration file.
 
 
 Then use vim or vi to modify the```/etc/network/interfaces```file to add content, or modify the following command to add new content
@@ -190,7 +178,7 @@ curl ipv6.ip.sb
 ```
 
 
-Returns the IPV6 address you bound to
+Returns the IPv6 address you bound to
 
 
 8. Additional settings for NAT VPS
@@ -213,7 +201,7 @@ route -A inet6 add ::/0 dev he-ipv6
 ```
 
 
-9. If the IPV6 network is no longer needed and you want to delete it, delete the he-ipv6 network interface configuration.
+9. If the IPv6 network is no longer needed and you want to delete it, delete the he-ipv6 network interface configuration.
 
 
 If you want to delete the he-ipv6 network interface configuration (if not, it will be enabled automatically after reboot), remember to modify the```/etc/network/interfaces```file to remove the content added in the red box before.
@@ -227,7 +215,7 @@ Then reboot the server to remove the
 Similar to the above, first register an account at [https://www.tunnelbroker.ch/](https://www.tunnelbroker.ch/) and click on the activation email after registering.
 
 
-Then you have to fill in the IPV4 address of your server.
+Then you have to fill in the IPv4 address of your server.
 
 
 ![](images/incus9.png)
@@ -283,9 +271,9 @@ Make sure the environment is OK before you do anything else
 
 #### ip4market_ru
 
-Similar to the above, first register an account at [https://tb.ip4market.ru](https://tb.ip4market.ru/), the registered email address must be an unseen email address, the phone number can be written randomly without verification, and the IP address should be the IPV4 address of the host you want to attach.
+Similar to the above, first register an account at [https://tb.ip4market.ru](https://tb.ip4market.ru/), the registered email address must be an unseen email address, the phone number can be written randomly without verification, and the IP address should be the IPv4 address of the host you want to attach.
 
-The IP address is the IPV4 address of the host computer you are attaching to
+The IP address is the IPv4 address of the host computer you are attaching to
 
 ![](images/incus13.png)
 
@@ -341,13 +329,13 @@ Make sure the environment is OK before you do anything else
 
 Similar to the above operation, first in [https://tb.netassist.ua/](https://tb.netassist.ua/) register an account first, after registration, click on the activation of the mail, the activation page will have a password display, remember to record!
 
-Then fill in the IPV4 address of your server, you can change it later, just fill in a random one first.
+Then fill in the IPv4 address of your server, you can change it later, just fill in a random one first.
 
 Then you will get to this page
 
 ![a](images/incus18.png)
 
-The first red box is the location of your host's IPV4 address, if you want to modify it, modify it there, and then click change to save.
+The first red box is the location of your host's IPv4 address, if you want to modify it, modify it there, and then click change to save.
 
 The second red box is for```Linux``, and then click on show
 
@@ -378,26 +366,26 @@ systemctl restart networking
 
 Make sure the environment is OK before you do anything else
 
-## Transfer IPV6 subnets between different servers
+## Transfer IPv6 subnets between different servers
 
 Related repository: [https://github.com/oneclickvirt/6in4](https://github.com/oneclickvirt/6in4)
 
-This method will provide a way to split a /80 out of the IPV6 segment on A and attach it to B to use.
+This method will provide a way to split a /80 out of the IPv6 segment on A and attach it to B to use.
 
 ### Features
 
 - Self-built IPv6 tunnel for sit/gre/ipip protocols
-- Support to customize the IPV6 subnet size to be cut out, and the appropriate IPV6 subnet information in CIDR format will be calculated automatically.
-- Automatically recognizes the IPV6 subnet size of the server side
+- Support to customize the IPv6 subnet size to be cut out, and the appropriate IPv6 subnet information in CIDR format will be calculated automatically.
+- Automatically recognizes the IPv6 subnet size of the server side
 - will automatically set up the tunnel server and print the commands that the client needs to execute
-- Setting up the IPV6 tunnel is easy to understand and easy to remove
+- Setting up the IPv6 tunnel is easy to understand and easy to remove
 
 ### Environmental Preparation
 
 | VPS(A) | VPS(B) |
 | --------|--------|
-| one IPV4 address (server_ipv4) | one IPV4 address (clinet_ipv4) |
-| one IPV6 subnet | no IPV6 address |
+| one IPv4 address (server_ipv4) | one IPv4 address (clinet_ipv4) |
+| one IPv6 subnet | no IPv6 address |
 | Hereafter referred to as server | Hereafter referred to as client |
 
 ### Usage
@@ -423,7 +411,7 @@ Execute it
 
 ```<subnet_size>``` as long as it is larger than the original system subnet mask, and is a multiple of 8, if you don't fill it in, it defaults to ```80```.
 
-Remember to replace ```client_ipv4``` with the IPV4 address of the machine you want to attach IPV6 to, and the command you need to execute on the client side will be sent back to you after execution, see the instructions after execution for details.
+Remember to replace ```client_ipv4``` with the IPv4 address of the machine you want to attach IPv6 to, and the command you need to execute on the client side will be sent back to you after execution, see the instructions after execution for details.
 
 To prevent you from forgetting to copy the commands, the commands themselves will be written to the ```6in4.log``` file under the current path, you can use ```cat 6in4.log``` to query the commands that need to be executed on the client side
 
@@ -486,11 +474,11 @@ The above deletion is only temporary, for permanent deletion you must modify and
 
 ### one more thing
 
-In fact [https://tunnelbroker.net/](https://tunnelbroker.net/) supports the application of IPV6 subnets of size ```/48```
+In fact [https://tunnelbroker.net/](https://tunnelbroker.net/) supports the application of IPv6 subnets of size ```/48```
 
 ![](images/incus21.png)
 
-Make the request here, then when converting the format change the original ```/64``` IPV6 address to a ```/48``` IPV6 address and you'll get a larger IPV6 subnet!
+Make the request here, then when converting the format change the original ```/64``` IPv6 address to a ```/48``` IPv6 address and you'll get a larger IPv6 subnet!
 
 ## Supplemental CloudFlare WARP IPv4 / IPv6 outbound
 

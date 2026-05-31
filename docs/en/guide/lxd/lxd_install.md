@@ -4,7 +4,7 @@ outline: deep
 
 # LXD
 
-If your host does not have an IPV6 subnet and you want to assign IPV6 addresses to containers, then please check the ```Customize``` partition in the ```LXD``` module for the ```Attach a free IPV6 address segment``` to the host, and attach an IPV6 subnet to the host before installing the environment.
+If your host does not have an IPv6 subnet and you want to assign IPv6 addresses to containers, then please check the ```Customize``` partition in the ```LXD``` module for the ```Attach a free IPv6 address segment``` to the host, and attach an IPv6 subnet to the host before installing the environment.
 
 
 ## Setting up virtual memory (SWAP) (optional, not required)
@@ -69,22 +69,22 @@ If you need to specify the path of a non-system disk as the default pool, then y
 If the corresponding disk has 18 Gigabytes of free hard disk space in addition to the occupied space and you want to open a 15 Gigabyte storage pool, follow the command line prompts to enter ```15```.
 
 :::warning
-If you need to open more than 200 LXD containers on a single server, then it is not recommended to use this project, there may be problems with lxcfs access drift, which generates IO occupancy that cannot be released. (This is a native LXC problem that can't be fixed.)
+If you plan to run more than 200 LXD containers on one server, this solution is not recommended. `lxcfs` drift can cause persistent I/O load that is hard to recover from. (This is an upstream LXC limitation.)
 :::
 
 ## Installation of WEB Control Panel
 
-Customization There are tutorials on how to enable the official panel, but here do not choose to use the official panel, because the official panel in order to security, at the expense of a lot of user experience, this piece of using the
+The customization section also includes guidance for enabling the official panel. Here we recommend a third-party panel instead, because the official panel prioritizes security over user experience in several workflows.
 
 https://github.com/turtle0x1/LxdMosaic
 
-third-party panels
+Third-party panel:
 
 ```shell
 sudo snap install lxdmosaic
 ```
 
-Do a straightforward one-click install, then open the current host's ```https://<public IP address>/``` and force access to it to get to the setup page
+Run the one-click installation, then open ```https://<public IP address>/``` on the host. Accept the browser warning if needed to enter the setup page.
 
 ![lxd](images/lxdd1.png)
 
@@ -92,15 +92,15 @@ Do a straightforward one-click install, then open the current host's ```https://
 
 ![lxd](images/lxdd3.png)
 
-This piece can be changed if you need to set up the site name
+You can change this section if you want to customize the site name.
 
 ![lxd](images/lxdd4.png)
 
-Better than nothing can only mean that there is no RBAC access control for sub-user segregation
+This panel is practical, but it does not provide complete RBAC-style sub-user isolation.
 
 ## Manual installation (optional)
 
-Not recommended, just to install for some oddball environments where one-click scripts won't run, or if you want to understand the most basic LXD installation process.
+Not recommended for normal usage. Use it only when one-click scripts cannot run in your environment, or when you want to learn the base LXD installation process.
 
 ### Disable Firewall
 

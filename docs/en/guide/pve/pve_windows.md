@@ -142,7 +142,7 @@ Click `OK` and `Yes` for any other dialog boxes, and your virtual machine will n
 
 ### 5. Unmounting the CD Drive
 
-Manually click on the corresponding ```CD``` in the ```Hardware``` on the web side of ProxmoxVE and select ```Remove```, then restart the VM and you can use it directly.
+In Proxmox VE, open the VM ```Hardware``` tab, select the corresponding ```CD``` device, click ```Remove```, then restart the VM.
 
 ![wk](images/wk7.png)
 

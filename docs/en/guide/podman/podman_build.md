@@ -8,23 +8,14 @@ Two methods for provisioning containers.
 
 ## Single Container Provisioning
 
-- Creates a single Podman container, automatically detects international or China mainland server
+- Creates a single Podman container
 - Can configure binding of an independent IPv6 address (requires host with public IPv6 and podman-ipv6 network configured during installation)
 - Supports x86_64 and ARM64 architecture servers
 
 ### Download Script
 
-International
-
 ```shell
 curl -sSLO https://raw.githubusercontent.com/oneclickvirt/podman/main/scripts/onepodman.sh
-chmod +x onepodman.sh
-```
-
-China Mainland
-
-```shell
-curl -sSLO https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/podman/main/scripts/onepodman.sh
 chmod +x onepodman.sh
 ```
 
@@ -109,18 +100,8 @@ podman logs ct1
 
 ### Run
 
-International
-
 ```shell
 curl -sSLO https://raw.githubusercontent.com/oneclickvirt/podman/main/scripts/create_podman.sh
-chmod +x create_podman.sh
-./create_podman.sh
-```
-
-China Mainland
-
-```shell
-curl -sSLO https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/podman/main/scripts/create_podman.sh
 chmod +x create_podman.sh
 ./create_podman.sh
 ```

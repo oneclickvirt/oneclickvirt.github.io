@@ -6,7 +6,7 @@ outline: deep
 
 To virtualize a server, you will need:
 
-1. A server (VPS or Dedicated Server) that can connect to the public internet. It's preferable if this server can access GitHub's RAW pages perfectly, as some projects and components might not use CDN acceleration.
+1. A server (VPS or dedicated server) that can connect to the public internet. Stable access to GitHub-hosted resources is recommended.
 
 2. A stable SSH connection from your local machine. If the connection isn't stable, you can use the ```screen``` command to create a window and execute commands within that window.
 
@@ -24,7 +24,7 @@ The PVE project might cause problems on the host machine. If you're not familiar
 
 ## Project Repository
 
-Welcome Star and Fork, all resources are open source, no non-open source parts, reproduced as well as the use of please write on the source of this site, thank you!
+Stars and forks are welcome. Everything listed here is open source. If you redistribute or reuse the content, please keep the original source attribution.
 
 ## OneClickVirt
 

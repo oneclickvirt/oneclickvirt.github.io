@@ -8,15 +8,9 @@ outline: deep
 
 Download links for Android system version 9 and earlier:
 
-International
-
 https://www.fosshub.com/Android-x86.html
 
 https://sourceforge.net/projects/android-x86/files/
-
-Domestic (China)
-
-https://mirrors.tuna.tsinghua.edu.cn/osdn/android-x86/
 
 Download links for Android system version 10 and later:
 
@@ -30,7 +24,7 @@ https://sourceforge.net/projects/blissos-x86/files/Official/
 
 This guide demonstrates using:
 
-https://mirrors.tuna.tsinghua.edu.cn/osdn/android-x86/71931/android-x86_64-9.0-rc2.iso
+https://sourceforge.net/projects/android-x86/files/Release%209.0/android-x86_64-9.0-rc2.iso/download
 
 as an example
 

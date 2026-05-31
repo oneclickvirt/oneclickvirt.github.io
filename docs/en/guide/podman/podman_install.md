@@ -29,16 +29,8 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 - Installs DNS liveness check service (check-dns-podman.service)
 - Supports x86_64 and ARM64 architecture servers
 
-International
-
 ```shell
 bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/podman/main/podmaninstall.sh)
-```
-
-China Mainland
-
-```shell
-bash <(curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/podman/main/podmaninstall.sh)
 ```
 
 :::tip
@@ -49,16 +41,8 @@ After installation, run `podman ps -a` to verify the Podman environment is worki
 
 One-click uninstall of the entire Podman environment, including all containers, images, networks, and auxiliary files:
 
-International
-
 ```shell
 bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/podman/main/podmanuninstall.sh)
-```
-
-China Mainland
-
-```shell
-bash <(curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/podman/main/podmanuninstall.sh)
 ```
 
 :::warning

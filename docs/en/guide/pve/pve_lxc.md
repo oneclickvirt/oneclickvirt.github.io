@@ -5,7 +5,7 @@ outline: deep
 # LXC Virtualization
 
 :::warning
-If you need to open more than 200 LXC containers on a single server, then it is not recommended to use this project, there may be problems with lxcfs access drift, which generates IO occupancy that cannot be released. (This is a native LXC problem that can't be fixed.)
+If you plan to run more than 200 LXC containers on one server, this solution is not recommended. `lxcfs` drift can cause persistent I/O load that is hard to recover from. (This is an upstream LXC limitation.)
 :::
 
 ## Images available for creating LXC Containers
@@ -68,8 +68,8 @@ Before creating containers, use the 'screen' command to run them in the backgrou
 - Optionally specify the storage disk location in the command. When not specified, it defaults to the local disk, which is the system disk. Alternatively, you can specify a mount disk as displayed in PVE.
 - The created containers are enabled with SSH by default, allowing root login. They are also configured to support nested virtualization for Docker.
 - Relevant container information will be stored in the respective container's notes, accessible through the web interface.
-- If the host machine has an IPV6 subnet, IPV6 networking will be automatically attached, but no public IPV6 addresses will be provided.
-- Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet
+- If the host machine has an IPv6 subnet, IPv6 networking will be automatically attached, but no public IPv6 addresses will be provided.
+- Optionally enable or disable standalone IPv6, requires the host to have at least one /64 subnet
 
 ### Usage Instructions
 
@@ -95,8 +95,6 @@ After setting up, you can execute `cat ct111` to view the information, or check 
 
 Here is the information for the created example CT:
 
-Please note that "CT" and other technical terms might have specific meanings in different contexts. If "CT" stands for something specific in your domain, you might want to provide additional context for accurate translation.
-
 | Attribute           | Value          |
 | ------------------- | -------------- |
 | CTID                | 111            |
@@ -111,7 +109,7 @@ Please note that "CT" and other technical terms might have specific meanings in 
 | Port Range for NAT  | 30000 to 30025 |
 | Operating System    | debian11       |
 | Host Storage Disk   | local          |
-| IPV6 address        | N              |
+| IPv6 address        | N              |
 
 :::tip
 Note that only CTIDs from 100 to 256 can be used here, no other numbers can be used.
@@ -157,7 +155,7 @@ Before initiating the creation process, it's recommended to use the 'screen' com
 - The created containers have SSH enabled by default, allowing root login. Additionally, they are configured to support nested virtualization for Docker usage.
 - Relevant information about the containers will be stored in the corresponding container's notes, which can be viewed on the web interface.
 - If the host machine has an IPv6 subnet, it will be automatically assigned to the containers. However, public IPv6 addresses will not be provided.
-- Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet.
+- Optionally enable or disable standalone IPv6, requires the host to have at least one /64 subnet.
 
 ### Usage Instructions
 
@@ -213,7 +211,7 @@ The premise is that the host provides an IPv6 subnet rather than a standalone IP
 
 ### Automatic Selection of IPv6 Addresses, No Manual Configuration Needed
 
-- Pure IPV6 refers to a bound public IPV6 address, where the actual container still has the host's IPV4 network but no external IPV4 port
+- Pure IPv6 refers to a bound public IPv6 address, where the actual container still has the host's IPv4 network but no external IPv4 port
 - Automatically detect available IPv6 ranges and bind the corresponding V6 address based on the container number to the container.
 - Relevant system information will be stored in the NOTES of the corresponding container, accessible for viewing on the web interface.
 
@@ -235,7 +233,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildct_
 ./buildct_onlyv6.sh 152 oneclick123 1 1024 10 debian13 local
 ```
 
-The above command signifies the creation of a container with a pure IPV6 address.
+The above command signifies the creation of a container with a pure IPv6 address.
 
 | Attribute        | Value                    |
 | ---------------- | ------------------------ |

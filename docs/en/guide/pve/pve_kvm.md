@@ -16,15 +16,15 @@ If the default username **is not ```root```, the default unset root password is 
 bash <(curl -sSL https://raw.githubusercontent.com/fscarmen/tools/main/root.sh) [PASSWORD]
 ```
 
-## Considerations for opening a virtual machine with an IPV6 address
+## Considerations for opening a virtual machine with an IPv6 address
 
-Due to long-term inactivity IPV6 does not use may lead to NDP broadcast cache invalidation reset, generally idle for about 50 minutes will appear IPV6 unavailable, commonly known as "IPV6 cutoff", at this time it is necessary to set up a timer task.
+Due to long-term inactivity IPv6 does not use may lead to NDP broadcast cache invalidation reset, generally idle for about 50 minutes will appear IPv6 unavailable, commonly known as "IPv6 cutoff", at this time it is necessary to set up a timer task.
 
 ```shell
 echo '*/1 * * * * curl -m 6 -s ipv6.ip.sb || curl -m 6 -s ipv6.ip.sb' | crontab -
 ```
 
-Executing the above commands in the opened virtual machine ensures that the IPV6 network is always used and does not fail over.
+Executing the above commands in the opened virtual machine ensures that the IPv6 network is always used and does not fail over.
 
 ## Images available for creating virtual machines
 
@@ -47,8 +47,8 @@ Executing the above commands in the opened virtual machine ensures that the IPV6
 - Automatic internal and external port mapping, including ports 22, 80, 443, and 25 other port numbers shared between internal and external networks.
 - After generation, there's a wait time for the virtual machine's internal cloud-init configuration to establish network and login information. This process takes approximately 5 minutes.
 - Pertinent virtual machine information will be stored in the NOTES section of the corresponding VM on the web interface, accessible for viewing through the web portal.
-- If the host machine has an IPV6 subnet, IPV6 networking will be automatically added. However, there won't be any public IPV6 addresses.
-- Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet
+- If the host machine has an IPv6 subnet, IPv6 networking will be automatically added. However, there won't be any public IPv6 addresses.
+- Optionally enable or disable standalone IPv6, requires the host to have at least one /64 subnet
 
 ### Usage Instructions
 
@@ -96,7 +96,7 @@ Below is the information for the example VM that has been set up:
 | Port Range for NAT  | 50000 to 50025 |
 | Operating System    | debian11       |
 | Host Storage Disk   | local          |
-| IPV6 address        | N              |
+| IPv6 address        | N              |
 
 :::tip
 Note that only VMIDs from 100 to 256 can be used here, no other numbers can be used.
@@ -144,7 +144,7 @@ Before initiating the batch creation process, please use the 'screen' command to
 - You can customize the number of CPU cores, memory size, disk size, and which storage disk on the host machine to use for batch creation. Ensure you calculate available resources before proceeding.
 - Relevant information about the virtual machines will be stored in the 'NOTES' section of the corresponding VM on the web interface, where you can view them.
 - If the host machine comes with an IPv6 subnet, an IPv6 network will be automatically attached, although there will be no public IPv6 addresses available.
-- Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet.
+- Optionally enable or disable standalone IPv6, requires the host to have at least one /64 subnet.
 
 Command:
 
@@ -200,27 +200,27 @@ Before modifying the VM configuration for PVE, you must shut it down first. Afte
 
 Three scripts, each with its own advantages and disadvantages.
 
-The first two scripts **don't** require an additional IPV4 address to be bound to the ```vmbr0``` interface beforehand, and the opened VM will **directly** bind the additional IPV4 address.
+The first two scripts **don't** require an additional IPv4 address to be bound to the ```vmbr0``` interface beforehand, and the opened VM will **directly** bind the additional IPv4 address.
 
-The last script **requires** additional IPV4 addresses to be bound to the ```vmbr0``` interface beforehand, and the opened VM will do **NAT full port mapping** to the intranet IPV4 address, **without **directly** binding additional IPV4 addresses.
+The last script **requires** additional IPv4 addresses to be bound to the ```vmbr0``` interface beforehand, and the opened VM will do **NAT full port mapping** to the intranet IPv4 address, **without **directly** binding additional IPv4 addresses.
 
-### Automatically selects additional IPV4 addresses on the same subnet as the host machine to open the virtual machine
+### Automatically selects additional IPv4 addresses on the same subnet as the host machine to open the virtual machine
 
 :::warning
 Before use, ensure that the current host machine has at least 2 available IP addresses within its IP range, and there are unallocated IP addresses. These unallocated IP addresses should not be bound to the host machine.
 :::
 
 :::tip
-At this point, the IPV4 address appended is the address following the host's current IPV4 address in sequence.
+At this point, the IPv4 address appended is the address following the host's current IPv4 address in sequence.
 For example, if the current host address is ```1.1.1.32``` and then ```1.1.1.33``` there is already a virtual machine, then this script appends an IP address of ```1.1.1.34```.
 :::
 
 - Automatically detect available IP ranges. Use ping to identify unallocated IP addresses and select one to bind to the virtual machine.
 - If the host machine has an accompanying IPv6 subnet, there will be an option to attach an IPv6 address.
 - Relevant system information will be stored in the corresponding virtual machine's NOTE section, accessible for viewing on the web interface.
-- Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet.
-- The automatically appended IPV4 address is within the **same subnet** as the host's IPV4 address (IP address prefix is the same)
-- Inbound and outbound traffic in and out of the VM goes to the additional IPV4 address of the binding
+- Optionally enable or disable standalone IPv6, requires the host to have at least one /64 subnet.
+- The automatically appended IPv4 address is within the **same subnet** as the host's IPv4 address (IP address prefix is the same)
+- Inbound and outbound traffic in and out of the VM goes to the additional IPv4 address of the binding
 
 #### Usage Instructions
 
@@ -264,21 +264,21 @@ The above command is used to create a virtual machine with a dedicated IPv4 addr
 Note that only VMIDs from 100 to 256 can be used here, no other numbers can be used.
 :::
 
-### Manually Assign Additional IPV4 Addresses to Open Virtual Machines
+### Manually Assign Additional IPv4 Addresses to Open Virtual Machines
 
-- Manual specification of IPV4 address with subnet length in the command is required.
-- If the host machine comes with an IPV6 subnet, you can choose whether to add an IPV6 address additionally.
-- If the vendor has provided an IPV4 address and subnet length, please carefully compare and write the parameters in the command format shown below.
+- Manual specification of IPv4 address with subnet length in the command is required.
+- If the host machine comes with an IPv6 subnet, you can choose whether to add an IPv6 address additionally.
+- If the vendor has provided an IPv4 address and subnet length, please carefully compare and write the parameters in the command format shown below.
 - Relevant system information will be stored in the NOTE of the corresponding virtual machine and can be viewed on the WEB end.
-- Optionally enable or disable standalone IPV6, requires the host to have at least one /64 subnet.
-- Manually appended IPV4 addresses that are in **different subnets** from the host's IPV4 address (different IP address prefixes) will use the host's IP address as the gateway
-- Manually appended IPV4 addresses that are within the **same subnet** as the host's IPV4 address (same IP address prefix) will use the host's gateway as the gateway
+- Optionally enable or disable standalone IPv6, requires the host to have at least one /64 subnet.
+- Manually appended IPv4 addresses that are in **different subnets** from the host's IPv4 address (different IP address prefixes) will use the host's IP address as the gateway
+- Manually appended IPv4 addresses that are within the **same subnet** as the host's IPv4 address (same IP address prefix) will use the host's gateway as the gateway
 - Optionally specify the MAC address of the virtual machine
-- Inbound and outbound traffic in and out of the VM goes to the additional IPV4 address of the binding
+- Inbound and outbound traffic in and out of the VM goes to the additional IPv4 address of the binding
 
 :::tip
 If IP addresses within **different subnets** are appended without a MAC address, the router will not recognize the source MAC address, and the traffic will be flagged as “misuse” and “may” cause the server to be blocked.
-(If you are using a Hetzner standalone server, it is recommended that you provide the MAC address of the attached IPV4 address to prevent abuse from being reported.)
+(If you are using a Hetzner standalone server, it is recommended that you provide the MAC address of the attached IPv4 address to prevent abuse from being reported.)
 :::
 
 #### Usage Instructions
@@ -305,7 +305,7 @@ Note that the PASSWORD here should be a mix of English and numbers only, and sta
 ./buildvm_manual_ip.sh 152 root oneclick123 1 1024 10 debian12 local a.b.c.d/24 N
 ```
 
-The above command is used to create a virtual machine with an independent IPV4 address.
+The above command is used to create a virtual machine with an independent IPv4 address.
 
 | Attribute        | Value                    |
 | ---------------- | ------------------------ |
@@ -317,23 +317,23 @@ The above command is used to create a virtual machine with an independent IPV4 a
 | Disk             | 10GB                     |
 | Operating System | debian12                 |
 | Storage Disk     | Local Disk (System Disk) |
-| IPV4 Address     | a.b.c.d                  |
+| IPv4 Address     | a.b.c.d                  |
 | Subnet           | /24 Subnet               |
-| IPV6             | None                     |
+| IPv6             | None                     |
 | MAC_ADDRESS      | None                     |
 
 :::tip
 Note that only VMIDs from 100 to 256 can be used here, no other numbers can be used.
 :::
 
-### Host manually appends an additional IPV4 address and then specifies the IPV4 address to open the virtual machine
+### Host manually appends an additional IPv4 address and then specifies the IPv4 address to open the virtual machine
 
-- You need to add the extra IPV4 address to ```vmbr0``` in ```/etc/network/interfaces``` (note that ```chattr -i``` unlocks the file and then ```chattr +i``` locks it back).
-- Other features are similar to opening a NAT-enabled VM, except that here the mapping is no longer partial port mapping or mapping to the host's IPV4 address, but full-port one-by-one mapping to additional IPV4 addresses
-- Traffic coming into the VM from outside the VM goes to the bound additional IPV4 address, and traffic going out of the VM goes to the original host's IPV4 address
+- You need to add the extra IPv4 address to ```vmbr0``` in ```/etc/network/interfaces``` (note that ```chattr -i``` unlocks the file and then ```chattr +i``` locks it back).
+- Other features are similar to opening a NAT-enabled VM, except that here the mapping is no longer partial port mapping or mapping to the host's IPv4 address, but full-port one-by-one mapping to additional IPv4 addresses
+- Traffic coming into the VM from outside the VM goes to the bound additional IPv4 address, and traffic going out of the VM goes to the original host's IPv4 address
 
 :::tip
-Make sure you can SSH into the host with the extra IPV4 address before opening, but ```curl ip.sb``` still shows the original host IPV4 address.
+Make sure you can SSH into the host with the extra IPv4 address before opening, but ```curl ip.sb``` still shows the original host IPv4 address.
 :::
 
 #### Usage Instructions
@@ -359,7 +359,7 @@ Note that the PASSWORD here should be a mix of English and numbers only, and sta
 ./buildvm_fullnat_ip.sh 152 root oneclick123 1 1024 10 debian12 local a.b.c.d N
 ```
 
-The above command is used to create a virtual machine with an independent IPV4 address.
+The above command is used to create a virtual machine with an independent IPv4 address.
 
 | Attribute        | Value                    |
 | ---------------- | ------------------------ |
@@ -371,15 +371,15 @@ The above command is used to create a virtual machine with an independent IPV4 a
 | Disk             | 10GB                     |
 | Operating System | debian12                 |
 | Storage Disk     | Local Disk (System Disk) |
-| IPV4 Address     | a.b.c.d                  |
-| IPV6             | None                     |
+| IPv4 Address     | a.b.c.d                  |
+| IPv6             | None                     |
 | MAC_ADDRESS      | None                     |
 
 :::tip
 Note that only VMIDs from 100 to 256 can be used here, no other numbers can be used.
 :::
 
-#### Incoming and outgoing traffic goes to the bound IPV4 address
+#### Incoming and outgoing traffic goes to the bound IPv4 address
 
 execute
 
@@ -389,9 +389,9 @@ sed -i "\|$line|d" /etc/iptables/rules.v4
 service netfilter-persistent restart
 ```
 
-This will cause the host to lose the ability to open VMs/containers with NAT that do not have a separate IPV4 address, so be careful!
+This will cause the host to lose the ability to open VMs/containers with NAT that do not have a separate IPv4 address, so be careful!
 
-After this, You will only be able to open VMs with separate IPV4 addresses.
+After this, You will only be able to open VMs with separate IPv4 addresses.
 
 ## Creating Virtual Machines with Pure IPv6 Addresses
 
@@ -399,7 +399,7 @@ The prerequisite is that the host provides an IPv6 subnet instead of just a stan
 
 ### Automatic Selection of IPv6 Addresses without Manual Specification
 
-- Pure IPV6 refers to a bound public IPV6 address, where the actual VM still has the host's IPV4 network but no external IPV4 port
+- Pure IPv6 refers to a bound public IPv6 address, where the actual VM still has the host's IPv4 network but no external IPv4 port
 - Automatically detect available IPv6 ranges and bind the corresponding V6 address, based on the virtual machine's number, to the virtual machine.
 - System-related information will be stored in the NOTES section of the respective virtual machine, accessible for viewing on the web interface.
 

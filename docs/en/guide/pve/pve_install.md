@@ -2,9 +2,9 @@
 outline: deep
 ---
 
-# PVE Body Installation
+# Main PVE Installation
 
-If you don't know how to choose an option during installation, just press enter.
+If you are not sure how to answer an installation prompt, pressing Enter for the default option is usually fine.
 
 :::tip
 For low-configuration hosts, it is recommended to check the contents of the ```Custom``` partition after all the content has been installed to perform memory tuning and reduce the memory footprint.
@@ -17,37 +17,32 @@ Proxmox installed by this method can subsequently use all scripts of this projec
 ### One-click PVE installation
 
 :::tip
-Suggest debian12+, the actual test part of the independent server debian11 system will appear a reboot network will be lost, debian12 does not have such a problem!
+Debian 12 or newer is recommended. In real tests, some Debian 11 hosts lost network connectivity after reboot, while Debian 12 did not show this issue.
 :::
 
-- The installation is the latest PVE from the apt source at the moment.
-- For example, debian10 is pve6.4, debian11 is pve7.x, debian12 is pve8.x, debian13 is pve9.x
-- Changes to the ```/etc/hosts``` file (to fix the wrong hostname setting for merchants and to add the required content for PVE)
-- ```/etc/cloud/cloud.cfg``` file modification (to avoid overwriting modified hostname etc.)
-- ```/etc/network/interfaces``` file modification (fix auto, dhcp type to static, add vmbr0 gateway)
-- Detect whether it is China IP, if it is China IP use Tsinghua mirror source, otherwise use the official source, and at the same time deal with the source of apt and the corresponding nameserver, to avoid disconnections
-- Create vmbr0 (independent IP gateway), the host allows addr and gateway for intranet IP or extranet IP, has been automatically recognized
-- vmbr0 creation support to open pure IPV4, pure IPV6, dual-stack virtual machine, automatic identification of IPV4 address and IPV6 address, automatic identification of the corresponding IP interval
-- Installation of the necessary toolkit for PVE to open a virtual machine
-- x86_64 replace enterprise subscriptions in apt sources with community sources, arm sources built using third-party patches for fixes
-- Print query Linux system kernel and PVE kernel installed or not
-- Setting up DNS detection ```8.8.8.8.8``` for boot add DNS systemd service
-- Download PVE and printout of login information after adding APT source link for PVE
+- Installs the latest available PVE package set from apt sources.
+- Example mapping: Debian 10 -> PVE 6.4, Debian 11 -> PVE 7.x, Debian 12 -> PVE 8.x, Debian 13 -> PVE 9.x.
+- Updates ```/etc/hosts``` to fix host naming issues and inject required PVE entries.
+- Updates ```/etc/cloud/cloud.cfg``` to avoid cloud-init overwriting modified host settings.
+- Updates ```/etc/network/interfaces``` to convert DHCP-style defaults to static layout and add vmbr0 gateway config.
+- Automatically adjusts package source handling and DNS settings during installation to reduce avoidable network failures
+- Creates vmbr0 (independent IP gateway) and auto-detects whether host address/gateway are private or public.
+- vmbr0 setup supports IPv4-only, IPv6-only, and dual-stack VM networking with automatic subnet recognition.
+- Installs required toolkits for VM provisioning on PVE.
+- On x86_64, replaces enterprise apt subscription sources with community sources; ARM paths use maintained patch workflows.
+- Prints Linux kernel and PVE kernel installation status for quick verification.
+- Enables boot-time DNS health checks through systemd service.
+- Adds PVE apt sources and prints login access details after installation.
 
 All modified files have been set to read-only mode to avoid overwriting after reboot.
 
-If you want to modify the file, please use` ```chattr -i file path``` to cancel the read-only lock, and run ```chattr +i file path``` to lock the read-only lock when you finish modifying the file.
+If you need to edit these files later, run ```chattr -i <file>``` first to remove read-only protection, then run ```chattr +i <file>``` after editing.
 
 You will be prompted to reboot your system once during the execution process, **After rebooting, be sure to wait at least 20 seconds to make sure the system does not reboot automatically again**.
 
-Because the original environment may be missing ```ifupdown``` or ```ifupdown2``` environment, there is a self-installation daemon loaded for the installation, after the installation of the system will automatically reboot the system again, wait for 20 seconds without reboot to ensure that the installation has been run.
+Some source environments are missing ```ifupdown``` or ```ifupdown2```. The installer may deploy helper components and trigger an additional reboot. Wait about 20 seconds after boot to confirm no further automatic reboot is pending.
 
-If the host itself exists SLAAC assigned IPV6 address, will be able to choose whether to use the largest IPV6 subnet range, the default carriage return does not use the largest IPV6 subnet range only use the local IPV6, if you subsequently need to attach a separate IPV6 address to the virtual machine/container, the option must be selected ```y```.
-
-:::tip
-If you are installing on an ARM architecture (such as a server running the Oracle platform), after installing Debian via DD, be sure to switch to the [linuxmirrors](https://linuxmirrors.cn/) repository. Use the Alibaba Cloud repository to avoid missing dependencies in the native environment, and then use the following command to install PVE.
-:::
-
+If the host already has an SLAAC-assigned IPv6 address, you can choose whether to use the largest detected IPv6 subnet range. The default Enter option keeps local IPv6 only. If you plan to assign independent IPv6 addresses to VMs/containers later, choose ```y```.
 
 Command:
 
@@ -62,7 +57,7 @@ bash install_pve.sh
 ```
 
 :::tip
-After successful installation, the web page may not be safe to open, click on Advanced or More Options and insist on accessing it!
+After installation, the browser may show a certificate warning. Click Advanced (or equivalent) and continue if you trust the host.
 :::
 
 The login information is your SSH account and password.
@@ -73,8 +68,8 @@ The login information is your SSH account and password.
 - Remove the subscription popup
 - Attempt to enable hardware passthrough
 - Detect and auto-install AppArmor modules.
-- Before rebooting the system, it is recommended to hook up [nezha probe](https://github.com/naiba/nezha) to facilitate the use of the command line in the background without SSH, to avoid the possibility that SSH may lead to the loss of the root password after the reboot due to the merchant's strange presets.
-- Before executing ```reboot```, you need to wait for the background task to finish executing, some host system apt command execution is very slow, you have to wait for a while to finish executing, of course, most of the machines are not so bad!
+- Before rebooting, consider deploying [nezha probe](https://github.com/naiba/nezha) so you still have emergency command-line access if SSH becomes unavailable.
+- Before running ```reboot```, make sure all background apt tasks are finished. Some hosts process apt jobs slowly.
 
 Command:
 
@@ -85,29 +80,29 @@ bash <(curl -sSLk https://raw.githubusercontent.com/oneclickvirt/pve/main/script
 ### Automatically configure the host's gateway
 
 :::warning
-Before using this command, please make sure that you have restarted the server and that PVE can use the WEB terminal normally before executing this command. Do not execute this command immediately after restarting the machine, wait for at least 1 minute after the WEB terminal is successfully started before executing this command.
-If the WEB side doesn't start, run ```systemctl status pveproxy``` to see if it starts, if it's stuck, run ```systemctl start pveproxy``` to start the WEB side.
+Before using this command, make sure the server has rebooted and the PVE web terminal is working. Do not run it immediately after reboot; wait at least 1 minute after the web terminal is available.
+If the web service does not start, run ```systemctl status pveproxy``` to check status. If it is stuck, run ```systemctl start pveproxy```.
 :::
 
 :::tip
-This step is most likely to cause SSH disconnections, the reason is to modify the network without waiting for the PVE kernel to start, which will result in setting conflicts, so wait at least a few minutes until the kernel is started, that is, the WEB side is started successfully before execution.
+This step can cause SSH disconnections if networking changes are applied before the PVE kernel stack is fully ready. Wait a few minutes and confirm the web UI is healthy before execution.
 :::
 
 :::tip
-If the host needs to attach an IPV6 tunnel (add an IPV6 subnet to a host that does not have an IPV6 address) before executing this command, please check the [IPV6 free subnet attachment](https://www.spiritlhl.net/en/guide/incus/incus_custom.html#attach-free-ipv6-address-segments-to-host-machines) section to attach to the corresponding configuration file, but please **ignore** 'initial environment modifications' and attach directly, and then execute the following one-click gateway configuration commands after verifying that you have an IPV6 address.
+If the host needs to attach an IPv6 tunnel (add an IPv6 subnet to a host that does not have an IPv6 address) before executing this command, please check the [IPv6 free subnet attachment](https://www.spiritlhl.net/en/guide/incus/incus_custom.html#attach-free-ipv6-address-segments-to-host-machines) section to attach to the corresponding configuration file, but please **ignore** 'initial environment modifications' and attach directly, and then execute the following one-click gateway configuration commands after verifying that you have an IPv6 address.
 :::
 
 - If vmbr0 is not created, it is automatically created with the same logic as the main installation
-- Create vmbr1 (NAT gateway) to support IPV4 servers that open NAT for IPV6 networks with NAT.
-- Create vmbr2 (standalone IPV6 gateway), use ndppd to solve the problem of MAC verification of IPV6 addresses by the host, support the opening of servers with standalone IPV6 networks.
-- If you want to see the complete settings, you can execute ```cat /etc/network/interfaces``` to see, if you need to modify the gateway you need to modify the file, the web site can not be modified!
+- Create vmbr1 (NAT gateway) to support IPv4 servers that open NAT for IPv6 networks with NAT.
+- Create vmbr2 (standalone IPv6 gateway). `ndppd` is used to handle host-side MAC verification for IPv6 addresses so standalone IPv6 server networking can work correctly.
+- To review full network settings, run ```cat /etc/network/interfaces```. If you need to change gateway settings, edit this file directly; the web UI cannot apply those changes reliably.
 - Load iptables and set back to source and allow NAT port forwarding.
 
 In short, ```vmbr0``` is responsible for v4 standalone IPs, and ```vmbr1``` is responsible for complex v4/v6 NATs, ```vmbr2``` is responsible for v6 standalone IPs.
 
-Open independent IPV4 virtual machine using vmbr0, gateway with the host, IPV4/CIDR using the same network segment address and the same subnet mask, using the host's unbound IPV4 address for IPV4/CIDR, of course, if the subsequent use of this script does not need to pay attention to this point of the nuances of the thing
+For independent IPv4 VMs on `vmbr0`, use the same subnet and netmask as the host, and assign an unbound host-side IPv4 as the VM IPv4/CIDR. If you always use the provided scripts, you usually do not need to handle this manually.
 
-Use vmbr1 for IPV4 VM with NAT, ```172.16.1.1``` for gateway, ```172.16.1.x/24``` for IPV4/CIDR, where x can't be 1, but of course you don't need to pay attention to this minutia if you use this script later.
+For NAT IPv4 VMs on `vmbr1`, use gateway ```172.16.1.1``` and subnet ```172.16.1.x/24``` (where `x` must not be `1`). Script-based workflows handle this automatically.
 
 Command:
 
@@ -132,9 +127,9 @@ bash <(curl -sSLk https://raw.githubusercontent.com/oneclickvirt/pve/main/script
 
 ## Installation on a physical machine
 
-Proxmox installed by this method **NOT** to be used subsequently with all scripts of this project.
+Proxmox installed through this physical-machine path is **not** guaranteed to be compatible with all automation scripts in this project.
 
-This method has not been tested and adapted on a large scale, only I installed PVE8.4 on the local machine, the router itself is not ```automatically obtain an IP address``` but ```fixed IP address connection``` way, if there is a problem corresponding to the warehouse open issues.
+This method has not been widely validated. Current validation is based on local PVE 8.4 installs in fixed-IP router environments. If issues occur, please open an issue in the repository.
 
 ### U disk burning official ISO
 
@@ -166,17 +161,17 @@ Find out how to get into the BIOS on the host itself, and modify two things afte
 
 Then save the settings, then insert the USB flash drive, reboot the system, and choose to use the graphical interface for installation.
 
-FQDN need to fill in a URL, you can fill in something like pve.spiritlhl.net, preferably a sub-domain of the domain name you own, not the actual domain name if you write it as something like pve.localsite.com will also work, the subsequent may not be used!
+For FQDN, enter a hostname such as `pve.example.com`. A subdomain of your own domain is recommended. It does not have to resolve publicly during initial setup.
 
-After the installation will automatically shut down and restart, reboot after the black screen can be unplugged USB, to avoid restarting the installation from the USB flash drive, of course, if you forget to reboot to the installation page, shut down the machine after unplugging the USB flash drive and then start up is also OK!
+After installation, the machine reboots automatically. When the screen goes black, unplug the USB drive to avoid booting into installer again. If you forget, shut down, unplug USB, and start again.
 
 ### Wireless Network Configuration
 
 Download the required zip file and shell scripts
 
-https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/refs/heads/main/extra_scripts/wireless/wireless.zip
+https://raw.githubusercontent.com/oneclickvirt/pve/refs/heads/main/extra_scripts/wireless/wireless.zip
 
-https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/refs/heads/main/extra_scripts/wireless/wireless.sh
+https://raw.githubusercontent.com/oneclickvirt/pve/refs/heads/main/extra_scripts/wireless/wireless.sh
 
 After downloading, unzip the zip file, drag the ```wireless``` folder into the root directory of a new USB flash drive, and the ```wireless.sh``` file has to be put into the root directory as well.
 
@@ -201,6 +196,6 @@ During the execution of the configuration script, you will be prompted to enter 
 
 ### Cautions
 
-Physical machine after the installation of unlimited modules can not use NAT to connect directly to the virtual machine to access the network, so the subsequent tutorials of this project does not support this method of access to the bridge, the subsequent scripts of this project does not support this method of installation of Proxmox.
+For physical-machine installs with wireless modules, direct NAT bridge access to guest VMs may not work as expected. This network path is not the primary supported route for the follow-up automation scripts in this project.
 
-Currently feasible wireless module used on the PVE success stories, are required to WIFI router access to the network is ```automatically obtain an IP address (DHCP)``` (the subsequent use of openwrt or ikuai or directly nat after the network available within the virtual machine), or can be modified in the router static routing table, if the WIFI router to use a ```fixed IP address Connection to the network```, for the time being did not find success stories.
+Known successful wireless-module setups on PVE require router-side DHCP (`automatically obtain an IP address`) or equivalent static-route adjustments. For Wi-Fi routers using strict fixed-IP uplink mode, there are currently no stable success cases.

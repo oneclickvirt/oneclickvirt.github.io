@@ -12,7 +12,7 @@ Create the following file under the PVE's host machine
 xxx.xxx.xxx.xxx
 ```
 
-```<VMID>``` is replaced with the VMID number of the virtual machine, ```<net0>``` is replaced with the corresponding alias in the network device (which generally doesn't need to be changed unless you're restricted to IPV6), and ```xxx.xxx.xxx.xxx``` is replaced with the public IP address, noting that this IP corresponds to the network device in front of it.
+```<VMID>``` is replaced with the VMID number of the virtual machine, ```<net0>``` is replaced with the corresponding alias in the network device (which generally doesn't need to be changed unless you're restricted to IPv6), and ```xxx.xxx.xxx.xxx``` is replaced with the public IP address, noting that this IP corresponds to the network device in front of it.
 
 The idea here is that net0 can only use the IP xxx.xxx.xxx.xxx, if you use any other IP the data will be dropped, thus restricting the VM to only use this IP.
 

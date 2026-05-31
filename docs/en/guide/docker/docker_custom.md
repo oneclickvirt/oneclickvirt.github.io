@@ -62,9 +62,9 @@ If no custom username is set, the default username after opening is ```oneclick`
 
 If no custom password is set, the default password after opening is ```oneclick```.
 
-The default http port is ```3004```, open ```http://IPV4:3004``` after opening.
+The default http port is ```3004```, open ```http://IPv4:3004``` after opening.
 
-The default https port is ```3005```, open ```https://IPV4:3005``` after opening.
+The default https port is ```3005```, open ```https://IPv4:3005``` after opening.
 
 ```shell
 curl -L https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/onechromium.sh -o onechromium.sh && chmod +x onechromium.sh && bash onechromium.sh
@@ -100,7 +100,7 @@ A complete Linux desktop on which you can use a browser
 
 After setup, the default username is ```onew``` and the password is ```oneclick```. The default maximum memory usage is 2 GB.
 
-The default web port for HTTP protocol is ```3004```, and for HTTPS protocol is ```3005```. After setup, open the corresponding protocol with ```localhost's IPV4:port``` in your web browser.
+The default web port for HTTP protocol is ```3004```, and for HTTPS protocol is ```3005```. After setup, open the corresponding protocol with ```localhost's IPv4:port``` in your web browser.
 
 Run the following command to download and execute the setup script:
 

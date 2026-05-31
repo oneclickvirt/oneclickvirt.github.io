@@ -68,11 +68,7 @@ nerdctl ps | grep ndpresponder
 
 ## Image pull failed
 
-The script includes built-in CDN detection. You can also manually test CDN availability:
-
-```shell
-curl -4 -sL -k "https://cdn0.spiritlhl.top/https://raw.githubusercontent.com/spiritLHLS/ecs/main/back/test" --max-time 6
-```
+Check whether the host can reach GitHub and GitHub Releases normally. If network access is unstable, retry later or switch to a more stable outbound network.
 
 ## How to completely reset the containerd environment
 
@@ -98,19 +94,4 @@ Disk limits require xfs or btrfs snapshotter support. The default overlay snapsh
 
 For disk limits, refer to the docker or incus solution documentation.
 
-## No-CDN mode (WITHOUTCDN)
-
-If your network is stable and useful, or you want to fully disable CDN acceleration, set this before running scripts:
-
-```shell
-export WITHOUTCDN=TRUE
-```
-
-You can also apply it to a single command only:
-
-```shell
-WITHOUTCDN=TRUE
-```
-
-When enabled, scripts will no longer try CDN acceleration URLs during execution.
 

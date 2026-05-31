@@ -1,36 +1,69 @@
-import { createWriteStream } from 'node:fs';
-import { resolve } from 'node:path';
-import { SitemapStream } from 'sitemap';
 import { defineConfig } from 'vitepress';
 
-const links: { url: string; lastmod: number }[] = [];
+const SITE_URL = 'https://www.spiritlhl.net';
+
+function toSitePath(relativePath: string) {
+  return `/${relativePath}`
+    .replace(/\/index\.md$/, '/')
+    .replace(/\.md$/, '.html');
+}
+
+function toCanonicalUrl(relativePath: string) {
+  return new URL(toSitePath(relativePath), `${SITE_URL}/`).toString();
+}
+
+function getDefaultTitle(relativePath: string) {
+  return relativePath.startsWith('en/')
+    ? 'OneClickVirt'
+    : '一键虚拟化项目';
+}
+
+function getLocaleCode(relativePath: string) {
+  return relativePath.startsWith('en/') ? 'en_US' : 'zh_CN';
+}
 
 export default defineConfig({
   lastUpdated: true,
   lang: 'zh-CN',
+  sitemap: {
+    hostname: SITE_URL,
+    transformItems(items) {
+      return items.filter((item) => !/\/404(?:\.html)?$/.test(item.url));
+    },
+  },
   markdown: {
     lineNumbers: true,
     image: {
       lazyLoading: true,
     },
   },
-  transformHtml: (_, id, { pageData }) => {
-    if (!/[\\/]404\.html$/.test(id)) {
-      links.push({
-        url: pageData.relativePath.replace(/\/index\.md$/, '/').replace(/\.md$/, '.html'),
-        lastmod: pageData.lastUpdated ?? Date.now(),
-      });
+  transformPageData(pageData) {
+    if (pageData.relativePath === '404.md') {
+      return;
     }
-  },
-  buildEnd: async ({ outDir }) => {
-    const sitemap = new SitemapStream({
-      hostname: 'https://www.spiritlhl.net/'
-    });
-    const writeStream = createWriteStream(resolve(outDir, 'sitemap.xml'));
-    sitemap.pipe(writeStream);
-    links.forEach((link) => sitemap.write(link));
-    sitemap.end();
-    await new Promise((r) => writeStream.on('finish', r));
+
+    const canonicalUrl = toCanonicalUrl(pageData.relativePath);
+    const title = pageData.title || getDefaultTitle(pageData.relativePath);
+    const description = pageData.description || '';
+
+    pageData.frontmatter.head ??= [];
+    pageData.frontmatter.head.push(
+      ['link', { rel: 'canonical', href: canonicalUrl }],
+      ['meta', { property: 'og:type', content: 'article' }],
+      ['meta', { property: 'og:site_name', content: getDefaultTitle(pageData.relativePath) }],
+      ['meta', { property: 'og:locale', content: getLocaleCode(pageData.relativePath) }],
+      ['meta', { property: 'og:title', content: title }],
+      ['meta', { property: 'og:url', content: canonicalUrl }],
+      ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+      ['meta', { name: 'twitter:title', content: title }],
+    );
+
+    if (description) {
+      pageData.frontmatter.head.push(
+        ['meta', { property: 'og:description', content: description }],
+        ['meta', { name: 'twitter:description', content: description }],
+      );
+    }
   },
   head: [
     ['link', { rel: 'icon', href: 'https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png' }],
@@ -125,7 +158,7 @@ export default defineConfig({
     en: {
       lang: 'en-US',
       label: 'English',
-      title: 'One Click Virtualization',
+      title: 'OneClickVirt',
       description: 'Open source, easy to use server virtualization project',
       link: '/en/',
       themeConfig: {
@@ -142,7 +175,7 @@ export default defineConfig({
         externalLinkIcon: true,
         nav: [
           {
-            text: 'Virtualization Platforms',
+            text: 'Platforms',
             activeMatch: '^/en/guide/',
             items: [
               { text: 'OneClickVirt', link: '/en/guide/oneclickvirt/oneclickvirt_precheck.html' },
@@ -158,7 +191,7 @@ export default defineConfig({
             ]
           },
           {
-            text: 'Other Virtualization Projects',
+            text: 'Other Projects',
             activeMatch: '^/en/incomplete/',
             items: [
               { text: 'webvirtcloud', link: '/en/incomplete/webvirtcloud.html' },
@@ -173,7 +206,7 @@ export default defineConfig({
             ]
           },
           {
-            text: 'Utility Projects',
+            text: 'Utilities',
             activeMatch: '^/en/case/',
             items: [
               { text: '1. ECS benchmark script for VPS', link: '/en/case/case1.html' },
@@ -207,14 +240,17 @@ export default defineConfig({
   },
   themeConfig: {
     outline: 'deep',
+    search: {
+      provider: 'algolia',
+      options: {
+        appId: 'K1R85MDU0C',
+        apiKey: '9375787ec1c00e2b813683fbbde25ae2',
+        indexName: 'virt-spiritlhl'
+      }
+    },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/oneclickvirt' }
     ],
-    algolia: {
-      appId: 'K1R85MDU0C',
-      apiKey: '9375787ec1c00e2b813683fbbde25ae2',
-      indexName: 'virt-spiritlhl'
-    },
     footer: {
       message: 'Under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">(CC BY-NC-SA 4.0) License.</a><br>Also thanks to <a href="https://www.cloudflare.com/">Cloudflare</a> and <a href="https://blog.tanglu.me/">tanglu.me</a> for the CDN.',
       copyright: 'Copyright © 2022-present oneclickvirt'
@@ -282,7 +318,7 @@ function getGuideSidebarZhCN() {
         { text: 'Docker主体安装', link: '/guide/docker/docker_install.html' },
         { text: 'Linux容器(LXC)', link: '/guide/docker/docker_build.html' },
         { text: 'Windows虚拟机(KVM/QEMU)', link: '/guide/docker/docker_windows.html' },
-        { text: 'Macos虚拟机(KVM)', link: '/guide/docker/docker_macos.html' },
+              { text: 'macOS虚拟机(KVM)', link: '/guide/docker/docker_macos.html' },
         { text: 'Android虚拟机(KVM/QEMU)', link: '/guide/docker/docker_android.html' },
         { text: '自定义', link: '/guide/docker/docker_custom.html' },
         { text: '致谢', link: '/guide/docker/docker_thanks.html' },
@@ -479,7 +515,7 @@ function getGuideSidebarEnUS() {
         { text: 'Docker main installation', link: '/en/guide/docker/docker_install.html' },
         { text: 'Linux Container(LXC)', link: '/en/guide/docker/docker_build.html' },
         { text: 'Windows Virtual Machine(KVM/QEMU)', link: '/en/guide/docker/docker_windows.html' },
-        { text: 'Macos Virtual Machine(KVM)', link: '/en/guide/docker/docker_macos.html' },
+        { text: 'macOS Virtual Machine(KVM)', link: '/en/guide/docker/docker_macos.html' },
         { text: 'Android Virtual Machine(KVM/QEMU)', link: '/en/guide/docker/docker_android.html' },
         { text: 'Custom', link: '/en/guide/docker/docker_custom.html' },
         { text: 'Acknowledgements', link: '/en/guide/docker/docker_thanks.html' },
@@ -551,9 +587,9 @@ function getGuideSidebarEnUS() {
       items: [
         { text: 'via iptables', link: '/en/guide/block/block_iptables.html' },
         { text: 'In PVE', link: '/en/guide/block/block_pve.html' },
-        { text: 'In INCUS', link: '/en/guide/block/block_incus.html' },
+        { text: 'In Incus', link: '/en/guide/block/block_incus.html' },
         { text: 'In LXD', link: '/en/guide/block/block_lxd.html' },
-        { text: 'In DOCKER', link: '/en/guide/block/block_docker.html' },
+        { text: 'In Docker', link: '/en/guide/block/block_docker.html' },
       ]
     },
     {

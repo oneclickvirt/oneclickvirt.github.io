@@ -69,7 +69,7 @@ The execution process may be stuck in the clone repository has not been moving, 
 
 Check if the server supports KVM nested virtualization:
 ```bash
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && ./goecs.sh install && goecs
+curl -L https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && ./goecs.sh install && goecs
 ```
 
 Select hardware individual test
