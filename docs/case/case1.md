@@ -72,7 +72,7 @@ Shell 版本：[https://github.com/spiritLHLS/ecs](https://github.com/spiritLHLS
 
 #### **一键命令**
 
-**一键命令**将默认**不安装依赖**，默认**不更新包管理器**，默认**非互动模式**
+**一键命令**将默认**不安装依赖**，默认**不更新包管理器**，默认**无交互模式**
 
 - **国际用户无加速：**
 
@@ -108,7 +108,7 @@ Shell 版本：[https://github.com/spiritLHLS/ecs](https://github.com/spiritLHLS
 
 #### **详细说明**
 
-以下命令可控制**是否安装依赖**，**是否更新包管理器**，**互动模式和非交互模式**
+以下命令可控制**是否安装依赖**，**是否更新包管理器**，**交互模式和无交互模式**
 
 <details>
 <summary>展开查看详细说明</summary>
@@ -139,7 +139,7 @@ Shell 版本：[https://github.com/spiritLHLS/ecs](https://github.com/spiritLHLS
    ./goecs.sh env
    ```
 
-   **非互动模式：**
+   **无交互模式：**
 
    ```bash
    export noninteractive=true && ./goecs.sh env

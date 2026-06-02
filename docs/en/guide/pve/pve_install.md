@@ -44,6 +44,8 @@ Some source environments are missing ```ifupdown``` or ```ifupdown2```. The inst
 
 If the host already has an SLAAC-assigned IPv6 address, you can choose whether to use the largest detected IPv6 subnet range. The default Enter option keeps local IPv6 only. If you plan to assign independent IPv6 addresses to VMs/containers later, choose ```y```.
 
+For non-interactive installation, use `export noninteractive=true` before the install command. The script will apply default choices for optional prompts.
+
 Command:
 
 ```shell
@@ -54,6 +56,12 @@ or
 
 ```shell
 bash install_pve.sh
+```
+
+Non-interactive example after downloading the script:
+
+```shell
+export noninteractive=true && bash install_pve.sh
 ```
 
 :::tip

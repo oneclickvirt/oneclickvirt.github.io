@@ -34,6 +34,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 - If requirements are met, deploys `ndpresponder` and `radvd` for IPv6 NDP and auto-allocation behavior
 - Supports x86_64 and ARM servers
 - Installer prompts include Docker install path and optional disk-limit capability
+- For non-interactive installation, use `export noninteractive=true` before the install command. The script will apply default choices for optional prompts
 
 Command:
 
@@ -45,6 +46,12 @@ OR
 
 ```
 bash dockerinstall.sh
+```
+
+Non-interactive example after downloading the script:
+
+```shell
+export noninteractive=true && bash dockerinstall.sh
 ```
 
 :::tip

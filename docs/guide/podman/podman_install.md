@@ -36,6 +36,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/a
 - 检测公网 IPv6 地址，若存在则自动创建 podman-ipv6 网络并启动 NDP Responder
 - 安装 DNS 保活服务（check-dns-podman.service），持续检测 DNS 可用性
 - 支持 x86_64 和 ARM64 架构的服务器
+- 如需无交互安装，统一使用 `export noninteractive=true` 指定无交互模式，脚本会按默认策略处理可选项
 
 国际
 
@@ -47,6 +48,12 @@ bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/podman/main/podm
 
 ```shell
 bash <(curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/podman/main/podmaninstall.sh)
+```
+
+国内/国际命令均可在原命令前追加 `export noninteractive=true &&`，例如：
+
+```shell
+export noninteractive=true && bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/podman/main/podmaninstall.sh)
 ```
 
 :::tip

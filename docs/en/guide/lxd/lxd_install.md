@@ -47,6 +47,7 @@ It's recommended to wait for at least 5 minutes after the system boots up before
 - The server needs to be restarted after the environment installation process to load some default configurations
 - By default, lxd's lxcfs-related configuration is enabled, so that in-container querying of container information changes to information about the container itself rather than the host
 - This installer has been tested to work on either physical or non-physical machines
+- For non-interactive installation, use `export noninteractive=true` before the install command. The script will apply default choices for optional prompts
 
 Command:
 
@@ -58,6 +59,12 @@ OR
 
 ```shell
 bash lxdinstall.sh
+```
+
+Non-interactive example after downloading the script:
+
+```shell
+export noninteractive=true && bash lxdinstall.sh
 ```
 
 Example of initialization configuration:

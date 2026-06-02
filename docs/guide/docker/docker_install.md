@@ -41,6 +41,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/a
 - 满足上述条件时，会创建 `ndpresponder` 和 `radvd` 容器，使 IPv6 分配支持 NDP 广播和自动分配。
 - 支持x86_64和ARM架构的服务器
 - 安装过程中会要求你输入一些选项，选择Docker安装路径，选择Docker安装是否可限制硬盘
+- 如需无交互安装，统一使用 `export noninteractive=true` 指定无交互模式，脚本会按默认策略处理可选项
 
 国际
 
@@ -58,6 +59,12 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 ```
 bash dockerinstall.sh
+```
+
+已下载脚本后的无交互安装示例：
+
+```shell
+export noninteractive=true && bash dockerinstall.sh
 ```
 
 :::tip

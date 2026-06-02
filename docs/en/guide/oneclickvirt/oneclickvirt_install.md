@@ -54,10 +54,10 @@ Interactive environment installation
 ./install.sh env
 ```
 
-Non-interactive environment installation
+Non-interactive environment installation (use `export noninteractive=true` to enable non-interactive mode)
 
 ```
-noninteractive=true ./install.sh env
+export noninteractive=true && ./install.sh env
 ```
 
 ###### Main Installation

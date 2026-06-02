@@ -42,6 +42,8 @@ outline: deep
 
 若宿主机本身存在SLAAC分配的IPV6地址，将可选择是否使用最大的IPV6子网范围，默认回车不使用最大的IPV6子网范围仅使用本机IPV6，若后续需要给虚拟机/容器附加独立的IPV6地址，该选项务必选择```y```.
 
+如需无交互安装，统一使用 `export noninteractive=true` 指定无交互模式，脚本会按默认策略处理可选项。
+
 :::tip
 如果是ARM架构下进行安装(如甲骨文Oracle平台的服务器)，DD成Debian系统后务必使用[linuxmirrors](https://linuxmirrors.cn/)进行换源，使用阿里云的源避免原生环境依赖缺失再使用下面的命令安装PVE
 :::
@@ -62,6 +64,12 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 ```shell
 bash install_pve.sh
+```
+
+已下载脚本后的无交互安装示例：
+
+```shell
+export noninteractive=true && bash install_pve.sh
 ```
 
 :::tip

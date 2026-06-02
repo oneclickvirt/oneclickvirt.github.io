@@ -28,9 +28,16 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 - Detects public IPv6 address; if present, automatically creates podman-ipv6 network and starts NDP Responder
 - Installs DNS liveness check service (check-dns-podman.service)
 - Supports x86_64 and ARM64 architecture servers
+- For non-interactive installation, use `export noninteractive=true` before the install command. The script will apply default choices for optional prompts
 
 ```shell
 bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/podman/main/podmaninstall.sh)
+```
+
+Use the same prefix with any mirror command, for example:
+
+```shell
+export noninteractive=true && bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/podman/main/podmaninstall.sh)
 ```
 
 :::tip

@@ -62,10 +62,10 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 ./install.sh env
 ```
 
-无交互地安装环境
+无交互地安装环境（统一使用 `export noninteractive=true` 指定无交互模式）
 
 ```
-noninteractive=true ./install.sh env
+export noninteractive=true && ./install.sh env
 ```
 
 ###### 本体安装

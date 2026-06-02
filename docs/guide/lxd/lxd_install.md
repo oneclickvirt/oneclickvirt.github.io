@@ -50,6 +50,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/a
 - 环境安装过程后需要重启服务器以加载一些默认配置
 - 默认启用lxd的lxcfs相关配置，使得容器内查询容器信息变更为容器本身的信息而不是宿主机信息
 - 实测本安装程序在物理机器或非物理机器上都可使用
+- 如需无交互安装，统一使用 `export noninteractive=true` 指定无交互模式，脚本会按默认策略处理可选项
 
 国际
 
@@ -67,6 +68,12 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 ```shell
 bash lxdinstall.sh
+```
+
+已下载脚本后的无交互安装示例：
+
+```shell
+export noninteractive=true && bash lxdinstall.sh
 ```
 
 初始化配置的例子：

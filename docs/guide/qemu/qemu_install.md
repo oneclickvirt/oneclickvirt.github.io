@@ -35,6 +35,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/a
 - 自动配置宿主机网桥（virbr0）和 NAT 网络
 - 自动检测公网 IPv6 地址并配置 IPv6 网络（如存在）
 - 支持 x86_64 和 ARM64 架构的服务器
+- 如需无交互安装，统一使用 `export noninteractive=true` 指定无交互模式，脚本会按默认策略处理可选项
 
 国际
 
@@ -46,6 +47,12 @@ bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuin
 
 ```shell
 bash <(curl -sSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuinstall.sh)
+```
+
+国内/国际命令均可在原命令前追加 `export noninteractive=true &&`，例如：
+
+```shell
+export noninteractive=true && bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuinstall.sh)
 ```
 
 :::tip
