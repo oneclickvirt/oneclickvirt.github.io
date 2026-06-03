@@ -29,6 +29,7 @@ Hardware requirements include at least 1G of free memory and 2G of free disk spa
 | Docker Deployment (Pre-built Image) | Quick deployment, larger resource usage | One-click installation, data persistence | Requires Docker environment, large image download |
 | Docker Compose Deployment | Suitable for source code updates and maintenance | Highly customizable | Requires Docker environment, lengthy compilation time |
 | Dockerfile Self-Compilation | Suitable for source code updates and maintenance | Highly customizable | Requires Docker environment, lengthy compilation time |
+| One-Click Full-Stack Script | Bare-metal quick deployment | Fully automated: DB, reverse proxy, TLS, frontend & backend | Higher hardware requirements (10G disk/2G memory) |
 
 ### Installation via Pre-compiled Binary Files
 
@@ -492,6 +493,46 @@ docker run -d \
   --restart unless-stopped \
   oneclickvirt:no-db
 ```
+
+### One-Click Full-Stack Installation Script
+
+`install_full.sh` installs the database, reverse proxy, TLS configuration, frontend, backend, and system service in one flow. It supports MySQL or MariaDB and Caddy, Nginx, or OpenResty.
+
+The domain input auto-detects protocol prefixes: enter `https://panel.example.com` to auto-enable TLS, `http://panel.example.com` to auto-disable TLS, or a plain domain to be prompted interactively.
+
+#### Download Script
+
+```shell
+curl -fsSL https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/main/install_full.sh -o install_full.sh
+```
+
+#### Interactive Installation
+
+```bash
+bash install_full.sh
+```
+
+#### Non-Interactive Deployment
+
+```bash
+# HTTPS with auto TLS
+bash install_full.sh \
+  --non-interactive \
+  --domain https://panel.example.com \
+  --email admin@example.com \
+  --db-type mariadb \
+  --proxy caddy
+
+# HTTP only, no TLS
+bash install_full.sh \
+  --non-interactive \
+  --domain http://192.168.1.100 \
+  --proxy caddy
+```
+
+:::warning
+The installer requires at least 10 GB free disk and 2 GB memory by default. It writes the generated database password to the final installation summary; save it before closing the terminal.
+:::
 
 ## Database Initialization
 

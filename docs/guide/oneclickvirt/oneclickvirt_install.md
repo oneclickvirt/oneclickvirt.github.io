@@ -29,6 +29,7 @@ outline: deep
 | Docker部署(预构建镜像) | 快速部署，占用较大 | 一键安装、数据持久化 | 需要Docker环境，下载镜像较大  |
 | DockerCompose部署 | 适合源码更新维护 | 高度自定义 | 需要Docker环境，编译耗时长 |
 | Dockerfile自编译 | 适合源码更新维护 | 高度自定义 | 需要Docker环境，编译耗时长 |
+| 一键全栈安装脚本 | 裸金属快速部署 | 全自动安装数据库/反向代理/TLS/前后端 | 硬件要求较高(10G磁盘/2G内存) |
 
 ### 通过预编译二进制文件安装
 
@@ -504,6 +505,54 @@ docker run -d \
   --restart unless-stopped \
   oneclickvirt:no-db
 ```
+
+### 通过一键全栈安装脚本
+
+`install_full.sh` 可一键安装数据库、反向代理、TLS 配置、前端、后端及系统服务，支持 MySQL/MariaDB 以及 Caddy/Nginx/OpenResty。
+
+域名输入支持自动识别协议前缀：输入 `https://panel.example.com` 自动启用 TLS，输入 `http://panel.example.com` 自动禁用 TLS，输入纯域名则交互式询问。
+
+#### 下载脚本
+
+国际
+
+```shell
+curl -fsSL https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/main/install_full.sh -o install_full.sh
+```
+
+国内
+
+```shell
+curl -fsSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/main/install_full.sh -o install_full.sh
+```
+
+#### 交互式安装
+
+```bash
+bash install_full.sh
+```
+
+#### 非交互式部署
+
+```bash
+# HTTPS 自动 TLS
+bash install_full.sh \
+  --non-interactive \
+  --domain https://panel.example.com \
+  --email admin@example.com \
+  --db-type mariadb \
+  --proxy caddy
+
+# 仅 HTTP，无 TLS
+bash install_full.sh \
+  --non-interactive \
+  --domain http://192.168.1.100 \
+  --proxy caddy
+```
+
+:::warning
+安装程序默认要求至少 10 GB 可用磁盘空间和 2 GB 内存。安装完成后，终端会输出生成的数据库密码，请在关闭终端前妥善保存。
+:::
 
 ## 数据库初始化
 
