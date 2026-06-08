@@ -79,6 +79,14 @@ If the corresponding disk has 18 Gigabytes of free hard disk space in addition t
 If you plan to run more than 200 LXD containers on one server, this solution is not recommended. `lxcfs` drift can cause persistent I/O load that is hard to recover from. (This is an upstream LXC limitation.)
 :::
 
+## Uninstall LXD Environment
+
+One-click uninstall of the complete LXD environment, including all containers, VMs, images, storage pools, network configurations, systemd services, packages, and related configuration files:
+
+```shell
+curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/lxduninstall.sh -o lxduninstall.sh && chmod +x lxduninstall.sh && bash lxduninstall.sh
+```
+
 ## Installation of WEB Control Panel
 
 The customization section also includes guidance for enabling the official panel. Here we recommend a third-party panel instead, because the official panel prioritizes security over user experience in several workflows.

@@ -88,6 +88,23 @@ export noninteractive=true && bash lxdinstall.sh
 如果你需要在一台服务器上开启超过200个LXD容器，那么不推荐你使用本项目，可能会出现lxcfs访问漂移的问题，产生IO占用无法释放。(系lxc原生问题无法修复)
 :::
 
+## 卸载 LXD 环境
+
+一键卸载 LXD 全套环境，包括所有容器、虚拟机、镜像、存储池、网络配置、systemd 服务、软件包及相关配置文件：
+
+国际
+
+```shell
+curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/lxduninstall.sh -o lxduninstall.sh && chmod +x lxduninstall.sh && bash lxduninstall.sh
+```
+
+国内
+
+```shell
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/lxduninstall.sh -o lxduninstall.sh && chmod +x lxduninstall.sh && bash lxduninstall.sh
+```
+
+
 ## 安装WEB控制面板
 
 自定义 教程中有关于官方面板怎么启用的教程，但这里不选择使用官方的面板，因为官方面板为了安全性，牺牲了很多用户体验，这块使用
