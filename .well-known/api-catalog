@@ -11,9 +11,27 @@
         },
         {
           "rel": "service-desc",
-          "href": "https://www.spiritlhl.net/docs/developer/",
+          "href": "https://www.spiritlhl.net/developer/",
           "type": "text/html",
           "title": "Developer Guide"
+        },
+        {
+          "rel": "agent-skills",
+          "href": "https://www.spiritlhl.net/.well-known/agent-skills/index.json",
+          "type": "application/json",
+          "title": "Agent Skills Index"
+        },
+        {
+          "rel": "service-desc",
+          "href": "https://www.spiritlhl.net/.well-known/mcp/server-card.json",
+          "type": "application/json",
+          "title": "MCP Server Card"
+        },
+        {
+          "rel": "keyset",
+          "href": "https://www.spiritlhl.net/.well-known/http-message-signatures-directory",
+          "type": "application/json",
+          "title": "HTTP Message Signatures Directory"
         },
         {
           "rel": "status",

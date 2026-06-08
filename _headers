@@ -1,28 +1,42 @@
 # Homepage and root responses with agent discovery headers
 /
-  link: </.well-known/api-catalog>; rel="api-catalog"
-  link: </.well-known/agent-skills/index.json>; rel="service-doc"
-  link: </.well-known/mcp/server-card.json>; rel="service-doc"
+  link: </.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"
+  link: </.well-known/agent-skills/index.json>; rel="agent-skills"; type="application/json"
+  link: </.well-known/mcp/server-card.json>; rel="service-doc"; type="application/json"
   content-type: text/html; charset=utf-8
 
 # API Catalog endpoint
 /.well-known/api-catalog
   content-type: application/linkset+json
   cache-control: public, max-age=86400
+  access-control-allow-origin: *
 
 # Agent Skills index
 /.well-known/agent-skills/index.json
   content-type: application/json
   cache-control: public, max-age=86400
+  access-control-allow-origin: *
+
+/.well-known/agent-skills/*/SKILL.md
+  content-type: text/markdown; charset=utf-8
+  cache-control: public, max-age=86400
+  access-control-allow-origin: *
 
 # MCP Server Card
 /.well-known/mcp/server-card.json
   content-type: application/json
   cache-control: public, max-age=86400
+  access-control-allow-origin: *
 
 # Web Bot Auth JWKS
 /.well-known/http-message-signatures-directory
   content-type: application/json
+  cache-control: public, max-age=86400
+  access-control-allow-origin: *
+
+# Robots rules for search engines and agents
+/robots.txt
+  content-type: text/plain; charset=utf-8
   cache-control: public, max-age=86400
 
 # Static assets caching
