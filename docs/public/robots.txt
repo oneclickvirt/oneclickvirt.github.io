@@ -1,10 +1,12 @@
 # OneClick Virtualization Project - robots.txt
-# Last Updated: 2026-05-16
+# Last Updated: 2026-06-05
 # Specification: RFC 9309 (https://www.rfc-editor.org/rfc/rfc9309)
 
 # Default rules for all crawlers
 User-agent: *
 Allow: /
+Allow: /.well-known/
+Allow: /robots.txt
 Disallow: /_astro/
 Disallow: /node_modules/
 Disallow: /.vitepress/
@@ -20,6 +22,7 @@ Allow: /
 # AI Training and Inference Crawlers
 # OpenAI GPT crawlers
 User-agent: GPTBot
+Allow: /.well-known/
 Allow: /guide/
 Allow: /case/
 Allow: /developer/
@@ -27,6 +30,7 @@ Disallow: /en/
 Disallow: /incomplete/
 
 User-agent: OAI-SearchBot
+Allow: /.well-known/
 Allow: /guide/
 Allow: /case/
 Allow: /developer/
@@ -35,6 +39,7 @@ Disallow: /incomplete/
 
 # Anthropic Claude Web Crawler
 User-agent: Claude-Web
+Allow: /.well-known/
 Allow: /guide/
 Allow: /case/
 Allow: /developer/
@@ -47,6 +52,7 @@ Allow: /
 
 # Perplexity AI
 User-agent: PerplexityBot
+Allow: /.well-known/
 Allow: /guide/
 Allow: /case/
 Allow: /developer/

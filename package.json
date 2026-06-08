@@ -8,7 +8,8 @@
   },
   "scripts": {
     "dev": "vitepress dev docs",
-    "build": "vitepress build docs"
+    "build": "vitepress build docs",
+    "check": "node scripts/check-docs.mjs"
   },
   "repository": {
     "type": "git",

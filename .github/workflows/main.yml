@@ -24,6 +24,8 @@ jobs:
             ${{ runner.OS }}-npm-cache
       - name: Install Dependencies
         run: npm install
+      - name: Check Documentation
+        run: npm run check
       - name: Build
         run: npm run build
       - name: Deploy

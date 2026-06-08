@@ -1,7 +1,7 @@
 ---
 layout: home
 
-title: K'thun
+title: OneClickVirt
 titleTemplate: OneClickVirt
 tagline: Open source, easy to use server virtualization project
 

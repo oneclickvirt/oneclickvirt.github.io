@@ -2,7 +2,7 @@
   "serverInfo": {
     "name": "OneClick Virtualization Documentation",
     "version": "1.0.0",
-    "description": "MCP server providing access to comprehensive virtualization guides, documentation, and developer resources for cloud infrastructure automation",
+    "description": "Static discovery card for OneClickVirt virtualization guides, documentation, and developer resources",
     "homepage": "https://www.spiritlhl.net/",
     "logo": "https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png"
   },
@@ -35,53 +35,12 @@
         "type": "service-catalog",
         "uri": "https://www.spiritlhl.net/.well-known/api-catalog",
         "description": "RFC 9727 API catalog with comprehensive link relations"
-      }
-    ],
-    "tools": [
-      {
-        "name": "search-guides",
-        "description": "Search through virtualization platform guides",
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "platform": {
-              "type": "string",
-              "description": "Virtualization platform (OneClickVirt, Proxmox VE, Incus, Docker, LXD, Containerd, Podman, QEMU, KubeVirt)"
-            },
-            "topic": {
-              "type": "string",
-              "description": "Topic to search (precheck, install, config, qa, thanks)"
-            }
-          }
-        }
       },
       {
-        "name": "get-documentation",
-        "description": "Retrieve documentation page content",
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "path": {
-              "type": "string",
-              "description": "Path to documentation page (e.g., /guide/oneclickvirt/)"
-            }
-          },
-          "required": ["path"]
-        }
-      },
-      {
-        "name": "list-platforms",
-        "description": "List all supported virtualization platforms with their documentation status",
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "filter": {
-              "type": "string",
-              "enum": ["all", "complete", "incomplete"],
-              "description": "Filter by documentation completeness"
-            }
-          }
-        }
+        "name": "agent-skills-index",
+        "type": "agent-skill-discovery",
+        "uri": "https://www.spiritlhl.net/.well-known/agent-skills/index.json",
+        "description": "Agent Skills discovery index for documentation-oriented agent behavior"
       }
     ]
   },
@@ -90,6 +49,8 @@
     "license": "ISC",
     "repository": "https://github.com/oneclickvirt/oneclickvirt.github.io",
     "documentation": "https://www.spiritlhl.net/developer/",
-    "supportedLanguages": ["zh-CN", "en-US"]
+    "supportedLanguages": ["zh-CN", "en-US"],
+    "serviceType": "static-documentation-discovery",
+    "note": "This static documentation site exposes public resources and discovery metadata, but no executable MCP tools."
   }
 }

@@ -1,6 +1,498 @@
-import { defineConfig } from 'vitepress';
+import { defineConfig, type DefaultTheme } from 'vitepress';
 
 const SITE_URL = 'https://www.spiritlhl.net';
+const LOGO_URL = 'https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png';
+
+type LocaleKey = 'zh' | 'en';
+type LocalizedText = Record<LocaleKey, string>;
+
+interface DocLink {
+  text: LocalizedText;
+  path: string;
+}
+
+interface SidebarSection {
+  text: LocalizedText;
+  items: DocLink[];
+}
+
+const guideSections: SidebarSection[] = [
+  {
+    text: {
+      zh: '入门',
+      en: 'Getting Started',
+    },
+    items: [
+      {
+        text: { zh: '平台总览', en: 'Platform overview' },
+        path: '/guide/',
+      },
+      {
+        text: { zh: '准备工作', en: 'Preparation' },
+        path: '/guide/dashboard',
+      },
+    ],
+  },
+  {
+    text: { zh: 'OneClickVirt', en: 'OneClickVirt' },
+    items: [
+      {
+        text: { zh: '系统和硬件配置要求', en: 'Configuration requirements' },
+        path: '/guide/oneclickvirt/oneclickvirt_precheck',
+      },
+      {
+        text: { zh: '主体安装', en: 'Main installation' },
+        path: '/guide/oneclickvirt/oneclickvirt_install',
+      },
+      {
+        text: { zh: '使用说明', en: 'Instructions for use' },
+        path: '/guide/oneclickvirt/oneclickvirt_usage',
+      },
+      {
+        text: { zh: '自定义', en: 'Custom' },
+        path: '/guide/oneclickvirt/oneclickvirt_custom',
+      },
+      {
+        text: { zh: '致谢', en: 'Acknowledgements' },
+        path: '/guide/oneclickvirt/oneclickvirt_thanks',
+      },
+      {
+        text: { zh: '常见问题答疑', en: 'FAQ' },
+        path: '/guide/oneclickvirt/oneclickvirt_qa',
+      },
+    ],
+  },
+  {
+    text: { zh: 'Proxmox VE', en: 'Proxmox VE' },
+    items: [
+      {
+        text: { zh: '系统和硬件配置要求', en: 'Configuration requirements' },
+        path: '/guide/pve/pve_precheck',
+      },
+      {
+        text: { zh: 'PVE主体安装', en: 'PVE main installation' },
+        path: '/guide/pve/pve_install',
+      },
+      {
+        text: { zh: 'Linux虚拟机(KVM/QEMU)', en: 'Linux Virtual Machine(KVM/QEMU)' },
+        path: '/guide/pve/pve_kvm',
+      },
+      {
+        text: { zh: 'Linux容器(LXC)', en: 'Linux Container(LXC)' },
+        path: '/guide/pve/pve_lxc',
+      },
+      {
+        text: { zh: 'Windows虚拟机(KVM/QEMU)', en: 'Windows Virtual Machine(KVM/QEMU)' },
+        path: '/guide/pve/pve_windows',
+      },
+      {
+        text: { zh: 'MacOS虚拟机(KVM)', en: 'MacOS Virtual Machine(KVM)' },
+        path: '/guide/pve/pve_macos',
+      },
+      {
+        text: { zh: 'Android虚拟机(KVM)', en: 'Android Virtual Machine(KVM)' },
+        path: '/guide/pve/pve_android',
+      },
+      {
+        text: { zh: '自定义', en: 'Custom' },
+        path: '/guide/pve/pve_custom',
+      },
+      {
+        text: { zh: '致谢', en: 'Acknowledgements' },
+        path: '/guide/pve/pve_thanks',
+      },
+      {
+        text: { zh: '常见问题答疑', en: 'FAQ' },
+        path: '/guide/pve/pve_qa',
+      },
+    ],
+  },
+  {
+    text: { zh: 'Incus', en: 'Incus' },
+    items: [
+      {
+        text: { zh: '系统和硬件配置要求', en: 'Configuration requirements' },
+        path: '/guide/incus/incus_precheck',
+      },
+      {
+        text: { zh: 'Incus主体安装', en: 'Incus main installation' },
+        path: '/guide/incus/incus_install',
+      },
+      {
+        text: { zh: 'Linux虚拟机(QEMU)', en: 'Linux Virtual Machine(QEMU)' },
+        path: '/guide/incus/incus_qemu',
+      },
+      {
+        text: { zh: 'Linux容器(LXC)', en: 'Linux Container(LXC)' },
+        path: '/guide/incus/incus_lxc',
+      },
+      {
+        text: { zh: 'Windows虚拟机(QEMU)', en: 'Windows Virtual Machine(QEMU)' },
+        path: '/guide/incus/incus_windows',
+      },
+      {
+        text: { zh: '更多配置', en: 'Extra configuration' },
+        path: '/guide/incus/incus_extra_config',
+      },
+      {
+        text: { zh: '自定义', en: 'Custom' },
+        path: '/guide/incus/incus_custom',
+      },
+      {
+        text: { zh: '致谢', en: 'Acknowledgements' },
+        path: '/guide/incus/incus_thanks',
+      },
+      {
+        text: { zh: '常见问题答疑', en: 'FAQ' },
+        path: '/guide/incus/incus_qa',
+      },
+    ],
+  },
+  {
+    text: { zh: 'Docker', en: 'Docker' },
+    items: [
+      {
+        text: { zh: '系统和硬件配置要求', en: 'Configuration requirements' },
+        path: '/guide/docker/docker_precheck',
+      },
+      {
+        text: { zh: 'Docker主体安装', en: 'Docker main installation' },
+        path: '/guide/docker/docker_install',
+      },
+      {
+        text: { zh: 'Linux容器(LXC)', en: 'Linux Container(LXC)' },
+        path: '/guide/docker/docker_build',
+      },
+      {
+        text: { zh: 'Windows虚拟机(KVM/QEMU)', en: 'Windows Virtual Machine(KVM/QEMU)' },
+        path: '/guide/docker/docker_windows',
+      },
+      {
+        text: { zh: 'macOS虚拟机(KVM)', en: 'macOS Virtual Machine(KVM)' },
+        path: '/guide/docker/docker_macos',
+      },
+      {
+        text: { zh: 'Android虚拟机(KVM/QEMU)', en: 'Android Virtual Machine(KVM/QEMU)' },
+        path: '/guide/docker/docker_android',
+      },
+      {
+        text: { zh: '自定义', en: 'Custom' },
+        path: '/guide/docker/docker_custom',
+      },
+      {
+        text: { zh: '致谢', en: 'Acknowledgements' },
+        path: '/guide/docker/docker_thanks',
+      },
+      {
+        text: { zh: '常见问题答疑', en: 'FAQ' },
+        path: '/guide/docker/docker_qa',
+      },
+    ],
+  },
+  {
+    text: { zh: 'LXD', en: 'LXD' },
+    items: [
+      {
+        text: { zh: '系统和硬件配置要求', en: 'Configuration requirements' },
+        path: '/guide/lxd/lxd_precheck',
+      },
+      {
+        text: { zh: 'LXD主体安装', en: 'LXD main installation' },
+        path: '/guide/lxd/lxd_install',
+      },
+      {
+        text: { zh: 'Linux虚拟机(QEMU)', en: 'Linux Virtual Machine(QEMU)' },
+        path: '/guide/lxd/lxd_qemu',
+      },
+      {
+        text: { zh: 'Linux容器(LXC)', en: 'Linux Container(LXC)' },
+        path: '/guide/lxd/lxd_lxc',
+      },
+      {
+        text: { zh: 'Windows虚拟机(QEMU)', en: 'Windows Virtual Machine(QEMU)' },
+        path: '/guide/lxd/lxd_windows',
+      },
+      {
+        text: { zh: '更多配置', en: 'Extra configuration' },
+        path: '/guide/lxd/lxd_extra_config',
+      },
+      {
+        text: { zh: '自定义', en: 'Custom' },
+        path: '/guide/lxd/lxd_custom',
+      },
+      {
+        text: { zh: '致谢', en: 'Acknowledgements' },
+        path: '/guide/lxd/lxd_thanks',
+      },
+      {
+        text: { zh: '常见问题答疑', en: 'FAQ' },
+        path: '/guide/lxd/lxd_qa',
+      },
+    ],
+  },
+  {
+    text: { zh: 'Containerd', en: 'Containerd' },
+    items: [
+      {
+        text: { zh: '系统和配置要求', en: 'System & configuration requirements' },
+        path: '/guide/containerd/containerd_precheck',
+      },
+      {
+        text: { zh: 'Containerd主体安装', en: 'Containerd main installation' },
+        path: '/guide/containerd/containerd_install',
+      },
+      {
+        text: { zh: 'Linux容器(LXC)', en: 'Linux Container(LXC)' },
+        path: '/guide/containerd/containerd_build',
+      },
+      {
+        text: { zh: '致谢', en: 'Acknowledgements' },
+        path: '/guide/containerd/containerd_thanks',
+      },
+      {
+        text: { zh: '常见问题答疑', en: 'FAQ' },
+        path: '/guide/containerd/containerd_qa',
+      },
+    ],
+  },
+  {
+    text: { zh: 'Podman', en: 'Podman' },
+    items: [
+      {
+        text: { zh: '系统和配置要求', en: 'System & configuration requirements' },
+        path: '/guide/podman/podman_precheck',
+      },
+      {
+        text: { zh: 'Podman主体安装', en: 'Podman main installation' },
+        path: '/guide/podman/podman_install',
+      },
+      {
+        text: { zh: 'Linux容器(LXC)', en: 'Linux Container(LXC)' },
+        path: '/guide/podman/podman_build',
+      },
+      {
+        text: { zh: '致谢', en: 'Acknowledgements' },
+        path: '/guide/podman/podman_thanks',
+      },
+      {
+        text: { zh: '常见问题答疑', en: 'FAQ' },
+        path: '/guide/podman/podman_qa',
+      },
+    ],
+  },
+  {
+    text: { zh: 'QEMU', en: 'QEMU' },
+    items: [
+      {
+        text: { zh: '系统和配置要求', en: 'System & configuration requirements' },
+        path: '/guide/qemu/qemu_precheck',
+      },
+      {
+        text: { zh: 'QEMU主体安装', en: 'QEMU main installation' },
+        path: '/guide/qemu/qemu_install',
+      },
+      {
+        text: { zh: 'Linux虚拟机(KVM/QEMU)', en: 'Linux Virtual Machine(KVM/QEMU)' },
+        path: '/guide/qemu/qemu_build',
+      },
+      {
+        text: { zh: '致谢', en: 'Acknowledgements' },
+        path: '/guide/qemu/qemu_thanks',
+      },
+      {
+        text: { zh: '常见问题答疑', en: 'FAQ' },
+        path: '/guide/qemu/qemu_qa',
+      },
+    ],
+  },
+  {
+    text: { zh: 'KubeVirt', en: 'KubeVirt' },
+    items: [
+      {
+        text: { zh: '系统和配置要求', en: 'System & configuration requirements' },
+        path: '/guide/kubevirt/kubevirt_precheck',
+      },
+      {
+        text: { zh: 'KubeVirt主体安装', en: 'KubeVirt main installation' },
+        path: '/guide/kubevirt/kubevirt_install',
+      },
+      {
+        text: { zh: 'Linux虚拟机(KVM)', en: 'Linux Virtual Machine(KVM)' },
+        path: '/guide/kubevirt/kubevirt_build',
+      },
+      {
+        text: { zh: '致谢', en: 'Acknowledgements' },
+        path: '/guide/kubevirt/kubevirt_thanks',
+      },
+      {
+        text: { zh: '常见问题答疑', en: 'FAQ' },
+        path: '/guide/kubevirt/kubevirt_qa',
+      },
+    ],
+  },
+  {
+    text: { zh: '屏蔽滥用', en: 'Block Abuse' },
+    items: [
+      {
+        text: { zh: '通过iptables', en: 'via iptables' },
+        path: '/guide/block/block_iptables',
+      },
+      {
+        text: { zh: '在PVE上', en: 'In PVE' },
+        path: '/guide/block/block_pve',
+      },
+      {
+        text: { zh: '在INCUS上', en: 'In Incus' },
+        path: '/guide/block/block_incus',
+      },
+      {
+        text: { zh: '在LXD上', en: 'In LXD' },
+        path: '/guide/block/block_lxd',
+      },
+      {
+        text: { zh: '在DOCKER上', en: 'In Docker' },
+        path: '/guide/block/block_docker',
+      },
+    ],
+  },
+  {
+    text: { zh: '捐赠', en: 'Donation' },
+    items: [
+      {
+        text: { zh: '捐赠', en: 'Donation' },
+        path: '/guide/dashboardq',
+      },
+    ],
+  },
+];
+
+const platformNavItems: DocLink[] = [
+  {
+    text: { zh: '平台总览', en: 'Platform overview' },
+    path: '/guide/',
+  },
+  {
+    text: { zh: 'OneClickVirt', en: 'OneClickVirt' },
+    path: '/guide/oneclickvirt/oneclickvirt_precheck',
+  },
+  {
+    text: { zh: 'Proxmox VE', en: 'Proxmox VE' },
+    path: '/guide/pve/pve_precheck',
+  },
+  {
+    text: { zh: 'Incus', en: 'Incus' },
+    path: '/guide/incus/incus_precheck',
+  },
+  {
+    text: { zh: 'Docker', en: 'Docker' },
+    path: '/guide/docker/docker_precheck',
+  },
+  {
+    text: { zh: 'LXD', en: 'LXD' },
+    path: '/guide/lxd/lxd_precheck',
+  },
+  {
+    text: { zh: 'Containerd', en: 'Containerd' },
+    path: '/guide/containerd/containerd_precheck',
+  },
+  {
+    text: { zh: 'Podman', en: 'Podman' },
+    path: '/guide/podman/podman_precheck',
+  },
+  {
+    text: { zh: 'QEMU', en: 'QEMU' },
+    path: '/guide/qemu/qemu_precheck',
+  },
+  {
+    text: { zh: 'KubeVirt', en: 'KubeVirt' },
+    path: '/guide/kubevirt/kubevirt_precheck',
+  },
+  {
+    text: { zh: '屏蔽滥用', en: 'Block Abuse' },
+    path: '/guide/block/block_iptables',
+  },
+];
+
+const incompleteProjectItems: DocLink[] = [
+  { text: { zh: 'webvirtcloud', en: 'webvirtcloud' }, path: '/incomplete/webvirtcloud' },
+  { text: { zh: 'webvirtcloud_retspen', en: 'webvirtcloud_retspen' }, path: '/incomplete/webvirtcloud_retspen' },
+  { text: { zh: 'pterodactyl', en: 'pterodactyl' }, path: '/incomplete/pterodactyl' },
+  { text: { zh: 'convoy', en: 'convoy' }, path: '/incomplete/convoy' },
+  { text: { zh: 'cockpit', en: 'cockpit' }, path: '/incomplete/cockpit' },
+  { text: { zh: 'virtfusion', en: 'virtfusion' }, path: '/incomplete/virtfusion' },
+  { text: { zh: 'virtualizor-docker', en: 'virtualizor-docker' }, path: '/incomplete/virtualizor-docker' },
+  { text: { zh: 'bashvm', en: 'bashvm' }, path: '/incomplete/bashvm' },
+  { text: { zh: 'webvirtmgr', en: 'webvirtmgr' }, path: '/incomplete/webvirtmgr' },
+];
+
+const caseItems: DocLink[] = [
+  {
+    text: { zh: '1. VPS融合怪服务器测评脚本', en: '1. ECS benchmark script for VPS' },
+    path: '/case/case1',
+  },
+  {
+    text: {
+      zh: '2. 一键修复与安装脚本',
+      en: '2. One-click repair and install scripts',
+    },
+    path: '/case/case2',
+  },
+  {
+    text: {
+      zh: '3. 自动更新测试服务器节点列表的网络基准测试脚本',
+      en: '3. Auto-updating network benchmark script',
+    },
+    path: '/case/case3',
+  },
+  {
+    text: { zh: '4. 三网回程路由线路测试脚本', en: '4. CN return-route tracing script' },
+    path: '/case/case4',
+  },
+  {
+    text: { zh: '5. 服务器资源占用脚本', en: '5. Server resource occupancy script' },
+    path: '/case/case5',
+  },
+  {
+    text: { zh: '6. 为linux服务器增加swap分区', en: '6. Add swap space on Linux servers' },
+    path: '/case/case6',
+  },
+  {
+    text: { zh: '7. 为linux服务器启用zram设备', en: '7. Enable zram on Linux servers' },
+    path: '/case/case7',
+  },
+];
+
+const developerItems: DocLink[] = [
+  { text: { zh: 'l10n', en: 'l10n' }, path: '/developer/l10n' },
+];
+
+const caseSidebarItems: DocLink[] = [
+  caseItems[0],
+  {
+    text: {
+      zh: '2. 一键修复与安装脚本(各种linux系统修复与服务器环境安装脚本)',
+      en: caseItems[1].text.en,
+    },
+    path: caseItems[1].path,
+  },
+  caseItems[2],
+  caseItems[3],
+  caseItems[4],
+  {
+    text: {
+      zh: '6. 为linux服务器增加swap分区(虚拟内存)',
+      en: caseItems[5].text.en,
+    },
+    path: caseItems[5].path,
+  },
+  {
+    text: {
+      zh: '7. 为linux服务器启用zram设备(压缩内存)',
+      en: caseItems[6].text.en,
+    },
+    path: caseItems[6].path,
+  },
+];
 
 function toSitePath(relativePath: string) {
   return `/${relativePath}`
@@ -20,6 +512,105 @@ function getDefaultTitle(relativePath: string) {
 
 function getLocaleCode(relativePath: string) {
   return relativePath.startsWith('en/') ? 'en_US' : 'zh_CN';
+}
+
+function withLocale(locale: LocaleKey, path: string) {
+  const localizedPath = `${locale === 'en' ? '/en' : ''}${path}`;
+  return path.endsWith('/') ? localizedPath : `${localizedPath}.html`;
+}
+
+function toSidebarSection(section: SidebarSection, locale: LocaleKey): DefaultTheme.SidebarItem {
+  return {
+    text: section.text[locale],
+    collapsed: true,
+    items: section.items.map((item) => ({
+      text: item.text[locale],
+      link: withLocale(locale, item.path),
+    })),
+  };
+}
+
+function toNavItem(item: DocLink, locale: LocaleKey): DefaultTheme.NavItemWithLink {
+  return {
+    text: item.text[locale],
+    link: withLocale(locale, item.path),
+  };
+}
+
+function getGuideSidebar(locale: LocaleKey) {
+  return guideSections.map((section) => toSidebarSection(section, locale));
+}
+
+function getIncompleteSidebar(locale: LocaleKey) {
+  return [
+    toSidebarSection(
+      {
+        text: {
+          zh: '其他虚拟化项目',
+          en: 'Other Virtualization Projects',
+        },
+        items: incompleteProjectItems,
+      },
+      locale,
+    ),
+  ];
+}
+
+function getCaseSidebar(locale: LocaleKey) {
+  return [
+    toSidebarSection(
+      {
+        text: { zh: 'Linux相关', en: 'Linux Utilities' },
+        items: caseSidebarItems,
+      },
+      locale,
+    ),
+  ];
+}
+
+function getDeveloperSidebar(locale: LocaleKey) {
+  return [
+    toSidebarSection(
+      {
+        text: { zh: '开发手册', en: 'Development Manual' },
+        items: developerItems,
+      },
+      locale,
+    ),
+  ];
+}
+
+function getNav(locale: LocaleKey): DefaultTheme.NavItem[] {
+  return [
+    {
+      text: locale === 'zh' ? '虚拟化平台' : 'Platforms',
+      activeMatch: locale === 'zh' ? '^/guide/' : '^/en/guide/',
+      items: platformNavItems.map((item) => toNavItem(item, locale)),
+    },
+    {
+      text: locale === 'zh' ? '其他虚拟化项目' : 'Other Projects',
+      activeMatch: locale === 'zh' ? '^/incomplete/' : '^/en/incomplete/',
+      items: incompleteProjectItems.map((item) => toNavItem(item, locale)),
+    },
+    {
+      text: locale === 'zh' ? '其他实用项目' : 'Utilities',
+      activeMatch: locale === 'zh' ? '^/case/' : '^/en/case/',
+      items: caseItems.map((item) => toNavItem(item, locale)),
+    },
+    {
+      text: locale === 'zh' ? '开发者' : 'Developers',
+      activeMatch: locale === 'zh' ? '^/developer/' : '^/en/developer/',
+      items: developerItems.map((item) => toNavItem(item, locale)),
+    },
+    {
+      text: locale === 'zh' ? '融合怪商家收录' : 'Merchant List',
+      link: 'https://paste.spiritlhl.net/',
+    },
+    {
+      text: locale === 'zh' ? 'VPS余量监控' : 'VPS Stock Monitor',
+      link: 'https://spiders.spiritlhl.net/',
+    },
+  ];
 }
 
 export default defineConfig({
@@ -66,13 +657,16 @@ export default defineConfig({
     }
   },
   head: [
-    ['link', { rel: 'icon', href: 'https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png' }],
+    ['link', { rel: 'icon', href: LOGO_URL }],
     ['meta', { name: 'google-site-verification', content: 'wdrGBim_2XmtMrqxivze70saMiPQAiOhpmN3KAWb0Sw' }],
     ['meta', { name: 'msvalidate.01', content: 'FC9B6B8BEB3D3B56844ADA69766DBB24' }],
-    ['script', {
-      src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5991535488582679",
-      crossorigin: "anonymous"
-    }],
+    [
+      'script',
+      {
+        src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5991535488582679',
+        crossorigin: 'anonymous',
+      },
+    ],
   ],
   locales: {
     root: {
@@ -82,7 +676,7 @@ export default defineConfig({
       description: '开源、易于使用的服务器虚拟化项目',
       link: '/',
       themeConfig: {
-        logo: { src: 'https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png' },
+        logo: { src: LOGO_URL },
         lastUpdatedText: '上次更新',
         editLink: {
           pattern: 'https://github.com/oneclickvirt/oneclickvirt.github.io/edit/main/docs/:path',
@@ -98,62 +692,15 @@ export default defineConfig({
         lightModeSwitchTitle: '切换到浅色模式',
         darkModeSwitchTitle: '切换到深色模式',
         externalLinkIcon: true,
-        nav: [
-          {
-            text: '虚拟化平台',
-            activeMatch: '^/guide/',
-            items: [
-              { text: 'OneClickVirt', link: '/guide/oneclickvirt/oneclickvirt_precheck.html' },
-              { text: 'Proxmox VE', link: '/guide/pve/pve_precheck.html' },
-              { text: 'Incus', link: '/guide/incus/incus_precheck.html' },
-              { text: 'Docker', link: '/guide/docker/docker_precheck.html' },
-              { text: 'LXD', link: '/guide/lxd/lxd_precheck.html' },
-              { text: 'Containerd', link: '/guide/containerd/containerd_precheck.html' },
-              { text: 'Podman', link: '/guide/podman/podman_precheck.html' },
-              { text: 'QEMU', link: '/guide/qemu/qemu_precheck.html' },
-              { text: 'KubeVirt', link: '/guide/kubevirt/kubevirt_precheck.html' },
-              { text: '屏蔽滥用', link: '/guide/block/block_iptables.html' },
-            ]
-          },
-          {
-            text: '其他虚拟化项目',
-            activeMatch: '^/incomplete/',
-            items: [
-              { text: 'webvirtcloud', link: '/incomplete/webvirtcloud.html' },
-              { text: 'webvirtcloud_retspen', link: '/incomplete/webvirtcloud_retspen.html' },
-              { text: 'pterodactyl', link: '/incomplete/pterodactyl.html' },
-              { text: 'convoy', link: '/incomplete/convoy.html' },
-              { text: 'cockpit', link: '/incomplete/cockpit.html' },
-              { text: 'virtfusion', link: '/incomplete/virtfusion.html' },
-              { text: 'virtualizor-docker', link: '/incomplete/virtualizor-docker.html' },
-              { text: 'bashvm', link: '/incomplete/bashvm.html' },
-              { text: 'webvirtmgr', link: '/incomplete/webvirtmgr.html' },
-            ]
-          },
-          {
-            text: '其他实用项目',
-            activeMatch: '^/case/',
-            items: [
-              { text: '1. VPS融合怪服务器测评脚本', link: '/case/case1.html' },
-              { text: '2. 一键修复与安装脚本', link: '/case/case2.html' },
-              { text: '3. 自动更新测试服务器节点列表的网络基准测试脚本', link: '/case/case3.html' },
-              { text: '4. 三网回程路由线路测试脚本', link: '/case/case4.html' },
-              { text: '5. 服务器资源占用脚本', link: '/case/case5.html' },
-              { text: '6. 为linux服务器增加swap分区', link: '/case/case6.html' },
-              { text: '7. 为linux服务器启用zram设备', link: '/case/case7.html' },
-            ]
-          },
-          { text: '融合怪商家收录', link: 'https://paste.spiritlhl.net/' },
-          { text: 'VPS余量监控', link: 'https://spiders.spiritlhl.net/' },
-        ],
+        nav: getNav('zh'),
         sidebar: {
-          '/': getGuideSidebarZhCN(),
-          '/guide/': getGuideSidebarZhCN(),
-          '/case/': getCaseSidebarZhCN(),
-          '/incomplete/': getIncompleteSidebarZhCN(),
-          '/developer/': getDeveloperSidebarZhCN(),
-        }
-      }
+          '/': getGuideSidebar('zh'),
+          '/guide/': getGuideSidebar('zh'),
+          '/case/': getCaseSidebar('zh'),
+          '/incomplete/': getIncompleteSidebar('zh'),
+          '/developer/': getDeveloperSidebar('zh'),
+        },
+      },
     },
     en: {
       lang: 'en-US',
@@ -162,7 +709,7 @@ export default defineConfig({
       description: 'Open source, easy to use server virtualization project',
       link: '/en/',
       themeConfig: {
-        logo: { src: 'https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png' },
+        logo: { src: LOGO_URL },
         lastUpdatedText: 'Last Updated',
         editLink: {
           text: 'Edit this page on GitHub',
@@ -173,67 +720,13 @@ export default defineConfig({
           next: 'Next page',
         },
         externalLinkIcon: true,
-        nav: [
-          {
-            text: 'Platforms',
-            activeMatch: '^/en/guide/',
-            items: [
-              { text: 'OneClickVirt', link: '/en/guide/oneclickvirt/oneclickvirt_precheck.html' },
-              { text: 'Proxmox VE', link: '/en/guide/pve/pve_precheck.html' },
-              { text: 'Incus', link: '/en/guide/incus/incus_precheck.html' },
-              { text: 'Docker', link: '/en/guide/docker/docker_precheck.html' },
-              { text: 'LXD', link: '/en/guide/lxd/lxd_precheck.html' },
-              { text: 'Containerd', link: '/en/guide/containerd/containerd_precheck.html' },
-              { text: 'Podman', link: '/en/guide/podman/podman_precheck.html' },
-              { text: 'QEMU', link: '/en/guide/qemu/qemu_precheck.html' },
-              { text: 'KubeVirt', link: '/en/guide/kubevirt/kubevirt_precheck.html' },
-              { text: 'Block Abuse', link: '/en/guide/block/block_iptables.html' },
-            ]
-          },
-          {
-            text: 'Other Projects',
-            activeMatch: '^/en/incomplete/',
-            items: [
-              { text: 'webvirtcloud', link: '/en/incomplete/webvirtcloud.html' },
-              { text: 'webvirtcloud_retspen', link: '/en/incomplete/webvirtcloud_retspen.html' },
-              { text: 'pterodactyl', link: '/en/incomplete/pterodactyl.html' },
-              { text: 'convoy', link: '/en/incomplete/convoy.html' },
-              { text: 'cockpit', link: '/en/incomplete/cockpit.html' },
-              { text: 'virtfusion', link: '/en/incomplete/virtfusion.html' },
-              { text: 'virtualizor-docker', link: '/en/incomplete/virtualizor-docker.html' },
-              { text: 'bashvm', link: '/en/incomplete/bashvm.html' },
-              { text: 'webvirtmgr', link: '/en/incomplete/webvirtmgr.html' },
-            ]
-          },
-          {
-            text: 'Utilities',
-            activeMatch: '^/en/case/',
-            items: [
-              { text: '1. ECS benchmark script for VPS', link: '/en/case/case1.html' },
-              { text: '2. One-click repair and install scripts', link: '/en/case/case2.html' },
-              { text: '3. Auto-updating network benchmark script', link: '/en/case/case3.html' },
-              { text: '4. CN return-route tracing script', link: '/en/case/case4.html' },
-              { text: '5. Server resource occupancy script', link: '/en/case/case5.html' },
-              { text: '6. Add swap space on Linux servers', link: '/en/case/case6.html' },
-              { text: '7. Enable zram on Linux servers', link: '/en/case/case7.html' },
-            ]
-          },
-          {
-            text: 'Developers',
-            activeMatch: '^/en/developer/',
-            items: [
-              { text: 'l10n', link: '/en/developer/l10n.html' },
-            ]
-          },
-          { text: 'Merchant List', link: 'https://paste.spiritlhl.net/' },
-          { text: 'VPS Stock Monitor', link: 'https://spiders.spiritlhl.net/' },
-        ],
+        nav: getNav('en'),
         sidebar: {
-          '/en/': getGuideSidebarEnUS(),
-          '/en/guide/': getGuideSidebarEnUS(),
-          '/en/incomplete/': getIncompleteSidebarEnUS(),
-          '/en/case/': getCaseSidebarEnUS(),
-          '/en/developer/': getDeveloperSidebarEnUS(),
+          '/en/': getGuideSidebar('en'),
+          '/en/guide/': getGuideSidebar('en'),
+          '/en/incomplete/': getIncompleteSidebar('en'),
+          '/en/case/': getCaseSidebar('en'),
+          '/en/developer/': getDeveloperSidebar('en'),
         },
       },
     },
@@ -245,410 +738,15 @@ export default defineConfig({
       options: {
         appId: 'K1R85MDU0C',
         apiKey: '9375787ec1c00e2b813683fbbde25ae2',
-        indexName: 'virt-spiritlhl'
-      }
+        indexName: 'virt-spiritlhl',
+      },
     },
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/oneclickvirt' }
+      { icon: 'github', link: 'https://github.com/oneclickvirt' },
     ],
     footer: {
       message: 'Under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">(CC BY-NC-SA 4.0) License.</a><br>Also thanks to <a href="https://www.cloudflare.com/">Cloudflare</a> and <a href="https://blog.tanglu.me/">tanglu.me</a> for the CDN.',
-      copyright: 'Copyright © 2022-present oneclickvirt'
-    }
-  }
+      copyright: 'Copyright © 2022-present oneclickvirt',
+    },
+  },
 });
-
-function getGuideSidebarZhCN() {
-  return [
-    {
-      text: '所有项目的前置条件',
-      collapsed: true,
-      items: [
-        { text: '准备工作', link: '/guide/dashboard.html' },
-      ]
-    },
-    {
-      text: 'OneClickVirt',
-      collapsed: true,
-      items: [
-        { text: '系统和硬件配置要求', link: '/guide/oneclickvirt/oneclickvirt_precheck.html' },
-        { text: '主体安装', link: '/guide/oneclickvirt/oneclickvirt_install.html' },
-        { text: '使用说明', link: '/guide/oneclickvirt/oneclickvirt_usage.html' },
-        { text: '自定义', link: '/guide/oneclickvirt/oneclickvirt_custom.html' },
-        { text: '致谢', link: '/guide/oneclickvirt/oneclickvirt_thanks.html' },
-        { text: '常见问题答疑', link: '/guide/oneclickvirt/oneclickvirt_qa.html' }
-      ]
-    },
-    {
-      text: 'Proxmox VE',
-      collapsed: true,
-      items: [
-        { text: '系统和硬件配置要求', link: '/guide/pve/pve_precheck.html' },
-        { text: 'PVE主体安装', link: '/guide/pve/pve_install.html' },
-        { text: 'Linux虚拟机(KVM/QEMU)', link: '/guide/pve/pve_kvm.html' },
-        { text: 'Linux容器(LXC)', link: '/guide/pve/pve_lxc.html' },
-        { text: 'Windows虚拟机(KVM/QEMU)', link: '/guide/pve/pve_windows.html' },
-        { text: 'MacOS虚拟机(KVM)', link: '/guide/pve/pve_macos.html' },
-        { text: 'Android虚拟机(KVM)', link: '/guide/pve/pve_android.html' },
-        { text: '自定义', link: '/guide/pve/pve_custom.html' },
-        { text: '致谢', link: '/guide/pve/pve_thanks.html' },
-        { text: '常见问题答疑', link: '/guide/pve/pve_qa.html' }
-      ]
-    },
-    {
-      text: 'Incus',
-      collapsed: true,
-      items: [
-        { text: '系统和硬件配置要求', link: '/guide/incus/incus_precheck.html' },
-        { text: 'Incus主体安装', link: '/guide/incus/incus_install.html' },
-        { text: 'Linux虚拟机(QEMU)', link: '/guide/incus/incus_qemu.html' },
-        { text: 'Linux容器(LXC)', link: '/guide/incus/incus_lxc.html' },
-        { text: 'Windows虚拟机(QEMU)', link: '/guide/incus/incus_windows.html' },
-        { text: '更多配置', link: '/guide/incus/incus_extra_config.html' },
-        { text: '自定义', link: '/guide/incus/incus_custom.html' },
-        { text: '致谢', link: '/guide/incus/incus_thanks.html' },
-        { text: '常见问题答疑', link: '/guide/incus/incus_qa.html' }
-      ]
-    },
-    {
-      text: 'Docker',
-      collapsed: true,
-      items: [
-        { text: '系统和硬件配置要求', link: '/guide/docker/docker_precheck.html' },
-        { text: 'Docker主体安装', link: '/guide/docker/docker_install.html' },
-        { text: 'Linux容器(LXC)', link: '/guide/docker/docker_build.html' },
-        { text: 'Windows虚拟机(KVM/QEMU)', link: '/guide/docker/docker_windows.html' },
-              { text: 'macOS虚拟机(KVM)', link: '/guide/docker/docker_macos.html' },
-        { text: 'Android虚拟机(KVM/QEMU)', link: '/guide/docker/docker_android.html' },
-        { text: '自定义', link: '/guide/docker/docker_custom.html' },
-        { text: '致谢', link: '/guide/docker/docker_thanks.html' },
-        { text: '常见问题答疑', link: '/guide/docker/docker_qa.html' }
-      ]
-    },
-    {
-      text: 'LXD',
-      collapsed: true,
-      items: [
-        { text: '系统和硬件配置要求', link: '/guide/lxd/lxd_precheck.html' },
-        { text: 'LXD主体安装', link: '/guide/lxd/lxd_install.html' },
-        { text: 'Linux虚拟机(QEMU)', link: '/guide/lxd/lxd_qemu.html' },
-        { text: 'Linux容器(LXC)', link: '/guide/lxd/lxd_lxc.html' },
-        { text: 'Windows虚拟机(QEMU)', link: '/guide/lxd/lxd_windows.html' },
-        { text: '更多配置', link: '/guide/lxd/lxd_extra_config.html' },
-        { text: '自定义', link: '/guide/lxd/lxd_custom.html' },
-        { text: '致谢', link: '/guide/lxd/lxd_thanks.html' },
-        { text: '常见问题答疑', link: '/guide/lxd/lxd_qa.html' }
-      ]
-    },
-    {
-      text: 'Containerd',
-      collapsed: true,
-      items: [
-        { text: '系统和配置要求', link: '/guide/containerd/containerd_precheck.html' },
-        { text: 'Containerd主体安装', link: '/guide/containerd/containerd_install.html' },
-        { text: 'Linux容器(LXC)', link: '/guide/containerd/containerd_build.html' },
-        { text: '致谢', link: '/guide/containerd/containerd_thanks.html' },
-        { text: '常见问题答疑', link: '/guide/containerd/containerd_qa.html' }
-      ]
-    },
-    {
-      text: 'Podman',
-      collapsed: true,
-      items: [
-        { text: '系统和配置要求', link: '/guide/podman/podman_precheck.html' },
-        { text: 'Podman主体安装', link: '/guide/podman/podman_install.html' },
-        { text: 'Linux容器(LXC)', link: '/guide/podman/podman_build.html' },
-        { text: '致谢', link: '/guide/podman/podman_thanks.html' },
-        { text: '常见问题答疑', link: '/guide/podman/podman_qa.html' }
-      ]
-    },
-    {
-      text: 'QEMU',
-      collapsed: true,
-      items: [
-        { text: '系统和配置要求', link: '/guide/qemu/qemu_precheck.html' },
-        { text: 'QEMU主体安装', link: '/guide/qemu/qemu_install.html' },
-        { text: 'Linux虚拟机(KVM/QEMU)', link: '/guide/qemu/qemu_build.html' },
-        { text: '致谢', link: '/guide/qemu/qemu_thanks.html' },
-        { text: '常见问题答疑', link: '/guide/qemu/qemu_qa.html' }
-      ]
-    },
-    {
-      text: 'KubeVirt',
-      collapsed: true,
-      items: [
-        { text: '系统和配置要求', link: '/guide/kubevirt/kubevirt_precheck.html' },
-        { text: 'KubeVirt主体安装', link: '/guide/kubevirt/kubevirt_install.html' },
-        { text: 'Linux虚拟机(KVM)', link: '/guide/kubevirt/kubevirt_build.html' },
-        { text: '致谢', link: '/guide/kubevirt/kubevirt_thanks.html' },
-        { text: '常见问题答疑', link: '/guide/kubevirt/kubevirt_qa.html' }
-      ]
-    },
-    {
-      text: '屏蔽滥用',
-      collapsed: true,
-      items: [
-        { text: '通过iptables', link: '/guide/block/block_iptables.html' },
-        { text: '在PVE上', link: '/guide/block/block_pve.html' },
-        { text: '在INCUS上', link: '/guide/block/block_incus.html' },
-        { text: '在LXD上', link: '/guide/block/block_lxd.html' },
-        { text: '在DOCKER上', link: '/guide/block/block_docker.html' },
-      ]
-    },
-    {
-      text: '捐赠',
-      collapsed: true,
-      items: [
-        { text: '捐赠', link: '/guide/dashboardq.html' },
-      ]
-    }
-  ];
-}
-
-function getIncompleteSidebarZhCN() {
-  return [
-    {
-      text: '其他虚拟化项目',
-      collapsed: true,
-      items: [
-        { text: 'webvirtcloud', link: '/incomplete/webvirtcloud.html' },
-        { text: 'webvirtcloud_retspen', link: '/incomplete/webvirtcloud_retspen.html' },
-        { text: 'pterodactyl', link: '/incomplete/pterodactyl.html' },
-        { text: 'convoy', link: '/incomplete/convoy.html' },
-        { text: 'cockpit', link: '/incomplete/cockpit.html' },
-        { text: 'virtfusion', link: '/incomplete/virtfusion.html' },
-        { text: 'virtualizor-docker', link: '/incomplete/virtualizor-docker.html' },
-        { text: 'bashvm', link: '/incomplete/bashvm.html' },
-        { text: 'webvirtmgr', link: '/incomplete/webvirtmgr.html' },
-      ]
-    }
-  ];
-}
-
-function getCaseSidebarZhCN() {
-  return [
-    {
-      text: 'Linux相关',
-      collapsed: true,
-      items: [
-        { text: '1. VPS融合怪服务器测评脚本', link: '/case/case1.html' },
-        { text: '2. 一键修复与安装脚本(各种linux系统修复与服务器环境安装脚本)', link: '/case/case2.html' },
-        { text: '3. 自动更新测试服务器节点列表的网络基准测试脚本', link: '/case/case3.html' },
-        { text: '4. 三网回程路由线路测试脚本', link: '/case/case4.html' },
-        { text: '5. 服务器资源占用脚本', link: '/case/case5.html' },
-        { text: '6. 为linux服务器增加swap分区(虚拟内存)', link: '/case/case6.html' },
-        { text: '7. 为linux服务器启用zram设备(压缩内存)', link: '/case/case7.html' }
-      ]
-    }
-  ];
-}
-
-function getDeveloperSidebarZhCN() {
-  return [
-    {
-      text: '开发手册',
-      collapsed: true,
-      items: [
-        { text: 'l10n', link: '/developer/l10n.html' }
-      ]
-    }
-  ];
-}
-
-function getGuideSidebarEnUS() {
-  return [
-    {
-      text: 'Pre-requisites for all projects',
-      collapsed: true,
-      items: [
-        { text: 'Preparation', link: '/en/guide/dashboard.html' }
-      ]
-    },
-    {
-      text: 'OneClickVirt',
-      collapsed: true,
-      items: [
-        { text: 'Configuration requirements', link: '/en/guide/oneclickvirt/oneclickvirt_precheck.html' },
-        { text: 'Main installation', link: '/en/guide/oneclickvirt/oneclickvirt_install.html' },
-        { text: 'Instructions for use', link: '/en/guide/oneclickvirt/oneclickvirt_usage.html' },
-        { text: 'Custom', link: '/en/guide/oneclickvirt/oneclickvirt_custom.html' },
-        { text: 'Acknowledgements', link: '/en/guide/oneclickvirt/oneclickvirt_thanks.html' },
-        { text: 'FAQ', link: '/en/guide/oneclickvirt/oneclickvirt_qa.html' }
-      ]
-    },
-    {
-      text: 'Proxmox VE',
-      collapsed: true,
-      items: [
-        { text: 'Configuration requirements', link: '/en/guide/pve/pve_precheck.html' },
-        { text: 'PVE main installation', link: '/en/guide/pve/pve_install.html' },
-        { text: 'Linux Virtual Machine(KVM/QEMU)', link: '/en/guide/pve/pve_kvm.html' },
-        { text: 'Linux Container(LXC)', link: '/en/guide/pve/pve_lxc.html' },
-        { text: 'Windows Virtual Machine(KVM/QEMU)', link: '/en/guide/pve/pve_windows.html' },
-        { text: 'MacOS Virtual Machine(KVM)', link: '/en/guide/pve/pve_macos.html' },
-        { text: 'Android Virtual Machine(KVM)', link: '/en/guide/pve/pve_android.html' },
-        { text: 'Custom', link: '/en/guide/pve/pve_custom.html' },
-        { text: 'Acknowledgements', link: '/en/guide/pve/pve_thanks.html' },
-        { text: 'FAQ', link: '/en/guide/pve/pve_qa.html' }
-      ]
-    },
-    {
-      text: 'Incus',
-      collapsed: true,
-      items: [
-        { text: 'Configuration requirements', link: '/en/guide/incus/incus_precheck.html' },
-        { text: 'Incus main installation', link: '/en/guide/incus/incus_install.html' },
-        { text: 'Linux Virtual Machine(QEMU)', link: '/en/guide/incus/incus_qemu.html' },
-        { text: 'Linux Container(LXC)', link: '/en/guide/incus/incus_lxc.html' },
-        { text: 'Windows Virtual Machine(QEMU)', link: '/en/guide/incus/incus_windows.html' },
-        { text: 'Extra configuration', link: '/en/guide/incus/incus_extra_config.html' },
-        { text: 'Custom', link: '/en/guide/incus/incus_custom.html' },
-        { text: 'Acknowledgements', link: '/en/guide/incus/incus_thanks.html' },
-        { text: 'FAQ', link: '/en/guide/incus/incus_qa.html' }
-      ]
-    },
-    {
-      text: 'Docker',
-      collapsed: true,
-      items: [
-        { text: 'Configuration requirements', link: '/en/guide/docker/docker_precheck.html' },
-        { text: 'Docker main installation', link: '/en/guide/docker/docker_install.html' },
-        { text: 'Linux Container(LXC)', link: '/en/guide/docker/docker_build.html' },
-        { text: 'Windows Virtual Machine(KVM/QEMU)', link: '/en/guide/docker/docker_windows.html' },
-        { text: 'macOS Virtual Machine(KVM)', link: '/en/guide/docker/docker_macos.html' },
-        { text: 'Android Virtual Machine(KVM/QEMU)', link: '/en/guide/docker/docker_android.html' },
-        { text: 'Custom', link: '/en/guide/docker/docker_custom.html' },
-        { text: 'Acknowledgements', link: '/en/guide/docker/docker_thanks.html' },
-        { text: 'FAQ', link: '/en/guide/docker/docker_qa.html' }
-      ]
-    },
-    {
-      text: 'LXD',
-      collapsed: true,
-      items: [
-        { text: 'Configuration requirements', link: '/en/guide/lxd/lxd_precheck.html' },
-        { text: 'LXD main installation', link: '/en/guide/lxd/lxd_install.html' },
-        { text: 'Linux Virtual Machine(QEMU)', link: '/en/guide/lxd/lxd_qemu.html' },
-        { text: 'Linux Container(LXC)', link: '/en/guide/lxd/lxd_lxc.html' },
-        { text: 'Windows Virtual Machine(QEMU)', link: '/en/guide/lxd/lxd_windows.html' },
-        { text: 'Extra configuration', link: '/en/guide/lxd/lxd_extra_config.html' },
-        { text: 'Custom', link: '/en/guide/lxd/lxd_custom.html' },
-        { text: 'Acknowledgements', link: '/en/guide/lxd/lxd_thanks.html' },
-        { text: 'FAQ', link: '/en/guide/lxd/lxd_qa.html' }
-      ]
-    },
-    {
-      text: 'Containerd',
-      collapsed: true,
-      items: [
-        { text: 'System & configuration requirements', link: '/en/guide/containerd/containerd_precheck.html' },
-        { text: 'Containerd main installation', link: '/en/guide/containerd/containerd_install.html' },
-        { text: 'Linux Container(LXC)', link: '/en/guide/containerd/containerd_build.html' },
-        { text: 'Acknowledgements', link: '/en/guide/containerd/containerd_thanks.html' },
-        { text: 'FAQ', link: '/en/guide/containerd/containerd_qa.html' }
-      ]
-    },
-    {
-      text: 'Podman',
-      collapsed: true,
-      items: [
-        { text: 'System & configuration requirements', link: '/en/guide/podman/podman_precheck.html' },
-        { text: 'Podman main installation', link: '/en/guide/podman/podman_install.html' },
-        { text: 'Linux Container(LXC)', link: '/en/guide/podman/podman_build.html' },
-        { text: 'Acknowledgements', link: '/en/guide/podman/podman_thanks.html' },
-        { text: 'FAQ', link: '/en/guide/podman/podman_qa.html' }
-      ]
-    },
-    {
-      text: 'QEMU',
-      collapsed: true,
-      items: [
-        { text: 'System & configuration requirements', link: '/en/guide/qemu/qemu_precheck.html' },
-        { text: 'QEMU main installation', link: '/en/guide/qemu/qemu_install.html' },
-        { text: 'Linux Virtual Machine(KVM/QEMU)', link: '/en/guide/qemu/qemu_build.html' },
-        { text: 'Acknowledgements', link: '/en/guide/qemu/qemu_thanks.html' },
-        { text: 'FAQ', link: '/en/guide/qemu/qemu_qa.html' }
-      ]
-    },
-    {
-      text: 'KubeVirt',
-      collapsed: true,
-      items: [
-        { text: 'System & configuration requirements', link: '/en/guide/kubevirt/kubevirt_precheck.html' },
-        { text: 'KubeVirt main installation', link: '/en/guide/kubevirt/kubevirt_install.html' },
-        { text: 'Linux Virtual Machine(KVM)', link: '/en/guide/kubevirt/kubevirt_build.html' },
-        { text: 'Acknowledgements', link: '/en/guide/kubevirt/kubevirt_thanks.html' },
-        { text: 'FAQ', link: '/en/guide/kubevirt/kubevirt_qa.html' }
-      ]
-    },
-    {
-      text: 'Block Abuse',
-      collapsed: true,
-      items: [
-        { text: 'via iptables', link: '/en/guide/block/block_iptables.html' },
-        { text: 'In PVE', link: '/en/guide/block/block_pve.html' },
-        { text: 'In Incus', link: '/en/guide/block/block_incus.html' },
-        { text: 'In LXD', link: '/en/guide/block/block_lxd.html' },
-        { text: 'In Docker', link: '/en/guide/block/block_docker.html' },
-      ]
-    },
-    {
-      text: 'Donation',
-      collapsed: true,
-      items: [
-        { text: 'Donation', link: '/en/guide/dashboardq.html' }
-      ]
-    }
-  ];
-}
-
-
-function getIncompleteSidebarEnUS() {
-  return [
-    {
-      text: 'Other Virtualization Projects',
-      collapsed: true,
-      items: [
-        { text: 'webvirtcloud', link: '/en/incomplete/webvirtcloud.html' },
-        { text: 'webvirtcloud_retspen', link: '/en/incomplete/webvirtcloud_retspen.html' },
-        { text: 'pterodactyl', link: '/en/incomplete/pterodactyl.html' },
-        { text: 'convoy', link: '/en/incomplete/convoy.html' },
-        { text: 'cockpit', link: '/en/incomplete/cockpit.html' },
-        { text: 'virtfusion', link: '/en/incomplete/virtfusion.html' },
-        { text: 'virtualizor-docker', link: '/en/incomplete/virtualizor-docker.html' },
-        { text: 'bashvm', link: '/en/incomplete/bashvm.html' },
-        { text: 'webvirtmgr', link: '/en/incomplete/webvirtmgr.html' },
-      ]
-    }
-  ];
-}
-
-function getCaseSidebarEnUS() {
-  return [
-    {
-      text: 'Linux Utilities',
-      collapsed: true,
-      items: [
-        { text: '1. ECS benchmark script for VPS', link: '/en/case/case1.html' },
-        { text: '2. One-click repair and install scripts', link: '/en/case/case2.html' },
-        { text: '3. Auto-updating network benchmark script', link: '/en/case/case3.html' },
-        { text: '4. CN return-route tracing script', link: '/en/case/case4.html' },
-        { text: '5. Server resource occupancy script', link: '/en/case/case5.html' },
-        { text: '6. Add swap space on Linux servers', link: '/en/case/case6.html' },
-        { text: '7. Enable zram on Linux servers', link: '/en/case/case7.html' }
-      ]
-    }
-  ];
-}
-
-function getDeveloperSidebarEnUS() {
-  return [
-    {
-      text: 'Development Manual',
-      collapsed: true,
-      items: [
-        { text: 'l10n', link: '/en/developer/l10n.html' }
-      ]
-    }
-  ];
-}
