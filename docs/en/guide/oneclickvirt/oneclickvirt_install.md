@@ -44,7 +44,7 @@ Two methods are distinguished here:
 ###### Download Script
 
 ```shell
-curl -L https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/install.sh -o install.sh && chmod +x install.sh
+curl -L https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/scripts/install.sh -o install.sh && chmod +x install.sh
 ```
 
 ###### Environment Installation
@@ -503,7 +503,7 @@ The domain input auto-detects protocol prefixes: enter `https://panel.example.co
 #### Download Script
 
 ```shell
-curl -fsSL https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/main/install_full.sh -o install_full.sh
+curl -fsSL https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/main/scripts/install_full.sh -o install_full.sh
 ```
 
 #### Interactive Installation
