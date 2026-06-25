@@ -77,3 +77,5 @@ Content-Signal: ai-train=partially, search=yes, ai-input=yes
 
 # Sitemap
 Sitemap: https://www.spiritlhl.net/sitemap.xml
+
+# Algolia-Crawler-Verif: 0113746CD0B676E4
