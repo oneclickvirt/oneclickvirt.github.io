@@ -300,7 +300,7 @@ http://你的IP地址:8888
 
 可使用的镜像tag可在 
 
-https://hub.docker.com/r/spiritlhl/oneclickvirt
+https://hub.docker.com/r/oneclickvirt/oneclickvirt
 
 https://github.com/oneclickvirt/oneclickvirt/pkgs/container/oneclickvirt
 
@@ -312,10 +312,10 @@ https://github.com/oneclickvirt/oneclickvirt/pkgs/container/oneclickvirt
 
 | 镜像标签 | 说明 | 适用场景 |
 |---------|------|---------|
-| `spiritlhl/oneclickvirt:latest` | 一体化版本（内置数据库）最新版 | 快速部署 |
-| `spiritlhl/oneclickvirt:20260629` | 一体化版本特定日期版本 | 需要固定版本 |
-| `spiritlhl/oneclickvirt:no-db` | 独立数据库版本最新版 | 不内置数据库 |
-| `spiritlhl/oneclickvirt:no-db-20260629` | 独立数据库版本特定日期 | 不内置数据库 |
+| `oneclickvirt/oneclickvirt:latest` | 一体化版本（内置数据库）最新版 | 快速部署 |
+| `oneclickvirt/oneclickvirt:20260629` | 一体化版本特定日期版本 | 需要固定版本 |
+| `oneclickvirt/oneclickvirt:no-db` | 独立数据库版本最新版 | 不内置数据库 |
+| `oneclickvirt/oneclickvirt:no-db-20260629` | 独立数据库版本特定日期 | 不内置数据库 |
 
 所有镜像均支持 `linux/amd64` 和 `linux/arm64` 架构。
 
@@ -332,7 +332,7 @@ docker run -d \
   -v oneclickvirt-data:/var/lib/mysql \
   -v oneclickvirt-storage:/app/storage \
   --restart unless-stopped \
-  spiritlhl/oneclickvirt:latest
+  oneclickvirt/oneclickvirt:latest
 ```
 
 配置域名访问：
@@ -347,7 +347,7 @@ docker run -d \
   -v oneclickvirt-data:/var/lib/mysql \
   -v oneclickvirt-storage:/app/storage \
   --restart unless-stopped \
-  spiritlhl/oneclickvirt:latest
+  oneclickvirt/oneclickvirt:latest
 ```
 
 以上的方式仅限于新安装
@@ -369,13 +369,13 @@ docker rm -f oneclickvirt
 然后删除原始的镜像：
 
 ```shell
-docker image rm -f spiritlhl/oneclickvirt:latest
+docker image rm -f oneclickvirt/oneclickvirt:latest
 ```
 
 重新拉取容器镜像：
 
 ```shell
-docker pull spiritlhl/oneclickvirt:latest
+docker pull oneclickvirt/oneclickvirt:latest
 ```
 
 然后再部署开设容器即可(按全新部署那样来)，注意等待12秒后打开前端，会发现已自动越过初始化界面，因为数据已持久化导入。
@@ -398,13 +398,13 @@ docker volume rm oneclickvirt-data oneclickvirt-storage
 然后删除原始的镜像：
 
 ```shell
-docker image rm -f spiritlhl/oneclickvirt:latest
+docker image rm -f oneclickvirt/oneclickvirt:latest
 ```
 
 重新拉取容器镜像：
 
 ```shell
-docker pull spiritlhl/oneclickvirt:latest
+docker pull oneclickvirt/oneclickvirt:latest
 ```
 
 然后再按全新环境下开设的步骤来，这样会提示重新初始化，所有原始数据已删除。

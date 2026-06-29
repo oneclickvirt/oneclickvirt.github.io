@@ -290,7 +290,7 @@ Since the database is started together when starting, do not operate immediately
 
 Available image tags can be queried at
 
-https://hub.docker.com/r/spiritlhl/oneclickvirt
+https://hub.docker.com/r/oneclickvirt/oneclickvirt
 
 https://github.com/oneclickvirt/oneclickvirt/pkgs/container/oneclickvirt
 
@@ -300,10 +300,10 @@ https://github.com/oneclickvirt/oneclickvirt/pkgs/container/oneclickvirt
 
 | Image Tag | Description | Applicable Scenario |
 |---------|------|---------|
-| `spiritlhl/oneclickvirt:latest` | All-in-one version (built-in database) latest | Quick deployment |
-| `spiritlhl/oneclickvirt:20260629` | All-in-one version specific date version | Need fixed version |
-| `spiritlhl/oneclickvirt:no-db` | Independent database version latest | No built-in database |
-| `spiritlhl/oneclickvirt:no-db-20260629` | Independent database version specific date | No built-in database |
+| `oneclickvirt/oneclickvirt:latest` | All-in-one version (built-in database) latest | Quick deployment |
+| `oneclickvirt/oneclickvirt:20260629` | All-in-one version specific date version | Need fixed version |
+| `oneclickvirt/oneclickvirt:no-db` | Independent database version latest | No built-in database |
+| `oneclickvirt/oneclickvirt:no-db-20260629` | Independent database version specific date | No built-in database |
 
 All images support both `linux/amd64` and `linux/arm64` architectures.
 
@@ -320,7 +320,7 @@ docker run -d \
   -v oneclickvirt-data:/var/lib/mysql \
   -v oneclickvirt-storage:/app/storage \
   --restart unless-stopped \
-  spiritlhl/oneclickvirt:latest
+  oneclickvirt/oneclickvirt:latest
 ```
 
 With domain access configuration:
@@ -335,7 +335,7 @@ docker run -d \
   -v oneclickvirt-data:/var/lib/mysql \
   -v oneclickvirt-storage:/app/storage \
   --restart unless-stopped \
-  spiritlhl/oneclickvirt:latest
+  oneclickvirt/oneclickvirt:latest
 ```
 
 The above methods are only for new installations
@@ -357,13 +357,13 @@ docker rm -f oneclickvirt
 Then delete the original image:
 
 ```shell
-docker image rm -f spiritlhl/oneclickvirt:latest
+docker image rm -f oneclickvirt/oneclickvirt:latest
 ```
 
 Pull the container image again:
 
 ```shell
-docker pull spiritlhl/oneclickvirt:latest
+docker pull oneclickvirt/oneclickvirt:latest
 ```
 
 Then follow the steps for fresh environment deployment. Note that after waiting 12 seconds to open the frontend, you will find it has automatically skipped the initialization interface because the data has been persisted and imported.
@@ -386,13 +386,13 @@ docker volume rm oneclickvirt-data oneclickvirt-storage
 Then delete the original image:
 
 ```shell
-docker image rm -f spiritlhl/oneclickvirt:latest
+docker image rm -f oneclickvirt/oneclickvirt:latest
 ```
 
 Pull the container image again:
 
 ```shell
-docker pull spiritlhl/oneclickvirt:latest
+docker pull oneclickvirt/oneclickvirt:latest
 ```
 
 Then follow the steps for fresh environment deployment. This will prompt for reinitialization, and all original data has been deleted.
