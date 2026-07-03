@@ -30,6 +30,10 @@ Stars and forks are welcome. Everything listed here is open source. If you redis
 
 https://github.com/oneclickvirt/oneclickvirt
 
+## 1Panel Third-Party App Store
+
+[okxlin/appstore](https://github.com/okxlin/appstore) now includes OneClickVirt. If you already use 1Panel, follow that repository's instructions to add or synchronize the local app store, then deploy `oneclickvirt` from the local app list.
+
 ## PVE
 
 [https://github.com/oneclickvirt/pve](https://github.com/oneclickvirt/pve)

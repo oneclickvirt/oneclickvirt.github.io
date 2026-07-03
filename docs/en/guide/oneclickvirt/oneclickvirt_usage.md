@@ -156,7 +156,7 @@ Not recommended to modify the mapping method unless you know what this setting d
 
 ![](./images/bw3.png)
 
-Simply put, this sets the maximum bandwidth for instances created on the node and the total available traffic calculated on a natural-month basis. Traffic monitoring and traffic statistics are not enabled by default.
+Simply put, this sets the maximum bandwidth for instances created on the node and the total available traffic quota. Traffic monitoring and traffic statistics are not enabled by default. The traffic cycle follows the natural month by default and resets on the 1st day of each month. You can also choose a monthly reset day in the Expiry Settings section later; if 29, 30, or 31 is selected, shorter months automatically use the last day of that month.
 
 #### agent (Recommended)
 
@@ -204,6 +204,8 @@ Only after enabling traffic control will the traffic monitoring management butto
 
 ![](./images/pcz.png)
 
+The traffic reset day affects current-cycle statistics, user/instance/provider traffic limit checks, and recovery queueing for instances automatically stopped because of traffic overuse. When a provider reaches its reset day, the system first clears that provider's traffic-limit state, then recalculates user and instance limits. Instances that are no longer over the limit and have no other freeze reason will automatically receive a start task.
+
 ### Level Restrictions (Required)
 
 ![](./images/level.png)
@@ -214,15 +216,29 @@ During the actual instance creation process, the node-level level restrictions w
 
 This setting is to specialize the configuration limits of instances that users of corresponding levels can create on the current node, avoiding situations where global limits are not suitable for the current node. Global limits can be set in system configuration and are generally used for user account-level resource usage restrictions.
 
-### Advanced Settings (Optional)
+### Expiry Settings (Optional)
 
 ![](./images/setmore1.png)
-
-![](./images/setmore2.png)
 
 Expiration time:
 
 Prevents users from continuing to operate expired nodes. Expired nodes will be automatically frozen, at which time corresponding instances will not allow any operations but will not be automatically deleted. If a node is frozen, please clean and delete it in time.
+
+Traffic reset day:
+
+Leave it empty to follow the natural month, which starts a new traffic cycle on the 1st day of each month. You can also set any day from 1 to 31. The system calculates the current cycle, next reset time, and traffic-overlimit recovery separately for each provider.
+
+Instance expiration handling:
+
+When an instance expires, it can be frozen, stopped, automatically extended, or left for cleanup according to the provider setting. If an instance was automatically stopped because it expired, a successful check-in renewal creates a start task automatically, so the administrator does not need to start it manually.
+
+Check-in renewal:
+
+The previous check-in renewal tab has been merged into Expiry Settings. Configure check-in availability, renewal days, consecutive check-in rewards, and related limits here. After a successful check-in extends the expiration time, the system also clears the freeze caused by expiration. If the instance was stopped only because of expiration, it enters the start queue automatically.
+
+### Advanced Settings (Optional)
+
+![](./images/setmore2.png)
 
 Task concurrency control:
 

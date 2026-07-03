@@ -36,6 +36,12 @@ Chinese and English are both supported.
 
 https://github.com/oneclickvirt/oneclickvirt
 
+## 1Panel 第三方应用商店 / 1Panel Third-Party App Store
+
+[okxlin/appstore](https://github.com/okxlin/appstore) 已收录 OneClickVirt。已安装 1Panel 的用户可按该仓库说明添加或同步本地应用商店，然后在本地应用列表中选择 `oneclickvirt` 部署。
+
+[okxlin/appstore](https://github.com/okxlin/appstore) now includes OneClickVirt. If you already use 1Panel, add or synchronize that local app store, then deploy `oneclickvirt` from the local app list.
+
 ## PVE相关的各种一键脚本
 
 [https://github.com/oneclickvirt/pve](https://github.com/oneclickvirt/pve)

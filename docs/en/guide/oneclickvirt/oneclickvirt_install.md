@@ -31,6 +31,10 @@ Hardware requirements include at least 1G of free memory and 2G of free disk spa
 | Dockerfile Self-Compilation | Suitable for source code updates and maintenance | Highly customizable | Requires Docker environment, lengthy compilation time |
 | One-Click Full-Stack Script | Bare-metal quick deployment | Fully automated: DB, reverse proxy, TLS, frontend & backend | Higher hardware requirements (10G disk/2G memory) |
 
+### Installation via the 1Panel Third-Party App Store
+
+[okxlin/appstore](https://github.com/okxlin/appstore) now includes OneClickVirt. This repository is an unofficial 1Panel app store adaptation repository. If you already use 1Panel, follow that repository's instructions to add or synchronize the local app store, then deploy `oneclickvirt` from the local app list.
+
 ### Installation via Pre-compiled Binary Files
 
 Two methods are distinguished here:
@@ -564,6 +568,6 @@ Admin123!@#
 
 During the initialization process, all image seed data is loaded into the database by default, but by default only ```debian``` and ```alpine``` related version images are enabled. This is to avoid user selection difficulties caused by too many enabled images.
 
-If you need additional types of images, you need to search by type, architecture, and version in the system image management interface under administrator privileges and enable them.
+If you need additional types of images, you need to search by type, architecture, and version in the system image management interface under administrator privileges and enable them. Windows, Android, macOS, and other non-Linux/BSD images are also imported as preset seeds, but they are disabled by default and have higher CPU, memory, and disk requirements to prevent accidental creation on low-end nodes. Before enabling these images, confirm that the target provider satisfies the required nested virtualization, disk space, KVM, or Docker special runtime conditions.
 
 After initialization, please immediately change the default administrator username and password, and disable or delete the default enabled test user ```testuser```. This can be done in the administrator's user management page.

@@ -57,7 +57,7 @@ No Port Mapping
 
 - Traffic Statistics: Integrates IP-level and network interface-level precise network traffic statistics. Forces traffic data synchronization during sensitive operations to ensure data accuracy
 
-- Monthly traffic usage statistics reset at the beginning of each month. Supports traffic statistics and limits at user, instance, and Provider levels
+- Traffic reset days can be configured per provider. Leaving the field empty follows the natural month and resets on the 1st day of each month. Supports traffic statistics and limits at user, instance, and Provider levels
 
 - Invitation Code System: Supports non-public registration invitation mechanism, with different resource quota limits based on user levels
 
