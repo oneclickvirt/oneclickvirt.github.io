@@ -6,21 +6,21 @@
       "type": "skill-md",
       "description": "Use when an agent needs to help with OneClickVirt, Proxmox VE, Incus, Docker, LXD, Containerd, Podman, QEMU, KubeVirt, or abuse-blocking documentation.",
       "url": "https://www.spiritlhl.net/.well-known/agent-skills/virtualization-guides/SKILL.md",
-      "digest": "sha256:0cd04bafed9eb34ce0263f311fae1bcca859ed4ded8b0adf445e8c26cf078a3d"
+      "digest": "sha256:295a92bf567eabac74cdba7226507db6b5833aa72168d30298fcd25673207c35"
     },
     {
       "name": "practical-cases",
       "type": "skill-md",
       "description": "Use when an agent needs to find practical Linux server utilities, benchmark scripts, repair scripts, swap/zram guides, or related case-study documentation.",
       "url": "https://www.spiritlhl.net/.well-known/agent-skills/practical-cases/SKILL.md",
-      "digest": "sha256:8d6d4d5713ff50b4b09db1c565c33e525d8d8663fa55e64bafbbab4484147a42"
+      "digest": "sha256:f1902b31562af296ff46e366aa6d6b32ef2e9817e0a1a2849ca75b7d14bd38ae"
     },
     {
       "name": "developer-docs",
       "type": "skill-md",
       "description": "Use when an agent needs to work with this documentation site's developer notes, localization guidance, bilingual structure, or contribution workflow.",
       "url": "https://www.spiritlhl.net/.well-known/agent-skills/developer-docs/SKILL.md",
-      "digest": "sha256:79437313aaf815281e9b21e81fe3d4070eff3134e0878f142b1d57a3fedfe171"
+      "digest": "sha256:2ccbf505787eddc0f9fa73025fe5dc3c39a8ee50cbb664ba43d669546ba7a217"
     }
   ]
 }
