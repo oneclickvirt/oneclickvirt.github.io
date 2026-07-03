@@ -3,34 +3,57 @@ name: Pages
 on:
   push:
     branches:
-      - main # default branch
+      - main
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
-  pages:
+  deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
-      - uses: actions/checkout@v7
-      - name: Use Node.js 18.x
-        uses: actions/setup-node@v6
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: "18"
-      - name: Cache NPM dependencies
-        uses: actions/cache@v6
-        with:
-          path: node_modules
-          key: ${{ runner.OS }}-npm-cache
-          restore-keys: |
-            ${{ runner.OS }}-npm-cache
-      - name: Install Dependencies
-        run: npm install
-      - name: Check Documentation
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check documentation
         run: npm run check
+
       - name: Build
         run: npm run build
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
+
+      - name: Prepare Pages artifact
+        run: |
+          touch docs/.vitepress/dist/.nojekyll
+          echo "www.spiritlhl.net" > docs/.vitepress/dist/CNAME
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/.vitepress/dist
-          cname: www.spiritlhl.net
+          path: docs/.vitepress/dist
+
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

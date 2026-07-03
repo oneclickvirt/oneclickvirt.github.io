@@ -208,16 +208,17 @@ function collectStrings(value, strings = []) {
 }
 
 function getFrontmatterBlock(content) {
-  if (!content.startsWith('---\n')) {
+  const normalized = content.replace(/\r\n/g, '\n');
+  if (!normalized.startsWith('---\n')) {
     return '';
   }
 
-  const end = content.indexOf('\n---', 4);
+  const end = normalized.indexOf('\n---', 4);
   if (end === -1) {
     return '';
   }
 
-  return content.slice(4, end);
+  return normalized.slice(4, end);
 }
 
 function parseSimpleFrontmatter(file) {
