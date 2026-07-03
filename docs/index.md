@@ -22,7 +22,7 @@ features:
 - title: 端口转发和IP分配自动化
   details: 自带内外网端口转发和IP地址自动分配(含IPV6、IPV4和内网穿透)，支持TCP/UDP、VNC/RDP等协议
 - title: 批量虚拟化
-  details: 支持使用 QEMU、KVM、LXC、Docker 虚拟化批量开设容器或虚拟机
+  details: 支持使用 QEMU、KVM、LXC、Docker 等虚拟化批量开设容器或虚拟机
 - title: 多系统多环境支持
   details: 开设出的容器或虚拟机已支持主流系统，涵盖 Linux、Windows、macOS、Android 系统，也支持纯粹的浏览器环境或桌面环境
 - title: 自限制滥用
