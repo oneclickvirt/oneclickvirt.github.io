@@ -305,9 +305,9 @@ https://github.com/oneclickvirt/oneclickvirt/pkgs/container/oneclickvirt
 | Image Tag | Description | Applicable Scenario |
 |---------|------|---------|
 | `oneclickvirt/oneclickvirt:latest` | All-in-one version (built-in database) latest | Quick deployment |
-| `oneclickvirt/oneclickvirt:20260703` | All-in-one version specific date version | Need fixed version |
+| `oneclickvirt/oneclickvirt:20260704` | All-in-one version specific date version | Need fixed version |
 | `oneclickvirt/oneclickvirt:no-db` | Independent database version latest | No built-in database |
-| `oneclickvirt/oneclickvirt:no-db-20260703` | Independent database version specific date | No built-in database |
+| `oneclickvirt/oneclickvirt:no-db-20260704` | Independent database version specific date | No built-in database |
 
 All images support both `linux/amd64` and `linux/arm64` architectures.
 
