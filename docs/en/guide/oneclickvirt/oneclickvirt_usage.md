@@ -314,6 +314,16 @@ If you need images for any system, any virtualization environment, any architect
 
 Custom image addresses are temporarily not supported. The current frontend entry function is not available. Do not manually enter images.
 
+## Port Management
+
+Administrators can inspect and maintain port mapping records under **Resources > Port Management**. Node-side mappings are applied by the corresponding virtualization node. Controller forwarding is intended for tunnel access when a node has no public ingress and currently supports one TCP port per record.
+
+![](./images/portmapping-repair.png)
+
+**Sync Port Mappings** previews and removes stale database records, such as mappings whose instances no longer exist. **Rebuild Forwarding** repairs the opposite direction: selected controller database records are reapplied to the node or controller. The preview separates repairable, restart-required, and skipped records. Execution requires a risk confirmation followed by entering `REBUILD` exactly.
+
+Native container runtime bindings require restarting affected running instances, which causes a brief interruption. The task verifies the actual bindings after restart and reports a clear failure when they do not match the database. This operation does not delete controller database port mapping records.
+
 ## System Configuration
 
 General options here won't be elaborated on. There are two configurations that need special explanation.

@@ -63,6 +63,8 @@ For local nodes, only this section differs: choose `No Port Mapping`. You can th
 
 When manually adding port mapping, choose `Controller Forwarding (Intranet Penetration)`. Non-required fields can be left empty; the system will automatically select available controller ports for mapping.
 
+Controller forwarding uses a TCP tunnel and supports one TCP port per mapping. Create separate mappings when multiple ports must be exposed.
+
 ### Controller Deployment Requirements
 
 Because intranet penetration requires the controller to have control over the host machine's network and firewall, the controller must meet the following conditions:

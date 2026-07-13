@@ -498,6 +498,8 @@ docker run -d \
   oneclickvirt:no-db
 ```
 
+The `no-db` image stores its runtime configuration at `/app/storage/config.yaml` in the `oneclickvirt-storage` volume. Reuse the same storage volume when updating the image or recreating the container; database settings entered on the initialization page and other system-level settings then survive replacement, so database initialization is not repeated. Non-empty `DB_*` variables take precedence over the file, while deployments that explicitly mount `/app/config.yaml` continue to use that file first.
+
 ### One-Click Full-Stack Installation Script
 
 `install_full.sh` installs the database, reverse proxy, TLS configuration, frontend, backend, and system service in one flow. It supports MySQL or MariaDB and Caddy, Nginx, or OpenResty.

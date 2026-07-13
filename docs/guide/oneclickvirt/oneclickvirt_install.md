@@ -510,6 +510,8 @@ docker run -d \
   oneclickvirt:no-db
 ```
 
+`no-db` 镜像会将运行时配置保存到 `oneclickvirt-storage` 卷内的 `/app/storage/config.yaml`。更新镜像或重建容器时必须继续挂载同一个存储卷，初始化页面写入的数据库配置和系统级配置会随卷保留，无需重新初始化数据库。非空的 `DB_*` 环境变量优先于配置文件；显式挂载 `/app/config.yaml` 的部署仍优先使用该文件。
+
 ### 通过一键全栈安装脚本
 
 `install_full.sh` 可一键安装数据库、反向代理、TLS 配置、前端、后端及系统服务，支持 MySQL/MariaDB 以及 Caddy/Nginx/OpenResty。
