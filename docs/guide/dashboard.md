@@ -36,7 +36,7 @@ https://github.com/oneclickvirt/oneclickvirt
 
 ## 1Panel 第三方应用商店
 
-[okxlin/appstore](https://github.com/okxlin/appstore) 已收录 OneClickVirt。已安装 1Panel 的用户，可以按该仓库说明添加或同步本地应用商店，然后在本地应用列表中选择 `oneclickvirt` 部署。收录来源见 [PR #3535](https://github.com/okxlin/appstore/pull/3535) 和维护者重建验证记录 [PR #4218](https://github.com/okxlin/appstore/pull/4218)。
+[okxlin/appstore](https://github.com/okxlin/appstore/tree/localApps) 已收录 OneClickVirt。已安装 1Panel 的用户可按 [OneClickVirt 高级安装](./oneclickvirt/oneclickvirt_advanced_install) 导入或同步本地应用商店，再从本地应用列表部署 `oneclickvirt`。收录来源见 [PR #3535](https://github.com/okxlin/appstore/pull/3535) 和维护者重建验证记录 [PR #4218](https://github.com/okxlin/appstore/pull/4218)。
 
 ## PVE
 

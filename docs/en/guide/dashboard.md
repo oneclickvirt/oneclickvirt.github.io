@@ -32,7 +32,7 @@ https://github.com/oneclickvirt/oneclickvirt
 
 ## 1Panel Third-Party App Store
 
-[okxlin/appstore](https://github.com/okxlin/appstore) now includes OneClickVirt. If you already use 1Panel, follow that repository's instructions to add or synchronize the local app store, then deploy `oneclickvirt` from the local app list.
+[okxlin/appstore](https://github.com/okxlin/appstore/tree/localApps) includes OneClickVirt. Existing 1Panel users can follow [OneClickVirt Advanced Installation](./oneclickvirt/oneclickvirt_advanced_install) to import or synchronize the local app store, then deploy `oneclickvirt` from the local app list.
 
 ## PVE
 

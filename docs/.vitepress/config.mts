@@ -41,8 +41,12 @@ const guideSections: SidebarSection[] = [
         path: '/guide/oneclickvirt/oneclickvirt_precheck',
       },
       {
-        text: { zh: '主体安装', en: 'Main installation' },
+        text: { zh: '基础安装（选其一）', en: 'Basic installation (choose one)' },
         path: '/guide/oneclickvirt/oneclickvirt_install',
+      },
+      {
+        text: { zh: '高级安装（选其一）', en: 'Advanced installation (choose one)' },
+        path: '/guide/oneclickvirt/oneclickvirt_advanced_install',
       },
       {
         text: { zh: '使用说明', en: 'Instructions for use' },

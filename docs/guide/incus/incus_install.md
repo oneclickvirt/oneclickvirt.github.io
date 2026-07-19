@@ -64,19 +64,19 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/incus_
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/incus_install.sh -o incus_install.sh && chmod +x incus_install.sh && bash incus_install.sh
 ```
 
-或
+如果脚本已下载到当前目录，也可以执行：
 
 ```shell
 bash incus_install.sh
 ```
 
-已下载脚本后的无交互安装示例：
+脚本下载完成后，无交互安装命令如下：
 
 ```shell
 export noninteractive=true && bash incus_install.sh
 ```
 
-初始化配置的例子：
+初始化配置示例：
 
 如果不需要指定非系统盘的路径做默认存储池，那么选择是否自定义存储池路径时直接回车或输入```n```即可，不需要指定路径。
 

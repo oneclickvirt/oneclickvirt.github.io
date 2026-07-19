@@ -60,13 +60,13 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/install_
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/install_pve.sh -o install_pve.sh && chmod +x install_pve.sh && bash install_pve.sh
 ```
 
-或
+如果脚本已下载到当前目录，也可以执行：
 
 ```shell
 bash install_pve.sh
 ```
 
-已下载脚本后的无交互安装示例：
+脚本下载完成后，无交互安装命令如下：
 
 ```shell
 export noninteractive=true && bash install_pve.sh

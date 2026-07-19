@@ -2,332 +2,47 @@
 outline: deep
 ---
 
-# OneClickVirt
+# OneClickVirt 基础安装
 
-区分面板端和受控端，受控端需要提前安装好对应虚拟化的环境，可使用一键虚拟化中别的虚拟化的主体安装进行环境安装，主控端实际就是一个面板，没有虚拟化环境需求。
+OneClickVirt 分为面板端和受控端。面板端只负责管理，不要求安装虚拟化环境；受控端需要先安装对应的虚拟化环境。
 
-## 受控端
+:::tip 安装页面二选一
+本页和[高级安装](./oneclickvirt_advanced_install)只需要选择其中一页阅读，并从所选页面的表格中选择一种安装方式。不同安装方式不要重复执行。
+:::
 
-对应本说明别的虚拟环境的主体安装脚本可以进行环境安装，这里不过多赘述，四大主流的虚拟化技术的主体安装本教程都有对应的安装命令进行安装，自行查阅。
+## 受控端准备
 
-如有条件务必使用脚本进行对应的环境安装，否则可能出现预设不一致等奇奇怪怪的问题，没有技术力不要手动安装环境，一切通过脚本。
-
-受控端只需要安装好虚拟化环境即可，不必额外安装agent进行控制，只要确保SSH能登录即可(SSH登录地址可公网可内网，连通性无问题即可)。
+受控端只需要安装虚拟化环境，不需要额外安装 Agent。请使用本站对应项目的主体安装脚本准备环境，并确保面板端可以通过 SSH 连接受控端。
 
 :::warning
-纳管的节点要求宿主机网卡直接绑定待映射IP地址如公网IP。不支持通过类似阿里云 VPC 的端口映射、NAT 转发等方式提供待映射IP的宿主机。使用全端口 NAT 或端口转发方式提供待映射IP的宿主机，无法作为节点机器。(简单的说，云服务器有公网IP地址，那么这个IP地址必须是绑定在网卡上的，不能网卡只有内网IP没公网IP，然后流量走内网IP再转公网IP)
+纳管节点的宿主机网卡必须直接绑定待映射的 IP 地址，例如公网 IP。不支持使用阿里云 VPC 一类的端口映射或 NAT 转发来提供待映射 IP；网卡只有内网 IP、依靠转发访问公网的主机不能作为此类节点。
 :::
 
-## 面板端
+## 面板端安装方式
 
-硬件上需要至少1G空闲内存和2G空闲硬盘，通过下面任一方式安装完成即可。
+面板端至少需要 1 GB 空闲内存和 2 GB 空闲磁盘。下表仅列出本页支持的方式，并按操作难度从简单到困难排列。
 
-| 安装方式 | 适用场景 | 优点 | 缺点 |
-|---------|---------|------|------|
-| 前后端分离部署 | 高性能，占用最小 | 性能最佳、灵活配置 | 配置复杂，需配置反向代理 |
-| 一体化部署 | 本地有无公网IPV4地址皆可 | 部署简单、无需反向代理 | 性能较差 |
-| Docker部署(预构建镜像) | 快速部署，占用较大 | 一键安装、数据持久化 | 需要Docker环境，下载镜像较大  |
-| DockerCompose部署 | 适合源码更新维护 | 高度自定义 | 需要Docker环境，编译耗时长 |
-| Dockerfile自编译 | 适合源码更新维护 | 高度自定义 | 需要Docker环境，编译耗时长 |
-| 一键全栈安装脚本 | 裸金属快速部署 | 全自动安装数据库/反向代理/TLS/前后端 | 硬件要求较高(10G磁盘/2G内存) |
+| 难度 | 安装方式 | 适用场景 | 特点 |
+| --- | --- | --- | --- |
+| 简单 | Docker 一体化镜像 | 已安装 Docker，希望最快完成部署 | 内置数据库，直接运行镜像即可 |
+| 较简单 | 一键裸机安装 | 使用纯净 Linux 或 BSD 系统，希望自动安装全部依赖 | 自动安装数据库、反向代理、TLS、前端、后端和系统服务 |
 
-### 通过 1Panel 第三方应用商店安装
+如果已经在使用 1Panel，或者需要前后端分离、外部数据库、预编译二进制及源码构建，请改看[高级安装](./oneclickvirt_advanced_install)。
 
-[okxlin/appstore](https://github.com/okxlin/appstore) 已收录 OneClickVirt，本仓库是 1Panel 应用商店的非官方应用适配库。已安装 1Panel 的用户，可以按该仓库说明添加或同步本地应用商店，然后在本地应用列表中选择 `oneclickvirt` 部署。
+## 方式一：Docker 一体化镜像
 
-### 通过预编译二进制文件安装
+此方式使用内置数据库的一体化镜像。主机需先安装 Docker；如未安装，可参考 [Docker 主体安装](/guide/docker/docker_install)。镜像支持 `linux/amd64` 和 `linux/arm64` 架构。
 
-这里区分两种方式：
-- 前后端分离部署(后端前端分开编译出对应文件进行部署)，性能更好
-- 一体化部署(前后端合二为一只需要部署一个文件)，性能较差
+镜像地址：
 
-#### 前后端分离部署
-
-##### Linux
-
-###### 下载脚本
-
-国际
-
-```shell
-curl -L https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/scripts/install.sh -o install.sh && chmod +x install.sh
-```
-
-国内
-
-```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/scripts/install.sh -o install.sh && chmod +x install.sh
-```
-
-###### 环境安装
-
-有交互地安装环境
-
-```
-./install.sh env
-```
-
-无交互地安装环境（统一使用 `export noninteractive=true` 指定无交互模式）
-
-```
-export noninteractive=true && ./install.sh env
-```
-
-###### 本体安装
-
-```
-./install.sh install
-```
-
-安装目录: ```/opt/oneclickvirt```
-
-安装成功后，需要手动启动服务: 
-
-```shell
-systemctl start oneclickvirt
-```
-
-其他使用方法：
-
-停止服务: 
-
-```shell
-systemctl stop oneclickvirt
-```
-
-开机自启: 
-
-```shell
-systemctl enable oneclickvirt
-```
-
-查看状态: 
-
-```shell
-systemctl status oneclickvirt
-```
-
-查看日志: 
-
-```shell
-journalctl -u oneclickvirt -f
-```
-
-重启服务：
-
-```shell
-systemctl restart oneclickvirt
-```
-
-###### 升级前后端
-
-```
-./install.sh upgrade
-```
-
-除了配置文件，后端和前端文件都会升级
-
-升级过程中会提示是否需要自定义前端文件路径，若选择不自定义，则默认解压到```/opt/oneclickvirt/web/```中
-
-这个设置主要是为了适配1panel不可自定义前端文件路径的问题，1panel的文件路径类似```/opt/1panel/www/sites/beta/index/web```，其中```beta```是你设置的网站的名字
-
-###### 部署前端
-
-前面安装脚本会将静态文件解压到(未自定义时)
-
-```shell
-cd /opt/oneclickvirt/web/
-```
-
-这个路径下
-
-使用`nginx`或`caddy`以这个路径建立静态网站即可，是否需要域名绑定自行选择（有域名推荐绑定，方便使用 HTTPS）
-
-* `nginx`：包括 `OpenResty`、`1panel` 内置 nginx 等，配置方式基本一致
-* `caddy`：配置更简单，**默认自动申请 HTTPS 证书（需要域名解析到服务器）**
-
-静态文件部署完毕后，需要反代后端地址给前端使用，这里具体以`1panel`的内置`OpenResty`为例：
-
-![](./images/proxy.png)
-
-需要反代路径`/api`到后端的`http://127.0.0.1:8888`地址上，如果你使用的的是`1panel`，那么就只需要填写这些即可，默认的后端域名使用默认的`$host`不需要修改。
-
-如果你使用的是`nginx`或`OpenResty`，在站点的反代配置源码中覆写如下内容：
-
-```nginx
-location /api/v1/ws/ {
-    proxy_pass http://127.0.0.1:8888;
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "upgrade";
-    proxy_buffering off;
-    proxy_read_timeout 3600s;
-    proxy_send_timeout 3600s;
-}
-
-location /api {
-    proxy_pass http://127.0.0.1:8888; 
-    proxy_set_header Host $host; 
-    proxy_set_header X-Real-IP $remote_addr; 
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; 
-    proxy_set_header REMOTE-HOST $remote_addr; 
-    proxy_set_header X-Forwarded-Proto $scheme; 
-    proxy_set_header X-Forwarded-Port $server_port; 
-    
-    # WebSocket support
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "upgrade";
-    
-    proxy_http_version 1.1; 
-    
-    # SSL settings
-    proxy_ssl_server_name off; 
-    proxy_ssl_name $proxy_host;
-    
-    # Timeout settings
-    proxy_connect_timeout 60s;
-    proxy_send_timeout 600s;
-    proxy_read_timeout 600s;
-    
-    # Cache and buffering
-    proxy_buffering off;
-    add_header X-Cache $upstream_cache_status;
-    add_header Cache-Control no-cache;
-}
-```
-
-如果你使用的是`caddy`，那么无域名的配置文件应该类似：
-
-```caddy
-:80 {
-
-    root * /opt/oneclickvirt/web
-    file_server
-
-    # WebSocket
-    @ws path /api/v1/ws/*
-    reverse_proxy @ws 127.0.0.1:8888 {
-        header_up Host {host}
-        header_up X-Real-IP {remote_host}
-        header_up X-Forwarded-For {remote_host}
-        header_up X-Forwarded-Proto {scheme}
-        header_up X-Forwarded-Port {server_port}
-
-        transport http {
-            read_timeout 3600s
-            write_timeout 3600s
-        }
-    }
-
-    # Normal API
-    @api path /api/*
-    reverse_proxy @api 127.0.0.1:8888 {
-        header_up Host {host}
-        header_up X-Real-IP {remote_host}
-        header_up X-Forwarded-For {remote_host}
-        header_up X-Forwarded-Proto {scheme}
-        header_up X-Forwarded-Port {server_port}
-
-        transport http {
-            read_timeout 600s
-            write_timeout 600s
-        }
-    }
-}
-```
-
-有域名则将 `:80` 换成 `example.com` 就行， `example.com` 替换为你的实际域名，域名需提前解析到服务器 IP，`caddy` 会自动申请 HTTPS 证书并开启 443（无需手动配置 SSL）
-
-##### Windows
-
-查看
-
-https://github.com/oneclickvirt/oneclickvirt/releases/latest
-
-下载最新的对应架构的压缩文件，解压后挂起执行。
-
-执行的二进制文件的同级目录下，下载
-
-https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/server/config.yaml
-
-文件，这是后续需要使用的配置文件。
-
-下载```web-dist.zip```文件后，解压并使用对应的程序建立静态网站，类似Linux那样设置好反向代理即可。
-
-#### 一体化部署
-
-这里不再区分前后端的概念，从
-
-https://github.com/oneclickvirt/oneclickvirt/releases/latest
-
-中找到带```allinone```标签的压缩包进行下载，注意区分```amd64```和```arm64```架构，以及对应的系统。
-
-Linux中使用```tar -zxvf```命令解压```tar.gz```压缩包，Windows中使用对应解压工具解压```zip```压缩包，将其中的二进制文件复制粘贴到你需要部署项目的位置。
-
-最好移动到一个专门的文件夹中，因为运行过程中将产生结构化的日志文件。
-
-(以下说明将以amd64架构的linux系统的文件进行示例)
-
-Linux中赋予文件可执行权限，如
-
-```shell
-chmod 777 server-allinone-linux-amd64
-```
-
-然后下载
-
-https://github.com/oneclickvirt/oneclickvirt/blob/main/server/config.yaml
-
-文件到同一个文件夹中。
-
-Linux中，使用```screen```或```tmux```或```nohup```命令挂起执行二进制文件即可，如
-
-```shell
-./server-allinone-linux-amd64
-```
-
-然后打开对应的IP地址的8888端口即可看到前端进行使用了，如
-
-```
-http://你的IP地址:8888
-```
-
-如果你是Windows系统，那么需要使用管理员权限启动exe文件，同时确保启动前exe文件同一个文件夹中存在```config.yaml```配置文件，否则启动将出现白屏或不通的情况。至于怎么挂起执行，自行探索吧，直接挂着cmd界面运行也行。
-
-一体化部署的模式适合本机没有公网IP的情况，你的IP地址可以是```localhost```或者```127.0.0.1```，也可以是对应的公网IPV4地址，具体部署环境下自测。
-
-### 通过Docker安装
+- [Docker Hub](https://hub.docker.com/r/oneclickvirt/oneclickvirt)
+- [GitHub Container Registry](https://github.com/oneclickvirt/oneclickvirt/pkgs/container/oneclickvirt)
 
 :::tip
-由于启动的时候连带数据库一起启动，所以容器刚启动的时候不要立即操作，需要至少等待12秒。
+容器启动时会同时启动数据库。首次启动后请至少等待 12 秒，再打开页面进行操作。
 :::
 
-可使用的镜像tag可在 
-
-https://hub.docker.com/r/oneclickvirt/oneclickvirt
-
-https://github.com/oneclickvirt/oneclickvirt/pkgs/container/oneclickvirt
-
-中查询
-
-#### 预构建镜像
-
-**镜像标签说明**
-
-| 镜像标签 | 说明 | 适用场景 |
-|---------|------|---------|
-| `oneclickvirt/oneclickvirt:latest` | 一体化版本（内置数据库）最新版 | 快速部署 |
-| `oneclickvirt/oneclickvirt:20260717` | 一体化版本特定日期版本 | 需要固定版本 |
-| `oneclickvirt/oneclickvirt:no-db` | 独立数据库版本最新版 | 不内置数据库 |
-| `oneclickvirt/oneclickvirt:no-db-20260717` | 独立数据库版本特定日期 | 不内置数据库 |
-
-所有镜像均支持 `linux/amd64` 和 `linux/arm64` 架构。
-
-##### 全新部署
-
-使用已构建好的```amd64```或```arm64```镜像，会自动根据当前系统架构下载对应版本：
-
-不配置域名：
+### 不配置域名
 
 ```bash
 docker run -d \
@@ -339,257 +54,196 @@ docker run -d \
   oneclickvirt/oneclickvirt:latest
 ```
 
-配置域名访问：
+安装后访问：
 
-如果你需要配置域名，需要设置 `FRONTEND_URL` 环境变量：
+```text
+http://服务器IP
+```
+
+### 配置域名
+
+将 `FRONTEND_URL` 替换为实际访问地址：
 
 ```bash
 docker run -d \
   --name oneclickvirt \
   -p 80:80 \
-  -e FRONTEND_URL="https://your-domain.com" \
+  -e FRONTEND_URL="https://panel.example.com" \
   -v oneclickvirt-data:/var/lib/mysql \
   -v oneclickvirt-storage:/app/storage \
   --restart unless-stopped \
   oneclickvirt/oneclickvirt:latest
 ```
 
-以上的方式仅限于新安装
+`FRONTEND_URL` 会影响 CORS、OAuth2 回调等功能，必须与用户实际访问的地址一致。
 
-##### 旧环境下仅升级
+### 升级现有容器
 
-先备份配置文件到当前路径下：
+保留两个数据卷，只替换容器和镜像：
 
-```shell
-docker cp oneclickvirt:/app/config.yaml .
-```
-
-不需要删除挂载盘仅删除容器本身：
-
-```shell
+```bash
 docker rm -f oneclickvirt
-```
-
-然后删除原始的镜像：
-
-```shell
-docker image rm -f oneclickvirt/oneclickvirt:latest
-```
-
-重新拉取容器镜像：
-
-```shell
 docker pull oneclickvirt/oneclickvirt:latest
 ```
 
-然后再部署开设容器即可(按全新部署那样来)，注意等待12秒后打开前端，会发现已自动越过初始化界面，因为数据已持久化导入。
+然后重新执行上方与你当前配置相同的 `docker run` 命令。不要删除 `oneclickvirt-data` 和 `oneclickvirt-storage`，否则会丢失数据库和应用配置。
 
-然后覆写原有的配置文件：
+### 查看状态
 
-```shell
-docker cp config.yaml oneclickvirt:/app/config.yaml
+```bash
+docker ps --filter name=oneclickvirt
 ```
 
-##### 旧环境下新部署
+### 查看日志
 
-这将完全删除原有数据再部署，不仅需要删除容器还得删除对应的挂载点：
+```bash
+docker logs -f --tail 200 oneclickvirt
+```
 
-```shell
+### 卸载
+
+仅删除容器和镜像、保留数据以便以后恢复：
+
+```bash
 docker rm -f oneclickvirt
+docker image rm oneclickvirt/oneclickvirt:latest
+```
+
+确认不再需要任何数据后，才可继续删除数据卷：
+
+```bash
 docker volume rm oneclickvirt-data oneclickvirt-storage
 ```
 
-然后删除原始的镜像：
+:::warning
+删除数据卷会永久删除数据库和应用配置，执行前请先备份。
+:::
 
-```shell
-docker image rm -f oneclickvirt/oneclickvirt:latest
-```
+## 方式二：一键裸机安装
 
-重新拉取容器镜像：
+`install_full.sh` 会在一个流程中安装数据库、反向代理、TLS、前端、后端和系统服务，支持 MySQL 或 MariaDB，以及 Caddy、Nginx 或 OpenResty。
 
-```shell
-docker pull oneclickvirt/oneclickvirt:latest
-```
+安装器支持常见 Linux 与类 Unix 系统。BSD 必须存在对应系统和架构的 Release 二进制；不满足时请改用 Docker 或[高级安装](./oneclickvirt_advanced_install)中的源码构建方式。
 
-然后再按全新环境下开设的步骤来，这样会提示重新初始化，所有原始数据已删除。
+:::warning
+安装器默认要求至少 10 GB 可用磁盘和 2 GB 内存（内存与 Swap 合计）。建议在纯净系统上执行。
+:::
 
-#### DockerCompose自编译
+### 下载脚本
 
-使用 Docker Compose 可以一键部署完整的开发环境，采用**分容器部署**架构，包括独立的前端容器、后端容器和数据库容器：
-
-```bash
-git clone https://github.com/oneclickvirt/oneclickvirt.git
-cd oneclickvirt
-docker-compose up -d --build || docker compose up -d --build
-```
-
-**默认配置说明：**
-
-- 前端服务：`http://localhost:8888`
-- 后端 API：通过前端代理访问
-- MySQL 数据库：端口 3306，数据库名 `oneclickvirt`，无密码
-- 数据持久化：
-  - 数据库数据：`./data/mysql`
-  - 应用存储：`./data/app/`
-
-**初始化配置：**
-
-首次访问时会进入初始化界面，数据库配置请填写：
-- 数据库地址：`mysql`（容器名称，不是 127.0.0.1）
-- 数据库端口：`3306`
-- 数据库名称：`oneclickvirt`
-- 数据库用户：`root`
-- 数据库密码：留空（无密码）
-
-**自定义端口（可选）：**
-
-如果需要修改前端访问端口，编辑 `docker-compose.yaml` 文件中的 ports 配置：
-
-```yaml
-services:
-  web:
-    ports:
-      - "你的端口:80"  # 例如 "80:80" 或 "8080:80"
-```
-
-**停止服务：**
+国际网络：
 
 ```bash
-docker-compose down
-```
-
-**查看日志：**
-
-```bash
-docker-compose logs -f
-```
-
-**清理数据：**
-
-```bash
-docker-compose down
-rm -rf ./data
-```
-
-#### Dockerfile自编译
-
-这种方式适合自行修改源码与自定义构建：
-
-##### 一体化版本（内置数据库）
-
-```bash
-git clone https://github.com/oneclickvirt/oneclickvirt.git
-cd oneclickvirt
-docker build -t oneclickvirt .
-docker run -d \
-  --name oneclickvirt \
-  -p 80:80 \
-  -v oneclickvirt-data:/var/lib/mysql \
-  -v oneclickvirt-storage:/app/storage \
-  --restart unless-stopped \
-  oneclickvirt
-```
-
-##### 独立数据库版本（不内置数据库）
-
-```bash
-git clone https://github.com/oneclickvirt/oneclickvirt.git
-cd oneclickvirt
-docker build -f Dockerfile.no-db -t oneclickvirt:no-db .
-docker run -d \
-  --name oneclickvirt \
-  -p 80:80 \
-  -e FRONTEND_URL="https://your-domain.com" \
-  -e DB_HOST="your-mysql-host" \
-  -e DB_PORT="3306" \
-  -e DB_NAME="oneclickvirt" \
-  -e DB_USER="root" \
-  -e DB_PASSWORD="your-password" \
-  -v oneclickvirt-storage:/app/storage \
-  --restart unless-stopped \
-  oneclickvirt:no-db
-```
-
-`no-db` 镜像会将运行时配置保存到 `oneclickvirt-storage` 卷内的 `/app/storage/config.yaml`。更新镜像或重建容器时必须继续挂载同一个存储卷，初始化页面写入的数据库配置和系统级配置会随卷保留，无需重新初始化数据库。非空的 `DB_*` 环境变量优先于配置文件；显式挂载 `/app/config.yaml` 的部署仍优先使用该文件。
-
-### 通过一键全栈安装脚本
-
-`install_full.sh` 可一键安装数据库、反向代理、TLS 配置、前端、后端及系统服务，支持 MySQL/MariaDB 以及 Caddy/Nginx/OpenResty。
-
-域名输入支持自动识别协议前缀：输入 `https://panel.example.com` 自动启用 TLS，输入 `http://panel.example.com` 自动禁用 TLS，输入纯域名则交互式询问。
-
-#### 下载脚本
-
-国际
-
-```shell
 curl -fsSL https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/main/scripts/install_full.sh -o install_full.sh
 ```
 
-国内
+中国大陆网络：
 
-```shell
+```bash
 curl -fsSL https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/main/scripts/install_full.sh -o install_full.sh
 ```
 
-#### 交互式安装
+### 交互式安装
+
+命令如下：
 
 ```bash
 bash install_full.sh
 ```
 
-#### 非交互式部署
+域名支持直接输入协议前缀：`https://panel.example.com` 会启用 TLS，`http://panel.example.com` 会关闭 TLS；未输入协议时，脚本会询问是否启用 TLS。
+
+### 无交互安装
+
+HTTPS 并自动配置 TLS：
 
 ```bash
-# HTTPS 自动 TLS
 bash install_full.sh \
   --non-interactive \
   --domain https://panel.example.com \
   --email admin@example.com \
   --db-type mariadb \
   --proxy caddy
+```
 
-# 仅 HTTP，无 TLS
+仅使用 HTTP：
+
+```bash
 bash install_full.sh \
   --non-interactive \
   --domain http://192.168.1.100 \
   --proxy caddy
 ```
 
-:::warning
-安装程序默认要求至少 10 GB 可用磁盘空间和 2 GB 内存。安装完成后，终端会输出生成的数据库密码，请在关闭终端前妥善保存。
-:::
+安装完成后，终端会输出访问地址、数据库密码和初始管理员信息，请在关闭终端前妥善保存。
 
-## 数据库初始化
+下面的统一运维子命令适用于使用 `systemd` 的 Linux 安装。其他服务管理器会由安装脚本输出对应的状态和日志命令；升级时请按输出的服务管理器停止服务，再替换同架构 Release 文件。
 
-通过docker一体化安装的**无需**手动再安装```mysql```，自带数据库无需自己创建空数据库，默认已在容器中启动了对应的数据库可用了，直接进入后续初始化环节；其他不自带数据库的安装方式(非一体化镜像安装的、脚本安装的、自己编译安装的)，**需要**自行安装```mysql```，确保安装启动```mysql```后，创建一个空的数据库```oneclickvirt```，使用类型```utf8mb4```，最好仅本地```127.0.0.1```可访问，对应用户名和密码保存好。
+### 升级
 
-打开前端对应的页面后，将自动跳转到初始化界面。
+下载通用安装脚本并执行升级命令；配置文件会保留：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/main/scripts/install.sh -o install.sh
+chmod +x install.sh
+./install.sh upgrade
+```
+
+### 查看状态和日志
+
+```bash
+./install.sh status
+./install.sh logs --lines 200
+./install.sh logs --follow
+```
+
+也可以直接使用 systemd 查看日志：
+
+```bash
+journalctl -u oneclickvirt -f
+```
+
+如需排查反向代理，再查看安装时所选服务的日志：
+
+```bash
+journalctl -u caddy -f
+# 或
+journalctl -u nginx -f
+# 或
+journalctl -u openresty -f
+```
+
+### 卸载
+
+默认删除服务、程序和 Web 文件，保留 `config.yaml` 与 `storage`：
+
+```bash
+./install.sh uninstall
+```
+
+确认不再需要应用配置和存储后，可执行 `./install.sh uninstall --purge`。无交互卸载必须额外指定 `--yes`。数据库、数据库账户、反向代理配置和 TLS 证书可能被其他服务共用，不会由卸载命令删除。
+
+## 初始化
+
+两种基础安装方式都会自动准备数据库，不需要另外安装 MySQL 或手动创建空数据库。
+
+- Docker 一体化镜像：首次打开页面时，按初始化界面填写管理员等信息。
+- 一键裸机安装：脚本会尝试自动初始化；如果终端提示自动初始化失败，再打开输出的访问地址手动完成初始化。
+
+手动初始化时，页面会自动进入初始化界面：
 
 ![](./images/init.png)
 
-填写数据库信息和相关用户信息，测试数据库链接无问题，则可点击初始化系统。
+确认页面中的数据库连接测试通过，填写并保存管理员账户信息，然后初始化系统：
 
 ![](./images/init_success.png)
 
-完成初始化后会自动跳转到首页，可以自行探索并使用了。
+初始化完成后会自动进入首页：
 
 ![](./images/home.png)
 
-如果使用的是默认的用户信息进行初始化，那么默认的账户为：
+首次初始化会导入系统镜像种子，但默认仅启用 Debian 和 Alpine 相关镜像。需要其他镜像时，请使用管理员账户在系统镜像管理中按类型、架构和版本搜索并启用。
 
-管理员账户名密码分别为：
+Windows、Android、macOS 等镜像默认不启用，且对 CPU、内存、磁盘、嵌套虚拟化或 KVM/Docker 运行环境有更高要求。启用前请确认目标节点满足相应条件。
 
-```
-admin
-```
-
-```
-Admin123!@#
-```
-
-初始化过程中，默认加载了所有的镜像种子数据到数据库中，但是默认仅启用了```debian```和```alpine```相关版本的镜像，这是为了避免过多镜像启用导致用户选择困难。
-
-如果你需要额外类型的镜像，需要在管理员权限下，在系统镜像管理界面按照类型、架构、版本搜索并进行启用。Windows、Android、macOS 等非 Linux/BSD 镜像也会作为预设种子导入，但默认不启用，并且设置了更高的 CPU、内存和硬盘要求，避免用户在低配置节点上误开设。启用这些镜像前，请先确认对应节点已满足嵌套虚拟化、磁盘空间、KVM 或 Docker 特殊运行环境要求。
-
-初始化后请立即修改默认的管理员的用户名密码，并禁用或删除默认启用的测试用户```testuser```，这一部分可在管理员的用户管理页面进行操作。
+初始化后请立即确认管理员账户使用强密码，并禁用或删除默认启用的测试用户 `testuser`。

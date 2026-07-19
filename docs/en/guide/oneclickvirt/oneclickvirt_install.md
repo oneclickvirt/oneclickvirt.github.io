@@ -2,320 +2,47 @@
 outline: deep
 ---
 
-# OneClickVirt Installation
+# OneClickVirt Basic Installation
 
-Distinguish between the panel side and the controlled side. The controlled side needs to have the corresponding virtualization environment installed in advance. You can use the main installation of other virtualization in one-click virtualization for environment installation. The control side is actually just a panel, with no virtualization environment requirements.
+OneClickVirt consists of a panel and controlled nodes. The panel only provides management and does not require a virtualization environment. Each controlled node must have its virtualization environment installed first.
 
-## Controlled Side
+:::tip Choose one installation page
+Read either this page or [Advanced Installation](./oneclickvirt_advanced_install), then choose one method from that page's table. Do not run multiple installation methods for the same panel.
+:::
 
-For other virtual environments corresponding to this guide, their main installation scripts can be used to set up the environment. We won't elaborate further here. This tutorial provides installation commands for the main setup of the four major virtualization technologies. Please refer to them directly.
+## Controlled Node Preparation
 
-If possible, always use the scripts to install the corresponding environment. Otherwise, you may encounter strange issues like inconsistent presets. If you lack technical expertise, do not manually install the environment. Use scripts for everything.
-
-The controlled end only requires the virtualization environment to be installed. There is no need to install an additional agent for control. Simply ensure SSH login is possible (the SSH login address can be public or internal network, as long as connectivity is unimpeded).
+A controlled node only needs its virtualization environment; no additional Agent is required. Use the corresponding platform installation script in this documentation, and make sure the panel can connect to the node over SSH.
 
 :::warning
-Managed nodes require the host machine's network interface to be directly bound to the IP address to be mapped, such as a public IP. Host machines providing the IP to be mapped via methods like port mapping (e.g., Alibaba Cloud VPC) or NAT forwarding are not supported. Host machines providing the IP to be mapped using full-port NAT or port forwarding cannot serve as node machines. (Simply put, if a cloud server has a public IP address, this IP must be directly bound to the network interface card. It cannot be a scenario where the NIC only has an internal IP without a public IP, with traffic routing through the internal IP and then being forwarded to the public IP.)
+The host network interface must directly own every IP address that will be assigned or mapped. Hosts that receive a public IP only through VPC port mapping or NAT forwarding cannot be used as this type of managed node.
 :::
 
-## Panel Side
+## Panel Installation Methods
 
-Hardware requirements include at least 1G of free memory and 2G of free disk space. Installation can be completed through any of the following methods.
+The panel needs at least 1 GB of free memory and 2 GB of free disk space. This table contains only the methods documented on this page, ordered from easiest to more involved.
 
-| Installation Method | Applicable Scenario | Advantages | Disadvantages |
-|---------|---------|------|------|
-| Frontend-Backend Separated Deployment | High performance, minimal resource usage | Best performance, flexible configuration | Complex configuration, requires reverse proxy setup |
-| All-in-One Deployment | Works with or without public IPv4 address | Simple deployment, no reverse proxy needed | Relatively poor performance |
-| Docker Deployment (Pre-built Image) | Quick deployment, larger resource usage | One-click installation, data persistence | Requires Docker environment, large image download |
-| Docker Compose Deployment | Suitable for source code updates and maintenance | Highly customizable | Requires Docker environment, lengthy compilation time |
-| Dockerfile Self-Compilation | Suitable for source code updates and maintenance | Highly customizable | Requires Docker environment, lengthy compilation time |
-| One-Click Full-Stack Script | Bare-metal quick deployment | Fully automated: DB, reverse proxy, TLS, frontend & backend | Higher hardware requirements (10G disk/2G memory) |
+| Difficulty | Method | Best for | Characteristics |
+| --- | --- | --- | --- |
+| Easy | Docker all-in-one image | Hosts with Docker that need the quickest deployment | Built-in database; run one image |
+| Easy to moderate | One-click bare-metal installation | Clean Linux or BSD hosts that should install all dependencies automatically | Installs the database, reverse proxy, TLS, frontend, backend, and system service |
 
-### Installation via the 1Panel Third-Party App Store
+For 1Panel, separate frontend/backend deployment, external databases, precompiled binaries, or source builds, use [Advanced Installation](./oneclickvirt_advanced_install).
 
-[okxlin/appstore](https://github.com/okxlin/appstore) now includes OneClickVirt. This repository is an unofficial 1Panel app store adaptation repository. If you already use 1Panel, follow that repository's instructions to add or synchronize the local app store, then deploy `oneclickvirt` from the local app list.
+## Method 1: Docker All-in-One Image
 
-### Installation via Pre-compiled Binary Files
+This method uses the all-in-one image with an embedded database. Install Docker on the host first; see [Docker Main Installation](/en/guide/docker/docker_install) if needed. Images support both `linux/amd64` and `linux/arm64`.
 
-Two methods are distinguished here:
-- Frontend-backend separated deployment (backend and frontend are compiled separately into corresponding files for deployment), better performance
-- All-in-one deployment (frontend and backend combined into one file for deployment), relatively poorer performance
+Image registries:
 
-#### Frontend-Backend Separated Deployment
-
-##### Linux
-
-###### Download Script
-
-```shell
-curl -L https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/scripts/install.sh -o install.sh && chmod +x install.sh
-```
-
-###### Environment Installation
-
-Interactive environment installation
-
-```
-./install.sh env
-```
-
-Non-interactive environment installation (use `export noninteractive=true` to enable non-interactive mode)
-
-```
-export noninteractive=true && ./install.sh env
-```
-
-###### Main Installation
-
-```
-./install.sh install
-```
-
-Installation directory: ```/opt/oneclickvirt```
-
-After successful installation, you need to manually start the service:
-
-```shell
-systemctl start oneclickvirt
-```
-
-Other usage methods:
-
-Stop service:
-
-```shell
-systemctl stop oneclickvirt
-```
-
-Enable auto-start on boot:
-
-```shell
-systemctl enable oneclickvirt
-```
-
-Check status:
-
-```shell
-systemctl status oneclickvirt
-```
-
-View logs:
-
-```shell
-journalctl -u oneclickvirt -f
-```
-
-Restart service:
-
-```shell
-systemctl restart oneclickvirt
-```
-
-###### Upgrade Frontend and Backend
-
-```
-./install.sh upgrade
-```
-
-Except for configuration files, both backend and frontend files will be upgraded
-
-During the upgrade process, you will be prompted whether you need to customize the frontend file path. If you choose not to customize, it will be extracted to ```/opt/oneclickvirt/web/``` by default
-
-This setting is mainly to accommodate the issue that 1panel cannot customize the frontend file path. The 1panel file path is similar to ```/opt/1panel/www/sites/beta/index/web```, where ```beta``` is the name of the website you set up
-
-###### Deploy Frontend
-
-The installation script will extract the static files to the following directory (if not customized):
-
-```shell
-cd /opt/oneclickvirt/web/
-````
-
-You can use `nginx` or `caddy` to serve a static website from this directory. Binding a domain name is optional (but recommended if you want to enable HTTPS easily).
-
-* `nginx`: Includes `OpenResty`, `1Panel` built-in nginx, etc. Configuration is generally similar.
-* `caddy`: Easier to configure, **automatically obtains HTTPS certificates by default** (requires your domain to point to the server).
-
-After deploying the static files, you need to configure a reverse proxy so the frontend can access the backend. Below is an example using `OpenResty` built into `1Panel`:
-
-![](./images/proxy.png)
-
-You need to proxy the `/api` path to the backend address `http://127.0.0.1:8888`. If you are using `1Panel`, you only need to fill in these values. The default backend domain `$host` does not need to be modified.
-
-If you are using `nginx` or `OpenResty`, add the following configuration to your site:
-
-```nginx
-location /api/v1/ws/ {
-    proxy_pass http://127.0.0.1:8888;
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "upgrade";
-    proxy_buffering off;
-    proxy_read_timeout 3600s;
-    proxy_send_timeout 3600s;
-}
-
-location /api {
-    proxy_pass http://127.0.0.1:8888; 
-    proxy_set_header Host $host; 
-    proxy_set_header X-Real-IP $remote_addr; 
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; 
-    proxy_set_header REMOTE-HOST $remote_addr; 
-    proxy_set_header X-Forwarded-Proto $scheme; 
-    proxy_set_header X-Forwarded-Port $server_port; 
-    
-    # WebSocket support
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "upgrade";
-    
-    proxy_http_version 1.1; 
-    
-    # SSL settings
-    proxy_ssl_server_name off; 
-    proxy_ssl_name $proxy_host;
-    
-    # Timeout settings
-    proxy_connect_timeout 60s;
-    proxy_send_timeout 600s;
-    proxy_read_timeout 600s;
-    
-    # Cache and buffering
-    proxy_buffering off;
-    add_header X-Cache $upstream_cache_status;
-    add_header Cache-Control no-cache;
-}
-```
-
-If you are using `caddy`, a configuration without a domain would look like this:
-
-```caddy
-:80 {
-
-    root * /opt/oneclickvirt/web
-    file_server
-
-    # WebSocket
-    @ws path /api/v1/ws/*
-    reverse_proxy @ws 127.0.0.1:8888 {
-        header_up Host {host}
-        header_up X-Real-IP {remote_host}
-        header_up X-Forwarded-For {remote_host}
-        header_up X-Forwarded-Proto {scheme}
-        header_up X-Forwarded-Port {server_port}
-
-        transport http {
-            read_timeout 3600s
-            write_timeout 3600s
-        }
-    }
-
-    # Normal API
-    @api path /api/*
-    reverse_proxy @api 127.0.0.1:8888 {
-        header_up Host {host}
-        header_up X-Real-IP {remote_host}
-        header_up X-Forwarded-For {remote_host}
-        header_up X-Forwarded-Proto {scheme}
-        header_up X-Forwarded-Port {server_port}
-
-        transport http {
-            read_timeout 600s
-            write_timeout 600s
-        }
-    }
-}
-```
-
-If you have a domain, simply replace `:80` with `example.com`. Replace `example.com` with your actual domain. The domain must be pointed to your server IP in advance. `caddy` will automatically obtain an HTTPS certificate and enable port 443 (no need to manually configure SSL).
-
-##### Windows
-
-View
-
-https://github.com/oneclickvirt/oneclickvirt/releases/latest
-
-Download the latest compressed file for the corresponding architecture, extract it, and execute it in the background.
-
-In the same directory as the binary file being executed, download
-
-https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/refs/heads/main/server/config.yaml
-
-This is the configuration file that will be needed later.
-
-After downloading the ```web-dist.zip``` file, extract it and use the corresponding program to establish a static website, similar to Linux, set up the reverse proxy accordingly.
-
-#### All-in-One Deployment
-
-Here we no longer distinguish between frontend and backend concepts. From
-
-https://github.com/oneclickvirt/oneclickvirt/releases/latest
-
-Find the compressed package with the ```allinone``` tag for download. Note the distinction between ```amd64``` and ```arm64``` architectures, as well as the corresponding systems.
-
-In Linux, use the ```tar -zxvf``` command to extract the ```tar.gz``` compressed package. In Windows, use the corresponding extraction tool to extract the ```zip``` compressed package, and copy and paste the binary file to the location where you need to deploy the project.
-
-It's best to move it to a dedicated folder, as structured log files will be generated during operation.
-
-(The following instructions will use the amd64 architecture Linux system file as an example)
-
-In Linux, grant executable permissions to the file, such as
-
-```shell
-chmod 777 server-allinone-linux-amd64
-```
-
-Then download
-
-https://github.com/oneclickvirt/oneclickvirt/blob/main/server/config.yaml
-
-File to the same folder.
-
-In Linux, use the ```screen``` or ```tmux``` or ```nohup``` command to execute the binary file in the background, such as
-
-```shell
-./server-allinone-linux-amd64
-```
-
-Then open port 8888 of the corresponding IP address to see the frontend for use, such as
-
-```
-http://your-IP-address:8888
-```
-
-If you are on a Windows system, you need to start the exe file with administrator privileges, and ensure that the ```config.yaml``` configuration file exists in the same folder as the exe file before starting, otherwise a white screen or connectivity issues will occur upon startup. As for how to execute it in the background, explore it yourself. It's also fine to just leave the cmd interface running.
-
-The all-in-one deployment mode is suitable for situations where the local machine does not have a public IP. Your IP address can be ```localhost``` or ```127.0.0.1```, or it can be the corresponding public IPv4 address. Test it yourself in the specific deployment environment.
-
-### Installation via Docker
+- [Docker Hub](https://hub.docker.com/r/oneclickvirt/oneclickvirt)
+- [GitHub Container Registry](https://github.com/oneclickvirt/oneclickvirt/pkgs/container/oneclickvirt)
 
 :::tip
-Since the database is started together when starting, do not operate immediately when the container just starts. You need to wait at least 12 seconds.
+The database starts together with the container. Wait at least 12 seconds after the first start before opening the page.
 :::
 
-Available image tags can be queried at
-
-https://hub.docker.com/r/oneclickvirt/oneclickvirt
-
-https://github.com/oneclickvirt/oneclickvirt/pkgs/container/oneclickvirt
-
-#### Method 1: Deploy Using Pre-built Image
-
-**Image Tag Description**
-
-| Image Tag | Description | Applicable Scenario |
-|---------|------|---------|
-| `oneclickvirt/oneclickvirt:latest` | All-in-one version (built-in database) latest | Quick deployment |
-| `oneclickvirt/oneclickvirt:20260717` | All-in-one version specific date version | Need fixed version |
-| `oneclickvirt/oneclickvirt:no-db` | Independent database version latest | No built-in database |
-| `oneclickvirt/oneclickvirt:no-db-20260717` | Independent database version specific date | No built-in database |
-
-All images support both `linux/amd64` and `linux/arm64` architectures.
-
-##### Fresh Deployment
-
-Using pre-built ```amd64``` or ```arm64``` images, the corresponding version will be automatically downloaded based on the current system architecture:
-
-Without domain configuration:
+### Without a Domain
 
 ```bash
 docker run -d \
@@ -327,249 +54,188 @@ docker run -d \
   oneclickvirt/oneclickvirt:latest
 ```
 
-With domain access configuration:
+Open the following address after installation:
 
-If you need to configure a domain name, you need to set the `FRONTEND_URL` environment variable:
+```text
+http://server-IP
+```
+
+### With a Domain
+
+Replace `FRONTEND_URL` with the actual public URL:
 
 ```bash
 docker run -d \
   --name oneclickvirt \
   -p 80:80 \
-  -e FRONTEND_URL="https://your-domain.com" \
+  -e FRONTEND_URL="https://panel.example.com" \
   -v oneclickvirt-data:/var/lib/mysql \
   -v oneclickvirt-storage:/app/storage \
   --restart unless-stopped \
   oneclickvirt/oneclickvirt:latest
 ```
 
-The above methods are only for new installations
+`FRONTEND_URL` affects CORS and OAuth2 callbacks, so it must match the URL users actually open.
 
-##### Upgrade Only in Old Environment
+### Upgrade an Existing Container
 
-First backup the configuration file to the current path:
+Keep both data volumes and replace only the container and image:
 
-```shell
-docker cp oneclickvirt:/app/config.yaml .
-```
-
-Delete only the container itself without deleting the mount volumes:
-
-```shell
+```bash
 docker rm -f oneclickvirt
-```
-
-Then delete the original image:
-
-```shell
-docker image rm -f oneclickvirt/oneclickvirt:latest
-```
-
-Pull the container image again:
-
-```shell
 docker pull oneclickvirt/oneclickvirt:latest
 ```
 
-Then follow the steps for fresh environment deployment. Note that after waiting 12 seconds to open the frontend, you will find it has automatically skipped the initialization interface because the data has been persisted and imported.
+Then run the same `docker run` command used for the current configuration. Do not delete `oneclickvirt-data` or `oneclickvirt-storage`, because they contain the database and application configuration.
 
-Then overwrite the original configuration file:
+### View Status
 
-```shell
-docker cp config.yaml oneclickvirt:/app/config.yaml
+```bash
+docker ps --filter name=oneclickvirt
 ```
 
-##### Fresh Deployment in Old Environment
+### View Logs
 
-This will completely delete the original data before deployment. Not only do you need to delete the container but also the corresponding mount points:
+```bash
+docker logs -f --tail 200 oneclickvirt
+```
 
-```shell
+### Uninstall
+
+Remove only the container and image while retaining data for a future restore:
+
+```bash
 docker rm -f oneclickvirt
+docker image rm oneclickvirt/oneclickvirt:latest
+```
+
+Only after confirming that the data is no longer needed, remove the volumes:
+
+```bash
 docker volume rm oneclickvirt-data oneclickvirt-storage
 ```
 
-Then delete the original image:
+:::warning
+Removing the volumes permanently deletes the database and application configuration. Back them up first.
+:::
 
-```shell
-docker image rm -f oneclickvirt/oneclickvirt:latest
-```
+## Method 2: One-Click Bare-Metal Installation
 
-Pull the container image again:
+`install_full.sh` installs the database, reverse proxy, TLS, frontend, backend, and system service in one flow. It supports MySQL or MariaDB and Caddy, Nginx, or OpenResty.
 
-```shell
-docker pull oneclickvirt/oneclickvirt:latest
-```
+The installer recognizes common Linux and Unix-like systems. BSD requires a matching OS and architecture release binary; otherwise, use Docker or a source build from [Advanced Installation](./oneclickvirt_advanced_install).
 
-Then follow the steps for fresh environment deployment. This will prompt for reinitialization, and all original data has been deleted.
+:::warning
+The installer requires at least 10 GB of free disk space and 2 GB of combined memory and swap by default. Run it on a clean system when possible.
+:::
 
-#### Method 2: Self-Compile Deployment via Docker Compose
-
-Using Docker Compose allows one-click deployment of a complete development environment, adopting a **separate container deployment** architecture, including independent frontend container, backend container, and database container:
+### Download the Script
 
 ```bash
-git clone https://github.com/oneclickvirt/oneclickvirt.git
-cd oneclickvirt
-docker-compose up -d --build || docker compose up -d --build
-```
-
-**Default Configuration Description:**
-
-- Frontend service: `http://localhost:8888`
-- Backend API: Accessed through frontend proxy
-- MySQL database: Port 3306, database name `oneclickvirt`, no password
-- Data persistence:
-  - Database data: `./data/mysql`
-  - Application storage: `./data/app/`
-
-**Initialization Configuration:**
-
-When accessing for the first time, you will enter the initialization interface. Please fill in the database configuration:
-- Database address: `mysql` (container name, not 127.0.0.1)
-- Database port: `3306`
-- Database name: `oneclickvirt`
-- Database user: `root`
-- Database password: Leave blank (no password)
-
-**Custom Port (Optional):**
-
-If you need to modify the frontend access port, edit the ports configuration in the `docker-compose.yaml` file:
-
-```yaml
-services:
-  web:
-    ports:
-      - "your-port:80"  # For example "80:80" or "8080:80"
-```
-
-**Stop Service:**
-
-```bash
-docker-compose down
-```
-
-**View Logs:**
-
-```bash
-docker-compose logs -f
-```
-
-**Clean Data:**
-
-```bash
-docker-compose down
-rm -rf ./data
-```
-
-#### Method 3: Self-Compile Deployment via Dockerfile
-
-This method is suitable for modifying source code and custom builds:
-
-##### All-in-One Version (Built-in Database)
-
-```bash
-git clone https://github.com/oneclickvirt/oneclickvirt.git
-cd oneclickvirt
-docker build -t oneclickvirt .
-docker run -d \
-  --name oneclickvirt \
-  -p 80:80 \
-  -v oneclickvirt-data:/var/lib/mysql \
-  -v oneclickvirt-storage:/app/storage \
-  --restart unless-stopped \
-  oneclickvirt
-```
-
-##### Independent Database Version (No Built-in Database)
-
-```bash
-git clone https://github.com/oneclickvirt/oneclickvirt.git
-cd oneclickvirt
-docker build -f Dockerfile.no-db -t oneclickvirt:no-db .
-docker run -d \
-  --name oneclickvirt \
-  -p 80:80 \
-  -e FRONTEND_URL="https://your-domain.com" \
-  -e DB_HOST="your-mysql-host" \
-  -e DB_PORT="3306" \
-  -e DB_NAME="oneclickvirt" \
-  -e DB_USER="root" \
-  -e DB_PASSWORD="your-password" \
-  -v oneclickvirt-storage:/app/storage \
-  --restart unless-stopped \
-  oneclickvirt:no-db
-```
-
-The `no-db` image stores its runtime configuration at `/app/storage/config.yaml` in the `oneclickvirt-storage` volume. Reuse the same storage volume when updating the image or recreating the container; database settings entered on the initialization page and other system-level settings then survive replacement, so database initialization is not repeated. Non-empty `DB_*` variables take precedence over the file, while deployments that explicitly mount `/app/config.yaml` continue to use that file first.
-
-### One-Click Full-Stack Installation Script
-
-`install_full.sh` installs the database, reverse proxy, TLS configuration, frontend, backend, and system service in one flow. It supports MySQL or MariaDB and Caddy, Nginx, or OpenResty.
-
-The domain input auto-detects protocol prefixes: enter `https://panel.example.com` to auto-enable TLS, `http://panel.example.com` to auto-disable TLS, or a plain domain to be prompted interactively.
-
-#### Download Script
-
-```shell
 curl -fsSL https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/main/scripts/install_full.sh -o install_full.sh
 ```
 
-#### Interactive Installation
+### Interactive Installation
+
+Run:
 
 ```bash
 bash install_full.sh
 ```
 
-#### Non-Interactive Deployment
+Domain input accepts a protocol prefix: `https://panel.example.com` enables TLS, while `http://panel.example.com` disables it. Without a prefix, the installer asks whether to enable TLS.
+
+### Non-Interactive Installation
+
+HTTPS with automatic TLS:
 
 ```bash
-# HTTPS with auto TLS
 bash install_full.sh \
   --non-interactive \
   --domain https://panel.example.com \
   --email admin@example.com \
   --db-type mariadb \
   --proxy caddy
+```
 
-# HTTP only, no TLS
+HTTP only:
+
+```bash
 bash install_full.sh \
   --non-interactive \
   --domain http://192.168.1.100 \
   --proxy caddy
 ```
 
-:::warning
-The installer requires at least 10 GB free disk and 2 GB memory by default. It writes the generated database password to the final installation summary; save it before closing the terminal.
-:::
+The final summary includes the access URL, database password, and initial administrator details. Save them before closing the terminal.
 
-## Database Initialization
+The unified lifecycle commands below apply to Linux installations that use `systemd`. Other service managers are listed by the installer; stop the service using that manager before replacing the matching release files for an upgrade.
 
-If you install via the Docker all-in-one image, you **do not need** to manually install ```mysql```. The included database eliminates the need to create an empty database yourself; the corresponding database is already started and available within the container by default, so you can proceed directly to the subsequent initialization steps. For other installation methods that do not include a pre-installed database (such as those using non-all-in-one images, scripts, or custom compilation), you **must** install `mysql` yourself. After installing and starting `mysql`, create an empty database named `oneclickvirt` with the `utf8mb4` character set. It is recommended that this database be accessible only locally via `127.0.0.1`. Be sure to keep the corresponding username and password secure.
+### Upgrade
 
-After opening the corresponding frontend page, it will automatically redirect to the initialization interface.
+Download the standard installer and run its upgrade command. It preserves the configuration file:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/main/scripts/install.sh -o install.sh
+chmod +x install.sh
+./install.sh upgrade
+```
+
+### View Status and Logs
+
+```bash
+./install.sh status
+./install.sh logs --lines 200
+./install.sh logs --follow
+```
+
+You can also inspect logs directly through systemd:
+
+```bash
+journalctl -u oneclickvirt -f
+```
+
+For reverse-proxy troubleshooting, also view the service selected during installation:
+
+```bash
+journalctl -u caddy -f
+# or
+journalctl -u nginx -f
+# or
+journalctl -u openresty -f
+```
+
+### Uninstall
+
+The default removes the service, program, and web files while retaining `config.yaml` and `storage`:
+
+```bash
+./install.sh uninstall
+```
+
+After confirming that application configuration and storage are no longer needed, run `./install.sh uninstall --purge`. Non-interactive uninstall also requires `--yes`. The command does not remove the database, database account, reverse-proxy configuration, or TLS certificates because other services may share them.
+
+## Initialization
+
+Both basic methods prepare the database automatically. You do not need to install MySQL separately or create an empty database.
+
+- Docker all-in-one image: open the page for the first time and complete the administrator and other settings in the initialization form.
+- One-click bare-metal installation: the script attempts automatic initialization. If it reports that automatic initialization failed, open the printed URL and complete the form manually.
+
+Manual initialization opens this page automatically:
 
 ![](./images/init.png)
 
-Fill in the database information and related user information. If the database connection test is successful, you can click Initialize System.
+Make sure the database connection test passes, enter and save the administrator credentials, and initialize the system:
 
 ![](./images/init_success.png)
 
-After completing initialization, it will automatically redirect to the homepage, and you can explore and use it yourself.
+The application opens the home page when initialization completes:
 
 ![](./images/home.png)
 
-If the default user information is used for initialization, the default account is:
+Initial setup imports the system image seeds, but enables only Debian and Alpine images by default. Administrators can search by type, architecture, and version in system image management to enable additional images.
 
-Administrator account name and password are respectively:
+Windows, Android, macOS, and similar images remain disabled by default and have higher CPU, memory, disk, nested virtualization, or KVM/Docker runtime requirements. Confirm the target node meets those requirements before enabling them.
 
-```
-admin
-```
-
-```
-Admin123!@#
-```
-
-During the initialization process, all image seed data is loaded into the database by default, but by default only ```debian``` and ```alpine``` related version images are enabled. This is to avoid user selection difficulties caused by too many enabled images.
-
-If you need additional types of images, you need to search by type, architecture, and version in the system image management interface under administrator privileges and enable them. Windows, Android, macOS, and other non-Linux/BSD images are also imported as preset seeds, but they are disabled by default and have higher CPU, memory, and disk requirements to prevent accidental creation on low-end nodes. Before enabling these images, confirm that the target provider satisfies the required nested virtualization, disk space, KVM, or Docker special runtime conditions.
-
-After initialization, please immediately change the default administrator username and password, and disable or delete the default enabled test user ```testuser```. This can be done in the administrator's user management page.
+After initialization, make sure the administrator uses a strong password and disable or delete the default `testuser` account.
