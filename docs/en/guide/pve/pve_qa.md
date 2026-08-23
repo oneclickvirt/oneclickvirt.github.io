@@ -58,6 +58,20 @@ fi
 
 If disconnection still occurs after reboot, report the case to [@spiritlhl_bot](https://t.me/spiritlhl_bot) so script-side compatibility can be improved.
 
+## Automated Tests Fail During the ifupdown2 Second Reboot
+
+Some Debian cloud images do not ship with `ifupdown2`. The PVE installer schedules `ifupdown2-install.service` to install it after the first reboot, and that installation may trigger another reboot. SSH can briefly recover and then disconnect again. The current remote integration harness waits for this bootstrap service to finish and confirms that SSH is stable before starting the second PVE installation pass; no manual bypass is needed on the test node.
+
+When troubleshooting this stage manually, wait for the bootstrap to finish instead of restarting the second pass as soon as SSH returns:
+
+```bash
+systemctl status ifupdown2-install.service --no-pager
+test -s /usr/local/bin/ifupdown2_installed.txt && echo "ifupdown2 bootstrap complete"
+systemctl is-active ssh || systemctl is-active sshd
+```
+
+If the service is still installing or rebooting, keep a console or probe session available and wait. Continue network configuration only after the service has completed and SSH remains reachable.
+
 ## Successful PVE Installation but cannot resolve host after reboot
 
 Common on older Debian cloud images: after reboot, all URL requests fail with a resolver error.

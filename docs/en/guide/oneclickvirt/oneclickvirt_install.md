@@ -205,6 +205,34 @@ journalctl -u nginx -f
 journalctl -u openresty -f
 ```
 
+### Panel Updates, Rollbacks, and Restart
+
+For Linux `systemd` deployments installed with `install_full.sh` or `install.sh`, a super administrator can open **Manage updates** in the controller page footer. It shows the current version, available Releases, remote rollback releases, local backups, and copyable manual commands.
+
+The panel changes local files automatically only when all of these conditions hold: the process runs as root on Linux, the service is a controlled `systemd` service, the controller binary and managed Web directory are inside the installation root, and none of the managed paths use symbolic links. Up to five local controller/Web backups are kept before an update or rollback. If switching or health checks fail, the worker attempts to restore the previous files and restart the service.
+
+:::warning
+Rollback replaces the controller binary and Web assets only. Database migrations are not automatically reversed. Back up the database separately and confirm compatibility before a production rollback.
+:::
+
+Each Release must provide `SHA256SUMS`. The panel downloads that manifest first, verifies the matching Linux controller archive and managed Web archive, and only then extracts or replaces local files. Older Releases without the manifest are shown as unavailable for automatic application. The existing installer remains available for manual upgrade or recovery:
+
+```bash
+sudo INSTALL_VERSION=<version> bash /opt/oneclickvirt/scripts/install.sh upgrade
+```
+
+Docker, Docker Compose, source, manually started all-in-one, Windows, and unrecognized deployments are never rewritten by the panel. The dialog displays copyable rebuild and restart commands; continue using the deployment's existing container orchestrator, process manager, or installer. Do not delete database volumes during Docker or Compose upgrades.
+
+If the deployment uses a CDN, API proxy, or reverse-proxy service, keep the topology in the systemd service environment:
+
+| Variable | Purpose |
+| --- | --- |
+| `ONECLICKVIRT_UPDATE_ENABLED=false` | Disable panel update, rollback, and restart operations |
+| `ONECLICKVIRT_UPDATE_PROXY` | Comma-separated HTTPS Release/CDN proxy endpoints |
+| `ONECLICKVIRT_UPDATE_API_ENDPOINTS` | Comma-separated HTTPS GitHub API-compatible endpoints |
+| `ONECLICKVIRT_PROXY_SERVICES` | systemd reverse-proxy service names to reload after update/restart |
+| `ONECLICKVIRT_UPDATE_ALLOW_UNVERIFIED=true` | Recovery-only opt-out for old Releases without `SHA256SUMS`; do not enable in production |
+
 ### Uninstall
 
 The default removes the service, program, and web files while retaining `config.yaml` and `storage`:

@@ -68,6 +68,20 @@ fi
 
 然后将重启失联的机器报给 [@spiritlhl_bot](https://t.me/spiritlhl_bot) 待更新脚本自动修复
 
+## 自动化测试在 ifupdown2 二次重启期间失败
+
+部分 Debian 云镜像没有预装 `ifupdown2`。PVE 安装脚本会安排 `ifupdown2-install.service` 在首次重启后安装依赖，安装完成后可能再次重启；SSH 可能短暂恢复后再次断开。新版远程集成测试会等待该引导服务完成并确认 SSH 稳定，再开始 PVE 安装的第二阶段，不需要在测试节点上手动跳过这个等待。
+
+如果手动排查该阶段，请先等待引导服务完成，不要在 SSH 刚恢复时立即重新执行第二阶段：
+
+```bash
+systemctl status ifupdown2-install.service --no-pager
+test -s /usr/local/bin/ifupdown2_installed.txt && echo "ifupdown2 bootstrap complete"
+systemctl is-active ssh || systemctl is-active sshd
+```
+
+如果服务仍处于安装或重启过程中，保留控制台/探针连接并继续等待；只有确认服务完成、SSH 连续可用后，才继续后续网络配置。
+
 ## 安装PVE成功但重启后无法解析网址
 
 常见于低版本的Debian系统(云服务器)安装PVE重启后无论访问什么网址都报错

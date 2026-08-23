@@ -10,6 +10,14 @@ Read either this page or [Basic Installation](./oneclickvirt_install), then choo
 
 Advanced installation is intended for users who already use 1Panel, need an external database or custom reverse proxy, want to manage release binaries themselves, or need source builds. Controlled-node requirements are the same as for basic installation; read [Configuration Requirements](./oneclickvirt_precheck) first.
 
+## Panel Update Capability Boundaries
+
+Super administrators can open **Manage updates** from the controller page footer. Direct panel update, rollback, and restart are available only for Linux root deployments using a controlled `systemd` service with the controller and Web paths inside the installation root. The panel verifies each Release's `SHA256SUMS` and keeps up to five local backups before switching files.
+
+The 1Panel, Docker, Docker Compose, source, manually started all-in-one, and Windows deployments listed on this page are upgraded by their own container, orchestrator, or process manager. The panel never rewrites them; it only displays copyable commands. Rollback replaces application and Web assets but does not automatically reverse database migrations, so back up the database and application data first.
+
+For Release or GitHub API access through a CDN or reverse proxy, configure `ONECLICKVIRT_UPDATE_PROXY`, `ONECLICKVIRT_UPDATE_API_ENDPOINTS`, and `ONECLICKVIRT_PROXY_SERVICES` in the controlled `systemd` service. Set `ONECLICKVIRT_UPDATE_ENABLED=false` to disable panel operations completely. Older Releases without `SHA256SUMS` can still be handled manually with the existing `install.sh upgrade` path.
+
 ## Methods on This Page
 
 The table contains only methods documented on this page, ordered from easiest to most involved.

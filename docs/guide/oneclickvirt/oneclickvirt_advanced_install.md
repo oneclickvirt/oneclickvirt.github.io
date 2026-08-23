@@ -10,6 +10,14 @@ outline: deep
 
 高级安装适合已经使用 1Panel、需要外部数据库或反向代理、希望自行管理二进制文件，或者需要从源码构建的用户。受控端要求与基础安装相同，开始前请先阅读[系统和硬件配置要求](./oneclickvirt_precheck)。
 
+## 面板升级能力边界
+
+超级管理员可以从主控页面页脚打开“升级管理”。只有 Linux、root、受控 `systemd` 服务且主控/Web 路径位于安装根目录内的部署，才支持面板直接执行升级、回退和重启；面板会校验 Release 的 `SHA256SUMS`，并在切换前保留最多五份本地备份。
+
+本页列出的 1Panel、Docker、Docker Compose、源码、手动一体化和 Windows 部署由各自的容器、编排或进程管理器负责升级，面板不会直接改写它们，只展示可复制的命令。回退只替换程序和 Web 资产，不会自动逆向数据库迁移；请先备份数据库和应用数据。
+
+需要通过 CDN 或 GitHub API 反代访问 Release 时，可在受控 `systemd` 服务中配置 `ONECLICKVIRT_UPDATE_PROXY`、`ONECLICKVIRT_UPDATE_API_ENDPOINTS` 和 `ONECLICKVIRT_PROXY_SERVICES`。如需完全关闭面板操作，设置 `ONECLICKVIRT_UPDATE_ENABLED=false`。历史 Release 缺少 `SHA256SUMS` 时仍可使用原有 `install.sh upgrade` 人工处理。
+
 ## 本页安装方式
 
 下表只列出本页支持的安装方式，并按操作难度从简单到困难排列。

@@ -213,6 +213,34 @@ journalctl -u nginx -f
 journalctl -u openresty -f
 ```
 
+### 面板内升级、回退与重启
+
+使用 `install_full.sh` 或 `install.sh` 安装的 Linux `systemd` 部署，在超级管理员登录后可以打开主控页面页脚的“升级管理”。这里会显示当前版本、可用 Release、远程回退版本、本地备份和对应的人工命令。
+
+面板只有在以下条件同时满足时才会直接修改本机文件：root 用户、Linux 主机、受控的 `systemd` 服务、主控二进制和受控 Web 目录都位于安装根目录内，且路径没有符号链接。升级或回退前会保留最多五份本地主控/Web 备份，切换失败会尝试恢复旧文件并重启服务。
+
+:::warning
+回退只替换主控二进制和 Web 静态文件，不会自动逆向数据库迁移。生产环境操作前请另外备份数据库，并确认目标版本兼容性。
+:::
+
+Release 必须包含 `SHA256SUMS`。面板会先下载校验清单，再校验匹配当前 Linux 架构的主控包和受控 Web 包，校验通过后才会解包和替换文件。历史 Release 缺少清单时只会显示为不可自动应用；原有安装脚本仍可作为人工升级或恢复路径：
+
+```bash
+sudo INSTALL_VERSION=<版本号> bash /opt/oneclickvirt/scripts/install.sh upgrade
+```
+
+Docker、Docker Compose、源码、一体化手动运行、Windows 或无法识别的部署不会被面板直接改写。面板会展示可复制的升级、重建和重启命令，请继续使用原来的容器编排、进程管理或安装脚本；Docker/Compose 升级时不要删除数据库数据卷。
+
+如果使用 CDN、API 反代或反向代理服务，可通过 systemd 服务环境变量保留部署拓扑：
+
+| 变量 | 作用 |
+| --- | --- |
+| `ONECLICKVIRT_UPDATE_ENABLED=false` | 禁用面板升级、回退和重启操作 |
+| `ONECLICKVIRT_UPDATE_PROXY` | 用逗号分隔的 HTTPS Release/CDN 代理地址 |
+| `ONECLICKVIRT_UPDATE_API_ENDPOINTS` | 用逗号分隔的 HTTPS GitHub API 兼容地址 |
+| `ONECLICKVIRT_PROXY_SERVICES` | 升级或重启后需要 reload 的 systemd 反向代理服务名 |
+| `ONECLICKVIRT_UPDATE_ALLOW_UNVERIFIED=true` | 仅受控恢复场景允许没有 `SHA256SUMS` 的旧 Release，生产环境不建议启用 |
+
 ### 卸载
 
 默认删除服务、程序和 Web 文件，保留 `config.yaml` 与 `storage`：
