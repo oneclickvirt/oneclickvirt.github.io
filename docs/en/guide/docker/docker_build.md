@@ -9,8 +9,12 @@ There are two deployment methods.
 ## Setting Up Standalone
 
 - Generate a single Docker container
-- Can bind an independent IPv6 address, but requires Docker to be installed with this project's installer and a host IPv6 subnet of at least /112
+- Can enable container IPv6 networking after Docker is installed with this project's installer
 - Support for x86_64 and ARM architecture servers
+
+:::tip IPv6 network mode
+When the host has only an SLAAC-assigned public `/64`, the installer uses a host-route-disjoint ULA network with NAT66. In that mode, `independent_ipv6=y` enables IPv6 egress only; it does not assign an Internet-reachable public `/128`.
+:::
 
 ### Download the Script
 
@@ -57,7 +61,7 @@ The following is the information for the created example container:
 | SSH Port               | 25000          |
 | Port Range for Internal and External Mapping | 34975 to 35000   |
 | Operating System       | debian         |
-| Whether to bind a separate IPv6 address| N     |
+| Enable IPv6 egress (NAT66) | N     |
 | Disk Size              | 5G             |
 
 ### Related operations

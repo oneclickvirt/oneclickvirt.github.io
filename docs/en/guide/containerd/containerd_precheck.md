@@ -20,7 +20,7 @@ Bulk or individual NAT server provisioning based on containerd + nerdctl runtime
 
 - Installs containerd + runc + nerdctl + CNI + buildkitd via the [nerdctl-full](https://github.com/containerd/nerdctl) bundle
 - Uses self-compiled base images (stored in GitHub Releases), with offline loading prioritized and fallback to official images
-- Each container comes with 1 external SSH port, 25 consistent internal/external ports, with optional independent IPv6 address binding
+- Each container comes with 1 external SSH port and 25 consistent internal/external ports; IPv6 egress is optional (SLAAC `/64` uses ULA NAT66 and does not allocate a public `/128`)
 - Default unprivileged containers, supports lxcfs mounting (if lxcfs is installed on the host)
 - Supports disk limit parameters (requires xfs/btrfs snapshotter with storage-opt support)
 - Supports China CDN acceleration

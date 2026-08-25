@@ -9,8 +9,12 @@ Two methods for provisioning containers.
 ## Single Container Provisioning
 
 - Creates a single Podman container
-- Can configure binding of an independent IPv6 address (requires host with public IPv6 and podman-ipv6 network configured during installation)
+- Can configure a routed public IPv6 address after `podman-ipv6` is configured during installation
 - Supports x86_64 and ARM64 architecture servers
+
+:::tip IPv6 network mode
+`podman-ipv6` uses a managed ULA bridge. A separate public address is attached as a routed `/128` with NDP, rather than cutting a child subnet from the host's public `/64` for Netavark IPAM. The host needs usable public IPv6 and the upstream must permit the corresponding NDP neighbor response.
+:::
 
 ### Download Script
 
@@ -54,7 +58,7 @@ Example container information:
 | SSH port | 25000 |
 | External/internal port range | 34975 to 35000 |
 | System | debian |
-| Independent IPv6 | N |
+| Request routed public IPv6 | N |
 | Disk size | Unlimited |
 
 ### Related Operations

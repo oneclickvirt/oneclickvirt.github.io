@@ -11,7 +11,7 @@ The following configurations may increase the load on the server. Only install t
 ## Automatic IPv6 Address Configuration
 
 - (Optional, not required if not using)
-- **This script is only suitable for servers that have an ```IPv6``` subnet with a prefix, and the server has bound the ```first IP``` of the subnet as its ```IPv6 address or IPv6 gateway```.**
+- **The host needs usable public IPv6 and an upstream that permits routing/NDP responses. An SLAAC `/64` is supported: the script configures one routed `/128` with `nictype=routed` instead of cutting the host public prefix into an LXD bridge IPAM subnet.**
 - Automatically configures ```IPv6``` addresses for LXC containers created with LXD.
 - Integrated into ```buildct.sh``` and can be controlled by variables without needing to be downloaded beforehand. You don't need to manually use this script; when using ```buildct.sh```, configure with variable Y to enable it.
 

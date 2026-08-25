@@ -20,7 +20,7 @@ containerd 方案**不支持 KVM/QEMU 虚拟机**，仅支持 Linux 容器（LXC
 
 - 使用 [nerdctl-full](https://github.com/containerd/nerdctl) 安装 containerd + runc + nerdctl + CNI + buildkitd 全套组件
 - 使用本仓库自编译的基础镜像（存储在 GitHub Releases），优先离线加载，无法获取时回退到官方镜像
-- 每个容器自带 1 个外网 SSH 端口，25 个内外网一致端口，可选择是否绑定独立 IPV6 地址
+- 每个容器自带 1 个外网 SSH 端口，25 个内外网一致端口；可选择是否启用 IPv6 出站（SLAAC `/64` 场景使用 ULA NAT66，不分配公网 `/128`）
 - 默认创建非特权容器，支持 lxcfs 挂载（若宿主机安装了 lxcfs）
 - 支持磁盘限制参数（需 xfs/btrfs snapshotter 支持 storage-opt）
 - 支持国内 CDN 镜像加速

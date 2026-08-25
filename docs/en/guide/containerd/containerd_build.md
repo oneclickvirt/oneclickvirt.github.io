@@ -9,8 +9,12 @@ Two methods for provisioning containers.
 ## Single Container Provisioning
 
 - Creates a single containerd container
-- Can configure binding of an independent IPv6 address (requires host with public IPv6 and containerd-ipv6 network configured during installation)
+- Can enable IPv6 networking for a containerd container after `containerd-ipv6` is configured during installation
 - Supports x86_64 and ARM64 architecture servers
+
+:::tip IPv6 network mode
+When the host has only an SLAAC-assigned public `/64`, `containerd-ipv6` uses a host-route-disjoint ULA network with NAT66. In that mode, `independent_ipv6=y` enables IPv6 egress only; it does not allocate an Internet-reachable public `/128`.
+:::
 
 ### Download Script
 
@@ -54,7 +58,7 @@ Example container information:
 | SSH port | 25000 |
 | External/internal port range | 34975 to 35000 |
 | System | debian |
-| Independent IPv6 | N |
+| Enable IPv6 egress (NAT66) | N |
 | Disk size | Unlimited |
 
 ### Related Operations

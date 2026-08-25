@@ -9,14 +9,18 @@ Two ways to create virtual machines.
 ## Create a Single VM
 
 - Creates only one KVM virtual machine (via KubeVirt VirtualMachine resource), automatically detects international or domestic server
-- Can configure binding of an independent IPv6 address (requires host to have a public IPv6 address and IPv6 network configured during installation)
+- Uses the cluster CNI address space; a dual-stack cluster detects VM IPv4 and IPv6 separately for port forwarding
 - Supports x86_64 and ARM64 architecture servers
+
+:::tip IPv6 network mode
+KubeVirt never derives a CNI/IPAM subnet from the host's public IPv6 prefix. When IPv6 forwarding is enabled, the installer preserves the SLAAC route on the host uplink; VM IPv6 availability depends on the cluster CNI dual-stack configuration.
+:::
 
 ### Download Script
 
 ```shell
-curl -sSLO https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/onekubevirt.sh
-chmod +x onekubevirt.sh
+curl -sSLO https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/onevm.sh
+chmod +x onevm.sh
 ```
 
 ### Example
@@ -24,7 +28,7 @@ chmod +x onekubevirt.sh
 Supported variables:
 
 ```bash
-./onekubevirt.sh <name> <cpu> <memory_mb> <disk_gb> <password> <sshport> <startport> <endport> [independent_ipv6:y/n] [system]
+./onevm.sh <name> <cpu> <memory_gb> <disk_gb> <password> <sshport> <startport> <endport> [system]
 ```
 
 Currently supported systems:
@@ -35,7 +39,7 @@ Currently supported systems:
 Default is debian if not specified.
 
 ```shell
-./onekubevirt.sh vm1 1 1024 10 MyPassword 25000 34975 35000 n debian
+./onevm.sh vm1 1 1 10 MyPassword 25000 34975 35000 debian
 ```
 
 Example VM details:
@@ -51,7 +55,6 @@ Example VM details:
 | SSH port | 25000 |
 | Port mapping range | 34975 to 35000 |
 | System | debian |
-| Independent IPv6 | N |
 
 ### Related Operations
 

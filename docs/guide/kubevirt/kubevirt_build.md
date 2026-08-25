@@ -9,23 +9,27 @@ outline: deep
 ## 单独开设
 
 - 只生成一台 KVM 虚拟机（通过 KubeVirt VirtualMachine 资源），自动判断国际服务器还是国内服务器
-- 可配置绑定独立的 IPv6 地址（需宿主机已有公网 IPv6 且安装脚本已配置 IPv6 网络）
+- 使用集群 CNI 地址；双栈集群会按地址族分别识别虚拟机 IPv4 和 IPv6 并配置端口转发
 - 支持 x86_64 和 ARM64 架构的服务器
+
+:::tip IPv6 网络模式
+KubeVirt 不会从宿主机公网 IPv6 前缀裁切 CNI/IPAM 子网。启用 IPv6 转发时，安装器会保留宿主机上行接口的 SLAAC 路由；是否具备 VM IPv6 由集群 CNI 的双栈配置决定。
+:::
 
 ### 下载脚本
 
 国际
 
 ```shell
-curl -sSLO https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/onekubevirt.sh
-chmod +x onekubevirt.sh
+curl -sSLO https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/onevm.sh
+chmod +x onevm.sh
 ```
 
 国内
 
 ```shell
-curl -sSLO https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/onekubevirt.sh
-chmod +x onekubevirt.sh
+curl -sSLO https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/onevm.sh
+chmod +x onevm.sh
 ```
 
 ### 示例
@@ -33,7 +37,7 @@ chmod +x onekubevirt.sh
 运行支持的变量如下
 
 ```bash
-./onekubevirt.sh <name> <cpu> <memory_mb> <disk_gb> <password> <sshport> <startport> <endport> [independent_ipv6:y/n] [system]
+./onevm.sh <name> <cpu> <memory_gb> <disk_gb> <password> <sshport> <startport> <endport> [system]
 ```
 
 目前 system 仅支持选择：
@@ -44,7 +48,7 @@ chmod +x onekubevirt.sh
 默认不填则是 debian
 
 ```shell
-./onekubevirt.sh vm1 1 1024 10 MyPassword 25000 34975 35000 n debian
+./onevm.sh vm1 1 1 10 MyPassword 25000 34975 35000 debian
 ```
 
 以下为开设的示例虚拟机的信息：
@@ -60,7 +64,6 @@ chmod +x onekubevirt.sh
 | SSH 端口 | 25000 |
 | 内外网映射端口一致的区间 | 34975 到 35000 |
 | 系统 | debian |
-| 是否绑定独立的 IPv6 地址 | N |
 
 ### 相关操作
 

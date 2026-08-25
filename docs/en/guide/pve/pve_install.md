@@ -42,7 +42,7 @@ During execution, you may be prompted to reboot once. After reboot, wait at leas
 
 Some source environments are missing ```ifupdown``` or ```ifupdown2```. The installer may deploy helper components and trigger an additional reboot. Wait about 20 seconds after boot to confirm no further automatic reboot is pending.
 
-If the host already has an SLAAC-assigned IPv6 address, you can choose whether to use the largest detected IPv6 subnet range. The default Enter option keeps local IPv6 only. If you plan to assign independent IPv6 addresses to VMs/containers later, choose ```y```.
+When the host has only an SLAAC-assigned IPv6 `/64`, that prefix is a connected host route and cannot be split into a PVE/IPAM subnet. The default IPv6 NAT path uses a host-route-disjoint ULA subnet with NAT66. A VM or container can receive an Internet-reachable public `/128` only when the upstream explicitly routes or delegates an additional prefix/address and NDP is available. The installation range prompt does not turn an SLAAC `/64` into a public address pool.
 
 For non-interactive installation, use `export noninteractive=true` before the install command. The script will apply default choices for optional prompts.
 

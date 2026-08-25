@@ -9,8 +9,12 @@ outline: deep
 ## 单独开设
 
 - 只生成一个 containerd 容器，自动判断国际服务器还是国内服务器
-- 可配置绑定独立的 IPV6 地址（需安装时宿主机已有公网 IPV6 且安装脚本已配置 containerd-ipv6 网络）
+- 可启用 containerd 容器 IPv6 网络（需安装脚本已配置 `containerd-ipv6`）
 - 支持 x86_64 和 ARM64 架构的服务器
+
+:::tip IPv6 网络模式
+宿主机只有 SLAAC 分配的公网 `/64` 时，`containerd-ipv6` 使用与宿主路由不重叠的 ULA 网络和 NAT66。参数 `independent_ipv6=y` 在此模式下仅启用 IPv6 出站，不会分配可从互联网直接访问的公网 `/128`。
+:::
 
 ### 下载脚本
 
@@ -63,7 +67,7 @@ chmod +x onecontainerd.sh
 | SSH 端口 | 25000 |
 | 内外网映射端口一致的区间 | 34975 到 35000 |
 | 系统 | debian |
-| 是否绑定独立的 IPV6 地址 | N |
+| 是否启用 IPv6 出站（NAT66） | N |
 | 硬盘大小 | 不限制 |
 
 ### 相关操作

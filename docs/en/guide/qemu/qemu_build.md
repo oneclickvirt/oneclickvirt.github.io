@@ -9,8 +9,12 @@ Two ways to create virtual machines.
 ## Create a Single VM
 
 - Creates only one KVM/QEMU virtual machine, automatically detects international or domestic server
-- Can configure binding of an independent IPv6 address (requires host to have a public IPv6 address and IPv6 network configured during installation)
+- Can enable IPv6 egress for a VM after the installer configures its IPv6 NAT network
 - Supports x86_64 and ARM64 architecture servers
+
+:::tip IPv6 network mode
+When the host has only an SLAAC-assigned public `/64`, QEMU uses a host-route-disjoint ULA subnet with NAT66. In that mode, `independent_ipv6=y` enables VM IPv6 egress only; it does not allocate an Internet-reachable public `/128`.
+:::
 
 ### Download Script
 
@@ -51,7 +55,7 @@ Example VM details:
 | SSH port | 25000 |
 | Port mapping range | 34975 to 35000 |
 | System | debian |
-| Independent IPv6 | N |
+| Enable IPv6 egress (NAT66) | N |
 
 ### Related Operations
 
