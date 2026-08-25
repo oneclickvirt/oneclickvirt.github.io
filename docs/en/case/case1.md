@@ -27,11 +27,30 @@ Shell edition: https://github.com/spiritLHLS/ecs/blob/main/README_EN.md
 - Tests mail ports with [portchecker](https://github.com/oneclickvirt/portchecker)
 - Runs route and network tests through [backtrace](https://github.com/oneclickvirt/backtrace), [nt3](https://github.com/oneclickvirt/nt3), [speedtest](https://github.com/oneclickvirt/speedtest), and [pingtest](https://github.com/oneclickvirt/pingtest)
 - Supports root/admin environments, non-root/non-admin environments, and offline execution
-- Online testing without DNS is still not supported
+- Supports online execution when local DNS is confirmed unavailable through a process-local DoH/DoT fallback; transient network failures preserve system DNS and no resolver files are rewritten
 
 First-time users should read the upstream getting-started guide first:
 
 https://github.com/oneclickvirt/ecs/blob/master/README_NEW_USER.md
+
+## Online Without Local DNS
+
+The default `-dns-mode=auto` preserves system DNS unless independent probes confirm that the local resolver is unavailable. A successful answer or NXDOMAIN proves system DNS responded; timeouts, SERVFAIL, packet loss, and transient network errors are inconclusive and do not switch resolvers.
+
+After confirmed local DNS failure, ECS validates real TLS DNS queries through fixed addresses for its embedded public upstream catalog and selects the lowest-latency non-filtering DoH or DoT service. Fixed addresses bootstrap only the upstream endpoint; normal test hostnames still resolve dynamically through the selected service.
+
+- `-dns-mode=auto`: default; automatically selects the fastest validated DoH or DoT endpoint only after confirmed local DNS failure.
+- `-dns-mode=system`: system DNS only. The existing Android/Termux resolver-file repair remains limited to this mode.
+- `-dns-mode=doh`: force built-in DoH.
+- `-dns-mode=dot`: force built-in DoT.
+
+The fallback is process-local and never edits `/etc/resolv.conf` or `/etc/hosts`. `-ut-dns` remains the streaming-unlock module's separate explicit DNS override and is never replaced; leave it empty for that module to inherit the process resolver. The endpoint catalog is embedded in the `basics` dependency and refreshed before release tags by fixed-address TLS/DNS validation.
+
+Before the installer script is downloaded, program-local fallback is not available. On an online host without local DNS, use a DoH-capable curl build (for example curl 7.62+) to bootstrap the script:
+
+```bash
+export noninteractive=true && curl --doh-url https://cloudflare-dns.com/dns-query --resolve cloudflare-dns.com:443:1.1.1.1,1.0.0.1 -L https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && ./goecs.sh install && goecs -l en
+```
 
 ## Supported Systems And Architectures
 
@@ -135,6 +154,7 @@ Use `goecs -h` to view the full parameter list. The most commonly used options a
 - `-speed=false`, `-security=false`, `-ut=false`: disable individual modules when needed
 - `-spnum 2`: set the number of speed test servers per carrier
 - `-upload=false`: do not upload the share result
+- `-dns-mode=auto|system|doh|dot`: select conservative automatic fallback, system DNS only, forced DoH, or forced DoT
 
 ## Windows
 

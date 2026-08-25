@@ -60,9 +60,29 @@ Shell 版本：[https://github.com/spiritLHLS/ecs](https://github.com/spiritLHLS
 - 三网路由测试：基于 [NTrace-core](https://github.com/nxtrace/NTrace-core)，二次开发至 [nt3](https://github.com/oneclickvirt/nt3)
 - 网速测试：基于 [speedtest.net](https://github.com/spiritLHLS/speedtest.net-CN-ID) 和 [speedtest.cn](https://github.com/spiritLHLS/speedtest.cn-CN-ID) 数据，开发至 [oneclickvirt/speedtest](https://github.com/oneclickvirt/speedtest)，同时融合私有国内测速节点
 - 三网 Ping 值测试：借鉴 [ecsspeed](https://github.com/spiritLHLS/ecsspeed)，二次开发至 [pingtest](https://github.com/oneclickvirt/pingtest)
-- 支持root或admin环境下测试，支持非root或非admin环境下测试，支持离线环境下进行测试，**暂未**支持无DNS的在线环境下进行测试
-
+- 支持root或admin环境下测试，支持非root或非admin环境下测试，支持离线环境下进行测试；在线且本地 DNS 确认不可用时可使用进程内 DoH/DoT 继续测试，不改写系统 DNS 文件，短暂网络波动会保留系统解析
 **本项目初次使用建议查看说明：[跳转](https://github.com/oneclickvirt/ecs/blob/master/README_NEW_USER.md)**
+
+---
+
+## **无本地 DNS 的在线环境**
+
+默认 `-dns-mode=auto` 保留系统 DNS，只有多个独立探测均确认本地解析器不可用时才回退。成功响应或 NXDOMAIN 都视为系统解析可用；超时、SERVFAIL、丢包和短暂网络错误均为不确定结果，不会直接切换到公共 DNS。
+
+确认本地 DNS 失效后，程序会通过内置的固定地址对公共上游执行真实 TLS DNS 查询，按实际查询延迟选择可用的非过滤 DoH 或 DoT 服务。固定地址只用于引导这些上游，普通测试域名仍使用所选上游的实时 DNS 回应。
+
+- `-dns-mode=auto`：默认模式，仅在确认本地 DNS 失效后自动选择最快的已校验 DoH 或 DoT。
+- `-dns-mode=system`：只使用系统 DNS；Android/Termux 的原有 resolver 文件修复逻辑仅在此模式使用。
+- `-dns-mode=doh`：强制使用内置 DoH。
+- `-dns-mode=dot`：强制使用内置 DoT。
+
+回退仅作用于当前进程，不会改写 `/etc/resolv.conf` 或 `/etc/hosts`。`-ut-dns` 是流媒体解锁模块的独立显式 DNS 覆盖，不会被此机制替换；留空时才会继承当前进程解析器。上游地址清单随 `basics` 依赖嵌入，并在发布 tag 前以固定地址 TLS/DNS 查询校验刷新。
+
+安装脚本尚未下载到本机前，系统无法使用程序内回退。若主机在线但本地 DNS 不可用，需要支持 DoH 的 curl（例如 curl 7.62+）先引导下载：
+
+```bash
+export noninteractive=true && curl --doh-url https://cloudflare-dns.com/dns-query --resolve cloudflare-dns.com:443:1.1.1.1,1.0.0.1 -L https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && ./goecs.sh install && goecs
+```
 
 ---
 
@@ -212,6 +232,8 @@ Usage: goecs [options]
         Enable/Disable multiple disk checks, e.g., -diskmc=false
   -diskp string
         Set disk test path, e.g., -diskp /root
+  -dns-mode string
+        DNS mode (auto=preserve system then encrypted fallback, system=system DNS only, doh=force DoH, dot=force DoT) (default "auto")
   -email
         Enable/Disable email port test (default true)
   -h    Show help information
