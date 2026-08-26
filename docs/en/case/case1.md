@@ -26,6 +26,7 @@ Shell edition: https://github.com/spiritLHLS/ecs/blob/main/README_EN.md
 - Queries IP quality and security details through [securityCheck](https://github.com/oneclickvirt/securityCheck)
 - Tests mail ports with [portchecker](https://github.com/oneclickvirt/portchecker)
 - Runs route and network tests through [backtrace](https://github.com/oneclickvirt/backtrace), [nt3](https://github.com/oneclickvirt/nt3), [speedtest](https://github.com/oneclickvirt/speedtest), and [pingtest](https://github.com/oneclickvirt/pingtest)
+- `speedtest v0.0.24` pins `showwin/speedtest-go v1.8.2`; its user-configuration request uses a per-request cache-bypass query value so a shared CDN cannot return another client's configuration
 - Supports root/admin environments, non-root/non-admin environments, and offline execution
 - Supports online execution when local DNS is confirmed unavailable through a process-local DoH/DoT fallback; transient network failures preserve system DNS and no resolver files are rewritten
 
@@ -44,13 +45,15 @@ After confirmed local DNS failure, ECS validates real TLS DNS queries through fi
 - `-dns-mode=doh`: force built-in DoH.
 - `-dns-mode=dot`: force built-in DoT.
 
-The fallback is process-local and never edits `/etc/resolv.conf` or `/etc/hosts`. `-ut-dns` remains the streaming-unlock module's separate explicit DNS override and is never replaced; leave it empty for that module to inherit the process resolver. The endpoint catalog is embedded in the `basics` dependency and refreshed before release tags by fixed-address TLS/DNS validation.
+The fallback is process-local and never edits `/etc/resolv.conf` or `/etc/hosts`. `-ut-dns` remains the streaming-unlock module's separate explicit DNS override and is never replaced; leave it empty for that module to inherit the process resolver. The endpoint catalog is embedded by `basics v0.0.32`: a candidate enters it only after fixed-address TLS and real DNS-message validation, never merely because it appears on a public list. Release-tag and scheduled CI runs refresh, validate, and synchronize the catalog.
 
 Before the installer script is downloaded, program-local fallback is not available. On an online host without local DNS, use a DoH-capable curl build (for example curl 7.62+) to bootstrap the script:
 
 ```bash
 export noninteractive=true && curl --doh-url https://cloudflare-dns.com/dns-query --resolve cloudflare-dns.com:443:1.1.1.1,1.0.0.1 -L https://raw.githubusercontent.com/oneclickvirt/ecs/master/goecs.sh -o goecs.sh && chmod +x goecs.sh && ./goecs.sh install && goecs -l en
 ```
+
+Once downloaded, `goecs.sh` and standalone `ipcheck.sh` still make each network request normally first. They use the embedded, fixed-address DoH bootstrap only when curl explicitly reports `Could not resolve host`; then they probe the catalog with real DNS messages and cache the lowest-latency usable upstream for that run. Timeouts, TLS/HTTP/CDN/proxy errors, packet loss, and similar transient failures are not treated as missing DNS and keep their original failure behavior.
 
 ## Supported Systems And Architectures
 
