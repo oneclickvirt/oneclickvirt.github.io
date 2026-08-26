@@ -58,7 +58,8 @@ Shell 版本：[https://github.com/spiritLHLS/ecs](https://github.com/spiritLHLS
 - 邮件端口测试：[portchecker](https://github.com/oneclickvirt/portchecker)
 - 上游及回程路由线路检测：借鉴 [zhanghanyun/backtrace](https://github.com/zhanghanyun/backtrace)，二次开发至 [oneclickvirt/backtrace](https://github.com/oneclickvirt/backtrace)
 - 三网路由测试：基于 [NTrace-core](https://github.com/nxtrace/NTrace-core)，二次开发至 [nt3](https://github.com/oneclickvirt/nt3)
-- 网速测试：基于 [speedtest.net](https://github.com/spiritLHLS/speedtest.net-CN-ID) 和 [speedtest.cn](https://github.com/spiritLHLS/speedtest.cn-CN-ID) 数据，开发至 [oneclickvirt/speedtest](https://github.com/oneclickvirt/speedtest)，同时融合私有国内测速节点；`speedtest v0.0.24` 锁定 `showwin/speedtest-go v1.8.2`，其用户配置请求会使用每次不同的缓存旁路参数，避免共享 CDN 返回其他客户端的配置
+- 网速测试：基于 [speedtest.net](https://github.com/spiritLHLS/speedtest.net-CN-ID) 和 [speedtest.cn](https://github.com/spiritLHLS/speedtest.cn-CN-ID) 数据，开发至 [oneclickvirt/speedtest](https://github.com/oneclickvirt/speedtest)，同时融合私有国内测速节点；`speedtest v0.0.25` 锁定 `showwin/speedtest-go v1.8.2`，其用户配置请求会使用每次不同的缓存旁路参数，避免共享 CDN 返回其他客户端的配置
+- 私有三网测速节点由 `privatespeedtest v0.0.11` 提供：优先以轻量 HTTP/HTTPS 请求确认可用并测量延迟，其次使用 TCP connect/TCPing，ICMP 仅为最后兜底。ICMP 被主机或运营商过滤时，只要 HTTP 或 TCP 可达便保留节点；选择时先按 HTTP、TCP、ICMP 证据质量排序，再比较延迟。清单刷新遇到一次性探测失败会保留原有候选或已验证状态，不会把该节点永久标记为不可用；上游明确标记为不可用的节点仍会被尊重。
 - 三网 Ping 值测试：借鉴 [ecsspeed](https://github.com/spiritLHLS/ecsspeed)，二次开发至 [pingtest](https://github.com/oneclickvirt/pingtest)
 - 支持root或admin环境下测试，支持非root或非admin环境下测试，支持离线环境下进行测试；在线且本地 DNS 确认不可用时可使用进程内 DoH/DoT 继续测试，不改写系统 DNS 文件，短暂网络波动会保留系统解析
 **本项目初次使用建议查看说明：[跳转](https://github.com/oneclickvirt/ecs/blob/master/README_NEW_USER.md)**
@@ -76,7 +77,7 @@ Shell 版本：[https://github.com/spiritLHLS/ecs](https://github.com/spiritLHLS
 - `-dns-mode=doh`：强制使用内置 DoH。
 - `-dns-mode=dot`：强制使用内置 DoT。
 
-回退仅作用于当前进程，不会改写 `/etc/resolv.conf` 或 `/etc/hosts`。`-ut-dns` 是流媒体解锁模块的独立显式 DNS 覆盖，不会被此机制替换；留空时才会继承当前进程解析器。上游地址清单由 `basics v0.0.32` 嵌入；候选地址必须通过固定地址 TLS 和真实 DNS 报文校验后才会进入清单，不会因为网上出现过就直接使用。发布 tag 前和定时 CI 都会刷新、验证并同步该清单。
+回退仅作用于当前进程，不会改写 `/etc/resolv.conf` 或 `/etc/hosts`。`-ut-dns` 是流媒体解锁模块的独立显式 DNS 覆盖，不会被此机制替换；留空时才会继承当前进程解析器。上游地址清单由 `basics v0.0.34` 嵌入；候选地址必须通过固定地址 TLS 和真实 DNS 报文校验后才会进入清单，不会因为网上出现过就直接使用。发布 tag 前和定时 CI 都会刷新、验证并同步该清单。
 
 安装脚本尚未下载到本机前，系统无法使用程序内回退。若主机在线但本地 DNS 不可用，需要支持 DoH 的 curl（例如 curl 7.62+）先引导下载：
 

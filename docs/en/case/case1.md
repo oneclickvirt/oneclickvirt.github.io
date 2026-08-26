@@ -26,7 +26,8 @@ Shell edition: https://github.com/spiritLHLS/ecs/blob/main/README_EN.md
 - Queries IP quality and security details through [securityCheck](https://github.com/oneclickvirt/securityCheck)
 - Tests mail ports with [portchecker](https://github.com/oneclickvirt/portchecker)
 - Runs route and network tests through [backtrace](https://github.com/oneclickvirt/backtrace), [nt3](https://github.com/oneclickvirt/nt3), [speedtest](https://github.com/oneclickvirt/speedtest), and [pingtest](https://github.com/oneclickvirt/pingtest)
-- `speedtest v0.0.24` pins `showwin/speedtest-go v1.8.2`; its user-configuration request uses a per-request cache-bypass query value so a shared CDN cannot return another client's configuration
+- `speedtest v0.0.25` pins `showwin/speedtest-go v1.8.2`; its user-configuration request uses a per-request cache-bypass query value so a shared CDN cannot return another client's configuration
+- Private carrier speed nodes come from `privatespeedtest v0.0.11`: a lightweight HTTP/HTTPS request is the preferred reachability and latency signal, TCP connect/TCPing is second, and ICMP is a last fallback. ICMP filtering never removes an HTTP- or TCP-reachable node; selection ranks HTTP, TCP, then ICMP evidence before latency. A one-time refresh-probe failure preserves the prior candidate or verified state instead of permanently marking a node unavailable, while an upstream's explicit unavailable status remains respected.
 - Supports root/admin environments, non-root/non-admin environments, and offline execution
 - Supports online execution when local DNS is confirmed unavailable through a process-local DoH/DoT fallback; transient network failures preserve system DNS and no resolver files are rewritten
 
@@ -45,7 +46,7 @@ After confirmed local DNS failure, ECS validates real TLS DNS queries through fi
 - `-dns-mode=doh`: force built-in DoH.
 - `-dns-mode=dot`: force built-in DoT.
 
-The fallback is process-local and never edits `/etc/resolv.conf` or `/etc/hosts`. `-ut-dns` remains the streaming-unlock module's separate explicit DNS override and is never replaced; leave it empty for that module to inherit the process resolver. The endpoint catalog is embedded by `basics v0.0.32`: a candidate enters it only after fixed-address TLS and real DNS-message validation, never merely because it appears on a public list. Release-tag and scheduled CI runs refresh, validate, and synchronize the catalog.
+The fallback is process-local and never edits `/etc/resolv.conf` or `/etc/hosts`. `-ut-dns` remains the streaming-unlock module's separate explicit DNS override and is never replaced; leave it empty for that module to inherit the process resolver. The endpoint catalog is embedded by `basics v0.0.34`: a candidate enters it only after fixed-address TLS and real DNS-message validation, never merely because it appears on a public list. Release-tag and scheduled CI runs refresh, validate, and synchronize the catalog.
 
 Before the installer script is downloaded, program-local fallback is not available. On an online host without local DNS, use a DoH-capable curl build (for example curl 7.62+) to bootstrap the script:
 
