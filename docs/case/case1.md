@@ -58,8 +58,7 @@ Shell 版本：[https://github.com/spiritLHLS/ecs](https://github.com/spiritLHLS
 - 邮件端口测试：[portchecker](https://github.com/oneclickvirt/portchecker)
 - 上游及回程路由线路检测：借鉴 [zhanghanyun/backtrace](https://github.com/zhanghanyun/backtrace)，二次开发至 [oneclickvirt/backtrace](https://github.com/oneclickvirt/backtrace)
 - 三网路由测试：基于 [NTrace-core](https://github.com/nxtrace/NTrace-core)，二次开发至 [nt3](https://github.com/oneclickvirt/nt3)
-- 网速测试：基于 [speedtest.net](https://github.com/spiritLHLS/speedtest.net-CN-ID) 和 [speedtest.cn](https://github.com/spiritLHLS/speedtest.cn-CN-ID) 数据，开发至 [oneclickvirt/speedtest](https://github.com/oneclickvirt/speedtest)，同时融合私有国内测速节点；`speedtest v0.0.25` 锁定 `showwin/speedtest-go v1.8.2`，其用户配置请求会使用每次不同的缓存旁路参数，避免共享 CDN 返回其他客户端的配置
-- 私有三网测速节点由 `privatespeedtest v0.0.13` 提供：默认直接使用发布时校验过的嵌入清单，不在用户测速前等待远端注册表。优先以轻量 HTTP/HTTPS 请求确认可用并测量延迟，其次使用 TCP connect/TCPing，ICMP 仅为最后兜底；ICMP 被主机或运营商过滤时，只要 HTTP 或 TCP 可达便保留节点。采集端一次 TCP 不通只会标为候选，不会删掉三网地址；用户本机完成 HTTP/TCP/ICMP 复核后，先比较探测证据和延迟，再从完整运营商候选中按城市选择已确认节点及有限备用节点。主节点未达到所需的有效吞吐数量时才继续尝试备用候选；上传或下载任一方向有效的结果也会输出，避免将可用的部分测量误判为失败；上游明确标记为不可用的节点仍会被尊重。
+- 网速测试：基于公开的 [speedtest.net](https://github.com/spiritLHLS/speedtest.net-CN-ID) 和 [speedtest.cn](https://github.com/spiritLHLS/speedtest.cn-CN-ID) 数据，开发至 [oneclickvirt/speedtest](https://github.com/oneclickvirt/speedtest)；`speedtest v0.0.25` 锁定 `showwin/speedtest-go v1.8.2`，其用户配置请求会使用每次不同的缓存旁路参数，避免共享 CDN 返回其他客户端的配置
 - 三网 Ping 值测试：借鉴 [ecsspeed](https://github.com/spiritLHLS/ecsspeed)，二次开发至 [pingtest](https://github.com/oneclickvirt/pingtest)
 - 支持root或admin环境下测试，支持非root或非admin环境下测试，支持离线环境下进行测试；在线且本地 DNS 确认不可用时可使用进程内 DoH/DoT 继续测试，不改写系统 DNS 文件，短暂网络波动会保留系统解析
 **本项目初次使用建议查看说明：[跳转](https://github.com/oneclickvirt/ecs/blob/master/README_NEW_USER.md)**
@@ -348,7 +347,7 @@ docker run --rm crpi-8tmognxgyb86bm61.cn-guangzhou.personal.cr.aliyuncs.com/onec
 <details>
 <summary>展开查看编译说明</summary>
 
-1. 克隆仓库的 public 分支（不含私有依赖）
+1. 克隆仓库的 public 分支
 ```bash
 git clone -b public https://github.com/oneclickvirt/ecs.git
 cd ecs
