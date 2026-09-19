@@ -12,6 +12,8 @@ Advanced installation is intended for users who already use 1Panel, need an exte
 
 ## Panel Update Capability Boundaries
 
+See [Automatic MySQL / MariaDB Compatibility](./database_compatibility) for engine labels, historical configuration sections, environment overrides and safe repair boundaries. External databases are detected from the server, not the controller architecture.
+
 Super administrators can open **Manage updates** from the controller page footer. Direct panel update, rollback, and restart are available only for Linux root deployments using a controlled `systemd` service with the controller and Web paths inside the installation root. The panel verifies each Release's `SHA256SUMS` and keeps up to five local backups before switching files.
 
 The 1Panel, Docker, Docker Compose, source, manually started all-in-one, and Windows deployments listed on this page are upgraded by their own container, orchestrator, or process manager. The panel never rewrites them; it only displays copyable commands. Rollback replaces application and Web assets but does not automatically reverse database migrations, so back up the database and application data first.

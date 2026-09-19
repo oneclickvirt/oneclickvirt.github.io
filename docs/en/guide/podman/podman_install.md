@@ -4,6 +4,8 @@ outline: deep
 
 # Preface
 
+For the common `noninteractive=true` flag, legacy aliases, interactive setup and network checks, see [Interactive and Unattended Node Setup](../oneclickvirt/environment_modes).
+
 Install the Podman environment, including podman + network configuration + DNS liveness check service.
 
 ## Setting Up Virtual Memory

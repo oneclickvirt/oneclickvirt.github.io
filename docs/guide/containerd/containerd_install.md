@@ -4,6 +4,8 @@ outline: deep
 
 # 前言
 
+统一的 `noninteractive=true` 开关、旧变量兼容、交互入口及网络检查方法见[节点环境的交互与自动化](../oneclickvirt/environment_modes)。
+
 安装 containerd 环境，包含 containerd + runc + nerdctl + CNI + buildkitd 全套组件
 
 ## 开设虚拟内存

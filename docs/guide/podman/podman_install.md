@@ -4,6 +4,8 @@ outline: deep
 
 # 前言
 
+统一的 `noninteractive=true` 开关、旧变量兼容、交互入口及网络检查方法见[节点环境的交互与自动化](../oneclickvirt/environment_modes)。
+
 安装 Podman 环境，包含 podman + 网络配置 + DNS 保活服务全套组件
 
 ## 开设虚拟内存

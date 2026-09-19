@@ -4,6 +4,8 @@ outline: deep
 
 # Preface
 
+For the common `noninteractive=true` flag, legacy aliases, interactive setup and network checks, see [Interactive and Unattended Node Setup](../oneclickvirt/environment_modes).
+
 Support for running Docker virtualization on various systems, including Linux, Android, and Windows.
 
 If your host has no IPv6 subnet but you want to assign IPv6 addresses to containers, check the ``Customize`` section in the ``Docker`` module for ``Attach a free IPv6 address segment to the host``, then attach an IPv6 subnet before installation.

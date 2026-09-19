@@ -4,6 +4,26 @@ outline: deep
 
 # LXD
 
+Configuration queries must return exactly one valid JSON object. Empty or whitespace-only output, multiple JSON documents, error responses and invalid field types stop the current initialization step instead of being treated as missing configuration to fill with defaults. This validation supports Debian 12 jq 1.6. Valid custom DNS, `ipv4.nat=false` and `ipv6.address=none` settings are preserved. If a query fails, inspect the daemon status and logs before retrying initialization.
+
+The installer and panel initializer query pools and bridges in JSON, including LTS clients without the list `-c` option. Failed queries or invalid inventories are errors, not evidence of an empty environment. After installing btrfs/LVM/ZFS tools, initialization continues when kernel support is already available or the module loads successfully. Only unavailable modules retain a retry marker and trigger backend fallback; installing a package alone does not require a reboot.
+
+nftables persistence also follows the distribution's service configuration: `/etc/nftables.conf` on Debian/Ubuntu/Arch, `/etc/sysconfig/nftables.conf` on CentOS/Fedora and `/etc/nftables.nft` on Alpine. Boot enablement follows the owned snapshot and include; failures return an error without starting or reloading the global policy. Uninstallation removes owned entries from all three standard paths. Custom service overrides or a custom rules_file require checking the actual boot configuration; automatic path selection covers standard packages.
+
+Creation scripts attach a unique marker to each create operation and check it together with the instance UUID before rollback. Incus and LXD creation and batch scripts share one lock to protect logs and helper files; child builders inherit the parent's lock. Do not delete or recreate the same names through the panel or another CLI during a run: the daemon does not support conditional deletion by UUID, and external tools do not share this lock. If ownership cannot be verified, the script retains the instance and reports the problem for manual inspection.
+
+For the common `noninteractive=true` flag, legacy aliases, interactive setup and network checks, see [Interactive and Unattended Node Setup](../oneclickvirt/environment_modes).
+
+The installer's supplemental nftables/iptables NAT applies only to IPv4 traffic from `lxdbr0` and respects `ipv4.nat=false`. LXD bridge settings control IPv6 routing and NAT; the installer no longer rewrites independent IPv6 through a host-wide dual-stack masquerade rule. Public IPv6 still requires an upstream route and separate external SSH and HTTP checks.
+
+When migrating from iptables to nftables, the installer removes its exactly tagged NAT rules from both iptables-nft and iptables-legacy and from saved policies. Other rules, file permissions and symbolic links are preserved. Untagged legacy global MASQUERADE rules are retained because their ownership is unknown; inspect them before changing their intended use.
+
+The firewalld fallback registers owned IPv4 NAT in both runtime and permanent configuration. Repeated runs, NAT disablement, migration to nftables and removal operate only on exactly identified rules without reloading all of firewalld. Existing bridge zones remain unchanged; only unassigned bridges enter trusted. Uninstallation removes a trusted reference only after the bridge is gone and preserves custom zones. Legacy global masquerade in the public zone is retained because ownership is unknown; check other networks before removing it.
+
+Without firewalld, iptables persistence uses the distribution's standard file and boot service: `/etc/iptables/rules.v4` on Debian/Ubuntu, `/etc/sysconfig/iptables` on CentOS/Fedora, `/etc/iptables/iptables.rules` on Arch and `/etc/iptables/rules-save` on Alpine. Package or service-enable failures return an error. Incus and LXD share a process lock for installer NAT configuration and uninstaller firewall cleanup, preventing these scripts from overwriting each other's firewall changes. The lock does not coordinate independent administrator or service changes.
+
+The iptables fallback saves only the relevant IPv4 runtime snapshot to a temporary file in the same directory, then replaces the policy atomically after success. Save failures preserve the old file and return an error. Existing permissions, ownership and symbolic links remain intact; new files use mode 600. IPv6 persistence is not overwritten as a side effect.
+
 If your host has no IPv6 subnet but you want to assign IPv6 addresses to containers, check the ```Customize``` section in the ```LXD``` module for ```Attach a free IPv6 address segment to the host```, then attach an IPv6 subnet before installation.
 
 
@@ -81,7 +101,13 @@ If you plan to run more than 200 LXD containers on one server, this solution is 
 
 ## Uninstall LXD Environment
 
+The uninstaller checks local projects first and stops before deleting instances if a non-`default` project exists. Migrate or remove those projects first. For the default project, profile references are detached before pools and managed networks are deleted. Inventory, detachment or deletion failures stop subsequent snap removal so that stranded mounts and bridges are not hidden.
+
+iptables cleanup removes only IPv4 NAT rules tagged as owned by this script. Legacy untagged host-wide MASQUERADE and port DROP rules may be shared with other services and are preserved. Check their ownership and network dependencies before removing them manually.
+
 One-click uninstall of the complete LXD environment, including all containers, VMs, images, storage pools, network configurations, systemd services, packages, and related configuration files:
+
+Uninstallation removes LXD's persistent firewall rules and recorded storage mounts while preserving other applications' rules, includes and btrfs mounts. Host IPv4 forwarding remains enabled if already configured because other runtimes or routing services may share it. A failed LXD snap removal stops subsequent cleanup; resolve the error before retrying.
 
 ```shell
 curl -L https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/lxduninstall.sh -o lxduninstall.sh && chmod +x lxduninstall.sh && bash lxduninstall.sh

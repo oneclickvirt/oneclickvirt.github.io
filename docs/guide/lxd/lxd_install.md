@@ -4,6 +4,26 @@ outline: deep
 
 # LXD
 
+配置查询必须返回且只返回一个合法 JSON 对象；空输出、仅空白、多段 JSON、错误响应以及字段类型不匹配都会终止当前初始化步骤，不会被当成缺少配置后写入默认值。该检查兼容 Debian 12 的 jq 1.6。有效的自定义 DNS、`ipv4.nat=false` 和 `ipv6.address=none` 会保留；若查询失败，请先检查 daemon 状态与日志，再重新执行初始化。
+
+安装器和面板初始化通过 JSON 查询存储池与网桥，兼容不支持列表 `-c` 参数的 LTS 客户端。查询失败或返回无效数据会报错，不应视为空环境。首次安装 btrfs/LVM/ZFS 工具后，若内核支持已可用或模块加载成功，会继续初始化；仅在模块确实不可用时保留重试标记并尝试其他后端，不会仅因刚安装软件包而要求重启。
+
+nftables 持久化同样按发行版选择服务读取的主配置：Debian/Ubuntu/Arch 为 `/etc/nftables.conf`，CentOS/Fedora 为 `/etc/sysconfig/nftables.conf`，Alpine 为 `/etc/nftables.nft`。保存自有快照及 include 后才启用启动服务，启用失败会报错，不主动启动或重载全局规则；卸载清理这三个标准路径中的自有配置。自定义服务覆盖配置或自定义 rules_file 不在标准路径自动识别范围内，需核对实际启动配置。
+
+创建脚本会为每次创建写入独立标记，回滚前核对该标记和实例 UUID。Incus/LXD 的创建与批量脚本共用一把锁，避免覆盖彼此的日志和辅助文件；子脚本沿用父脚本的锁。创建期间不要从面板或其他 CLI 删除、重建相同名称：运行时不支持按 UUID 条件删除，外部工具不受该锁约束。无法确认归属时会保留实例并报错，需核对后手动处理。
+
+统一的 `noninteractive=true` 开关、旧变量兼容、交互入口及网络检查方法见[节点环境的交互与自动化](../oneclickvirt/environment_modes)。
+
+安装器的 nftables/iptables 补充 NAT 只处理 `lxdbr0` 的 IPv4 流量，并保留 `ipv4.nat=false` 的选择。IPv6 路由和 NAT 由 LXD 网桥配置控制，独立 IPv6 不再被安装器的全局双栈伪装规则改写。公网 IPv6 仍需宿主机上游路由以及独立外部 SSH、HTTP 访问验证。
+
+从 iptables 切换到 nftables 时，安装器会同时清理 iptables-nft、iptables-legacy 中带有本项目精确标记的旧 NAT，以及持久化文件中的对应规则；保留其他规则、文件权限和符号链接。无法确定归属的旧全局 MASQUERADE 不会自动删除，应检查后按实际用途处理。
+
+使用 firewalld 回退时，自有 IPv4 NAT 同时登记到运行态和永久配置，重复执行、关闭 NAT、切换到 nftables 或卸载时仅处理精确归属规则；不会重载整个 firewalld。保留网桥已有区域，未分配区域的网桥才加入 trusted；卸载仅在网桥已不存在时清理 trusted 引用，保留自定义区域。旧版本添加的 public 全局 masquerade 无法确认归属，不会自动关闭，需核对其他网络的依赖。
+
+没有 firewalld 时，iptables 持久化使用发行版标准路径及对应启动服务：Debian/Ubuntu 为 `/etc/iptables/rules.v4`，CentOS/Fedora 为 `/etc/sysconfig/iptables`，Arch 为 `/etc/iptables/iptables.rules`，Alpine 为 `/etc/iptables/rules-save`。相关软件包或启动服务启用失败会报错。Incus/LXD 的安装器 NAT 配置和卸载防火墙阶段共用进程锁，防止这两个脚本同时覆盖防火墙状态；它不协调管理员或其他服务的独立修改。
+
+iptables 回退路径只保存本次相关的 IPv4 运行态快照：先在同一目录写入临时文件，全部成功后再原子替换。保存失败会保留旧文件并报错；已有权限、属主和符号链接保持，新文件权限为 600，IPv6 持久化文件不会被连带覆盖。
+
 如果宿主机没有 IPv6 子网但你希望给容器分配 IPv6 地址，请先查看 ```LXD``` 模块 ```自定义``` 分区中的 ```给宿主机附加免费的IPv6地址段```，先给宿主机附加 IPv6 子网后再进行环境安装。
 
 ## 开设虚拟内存(SWAP)(非必须的可选项)
@@ -90,7 +110,13 @@ export noninteractive=true && bash lxdinstall.sh
 
 ## 卸载 LXD 环境
 
+卸载器先检查本机项目；存在非 `default` 项目时会在删除实例前停止，请先迁移或清理这些项目。卸载默认项目时，先解除 profile 对存储和网络的引用，再删除受 LXD 管理的网络；查询、解绑或删除失败会停止后续 snap 卸载，避免残留挂载和网桥被掩盖。
+
+iptables 清理只删除带有本脚本归属标记的 IPv4 NAT。旧版本没有标记的宿主机全局 MASQUERADE、端口 DROP 规则可能被其他服务共用，因此保留；需要清理时应先核对其归属和其他网络的依赖。
+
 一键卸载 LXD 全套环境，包括所有容器、虚拟机、镜像、存储池、网络配置、systemd 服务、软件包及相关配置文件：
+
+卸载仅清理 LXD 自身的持久化防火墙规则和已记录的存储挂载，保留其他程序的规则、include 和 btrfs 挂载。宿主机 IPv4 转发可能被其他运行时或路由服务共用，因此不会在卸载时全局关闭。LXD snap 删除失败会中止后续清理，修复错误后可重试。
 
 国际
 

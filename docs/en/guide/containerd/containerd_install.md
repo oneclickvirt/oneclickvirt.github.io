@@ -4,6 +4,8 @@ outline: deep
 
 # Preface
 
+For the common `noninteractive=true` flag, legacy aliases, interactive setup and network checks, see [Interactive and Unattended Node Setup](../oneclickvirt/environment_modes).
+
 Install the containerd environment, including containerd + runc + nerdctl + CNI + buildkitd full suite.
 
 ## Setting Up Virtual Memory

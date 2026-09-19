@@ -46,7 +46,7 @@ outline: deep
 
 ```
 NAT IPv4
-NAT IPv4 + 独立IPv6
+NAT IPv4 + IPv6
 独立IPv4
 独立IPv4 + IPv6
 纯IPv6

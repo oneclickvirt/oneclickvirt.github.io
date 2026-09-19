@@ -5,6 +5,8 @@ outline: deep
 
 # 前言
 
+统一的 `noninteractive=true` 开关、旧变量兼容、交互入口及网络检查方法见[节点环境的交互与自动化](../oneclickvirt/environment_modes)。
+
 支持开设 Docker 虚拟化的各系统，含 Linux、Android、Windows 系统
 
 如果宿主机没有 IPv6 子网但你希望给容器分配 IPv6 地址，可先参考 ```Incus``` 或 ```LXD``` 模块中 ```自定义``` 分区的 ```给宿主机附加免费的IPv6地址段```，先给宿主机附加 IPv6 子网后再进行环境安装。

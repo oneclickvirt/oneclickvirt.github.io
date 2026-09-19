@@ -46,7 +46,7 @@ Managed nodes require the host machine's network interface to be directly bound 
 
 ```
 NAT IPv4
-NAT IPv4 + Independent IPv6
+NAT IPv4 + IPv6
 Independent IPv4
 Independent IPv4 + IPv6
 Pure IPv6
