@@ -4,180 +4,104 @@ outline: deep
 
 # Custom
 
-## Manage nodes without a dedicated public IPv4 address via Agent mode
+## Manage a node with Agent mode
 
-For some local devices, the node may have IPv4 internet access but does not have a fixed/dynamic dedicated public IPv4 address. In this case, you cannot directly manage the node through SSH in standard mode. Here we provide a new management method: Agent mode.
+Agent mode is intended for home broadband, NAT, and private network nodes without a dedicated public IPv4 address.
 
-![](./images/agent0.png)
+1. Select **Agent mode** when adding the node.
+2. Leave IP address and port empty for home, NAT, or private nodes. Fill them in for a node with a fixed public address.
+3. Save the node and click **Generate install command** in Connection Configuration.
+4. Run the command on the node server.
+5. Return to the controller and click **Detect** to confirm that the node is online.
 
-When adding a new node, click the corresponding mode, then enter the Basic Information page.
+![Select Agent mode](./images/agent0.png)
 
-![](./images/agent1.png)
+![Enter node information](./images/agent1.png)
 
-Unlike standard mode, in Agent mode:
+![Generate the install command](./images/agent2.png)
 
-- `IP Address`
-- `Port`
+The node token is generated when the node is saved and cannot be changed separately. Keep it private. If it is exposed, delete the node and add it again.
 
-These two fields are no longer required. The node can be managed normally even if they are left empty.
+![Connection configuration](./images/agent3.png)
 
-**Local nodes / home broadband nodes / NAT network nodes** should leave IP address and port empty.
+After detection succeeds, node and container management uses the same steps as a standard node.
 
-**Cloud servers / servers with a fixed IPv4 address** can fill them in normally.
+![Detect the node](./images/agent4.png)
 
-Note:
+### Intranet port forwarding
 
-- If `IP Address` and `Port` are left empty, only `No Port Mapping` is supported for `Network Type` later.
-- If filled in, all `Network Type` options are the same as standard mode.
+For a local or NAT node:
 
-![](./images/agent2.png)
+1. Select **No port mapping** as the node network mode.
+2. Open **Port Management** as an administrator and click **Add Port**.
+3. Select **Controller Forwarding (Intranet Penetration)**.
+4. Enter one TCP port per mapping. Optional fields can be left empty.
 
-After clicking Save, you can see the command generation button in the `Connection Configuration` section.
+The controller must be a Linux server with a public IPv4 address, root access, and a script or bare-metal deployment. Docker, Docker Compose, and non-Linux controllers cannot provide this feature.
 
-Important:
+![Select the network mode](./images/agent5.png)
 
-- After saving, the system generates and locks the `Token` for this node.
-- The token cannot be refreshed or changed independently.
-- If the token is leaked, you must:
-  1. Delete the current node
-  2. Re-add the node
-  3. Re-fill all configuration
+![Add a port](./images/agent6.png)
 
-Keep the token safe and do not leak it.
+The reverse proxy must allow both WS and WSS. For HTTPS, configure the required certificate and ports first.
 
-![](./images/agent3.png)
+## Domain binding and reverse WebSocket
 
-After clicking Generate (as shown below), copy the command and run it directly on the local node server to complete management access. After installation finishes, use the detection button at the bottom of this page for verification.
+This workflow is for containers on Agent-mode nodes. The steps are the same for every supported container runtime.
 
-![](./images/agent4.png)
+1. Confirm that the node is online and that the container has a reachable IPv4 or IPv6 address and service port.
+2. Point an `A` record to the node IPv4 address and an `AAAA` record to the node IPv6 address. A hostname may have both.
+3. In **Domain Management**, select the instance, enter the domain, container address, and port, then save.
+4. For HTTPS/WSS, upload a certificate and private key matching the domain and enable the HTTPS listener.
+5. Test HTTP, HTTPS (when enabled), WS, and WSS separately.
 
-![](./images/agent7.jpeg)
+HTTP and WS use the HTTP listener. HTTPS and WSS use the HTTPS listener. Enabling HTTPS alone does not open HTTP port 80. WebSocket clients use the root path of the bound domain.
 
-After detection succeeds, the following configuration pages can be operated according to the original standard-mode instructions; there is no major difference.
+### Cloudflare
 
-![](./images/agent5.png)
+- **DNS only**: point A/AAAA directly to the node and open the matching HTTP or HTTPS port.
+- **Full / Full (strict)**: use an HTTPS origin on port 443. Full (strict) also requires a valid origin certificate. Enable WebSockets in Cloudflare for WSS.
+- **Flexible**: the browser uses HTTPS while the origin uses HTTP. A container that forces HTTPS can create a redirect loop. Only enable **Trust Cloudflare HTTPS headers** on the node when the HTTP listener accepts traffic only from Cloudflare.
 
-For local nodes, only this section differs: choose `No Port Mapping`. You can then manually use `Add Port` from the administrator `Port Management` page to tunnel node ports (intranet penetration) to the controller server's IPv4 address for external access.
+When Cloudflare **Always Use HTTPS** is enabled, the redirect happens at Cloudflare. DNS-only records do not use that rule. Do not configure Cloudflare and the container to force redirects in opposite directions.
 
-![](./images/agent6.png)
+<details>
+<summary>Troubleshooting</summary>
 
-When manually adding port mapping, choose `Controller Forwarding (Intranet Penetration)`. Non-required fields can be left empty; the system will automatically select available controller ports for mapping.
+1. Check the domain binding status and its error message.
+2. Click **Sync Proxies** in the administrator page and try again; manual Nginx changes are not required.
+3. Confirm that the Agent is online, the listener ports are open, and the container service is running.
+4. After changing node settings, wait for the **Runtime Connection Reload** task to finish before checking again. Do not repeatedly save or restart.
 
-Controller forwarding uses a TCP tunnel and supports one TCP port per mapping. Create separate mappings when multiple ports must be exposed.
-
-### Controller Deployment Requirements
-
-Because intranet penetration requires the controller to have control over the host machine's network and firewall, the controller must meet the following conditions:
-
-- Use one of:
-  - `Script Deployment`
-  - `Bare-metal compiled deployment`
-
-- Deployed on:
-  - A Linux server with a dedicated public IPv4 address
-
-- Must have:
-  - `Root privileges`
-
-The following deployment methods are **not** supported:
-
-- `Docker`
-- `Docker Compose`
-- Non-Linux systems
-
-Otherwise, intranet penetration features will not work.
-
-### Intranet Penetration Feature Notes
-
-The `Intranet Penetration Port` feature:
-
-- **Only supports nodes managed in Agent mode**
-- Tunnels traffic via `WS/WSS` WebSocket forwarding
-
-When configuring your reverse proxy, make sure protocol forwarding is correctly configured for:
-
-- `WS`
-- `WSS`
-
-Otherwise, intranet penetration will not function properly.
-
-#### Security Recommendations
-
-If the managed node requires:
-
-- Anti-probing
-- Anti-blocking
-- Tunnel confidentiality
-
-It is strongly recommended to:
-
-1. Bind a domain name to the controller
-2. Configure HTTPS
-3. Use `WSS protocol` instead of `WS protocol` when adding the node
-
-This effectively reduces the risk of the tunnel being detected, probed, or blocked.
-
-#### Version Update Notes
-
-After upgrading the controller, make sure to upgrade the node-side Agent as well.
-
-During the update, `source` is `controller` — the script and Agent files are downloaded directly from a specific path on the controller.
-
-## Use LXD/INCUS to create containers with shared GPU devices
-
-For nodes that need shared GPU devices, make sure the node has already installed the corresponding GPU driver before management, and that GPU commands run correctly, for example:
+Domain routes are restored after an Agent restart. If the problem remains, inspect the Agent service and listening ports:
 
 ```shell
-nvidia-smi
+systemctl status oneclickvirt-agent
+ss -lntp
+journalctl -u oneclickvirt-agent -e
 ```
 
-Make sure the output is similar to:
+</details>
 
+### Security and upgrades
 
-```
-root@a12-ThinkStation-P620:/root/sharefile# nvidia-smi
-Sat May 16 20:23:07 2026       
-+---------------------------------------------------------------------------------------+
-| NVIDIA-SMI 535.171.04             Driver Version: 535.171.04   CUDA Version: 12.2     |
-|-----------------------------------------+----------------------+----------------------|
-| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
-| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
-|                                         |                      |               MIG M. |
-|=========================================+======================+======================|
-|   0  NVIDIA RTX A6000               Off | 00000000:61:00.0 Off |                  Off |
-| 30%   42C    P0              83W / 300W |      0MiB / 49140MiB |      1%      Default |
-|                                         |                      |                  N/A |
-+-----------------------------------------+----------------------+----------------------+
-                                                                                         
-+---------------------------------------------------------------------------------------+
-| Processes:                                                                            |
-|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
-|        ID   ID                                                             Usage      |
-|=======================================================================================|
-|  No running processes found                                                           |
-+---------------------------------------------------------------------------------------+
-```
+For a private controller address or a protected tunnel, configure HTTPS and prefer WSS.
 
-Only after the host machine has the driver installed can GPU resources be shared into containers.
+After upgrading the controller, upgrade the node Agent as well. Confirm that no install or restart task is running before upgrading.
 
-Then follow the Incus/LXD tutorial in this documentation to complete local environment installation. After installation, finish Agent-mode management through the controller and pass health checks before proceeding.
+## Share a GPU with an LXD/Incus container
 
-It is recommended to enable node "redemption-code-only claim" mode, then create containers with GPU devices from the administrator redemption-code page.
+1. Install the GPU driver on the host and confirm that `nvidia-smi` works.
+2. Follow the LXD/Incus setup guide, add the node with Agent mode, and pass the health check.
+3. Create a GPU-enabled container from the redemption-code page.
+4. Install the matching driver inside the container with `--no-kernel-module`.
+5. Run `nvidia-smi` inside the container to verify the shared GPU.
+6. To create more containers, stop this container and use it as the copy template.
 
-![](./images/gpu1.jpeg)
+![Create a GPU container](./images/gpu1.jpeg)
 
-After creation succeeds, switch to the administrator's regular-user view to redeem it, then switch back to administrator view and go to the Port Management page to tunnel container ports so you can connect and configure directly via web SSH.
+![Add an access port](./images/gpu2.jpeg)
 
-![](./images/gpu2.jpeg)
+![Verify the GPU](./images/gpu3.jpg)
 
-After adding successfully, you can directly use web SSH to connect and manage this new local container.
-
-Inside the container, install the same driver version as the external host. During installation, make sure it does not load into the kernel by adding the `--no-kernel-module` parameter.
-
-For detailed driver installation steps, refer to: https://www.spiritysdx.top/20240513/#%E5%AE%B9%E5%99%A8%E5%86%85%E5%AE%89%E8%A3%85gpu%E9%A9%B1%E5%8A%A8
-
-After installation, running `nvidia-smi` inside the container should also return output, which proves GPU sharing is active.
-
-![](./images/gpu3.jpg)
-
-At this point, you can stop this container and use it as a template. Use the redemption-code batch container creation "copy mode", set this container as the source container, and clone new containers from it.
+See [Install a GPU driver inside a container](https://www.spiritysdx.top/20240513/#%E5%AE%B9%E5%99%A8%E5%86%85%E5%AE%89%E8%A3%85gpu%E9%A9%B1%E5%8A%A8) for a driver installation example.
