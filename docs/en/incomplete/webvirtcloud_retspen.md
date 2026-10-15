@@ -48,13 +48,13 @@ Under the `Storage` section, add a storage entry. Choose the type `Dir` and name
 
 After creation, download the appropriate qcow2 image for the system using the repository below:
 
-https://github.com/oneclickvirt/pve_kvm_images/releases/tag/images
+https://github.com/oneclickvirt/pve_kvm_images/releases/tag/debian
 
 In the example, a Debian 12 qcow2 image is used:
 
 ```shell
 cd /var/lib/libvirt/images
-curl -sSLO https://github.com/oneclickvirt/pve_kvm_images/releases/download/images/debian12.qcow2
+curl -sSLO https://github.com/oneclickvirt/pve_kvm_images/releases/download/debian/debian12.qcow2
 chmod 777 debian12.qcow2
 ```
 

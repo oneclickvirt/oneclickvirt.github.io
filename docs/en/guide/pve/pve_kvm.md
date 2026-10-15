@@ -35,7 +35,7 @@ Executing the above commands in the opened virtual machine ensures that the IPv6
 - Enabled root login.
 - Partially pre-installed QEMU guest agent.
 - System support:
-  - See [pve_kvm_images](https://github.com/oneclickvirt/pve_kvm_images) or [kvm_images](https://github.com/oneclickvirt/kvm) for details on the x86_64 architecture, you only need to write the system name + system version number, such as ubuntu20, ubutnu22, debian11, debian12, and so on.
+  - See [pve_kvm_images](https://github.com/oneclickvirt/pve_kvm_images) or [kvm_images](https://github.com/oneclickvirt/kvm_images) for details on the x86_64 architecture, you only need to write the system name + system version number, such as ubuntu20, ubutnu22, debian11, debian12, and so on.
   - For arm architecture, see the systems listed in [ubuntu](http://cloud-images.ubuntu.com/) or [debian](https://cloud.debian.org/), you only need to write the system name + system version number, such as ubuntu20, ubutnu22, debian11, debian12, and so on.
 
 ## Virtual machines with standalone NAT configuration.

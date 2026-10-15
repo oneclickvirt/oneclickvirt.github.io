@@ -58,13 +58,13 @@ curl -slk https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvi
 
 创建完毕后，下载对应系统的qcow2文件，使用下面这个仓库的链接
 
-https://github.com/oneclickvirt/pve_kvm_images/releases/tag/images
+https://github.com/oneclickvirt/pve_kvm_images/releases/tag/debian
 
 示例中下载使用debian12的qcow2镜像使用
 
 ```shell
 cd /var/lib/libvirt/images
-curl -sSLO https://cdn.spiritlhl.net/https://github.com/oneclickvirt/pve_kvm_images/releases/download/images/debian12.qcow2
+curl -sSLO https://cdn.spiritlhl.net/https://github.com/oneclickvirt/pve_kvm_images/releases/download/debian/debian12.qcow2
 chmod 777 debian12.qcow2
 ```
 
