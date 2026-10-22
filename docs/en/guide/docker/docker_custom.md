@@ -6,21 +6,21 @@ outline: deep
 
 Each container has specific configuration requirements; please refer to them individually.
 
-If the configured memory is not enough, then it's okay to make up for it with the virtual memory [here](https://virt.spiritlhl.net/en_US/guide/docker_install.html#setting-up-virtual-memory).
+If the configured memory is not enough, then it's okay to make up for it with the virtual memory [here](docker_install.md#setting-up-virtual-memory).
 
 Note that the following scripts must be pre-installed using the environment installation scripts in this set of tutorials before using them
 
 ## One-Click Setup of Firefox Browser Container
 
-- Crash recovery on startup has been configured.
+- The browser process is kept running with `KEEP_APP_RUNNING=1`.
 - Chinese fonts have been integrated into the container.
 - Built-in web validation with the option to set a custom password.
-- Maximum memory usage for the container is customizable.
+- Customizable shared memory size; this is not a total container memory limit.
 - Choice to enable VNC port, disabled by default.
 - No need to consider support for nested virtualization or server architecture.
 - Audio mapping is not supported; sound transmission is unavailable on both the web and VNC.
 
-**The host machine should have at least 1 core, 1GB RAM, and 5GB disk space. The created container will occupy a minimum of 1GB disk space.**
+**The host machine should have at least 1 core, 2GB RAM, and 5GB disk space. The created container will occupy a minimum of 1GB disk space.**
 
 **Setup:**
 
@@ -48,7 +48,7 @@ docker rmi jlesage/firefox
 
 - Crashing self-start has been set
 - Web checksums and passwords can be set.
-- Customizable maximum container memory footprint
+- Customizable shared memory size; this is not a total container memory limit.
 - No need to consider whether to support nested virtualization and server architecture.
 - Supports sound mapping
 
@@ -80,6 +80,7 @@ docker stop chromium_${PORT}
 docker rm -f chromium_${PORT}
 rm -rf /usr/local/bin/config_${PORT}
 rm -rf /usr/local/bin/password_${PORT}
+rm -rf /usr/local/bin/username_${PORT}
 docker rmi lscr.io/linuxserver/chromium
 ```
 
@@ -88,7 +89,7 @@ docker rmi lscr.io/linuxserver/chromium
 - Crashes automatically restart have been configured.
 - Chinese fonts are included in the setup.
 - Built-in web validation with the ability to set your own username and password.
-- Customizable maximum memory usage for the container.
+- Customizable shared memory size; this is not a total container memory limit.
 - No need to consider nested virtualization support and server architecture.
 - Sound mapping is supported, and sound can be transmitted via the web interface.
 
@@ -98,7 +99,7 @@ A complete Linux desktop on which you can use a browser
 
 **Setup Instructions:**
 
-After setup, the default username is ```onew``` and the password is ```oneclick```. The default maximum memory usage is 2 GB.
+After setup, the default username is ```onew``` and the password is ```oneclick```. The default shared memory size is 2 GB.
 
 The default web port for HTTP protocol is ```3004```, and for HTTPS protocol is ```3005```. After setup, open the corresponding protocol with ```localhost's IPv4:port``` in your web browser.
 

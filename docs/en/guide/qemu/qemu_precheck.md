@@ -2,9 +2,9 @@
 outline: deep
 ---
 
-# QEMU/KVM overview and requirements
+# Introduction
 
-## Overview
+## Project Features
 
 - Installs [QEMU/KVM](https://www.qemu.org/) and [libvirt](https://libvirt.org/).
 - Uses qcow2 cloud images and initializes guests with cloud-init. Image selection tries the organization's image repositories before the upstream distribution.
@@ -13,14 +13,17 @@ outline: deep
 - Uses libvirt NAT (`virbr0`) with nftables or iptables forwarding; new default networks include ULA IPv6 NAT.
 - VM connection records are saved in `/root/vmlog`.
 
-## Resource requirements
+## Supported Systems (Host)
+
+Debian and Ubuntu are recommended. The installer also includes branches for CentOS, AlmaLinux, RockyLinux, Oracle Linux, Amazon Linux, Fedora, Arch and Alpine; the required packages must be available for the host system. VM creation supports amd64 and arm64.
+
+## Configuration Requirements
 
 | Resource | Requirement |
 | --- | --- |
-| CPU | VT-x/AMD-V or nested virtualization for KVM acceleration |
+| CPU | VT-x/AMD-V or nested virtualization is recommended for KVM acceleration; without KVM, QEMU may use slower emulation |
 | Available memory | Guest memory plus at least 512 MB for the host |
 | Available disk | Guest disk size multiplied by VM count, plus cached images |
-| Host OS | Maintained Debian/Ubuntu releases are recommended; the installer also has CentOS/Fedora branches requiring the appropriate packages |
 
 ## Check KVM
 

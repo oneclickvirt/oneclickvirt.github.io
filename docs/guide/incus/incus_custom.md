@@ -360,7 +360,7 @@ systemctl restart networking
 
 | VPS(A)                    | VPS(B)                    |
 | ------------------------- | ------------------------- |
-| 一个IPV4地址(server_ipv4) | 一个IPV4地址(clinet_ipv4) |
+| 一个IPV4地址(server_ipv4) | 一个IPV4地址(client_ipv4) |
 | 一个IPV6子网              | 无IPV6地址                |
 | 以下称之为服务端          | 以下称之为客户端          |
 
@@ -375,7 +375,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/6in4/main/6in4.sh -o 6in4
 执行命令
 
 ```
-./6in4.sh client_ipv4 <mode_type> <subnet_size> 
+./6in4.sh client_ipv4 [mode_type] [subnet_size]
 ```
 
 | 选项          | 可选的选项1 | 可选的选项2 | 可选的选项3 |
@@ -385,13 +385,27 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/6in4/main/6in4.sh -o 6in4
 
 ```<mode_type>```暂时只支持那三种协议，越靠前的越推荐，不填则默认为```sit```协议
 
-```<subnet_size>```只要比原系统子网掩码大就行，且是8的倍数，不填则默认为```80```
+```<subnet_size>```为1到127的整数，不能小于服务端的前缀长度，不要求是8的倍数，不填则默认为```80```。脚本会跳过宿主机已用地址和已有隧道分配，没有安全可用的子网时会退出。
 
 记得```client_ipv4```替换为需要附加IPV6的机器的IPV4地址，执行完毕后会回传你需要在客户端执行的命令，详见执行后的说明即可
 
-为防止忘记复制命令，命令本身也将写入到当前路径下的```6in4.log```文件中，可使用```cat 6in4.log```查询客户端需要执行的命令
+为防止忘记复制命令，客户端命令默认写入```/var/log/6in4/6in4_client.log```，可执行以下命令查询：
 
-复制下来的命令，务必在 [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) 中选择选项```6in4```后进行转换
+```shell
+cat /var/log/6in4/6in4_client.log
+```
+
+服务端命令保存在```/var/log/6in4/6in4_server.log```，可用```SIXIN4_LOG_DIR```修改日志目录。
+
+脚本会在```/var/lib/6in4/persistent/隧道名称/```生成持久化文件。systemd客户端可将其中的```client-up.sh```、```client-down.sh```、```client-user-ipv6.service```和```client-install.sh```一起复制到客户端同一目录，再以root执行：
+
+```shell
+bash client-install.sh
+```
+
+安装器会把文件放到```/etc/6in4```并启用```client-user-ipv6.service```，后续可用```systemctl status client-user-ipv6.service```查询。BSD服务端还会生成对应的BSD脚本，按脚本输出选择，勿混用。
+
+如果不使用上面的systemd模板，而是手动配置ifupdown，可把复制的客户端命令放到 [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) 中，选择```6in4```进行转换
 
 然后就会自动刷新页面出现需要自己用vim或者vi命令修改```/etc/network/interfaces```文件增加的内容了，或者修改以下命令新增
 

@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# Podman 实例开设与管理
+# 前言
 
 ## 快速开始
 
@@ -12,19 +12,19 @@ outline: deep
 4. 连接 SSH：`ssh root@<服务器IP> -p 25000`。
 5. 查看记录：`cat ctlog` 或 `podman ps -a`。
 
-## 开设单个容器
+## 单独开设
+
+### 下载脚本
 
 ```bash
-# 下载脚本
 wget -q https://raw.githubusercontent.com/oneclickvirt/podman/main/scripts/onepodman.sh
 chmod +x onepodman.sh
+```
 
-# 用法:
-# ./onepodman.sh <name> <cpu> <memory_mb> <password> <sshport> <startport> <endport> [ipv6:y/n] [system] [disk_gb]
-# 需要自动生成密码但仍传后续端口参数时，将 <password> 传为空字符串 ""
+### 使用方法
 
-# 示例: 创建名为 ct1 的 Debian 容器，1核 512MB，SSH端口25000，额外端口34975-35000
-./onepodman.sh ct1 1 512 MyPassword 25000 34975 35000 n debian 0
+```text
+./onepodman.sh <name> <cpu> <memory_mb> <password> <sshport> <startport> <endport> [ipv6:y/n] [system] [disk_gb]
 ```
 
 | 参数 | 说明 | 默认值 |
@@ -51,7 +51,28 @@ SSH 宿主机端口不能落在额外公网端口范围内，避免同一个宿�
 `alma9`、`almalinux/9` -> `almalinux`；`rocky9`、`rockylinux/9` -> `rockylinux`；
 `openeuler22.03`、`openeuler/22.03` -> `openeuler`。不存在的版本不会静默降级。
 
-## 批量开设容器
+### 示例
+
+```bash
+# 示例: 创建名为 ct1 的 Debian 容器，1核 512MB，SSH端口25000，额外端口34975-35000
+./onepodman.sh ct1 1 512 MyPassword 25000 34975 35000 n debian 0
+```
+
+### 相关操作
+
+```bash
+podman ps -a                  # 查看所有容器
+podman exec -it <name> bash   # 进入容器（bash 系统）
+podman exec -it <name> sh     # 进入容器（alpine）
+podman logs <name>            # 查看容器日志
+podman rm -f <name>           # 删除单个容器
+podman images                 # 查看所有镜像
+podman rmi <image>            # 删除镜像
+```
+
+## 批量开设
+
+### 运行
 
 ```bash
 wget -q https://raw.githubusercontent.com/oneclickvirt/podman/main/scripts/create_podman.sh
@@ -124,19 +145,7 @@ export PODMAN_POD_NAME=ctpod1
 
 批量创建时如果设置 `PODMAN_POD_NAME` 且未设置 `PODMAN_POD_JOIN_EXISTING=true`，脚本会按容器名自动派生 pod 名，避免多个 SSH 容器无意共享同一个网络命名空间。
 
-## 查看与管理容器
-
-```bash
-podman ps -a                  # 查看所有容器
-podman exec -it <name> bash   # 进入容器（bash 系统）
-podman exec -it <name> sh     # 进入容器（alpine）
-podman logs <name>            # 查看容器日志
-podman rm -f <name>           # 删除单个容器
-podman images                 # 查看所有镜像
-podman rmi <image>            # 删除镜像
-```
-
-## 连接记录
+### 查询批量开设的信息
 
 在创建时的工作目录执行 `cat ctlog`，每行格式为：
 
@@ -163,7 +172,7 @@ podman system prune -af
 rm -f ctlog
 ```
 
-## 宿主机重启与自动启动
+## 宿主机重启后重启所有容器
 
 新容器使用 `--restart always`。systemd 宿主机安装时会启用 `podman-restart.service`，发行版缺少该服务时创建兜底服务。可执行 `systemctl status podman-restart.service` 检查。
 

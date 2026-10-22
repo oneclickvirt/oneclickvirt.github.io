@@ -93,7 +93,7 @@ cat Container_Name(change me)
 The output format is
 
 ```
-Container_Name SSH_Port Root_Password Number_of_Cores Memory Start_of_Public_Port End_of_Public_Port
+Container_Name SSH_Port Root_Password Number_of_Cores Memory Start_of_Public_Port End_of_Public_Port Disk_Size
 ```
 
 The container IPv6 address can only be checked from inside the container; it is not exposed in the default Docker output here.

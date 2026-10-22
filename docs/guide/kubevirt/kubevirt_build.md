@@ -2,14 +2,20 @@
 outline: deep
 ---
 
-# KubeVirt 实例开设与管理
+# 前言
 
-## 开设单个虚拟机
+## 单独开设
+
+### 下载脚本
 
 ```bash
 curl -sSL -o onevm.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/onevm.sh
 chmod +x onevm.sh
-export noninteractive=true
+```
+
+### 使用方法
+
+```text
 ./onevm.sh <name> <cpu> <memory_gb> <disk_gb> <password> <sshport> <startport> <endport> [system]
 ```
 
@@ -44,16 +50,93 @@ export noninteractive=true
 | `centos-stream` | CentOS Stream 9 | 官方上游（无组织预置镜像） |
 | `opensuse` | openSUSE Leap 15.5 | pve_kvm_images(opensuse-leap-15) → kvm_images(opensuse-leap-15) → 官方 |
 
-**示例：**
+位置参数优先于 `VM_NAME`、`CPU`、`MEMORY_GB`、`DISK_GB`、`PASSWORD`、`SSH_PORT`、`START_PORT`、`END_PORT` 和 `SYSTEM`。资源统一创建在 `kubevirt-vms` 命名空间。
+
+### 示例
 
 ```bash
 export noninteractive=true
 ./onevm.sh vm1 2 2 20 MyPassword 25000 34975 35000 debian
 ```
 
-位置参数优先于 `VM_NAME`、`CPU`、`MEMORY_GB`、`DISK_GB`、`PASSWORD`、`SSH_PORT`、`START_PORT`、`END_PORT` 和 `SYSTEM`。资源统一创建在 `kubevirt-vms` 命名空间。
+### 相关操作
 
-## 批量开设虚拟机
+#### 查看所有虚拟机
+
+```bash
+curl -sSL -o listvms.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/listvms.sh
+chmod +x listvms.sh
+export noninteractive=true
+./listvms.sh
+```
+
+#### 创建虚拟机快照（DataVolume 克隆）
+
+```bash
+curl -sSL -o snapshotvm.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/snapshotvm.sh
+chmod +x snapshotvm.sh
+export noninteractive=true
+./snapshotvm.sh vm1 vm1-snapshot-001
+```
+
+说明：
+
+- 快照通过 CDI 从 `vm1-dv` 克隆出新的 DataVolume，不会直接创建新 VM。
+- 默认拒绝对运行中的 VM 创建快照，避免数据不一致；如确认可接受风险，可设置 `ALLOW_RUNNING_SNAPSHOT=true`。
+- 默认等待克隆完成，可用 `WAIT_SNAPSHOT=false` 改为提交任务后立即返回。
+
+#### 调整虚拟机资源
+
+```bash
+curl -sSL -o resizevm.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/resizevm.sh
+chmod +x resizevm.sh
+export noninteractive=true
+./resizevm.sh vm1 4 8 40
+```
+
+说明：
+
+- 参数依次为 `vmname cpu memory_gb disk_gb`，留空表示不调整对应资源，例如：`./resizevm.sh vm1 "" "" 40`。
+- CPU/内存会更新 VM 模板；运行中的 VM 通常需要重启后完全生效，可设置 `RESTART_VM=true` 自动重启。
+- 磁盘只支持扩容，且依赖 StorageClass 支持 PVC 扩容；虚拟机内文件系统可能仍需手动扩容。
+
+#### 删除单个虚拟机
+
+```bash
+curl -sSL -o deletevm.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/deletevm.sh
+chmod +x deletevm.sh
+export noninteractive=true
+./deletevm.sh <name>
+```
+
+默认会保留该 VM 的快照 DataVolume，避免误删备份；如需一并删除，设置 `DELETE_SNAPSHOTS=true`。
+
+默认会删除vmlog中该VM的连接记录。需要保留时可用 `./deletevm.sh vm1 n`，或设置 `RMLOG=n`；第2个参数优先于环境变量。
+
+#### 常用管理命令
+
+```bash
+# 查看所有虚拟机状态
+kubectl get vm -n kubevirt-vms
+
+# 查看虚拟机实例（运行中的）
+kubectl get vmi -n kubevirt-vms
+
+# 查看数据卷导入进度
+kubectl get dv -n kubevirt-vms
+
+# 进入虚拟机串口控制台（Ctrl+] 退出）
+virtctl console <vmname> -n kubevirt-vms
+
+# 启动/停止/重启虚拟机
+virtctl start <vmname> -n kubevirt-vms
+virtctl stop <vmname> -n kubevirt-vms
+virtctl restart <vmname> -n kubevirt-vms
+```
+
+## 批量开设
+
+### 运行
 
 ```bash
 curl -sSL -o create_vm.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/create_vm.sh
@@ -81,75 +164,12 @@ export noninteractive=true
 
 默认创建 1 台，名称前缀 `vm`，起始编号 1，1 核、1GB 内存、10GB 磁盘，SSH 从 25000 起，每台额外 26 个端口，从 35000 起，系统为 Ubuntu。可显式设置 `PASSWORD`，否则批量脚本生成密码。兼容旧开关 `AUTO_YES=y`。
 
-## 查看所有虚拟机
+### 查询批量开设的信息
 
-```bash
-curl -sSL -o listvms.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/listvms.sh
-chmod +x listvms.sh
-export noninteractive=true
-./listvms.sh
-```
+连接信息保存在创建工作目录的 `vmlog`，可用下面命令查询：
 
-## 创建虚拟机快照（DataVolume 克隆）
-
-```bash
-curl -sSL -o snapshotvm.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/snapshotvm.sh
-chmod +x snapshotvm.sh
-export noninteractive=true
-./snapshotvm.sh vm1 vm1-snapshot-001
-```
-
-说明：
-
-- 快照通过 CDI 从 `vm1-dv` 克隆出新的 DataVolume，不会直接创建新 VM。
-- 默认拒绝对运行中的 VM 创建快照，避免数据不一致；如确认可接受风险，可设置 `ALLOW_RUNNING_SNAPSHOT=true`。
-- 默认等待克隆完成，可用 `WAIT_SNAPSHOT=false` 改为提交任务后立即返回。
-
-## 调整虚拟机资源
-
-```bash
-curl -sSL -o resizevm.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/resizevm.sh
-chmod +x resizevm.sh
-export noninteractive=true
-./resizevm.sh vm1 4 8 40
-```
-
-说明：
-
-- 参数依次为 `vmname cpu memory_gb disk_gb`，留空表示不调整对应资源，例如：`./resizevm.sh vm1 "" "" 40`。
-- CPU/内存会更新 VM 模板；运行中的 VM 通常需要重启后完全生效，可设置 `RESTART_VM=true` 自动重启。
-- 磁盘只支持扩容，且依赖 StorageClass 支持 PVC 扩容；虚拟机内文件系统可能仍需手动扩容。
-
-## 删除单个虚拟机
-
-```bash
-curl -sSL -o deletevm.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/deletevm.sh
-chmod +x deletevm.sh
-export noninteractive=true
-./deletevm.sh <name>
-```
-
-默认会保留该 VM 的快照 DataVolume，避免误删备份；如需一并删除，设置 `DELETE_SNAPSHOTS=true`。
-
-## 常用管理命令
-
-```bash
-# 查看所有虚拟机状态
-kubectl get vm -n kubevirt-vms
-
-# 查看虚拟机实例（运行中的）
-kubectl get vmi -n kubevirt-vms
-
-# 查看数据卷导入进度
-kubectl get dv -n kubevirt-vms
-
-# 进入虚拟机串口控制台（Ctrl+] 退出）
-virtctl console <vmname> -n kubevirt-vms
-
-# 启动/停止/重启虚拟机
-virtctl start <vmname> -n kubevirt-vms
-virtctl stop <vmname> -n kubevirt-vms
-virtctl restart <vmname> -n kubevirt-vms
+```shell
+cat vmlog
 ```
 
 ## 删除多台虚拟机

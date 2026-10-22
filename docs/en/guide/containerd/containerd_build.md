@@ -2,16 +2,21 @@
 outline: deep
 ---
 
-# Create and manage containerd instances
+# Preface
 
-## Create one container
+## Single Container Provisioning
+
+### Download Script
 
 ```bash
 wget -q https://raw.githubusercontent.com/oneclickvirt/containerd/main/scripts/onecontainerd.sh
 chmod +x onecontainerd.sh
+```
 
-# ./onecontainerd.sh <name> <cpu> <memory_mb> <password> <sshport> <startport> <endport> [ipv6:y/n] [system] [disk_gb]
-./onecontainerd.sh ct1 1 512 "" 25000 34975 35000 n debian 0
+### Usage
+
+```text
+./onecontainerd.sh <name> <cpu> <memory_mb> <password> <sshport> <startport> <endport> [ipv6:y/n] [system] [disk_gb]
 ```
 
 Before creation, the script validates the container name, port range and occupied host ports. An empty password string generates a high-entropy random root password and saves it in the container record.
@@ -49,7 +54,36 @@ Image source variables:
 | CONTAINERD_IMAGE_REGISTRY | Optional fallback registry; after a Releases failure, try `<registry>:<system>` and `<registry>:<system>-<arch>` | unset |
 | CONTAINERD_IMAGE_RELEASE_BASE | Offline archive base URL | https://github.com/oneclickvirt/containerd/releases/download |
 
-## Batch creation
+### Example
+
+```bash
+./onecontainerd.sh ct1 1 512 "" 25000 34975 35000 n debian 0
+```
+
+### Related Operations
+
+```bash
+nerdctl ps -a
+nerdctl exec -it <name> bash
+nerdctl exec -it <name> sh   # Alpine
+nerdctl logs <name>
+nerdctl rm -f <name>
+nerdctl images
+nerdctl rmi <image>
+```
+
+Management helpers, run from a checkout of the repository:
+
+```bash
+bash scripts/containerd_manage.sh stats [container]
+bash scripts/containerd_manage.sh snapshot <container> [image]
+bash scripts/containerd_manage.sh backup <container> [output.tar]
+bash scripts/containerd_manage.sh version-check [system]
+```
+
+## Batch Container Provisioning
+
+### Run
 
 ```bash
 wget -q https://raw.githubusercontent.com/oneclickvirt/containerd/main/scripts/create_containerd.sh
@@ -78,28 +112,7 @@ export CONTAINERD_CONTAINER_IPV6=n
 ./create_containerd.sh
 ```
 
-## Inspect and manage containers
-
-```bash
-nerdctl ps -a
-nerdctl exec -it <name> bash
-nerdctl exec -it <name> sh   # Alpine
-nerdctl logs <name>
-nerdctl rm -f <name>
-nerdctl images
-nerdctl rmi <image>
-```
-
-Management helpers, run from a checkout of the repository:
-
-```bash
-bash scripts/containerd_manage.sh stats [container]
-bash scripts/containerd_manage.sh snapshot <container> [image]
-bash scripts/containerd_manage.sh backup <container> [output.tar]
-bash scripts/containerd_manage.sh version-check [system]
-```
-
-## Connection records
+### Query Batch Container Information
 
 Run `cat ctlog` in the creation working directory. Each line is:
 
@@ -118,7 +131,7 @@ nerdctl ps -aq | xargs -r nerdctl rm -f
 nerdctl images -q | xargs -r nerdctl rmi -f
 ```
 
-## Host reboot and automatic startup
+## Restart All Containers After Host Reboot
 
 New containers use nerdctl `--restart always`; keep the containerd service enabled. To recover older or stopped containers manually:
 

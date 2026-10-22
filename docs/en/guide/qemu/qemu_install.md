@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# Install and uninstall QEMU/KVM
+# Introduction
 
 The shared unattended switch and interactive workflow are described in [environment modes](../oneclickvirt/environment_modes.md).
 
@@ -30,7 +30,7 @@ export noninteractive=true
 
 Installation and batch creation use defaults or supplied arguments without waiting for input. Deletion and uninstallation treat this variable as explicit confirmation. Existing per-script variables such as VM_COUNT, QEMU_FORCE_DELETE and QEMU_FORCE_UNINSTALL remain supported.
 
-## Install QEMU/KVM
+## Environment Installation
 
 ```bash
 bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuinstall.sh)
@@ -70,7 +70,7 @@ The default image directory is `/var/lib/libvirt/images`.
 | `delete_qemu.sh` | `VM_NAME` | VM to delete | `vm1` |
 | `delete_qemu.sh` | `QEMU_FORCE_DELETE` | Skip deletion confirmation | `yes` |
 
-## Uninstall
+## Uninstall QEMU/KVM Environment
 
 Remove all VMs, images, network settings, systemd services and QEMU/KVM packages:
 
@@ -86,7 +86,8 @@ export QEMU_FORCE_UNINSTALL=yes
 bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuuninstall.sh)
 ```
 
-Alternatively, after downloading the script, run `bash qemuuninstall.sh -y`.
+Alternatively, after downloading the script, run `curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuuninstall.sh -o qemuuninstall.sh
+bash qemuuninstall.sh -y`.
 
 ## Verify installation
 

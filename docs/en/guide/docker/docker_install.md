@@ -32,8 +32,8 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 - Detects system environment and installs required components
 - Installs Docker and Docker Compose
 - Downloads required helper scripts
-- Detects IPv6 availability; if subnet size is >= /112, configures Docker IPv6 networking
-- If requirements are met, deploys `ndpresponder` and `radvd` for IPv6 NDP and auto-allocation behavior
+- Detects a locally assigned public IPv6 prefix and creates an isolated ULA bridge. With a usable prefix, public /128 addresses are attached after container startup; the uplink must support routing or NDP.
+- A lone public /128 or an unsafe prefix falls back to NAT66 outbound access. Ethernet uplinks require a healthy compatible ndpresponder; non-Ethernet tunnels do not.
 - Supports x86_64 and ARM servers
 - Installer prompts include Docker install path and optional disk-limit capability
 - For non-interactive installation, use `export noninteractive=true` before the install command. The script will apply default choices for optional prompts

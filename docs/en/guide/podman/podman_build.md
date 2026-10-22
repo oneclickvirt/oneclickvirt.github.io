@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# Create and manage Podman instances
+# Preface
 
 ## Quick start
 
@@ -12,15 +12,20 @@ outline: deep
 4. Connect with `ssh root@<host-IP> -p 25000`.
 5. Read `ctlog` or run `podman ps -a` to inspect the result.
 
-## Create one container
+## Single Container Provisioning
+
+### Download Script
 
 ```bash
 wget -q https://raw.githubusercontent.com/oneclickvirt/podman/main/scripts/onepodman.sh
 chmod +x onepodman.sh
+```
 
-# Pass an empty password string to generate one while supplying later arguments.
-# ./onepodman.sh <name> <cpu> <memory_mb> <password> <sshport> <startport> <endport> [ipv6:y/n] [system] [disk_gb]
-./onepodman.sh ct1 1 512 MyPassword 25000 34975 35000 n debian 0
+### Usage
+
+```text
+Pass an empty password string to generate one while supplying later arguments.
+./onepodman.sh <name> <cpu> <memory_mb> <password> <sshport> <startport> <endport> [ipv6:y/n] [system] [disk_gb]
 ```
 
 | Argument | Description | Default |
@@ -50,7 +55,27 @@ Supported `system` values are `ubuntu`, `debian`, `alpine`, `almalinux`, `rockyl
 
 Unsupported versions do not silently fall back to another release.
 
-## Batch creation
+### Example
+
+```bash
+./onepodman.sh ct1 1 512 MyPassword 25000 34975 35000 n debian 0
+```
+
+### Related Operations
+
+```bash
+podman ps -a
+podman exec -it <name> bash
+podman exec -it <name> sh   # Alpine
+podman logs <name>
+podman rm -f <name>
+podman images
+podman rmi <image>
+```
+
+## Batch Container Provisioning
+
+### Run
 
 ```bash
 wget -q https://raw.githubusercontent.com/oneclickvirt/podman/main/scripts/create_podman.sh
@@ -121,19 +146,7 @@ export PODMAN_POD_NAME=ctpod1
 
 During batch creation, setting PODMAN_POD_NAME without `PODMAN_POD_JOIN_EXISTING=true` derives a separate pod name from each container name, preventing SSH containers from unintentionally sharing one network namespace.
 
-## Inspect and manage containers
-
-```bash
-podman ps -a
-podman exec -it <name> bash
-podman exec -it <name> sh   # Alpine
-podman logs <name>
-podman rm -f <name>
-podman images
-podman rmi <image>
-```
-
-## Connection records
+### Query Batch Container Information
 
 Run `cat ctlog` in the creation working directory. Each line is:
 
@@ -160,7 +173,7 @@ podman system prune -af
 rm -f ctlog
 ```
 
-## Host reboot and automatic startup
+## Restart All Containers After Host Reboot
 
 New containers use `--restart always`. On systemd hosts the installer enables `podman-restart.service` and creates a fallback unit when the distribution does not provide one. Inspect it with `systemctl status podman-restart.service`.
 

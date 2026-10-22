@@ -49,15 +49,15 @@ echo '*/1 * * * * curl -m 6 -s ipv6.ip.sb || curl -m 6 -s ipv6.ip.sb' | crontab 
 
 ## 单独开设NAT的虚拟化的虚拟机
 
-- 自动开设NAT服务器，默认使用Debian10镜像，因为该镜像占用最小
+- 自动开设NAT服务器，单独开设脚本默认使用Ubuntu22镜像，也可自定义系统
 - 可在命令中自定义需要使用的镜像，这里有给出配置好的镜像，镜像自带空间设置是2~10G硬盘，日常使用**至少10G以上**即可，除非某些镜像开不起来再增加硬盘大小
 - 可在命令中指定存储盘位置，默认不指定时为local盘即系统盘，可指定为PVE中显示的挂载盘
 - 自定义内存大小推荐512MB内存
-- 自动进行内外网端口映射，含22，80，443端口以及其他25个内外网端口号一样的端口
+- 自动进行内外网端口映射，含22，80，443端口以及其他26个内外网端口号一样的端口
 - 生成后需要等待一段时间虚拟机内部的cloud-init配置好网络以及登陆信息，大概需要5分钟
 - 虚拟机的相关信息将会存储到WEB端对应VM的NOTES中，可在WEB端查看
 - 如果宿主机自带IPV6子网将自动附加上IPV6网络，但无公网IPV6地址
-- 可选择是否开启独立IPV6，需要宿主机至少有一个/104的子网，最好是/64的子网
+- 可选择是否开启独立IPV6，需要上游允许使用额外公网地址，并已按[环境安装](pve_install.md)配置对应网关
 
 ### 使用方法
 
@@ -116,7 +116,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | 绑定独立IPV6(留空默认N)  | N            |
 
 :::tip
-注意这里的VMID仅可使用100到256，其他数字不可用
+注意这里的VMID仅可使用100到256，其他数字不可用。上面的NAT脚本还要求ID不超过254，避免生成无效的IPV4地址。
 :::
 
 ### 不创建入站端口映射
@@ -134,7 +134,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 - 停止VM
 - 删除VM
 - 删除端口映射
-- 重启网络
+- 按需重启正在使用的ndpresponder服务
 - 删除log文件
 
 **下载脚本**
@@ -172,14 +172,14 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 :::
 
 - 可多次运行批量生成VM
-- 自动开设NAT服务器，选项留空默认使用debian11镜像，可自定义使用镜像名字，支持的系统名字详见上文支持的镜像列表
-- 自动进行内外网端口映射，含22，80，443端口以及其他25个内外网端口号一样的端口
-- 生成后需要等待一段时间虚拟机内部的cloudinit配置好网络以及登陆信息，大概需要5分钟，每个虚拟机创建之间有间隔等待60秒避免突发性能不足
-- 默认批量开设的虚拟机网络配置为：22，80，443端口及一个25个端口区间的内外网映射
+- 自动开设NAT服务器，批量脚本的系统选项留空时，x86_64默认debian11，ARM默认ubuntu22；可自定义镜像名字，支持的系统详见上文镜像列表
+- 自动进行内外网端口映射，含22，80，443端口以及其他26个内外网端口号一样的端口
+- 生成后需要等待一段时间虚拟机内部的cloudinit配置好网络以及登陆信息，大概需要5分钟，每个虚拟机创建之间有间隔等待30秒避免突发性能不足
+- 默认批量开设的虚拟机网络配置为：22，80，443端口及一个26个端口区间的内外网映射
 - 可自定义批量开设的核心数，内存大小，硬盘大小，使用宿主机哪个存储盘，记得自己计算好空闲资源开设
 - 虚拟机的相关信息将会存储到WEB端对应VM的NOTES中，可在WEB端查看
 - 如果宿主机自带IPV6子网将自动附加上IPV6网络，但无公网IPV6地址
-- 可选择是否开启独立IPV6，需要宿主机至少有一个/104的子网，最好是一个/64子网
+- 可选择是否开启独立IPV6，需要上游允许使用额外公网地址，并已按[环境安装](pve_install.md)配置对应网关
 
 国际
 
@@ -198,39 +198,15 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 ## 删除所有虚拟机
 
 - 删除所有VM
-- 删除所有nat的端口映射
-- 重启网络
-- 删除log文件
+- 删除对应的端口映射和连接记录
+- 按需重启正在使用的ndpresponder服务
+
+先按上文下载pve_delete.sh，再执行：
 
 ```shell
-for vmid in $(qm list | awk '{if(NR>1) print $1}'); do qm stop $vmid; qm destroy $vmid; rm -rf /var/lib/vz/images/$vmid*; done
-if command -v nft >/dev/null 2>&1; then
-  for family in ip ip6 inet; do
-    for table in nat filter; do
-      nft list table "$family" "$table" >/dev/null 2>&1 && nft flush table "$family" "$table"
-    done
-  done
-fi
-if command -v iptables >/dev/null 2>&1; then
-  iptables -t nat -F 2>/dev/null || true
-  iptables -t filter -F 2>/dev/null || true
-fi
-if command -v ip6tables >/dev/null 2>&1; then
-  ip6tables -t nat -F 2>/dev/null || true
-  ip6tables -t filter -F 2>/dev/null || true
-fi
-if command -v systemctl >/dev/null 2>&1; then
-  systemctl restart networking.service 2>/dev/null || service networking restart
-  systemctl list-unit-files | grep -q '^ndpresponder.service' && systemctl restart ndpresponder.service
-else
-  service networking restart
-fi
-if command -v iptables-save >/dev/null 2>&1 && command -v iptables-restore >/dev/null 2>&1; then
-  iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
-  iptables-save > /etc/iptables/rules.v4
-fi
-rm -rf vmlog
-rm -rf vm*
+for id in $(qm list | awk 'NR>1{print $1}'); do
+  ./pve_delete.sh "$id" || break
+done
 ```
 
 :::tip
@@ -318,7 +294,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 - 如果宿主机自带IPV6子网将可选择是否附加上IPV6地址
 - 如果商家有给IPV4地址和子网长度，请仔细比对，按照下面示例的命令写参数
 - 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
-- 可选择是否开启独立IPV6，需要宿主机至少有一个/104的子网，最好是一个/64子网
+- 可选择是否开启独立IPV6，需要上游允许使用额外公网地址，并已按[环境安装](pve_install.md)配置对应网关
 - 手动附加的IPV4地址与宿主机的IPV4地址是在**不同子网**内的(IP地址前缀不同)，将使用宿主机IP地址做网关
 - 手动附加的IPV4地址与宿主机的IPV4地址是在**同一个子网**内的(IP地址前缀相同)，将使用宿主机的网关做网关
 - 可选择是否指定虚拟机的MAC地址
@@ -386,7 +362,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 - 需要自己在```/etc/network/interfaces```中给```vmbr0```添加额外的IPV4地址(注意```chattr -i```解锁文件修改后再```chattr +i```加锁回去)
 - 其他功能类似开设NAT的虚拟机，只不过这里映射不再是部分端口映射，也不再是映射到宿主机的IPV4地址上，而是全端口一一映射到额外的IPV4地址上
-- 在虚拟机外进入虚拟机的流量走绑定的额外IPV4的地址，在虚拟机内发出的流量走原有的宿主机的IPV4地址
+- 进入和发出的流量都走绑定的额外IPV4地址，脚本会自动配置DNAT和SNAT
 
 :::tip
 务必保证开设前你能使用额外的IPV4地址通过SSH登录宿主机，但```curl ip.sb```却仍显示原来的宿主机IPV4地址
@@ -445,17 +421,13 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 #### 进出流量都走绑定的IPV4地址
 
-执行
+当前脚本已为每台虚拟机配置独立的SNAT规则，无需删除整个NAT网段的MASQUERADE规则，普通NAT虚拟机和独立IPV4虚拟机可以同时使用。
 
+在虚拟机内执行下面命令查看出口地址，应显示绑定的额外IPV4地址：
+
+```shell
+curl -4 ip.sb
 ```
-line="-A POSTROUTING -s 172.16.1.0\/24 -o vmbr0 -j MASQUERADE"
-sed -i "\|$line|d" /etc/iptables/rules.v4
-service netfilter-persistent restart
-```
-
-即可，但这会导致宿主机丧失开设非独立IPV4地址的NAT的虚拟机/容器的能力，慎重执行
-
-执行后你只能开设独立IPV4地址的虚拟机了。
 
 ## 开设纯IPV6地址的虚拟机
 
@@ -463,7 +435,7 @@ service netfilter-persistent restart
 
 ### 自动选择IPV6地址无需手动指定
 
-- 纯IPV6指绑定的公共IPV6地址，实际虚拟机仍旧有宿主机的IPV4网络但无外网IPV4端口
+- 只配置IPV6网卡，不配置IPV4地址和外网IPV4端口；有可用公网前缀时分配公网IPV6，否则按当前网关配置回退到NAT66出站
 - 自动检测可用的IPV6区间，对应虚拟机编号的V6地址绑定到虚拟机上
 - 系统的相关信息将会存储到对应的虚拟机的NOTE中，可在WEB端查看
 

@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# 安装与卸载 Podman
+# 前言
 
 统一的无交互开关和交互流程见[节点环境的交互与自动化](../oneclickvirt/environment_modes.md)。
 
@@ -28,7 +28,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
 ```
 
-## 安装 Podman 环境
+## 环境安装
 
 ```bash
 bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/podman/main/podmaninstall.sh)
@@ -58,7 +58,7 @@ bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/podman/main/podm
 | PODMAN_IPV6_SUBNET | 可选：显式指定已路由的公网 IPv6 子网；不能包含宿主机已绑定地址 | 自动从本机前缀选择 |
 | NDPRESPONDER_SOURCE_URL | responder 镜像拉取失败或架构不符时使用的 Git 构建源 | https://github.com/oneclickvirt/ndpresponder.git |
 
-## 卸载（完整清理）
+## 卸载 Podman 环境
 
 一键卸载 Podman 全套环境，包括所有容器、镜像、网络、辅助文件：
 

@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# 安装与卸载 KubeVirt
+# 前言
 
 统一的无交互开关和交互流程见[节点环境的交互与自动化](../oneclickvirt/environment_modes.md)。
 
@@ -30,7 +30,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/a
 
 Kubelet 对 SWAP 的处理取决于 K3s 配置，启用前须确认兼容性，不能用 SWAP 替代最低物理内存要求。
 
-## 安装 KubeVirt 环境
+## 环境安装
 
 ```bash
 export noninteractive=true
@@ -83,7 +83,7 @@ bash kubevirtinstall.sh
 | `RESTART_VM=true` | 资源调整后自动重启 VM | 未启用 |
 | `SHOW_PASSWORD=true` | `listvms.sh` 显示已存储在 VM 注解或本地 `vmlog` 中的明文密码 | 未启用 |
 
-## 卸载（完整清理）
+## 卸载 KubeVirt 环境
 
 ```bash
 export noninteractive=true

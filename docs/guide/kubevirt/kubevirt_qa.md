@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# 说明与常见问题
+# 常见问题答疑
 
 ## 日志文件
 
@@ -23,7 +23,7 @@ vm2 root@<宿主机IP>:25001 密码: MyPassword 端口范围: 35001-35026
 6. CentOS 7 已 EOL，仅保留为兼容镜像选项，建议使用维护中的 Debian、Ubuntu、RockyLinux 或 AlmaLinux。
 7. 如需重置密码，通过 `virtctl console` 进入控制台修改。
 
-## FAQ
+## 使用说明
 
 **K3s 安装失败怎么办？**
 

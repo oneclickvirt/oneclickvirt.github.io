@@ -36,14 +36,16 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/buildv
 ### Usage
 
 ```
-./buildvm.sh ServerName CPUCores MemorySize DiskSize SSHPort ExternalStartPort ExternalEndPort DownloadSpeed UploadSpeed EnableIPV6(Y or N) System(leave empty for debian11)
+./buildvm.sh ServerName CPUCores MemorySize DiskSize SSHPort ExternalStartPort ExternalEndPort DownloadSpeed UploadSpeed EnableIPV6(Y or N) System(leave empty for debian11) [Template]
 ```
 
 CPU cores must be less than or equal to the host machine's cores. Memory size is calculated in MB, disk size in GB, download and upload speeds in Mbit. EnableIPV6 doesn't necessarily need to be Y or N - it can be omitted, defaulting to disabled IPv6.
 
+The optional last parameter selects a resource template: `web`, `db`/`database` or `dev`/`development`. It can also be set with `INCUS_TEMPLATE`; empty or `none` skips the template. These presets adjust instance settings; they do not install applications.
+
 If both ```ExternalStartPort``` and ```ExternalEndPort``` are set to 0, no external port range mapping will be performed - only the basic SSH port will be mapped. Note that these ```cannot be empty``` - set them to 0 if no mapping is needed.
 
-Supports custom server systems. When left empty, debian13 is used by default. Note that the parameter should be system name + version number.
+Supports custom server systems. When left empty, debian11 is used by default. Note that the parameter should be system name + version number.
 
 Except for Alpine systems, all other systems require disk size greater than 6G, otherwise the system won't start, cannot initialize and function, and will crash during the setup process.
 

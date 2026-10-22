@@ -2,20 +2,22 @@
 outline: deep
 ---
 
-# Create and manage QEMU/KVM instances
+# Introduction
 
-## Create one VM
+## Create a Single VM
+
+### Download Script
 
 ```bash
 curl -sSL -o oneqemu.sh https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/oneqemu.sh
 chmod +x oneqemu.sh
+```
 
-# Both argument layouts are accepted:
-# ./oneqemu.sh <name> <cpu> <memory_mb> <disk_gb> <password> <sshport> <startport> <endport> [system]
-# ./oneqemu.sh <name> <cpu> <memory_mb> <disk_gb> <password> <sshport> <startport> <endport> <extra_flag(y/n)> [system]
-./oneqemu.sh vm1 1 1024 20 MyPassword 25001 35001 35025 debian
-# Optional flag in position 9, system in position 10:
-./oneqemu.sh vm1 1 1024 10 MyPassword 25000 34975 35000 n debian13
+### Usage
+
+```text
+./oneqemu.sh <name> <cpu> <memory_mb> <disk_gb> <password> <sshport> <startport> <endport> [system]
+./oneqemu.sh <name> <cpu> <memory_mb> <disk_gb> <password> <sshport> <startport> <endport> <extra_flag(y/n)> [system]
 ```
 
 | Argument | Description | Default |
@@ -56,7 +58,45 @@ export VM_SYSTEM=debian12
 ./oneqemu.sh
 ```
 
-## Batch creation
+### Example
+
+Choose one of the following examples:
+
+```bash
+./oneqemu.sh vm1 1 1024 20 MyPassword 25001 35001 35025 debian
+# Optional flag in position 9, system in position 10:
+./oneqemu.sh vm1 1 1024 10 MyPassword 25000 34975 35000 n debian13
+```
+
+### Related Operations
+
+```bash
+virsh list --all
+virsh console <name>     # Exit with Ctrl+]
+virsh start <name>
+virsh shutdown <name>
+virsh destroy <name>     # Force power off
+virsh reboot <name>
+virsh dominfo <name>
+virsh domifaddr <name>
+```
+
+Project management script:
+
+```bash
+curl -sSL -o manage_qemu.sh https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/manage_qemu.sh
+chmod +x manage_qemu.sh
+./manage_qemu.sh info all
+./manage_qemu.sh info vm1
+./manage_qemu.sh snapshot vm1 before-upgrade
+./manage_qemu.sh set-resources vm1 2 2048
+```
+
+`info` includes vmlog, VM state, MAC address, IPs and ports. `set-resources` takes CPU cores and memory in MB.
+
+## Batch Create VMs
+
+### Run
 
 ```bash
 curl -sSL -o create_qemu.sh https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/create_qemu.sh
@@ -88,34 +128,16 @@ export VM_SYSTEM=debian12
 Creation does not block on cloud-init completion. DHCP reservations and forwarding rules are installed before startup; cloud-init continues in the running guest. Connect once SSH is ready. Monitor initialization with:
 
 ```bash
-tail -f /tmp/qemu-init-<vm_name>.log
+tail -f /tmp/qemu-init-vm1.*.log
 ```
 
-## Inspect and manage VMs
+### Query Batch Creation Info
 
-```bash
-virsh list --all
-virsh console <name>     # Exit with Ctrl+]
-virsh start <name>
-virsh shutdown <name>
-virsh destroy <name>     # Force power off
-virsh reboot <name>
-virsh dominfo <name>
-virsh domifaddr <name>
+Connection information is saved in `/root/vmlog`. View it with:
+
+```shell
+cat /root/vmlog
 ```
-
-Project management script:
-
-```bash
-curl -sSL -o manage_qemu.sh https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/manage_qemu.sh
-chmod +x manage_qemu.sh
-./manage_qemu.sh info all
-./manage_qemu.sh info vm1
-./manage_qemu.sh snapshot vm1 before-upgrade
-./manage_qemu.sh set-resources vm1 2 2048
-```
-
-`info` includes vmlog, VM state, MAC address, IPs and ports. `set-resources` takes CPU cores and memory in MB.
 
 ## Delete one VM
 

@@ -60,15 +60,15 @@ outline: deep
 :::
 
 - 自动开设NAT服务器，默认使用Debian11镜像，也可自定义系统
-- 自动进行内外网端口映射，含22，80，443端口以及其他25个内外网端口号一样的端口
+- 自动进行内外网端口映射，含22，80，443端口以及其他26个内外网端口号一样的端口
 - 生成后需要等待一段时间虚拟机内部配置好网络以及登陆信息，大概需要3分钟
-- 默认开设的网络配置为：22，80，443端口及一个25个端口区间的内外网映射
+- 默认开设的网络配置为：22，80，443端口及一个26个端口区间的内外网映射
 - 可自定义开设的核心数，内存大小，硬盘大小，使用宿主机哪个存储盘，记得自己计算好空闲资源开设
 - 可在命令中指定存储盘位置，默认不指定时为local盘即系统盘，可指定为PVE中显示的挂载盘
 - 开设的CT默认已启用SSH且允许root登陆，且已设置支持使用docker的嵌套虚拟化
 - 容器的相关信息将会存储到对应的容器的NOTE中，可在WEB端查看
 - 如果宿主机自带IPV6子网将自动附加上IPV6网络，但无公网IPV6地址
-- 可选择是否开启独立IPV6，需要宿主机至少有一个/104的子网，最好是一个/64子网
+- 可选择是否开启独立IPV6，需要上游允许使用额外公网地址，并已按[环境安装](pve_install.md)配置对应网关
 
 ### 使用方法
 
@@ -91,6 +91,16 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 ```shell
 # ./buildct.sh CTID 密码 CPU核数 内存 硬盘 SSH端口 80端口 443端口 外网端口起 外网端口止 系统 存储盘 独立IPV6(默认为N)
 ```
+
+内存单位为MB，硬盘单位为GB。最后还可选填第14个参数 `公网IPV4/CIDR` 或 `auto`，也可通过 `PVE_CT_PUBLIC_IPV4` 设置；留空继续使用上面的NAT方式。
+
+填写后会在vmbr0上给容器直接配置公网IPV4，SSH使用22端口，不再创建IPV4端口映射。`auto` 会从宿主机同一子网选择空闲地址，手动指定时要带子网长度，并确认该地址由商家分配且未被占用。例如：
+
+```shell
+./buildct.sh 111 oneclick123 1 512 5 0 0 0 0 0 debian11 local N 203.0.113.10/24
+```
+
+这里的公网地址仅为示例，务必替换成自己的地址。
 
 ### 测试示例
 
@@ -119,7 +129,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | IPV6                     | 无           |
 
 :::tip
-注意这里的CTID仅可使用100到256，其他数字不可用
+注意这里的CTID仅可使用100到256，其他数字不可用。上面的NAT脚本还要求ID不超过254，避免生成无效的IPV4地址。
 :::
 
 ### 不创建入站端口映射
@@ -137,7 +147,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 - 停止CT
 - 删除CT
 - 删除端口映射
-- 重启网络
+- 按需重启正在使用的ndpresponder服务
 - 删除log文件
 
 **下载脚本**
@@ -180,7 +190,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 - 开设的CT默认已启用SSH且允许root登陆，且已设置支持使用docker的嵌套虚拟化
 - 容器的相关信息将会存储到对应的容器的NOTE中，可在WEB端查看
 - 如果宿主机自带IPV6子网将自动附加上IPV6网络，但无公网IPV6地址
-- 可选择是否开启独立IPV6，需要宿主机至少有一个/104的子网，最好是一个/64子网
+- 可选择是否开启独立IPV6，需要上游允许使用额外公网地址，并已按[环境安装](pve_install.md)配置对应网关
 
 国际
 
@@ -200,39 +210,15 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 ### 删除所有CT
 
 - 删除所有CT
-- 删除所有nat的端口映射
-- 重启网络
-- 删除log文件
+- 删除对应的端口映射和连接记录
+- 按需重启正在使用的ndpresponder服务
+
+先按上文下载pve_delete.sh，再执行：
 
 ```shell
-pct list | awk 'NR>1{print $1}' | xargs -I {} sh -c 'pct stop {}; pct destroy {}'
-rm -rf ct*
-if command -v nft >/dev/null 2>&1; then
-	for family in ip ip6 inet; do
-		for table in nat filter; do
-			nft list table "$family" "$table" >/dev/null 2>&1 && nft flush table "$family" "$table"
-		done
-	done
-fi
-if command -v iptables >/dev/null 2>&1; then
-	iptables -t nat -F 2>/dev/null || true
-	iptables -t filter -F 2>/dev/null || true
-fi
-if command -v ip6tables >/dev/null 2>&1; then
-	ip6tables -t nat -F 2>/dev/null || true
-	ip6tables -t filter -F 2>/dev/null || true
-fi
-rm -rf /usr/local/bin/ipv6_nat_rules.sh
-if command -v systemctl >/dev/null 2>&1; then
-	systemctl restart networking.service 2>/dev/null || service networking restart
-	systemctl list-unit-files | grep -q '^ndpresponder.service' && systemctl restart ndpresponder.service
-else
-	service networking restart
-fi
-if command -v iptables-save >/dev/null 2>&1 && command -v iptables-restore >/dev/null 2>&1; then
-	iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
-	iptables-save > /etc/iptables/rules.v4
-fi
+for id in $(pct list | awk 'NR>1{print $1}'); do
+  ./pve_delete.sh "$id" || break
+done
 ```
 
 ## 开设纯IPV6地址的虚拟机
@@ -241,7 +227,7 @@ fi
 
 ### 自动选择IPV6地址无需手动指定
 
-- 纯IPV6指绑定的公共IPV6地址，实际容器仍旧有宿主机的IPV4网络但无外网IPV4端口
+- 只配置IPV6网卡，不配置IPV4地址和外网IPV4端口；有可用公网前缀时分配公网IPV6，否则按当前网关配置回退到NAT66出站
 - 自动检测可用的IPV6区间，对应容器编号的V6地址绑定到容器上
 - 系统的相关信息将会存储到对应的容器的NOTE中，可在WEB端查看
 

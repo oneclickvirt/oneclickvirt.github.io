@@ -44,10 +44,12 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/buildc
 ### Usage
 
 ```
-. /buildct.sh name Cpu_num Memory_size Hard_disk_size SSH_port Extranet_start_port Extranet_stop_port Download_speed Upload_speed Whether_IPV6_is_enabled(Y or N) System(leave blank for debian11)
+./buildct.sh name Cpu_num Memory_size Hard_disk_size SSH_port Extranet_start_port Extranet_stop_port Download_speed Upload_speed Whether_IPV6_is_enabled(Y or N) System(leave blank for debian11) [Template] [Template]
 ```
 
 Memory is in MB, disk size in GB, and download/upload speeds in Mbit. For IPv6, you can provide `Y` or `N`, or leave it empty (default: disabled).
+
+The optional last parameter selects a resource template: `web`, `db`/`database` or `dev`/`development`. It can also be set with `INCUS_TEMPLATE`; empty or `none` skips the template. These presets adjust instance settings; they do not install applications.
 
 If both ```external start port``` and ```external stop port``` are set to `0`, no port-range mapping is created and only SSH is mapped. These fields cannot be empty.
 
@@ -125,7 +127,7 @@ The following command opens **10** containers with prefix **tj**.
 ./init.sh tj 10
 ```
 
-If path issues occur when running `init.sh`, prepend `sudo` and run it from the root directory.
+`init.sh` automatically switches to `/root`. Run it with root privileges.
 
 ## Bulk generation of pure SSH port versions
 
@@ -153,7 +155,7 @@ The last command below opens **10** containers with prefix **tj**.
 ./least.sh tj 10
 ```
 
-If path issues occur when running `least.sh`, prepend `sudo` and run it from the root directory.
+`least.sh` automatically switches to `/root`. Run it with root privileges.
 
 ## Custom Batch Generation of Versions
 
@@ -165,6 +167,7 @@ If you need to batch-generate containers multiple times, you can use the followi
 Command:
 
 ```
+cd /root
 curl -L https://github.com/oneclickvirt/incus/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
 ```
 
@@ -172,17 +175,19 @@ This script can be run multiple times. It appends new containers while inheritin
 
 ## View Batch Container Information
 
-After creation, container information is written to a log file in the current directory in this format:
+After creation, container information is written to `/root/log`. The normal batch version uses this format:
 
 ```shell
-container_1_Name Password SSH_Port Public_Port_Start Public_Port_End
-container_2_Name Password SSH_Port Public_Port_Start Public_Port_End
+container_1_Name SSH_Port Password Public_Port_Start Public_Port_End
+container_2_Name SSH_Port Password Public_Port_Start Public_Port_End
 ```
 
-To view it, print the log file from the current directory:
+The SSH-only version records the container name, SSH port and password. The custom batch version also appends to `/root/log`.
+
+To view the normal batch information, print the log file:
 
 ```shell
-cat log
+cat /root/log
 ```
 
 :::warning

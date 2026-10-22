@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# 安装与卸载 containerd
+# 前言
 
 统一的无交互开关和交互流程见[节点环境的交互与自动化](../oneclickvirt/environment_modes.md)。
 
@@ -28,7 +28,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
 ```
 
-## 安装 containerd 环境
+## 环境安装
 
 ```bash
 bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/containerd/main/containerdinstall.sh)
@@ -70,7 +70,7 @@ bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/containerd/main/
 | CONTAINERD_IPV6_SUBNET_INDEX | 优先选择的 IPv6 CNI 子网序号（从 0 开始；显式设置时不会自动换号） | 1 |
 | NDPRESPONDER_SOURCE_URL | responder 官方镜像不可用或架构不符时用于本地构建的 Git 源码地址 | https://github.com/oneclickvirt/ndpresponder.git |
 
-## 卸载（完整清理）
+## 卸载 containerd 环境
 
 一键卸载 containerd 全套环境，包括所有容器、镜像、CNI 网络、systemd 服务、二进制文件：
 

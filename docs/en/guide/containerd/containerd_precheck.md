@@ -2,17 +2,26 @@
 outline: deep
 ---
 
-# containerd overview and requirements
+# Introduction
 
 This workflow creates Linux containers and does not require KVM. It does not create QEMU virtual machines.
 
-## Overview
+## Project Features
 
 - Installs containerd, runc, nerdctl, CNI and buildkitd using [nerdctl-full](https://github.com/containerd/nerdctl).
 - Loads the project's base images from GitHub Releases archives by default. A registry fallback is attempted only when `CONTAINERD_IMAGE_REGISTRY` is configured.
-- Guest images: Ubuntu 22.04, Debian 12, Alpine, AlmaLinux 9, RockyLinux 9 and OpenEuler 22.03.
-- Architectures: amd64 and arm64.
 - Creates unprivileged containers by default, with port forwarding, IPv6, resource limits and optional host lxcfs resource views.
+
+## Supported Systems
+
+| System | amd64 | arm64 |
+| --- | --- | --- |
+| Ubuntu 22.04 | ✓ | ✓ |
+| Debian 12 | ✓ | ✓ |
+| Alpine latest | ✓ | ✓ |
+| AlmaLinux 9 | ✓ | ✓ |
+| RockyLinux 9 | ✓ | ✓ |
+| OpenEuler 22.03 | ✓ | ✓ |
 
 ## Configuration Requirements
 

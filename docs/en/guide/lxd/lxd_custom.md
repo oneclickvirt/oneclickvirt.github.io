@@ -384,7 +384,7 @@ This method will provide a way to split a /80 out of the IPv6 segment on A and a
 
 | VPS(A) | VPS(B) |
 | --------|--------|
-| one IPv4 address (server_ipv4) | one IPv4 address (clinet_ipv4) |
+| one IPv4 address (server_ipv4) | one IPv4 address (client_ipv4) |
 | one IPv6 subnet | no IPv6 address |
 | Hereafter referred to as server | Hereafter referred to as client |
 
@@ -399,7 +399,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/6in4/main/6in4.sh -o 6in4
 Execute it
 
 ```
-./6in4.sh client_ipv4 <mode_type> <subnet_size> 
+./6in4.sh client_ipv4 [mode_type] [subnet_size]
 ```
 
 | Options | Optional Option 1 | Optional Option 2 | Optional Option 3 |
@@ -409,13 +409,27 @@ Execute it
 
 ```<mode_type>``` only support those three protocols for now, the more advanced the more recommended, no fill in the default is ```sit``` protocol
 
-```<subnet_size>``` as long as it is larger than the original system subnet mask, and is a multiple of 8, if you don't fill it in, it defaults to ```80```.
+```<subnet_size>``` is an integer from 1 to 127 and must not be smaller than the server prefix length. It does not have to be a multiple of 8; the default is ```80```. The script skips host addresses and existing tunnel allocations, and exits if no safe subnet remains.
 
 Remember to replace ```client_ipv4``` with the IPv4 address of the machine you want to attach IPv6 to, and the command you need to execute on the client side will be sent back to you after execution, see the instructions after execution for details.
 
-To prevent you from forgetting to copy the commands, the commands themselves will be written to the ```6in4.log``` file under the current path, you can use ```cat 6in4.log``` to query the commands that need to be executed on the client side
+Client commands are saved to ```/var/log/6in4/6in4_client.log``` by default. View them with:
 
-For copied commands, be sure to select option ``6in4`` in [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) before converting!
+```shell
+cat /var/log/6in4/6in4_client.log
+```
+
+Server commands are saved to ```/var/log/6in4/6in4_server.log```. Set ```SIXIN4_LOG_DIR``` to change the log directory.
+
+Persistence files are generated under ```/var/lib/6in4/persistent/<tunnel_name>/```. For a systemd client, copy ```client-up.sh```, ```client-down.sh```, ```client-user-ipv6.service``` and ```client-install.sh``` into the same directory on the client, then run as root:
+
+```shell
+bash client-install.sh
+```
+
+The helper installs the files under ```/etc/6in4``` and enables ```client-user-ipv6.service```. Check it with ```systemctl status client-user-ipv6.service```. BSD servers also generate BSD scripts; use the files identified by the script output.
+
+If you prefer manual ifupdown configuration instead of the systemd templates, paste the client commands into [https://ipv6tunnel.spiritlhl.top/](https://ipv6tunnel.spiritlhl.top/) and select ``6in4`` to convert them.
 
 Then the page will be refreshed automatically and you need to modify the contents of the```/etc/network/interfaces```file with vim or vi commands, or modify the following commands to add new contents.
 

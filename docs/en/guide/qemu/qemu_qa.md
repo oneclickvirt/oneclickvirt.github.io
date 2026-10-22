@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# Reference and troubleshooting
+# FAQ
 
 ## Images
 

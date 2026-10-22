@@ -2,14 +2,20 @@
 outline: deep
 ---
 
-# Create and manage KubeVirt instances
+# Introduction
 
-## Create one VM
+## Create a Single VM
+
+### Download Script
 
 ```bash
 curl -sSL -o onevm.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/onevm.sh
 chmod +x onevm.sh
-export noninteractive=true
+```
+
+### Usage
+
+```text
 ./onevm.sh <name> <cpu> <memory_gb> <disk_gb> <password> <sshport> <startport> <endport> [system]
 ```
 
@@ -40,16 +46,80 @@ Creation verifies an actual root password SSH login and cloud-init completion. T
 | `centos-stream` | CentOS Stream 9 | upstream; no organization-provided image |
 | `opensuse` | openSUSE Leap 15.5 | pve_kvm_images(opensuse-leap-15) → kvm_images(opensuse-leap-15) → upstream |
 
-Example:
+Positional arguments take precedence over VM_NAME, CPU, MEMORY_GB, DISK_GB, PASSWORD, SSH_PORT, START_PORT, END_PORT and SYSTEM. Resources are created in the `kubevirt-vms` namespace.
+
+### Example
 
 ```bash
 export noninteractive=true
 ./onevm.sh vm1 2 2 20 MyPassword 25000 34975 35000 debian
 ```
 
-Positional arguments take precedence over VM_NAME, CPU, MEMORY_GB, DISK_GB, PASSWORD, SSH_PORT, START_PORT, END_PORT and SYSTEM. Resources are created in the `kubevirt-vms` namespace.
+### Related Operations
 
-## Batch creation
+#### List VMs
+
+```bash
+curl -sSL -o listvms.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/listvms.sh
+chmod +x listvms.sh
+export noninteractive=true
+./listvms.sh
+```
+
+#### Snapshot a VM
+
+```bash
+curl -sSL -o snapshotvm.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/snapshotvm.sh
+chmod +x snapshotvm.sh
+export noninteractive=true
+./snapshotvm.sh vm1 vm1-snapshot-001
+```
+
+- CDI clones `vm1-dv` to a new DataVolume; it does not create another VM.
+- Running VMs are refused by default to avoid an inconsistent disk copy. `ALLOW_RUNNING_SNAPSHOT=true` overrides this check.
+- The script waits for the clone by default. Set `WAIT_SNAPSHOT=false` to return after submission.
+
+#### Resize a VM
+
+```bash
+curl -sSL -o resizevm.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/resizevm.sh
+chmod +x resizevm.sh
+export noninteractive=true
+./resizevm.sh vm1 4 8 40
+```
+
+Arguments are `vmname cpu memory_gb disk_gb`. Leave a value empty to preserve that resource, for example `./resizevm.sh vm1 "" "" 40`.
+
+CPU and memory changes update the VM template and usually require a restart for running VMs. Set `RESTART_VM=true` to restart automatically. Disks can only grow and the StorageClass must support PVC expansion; the guest filesystem may still require manual growth.
+
+#### Delete one VM
+
+```bash
+curl -sSL -o deletevm.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/deletevm.sh
+chmod +x deletevm.sh
+export noninteractive=true
+./deletevm.sh <name>
+```
+
+Snapshot DataVolumes are preserved by default. Set `DELETE_SNAPSHOTS=true` to remove the VM's clones as well.
+
+The VM connection record is removed from vmlog by default. To keep it, use `./deletevm.sh vm1 n` or set `RMLOG=n`; the second argument takes precedence.
+
+#### Management commands
+
+```bash
+kubectl get vm -n kubevirt-vms
+kubectl get vmi -n kubevirt-vms
+kubectl get dv -n kubevirt-vms
+virtctl console <vmname> -n kubevirt-vms   # Exit with Ctrl+]
+virtctl start <vmname> -n kubevirt-vms
+virtctl stop <vmname> -n kubevirt-vms
+virtctl restart <vmname> -n kubevirt-vms
+```
+
+## Batch Create VMs
+
+### Run
 
 ```bash
 curl -sSL -o create_vm.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/create_vm.sh
@@ -77,62 +147,12 @@ export noninteractive=true
 
 Defaults are one VM, prefix `vm`, start number 1, one CPU, 1 GB memory, 10 GB disk, SSH starting at 25000, 26 additional ports per VM starting at 35000, and Ubuntu. PASSWORD may be set explicitly; otherwise the batch generates a password. `AUTO_YES=y` remains an unattended-mode alias.
 
-## List VMs
+### Query Batch Creation Info
 
-```bash
-curl -sSL -o listvms.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/listvms.sh
-chmod +x listvms.sh
-export noninteractive=true
-./listvms.sh
-```
+Connection information is saved in `vmlog` in the creation working directory. View it with:
 
-## Snapshot a VM
-
-```bash
-curl -sSL -o snapshotvm.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/snapshotvm.sh
-chmod +x snapshotvm.sh
-export noninteractive=true
-./snapshotvm.sh vm1 vm1-snapshot-001
-```
-
-- CDI clones `vm1-dv` to a new DataVolume; it does not create another VM.
-- Running VMs are refused by default to avoid an inconsistent disk copy. `ALLOW_RUNNING_SNAPSHOT=true` overrides this check.
-- The script waits for the clone by default. Set `WAIT_SNAPSHOT=false` to return after submission.
-
-## Resize a VM
-
-```bash
-curl -sSL -o resizevm.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/resizevm.sh
-chmod +x resizevm.sh
-export noninteractive=true
-./resizevm.sh vm1 4 8 40
-```
-
-Arguments are `vmname cpu memory_gb disk_gb`. Leave a value empty to preserve that resource, for example `./resizevm.sh vm1 "" "" 40`.
-
-CPU and memory changes update the VM template and usually require a restart for running VMs. Set `RESTART_VM=true` to restart automatically. Disks can only grow and the StorageClass must support PVC expansion; the guest filesystem may still require manual growth.
-
-## Delete one VM
-
-```bash
-curl -sSL -o deletevm.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/deletevm.sh
-chmod +x deletevm.sh
-export noninteractive=true
-./deletevm.sh <name>
-```
-
-Snapshot DataVolumes are preserved by default. Set `DELETE_SNAPSHOTS=true` to remove the VM's clones as well.
-
-## Management commands
-
-```bash
-kubectl get vm -n kubevirt-vms
-kubectl get vmi -n kubevirt-vms
-kubectl get dv -n kubevirt-vms
-virtctl console <vmname> -n kubevirt-vms   # Exit with Ctrl+]
-virtctl start <vmname> -n kubevirt-vms
-virtctl stop <vmname> -n kubevirt-vms
-virtctl restart <vmname> -n kubevirt-vms
+```shell
+cat vmlog
 ```
 
 ## Delete multiple VMs

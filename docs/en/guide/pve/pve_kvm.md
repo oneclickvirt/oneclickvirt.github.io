@@ -40,15 +40,15 @@ Executing the above commands in the opened virtual machine ensures that the IPv6
 
 ## Virtual machines with standalone NAT configuration.
 
-- Automatically deploy NAT servers with the default Debian 10 image, chosen for its minimal footprint.
+- Automatically deploy NAT servers. The single-VM script defaults to Ubuntu 22; you can also choose another system.
 - It's possible to customize the image used through the command, and pre-configured images are available. These images come with storage settings ranging from 2 to 10 GB of disk space. For regular use, **at least 10 GB** of disk space is recommended. You can increase the disk size if certain images fail to start.
 - The command allows for specifying the storage disk location. When not specified, it defaults to the local disk, which is the system disk. It can also be set to a mount disk as displayed in PVE.
 - Recommended custom memory size is 512 MB.
-- Automatic internal and external port mapping, including ports 22, 80, 443, and 25 other port numbers shared between internal and external networks.
+- Automatic internal and external port mapping, including ports 22, 80, 443, and 26 other port numbers shared between internal and external networks.
 - After generation, there's a wait time for the virtual machine's internal cloud-init configuration to establish network and login information. This process takes approximately 5 minutes.
 - Pertinent virtual machine information will be stored in the NOTES section of the corresponding VM on the web interface, accessible for viewing through the web portal.
 - If the host machine has an IPv6 subnet, IPv6 networking will be automatically added. However, there won't be any public IPv6 addresses.
-- Optionally enable or disable standalone IPv6, requires the host to have at least one /64 subnet
+- Standalone IPv6 is optional. The upstream network must allow additional public addresses, and the corresponding gateway must be configured as described in [installation](pve_install.md).
 
 ### Usage Instructions
 
@@ -99,7 +99,7 @@ Below is the information for the example VM that has been set up:
 | IPv6 address        | N              |
 
 :::tip
-Note that only VMIDs from 100 to 256 can be used here, no other numbers can be used.
+Note that only VMIDs from 100 to 256 can be used here, no other numbers can be used. The NAT script above additionally requires an ID no higher than 254 to form a usable IPv4 address.
 :::
 
 ### Create without inbound port mappings
@@ -117,7 +117,7 @@ A failure to write requested port mappings returns an error instead of reporting
 - Stop VM
 - Delete VM
 - Delete port mapping
-- Restart network
+- Restart ndpresponder if the service is in use
 - Delete log files
 
 **Download Script**
@@ -147,14 +147,14 @@ Before initiating the batch creation process, please use the 'screen' command to
 :::
 
 - The batch creation process can be run multiple times to generate multiple virtual machines (VMs).
-- NAT servers are automatically created during the process. If left blank, the default Debian 11 image will be used. You can also customize the image name. Refer to the list of supported images in the previous section.
-- Automatic internal and external port mapping is performed, including ports 22, 80, 443, and other ports with identical internal and external numbers (25 ports in total).
-- After generation, a waiting period is required for the cloud-init configuration of the VM's network and login information to be set up. This process takes approximately 5 minutes. There is a 60-second interval between creating each VM to avoid potential performance issues.
-- The default network configuration for VMs created in batches includes port mappings for ports 22, 80, 443, and a range of 25 ports for internal and external communication.
+- NAT servers are created automatically. In the batch script, an empty system selection defaults to Debian 11 on x86_64 or Ubuntu 22 on ARM. You can choose another image from the supported list above.
+- Automatic internal and external port mapping is performed, including ports 22, 80, 443, and other ports with identical internal and external numbers (26 ports in total).
+- After generation, a waiting period is required for the cloud-init configuration of the VM's network and login information to be set up. This process takes approximately 5 minutes. There is a 30-second interval between creating each VM to avoid potential performance issues.
+- The default network configuration for VMs created in batches includes port mappings for ports 22, 80, 443, and a range of 26 ports for internal and external communication.
 - You can customize the number of CPU cores, memory size, disk size, and which storage disk on the host machine to use for batch creation. Ensure you calculate available resources before proceeding.
 - Relevant information about the virtual machines will be stored in the 'NOTES' section of the corresponding VM on the web interface, where you can view them.
 - If the host machine comes with an IPv6 subnet, an IPv6 network will be automatically attached, although there will be no public IPv6 addresses available.
-- Optionally enable or disable standalone IPv6, requires the host to have at least one /64 subnet.
+- Standalone IPv6 is optional. The upstream network must allow additional public addresses, and the corresponding gateway must be configured as described in [installation](pve_install.md).
 
 Command:
 
@@ -167,39 +167,15 @@ After the setup is completed, you can execute ```cat vmlog``` to view the inform
 ## Delete All Virtual Machines
 
 - Delete all VMs
-- Delete all NAT port mappings
-- Restart the network
-- Delete log files
+- Remove the corresponding port mappings and connection records
+- Restart ndpresponder if the service is in use
+
+Download `pve_delete.sh` as shown above, then run:
 
 ```shell
-for vmid in $(qm list | awk '{if(NR>1) print $1}'); do qm stop $vmid; qm destroy $vmid; rm -rf /var/lib/vz/images/$vmid*; done
-if command -v nft >/dev/null 2>&1; then
-  for family in ip ip6 inet; do
-    for table in nat filter; do
-      nft list table "$family" "$table" >/dev/null 2>&1 && nft flush table "$family" "$table"
-    done
-  done
-fi
-if command -v iptables >/dev/null 2>&1; then
-  iptables -t nat -F 2>/dev/null || true
-  iptables -t filter -F 2>/dev/null || true
-fi
-if command -v ip6tables >/dev/null 2>&1; then
-  ip6tables -t nat -F 2>/dev/null || true
-  ip6tables -t filter -F 2>/dev/null || true
-fi
-if command -v systemctl >/dev/null 2>&1; then
-  systemctl restart networking.service 2>/dev/null || service networking restart
-  systemctl list-unit-files | grep -q '^ndpresponder.service' && systemctl restart ndpresponder.service
-else
-  service networking restart
-fi
-if command -v iptables-save >/dev/null 2>&1 && command -v iptables-restore >/dev/null 2>&1; then
-  iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
-  iptables-save > /etc/iptables/rules.v4
-fi
-rm -rf vmlog
-rm -rf vm*
+for id in $(qm list | awk 'NR>1{print $1}'); do
+  ./pve_delete.sh "$id" || break
+done
 ```
 
 :::tip
@@ -228,7 +204,7 @@ For example, if the current host address is ```1.1.1.32``` and then ```1.1.1.33`
 - Automatically detect available IP ranges. Use ping to identify unallocated IP addresses and select one to bind to the virtual machine.
 - If the host machine has an accompanying IPv6 subnet, there will be an option to attach an IPv6 address.
 - Relevant system information will be stored in the corresponding virtual machine's NOTE section, accessible for viewing on the web interface.
-- Optionally enable or disable standalone IPv6, requires the host to have at least one /64 subnet.
+- Standalone IPv6 is optional. The upstream network must allow additional public addresses, and the corresponding gateway must be configured as described in [installation](pve_install.md).
 - The automatically appended IPv4 address is within the **same subnet** as the host's IPv4 address (IP address prefix is the same)
 - Inbound and outbound traffic in and out of the VM goes to the additional IPv4 address of the binding
 
@@ -280,7 +256,7 @@ Note that only VMIDs from 100 to 256 can be used here, no other numbers can be u
 - If the host machine comes with an IPv6 subnet, you can choose whether to add an IPv6 address additionally.
 - If the vendor has provided an IPv4 address and subnet length, please carefully compare and write the parameters in the command format shown below.
 - Relevant system information will be stored in the NOTE of the corresponding virtual machine and can be viewed on the WEB end.
-- Optionally enable or disable standalone IPv6, requires the host to have at least one /64 subnet.
+- Standalone IPv6 is optional. The upstream network must allow additional public addresses, and the corresponding gateway must be configured as described in [installation](pve_install.md).
 - Manually appended IPv4 addresses that are in **different subnets** from the host's IPv4 address (different IP address prefixes) will use the host's IP address as the gateway
 - Manually appended IPv4 addresses that are within the **same subnet** as the host's IPv4 address (same IP address prefix) will use the host's gateway as the gateway
 - Optionally specify the MAC address of the virtual machine
@@ -302,7 +278,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_
 **Meaning of each parameter**
 
 ```shell
-# ./buildvm_manual_ip.sh VMID USERNAME PASSWORD CPU_CORES MEMORY_SIZE_GB STORAGE_SIZE_GB OS STORAGE_DISK IPV4_ADDRESS ATTACH_IPV6(defaults to N) MAC_ADDRESS(Optional whether to specify)
+# ./buildvm_manual_ip.sh VMID USERNAME PASSWORD CPU_CORES MEMORY_SIZE_MB STORAGE_SIZE_GB OS STORAGE_DISK IPV4_ADDRESS ATTACH_IPV6(defaults to N) MAC_ADDRESS(Optional whether to specify)
 ```
 
 :::tip
@@ -340,7 +316,7 @@ Note that only VMIDs from 100 to 256 can be used here, no other numbers can be u
 
 - You need to add the extra IPv4 address to ```vmbr0``` in ```/etc/network/interfaces``` (note that ```chattr -i``` unlocks the file and then ```chattr +i``` locks it back).
 - Other features are similar to opening a NAT-enabled VM, except that here the mapping is no longer partial port mapping or mapping to the host's IPv4 address, but full-port one-by-one mapping to additional IPv4 addresses
-- Traffic coming into the VM from outside the VM goes to the bound additional IPv4 address, and traffic going out of the VM goes to the original host's IPv4 address
+- Incoming and outgoing traffic uses the bound additional IPv4 address; the script configures DNAT and SNAT automatically
 
 :::tip
 Make sure you can SSH into the host with the extra IPv4 address before opening, but ```curl ip.sb``` still shows the original host IPv4 address.
@@ -356,7 +332,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_
 **Meaning of each parameter**
 
 ```shell
-# ./buildvm_fullnat_ip.sh VMID USERNAME PASSWORD CPU_CORES MEMORY_SIZE_GB STORAGE_SIZE_GB OS STORAGE_DISK IPV4_ADDRESS ATTACH_IPV6(defaults to N)
+# ./buildvm_fullnat_ip.sh VMID USERNAME PASSWORD CPU_CORES MEMORY_SIZE_MB STORAGE_SIZE_GB OS STORAGE_DISK IPV4_ADDRESS ATTACH_IPV6(defaults to N)
 ```
 
 :::tip
@@ -391,17 +367,13 @@ Note that only VMIDs from 100 to 256 can be used here, no other numbers can be u
 
 #### Incoming and outgoing traffic goes to the bound IPv4 address
 
-execute
+The current script adds an individual SNAT rule for each VM. Keep the shared NAT subnet MASQUERADE rule; ordinary NAT VMs and VMs with additional IPv4 addresses can coexist.
 
+Run this inside the VM to check its outbound address. It should show the bound additional IPv4 address:
+
+```shell
+curl -4 ip.sb
 ```
-line="-A POSTROUTING -s 172.16.1.0\/24 -o vmbr0 -j MASQUERADE"
-sed -i "\|$line|d" /etc/iptables/rules.v4
-service netfilter-persistent restart
-```
-
-This will cause the host to lose the ability to open VMs/containers with NAT that do not have a separate IPv4 address, so be careful!
-
-After this, You will only be able to open VMs with separate IPv4 addresses.
 
 ## Creating Virtual Machines with Pure IPv6 Addresses
 
@@ -409,7 +381,7 @@ The prerequisite is that the host provides an IPv6 subnet instead of just a stan
 
 ### Automatic Selection of IPv6 Addresses without Manual Specification
 
-- Pure IPv6 refers to a bound public IPv6 address, where the actual VM still has the host's IPv4 network but no external IPv4 port
+- Only IPv6 networking is configured, without an IPv4 address or inbound IPv4 ports. A usable public prefix provides public IPv6; otherwise, the current gateway configuration falls back to NAT66 outbound access
 - Automatically detect available IPv6 ranges and bind the corresponding V6 address, based on the virtual machine's number, to the virtual machine.
 - System-related information will be stored in the NOTES section of the respective virtual machine, accessible for viewing on the web interface.
 
@@ -424,7 +396,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildvm_
 **Meaning of each parameter**
 
 ```shell
-# ./buildvm_onlyv6.sh VMID username password CPU_cores memory_GB disk_GB operating_system storage_disk
+# ./buildvm_onlyv6.sh VMID username password CPU_cores memory_MB disk_GB operating_system storage_disk
 ```
 
 :::tip

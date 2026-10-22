@@ -2,17 +2,26 @@
 outline: deep
 ---
 
-# containerd 使用前准备
+# 前言
 
 本方案创建 Linux 容器，不要求 KVM，不用于创建 QEMU 虚拟机。
 
-## 说明
+## 项目特点
 
 - 使用 [nerdctl-full](https://github.com/containerd/nerdctl) 安装 containerd + runc + nerdctl + CNI + buildkitd 全套组件
 - 使用本仓库自编译的基础镜像，默认从 GitHub Releases 离线包加载；如配置 `CONTAINERD_IMAGE_REGISTRY`，则在离线包不可用时回退尝试该 registry
-- 支持系统：Ubuntu 22.04、Debian 12、Alpine、AlmaLinux 9、RockyLinux 9、OpenEuler 22.03
-- 支持架构：amd64、arm64
 - 默认创建非特权容器，支持端口映射、IPv6 和资源限制；宿主机安装 lxcfs 后可挂载容器内的资源视图。
+
+## 支持的系统
+
+| 系统 | amd64 | arm64 |
+| --- | --- | --- |
+| Ubuntu 22.04 | ✓ | ✓ |
+| Debian 12 | ✓ | ✓ |
+| Alpine latest | ✓ | ✓ |
+| AlmaLinux 9 | ✓ | ✓ |
+| RockyLinux 9 | ✓ | ✓ |
+| OpenEuler 22.03 | ✓ | ✓ |
 
 ## 配置要求
 

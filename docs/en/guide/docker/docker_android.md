@@ -39,7 +39,7 @@ For remote desktop, click on ```H264 Converter``` to initiate the redirection.
 
 **Please note that currently only one Android container can be generated. Do not generate duplicates. If you need to replace the version, please execute the subsequent commands after deletion.**
 
-**Current limitation: after deployment, host reboot behavior is not guaranteed. In some environments, Android port mappings may fail to recover automatically after reboot. Validate this in your own environment before production use.**
+The Android container uses `--restart unless-stopped`. On systemd hosts, `ws-scrcpy.service` is enabled to restore web access. After reboot, check `docker ps -a`, `systemctl status ws-scrcpy.service` and nginx. On hosts without systemd, the web service runs with nohup and needs a separate startup arrangement.
 
 **Deletion:**
 

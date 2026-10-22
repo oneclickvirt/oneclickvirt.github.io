@@ -18,21 +18,16 @@ Feel free to give the project a ```Star``` for free support!-->[https://github.c
 
 Use the latest stable Debian release whenever possible.
 
-**Warning: This project only supports servers with a dedicated public IPv4 address**
+**One-click PVE installation requires a fixed host IPv4 address, either public or private**
 
-This project relies on a fixed IPv4 address for network allocation and does not support the following scenarios:
-
-* Environments with dynamic IPv4 (e.g., servers whose IP address changes after reboot)
-* Environments without a dedicated public IPv4 address (e.g., accessing the internet via home router NAT and requiring DHCP to obtain an address)
-
-If your server does not have a publicly routable static IPv4 address, please do not use this project.
+The installer can use a public or private IPv4 as the main PVE address for hosts, certificates and the web interface. An address that changes after reboot is unsuitable; a private address must also be reachable from your management network.
 
 The one-click installation script currently targets Debian systems only. Non-Debian systems are not supported through the APT workflow in this project. For other systems, use ISO installation or the manual/custom methods described in the FAQ section.
 
-- System requirements: Debian 8+
+- System requirements: x86_64 supports Debian 9/10/11/12/13, with Debian 12+ recommended; ARM64 uses Debian/Armbian 12 or 13, and riscv64 uses the Debian 13 PXVIRT track
 
 :::tip
-Debian 11 was historically the most conservative choice for this workflow. If your environment supports it, newer stable Debian releases can also be used.
+Debian 12+ is recommended. Debian 11 has caused network restart issues on some dedicated servers.
 :::
 
 - Hardware requirements: >= 2 CPU cores, >= 2 GB RAM, >= 20 GB disk on ``x86_64`` or ``arm`` architecture

@@ -2,9 +2,9 @@
 outline: deep
 ---
 
-# KubeVirt 使用前准备
+# 前言
 
-## 说明
+## 项目特点
 
 - 使用 K3s 作为轻量级 Kubernetes，自动安装单节点集群
 - 使用 KubeVirt 提供虚拟机能力（基于 KVM/QEMU）
@@ -12,9 +12,12 @@ outline: deep
 - 新建虚拟机通过 Kubernetes NodePort Service 实现稳定的 SSH 及额外 TCP/UDP 端口映射；旧映射可用 `update-port-rules.sh` 迁移
 - 支持系统：Ubuntu 22.04/24.04, Debian 11/12, AlmaLinux 9, RockyLinux 9, CentOS 7, CentOS Stream 8/9, openSUSE Leap 15.5
 - 支持架构：amd64 (x86_64)
-- 宿主机系统支持：Ubuntu 20.04/22.04/24.04，Debian 11/12
 
-## 环境要求
+## 支持的系统（宿主机）
+
+Ubuntu 20.04/22.04/24.04、Debian 11/12，新安装建议使用仍在维护的版本。当前脚本仅支持amd64/x86_64架构，其他宿主机系统会提示未经测试并尝试继续，需要自行验证。
+
+## 配置要求
 
 - 推荐宿主机支持 KVM 虚拟化（`/dev/kvm` 可用）；加载模块后仍缺少设备时，安装器启用较慢的 QEMU TCG 模拟
 - 最低配置：2 核 CPU，4GB RAM，20GB 可用磁盘

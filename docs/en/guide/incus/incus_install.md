@@ -93,7 +93,7 @@ If you need to specify the path of a non-system disk as the default pool, then y
 If the corresponding disk has 18 Gigabytes of free hard disk space in addition to the occupied space and you want to open a 15 Gigabyte storage pool, follow the command line prompts to enter ```15```.
 
 :::tip
-The process **may** require a **manual reboot** to load storage drivers into the kernel. At the end of installation, the server may **automatically reboot**. The first full reboot can take about 400-500 seconds.
+Installation continues when the storage driver is available or can be loaded; otherwise, it keeps a retry marker and tries another backend. Interactive installation waits 15 seconds and **automatically reboots the server** when complete. With `noninteractive=true`, the automatic reboot is skipped; arrange it yourself. The first startup may take 400-500 seconds.
 :::
 
 :::warning

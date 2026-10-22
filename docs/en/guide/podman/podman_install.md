@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# Install and uninstall Podman
+# Preface
 
 The shared unattended switch and interactive workflow are described in [environment modes](../oneclickvirt/environment_modes.md).
 
@@ -20,7 +20,7 @@ It is recommended to allocate virtual memory twice the size of your physical mem
 curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
 ```
 
-## Install Podman
+## Environment Setup
 
 ```bash
 bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/podman/main/podmaninstall.sh)
@@ -48,7 +48,7 @@ bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/podman/main/podm
 | PODMAN_IPV6_SUBNET | Explicit routed public IPv6 subnet; it must exclude addresses assigned to the host | selected from a local prefix |
 | NDPRESPONDER_SOURCE_URL | Git source used to build the responder if its image is unavailable or has the wrong architecture | https://github.com/oneclickvirt/ndpresponder.git |
 
-## Uninstall
+## Uninstall Podman Environment
 
 Remove the Podman environment, including all containers, images, networks and auxiliary files:
 

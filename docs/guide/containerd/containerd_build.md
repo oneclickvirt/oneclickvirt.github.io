@@ -2,20 +2,21 @@
 outline: deep
 ---
 
-# containerd 实例开设与管理
+# 前言
 
-## 开设单个容器
+## 单独开设
+
+### 下载脚本
 
 ```bash
-# 下载脚本
 wget -q https://raw.githubusercontent.com/oneclickvirt/containerd/main/scripts/onecontainerd.sh
 chmod +x onecontainerd.sh
+```
 
-# 用法:
-# ./onecontainerd.sh <name> <cpu> <memory_mb> <password> <sshport> <startport> <endport> [ipv6:y/n] [system] [disk_gb]
+### 使用方法
 
-# 示例: 创建名为 ct1 的 Debian 容器，1核 512MB，SSH端口25000，额外端口34975-35000
-./onecontainerd.sh ct1 1 512 "" 25000 34975 35000 n debian 0
+```text
+./onecontainerd.sh <name> <cpu> <memory_mb> <password> <sshport> <startport> <endport> [ipv6:y/n] [system] [disk_gb]
 ```
 
 创建前会检查容器名、端口范围和宿主机端口占用，避免重复映射同一宿主机端口。
@@ -56,7 +57,37 @@ chmod +x onecontainerd.sh
 | CONTAINERD_IMAGE_REGISTRY | 可选回退镜像仓库；设置后脚本会在 Releases 下载失败时拉取 `<registry>:<system>` 和 `<registry>:<system>-<arch>` | unset |
 | CONTAINERD_IMAGE_RELEASE_BASE | Releases 离线包基础地址 | https://github.com/oneclickvirt/containerd/releases/download |
 
-## 批量开设容器
+### 示例
+
+```bash
+# 示例: 创建名为 ct1 的 Debian 容器，1核 512MB，SSH端口25000，额外端口34975-35000
+./onecontainerd.sh ct1 1 512 "" 25000 34975 35000 n debian 0
+```
+
+### 相关操作
+
+```bash
+nerdctl ps -a                  # 查看所有容器
+nerdctl exec -it <name> bash   # 进入容器（bash 系统）
+nerdctl exec -it <name> sh     # 进入容器（alpine）
+nerdctl logs <name>            # 查看容器日志
+nerdctl rm -f <name>           # 删除单个容器
+nerdctl images                 # 查看所有镜像
+nerdctl rmi <image>            # 删除镜像
+```
+
+在本仓库检出目录中运行辅助管理脚本：
+
+```bash
+bash scripts/containerd_manage.sh stats [container]
+bash scripts/containerd_manage.sh snapshot <container> [image]
+bash scripts/containerd_manage.sh backup <container> [output.tar]
+bash scripts/containerd_manage.sh version-check [system]
+```
+
+## 批量开设
+
+### 运行
 
 ```bash
 wget -q https://raw.githubusercontent.com/oneclickvirt/containerd/main/scripts/create_containerd.sh
@@ -85,28 +116,7 @@ export CONTAINERD_CONTAINER_IPV6=n
 ./create_containerd.sh
 ```
 
-## 查看与管理容器
-
-```bash
-nerdctl ps -a                  # 查看所有容器
-nerdctl exec -it <name> bash   # 进入容器（bash 系统）
-nerdctl exec -it <name> sh     # 进入容器（alpine）
-nerdctl logs <name>            # 查看容器日志
-nerdctl rm -f <name>           # 删除单个容器
-nerdctl images                 # 查看所有镜像
-nerdctl rmi <image>            # 删除镜像
-```
-
-在本仓库检出目录中运行辅助管理脚本：
-
-```bash
-bash scripts/containerd_manage.sh stats [container]
-bash scripts/containerd_manage.sh snapshot <container> [image]
-bash scripts/containerd_manage.sh backup <container> [output.tar]
-bash scripts/containerd_manage.sh version-check [system]
-```
-
-## 连接记录
+### 查询批量开设的信息
 
 在创建时的工作目录执行 `cat ctlog`，每行格式为：
 
@@ -125,7 +135,7 @@ nerdctl ps -aq | xargs -r nerdctl rm -f
 nerdctl images -q | xargs -r nerdctl rmi -f
 ```
 
-## 宿主机重启与自动启动
+## 宿主机重启后重启所有容器
 
 新建容器已设置 nerdctl `--restart always`，需保持 containerd 服务启用。旧容器或停止的容器可手动恢复：
 

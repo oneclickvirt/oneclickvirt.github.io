@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# Install and uninstall containerd
+# Preface
 
 The shared unattended switch and interactive workflow are described in [environment modes](../oneclickvirt/environment_modes.md).
 
@@ -20,7 +20,7 @@ It is recommended to allocate virtual memory twice the size of your physical mem
 curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
 ```
 
-## Install containerd
+## Environment Setup
 
 ```bash
 bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/containerd/main/containerdinstall.sh)
@@ -60,7 +60,7 @@ bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/containerd/main/
 | CONTAINERD_IPV6_SUBNET_INDEX | Preferred subnet index, starting at 0; explicit values are not automatically changed | 1 |
 | NDPRESPONDER_SOURCE_URL | Git source used for a local responder build when its image is unavailable or has the wrong architecture | https://github.com/oneclickvirt/ndpresponder.git |
 
-## Uninstall
+## Uninstall containerd Environment
 
 Remove the full containerd environment, including containers, images, CNI networks, systemd services and binaries:
 

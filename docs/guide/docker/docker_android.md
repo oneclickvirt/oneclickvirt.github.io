@@ -46,7 +46,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 **暂时只支持生成一个安卓容器，勿要重复生成，如需替换版本请执行后续命令删除后再次开设**
 
-**暂时只支持开设后一直使用，不可重启服务器，重启后可能无法自重启映射成功，自测**
+Android容器已设置 `--restart unless-stopped`；systemd宿主机会启用 `ws-scrcpy.service` 恢复网页服务。重启后可查询 `docker ps -a`、`systemctl status ws-scrcpy.service` 和nginx状态；非systemd环境的网页服务使用nohup启动，需自行设置开机恢复。
 
 **删除**
 

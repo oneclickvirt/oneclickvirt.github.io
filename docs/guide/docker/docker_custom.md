@@ -16,10 +16,10 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/a
 
 ## 一键开设Firefox浏览器的容器
 
-- 已设置崩溃自启
+- 已设置浏览器进程保活（`KEEP_APP_RUNNING=1`）
 - 已设置带中文字体
 - 自带web的校验，可自设置密码
-- 可自定义容器最大的内存占用
+- 可自定义容器的共享内存大小，非容器总内存上限
 - 可选是否开启VNC端口，默认不开启
 - 无需考虑是否支持嵌套虚拟化和服务器的架构
 - 不支持声音映射，无论是WEB端还是VNC端都无法传输声音
@@ -52,7 +52,7 @@ docker rmi jlesage/firefox
 
 - 已设置崩溃自启
 - 自带web的校验，可自设置密码
-- 可自定义容器最大的内存占用
+- 可自定义容器的共享内存大小，非容器总内存上限
 - 无需考虑是否支持嵌套虚拟化和服务器的架构
 - 支持声音映射
 
@@ -84,6 +84,7 @@ docker stop chromium_${PORT}
 docker rm -f chromium_${PORT}
 rm -rf /usr/local/bin/config_${PORT}
 rm -rf /usr/local/bin/password_${PORT}
+rm -rf /usr/local/bin/username_${PORT}
 docker rmi lscr.io/linuxserver/chromium
 ```
 
@@ -100,7 +101,7 @@ docker rmi lscr.io/linuxserver/chromium
 - 已设置崩溃自启
 - 已设置带中文字体
 - 自带web的校验，可自设置用户名和密码
-- 可自定义容器最大的内存占用
+- 可自定义容器的共享内存大小，非容器总内存上限
 - 无需考虑是否支持嵌套虚拟化和服务器的架构
 - 支持声音映射，WEB端可传输声音
 
@@ -110,7 +111,7 @@ docker rmi lscr.io/linuxserver/chromium
 
 **开设**
 
-开设后默认的用户名是```onew```，密码是```oneclick```，默认的内存最大占用是2GB
+开设后默认的用户名是```onew```，密码是```oneclick```，默认的共享内存大小是2GB
 
 默认的http协议的web端口是```3004```，默认的https协议的web端口是```3005```，开设后打开对应协议的```本机IPV4:端口```即可
 

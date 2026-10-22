@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# 安装与卸载 QEMU/KVM
+# 前言
 
 统一的无交互开关和交互流程见[节点环境的交互与自动化](../oneclickvirt/environment_modes.md)。
 
@@ -38,7 +38,7 @@ export noninteractive=true
 
 开启后，脚本不会等待人工输入：安装和批量创建会使用默认值或已传入的参数；删除和卸载会把该变量视为明确确认。各脚本原有的专用环境变量（如 `VM_COUNT`、`QEMU_FORCE_DELETE`、`QEMU_FORCE_UNINSTALL`）仍然兼容。
 
-## 安装 QEMU/KVM 环境
+## 环境安装
 
 ```bash
 bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuinstall.sh)
@@ -77,7 +77,7 @@ bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuin
 | `delete_qemu.sh` | `VM_NAME` | 要删除的虚拟机名 | `vm1` |
 | `delete_qemu.sh` | `QEMU_FORCE_DELETE` | 跳过删除确认 | `yes` |
 
-## 卸载（完整清理）
+## 卸载 QEMU/KVM 环境
 
 一键卸载 QEMU/KVM 全套环境，包括所有虚拟机、磁盘镜像、网络配置、systemd 服务、软件包：
 
@@ -96,6 +96,7 @@ export QEMU_FORCE_UNINSTALL=yes
 bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuuninstall.sh)
 
 # 方式二：命令行参数
+curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuuninstall.sh -o qemuuninstall.sh
 bash qemuuninstall.sh -y
 ```
 

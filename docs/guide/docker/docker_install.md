@@ -39,8 +39,8 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/spiritLHLS/a
 - 检测系统环境，安装对应组件
 - 安装docker和docker-compose，这里有判断为国际服务器还是国内服务器，自动安装对应源的docker
 - 下载默认需要的一些配置脚本，设置默认的网络配置
-- 若检测到 IPv6 地址且子网掩码大于或等于 /112，则自动配置 Docker 的 IPv6 网络。
-- 满足上述条件时，会创建 `ndpresponder` 和 `radvd` 容器，使 IPv6 分配支持 NDP 广播和自动分配。
+- 检测本机公网IPV6前缀，创建隔离的ULA网桥；有可用前缀时，容器启动后按需附加公网/128地址，需上游支持路由或NDP。
+- 只有单个公网/128或无法安全使用前缀时，回退到NAT66出站。以太网上联需要兼容且健康的ndpresponder，非以太网隧道不需要。
 - 支持x86_64和ARM架构的服务器
 - 安装过程中会要求你输入一些选项，选择Docker安装路径，选择Docker安装是否可限制硬盘
 - 如需无交互安装，统一使用 `export noninteractive=true` 指定无交互模式，脚本会按默认策略处理可选项

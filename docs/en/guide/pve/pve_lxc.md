@@ -61,15 +61,15 @@ Before creating containers, use the 'screen' command to run them in the backgrou
 :::
 
 - Automatically create NAT servers using the default Debian 11 image, or customize the system image as needed.
-- Automatically perform internal and external network port mapping, including ports 22, 80, 443, and 25 additional ports with identical numbers for both internal and external networks.
+- Automatically perform internal and external network port mapping, including ports 22, 80, 443, and 26 additional ports with identical numbers for both internal and external networks.
 - After generation, allow some time for the virtual machine to configure its internal network and login information. This process takes approximately 3 minutes.
-- The default network configuration includes port mappings for 22, 80, 443, and a range of 25 ports for both internal and external networks.
+- The default network configuration includes port mappings for 22, 80, 443, and a range of 26 ports for both internal and external networks.
 - Customize the number of cores, memory size, disk size, and the storage disk on the host machine for allocation. Ensure that you calculate available resources before creating containers.
 - Optionally specify the storage disk location in the command. When not specified, it defaults to the local disk, which is the system disk. Alternatively, you can specify a mount disk as displayed in PVE.
 - The created containers are enabled with SSH by default, allowing root login. They are also configured to support nested virtualization for Docker.
 - Relevant container information will be stored in the respective container's notes, accessible through the web interface.
 - If the host machine has an IPv6 subnet, IPv6 networking will be automatically attached, but no public IPv6 addresses will be provided.
-- Optionally enable or disable standalone IPv6, requires the host to have at least one /64 subnet
+- Standalone IPv6 is optional. The upstream network must allow additional public addresses, and the corresponding gateway must be configured as described in [installation](pve_install.md).
 
 ### Usage Instructions
 
@@ -84,6 +84,16 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/pve/main/scripts/buildct.
 ```shell
 # ./buildct.sh CTID Password Number_of_CPU_Cores Memory Disk SSH_Port Port_80 Port_443 Start_Public_Port End_Public_Port System Storage_Disk Independent_IPV6_address(leave default N blank)
 ```
+
+Memory is in MB and disk size is in GB. An optional 14th argument accepts a public IPv4/CIDR or `auto`; `PVE_CT_PUBLIC_IPV4` can also set it. Leave it empty to keep the NAT workflow above.
+
+When set, the container receives the public IPv4 directly on vmbr0 and uses SSH port 22, without IPv4 port mappings. `auto` selects a free address in the host subnet. A manually supplied address must include its prefix length, be assigned by your provider and be unused. For example:
+
+```shell
+./buildct.sh 111 oneclick123 1 512 5 0 0 0 0 0 debian11 local N 203.0.113.10/24
+```
+
+The public address is an example; replace it with your own.
 
 ### Test Example
 
@@ -112,7 +122,7 @@ Here is the information for the created example CT:
 | IPv6 address        | N              |
 
 :::tip
-Note that only CTIDs from 100 to 256 can be used here, no other numbers can be used.
+Note that only CTIDs from 100 to 256 can be used here, no other numbers can be used. The NAT script above additionally requires an ID no higher than 254 to form a usable IPv4 address.
 :::
 
 ### Create without inbound port mappings
@@ -130,7 +140,7 @@ A failure to write requested port mappings returns an error instead of reporting
 - Stop CT
 - Delete CT
 - Delete Port Mapping
-- Restart Network
+- Restart ndpresponder if the service is in use
 - Delete Log Files
 
 **Download Script**
@@ -165,7 +175,7 @@ Before initiating the creation process, it's recommended to use the 'screen' com
 - The created containers have SSH enabled by default, allowing root login. Additionally, they are configured to support nested virtualization for Docker usage.
 - Relevant information about the containers will be stored in the corresponding container's notes, which can be viewed on the web interface.
 - If the host machine has an IPv6 subnet, it will be automatically assigned to the containers. However, public IPv6 addresses will not be provided.
-- Optionally enable or disable standalone IPv6, requires the host to have at least one /64 subnet.
+- Standalone IPv6 is optional. The upstream network must allow additional public addresses, and the corresponding gateway must be configured as described in [installation](pve_install.md).
 
 ### Usage Instructions
 
@@ -180,39 +190,15 @@ After the setup is complete, you can execute ```cat ctlog``` to view the informa
 ### Delete All CT
 
 - Delete all CTs
-- Delete port mappings for all NATs
-- Restart the network
-- Delete log files
+- Remove the corresponding port mappings and connection records
+- Restart ndpresponder if the service is in use
+
+Download `pve_delete.sh` as shown above, then run:
 
 ```shell
-pct list | awk 'NR>1{print $1}' | xargs -I {} sh -c 'pct stop {}; pct destroy {}'
-rm -rf ct*
-if command -v nft >/dev/null 2>&1; then
-	for family in ip ip6 inet; do
-		for table in nat filter; do
-			nft list table "$family" "$table" >/dev/null 2>&1 && nft flush table "$family" "$table"
-		done
-	done
-fi
-if command -v iptables >/dev/null 2>&1; then
-	iptables -t nat -F 2>/dev/null || true
-	iptables -t filter -F 2>/dev/null || true
-fi
-if command -v ip6tables >/dev/null 2>&1; then
-	ip6tables -t nat -F 2>/dev/null || true
-	ip6tables -t filter -F 2>/dev/null || true
-fi
-rm -rf /usr/local/bin/ipv6_nat_rules.sh
-if command -v systemctl >/dev/null 2>&1; then
-	systemctl restart networking.service 2>/dev/null || service networking restart
-	systemctl list-unit-files | grep -q '^ndpresponder.service' && systemctl restart ndpresponder.service
-else
-	service networking restart
-fi
-if command -v iptables-save >/dev/null 2>&1 && command -v iptables-restore >/dev/null 2>&1; then
-	iptables-save | awk '{if($1=="COMMIT"){delete x}}$1=="-A"?!x[$0]++:1' | iptables-restore
-	iptables-save > /etc/iptables/rules.v4
-fi
+for id in $(pct list | awk 'NR>1{print $1}'); do
+  ./pve_delete.sh "$id" || break
+done
 ```
 
 ## Creating Virtual Machines with Pure IPv6 Addresses
@@ -221,7 +207,7 @@ The premise is that the host provides an IPv6 subnet rather than a standalone IP
 
 ### Automatic Selection of IPv6 Addresses, No Manual Configuration Needed
 
-- Pure IPv6 refers to a bound public IPv6 address, where the actual container still has the host's IPv4 network but no external IPv4 port
+- Only IPv6 networking is configured, without an IPv4 address or inbound IPv4 ports. A usable public prefix provides public IPv6; otherwise, the current gateway configuration falls back to NAT66 outbound access
 - Automatically detect available IPv6 ranges and bind the corresponding V6 address based on the container number to the container.
 - Relevant system information will be stored in the NOTES of the corresponding container, accessible for viewing on the web interface.
 

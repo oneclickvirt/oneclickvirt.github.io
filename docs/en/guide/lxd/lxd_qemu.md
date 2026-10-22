@@ -43,7 +43,7 @@ CPU cores must be less than or equal to the host machine's cores. Memory size is
 
 If both ```ExternalStartPort``` and ```ExternalEndPort``` are set to 0, no external port range mapping will be performed - only the basic SSH port will be mapped. Note that these ```cannot be empty``` - set them to 0 if no mapping is needed.
 
-Supports custom server systems. When left empty, debian13 is used by default. Note that the parameter should be system name + version number.
+Supports custom server systems. When left empty, debian11 is used by default. Note that the parameter should be system name + version number.
 
 Except for Alpine systems, all other systems require disk size greater than 6G, otherwise the system won't start, cannot initialize and function, and will crash during the setup process.
 

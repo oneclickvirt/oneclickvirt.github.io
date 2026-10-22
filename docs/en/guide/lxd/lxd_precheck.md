@@ -33,7 +33,7 @@ PS: If the hardware resources are even worse, virtualization is not supported, y
 
 - Set up both TCP and UDP forwarding, in addition to SSH ports, other mapping intranet and extranet ports are the same.
 
-- Support for docker nested virtualization of open LXC containers has been set up, and the default normal version and pure probe version use the debian11 system.
+- Support for docker nested virtualization of open LXC containers has been set up, and the default normal version and pure probe version use the debian12 system.
 
 - lxcfs has been set to be enabled by default, so that querying resources within a container uses the configured view rather than the host's view
 

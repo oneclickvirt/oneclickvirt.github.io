@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# Install and uninstall KubeVirt
+# Introduction
 
 The shared unattended switch and interactive workflow are described in [environment modes](../oneclickvirt/environment_modes.md).
 
@@ -22,7 +22,7 @@ curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o 
 
 Kubelet swap handling depends on the K3s configuration. Check compatibility before enabling swap; it does not replace the minimum RAM requirement.
 
-## Install KubeVirt
+## Environment Installation
 
 ```bash
 export noninteractive=true
@@ -75,7 +75,7 @@ These variables provide local inputs for the named installer stages. Cluster and
 | `RESTART_VM` | Restart after changing VM resources | false |
 | `SHOW_PASSWORD` | Show passwords available in VM annotations or local vmlog | false |
 
-## Uninstall
+## Uninstall KubeVirt Environment
 
 This removes the KubeVirt/K3s environment and its workloads. Back up data first; `noninteractive=true` skips confirmation.
 

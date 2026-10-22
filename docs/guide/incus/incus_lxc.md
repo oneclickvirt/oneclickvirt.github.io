@@ -46,10 +46,12 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 ### 使用方法
 
 ```
-./buildct.sh 容器名称 CPU核数 内存大小 硬盘大小 SSH端口 外网起端口 外网止端口 下载速度 上传速度 是否启用IPV6(Y or N) 系统(留空则为debian11)
+./buildct.sh 容器名称 CPU核数 内存大小 硬盘大小 SSH端口 外网起端口 外网止端口 下载速度 上传速度 是否启用IPV6(Y or N) 系统(留空则为debian11) [资源模板] [资源模板]
 ```
 
 CPU核数需小于或等于宿主机核数；内存单位为 MB，硬盘单位为 GB，下载/上传速度单位为 Mbit。是否启用 IPv6 可填 Y 或 N，也可留空（默认不开启）。
+
+最后可选填资源模板，支持 `web`、`db`/`database`、`dev`/`development`，也可用 `INCUS_TEMPLATE` 指定；留空或填写 `none` 则不使用模板。模板只调整实例配置，不会安装应用。
 
 如果```外网起端口```和```外网止端口```都设置为 0，则不做区间外网端口映射，只映射基础 SSH 端口。注意这两个参数不能为空，不进行映射时需填写 0。
 
@@ -141,7 +143,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 ./init.sh tj 10
 ```
 
-有时候init.sh的运行路径有问题，此时建议前面加上sudo强制根目录执行
+init.sh会自动切换到/root目录执行，请使用root权限运行。
 
 ## 纯SSH端口版本批量生成
 
@@ -175,7 +177,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 ./least.sh tj 10
 ```
 
-有时候least.sh的运行路径有问题，此时建议前面加上sudo强制根目录执行
+least.sh会自动切换到/root目录执行，请使用root权限运行。
 
 ## 自定义批量生成版本
 
@@ -187,12 +189,14 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 国际
 
 ```
+cd /root
 curl -L https://github.com/oneclickvirt/incus/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
 ```
 
 国内
 
 ```shell
+cd /root
 curl -L https://cdn.spiritlhl.net/https://github.com/oneclickvirt/incus/raw/main/scripts/add_more.sh -o add_more.sh && chmod +x add_more.sh && bash add_more.sh
 ```
 
@@ -200,17 +204,19 @@ curl -L https://cdn.spiritlhl.net/https://github.com/oneclickvirt/incus/raw/main
 
 ## 查看已批量开设的信息
 
-开完容器后，具体信息会生成在当前目录下的log文件中，格式如下
+开完容器后，具体信息会生成在/root/log文件中，普通批量版本的格式如下
 
 ```shell
-1号容器名称 密码 ssh端口 外网端口起始 外网端口终止
-2号容器名称 密码 ssh端口 外网端口起始 外网端口终止
+1号容器名称 ssh端口 密码 外网端口起始 外网端口终止
+2号容器名称 ssh端口 密码 外网端口起始 外网端口终止
 ```
 
-如果想要查看，只需在当前目录执行以下命令打印log文件即可
+纯SSH端口版本只记录容器名称、ssh端口和密码。自定义批量版本也会追加到/root/log。
+
+如果想要查看普通批量版本的信息，执行以下命令打印log文件即可
 
 ```shell
-cat log
+cat /root/log
 ```
 
 :::warning

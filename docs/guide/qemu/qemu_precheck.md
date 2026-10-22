@@ -2,9 +2,9 @@
 outline: deep
 ---
 
-# QEMU/KVM 使用前准备
+# 前言
 
-## 说明
+## 项目特点
 
 - 使用 [QEMU/KVM](https://www.qemu.org/) + [libvirt](https://libvirt.org/) 安装完整虚拟化环境
 - 使用 qcow2 云镜像，依次尝试组织镜像仓库和发行版上游，自动下载并使用 cloud-init 初始化
@@ -13,14 +13,17 @@ outline: deep
 - 网络模式：libvirt NAT（virbr0），通过 nftables 或 iptables 进行端口映射；新安装网络支持 ULA IPv6 NAT
 - 虚拟机信息记录在 `/root/vmlog`
 
-## 资源要求
+## 支持的系统（宿主机）
+
+建议使用维护中的Debian、Ubuntu系统。安装器也包含CentOS、AlmaLinux、RockyLinux、Oracle Linux、Amazon Linux、Fedora、Arch和Alpine分支，需要对应系统的软件源能提供所需依赖。开设虚拟机支持amd64和arm64架构。
+
+## 配置要求
 
 | 项目 | 最低要求 |
 |------|---------|
 | CPU | 推荐 VT-x/AMD-V 或嵌套虚拟化以启用 KVM 加速；缺少 KVM 时可能使用较慢的 QEMU 模拟 |
 | 内存 | 宿主机剩余 >= 虚拟机内存 + 512MB |
 | 磁盘 | 宿主机剩余 >= 虚拟机磁盘 × 台数，另预留镜像缓存空间 |
-| OS | 建议使用维护中的 Debian/Ubuntu；安装器也包含 CentOS/Fedora 系列分支，需满足对应软件包依赖 |
 
 ## 检查 KVM
 

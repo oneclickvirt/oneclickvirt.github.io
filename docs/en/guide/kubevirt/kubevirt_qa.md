@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# Reference and troubleshooting
+# FAQ
 
 ## Connection records and logs
 
@@ -25,7 +25,7 @@ The Chinese field labels shown above are the literal labels written by the scrip
 6. CentOS 7 is EOL and remains a compatibility image. Prefer maintained Debian, Ubuntu, RockyLinux or AlmaLinux releases.
 7. Reset a password from `virtctl console` when necessary.
 
-## FAQ
+## Usage notes
 
 ### K3s installation failed
 
