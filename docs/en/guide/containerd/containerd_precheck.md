@@ -2,45 +2,27 @@
 outline: deep
 ---
 
-# Introduction
+# containerd overview and requirements
 
-The following is an introduction to the non-customized sections. Please ensure that you don't confuse them with the customized parts.
+This workflow creates Linux containers and does not require KVM. It does not create QEMU virtual machines.
 
-If your host does not have an IPv6 subnet and you want to assign IPv6 addresses to containers, the host itself needs a public IPv6 address. The installation script will automatically detect and configure this.
+## Overview
 
-:::warning
-The containerd solution **does not support KVM/QEMU virtual machines**. It only supports Linux containers (LXC) and is suitable for environments without KVM hardware virtualization support.
-:::
-
-Feel free to give the project a ```Star``` for free support! --> [https://github.com/oneclickvirt/containerd](https://github.com/oneclickvirt/containerd)
-
-## Project Features
-
-Bulk or individual NAT server provisioning based on containerd + nerdctl runtime
-
-- Installs containerd + runc + nerdctl + CNI + buildkitd via the [nerdctl-full](https://github.com/containerd/nerdctl) bundle
-- Uses self-compiled base images (stored in GitHub Releases), with offline loading prioritized and fallback to official images
-- Each container comes with 1 external SSH port and 25 consistent internal/external ports; IPv6 egress is optional (SLAAC `/64` uses ULA NAT66 and does not allocate a public `/128`)
-- Default unprivileged containers, supports lxcfs mounting (if lxcfs is installed on the host)
-- Supports disk limit parameters (requires xfs/btrfs snapshotter with storage-opt support)
-- Supports China CDN acceleration
-
-## Supported Systems
-
-| System | amd64 | arm64 |
-|--------|-------|-------|
-| Ubuntu 22.04 | ✓ | ✓ |
-| Debian 12 | ✓ | ✓ |
-| Alpine latest | ✓ | ✓ |
-| AlmaLinux 9 | ✓ | ✓ |
-| RockyLinux 9 | ✓ | ✓ |
-| OpenEuler 22.03 | ✓ | ✓ |
+- Installs containerd, runc, nerdctl, CNI and buildkitd using [nerdctl-full](https://github.com/containerd/nerdctl).
+- Loads the project's base images from GitHub Releases archives by default. A registry fallback is attempted only when `CONTAINERD_IMAGE_REGISTRY` is configured.
+- Guest images: Ubuntu 22.04, Debian 12, Alpine, AlmaLinux 9, RockyLinux 9 and OpenEuler 22.03.
+- Architectures: amd64 and arm64.
+- Creates unprivileged containers by default, with port forwarding, IPv6, resource limits and optional host lxcfs resource views.
 
 ## Configuration Requirements
 
 - Host OS: Ubuntu, Debian, RockyLinux 9+, AlmaLinux 9+, CentOS 9+, Alpine, Arch
 - Architecture: x86_64 (amd64) or ARM64
 - Kernel must support overlay filesystem
-- Network must be able to connect to GitHub raw interface
+- Network must reach GitHub Raw, Releases and the registries used by this solution
 - At least 3GB free disk space
 - **No KVM hardware support required**
+
+## Documentation and changes
+
+Continue with [installation](containerd_install.md) and [creation](containerd_build.md). See the [changelog](https://github.com/oneclickvirt/containerd/blob/main/CHANGELOG.md) for updates.

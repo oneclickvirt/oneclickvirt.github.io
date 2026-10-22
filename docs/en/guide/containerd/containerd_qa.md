@@ -2,7 +2,42 @@
 outline: deep
 ---
 
-# FAQ
+# Reference and troubleshooting
+
+## Images
+
+GitHub Actions builds the base images and publishes archives to GitHub Releases.
+
+| Guest system | amd64 archive | arm64 archive |
+| --- | --- | --- |
+| Ubuntu 22.04 | spiritlhl_ubuntu_amd64.tar.gz | spiritlhl_ubuntu_arm64.tar.gz |
+| Debian 12 | spiritlhl_debian_amd64.tar.gz | spiritlhl_debian_arm64.tar.gz |
+| Alpine latest | spiritlhl_alpine_amd64.tar.gz | spiritlhl_alpine_arm64.tar.gz |
+| AlmaLinux 9 | spiritlhl_almalinux_amd64.tar.gz | spiritlhl_almalinux_arm64.tar.gz |
+| RockyLinux 9 | spiritlhl_rockylinux_amd64.tar.gz | spiritlhl_rockylinux_arm64.tar.gz |
+| OpenEuler 22.03 | spiritlhl_openeuler_amd64.tar.gz | spiritlhl_openeuler_arm64.tar.gz |
+
+Check a local image and its remote Releases asset from a repository checkout:
+
+```bash
+bash scripts/containerd_manage.sh version-check debian
+```
+
+## Networking
+
+- **IPv4:** bridge networking uses CNI `containerd-net` and `-p` port mappings.
+- **Uplink:** IPv4 NAT uses the primary uplink. IPv6 NDP follows the IPv6 default route; only when that route is absent does it fall back to the interface carrying the chosen prefix. A PVE delegated `/38` remains usable even when the uplink also has a `/128`.
+- **Independent IPv6:** the installer accepts only a public parent prefix assigned locally to the host, never an external egress-probe address disguised as a `/64`. It normally carves out a `/80` CNI subnet and skips subnets containing any host address. A covering parent route does not itself prevent a more-specific CNI route, so both PVE delegated prefixes and ordinary NDP-backed `/64` prefixes can supply public addresses. A lone `/128`, an overly narrow prefix, or an equal/more-specific conflicting route uses isolated ULA NAT66 instead, preserving outbound IPv6 without a public guest address. Conflicting third-party CNI configuration is preserved, and independent IPv6 setup stops.
+- **NDP:** `containerd-ipv6` uses CNI `host-local` leases. The responder reads `/var/lib/cni/networks/containerd-ipv6` without a Docker API dependency. Only Ethernet IPv6 uplinks need it. NAT66 and SIT, 6in4 or ip6tnl tunnels do not require a responder and do not fall back to IPv4 because it is absent. An unavailable image, wrong architecture, or missing ARMv7 tag triggers a shallow clone of NDPRESPONDER_SOURCE_URL and a verified local build. A failed build does not replace an existing responder. Where NDP is required, CNI configuration, responder startup and its health check must all succeed before independent IPv6 is enabled.
+- **DNS:** `check-dns.service` continuously checks DNS availability.
+
+## Persistent independent IPv6
+
+New independent-IPv6 containers use nerdctl `--ip6` to retain the address across container restarts and host reboots.
+
+Allocation records in `/var/lib/oneclickvirt/containerd-ipv6/` are root-only. Creation uses a file lock and avoids both existing records and active CNI leases. Records survive deletion so recreating the same name can reuse its address; do not remove records while corresponding containers exist.
+
+Existing containers are not modified automatically. Back up and recreate them to adopt persistent addresses. Plan static addresses on custom nerdctl/CNI networks separately to avoid overlapping this allocator. Unsupported `--ip6`, corrupt allocation records and exhausted pools fail explicitly rather than reporting persistent IPv6 as configured.
 
 ## nerdctl: command not found
 
@@ -53,17 +88,13 @@ iptables -A FORWARD -d 172.20.0.0/16 -j ACCEPT
 
 ## Container IPv6 not working
 
-1. Confirm the host has a public IPv6 address
-2. Check if the containerd-ipv6 CNI network exists:
+Check the networking section above first: public routed addresses, manual routing and ULA NAT66 have different requirements. Confirm the selected mode and actual container addresses. A responder is required only for Ethernet uplinks needing NDP; NAT66 and non-Ethernet tunnels do not require one.
 
-```shell
+```bash
+ip -6 route
 cat /etc/cni/net.d/20-containerd-ipv6.conflist
-```
-
-3. Check if the ndpresponder container is running:
-
-```shell
-nerdctl ps | grep ndpresponder
+nerdctl inspect ct1
+nerdctl ps -a --filter name=ndpresponder
 ```
 
 ## Image pull failed
@@ -90,8 +121,12 @@ yum install -y lxcfs       # CentOS/RHEL
 
 ## Disk limit not working
 
-Disk limits require xfs or btrfs snapshotter support. The default overlay snapshotter does not support container-level disk limits.
+This script applies disk limits with the btrfs snapshotter. Install with NEED_DISK_LIMIT=y, then pass a nonzero disk_gb value. The default overlay snapshotter does not support this limit; the script warns and ignores the disk argument in that mode.
 
-For disk limits, refer to the docker or incus solution documentation.
+```bash
+nerdctl info
+```
 
+## Disable CDN
 
+Set `export WITHOUTCDN=TRUE` before running the scripts to skip CDN acceleration. Unset it to restore the default behavior.

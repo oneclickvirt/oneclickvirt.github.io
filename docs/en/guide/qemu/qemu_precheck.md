@@ -2,53 +2,35 @@
 outline: deep
 ---
 
-# Introduction
+# QEMU/KVM overview and requirements
 
-The following is an introduction to the non-customized part. The customized part has its own corresponding introduction; please do not mix them up.
+## Overview
 
-Please give the project a ```Star``` for free support --> [https://github.com/oneclickvirt/qemu](https://github.com/oneclickvirt/qemu)
+- Installs [QEMU/KVM](https://www.qemu.org/) and [libvirt](https://libvirt.org/).
+- Uses qcow2 cloud images and initializes guests with cloud-init. Image selection tries the organization's image repositories before the upstream distribution.
+- Guests: Debian 10/11/12/13, Ubuntu 18/20/22/24, AlmaLinux 8/9, RockyLinux 8/9 and OpenEuler 22.
+- Architectures: amd64 and arm64.
+- Uses libvirt NAT (`virbr0`) with nftables or iptables forwarding; new default networks include ULA IPv6 NAT.
+- VM connection records are saved in `/root/vmlog`.
 
-## Project Features
+## Resource requirements
 
-Virtualization based on QEMU/KVM, supporting batch or individual creation of KVM virtual machines without needing Proxmox VE or Incus management platforms
+| Resource | Requirement |
+| --- | --- |
+| CPU | VT-x/AMD-V or nested virtualization for KVM acceleration |
+| Available memory | Guest memory plus at least 512 MB for the host |
+| Available disk | Guest disk size multiplied by VM count, plus cached images |
+| Host OS | Maintained Debian/Ubuntu releases are recommended; the installer also has CentOS/Fedora branches requiring the appropriate packages |
 
-- Pure QEMU/KVM virtualization solution, lightweight with no additional management platform required
-- Each virtual machine comes with its own dedicated SSH port and port mapping
-- Supports IPv4/IPv6 automatic allocation and port forwarding
-- Supports batch creation with automatic logging to a log file
-- Supports X86_64 and ARM64 architectures
-- Supports domestic CDN mirror acceleration
+## Check KVM
 
-## Supported Systems (Host)
-
-| System | amd64 | arm64 |
-|--------|-------|-------|
-| Debian 11 | ✓ | ✓ |
-| Debian 12 | ✓ | ✓ |
-| Ubuntu 20.04 | ✓ | ✓ |
-| Ubuntu 22.04 | ✓ | ✓ |
-
-## Configuration Requirements
-
-- Host must support KVM hardware virtualization (`/dev/kvm` available)
-- Kernel version: ≥ 4.15
-- Architecture: x86_64 (amd64) or ARM64
-- Memory: at least 1GB available (excluding host OS overhead)
-- Storage: at least 10GB available disk space
-- OS: Debian 11+, Ubuntu 20.04+
-
-:::warning
-Before using this project, make sure the host supports KVM virtualization. You can check with the following command:
+On x86 hosts, inspect CPU virtualization flags and the device. ARM64 hosts should check the KVM device directly. Without KVM, QEMU emulation is slower.
 
 ```bash
 egrep -c '(vmx|svm)' /proc/cpuinfo
+ls -l /dev/kvm
 ```
 
-A result greater than 0 indicates KVM virtualization is supported. You can also run `ls /dev/kvm` to confirm the device file exists.
-:::
+## Documentation and changes
 
-:::tip
-If the host does not have an IPv6 subnet but you want to assign IPv6 addresses to virtual machines, the host itself must have a public IPv6 address. The installation script will automatically detect and configure this.
-:::
-
-It is recommended to add some SWAP virtual memory before creating virtual machines to avoid sudden memory usage causing the host to crash.
+Continue with [installation](qemu_install.md) and [creation](qemu_build.md). See the [changelog](https://github.com/oneclickvirt/qemu/blob/main/CHANGELOG.md) for updates.

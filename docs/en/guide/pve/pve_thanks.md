@@ -29,3 +29,7 @@ https://github.com/yoursunny/ndpresponder
 https://github.com/SuperManito/LinuxMirrors
 
 Thank [@Ella-Alinda](https://github.com/Ella-Alinda) for providing PVE guidance.
+
+## Support and related projects
+
+Thanks to Proxmox VE for free subscription support. Related VPS assessment scripts: [oneclickvirt/ecs](https://github.com/oneclickvirt/ecs), [spiritLHLS/ecs](https://github.com/spiritLHLS/ecs).

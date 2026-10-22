@@ -17,3 +17,8 @@ https://openzfs.github.io/openzfs-docs/Getting%20Started/Debian/index.html
 https://github.com/SuperManito/LinuxMirrors
 
 https://github.com/zabbly/incus
+
+## 相关项目与赞助
+
+- VPS 融合怪测评脚本：[oneclickvirt/ecs](https://github.com/oneclickvirt/ecs)、[spiritLHLS/ecs](https://github.com/spiritLHLS/ecs)。
+- 感谢 [DartNode](https://dartnode.com?aff=bonus) 为开源项目提供免费 VPS 支持。

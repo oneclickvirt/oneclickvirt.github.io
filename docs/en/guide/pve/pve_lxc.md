@@ -115,6 +115,16 @@ Here is the information for the created example CT:
 Note that only CTIDs from 100 to 256 can be used here, no other numbers can be used.
 :::
 
+### Create without inbound port mappings
+
+Set all five SSH, HTTP, HTTPS, first-range-port and last-range-port arguments to `0`. This retains the private address and outbound access without creating inbound mappings. Connect to SSH port 22 from the host or a reachable private network. For example, after downloading the script above:
+
+```bash
+./buildct.sh 111 MyPassword 1 512 5 0 0 0 0 0 debian11 local N
+```
+
+A failure to write requested port mappings returns an error instead of reporting an unreachable instance as successful.
+
 ## Deletion specific CT
 
 - Stop CT

@@ -2,150 +2,180 @@
 outline: deep
 ---
 
-# Preface
+# Create and manage Podman instances
 
-Two methods for provisioning containers.
+## Quick start
 
-## Single Container Provisioning
+1. Log in to the host as root.
+2. Run `bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/podman/main/podmaninstall.sh)`.
+3. Download `onepodman.sh` as shown in the creation guide, then run `./onepodman.sh ct1 1 512 MyPassword 25000 34975 35000 n debian 0`.
+4. Connect with `ssh root@<host-IP> -p 25000`.
+5. Read `ctlog` or run `podman ps -a` to inspect the result.
 
-- Creates a single Podman container
-- Can configure a routed public IPv6 address after `podman-ipv6` is configured during installation
-- Supports x86_64 and ARM64 architecture servers
-
-:::tip IPv6 network mode
-`podman-ipv6` uses a managed ULA bridge. A separate public address is attached as a routed `/128` with NDP, rather than cutting a child subnet from the host's public `/64` for Netavark IPAM. The host needs usable public IPv6 and the upstream must permit the corresponding NDP neighbor response.
-:::
-
-### Download Script
-
-```shell
-curl -sSLO https://raw.githubusercontent.com/oneclickvirt/podman/main/scripts/onepodman.sh
-chmod +x onepodman.sh
-```
-
-### Example
-
-Supported variables for running:
+## Create one container
 
 ```bash
-./onepodman.sh <name> <cpu> <memory_mb> <password> <sshport> <startport> <endport> [independent_ipv6:y/n] [system] [disk_gb]
-```
+wget -q https://raw.githubusercontent.com/oneclickvirt/podman/main/scripts/onepodman.sh
+chmod +x onepodman.sh
 
-Currently supported `system` values:
-
-- debian
-- ubuntu
-- alpine
-- almalinux
-- rockylinux
-- openeuler
-
-Default is debian if not specified.
-
-```shell
+# Pass an empty password string to generate one while supplying later arguments.
+# ./onepodman.sh <name> <cpu> <memory_mb> <password> <sshport> <startport> <endport> [ipv6:y/n] [system] [disk_gb]
 ./onepodman.sh ct1 1 512 MyPassword 25000 34975 35000 n debian 0
 ```
 
-Example container information:
+| Argument | Description | Default |
+| --- | --- | --- |
+| name | Container name | test |
+| cpu | CPU limit; fractional values such as 0.5 are supported | 1 |
+| memory_mb | Memory limit in MB | 512 |
+| password | Root password; omitted or empty values generate a password | generated |
+| sshport | Host port forwarded to container port 22 | 25000 |
+| startport | First additional public port | 34975 |
+| endport | Last additional public port | 35000 |
+| ipv6 | Request independent IPv6, `y` or `n` | n |
+| system | Guest image family | debian |
+| disk_gb | btrfs qgroup disk limit in GB; 0 disables the limit | 0 |
 
-| Attribute | Value |
-|-----------|-------|
-| Container name | ct1 |
-| SSH username | root |
-| SSH password | MyPassword |
-| CPU cores | 1 |
-| Memory | 512MB |
-| SSH port | 25000 |
-| External/internal port range | 34975 to 35000 |
-| System | debian |
-| Request routed public IPv6 | N |
-| Disk size | Unlimited |
+The SSH host port must not overlap the additional public port range.
 
-### Related Operations
+With btrfs and `disk_gb` greater than zero, the script creates the container, applies a qgroup limit to its rootfs, and then starts it. Podman's `--storage-opt` configures global storage; this project therefore does not pass `size=...` to `podman run` as a per-container disk limit.
 
-List all containers
+Supported `system` values are `ubuntu`, `debian`, `alpine`, `almalinux`, `rockylinux` and `openeuler`. Maintained version aliases are normalized to the actual image tag:
 
-```shell
-podman ps -a
-```
+- `ubuntu22`, `ubuntu/22.04` → `ubuntu`
+- `debian12`, `debian/12` → `debian`
+- `alma9`, `almalinux/9` → `almalinux`
+- `rocky9`, `rockylinux/9` → `rockylinux`
+- `openeuler22.03`, `openeuler/22.03` → `openeuler`
 
-Enter container
+Unsupported versions do not silently fall back to another release.
 
-```shell
-podman exec -it ct1 bash
-```
+## Batch creation
 
-Enter Alpine container
-
-```shell
-podman exec -it ct1 sh
-```
-
-Type `exit` to leave the container.
-
-Delete container
-
-```shell
-podman rm -f ct1
-```
-
-View container logs
-
-```shell
-podman logs ct1
-```
-
-## Batch Container Provisioning
-
-- Multiple runs inherit configuration and generate sequentially
-- Auto-increments container name (ct1, ct2, ...), SSH port, and public ports
-- Container information recorded to `ctlog` file
-- Recommended to run in screen to avoid SSH disconnection
-
-### Run
-
-```shell
-curl -sSLO https://raw.githubusercontent.com/oneclickvirt/podman/main/scripts/create_podman.sh
+```bash
+wget -q https://raw.githubusercontent.com/oneclickvirt/podman/main/scripts/create_podman.sh
 chmod +x create_podman.sh
 ./create_podman.sh
 ```
 
-### Query Batch Container Information
+The interactive script increments container names (`ct1`, `ct2`, ...), SSH ports and public port ranges, and saves connection information in `ctlog`.
 
-```shell
-cat ctlog
+Unattended example:
+
+```bash
+export noninteractive=true
+export PODMAN_CREATE_COUNT=3
+export PODMAN_MEMORY_MB=512
+export PODMAN_CPU=1
+export PODMAN_SYSTEM=debian
+export PODMAN_IPV6=n
+./create_podman.sh
 ```
 
-Output format:
+| Variable | Description | Default |
+| --- | --- | --- |
+| PODMAN_CREATE_COUNT | Number of new containers; PODMAN_CREATE_NUMS is also accepted | 1 |
+| PODMAN_MEMORY_MB | Memory per container in MB | 512 |
+| PODMAN_CPU | CPU limit per container | 1 |
+| PODMAN_DISK_GB | Disk limit in GB, requiring btrfs qgroups | 0 |
+| PODMAN_SYSTEM | Guest system; maintained version aliases are accepted | debian |
+| PODMAN_IPV6 | Request independent IPv6 | n |
+| PODMAN_CONTAINER_PREFIX | Container name prefix | ct |
+| PODMAN_CONTAINER_START_NUM | First container number | continued from ctlog |
+| PODMAN_START_SSH_PORT | First SSH host port | continued from ctlog |
+| PODMAN_PUBLIC_PORT_START | First additional public port | continued from ctlog |
 
+Additional variables:
+
+| Variable | Description | Default |
+| --- | --- | --- |
+| FORCE_UNINSTALL | Legacy switch to skip uninstall confirmation | false |
+| ROOT_PASSWORD | Root password consumed by the container entrypoint | passed by the creation script |
+| IPV6_ENABLED | Internal container IPv6 mode marker | false |
+| PODMAN_SKIP_RESOURCE_CHECK | Skip repeated resource scans during batch creation | false |
+| PODMAN_BATCH_MODE | Keep a temporary record for create_podman.sh to consume | false |
+| PODMAN_ROOTLESS | Explicitly allow non-root execution of onepodman.sh/create_podman.sh | false |
+| PODMAN_WORKDIR | ctlog working directory during rootless batch creation | current directory |
+| PODMAN_SCRIPT_DIR | Cache directory for rootless batch scripts | `$HOME/.local/share/oneclickvirt-podman/scripts` |
+| PODMAN_RELEASE_BASE_URL | Offline archive base, using `<base>/<system>/<tar.gz>` | GitHub Releases |
+| PODMAN_GHCR_IMAGE | GHCR image prefix | ghcr.io/oneclickvirt/podman |
+| PODMAN_SCRIPT_BASE_URL | Download base for SSH initialization and onepodman.sh | GitHub raw scripts |
+| PODMAN_POD_NAME | Podman pod receiving the container and port mappings | unset |
+| PODMAN_POD_JOIN_EXISTING | Join an existing pod; manage shared-network port conflicts yourself | false |
+
+Single-container creation appends a record to `ctlog`. Batch creation removes each temporary per-container record after appending it to `ctlog`, avoiding scattered files containing passwords.
+
+Rootless example:
+
+```bash
+export PODMAN_ROOTLESS=true
+./onepodman.sh ct1 1 512 "" 25000 34975 35000 n debian 0
 ```
-container_name ssh_port root_password cpu_cores memory_mb start_port end_port disk_gb
+
+Pod networking example:
+
+```bash
+export PODMAN_POD_NAME=ctpod1
+./onepodman.sh ct1 1 512 "" 25000 34975 35000 n debian 0
 ```
 
-One line per container.
+During batch creation, setting PODMAN_POD_NAME without `PODMAN_POD_JOIN_EXISTING=true` derives a separate pod name from each container name, preventing SSH containers from unintentionally sharing one network namespace.
 
-## Remove All Containers and Images
+## Inspect and manage containers
 
-```shell
+```bash
+podman ps -a
+podman exec -it <name> bash
+podman exec -it <name> sh   # Alpine
+podman logs <name>
+podman rm -f <name>
+podman images
+podman rmi <image>
+```
+
+## Connection records
+
+Run `cat ctlog` in the creation working directory. Each line is:
+
+```text
+name SSH-port root-password CPU memory-MB first-port last-port disk-GB
+```
+
+Records contain passwords; keep them private.
+
+## Remove all containers and images
+
+The following commands delete all containers and images visible to this runtime. Back up data and confirm the scope first.
+
+```bash
 podman ps -aq | xargs -r podman rm -f
-podman images -aq | xargs -r podman rmi -f
+podman images -q | xargs -r podman rmi -f
+```
+
+Remove unused volumes and state only after confirming they are no longer needed:
+
+```bash
 podman volume prune -f
 podman system prune -af
-rm -rf ctlog
+rm -f ctlog
 ```
 
-## Restart All Containers After Host Reboot
+## Host reboot and automatic startup
 
-Podman supports systemd integration. Generate auto-start service for a container:
+New containers use `--restart always`. On systemd hosts the installer enables `podman-restart.service` and creates a fallback unit when the distribution does not provide one. Inspect it with `systemctl status podman-restart.service`.
 
-```shell
-# Generate systemd service for a specific container
+For an existing container needing a dedicated systemd unit:
+
+```bash
 podman generate systemd --name ct1 > /etc/systemd/system/container-ct1.service
+systemctl daemon-reload
 systemctl enable container-ct1
 ```
 
-Or manually start all stopped containers:
+Choose one startup mechanism for a container to avoid duplicate management. To start stopped containers manually:
 
-```shell
+```bash
 podman ps -aq -f status=exited | xargs -r podman start
 ```
+
+See [networking, images and troubleshooting](podman_qa.md) for network modes, image sources and records.

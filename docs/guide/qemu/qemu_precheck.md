@@ -2,53 +2,35 @@
 outline: deep
 ---
 
-# 前言
+# QEMU/KVM 使用前准备
 
-以下为非自定义部分的介绍，自定义部分有自己对应的介绍，勿弄混了
+## 说明
 
-欢迎给项目一个 ```Star``` 进行免费的支持-->[https://github.com/oneclickvirt/qemu](https://github.com/oneclickvirt/qemu)
+- 使用 [QEMU/KVM](https://www.qemu.org/) + [libvirt](https://libvirt.org/) 安装完整虚拟化环境
+- 使用 qcow2 云镜像，依次尝试组织镜像仓库和发行版上游，自动下载并使用 cloud-init 初始化
+- 支持系统：Debian 10/11/12/13、Ubuntu 18/20/22/24、AlmaLinux 8/9、RockyLinux 8/9、OpenEuler 22
+- 支持架构：amd64、arm64
+- 网络模式：libvirt NAT（virbr0），通过 nftables 或 iptables 进行端口映射；新安装网络支持 ULA IPv6 NAT
+- 虚拟机信息记录在 `/root/vmlog`
 
-## 项目特点
+## 资源要求
 
-基于 QEMU/KVM 进行虚拟化，通过批量或单独开设 KVM 虚拟机，无需 Proxmox VE 或 Incus 等管理平台
+| 项目 | 最低要求 |
+|------|---------|
+| CPU | 推荐 VT-x/AMD-V 或嵌套虚拟化以启用 KVM 加速；缺少 KVM 时可能使用较慢的 QEMU 模拟 |
+| 内存 | 宿主机剩余 >= 虚拟机内存 + 512MB |
+| 磁盘 | 宿主机剩余 >= 虚拟机磁盘 × 台数，另预留镜像缓存空间 |
+| OS | 建议使用维护中的 Debian/Ubuntu；安装器也包含 CentOS/Fedora 系列分支，需满足对应软件包依赖 |
 
-- 纯 QEMU/KVM 虚拟化方案，轻量、无需额外管理平台
-- 每台虚拟机自带独立 SSH 端口及端口映射
-- 支持 IPv4/IPv6 自动分配与端口转发
-- 支持批量开设，信息自动记录至日志文件
-- 支持 X86_64 和 ARM64 架构
-- 支持国内 CDN 镜像加速
+## 检查 KVM
 
-## 支持的系统（宿主机）
-
-| 系统 | amd64 | arm64 |
-|------|-------|-------|
-| Debian 11 | ✓ | ✓ |
-| Debian 12 | ✓ | ✓ |
-| Ubuntu 20.04 | ✓ | ✓ |
-| Ubuntu 22.04 | ✓ | ✓ |
-
-## 配置要求
-
-- 宿主机需支持 KVM 硬件虚拟化（`/dev/kvm` 可用）
-- 内核版本：≥ 4.15
-- 架构：x86_64（amd64）或 ARM64
-- 内存：至少 1GB 可用内存（不含宿主机自身占用）
-- 存储：至少 10GB 可用磁盘空间
-- 系统：Debian 11+、Ubuntu 20.04+
-
-:::warning
-使用本项目前请确保宿主机支持 KVM 虚拟化，可通过以下命令检测：
+x86 宿主机可检查 CPU 虚拟化标志和设备；ARM64 宿主机直接检查 KVM 设备。缺少 KVM 时 QEMU 模拟速度较慢。
 
 ```bash
 egrep -c '(vmx|svm)' /proc/cpuinfo
+ls -l /dev/kvm
 ```
 
-输出大于 0 即支持 KVM 虚拟化。也可执行 `ls /dev/kvm` 确认设备文件存在。
-:::
+## 使用入口与更新
 
-:::tip
-如果你的宿主机本身没有 IPv6 子网又想给虚拟机分配 IPv6 地址，需要宿主机本身已有公网 IPv6 地址，安装脚本会自动检测并配置。
-:::
-
-推荐在开设虚拟机前先增加部分 SWAP 虚拟内存，避免突发的内存占用导致宿主机卡死
+继续阅读[环境安装](qemu_install.md)和[实例开设](qemu_build.md)。版本变更见[更新日志](https://github.com/oneclickvirt/qemu/blob/main/CHANGELOG.md)。

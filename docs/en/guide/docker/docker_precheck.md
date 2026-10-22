@@ -15,7 +15,7 @@ Feel free to give the project a ```Star``` for free support!-->[https://github.c
 
 Bulk or individual NAT server provisioning via Docker.
 
-Uses Debian by default (Alpine optional). Each container includes 1 external SSH port plus 25 matched internal/external ports, with optional IPv6 binding.
+Uses Debian by default; see the guest image list below for other systems. Each container includes 1 external SSH port plus 25 matched internal/external ports, with optional IPv6 binding.
 
 Containers are created as unprivileged by default, and Docker daemon sockets are not mounted from the host. Therefore, **Docker-in-Docker nested virtualization is not supported inside these NAT containers**.
 
@@ -32,3 +32,11 @@ Any system that can install Docker can use this solution. The host should be abl
 If your hardware is moderate and you need stricter resource controls (especially disk limits), use the Incus module to create LXC containers in batch.
 
 If your hardware has strong capacity and you need larger-scale VM workloads, use the PVE module to create KVM VMs in batch.
+
+## Guest images and architectures
+
+- Guest families: Ubuntu, Debian, Alpine, AlmaLinux 9, RockyLinux 9 and OpenEuler 22.03.
+- Architectures: amd64 and arm64.
+- Images are published to [GHCR](https://github.com/oneclickvirt/docker/pkgs/container/docker) (`ghcr.io/oneclickvirt/docker`) and [GitHub Releases](https://github.com/oneclickvirt/docker/releases) (`tar.gz` archives).
+- `onedocker.sh` tries GHCR first, then a Releases archive, then Docker Hub.
+- See the [changelog](https://github.com/oneclickvirt/docker/blob/main/CHANGELOG.md) for updates.

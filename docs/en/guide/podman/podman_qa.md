@@ -2,7 +2,38 @@
 outline: deep
 ---
 
-# FAQ
+# Reference and troubleshooting
+
+## Images
+
+GitHub Actions builds the base images with Podman/Buildah and publishes them to Releases and GHCR.
+
+| Guest system | amd64 archive | arm64 archive |
+| --- | --- | --- |
+| Ubuntu 22.04 | spiritlhl_ubuntu_amd64.tar.gz | spiritlhl_ubuntu_arm64.tar.gz |
+| Debian 12 | spiritlhl_debian_amd64.tar.gz | spiritlhl_debian_arm64.tar.gz |
+| Alpine latest | spiritlhl_alpine_amd64.tar.gz | spiritlhl_alpine_arm64.tar.gz |
+| AlmaLinux 9 | spiritlhl_almalinux_amd64.tar.gz | spiritlhl_almalinux_arm64.tar.gz |
+| RockyLinux 9 | spiritlhl_rockylinux_amd64.tar.gz | spiritlhl_rockylinux_arm64.tar.gz |
+| OpenEuler 22.03 | spiritlhl_openeuler_amd64.tar.gz | spiritlhl_openeuler_arm64.tar.gz |
+
+GHCR tags:
+
+- `ghcr.io/oneclickvirt/podman:<os>-amd64`
+- `ghcr.io/oneclickvirt/podman:<os>-arm64`
+- `ghcr.io/oneclickvirt/podman:<os>` (multi-architecture manifest)
+
+Creation pulls `PODMAN_GHCR_IMAGE:<os>-<arch>` first, then downloads `PODMAN_RELEASE_BASE_URL/<os>/spiritlhl_<os>_<arch>.tar.gz` if the pull fails.
+
+## Networking
+
+- IPv4 uses `podman-net`, bridge `podman-br0` and subnet `172.20.0.0/16`.
+- IPv6 uses `podman-ipv6` and bridge `podman-br1`. The installer accepts only public IPv6 CIDRs assigned locally to the host. It does not turn an external egress-API address into an allocatable subnet. When multiple prefixes exist, a larger usable delegated prefix, such as PVE `/38`, is preferred over an uplink `/128`.
+- The installer selects a smaller sibling subnet excluding host addresses. If Netavark rejects a public subnet because of SLAAC or overlapping routes, `mode=manual` uses an isolated ULA CNI network and routes a public `/128` from the parent prefix to the container after startup. It does not resubmit the overlapping subnet to Netavark.
+- A single public `/128`, an overly narrow prefix, or unavailable manual routing falls back to `mode=nat` with ULA NAT66. This preserves outbound IPv6 and does not promise an Internet-reachable public `/128`.
+- Manual routing and existing `mode=unmanaged` networks retain `podman-net` IPv4 NAT, `-p` mappings and the IPv4 default route. The IPv6 network supplies IPv6 routing only. Public IPv6 is neither NATed nor port-forwarded; a default-deny firewall must permit IPv6 forwarding between the uplink and `podman-br1`.
+- The NDP responder runs only for Ethernet IPv6 uplinks requiring neighbor discovery and tracks `podman-ipv6` addresses through Podman's Docker-compatible API socket. NAT66 and non-Ethernet SIT, 6in4 or ip6tnl tunnels do not require it; their containers do not fall back to IPv4 merely because the responder is absent.
+- Project network and state directories are separate from the containerd and Docker variants. On a shared host, plan ports, subnets and resources to avoid conflicts.
 
 ## podman: command not found
 
@@ -14,33 +45,24 @@ bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/podman/main/podm
 
 ## Container cannot access external network (IPv4)
 
-Check if iptables NAT rules exist:
+Inspect the actual network and forwarding state before changing firewall rules. podman-net defaults to 172.20.0.0/16; use the subnet reported by inspect if customized. Netavark may use nftables rather than iptables.
 
-```shell
-iptables -t nat -L POSTROUTING -n -v | grep 172.21
-```
-
-If not present, add manually:
-
-```shell
-iptables -t nat -A POSTROUTING -s 172.21.0.0/16 ! -d 172.21.0.0/16 -j MASQUERADE
-iptables -A FORWARD -s 172.21.0.0/16 -j ACCEPT
-iptables -A FORWARD -d 172.21.0.0/16 -j ACCEPT
+```bash
+podman network inspect podman-net
+sysctl net.ipv4.ip_forward
+iptables -t nat -L POSTROUTING -n -v
+nft list ruleset
 ```
 
 ## Container IPv6 not working
 
-1. Confirm the host has a public IPv6 address
-2. Check if the podman-ipv6 network exists:
+Check the networking section above first: public routed addresses, manual routing and ULA NAT66 have different requirements. Confirm the selected mode and actual container addresses. A responder is required only for Ethernet uplinks needing NDP; NAT66 and non-Ethernet tunnels do not require one.
 
-```shell
-podman network ls | grep ipv6
-```
-
-3. Check if the ndpresponder container is running:
-
-```shell
-podman ps | grep ndpresponder
+```bash
+ip -6 route
+podman network inspect podman-ipv6
+podman inspect ct1
+podman ps -a --filter name=ndpresponder
 ```
 
 ## Podman vs Docker command comparison
@@ -56,17 +78,9 @@ podman ps | grep ndpresponder
 
 ## Image pull failed
 
-Images are prioritized from GitHub Releases as offline tar packages, with fallback to ghcr.io:
+The script tries GHCR first, then Releases archives. Check access to both endpoints and confirm the system alias is supported. Manual pull example:
 
-```shell
-ghcr.io/oneclickvirt/podman:<os>-amd64
-ghcr.io/oneclickvirt/podman:<os>-arm64
-ghcr.io/oneclickvirt/podman:<os>   # multi-arch manifest
-```
-
-Manually pull image example:
-
-```shell
+```bash
 podman pull ghcr.io/oneclickvirt/podman:debian-amd64
 ```
 
@@ -100,3 +114,6 @@ echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 echo "nameserver 1.1.1.1" >> /etc/resolv.conf
 ```
 
+## Disable CDN
+
+Set `export WITHOUTCDN=TRUE` before running the scripts to skip CDN acceleration. Unset it to restore the default behavior.

@@ -18,7 +18,7 @@ outline: deep
 
 通过docker批量或单独开设NAT服务器(Bulk or individual NAT server provisioning via docker)
 
-默认使用debian系统可选alpine系统，每个容器自带1个外网ssh端口，25个内外网一致端口，可选择是否绑定IPV6地址
+默认使用 Debian，其他客体系统见下方镜像列表，每个容器自带1个外网ssh端口，25个内外网一致端口，可选择是否绑定IPV6地址
 
 默认创建的是非特权容器，且不挂载与宿主机的docker的守护进程之间的通信，所以**宿主机创建的docker虚拟化的NAT服务器内无法再嵌套虚拟化docker**
 
@@ -37,3 +37,11 @@ outline: deep
 如果硬件非常好资源很多，可使用PVE分区的脚本批量开KVM虚拟化的虚拟机
 
 推荐在开设NAT服务器前先增加部分SWAP虚拟内存，避免突发的内存占用导致宿主机卡死
+
+## 客体镜像与架构
+
+- 客体系统族：Ubuntu、Debian、Alpine、AlmaLinux 9、RockyLinux 9、OpenEuler 22.03。
+- 支持 amd64、arm64 架构。
+- 镜像同时发布到 [GHCR](https://github.com/oneclickvirt/docker/pkgs/container/docker)（`ghcr.io/oneclickvirt/docker`）和 [GitHub Releases](https://github.com/oneclickvirt/docker/releases)（`tar.gz` 离线包）。
+- `onedocker.sh` 优先拉取 GHCR，失败后回退到 Releases 离线包，最后回退到 Docker Hub。
+- 版本变更见[更新日志](https://github.com/oneclickvirt/docker/blob/main/CHANGELOG.md)。

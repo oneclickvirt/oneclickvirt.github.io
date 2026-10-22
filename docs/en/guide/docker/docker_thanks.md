@@ -37,3 +37,5 @@ https://github.com/linuxserver/docker-chromium
 https://github.com/SuperManito/LinuxMirrors
 
 Thank [@Ella-Alinda](https://github.com/Ella-Alinda) and @CoiaPrant for providing docker guidance.
+
+Thanks to [LinuxMirrors](https://github.com/SuperManito/LinuxMirrors) for the mirror-based installer and package repository switching scripts.

@@ -2,11 +2,9 @@
 outline: deep
 ---
 
-# Preface
+# Install and uninstall Podman
 
-For the common `noninteractive=true` flag, legacy aliases, interactive setup and network checks, see [Interactive and Unattended Node Setup](../oneclickvirt/environment_modes).
-
-Install the Podman environment, including podman + network configuration + DNS liveness check service.
+The shared unattended switch and interactive workflow are described in [environment modes](../oneclickvirt/environment_modes.md).
 
 ## Setting Up Virtual Memory
 
@@ -22,39 +20,48 @@ It is recommended to allocate virtual memory twice the size of your physical mem
 curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
 ```
 
-## Environment Setup
+## Install Podman
 
-- Supported systems: Ubuntu, Debian, RockyLinux 9+, AlmaLinux 9+, CentOS 9+, Alpine, Arch
-- Installs Podman via each distribution's official packages (daemonless architecture, no Docker daemon required)
-- Automatically configures Podman network (podman-net: 172.21.0.0/16)
-- Detects public IPv6 address; if present, automatically creates podman-ipv6 network and starts NDP Responder
-- Installs DNS liveness check service (check-dns-podman.service)
-- Supports x86_64 and ARM64 architecture servers
-- For non-interactive installation, use `export noninteractive=true` before the install command. The script will apply default choices for optional prompts
-
-```shell
-bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/podman/main/podmaninstall.sh)
+```bash
+bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/podman/main/podmaninstall.sh)
 ```
 
-Use the same prefix with any mirror command, for example:
+For unattended installation:
 
-```shell
-export noninteractive=true && bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/podman/main/podmaninstall.sh)
+```bash
+export noninteractive=true
+bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/podman/main/podmaninstall.sh)
 ```
 
-:::tip
-After installation, run `podman ps -a` to verify the Podman environment is working correctly.
-:::
+| Variable | Description | Default |
+| --- | --- | --- |
+| noninteractive | Skip interactive prompts when set to `true` | false |
+| WITHOUTCDN | Disable CDN detection and acceleration when set to `true` | false |
+| NEED_DISK_LIMIT | Enable btrfs container disk limits | n |
+| PODMAN_INSTALL_PATH | Root Podman storage path, saved as `graphroot` in `storage.conf` | /var/lib/containers/storage |
+| PODMAN_POOL_SIZE | Size of the btrfs loop pool, in GB | 20 |
+| PODMAN_LOOP_FILE | btrfs loop image path | /opt/podman-pool.img |
+| PODMAN_ROOTLESS_USER | Configure subuid/subgid mappings for this rootless user | unset |
+| PODMAN_ROOTLESS_CREATE_USER | Create the user named by PODMAN_ROOTLESS_USER if absent | false |
+| PODMAN_ROOTLESS_SUBUID_START | First rootless subuid | 100000 |
+| PODMAN_ROOTLESS_SUBGID_START | First rootless subgid | 100000 |
+| PODMAN_IPV6_SUBNET | Explicit routed public IPv6 subnet; it must exclude addresses assigned to the host | selected from a local prefix |
+| NDPRESPONDER_SOURCE_URL | Git source used to build the responder if its image is unavailable or has the wrong architecture | https://github.com/oneclickvirt/ndpresponder.git |
 
-## Uninstall Podman Environment
+## Uninstall
 
-One-click uninstall of the entire Podman environment, including all containers, images, networks, and auxiliary files:
+Remove the Podman environment, including all containers, images, networks and auxiliary files:
 
-```shell
-bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/podman/main/podmanuninstall.sh)
+```bash
+bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/podman/main/podmanuninstall.sh)
 ```
 
-:::warning
-The script requires entering `yes` to confirm before execution. This operation is irreversible. Deleted content includes all containers, images, and Podman network configurations.
-Retest workflow: Run uninstall first, then run install to verify the entire installation process from scratch.
-:::
+The script asks for `yes`; removal is irreversible. For unattended removal, set `noninteractive=true`. `FORCE_UNINSTALL=true` is also accepted for compatibility.
+
+## Verify installation
+
+```bash
+podman ps -a
+```
+
+For long installations, use screen or tmux to avoid interruption when SSH disconnects.

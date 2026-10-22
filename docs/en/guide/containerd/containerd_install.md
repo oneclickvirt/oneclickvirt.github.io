@@ -2,11 +2,9 @@
 outline: deep
 ---
 
-# Preface
+# Install and uninstall containerd
 
-For the common `noninteractive=true` flag, legacy aliases, interactive setup and network checks, see [Interactive and Unattended Node Setup](../oneclickvirt/environment_modes).
-
-Install the containerd environment, including containerd + runc + nerdctl + CNI + buildkitd full suite.
+The shared unattended switch and interactive workflow are described in [environment modes](../oneclickvirt/environment_modes.md).
 
 ## Setting Up Virtual Memory
 
@@ -22,39 +20,65 @@ It is recommended to allocate virtual memory twice the size of your physical mem
 curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
 ```
 
-## Environment Setup
+## Install containerd
 
-- Supported systems: Ubuntu, Debian, RockyLinux 9+, AlmaLinux 9+, CentOS 9+, Alpine, Arch
-- Installs containerd + runc + nerdctl + CNI + buildkitd (via nerdctl-full bundle)
-- Automatically configures CNI network (containerd-net: 172.20.0.0/16) with iptables NAT rules
-- Detects public IPv6 address; if present, automatically creates containerd-ipv6 CNI network and starts NDP Responder
-- Installs DNS liveness check service (check-dns.service)
-- Supports x86_64 and ARM64 architecture servers
-- For non-interactive installation, use `export noninteractive=true` before the install command. The script will apply default choices for optional prompts
-
-```shell
-bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/containerd/main/containerdinstall.sh)
+```bash
+bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/containerd/main/containerdinstall.sh)
 ```
 
-Use the same prefix with any mirror command, for example:
+Use the shared unattended switch:
 
-```shell
-export noninteractive=true && bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/containerd/main/containerdinstall.sh)
+```bash
+export noninteractive=true
+bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/containerd/main/containerdinstall.sh)
 ```
 
-:::tip
-After installation, run `nerdctl ps -a` to verify the containerd environment is working correctly.
-:::
+Example with explicit settings:
 
-## Uninstall containerd Environment
-
-One-click uninstall of the entire containerd environment, including all containers, images, CNI networks, systemd services, and nerdctl/containerd binaries:
-
-```shell
-bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/containerd/main/containerduninstall.sh)
+```bash
+export noninteractive=true
+export NEED_DISK_LIMIT=y
+export CONTAINERD_POOL_SIZE=20
+export CONTAINERD_INSTALL_PATH=/var/lib/containerd
+export CONTAINERD_LOOP_FILE=/opt/containerd-pool.img
+export CONTAINERD_MAIN_INTERFACE=eth0
+export CONTAINERD_IPV6_SUBNET_PREFIX=80
+export CONTAINERD_IPV6_SUBNET_INDEX=1
+bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/containerd/main/containerdinstall.sh)
 ```
 
-:::warning
-The script requires entering `yes` to confirm before execution. This operation is irreversible. Deleted content includes all containers, images, and CNI network configurations.
-Retest workflow: Run uninstall first, then run install to verify the entire installation process from scratch.
-:::
+| Variable | Description | Default |
+| --- | --- | --- |
+| noninteractive | Use defaults without prompting when set to `true` | unset |
+| WITHOUTCDN | Disable CDN acceleration when set to `TRUE` | unset |
+| NEED_DISK_LIMIT | Enable btrfs disk limits; accepts `y/yes/true/1` | n |
+| CONTAINERD_INSTALL_PATH | containerd data directory | /var/lib/containerd |
+| CONTAINERD_POOL_SIZE | btrfs loop pool size in GB | 20 |
+| CONTAINERD_LOOP_FILE | btrfs loop file path | /opt/containerd-pool.img |
+| CONTAINERD_MAIN_INTERFACE | Host uplink for NAT/NDP | detected automatically |
+| CONTAINERD_IPV6_SUBNET_PREFIX | Prefix length of the CNI subnet carved from the host parent prefix | 80 |
+| CONTAINERD_IPV6_SUBNET_INDEX | Preferred subnet index, starting at 0; explicit values are not automatically changed | 1 |
+| NDPRESPONDER_SOURCE_URL | Git source used for a local responder build when its image is unavailable or has the wrong architecture | https://github.com/oneclickvirt/ndpresponder.git |
+
+## Uninstall
+
+Remove the full containerd environment, including containers, images, CNI networks, systemd services and binaries:
+
+```bash
+bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/containerd/main/containerduninstall.sh)
+```
+
+The script asks for `yes`; removal is irreversible. For unattended removal:
+
+```bash
+export noninteractive=true
+bash <(wget -qO- https://raw.githubusercontent.com/oneclickvirt/containerd/main/containerduninstall.sh)
+```
+
+## Verify installation
+
+```bash
+nerdctl ps -a
+```
+
+For long installations, use screen or tmux to avoid interruption when SSH disconnects.

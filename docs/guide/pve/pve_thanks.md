@@ -29,3 +29,7 @@ https://github.com/yoursunny/ndpresponder
 https://github.com/SuperManito/LinuxMirrors
 
 感谢 [@Ella-Alinda](https://github.com/Ella-Alinda) 提供的PVE指导
+
+## 支持与相关项目
+
+感谢 Proxmox VE 的免费订阅支持。VPS 融合怪测评脚本：[oneclickvirt/ecs](https://github.com/oneclickvirt/ecs)、[spiritLHLS/ecs](https://github.com/spiritLHLS/ecs)。

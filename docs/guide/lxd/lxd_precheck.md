@@ -4,6 +4,10 @@ outline: deep
 
 # 前言
 
+:::warning 维护状态
+本项目自 2024-03-01 起进入有限维护模式，继续修复安装、卸载、IPv6、端口映射和无交互参数等核心问题。Ubuntu 宿主机仍可按现有脚本使用；非 Ubuntu 宿主机、需要新特性或长期维护能力的环境，建议迁移到 [oneclickvirt/incus](https://github.com/oneclickvirt/incus)。[背景说明](https://t.me/spiritlhl/176)。
+:::
+
 以下为非自定义部分的介绍，自定义部分有自己对应的介绍，勿弄混了
 
 如果你的宿主机本身没有IPV6的子网又想给容器分配IPV6地址，那么请先查看```LXD```模块中的```自定义```分区中的```给宿主机附加免费的IPV6地址段```的内容，给宿主机附加上IPV6子网后再进行环境安装
@@ -41,7 +45,7 @@ PS: 如果硬件资源更烂，虚拟化不支持，可使用docker版本的，�
 
 - 保证你要开的盘为默认的系统盘(sda或者sda1)而不是挂载的盘(sdb之类的)，不确定的使用```fdisk -l```和```df```查看
 
-- 挂载其他盘的详看 [其他说明](https://github.com/oneclickvirt/lxd/blob/main/README_other.md)
+- 挂载其他盘时需规划 LXD 存储池，详见[存储池说明](https://documentation.ubuntu.com/lxd/latest/howto/storage_pools/)。
 
 - 一键脚本支持自定义限制所有内容，普通版本支持多次运行批量生成不覆盖先前生成的配置
 
@@ -60,3 +64,8 @@ bash <(curl -sSLk https://raw.githubusercontent.com/oneclickvirt/lxd/main/script
 ```
 bash <(curl -sSLk https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/pre_check.sh)
 ```
+
+
+## 说明与镜像来源
+
+完整使用方式见本分区的环境安装、容器、虚拟机和排障章节。项目维护的容器镜像见 [oneclickvirt/lxd_images](https://github.com/oneclickvirt/lxd_images)，版本变更见[更新日志](https://github.com/oneclickvirt/lxd/blob/main/CHANGELOG.md)。

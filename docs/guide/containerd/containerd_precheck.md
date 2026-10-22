@@ -2,45 +2,27 @@
 outline: deep
 ---
 
-# 前言
+# containerd 使用前准备
 
-以下为非自定义部分的介绍，自定义部分有自己对应的介绍，勿弄混了
+本方案创建 Linux 容器，不要求 KVM，不用于创建 QEMU 虚拟机。
 
-如果你的宿主机本身没有IPV6的子网又想给容器分配IPV6地址，需要宿主机本身已有公网IPV6地址，安装脚本会自动检测并配置
-
-:::warning
-containerd 方案**不支持 KVM/QEMU 虚拟机**，仅支持 Linux 容器（LXC），适用于无 KVM 硬件虚拟化支持的环境。
-:::
-
-欢迎给项目一个 ```Star``` 进行免费的支持-->[https://github.com/oneclickvirt/containerd](https://github.com/oneclickvirt/containerd)
-
-## 项目特点
-
-基于 containerd + nerdctl 运行时，通过批量或单独开设 NAT 服务器
+## 说明
 
 - 使用 [nerdctl-full](https://github.com/containerd/nerdctl) 安装 containerd + runc + nerdctl + CNI + buildkitd 全套组件
-- 使用本仓库自编译的基础镜像（存储在 GitHub Releases），优先离线加载，无法获取时回退到官方镜像
-- 每个容器自带 1 个外网 SSH 端口，25 个内外网一致端口；可选择是否启用 IPv6 出站（SLAAC `/64` 场景使用 ULA NAT66，不分配公网 `/128`）
-- 默认创建非特权容器，支持 lxcfs 挂载（若宿主机安装了 lxcfs）
-- 支持磁盘限制参数（需 xfs/btrfs snapshotter 支持 storage-opt）
-- 支持国内 CDN 镜像加速
-
-## 支持的系统
-
-| 系统 | amd64 | arm64 |
-|------|-------|-------|
-| Ubuntu 22.04 | ✓ | ✓ |
-| Debian 12 | ✓ | ✓ |
-| Alpine latest | ✓ | ✓ |
-| AlmaLinux 9 | ✓ | ✓ |
-| RockyLinux 9 | ✓ | ✓ |
-| OpenEuler 22.03 | ✓ | ✓ |
+- 使用本仓库自编译的基础镜像，默认从 GitHub Releases 离线包加载；如配置 `CONTAINERD_IMAGE_REGISTRY`，则在离线包不可用时回退尝试该 registry
+- 支持系统：Ubuntu 22.04、Debian 12、Alpine、AlmaLinux 9、RockyLinux 9、OpenEuler 22.03
+- 支持架构：amd64、arm64
+- 默认创建非特权容器，支持端口映射、IPv6 和资源限制；宿主机安装 lxcfs 后可挂载容器内的资源视图。
 
 ## 配置要求
 
 - 宿主机系统：Ubuntu、Debian、RockyLinux 9+、AlmaLinux 9+、CentOS 9+、Alpine、Arch
 - 架构：x86_64（amd64）或 ARM64
 - 内核需支持 overlay 文件系统
-- 网络能连接 GitHub 的 Raw 页面即可
+- 网络可访问 GitHub Raw、Releases 及本方案使用的镜像仓库
 - 空闲硬盘有 3G 以上即可
 - **不需要 KVM 硬件支持**
+
+## 使用入口与更新
+
+继续阅读[环境安装](containerd_install.md)和[实例开设](containerd_build.md)。版本变更见[更新日志](https://github.com/oneclickvirt/containerd/blob/main/CHANGELOG.md)。

@@ -126,3 +126,9 @@ rm -rf /usr/local/bin/pve_last_ipv6*
 <br/>
 <br/>
 
+## 项目镜像来源与支持
+
+- 虚拟机镜像：[pve_kvm_images](https://github.com/oneclickvirt/pve_kvm_images)、[kvm_images](https://github.com/oneclickvirt/kvm_images)、[macOS](https://github.com/oneclickvirt/macos)。
+- 容器镜像：[lxc_amd64_images](https://github.com/oneclickvirt/lxc_amd64_images)、[pve_lxc_images](https://github.com/oneclickvirt/pve_lxc_images)、[lxc_arm_images](https://github.com/oneclickvirt/lxc_arm_images)。
+- 镜像选择和使用见对应开设章节；版本变更见[更新日志](https://github.com/oneclickvirt/pve/blob/main/CHANGELOG.md)。
+- 未适配的商家机器可联系 [@spiritlhl_bot](https://t.me/spiritlhl_bot)，有空会尝试支持。

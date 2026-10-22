@@ -21,3 +21,8 @@ https://github.com/SuperManito/LinuxMirrors
 https://images.opsmaru.dev/
 
 感谢 [@Ella-Alinda](https://github.com/Ella-Alinda) [@fscarmen](https://github.com/fscarmen) 提供的指导
+
+## 相关项目与赞助
+
+- VPS 融合怪测评脚本：[oneclickvirt/ecs](https://github.com/oneclickvirt/ecs)、[spiritLHLS/ecs](https://github.com/spiritLHLS/ecs)。
+- 感谢 [DartNode](https://dartnode.com?aff=bonus) 为开源项目提供免费 VPS 支持。

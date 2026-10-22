@@ -2,45 +2,49 @@
 outline: deep
 ---
 
-# Introduction
+# Podman overview and requirements
 
-The following is an introduction to the non-customized sections. Please ensure that you don't confuse them with the customized parts.
+This workflow creates Linux containers and does not require KVM. It does not create QEMU virtual machines.
 
-If your host does not have an IPv6 subnet and you want to assign IPv6 addresses to containers, the host itself needs a public IPv6 address. The installation script will automatically detect and configure this.
+## Overview
 
-:::warning
-The Podman solution **does not support KVM/QEMU virtual machines**. It only supports Linux containers (LXC) and is suitable for environments without KVM hardware virtualization support.
-:::
+- Installs Podman from the distribution's official packages. Podman uses a daemonless architecture.
+- Uses the project's base images, pulling from GHCR first and falling back to GitHub Releases archives.
+- Guest images: Ubuntu 22.04, Debian 12, Alpine, AlmaLinux 9, RockyLinux 9 and OpenEuler 22.03.
+- Architectures: amd64 and arm64.
+- Supports port forwarding, IPv6 and resource limits, with container resource views when lxcfs is installed on the host.
 
-Feel free to give the project a ```Star``` for free support! --> [https://github.com/oneclickvirt/podman](https://github.com/oneclickvirt/podman)
+## Architecture
 
-## Project Features
+```text
+podmaninstall.sh -> Podman and dependencies -> storage, network and kernel settings
+                                            -> podman-net / podman-ipv6
+create_podman.sh -> onepodman.sh -> GHCR image or Releases archive
+                               -> container entrypoint and SSH initialization -> ctlog
+podmanuninstall.sh -> containers, images, networks and project state cleanup
+```
 
-Bulk or individual NAT server provisioning based on Podman (daemonless architecture) runtime
+## Runtime comparison
 
-- Uses each distribution's official packages to install Podman (no daemon, daemonless architecture)
-- Uses self-compiled base images (stored in GitHub Releases), with offline loading prioritized and fallback to ghcr.io images
-- Each container comes with 1 external SSH port, 25 consistent internal/external ports, with optional independent IPv6 address binding
-- Supports lxcfs mounting (if lxcfs is installed on the host), providing real /proc view inside containers
-- Native rootless support (this solution runs as root to simplify network configuration)
-- Supports China CDN acceleration
-
-## Supported Systems
-
-| System | amd64 | arm64 |
-|--------|-------|-------|
-| Ubuntu 22.04 | ✓ | ✓ |
-| Debian 12 | ✓ | ✓ |
-| Alpine latest | ✓ | ✓ |
-| AlmaLinux 9 | ✓ | ✓ |
-| RockyLinux 9 | ✓ | ✓ |
-| OpenEuler 22.03 | ✓ | ✓ |
+| Feature | Podman project | oneclickvirt/containerd | oneclickvirt/docker |
+| --- | --- | --- | --- |
+| Daemon | none | containerd | Docker daemon |
+| Runtime | crun/runc | runc | runc |
+| Rootless support | native | unsupported | requires configuration |
+| Image format | OCI | OCI | OCI |
+| Networking | Netavark/CNI | CNI | Docker bridge |
+| Build tools | Buildah/podman-build | buildkitd | Docker buildx |
+| Installation | distribution packages | nerdctl-full bundle | Docker installation script |
 
 ## Configuration Requirements
 
 - Host OS: Ubuntu, Debian, RockyLinux 9+, AlmaLinux 9+, CentOS 9+, Alpine, Arch
 - Architecture: x86_64 (amd64) or ARM64
 - Kernel must support overlay filesystem
-- Network must be able to connect to GitHub raw interface
+- Network must reach GitHub Raw, Releases and the registries used by this solution
 - At least 3GB free disk space
 - **No KVM hardware support required**
+
+## Documentation and changes
+
+Continue with [installation](podman_install.md) and [creation](podman_build.md). See the [changelog](https://github.com/oneclickvirt/podman/blob/main/CHANGELOG.md) for updates.

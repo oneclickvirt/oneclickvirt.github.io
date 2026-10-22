@@ -13,7 +13,7 @@ There are two deployment methods.
 - Support for x86_64 and ARM architecture servers
 
 :::tip IPv6 network mode
-When the host has only an SLAAC-assigned public `/64`, the installer uses a host-route-disjoint ULA network with NAT66. In that mode, `independent_ipv6=y` enables IPv6 egress only; it does not assign an Internet-reachable public `/128`.
+The installer uses an isolated ULA bridge. With a usable locally assigned public prefix (including a suitable SLAAC `/64`), it attaches routed public `/128` addresses after container startup; the uplink must support the required routing/NDP. A lone public `/128` uses NAT66 for outbound IPv6 without an independent public guest address. Ethernet uplinks require a healthy compatible NDP responder; non-Ethernet tunnels do not.
 :::
 
 ### Download the Script
@@ -43,6 +43,8 @@ Currently, the system only supports selecting:
 
 with Debian being the default choice.
 
+Version-bearing aliases such as `debian11`, `debian/11`, `ubuntu20`, `almalinux9`, `rockylinux9` and `openeuler22.03` are accepted. They are normalized to the currently maintained image family; they do not pin an arbitrary historical release.
+
 Disk size can be set only if you previously enabled disk-limit support during Docker installation. If omitted, disk size is unlimited by default.
 
 ```shell
@@ -61,7 +63,7 @@ The following is the information for the created example container:
 | SSH Port               | 25000          |
 | Port Range for Internal and External Mapping | 34975 to 35000   |
 | Operating System       | debian         |
-| Enable IPv6 egress (NAT66) | N     |
+| Request IPv6 networking | N     |
 | Disk Size              | 5G             |
 
 ### Related operations
@@ -151,7 +153,6 @@ Download back the relevant configuration scripts for the new version
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/extra_scripts/check-dns.sh -o /usr/local/bin/check-dns.sh && chmod +x /usr/local/bin/check-dns.sh
-curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/config.sh -o /usr/local/bin/config.sh && chmod +x /usr/local/bin/config.sh
 curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/ssh_bash.sh -o /usr/local/bin/ssh_bash.sh && chmod +x /usr/local/bin/ssh_bash.sh
 curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/ssh_sh.sh -o /usr/local/bin/ssh_sh.sh && chmod +x /usr/local/bin/ssh_sh.sh
 curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/onedocker.sh -o /root/onedocker.sh && chmod +x /root/onedocker.sh
@@ -160,23 +161,19 @@ curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/cre
 
 ## Start all containers after host reboot
 
-By default, containers are not configured for auto-restart after host reboot. Run the following command to start all stopped containers.
+New containers use `--restart unless-stopped`. When Docker starts, it restores containers that were not manually stopped. To start older or stopped containers manually:
 
-```
-docker start $(docker ps -aq)
+```bash
+docker ps -aq -f status=exited | xargs -r docker start
 ```
 
 ## Start SSH service for all containers after host reboot
 
-Because these containers do not run a full init system by default, SSH may not auto-start. Use the following command to start SSH in all running containers.
+The project's image entrypoint starts SSH when the container starts. If an older image or Docker Hub fallback image does not start SSH automatically, inspect the target container logs, then enter it and start the service supported by that system:
 
-```
-container_ids=$(docker ps -q)
-for container_id in $container_ids
-do
-    docker exec -it $container_id bash -c "service ssh start"
-    docker exec -it $container_id bash -c "service sshd restart"
-    docker exec -it $container_id sh -c "service ssh start"
-    docker exec -it $container_id sh -c "/usr/sbin/sshd"
-done
+```bash
+docker logs test
+docker exec -it test sh
+# Run inside the container:
+service ssh start || service sshd start || /usr/sbin/sshd
 ```

@@ -2,140 +2,129 @@
 outline: deep
 ---
 
-# Preface
+# Create and manage containerd instances
 
-Two methods for provisioning containers.
-
-## Single Container Provisioning
-
-- Creates a single containerd container
-- Can enable IPv6 networking for a containerd container after `containerd-ipv6` is configured during installation
-- Supports x86_64 and ARM64 architecture servers
-
-:::tip IPv6 network mode
-When the host has only an SLAAC-assigned public `/64`, `containerd-ipv6` uses a host-route-disjoint ULA network with NAT66. In that mode, `independent_ipv6=y` enables IPv6 egress only; it does not allocate an Internet-reachable public `/128`.
-:::
-
-### Download Script
-
-```shell
-curl -sSLO https://raw.githubusercontent.com/oneclickvirt/containerd/main/scripts/onecontainerd.sh
-chmod +x onecontainerd.sh
-```
-
-### Example
-
-Supported variables for running:
+## Create one container
 
 ```bash
-./onecontainerd.sh <name> <cpu> <memory_mb> <password> <sshport> <startport> <endport> [independent_ipv6:y/n] [system] [disk_gb]
+wget -q https://raw.githubusercontent.com/oneclickvirt/containerd/main/scripts/onecontainerd.sh
+chmod +x onecontainerd.sh
+
+# ./onecontainerd.sh <name> <cpu> <memory_mb> <password> <sshport> <startport> <endport> [ipv6:y/n] [system] [disk_gb]
+./onecontainerd.sh ct1 1 512 "" 25000 34975 35000 n debian 0
 ```
 
-Currently supported `system` values:
+Before creation, the script validates the container name, port range and occupied host ports. An empty password string generates a high-entropy random root password and saves it in the container record.
 
-- debian
-- ubuntu
-- alpine
-- almalinux
-- rockylinux
-- openeuler
+| Argument | Description | Default |
+| --- | --- | --- |
+| name | Container name | test |
+| cpu | CPU limit, including fractional values such as 0.5 | 1 |
+| memory_mb | Memory limit in MB | 512 |
+| password | Root password; omitted or empty values generate one | generated |
+| sshport | Host port forwarded to container port 22 | 25000 |
+| startport | First additional public port | 34975 |
+| endport | Last additional public port | 35000 |
+| ipv6 | Request independent IPv6, `y` or `n` | n |
+| system | Maintained image family or supported version alias | debian |
+| disk_gb | Disk limit in GB; 0 disables the limit | 0 |
 
-Default is debian if not specified.
+Supported image families are `ubuntu`, `debian`, `alpine`, `almalinux`, `rockylinux` and `openeuler`.
 
-```shell
-./onecontainerd.sh ct1 1 512 MyPassword 25000 34975 35000 n debian 0
-```
+| Actual image | Accepted examples |
+| --- | --- |
+| `ubuntu` | `ubuntu22`, `ubuntu22.04`, `ubuntu/22.04` |
+| `debian` | `debian12`, `debian/12` |
+| `alpine` | `alpine/latest` |
+| `almalinux` | `almalinux9`, `alma9` |
+| `rockylinux` | `rockylinux9`, `rocky9` |
+| `openeuler` | `openeuler22.03`, `openeuler/22.03` |
 
-Example container information:
+Unsupported versions such as `debian11` and `centos7` have no matching project image. The script returns an error and lists valid values instead of silently selecting a different system or requesting a nonexistent asset.
 
-| Attribute | Value |
-|-----------|-------|
-| Container name | ct1 |
-| SSH username | root |
-| SSH password | MyPassword |
-| CPU cores | 1 |
-| Memory | 512MB |
-| SSH port | 25000 |
-| External/internal port range | 34975 to 35000 |
-| System | debian |
-| Enable IPv6 egress (NAT66) | N |
-| Disk size | Unlimited |
+Image source variables:
 
-### Related Operations
+| Variable | Description | Default |
+| --- | --- | --- |
+| CONTAINERD_IMAGE_REGISTRY | Optional fallback registry; after a Releases failure, try `<registry>:<system>` and `<registry>:<system>-<arch>` | unset |
+| CONTAINERD_IMAGE_RELEASE_BASE | Offline archive base URL | https://github.com/oneclickvirt/containerd/releases/download |
 
-List all containers
+## Batch creation
 
-```shell
-nerdctl ps -a
-```
-
-Enter container
-
-```shell
-nerdctl exec -it ct1 bash
-```
-
-Enter Alpine container
-
-```shell
-nerdctl exec -it ct1 sh
-```
-
-Type `exit` to leave the container.
-
-Delete container
-
-```shell
-nerdctl rm -f ct1
-```
-
-View container logs
-
-```shell
-nerdctl logs ct1
-```
-
-## Batch Container Provisioning
-
-- Multiple runs inherit configuration and generate sequentially
-- Auto-increments container name (ct1, ct2, ...), SSH port, and public ports
-- Container information recorded to `ctlog` file
-- Recommended to run in screen to avoid SSH disconnection
-
-### Run
-
-```shell
-curl -sSLO https://raw.githubusercontent.com/oneclickvirt/containerd/main/scripts/create_containerd.sh
+```bash
+wget -q https://raw.githubusercontent.com/oneclickvirt/containerd/main/scripts/create_containerd.sh
 chmod +x create_containerd.sh
 ./create_containerd.sh
 ```
 
-### Query Batch Container Information
+The interactive script increments container names (`ct1`, `ct2`, ...), SSH ports and public ports, and records the results in `ctlog`. Each new container receives a random 32-character hexadecimal password.
 
-```shell
-cat ctlog
+Command-line configuration:
+
+```bash
+./create_containerd.sh --noninteractive --count 3 --memory 512 --cpu 1 --disk 0 --system debian --ipv6 n
 ```
 
-Output format:
+Unattended configuration through environment variables:
 
+```bash
+export noninteractive=true
+export CONTAINERD_CREATE_COUNT=1
+export CONTAINERD_CONTAINER_MEMORY=512
+export CONTAINERD_CONTAINER_CPU=1
+export CONTAINERD_CONTAINER_DISK=0
+export CONTAINERD_CONTAINER_SYSTEM=debian
+export CONTAINERD_CONTAINER_IPV6=n
+./create_containerd.sh
 ```
-container_name ssh_port root_password cpu_cores memory_mb start_port end_port disk_gb
+
+## Inspect and manage containers
+
+```bash
+nerdctl ps -a
+nerdctl exec -it <name> bash
+nerdctl exec -it <name> sh   # Alpine
+nerdctl logs <name>
+nerdctl rm -f <name>
+nerdctl images
+nerdctl rmi <image>
 ```
 
-One line per container.
+Management helpers, run from a checkout of the repository:
 
-## Remove All Containers and Images
+```bash
+bash scripts/containerd_manage.sh stats [container]
+bash scripts/containerd_manage.sh snapshot <container> [image]
+bash scripts/containerd_manage.sh backup <container> [output.tar]
+bash scripts/containerd_manage.sh version-check [system]
+```
 
-```shell
+## Connection records
+
+Run `cat ctlog` in the creation working directory. Each line is:
+
+```text
+name SSH-port root-password CPU memory-MB first-port last-port disk-GB
+```
+
+Records contain passwords; keep them private.
+
+## Remove all containers and images
+
+The following commands delete all containers and images visible to this runtime. Back up data and confirm the scope first.
+
+```bash
 nerdctl ps -aq | xargs -r nerdctl rm -f
 nerdctl images -q | xargs -r nerdctl rmi -f
-rm -rf ctlog
 ```
 
-## Restart All Containers After Host Reboot
+## Host reboot and automatic startup
 
-By default, containers are not configured to auto-restart. Run the following command to start all stopped containers:
+New containers use nerdctl `--restart always`; keep the containerd service enabled. To recover older or stopped containers manually:
 
-```shell
+```bash
+systemctl status containerd
 nerdctl ps -aq -f status=exited | xargs -r nerdctl start
 ```
+
+See [networking, images and troubleshooting](containerd_qa.md) for network modes, image sources and records.

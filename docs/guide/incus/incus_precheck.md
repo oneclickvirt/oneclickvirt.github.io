@@ -4,6 +4,8 @@ outline: deep
 
 # 前言
 
+
+
 以下为非自定义部分的介绍，自定义部分有自己对应的介绍，勿弄混了
 
 如果宿主机没有 IPv6 子网但你希望给容器分配 IPv6 地址，请先查看 ```incus``` 模块 ```自定义``` 分区中的 ```给宿主机附加免费的IPv6地址段```，先给宿主机附加 IPv6 子网后再进行环境安装。
@@ -42,7 +44,7 @@ PS: 如果硬件资源更烂，虚拟化不支持，可使用docker版本的，�
 
 - 保证你要开的盘为默认的系统盘(sda或者sda1)而不是挂载的盘(sdb之类的)，不确定的使用```fdisk -l```和```df```查看
 
-- 挂载其他盘的详看 [其他说明](https://github.com/oneclickvirt/incus/blob/main/README_other.md)
+- 挂载其他盘时需规划 Incus 存储池，详见[存储池说明](https://linuxcontainers.org/incus/docs/main/howto/storage_pools/)。
 
 - 一键脚本支持自定义限制所有内容，普通版本支持多次运行批量生成不覆盖先前生成的配置
 
@@ -61,3 +63,8 @@ bash <(curl -sSLk https://raw.githubusercontent.com/oneclickvirt/incus/main/scri
 ```
 bash <(curl -sSLk https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/pre_check.sh)
 ```
+
+
+## 说明与镜像来源
+
+完整使用方式见本分区的环境安装、容器、虚拟机和排障章节。项目维护的容器镜像见 [oneclickvirt/incus_images](https://github.com/oneclickvirt/incus_images)，版本变更见[更新日志](https://github.com/oneclickvirt/incus/blob/main/CHANGELOG.md)。

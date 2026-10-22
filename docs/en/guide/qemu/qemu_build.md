@@ -2,144 +2,152 @@
 outline: deep
 ---
 
-# Introduction
+# Create and manage QEMU/KVM instances
 
-Two ways to create virtual machines.
-
-## Create a Single VM
-
-- Creates only one KVM/QEMU virtual machine, automatically detects international or domestic server
-- Can enable IPv6 egress for a VM after the installer configures its IPv6 NAT network
-- Supports x86_64 and ARM64 architecture servers
-
-:::tip IPv6 network mode
-When the host has only an SLAAC-assigned public `/64`, QEMU uses a host-route-disjoint ULA subnet with NAT66. In that mode, `independent_ipv6=y` enables VM IPv6 egress only; it does not allocate an Internet-reachable public `/128`.
-:::
-
-### Download Script
-
-```shell
-curl -sSLO https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/oneqemu.sh
-chmod +x oneqemu.sh
-```
-
-### Example
-
-Supported variables:
+## Create one VM
 
 ```bash
-./oneqemu.sh <name> <cpu> <memory_mb> <disk_gb> <password> <sshport> <startport> <endport> [independent_ipv6:y/n] [system]
+curl -sSL -o oneqemu.sh https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/oneqemu.sh
+chmod +x oneqemu.sh
+
+# Both argument layouts are accepted:
+# ./oneqemu.sh <name> <cpu> <memory_mb> <disk_gb> <password> <sshport> <startport> <endport> [system]
+# ./oneqemu.sh <name> <cpu> <memory_mb> <disk_gb> <password> <sshport> <startport> <endport> <extra_flag(y/n)> [system]
+./oneqemu.sh vm1 1 1024 20 MyPassword 25001 35001 35025 debian
+# Optional flag in position 9, system in position 10:
+./oneqemu.sh vm1 1 1024 10 MyPassword 25000 34975 35000 n debian13
 ```
 
-Currently supported systems:
+| Argument | Description | Default |
+| --- | --- | --- |
+| name | VM name | vm1 |
+| cpu | CPU cores | 1 |
+| memory_mb | Memory in MB | 1024 |
+| disk_gb | Disk size in GB | 20 |
+| password | Root password | generated |
+| sshport | SSH host port | 25001 |
+| startport | First additional port | 35001 |
+| endport | Last additional port | 35025 |
+| system | Guest OS in position 9 or 10 | debian |
 
-- debian
-- ubuntu
+| System | Supported versions | Examples |
+| --- | --- | --- |
+| `debian` | 10, 11, 12, 13 | `debian`, `debian12`, `debian13` |
+| `ubuntu` | 18, 20, 22, 24 | `ubuntu`, `ubuntu22`, `ubuntu24` |
+| `almalinux` | 8, 9 | `almalinux9`, `alma9` |
+| `rockylinux` | 8, 9 | `rockylinux9`, `rocky9` |
+| `openeuler` | 22 | `openeuler` |
 
-Default is debian if not specified.
+System names are case-insensitive and accept separators such as `debian-13` and `ubuntu_22`.
 
-```shell
-./oneqemu.sh vm1 1 1024 10 passwordhere 25000 34975 35000 n debian13
+Environment variables are also accepted; positional arguments take precedence:
+
+```bash
+export noninteractive=true
+export VM_NAME=vm1
+export VM_CPU=1
+export VM_MEMORY=1024
+export VM_DISK=20
+export VM_PASSWORD='ChangeMe-123'
+export VM_SSH_PORT=25001
+export VM_START_PORT=35001
+export VM_END_PORT=35025
+export VM_SYSTEM=debian12
+./oneqemu.sh
 ```
 
-Example VM details:
+## Batch creation
 
-| Property | Value |
-|----------|-------|
-| VM name | vm1 |
-| SSH username | root |
-| SSH password | MyPassword |
-| CPU cores | 1 |
-| Memory | 1024MB |
-| Disk size | 10GB |
-| SSH port | 25000 |
-| Port mapping range | 34975 to 35000 |
-| System | debian |
-| Enable IPv6 egress (NAT66) | N |
-
-### Related Operations
-
-List all virtual machines
-
-```shell
-virsh list --all
-```
-
-Start a virtual machine
-
-```shell
-virsh start vm1
-```
-
-Shut down a virtual machine
-
-```shell
-virsh shutdown vm1
-```
-
-Force stop a virtual machine
-
-```shell
-virsh destroy vm1
-```
-
-Access VM console
-
-```shell
-virsh console vm1
-```
-
-Press `Ctrl + ]` to exit the console.
-
-Delete example
-
-```shell
-virsh destroy vm1
-virsh undefine vm1 --remove-all-storage
-```
-
-View VM info
-
-```shell
-virsh dominfo vm1
-```
-
-## Batch Create VMs
-
-- Generates multiple VMs inheriting the same configuration
-- Automatically increments VM names (vm1, vm2, ...), SSH ports, and public ports
-- VM information is logged to the `vmlog` file
-- It is recommended to run in a screen session when creating multiple VMs to avoid SSH disconnection
-- Supports x86_64 and ARM64 architecture servers
-
-### Run
-
-```shell
-curl -sSLO https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/create_qemu.sh
+```bash
+curl -sSL -o create_qemu.sh https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/create_qemu.sh
 chmod +x create_qemu.sh
 ./create_qemu.sh
 ```
 
-### Query Batch Creation Info
+The interactive script increments VM names, SSH ports and public ports, and writes `vmlog`. A batch lock serializes creation. A failed VM stops subsequent creation so names and port assignments do not continue drifting.
 
-```shell
-cat vmlog
+Command-line configuration:
+
+```bash
+# ./create_qemu.sh <count> <memory_mb> <cpu> <disk_gb> <system>
+./create_qemu.sh 3 1024 1 20 debian12
 ```
 
-Output format:
+Unattended environment configuration:
 
+```bash
+export noninteractive=true
+export VM_COUNT=3
+export VM_MEMORY=1024
+export VM_CPU=1
+export VM_DISK=20
+export VM_SYSTEM=debian12
+./create_qemu.sh
 ```
-VM-name SSH-port root-password CPU-cores memory disk start-port end-port
+
+Creation does not block on cloud-init completion. DHCP reservations and forwarding rules are installed before startup; cloud-init continues in the running guest. Connect once SSH is ready. Monitor initialization with:
+
+```bash
+tail -f /tmp/qemu-init-<vm_name>.log
 ```
 
-One line per VM.
+## Inspect and manage VMs
 
-## Delete All VMs and Images
-
-```shell
-for vm in $(virsh list --all --name); do virsh destroy "$vm" 2>/dev/null; virsh undefine "$vm" --remove-all-storage; done
-rm -rf vmlog
+```bash
+virsh list --all
+virsh console <name>     # Exit with Ctrl+]
+virsh start <name>
+virsh shutdown <name>
+virsh destroy <name>     # Force power off
+virsh reboot <name>
+virsh dominfo <name>
+virsh domifaddr <name>
 ```
+
+Project management script:
+
+```bash
+curl -sSL -o manage_qemu.sh https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/manage_qemu.sh
+chmod +x manage_qemu.sh
+./manage_qemu.sh info all
+./manage_qemu.sh info vm1
+./manage_qemu.sh snapshot vm1 before-upgrade
+./manage_qemu.sh set-resources vm1 2 2048
+```
+
+`info` includes vmlog, VM state, MAC address, IPs and ports. `set-resources` takes CPU cores and memory in MB.
+
+## Delete one VM
+
+```bash
+curl -sSL -o delete_qemu.sh https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/delete_qemu.sh
+chmod +x delete_qemu.sh
+./delete_qemu.sh <vm_name>
+./delete_qemu.sh vm1 -y
+```
+
+Unattended environment configuration:
+
+```bash
+export VM_NAME=vm1
+export noninteractive=true
+export QEMU_FORCE_DELETE=yes
+./delete_qemu.sh
+```
+
+Deletion removes the VM definition, disks, DHCP reservation, nftables/iptables forwarding rules and connection records. Successful deletion updates both `/root/vmlog` and the local SQLite state database.
+
+## Delete multiple VMs
+
+Use the deletion script for each confirmed VM name so DHCP reservations, forwarding rules, vmlog and SQLite state are also cleaned up:
+
+```bash
+for vm in vm1 vm2; do
+  ./delete_qemu.sh "$vm" -y || break
+done
+```
+
+To remove the complete environment and all VM disks, use the uninstaller in the installation guide.
 
 ## Restart All VMs After Host Reboot
 
@@ -161,3 +169,5 @@ Or manually start all stopped VMs:
 ```shell
 for vm in $(virsh list --all --name); do virsh start "$vm" 2>/dev/null; done
 ```
+
+See [networking, images and troubleshooting](qemu_qa.md) for network modes, image sources and records.

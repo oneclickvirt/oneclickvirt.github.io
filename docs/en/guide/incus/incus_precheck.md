@@ -4,6 +4,8 @@ outline: deep
 
 # Preface
 
+
+
 This page covers the non-customized workflow. Custom sections are documented separately.
 
 If your host has no IPv6 subnet but you want to assign IPv6 addresses to containers, check the ``Customize`` section in the ``Incus`` module for ``Attach a free IPv6 address segment to the host``, then attach an IPv6 subnet before installation.
@@ -40,7 +42,7 @@ PS: If the hardware resources are even worse, virtualization is not supported, y
 
 - Ensure that the disk you want to open is the default system disk (sda or sda1) and not the mounted disk (sdb and so on), if you are not sure, use ``fdisk -l`` and ``df`` to check.
 
-- See [Other notes](https://github.com/oneclickvirt/incus/blob/main/README_other.md) for details on mounting other disks.
+- When using another disk, plan the Incus storage pool; see [storage pools](https://linuxcontainers.org/incus/docs/main/howto/storage_pools/).
 
 - One-click scripts support custom restrictions on all content, the normal version supports multiple runs of the batch generation does not overwrite the previously generated configuration
 
@@ -53,3 +55,8 @@ Command:
 ```
 bash <(curl -sSLk https://raw.githubusercontent.com/oneclickvirt/incus/main/scripts/pre_check.sh)
 ```
+
+
+## Documentation and images
+
+Use this section's installation, container, VM and troubleshooting chapters for the full workflow. Project-maintained container images are in [oneclickvirt/incus_images](https://github.com/oneclickvirt/incus_images). Changes are recorded in the [changelog](https://github.com/oneclickvirt/incus/blob/main/CHANGELOG.md).

@@ -2,54 +2,38 @@
 outline: deep
 ---
 
-# Introduction
+# KubeVirt overview and requirements
 
-The following is an introduction to the non-customized part. The customized part has its own corresponding introduction; please do not mix them up.
+## Overview
 
-Please give the project a ```Star``` for free support --> [https://github.com/oneclickvirt/kubevirt](https://github.com/oneclickvirt/kubevirt)
+- Installs a single-node K3s Kubernetes cluster, KubeVirt and CDI (Containerized Data Importer).
+- KubeVirt runs QEMU/KVM guests; CDI imports cloud images into PVCs.
+- New VMs use Kubernetes NodePort Services for stable SSH and additional TCP/UDP mappings. Existing forwarding setups can be migrated with update-port-rules.sh.
+- Guest images: Ubuntu 22.04/24.04, Debian 11/12, AlmaLinux 9, RockyLinux 9, CentOS 7, CentOS Stream 8/9 and openSUSE Leap 15.5.
+- Current scripts support amd64/x86_64 only. ARM64 images and KubeVirt compatibility are not guaranteed.
+- Supported host systems: Ubuntu 20.04/22.04/24.04 and Debian 11/12.
 
-## Project Features
+## Requirements
 
-One-click deployment and management of KVM virtual machines based on KubeVirt on a Kubernetes (k3s) cluster, supporting batch or individual VM creation
+- KVM hardware virtualization with an accessible `/dev/kvm` is recommended. When the device is absent after module loading, the installer enables slower QEMU TCG emulation.
+- Minimum baseline: 2 CPU cores, 4 GB RAM and 20 GB free disk.
+- Run installation as root.
+- Internet access is required to download K3s, KubeVirt components and guest images unless the corresponding files have been prepared locally.
 
-- One-click deployment of the complete k3s + KubeVirt environment
-- Manages virtual machines in a Kubernetes environment via KubeVirt CRDs
-- Each virtual machine comes with its own dedicated SSH port and port mapping
-- Supports IPv4/IPv6 automatic allocation and port forwarding
-- Supports batch creation with automatic logging to a log file
-- Supports X86_64 and ARM64 architectures
-- Supports domestic CDN mirror acceleration
+## Architecture
 
-## Supported Systems (Host)
-
-| System | amd64 | arm64 |
-|--------|-------|-------|
-| Debian 11 | ✓ | ✓ |
-| Debian 12 | ✓ | ✓ |
-| Ubuntu 20.04 | ✓ | ✓ |
-| Ubuntu 22.04 | ✓ | ✓ |
-
-## Configuration Requirements
-
-- Host nodes must support KVM hardware virtualization (`/dev/kvm` available)
-- Kernel version: ≥ 4.15
-- Architecture: x86_64 (amd64) or ARM64
-- Memory: at least 4GB available (including k3s + KubeVirt overhead)
-- Storage: at least 20GB available disk space
-- OS: Debian 11+, Ubuntu 20.04+
-
-:::warning
-Before using this project, make sure the host supports KVM virtualization. You can check with the following command:
-
-```bash
-egrep -c '(vmx|svm)' /proc/cpuinfo
+```text
+Host: K3s + KubeVirt
+├── KubeVirt Operator: VM lifecycle
+├── CDI: imports cloud images to PVCs
+├── virt-launcher Pod: QEMU/KVM guest
+└── VM-owned NodePort Services
+    ├── host:25000 -> vm1 SSH:22
+    └── host:34975-35000 -> vm1 additional TCP/UDP ports
 ```
 
-A result greater than 0 indicates KVM virtualization is supported. You can also run `ls /dev/kvm` to confirm the device file exists.
-:::
+Service endpoints follow replacement Pods, keeping mappings stable when VM Pod addresses change.
 
-:::tip
-This project will automatically deploy k3s. There is no need to prepare a Kubernetes cluster in advance.
-:::
+## Documentation and changes
 
-It is recommended to add some SWAP virtual memory before creating virtual machines to avoid sudden memory usage causing the host to crash.
+Continue with [installation](kubevirt_install.md) and [creation](kubevirt_build.md). See the [changelog](https://github.com/oneclickvirt/kubevirt/blob/main/CHANGELOG.md) for updates.

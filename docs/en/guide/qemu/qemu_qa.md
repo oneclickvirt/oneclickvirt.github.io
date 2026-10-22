@@ -2,7 +2,51 @@
 outline: deep
 ---
 
-# FAQ
+# Reference and troubleshooting
+
+## Images
+
+Image selection tries `oneclickvirt/pve_kvm_images`, then `oneclickvirt/kvm_images`, then the distribution's upstream cloud image. Images are cached in `/var/lib/libvirt/images/`, or the directory recorded by the installer when QEMU_IMAGES_PATH is set. Later guests reuse the cache. When `sha256sum` is available, downloads get a local `.sha256` record and cached files are checked before reuse; a mismatch removes and redownloads the cache. This local record checks cache consistency rather than proving an upstream signature.
+
+| Guest system | Upstream source |
+| --- | --- |
+| Debian 10/11/12/13 | cloud.debian.org |
+| Ubuntu 18/20/22/24 | cloud-images.ubuntu.com |
+| AlmaLinux 8/9 | repo.almalinux.org |
+| RockyLinux 8/9 | dl.rockylinux.org |
+| OpenEuler 22 | repo.openeuler.org |
+
+## Networking
+
+- Uses libvirt's `default` NAT network, `virbr0` and `192.168.122.0/24`.
+- Checks whether an existing `virbr0` is owned by libvirt before configuring it.
+- Allocates DHCP reservations from `192.168.122.2`–`192.168.122.99` first, then continues through `.254` if required.
+- nftables or iptables DNAT maps host ports to guest ports.
+- New default networks enable libvirt IPv6 NAT with ULA prefix `fd42:122::/64`. Existing networks are updated through `virsh net-update --live --config`; failed updates preserve IPv4 and do not falsely report working IPv6.
+- Records `ipv6_nat=true` only after confirming a global IPv6 uplink source, IPv6 forwarding and actual nftables/ip6tables rules.
+- IPv6 addresses come from real DHCPv6 leases. They are not guessed from the IPv4 suffix. Creation may initially record `pending`; query the latest address with `manage_qemu.sh info <name>`.
+- Temporary reservations protect VM names, SSH ports and additional port ranges against concurrent reuse.
+- SSH mapping: `host:sshport` → `guest-IP:22`.
+- Additional mapping: `host:startport-endport` → `guest-IP:startport-endport`.
+
+## Connection records and logs
+
+VM records are stored in `/root/vmlog` and `/var/lib/libvirt/qemu-vms.db`. The first ten vmlog fields remain compatible:
+
+```text
+vm1 25001 passwd123 1 1024 20 35001 35025 debian 192.168.122.2
+vm2 25002 passwd456 1 1024 20 35026 35050 ubuntu 192.168.122.3
+```
+
+Field order: `name SSH-port password CPU memory-MB disk-GB first-port last-port system private-IP`.
+
+New versions append network metadata, for example:
+
+```text
+mac=52:54:xx:xx:xx:xx bridge=virbr0 fw=nft ipv6=fd42:122::102 ipv6_nat=true
+```
+
+Creation, deletion and `manage_qemu.sh set-resources` update both vmlog and SQLite. If vmlog is missing, `manage_qemu.sh info all` falls back to SQLite.
 
 ## KVM not available / /dev/kvm does not exist
 
@@ -66,16 +110,11 @@ Common causes:
 
 ## How to view SSH login info
 
-View the vmlog file for batch-created VM info:
+See the record format above. Query the latest addresses and ports with:
 
-```shell
-cat vmlog
-```
-
-Or view port forwarding rules:
-
-```shell
-iptables -t nat -L PREROUTING -n -v | grep 25000
+```bash
+cat /root/vmlog
+./manage_qemu.sh info all
 ```
 
 ## How to completely reset the QEMU/KVM environment
@@ -83,7 +122,10 @@ iptables -t nat -L PREROUTING -n -v | grep 25000
 Uninstall first, then reinstall:
 
 ```shell
-bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/scripts/qemuuninstall.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuuninstall.sh)
 bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuinstall.sh)
 ```
 
+## Disable CDN
+
+Set `export WITHOUTCDN=TRUE` before running the scripts to skip CDN acceleration. Unset it to restore the default behavior.

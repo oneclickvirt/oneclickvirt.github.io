@@ -17,3 +17,8 @@ https://openzfs.github.io/openzfs-docs/Getting%20Started/Debian/index.html
 https://github.com/SuperManito/LinuxMirrors
 
 https://github.com/zabbly/incus
+
+## Related projects and sponsor
+
+- VPS assessment scripts: [oneclickvirt/ecs](https://github.com/oneclickvirt/ecs), [spiritLHLS/ecs](https://github.com/spiritLHLS/ecs).
+- [DartNode](https://dartnode.com?aff=bonus) provides free VPS support for open source.

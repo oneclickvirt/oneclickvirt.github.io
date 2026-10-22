@@ -4,6 +4,10 @@ outline: deep
 
 # Preface
 
+:::warning Maintenance status
+Since 2024-03-01 this project has been in limited maintenance, focusing on core installation, uninstallation, IPv6, port mapping and unattended-mode issues. Existing Ubuntu hosts can continue using the scripts. For non-Ubuntu hosts, newer features or long-term maintenance, use [oneclickvirt/incus](https://github.com/oneclickvirt/incus). [Background](https://t.me/spiritlhl/176).
+:::
+
 This page covers the standard (non-customized) workflow. Custom sections are documented separately.
 
 If your host has no IPv6 subnet but you want to assign IPv6 addresses to containers, check the ``Customize`` section in the ``LXD`` module for ``Attach a free IPv6 address segment to the host``, then attach an IPv6 subnet before installation.
@@ -39,7 +43,7 @@ PS: If the hardware resources are even worse, virtualization is not supported, y
 
 - Ensure that the disk you want to open is the default system disk (sda or sda1) and not the mounted disk (sdb and so on), if you are not sure, use ``fdisk -l`` and ``df`` to check.
 
-- See [Other notes](https://github.com/oneclickvirt/lxd/blob/main/README_other.md) for details on mounting other disks.
+- When using another disk, plan the LXD storage pool; see [storage pools](https://documentation.ubuntu.com/lxd/latest/howto/storage_pools/).
 
 - One-click scripts support custom restrictions on all content, the normal version supports multiple runs of the batch generation does not overwrite the previously generated configuration
 
@@ -52,3 +56,7 @@ Command:
 ```
 bash <(curl -sSLk https://raw.githubusercontent.com/oneclickvirt/lxd/main/scripts/pre_check.sh)
 ```
+
+## Documentation and images
+
+Use this section's installation, container, VM and troubleshooting chapters for the full workflow. Project-maintained container images are in [oneclickvirt/lxd_images](https://github.com/oneclickvirt/lxd_images). Changes are recorded in the [changelog](https://github.com/oneclickvirt/lxd/blob/main/CHANGELOG.md).

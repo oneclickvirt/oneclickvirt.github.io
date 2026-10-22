@@ -2,171 +2,177 @@
 outline: deep
 ---
 
-# 前言
+# KubeVirt 实例开设与管理
 
-两种开设方式
-
-## 单独开设
-
-- 只生成一台 KVM 虚拟机（通过 KubeVirt VirtualMachine 资源），自动判断国际服务器还是国内服务器
-- 使用集群 CNI 地址；双栈集群会按地址族分别识别虚拟机 IPv4 和 IPv6 并配置端口转发
-- 支持 x86_64 和 ARM64 架构的服务器
-
-:::tip IPv6 网络模式
-KubeVirt 不会从宿主机公网 IPv6 前缀裁切 CNI/IPAM 子网。启用 IPv6 转发时，安装器会保留宿主机上行接口的 SLAAC 路由；是否具备 VM IPv6 由集群 CNI 的双栈配置决定。
-:::
-
-### 下载脚本
-
-国际
-
-```shell
-curl -sSLO https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/onevm.sh
-chmod +x onevm.sh
-```
-
-国内
-
-```shell
-curl -sSLO https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/onevm.sh
-chmod +x onevm.sh
-```
-
-### 示例
-
-运行支持的变量如下
+## 开设单个虚拟机
 
 ```bash
+curl -sSL -o onevm.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/onevm.sh
+chmod +x onevm.sh
+export noninteractive=true
 ./onevm.sh <name> <cpu> <memory_gb> <disk_gb> <password> <sshport> <startport> <endport> [system]
 ```
 
-目前 system 仅支持选择：
+创建过程会验证真实 root 密码 SSH 和 cloud-init 完成，默认总预算 600 秒，可用 `SSH_READY_TIMEOUT` 调整。超时返回失败并保留实例供排查，不会把仅开放 TCP 端口计为创建成功。
 
-- debian
-- ubuntu
+**参数说明：**
 
-默认不填则是 debian
+| 参数 | 说明 | 默认值 |
+|------|------|--------|
+| `name` | 虚拟机名称（小写字母数字和连字符） | `test` |
+| `cpu` | CPU 核心数 | `1` |
+| `memory_gb` | 内存（GB） | `1` |
+| `disk_gb` | 磁盘大小（GB） | `10` |
+| `password` | root 密码 | `123456` |
+| `sshport` | 宿主机 SSH 映射端口 | `25000` |
+| `startport` | 公网端口范围起始 | `34975` |
+| `endport` | 公网端口范围结束 | `35000` |
+| `system` | 操作系统 | `ubuntu` |
 
-```shell
-./onevm.sh vm1 1 1 10 MyPassword 25000 34975 35000 debian
+**支持的系统：**
+
+| 系统标识 | 说明 | 镜像来源 |
+|----------|------|----------|
+| `ubuntu` | Ubuntu 22.04 LTS | pve_kvm_images(ubuntu22) → kvm_images(ubuntu22) → 官方 |
+| `ubuntu24` | Ubuntu 24.04 LTS | pve_kvm_images(ubuntu24) → kvm_images(ubuntu24) → 官方 |
+| `debian` | Debian 12 | pve_kvm_images(debian12) → kvm_images(debian12) → 官方 |
+| `debian11` | Debian 11 | pve_kvm_images(debian11) → kvm_images(debian11) → 官方 |
+| `almalinux` | AlmaLinux 9 | pve_kvm_images(almalinux9) → kvm_images(almalinux9) → 官方 |
+| `rockylinux` | RockyLinux 9 | pve_kvm_images(rockylinux9) → kvm_images(rockylinux9) → 官方 |
+| `centos` | CentOS 7 | pve_kvm_images(centos7) → kvm_images(centos7) → 官方 |
+| `centos8-stream` | CentOS Stream 8 | pve_kvm_images(centos8-stream) → kvm_images(centos8-stream) → 官方 |
+| `centos-stream` | CentOS Stream 9 | 官方上游（无组织预置镜像） |
+| `opensuse` | openSUSE Leap 15.5 | pve_kvm_images(opensuse-leap-15) → kvm_images(opensuse-leap-15) → 官方 |
+
+**示例：**
+
+```bash
+export noninteractive=true
+./onevm.sh vm1 2 2 20 MyPassword 25000 34975 35000 debian
 ```
 
-以下为开设的示例虚拟机的信息：
+位置参数优先于 `VM_NAME`、`CPU`、`MEMORY_GB`、`DISK_GB`、`PASSWORD`、`SSH_PORT`、`START_PORT`、`END_PORT` 和 `SYSTEM`。资源统一创建在 `kubevirt-vms` 命名空间。
 
-| 属性 | 值 |
-|------|----|
-| 虚拟机名字 | vm1 |
-| SSH 登录的用户名 | root |
-| SSH 登录的密码 | MyPassword |
-| CPU 核数 | 1 |
-| 内存大小 | 1024MB |
-| 硬盘大小 | 10GB |
-| SSH 端口 | 25000 |
-| 内外网映射端口一致的区间 | 34975 到 35000 |
-| 系统 | debian |
+## 批量开设虚拟机
 
-### 相关操作
-
-查看所有虚拟机
-
-```shell
-kubectl get vmi -n default
+```bash
+curl -sSL -o create_vm.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/create_vm.sh
+chmod +x create_vm.sh
+export noninteractive=true
+./create_vm.sh
 ```
 
-查看虚拟机状态
+批量配置示例：
 
-```shell
-kubectl get vm vm1 -n default
+```bash
+export VM_COUNT=3
+export VM_PREFIX=vm
+export START_NUM=1
+export CPU=2
+export MEMORY_GB=2
+export DISK_GB=20
+export SSH_START_PORT=25000
+export PORT_RANGE_SIZE=26
+export EXTRA_PORT_START=35000
+export SYSTEM=debian
+export noninteractive=true
+./create_vm.sh
 ```
 
-启动虚拟机
+默认创建 1 台，名称前缀 `vm`，起始编号 1，1 核、1GB 内存、10GB 磁盘，SSH 从 25000 起，每台额外 26 个端口，从 35000 起，系统为 Ubuntu。可显式设置 `PASSWORD`，否则批量脚本生成密码。兼容旧开关 `AUTO_YES=y`。
 
-```shell
-virtctl start vm1 -n default
+## 查看所有虚拟机
+
+```bash
+curl -sSL -o listvms.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/listvms.sh
+chmod +x listvms.sh
+export noninteractive=true
+./listvms.sh
 ```
 
-停止虚拟机
+## 创建虚拟机快照（DataVolume 克隆）
 
-```shell
-virtctl stop vm1 -n default
+```bash
+curl -sSL -o snapshotvm.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/snapshotvm.sh
+chmod +x snapshotvm.sh
+export noninteractive=true
+./snapshotvm.sh vm1 vm1-snapshot-001
 ```
 
-通过 SSH 连接虚拟机控制台
+说明：
 
-```shell
-virtctl console vm1 -n default
+- 快照通过 CDI 从 `vm1-dv` 克隆出新的 DataVolume，不会直接创建新 VM。
+- 默认拒绝对运行中的 VM 创建快照，避免数据不一致；如确认可接受风险，可设置 `ALLOW_RUNNING_SNAPSHOT=true`。
+- 默认等待克隆完成，可用 `WAIT_SNAPSHOT=false` 改为提交任务后立即返回。
+
+## 调整虚拟机资源
+
+```bash
+curl -sSL -o resizevm.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/resizevm.sh
+chmod +x resizevm.sh
+export noninteractive=true
+./resizevm.sh vm1 4 8 40
 ```
 
-要退出控制台请按 `Ctrl + ]`。
+说明：
 
-删除示例
+- 参数依次为 `vmname cpu memory_gb disk_gb`，留空表示不调整对应资源，例如：`./resizevm.sh vm1 "" "" 40`。
+- CPU/内存会更新 VM 模板；运行中的 VM 通常需要重启后完全生效，可设置 `RESTART_VM=true` 自动重启。
+- 磁盘只支持扩容，且依赖 StorageClass 支持 PVC 扩容；虚拟机内文件系统可能仍需手动扩容。
 
-```shell
-kubectl delete vm vm1 -n default
-kubectl delete pvc vm1-pvc -n default
+## 删除单个虚拟机
+
+```bash
+curl -sSL -o deletevm.sh https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/deletevm.sh
+chmod +x deletevm.sh
+export noninteractive=true
+./deletevm.sh <name>
 ```
 
-## 批量开设
+默认会保留该 VM 的快照 DataVolume，避免误删备份；如需一并删除，设置 `DELETE_SNAPSHOTS=true`。
 
-- 批量多次运行继承配置生成
-- 自动递增虚拟机名（vm1, vm2, ...）、SSH 端口、公网端口
-- 虚拟机信息记录到 `vmlog` 文件
-- 生成多个时为避免 SSH 连接中断建议在 screen 中执行
-- 支持 x86_64 和 ARM64 架构的服务器
+## 常用管理命令
 
-### 运行
+```bash
+# 查看所有虚拟机状态
+kubectl get vm -n kubevirt-vms
 
-国际
+# 查看虚拟机实例（运行中的）
+kubectl get vmi -n kubevirt-vms
 
-```shell
-curl -sSLO https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/create_kubevirt.sh
-chmod +x create_kubevirt.sh
-./create_kubevirt.sh
+# 查看数据卷导入进度
+kubectl get dv -n kubevirt-vms
+
+# 进入虚拟机串口控制台（Ctrl+] 退出）
+virtctl console <vmname> -n kubevirt-vms
+
+# 启动/停止/重启虚拟机
+virtctl start <vmname> -n kubevirt-vms
+virtctl stop <vmname> -n kubevirt-vms
+virtctl restart <vmname> -n kubevirt-vms
 ```
 
-国内
+## 删除多台虚拟机
 
-```shell
-curl -sSLO https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/scripts/create_kubevirt.sh
-chmod +x create_kubevirt.sh
-./create_kubevirt.sh
-```
+确认名称后使用 `deletevm.sh`，避免分别删除 VM/PVC 后遗留资源；默认保留快照克隆，设置 `DELETE_SNAPSHOTS=true` 才一并删除。
 
-### 查询批量开设的信息
-
-```shell
-cat vmlog
-```
-
-输出格式
-
-```
-虚拟机名字 SSH端口 登陆的root密码 核数 内存 硬盘 外网端口起 外网端口止
-```
-
-一行一个虚拟机对应的信息
-
-## 删除所有虚拟机和镜像
-
-```shell
-kubectl delete vm --all -n default
-kubectl delete pvc --all -n default
-rm -rf vmlog
+```bash
+for vm in vm1 vm2; do
+  noninteractive=true ./deletevm.sh "$vm" || break
+done
 ```
 
 ## 宿主机重启后恢复
 
-k3s 服务开机自启，重启后执行：
+K3s 开机自启。先检查服务与虚拟机状态，再启动已停止的实例：
 
-```shell
-# 检查 k3s 状态
+```bash
 systemctl status k3s
-
-# 检查 KubeVirt Pod 状态
 kubectl get pods -n kubevirt
-
-# 启动所有已停止的虚拟机
-for vm in $(kubectl get vm -n default --no-headers -o custom-columns=':metadata.name'); do
-  virtctl start "$vm" -n default 2>/dev/null
-done
+kubectl get vm -n kubevirt-vms
+virtctl start vm1 -n kubevirt-vms
 ```
+
+旧实例映射失效时，确认 vmlog 后执行 `update-port-rules.sh vm1`；新建的 NodePort Service 会自动跟随替换后的 Pod 地址。
+
+网络模式、镜像来源和连接记录详见[说明与排障](kubevirt_qa.md)。

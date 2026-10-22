@@ -2,9 +2,9 @@
 outline: deep
 ---
 
-# Introduction
+# Install and uninstall QEMU/KVM
 
-Install the QEMU/KVM environment, including qemu-kvm + network configuration + port forwarding as a complete set.
+The shared unattended switch and interactive workflow are described in [environment modes](../oneclickvirt/environment_modes.md).
 
 ## Add Swap Memory
 
@@ -20,38 +20,78 @@ It is recommended to create swap no larger than twice the actual memory size.
 curl -L https://raw.githubusercontent.com/spiritLHLS/addswap/main/addswap.sh -o addswap.sh && chmod +x addswap.sh && bash addswap.sh
 ```
 
-## Environment Installation
+## Unattended operation
 
-- Supported OS: Debian 11+, Ubuntu 20.04+
-- Automatically installs QEMU/KVM, libvirt, bridge utilities, and all related components
-- Automatically configures the host bridge (virbr0) and NAT network
-- Automatically detects public IPv6 address and configures IPv6 network (if present)
-- Supports x86_64 and ARM64 architecture servers
-- For non-interactive installation, use `export noninteractive=true` before the install command. The script will apply default choices for optional prompts
+All scripts accept:
 
-```shell
+```bash
+export noninteractive=true
+```
+
+Installation and batch creation use defaults or supplied arguments without waiting for input. Deletion and uninstallation treat this variable as explicit confirmation. Existing per-script variables such as VM_COUNT, QEMU_FORCE_DELETE and QEMU_FORCE_UNINSTALL remain supported.
+
+## Install QEMU/KVM
+
+```bash
 bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuinstall.sh)
 ```
 
-Use the same prefix with any mirror command, for example:
+Unattended installation with a custom image directory:
 
-```shell
-export noninteractive=true && bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuinstall.sh)
+```bash
+export noninteractive=true
+export QEMU_IMAGES_PATH=/data/vm-images
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuinstall.sh)
 ```
 
-:::tip
-After installation, it is recommended to run `virsh list --all` to verify that the KVM environment is working correctly.
-:::
+The default image directory is `/var/lib/libvirt/images`.
 
-## Uninstall QEMU/KVM Environment
+## Environment variables
 
-One-click uninstall of the complete QEMU/KVM environment, including all virtual machines, images, networks, and auxiliary files:
+| Script | Variable | Description | Example |
+| --- | --- | --- | --- |
+| All | `noninteractive` | Shared unattended switch | `true` |
+| `qemuinstall.sh` | `QEMU_IMAGES_PATH` | Image storage directory | `/data/images` |
+| `qemuuninstall.sh` | `QEMU_FORCE_UNINSTALL` | Skip uninstall confirmation | `yes` |
+| `oneqemu.sh` | `VM_NAME` | VM name | `vm1` |
+| `oneqemu.sh` | `VM_CPU` | CPU cores | `1` |
+| `oneqemu.sh` | `VM_MEMORY` | Memory in MB | `1024` |
+| `oneqemu.sh` | `VM_DISK` | Disk size in GB | `20` |
+| `oneqemu.sh` | `VM_PASSWORD` | Root password; empty generates one | `ChangeMe-123` |
+| `oneqemu.sh` | `VM_SSH_PORT` | SSH host port | `25001` |
+| `oneqemu.sh` | `VM_START_PORT` | First additional port | `35001` |
+| `oneqemu.sh` | `VM_END_PORT` | Last additional port | `35025` |
+| `oneqemu.sh` | `VM_SYSTEM` | Guest OS | `debian12` |
+| `create_qemu.sh` | `VM_COUNT` | Number of VMs | `3` |
+| `create_qemu.sh` | `VM_MEMORY` | Memory per VM in MB | `1024` |
+| `create_qemu.sh` | `VM_CPU` | CPU cores per VM | `1` |
+| `create_qemu.sh` | `VM_DISK` | Disk size per VM in GB | `20` |
+| `create_qemu.sh` | `VM_SYSTEM` | Guest OS | `debian12` |
+| `delete_qemu.sh` | `VM_NAME` | VM to delete | `vm1` |
+| `delete_qemu.sh` | `QEMU_FORCE_DELETE` | Skip deletion confirmation | `yes` |
 
-```shell
+## Uninstall
+
+Remove all VMs, images, network settings, systemd services and QEMU/KVM packages:
+
+```bash
 bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuuninstall.sh)
 ```
 
-:::warning
-The script will require you to enter `yes` to confirm before execution. This operation is irreversible. Content deleted includes all virtual machines, images, and QEMU/KVM network configurations.
-Reset procedure: run uninstall first, then run install again to verify the entire installation process from scratch.
-:::
+The script asks for `yes`; removal is irreversible. To skip confirmation:
+
+```bash
+export noninteractive=true
+export QEMU_FORCE_UNINSTALL=yes
+bash <(curl -sSL https://raw.githubusercontent.com/oneclickvirt/qemu/main/qemuuninstall.sh)
+```
+
+Alternatively, after downloading the script, run `bash qemuuninstall.sh -y`.
+
+## Verify installation
+
+```bash
+virsh list --all
+```
+
+For long installations, use screen or tmux to avoid interruption when SSH disconnects.

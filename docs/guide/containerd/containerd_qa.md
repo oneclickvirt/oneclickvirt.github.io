@@ -2,7 +2,42 @@
 outline: deep
 ---
 
-# 常见问题答疑
+# 说明与常见问题
+
+## 镜像说明
+
+本仓库自编镜像通过 GitHub Actions 构建并发布到 Releases：
+
+| 系统 | amd64 | arm64 |
+|------|-------|-------|
+| Ubuntu 22.04 | spiritlhl_ubuntu_amd64.tar.gz | spiritlhl_ubuntu_arm64.tar.gz |
+| Debian 12 | spiritlhl_debian_amd64.tar.gz | spiritlhl_debian_arm64.tar.gz |
+| Alpine latest | spiritlhl_alpine_amd64.tar.gz | spiritlhl_alpine_arm64.tar.gz |
+| AlmaLinux 9 | spiritlhl_almalinux_amd64.tar.gz | spiritlhl_almalinux_arm64.tar.gz |
+| RockyLinux 9 | spiritlhl_rockylinux_amd64.tar.gz | spiritlhl_rockylinux_arm64.tar.gz |
+| OpenEuler 22.03 | spiritlhl_openeuler_amd64.tar.gz | spiritlhl_openeuler_arm64.tar.gz |
+
+在本仓库检出目录中检查本地镜像和远端 Releases 资产可用性：
+
+```bash
+bash scripts/containerd_manage.sh version-check debian
+```
+
+## 网络说明
+
+- **IPv4**：通过 `-p` 端口映射（bridge 模式，CNI `containerd-net`）
+- **出口网卡**：IPv4 NAT 沿用主出口；IPv6 NDP 按 IPv6 默认路由识别，缺少默认路由时才回退到已选 IPv6 前缀所在接口。PVE 上联 `/128` 与委派 `/38` 并存时，委派前缀仍可作为地址池。
+- **IPv6（独立地址）**：安装时只接受宿主机本地绑定的公网 IPv6 父前缀，不把外部出口检测结果伪造成 `/64`。默认从父前缀切出 `/80` CNI 子网，并跳过包含任意宿主机地址的候选子网；父前缀的覆盖路由本身不会阻止 CNI 使用其不含宿主地址的子网，CNI 会安装更精确路由，因此 PVE 委派前缀和常规 NDP-backed `/64` 均可继续分配公网独立地址。单个 `/128`、过窄前缀或已有相同/更精确路由时会使用隔离 ULA NAT66，保留 IPv6 出站但不分配公网独立地址；发现其他 CNI 配置冲突时则保留原配置并停止独立 IPv6 设置。
+- **NDP**：`containerd-ipv6` 使用 CNI `host-local` 租约，NDP responder 只读监听 `/var/lib/cni/networks/containerd-ipv6`，不依赖 Docker API。仅以太网 IPv6 上联需要它；NAT66 及 SIT、6in4、ip6tnl 等非以太网隧道不要求 responder，容器创建不会因此退回 IPv4。官方镜像不可拉取、架构错误或 ARMv7 无发布标签时，安装脚本会浅克隆 `NDPRESPONDER_SOURCE_URL` 后从本地上下文构建并重新校验镜像，构建失败时不会替换已有 responder。需要 NDP 的场景只有 CNI 配置创建、responder 启动和存活检查均成功时才启用独立 IPv6。
+- **DNS 保活**：通过 `check-dns.service` 系统服务持续检测 DNS 可用性
+
+## 独立 IPv6 的地址持久化
+
+新建的独立 IPv6 容器通过 nerdctl `--ip6` 固定地址，停启和宿主重启后复用该地址。
+分配记录保存在 `/var/lib/oneclickvirt/containerd-ipv6/`，仅 root 可访问；创建使用文件锁，避让已有记录及正在使用的 CNI 租约。
+删除容器后保留记录，以便同名重建复用地址；请勿在仍有对应容器时清理记录。
+旧容器不自动改网，需在备份后重建以应用固定地址。自定义 nerdctl/CNI 网络的静态地址应统一规划，避免与本脚本的地址池重叠。
+如果当前 nerdctl 不支持 `--ip6`、分配记录损坏或地址池耗尽，创建会明确失败，不会宣称已获得持久 IPv6。
 
 ## nerdctl: command not found
 
@@ -61,17 +96,13 @@ iptables -A FORWARD -d 172.20.0.0/16 -j ACCEPT
 
 ## 容器 IPv6 未生效
 
-1. 确认宿主机有公网 IPv6 地址
-2. 检查 containerd-ipv6 CNI 网络是否存在：
+先按上方网络说明确认实际模式和容器地址：公网路由、手动路由和 ULA NAT66 的要求不同。只有需要 NDP 的以太网上联才必须检查 responder；NAT66 和非以太网隧道不要求它。
 
-```shell
+```bash
+ip -6 route
 cat /etc/cni/net.d/20-containerd-ipv6.conflist
-```
-
-3. 检查 ndpresponder 容器是否运行：
-
-```shell
-nerdctl ps | grep ndpresponder
+nerdctl inspect ct1
+nerdctl ps -a --filter name=ndpresponder
 ```
 
 ## 镜像拉取失败
@@ -112,9 +143,11 @@ yum install -y lxcfs       # CentOS/RHEL
 
 ## 磁盘限制不生效
 
-磁盘限制需要 xfs 或 btrfs snapshotter 支持，默认 overlay snapshotter 不支持容器级磁盘限制。
+本脚本通过 btrfs snapshotter 设置容器磁盘限制。安装时选择磁盘限制或设置 `NEED_DISK_LIMIT=y`，创建时传入大于 0 的 `disk_gb`。默认 overlay snapshotter 不支持该限制，脚本会提示并忽略磁盘参数。
 
-如需磁盘限制，请查看 docker 方案或 incus 方案中对应的说明。
+```bash
+nerdctl info
+```
 
 ## 无 CDN 模式（WITHOUTCDN）
 
@@ -131,4 +164,3 @@ WITHOUTCDN=TRUE
 ```
 
 设置后，脚本执行过程中将不再尝试使用 CDN 加速地址。
-

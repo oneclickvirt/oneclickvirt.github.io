@@ -118,3 +118,9 @@ Please use the "screen" command to suspend execution before launching the virtua
 <br/>
 <br/>
 
+## Project image sources and support
+
+- VM images: [pve_kvm_images](https://github.com/oneclickvirt/pve_kvm_images), [kvm_images](https://github.com/oneclickvirt/kvm_images), [macOS](https://github.com/oneclickvirt/macos).
+- Container images: [lxc_amd64_images](https://github.com/oneclickvirt/lxc_amd64_images), [pve_lxc_images](https://github.com/oneclickvirt/pve_lxc_images), [lxc_arm_images](https://github.com/oneclickvirt/lxc_arm_images).
+- See the relevant creation chapter for image selection and usage; updates are in the [changelog](https://github.com/oneclickvirt/pve/blob/main/CHANGELOG.md).
+- For an unsupported provider host, contact [@spiritlhl_bot](https://t.me/spiritlhl_bot); compatibility can be investigated as time permits.

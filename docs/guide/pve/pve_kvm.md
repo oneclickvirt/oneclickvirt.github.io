@@ -119,6 +119,16 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 注意这里的VMID仅可使用100到256，其他数字不可用
 :::
 
+### 不创建入站端口映射
+
+将 SSH、HTTP、HTTPS、端口范围起止五个端口参数全部设为 `0`，即可保留内网地址和出网能力，不创建入站端口映射。通过宿主机或可达内网连接实例的 SSH 22 端口。下载上述脚本后，例如：
+
+```bash
+./buildvm.sh 111 root MyPassword 1 1024 10 0 0 0 0 0 debian11 local N
+```
+
+请求的端口映射写入失败时，脚本会报错，避免将不可连接的实例报告为成功。
+
 ## 删除指定虚拟机
 
 - 停止VM

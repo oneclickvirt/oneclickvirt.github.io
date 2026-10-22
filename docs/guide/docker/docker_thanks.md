@@ -39,3 +39,5 @@ https://github.com/linuxserver/docker-chromium
 https://github.com/SuperManito/LinuxMirrors
 
 感谢 [@Ella-Alinda](https://github.com/Ella-Alinda) 和 @CoiaPrant 提供的Docker指导
+
+感谢 [LinuxMirrors](https://github.com/SuperManito/LinuxMirrors) 提供的国内镜像安装及包管理源镜像替换脚本。

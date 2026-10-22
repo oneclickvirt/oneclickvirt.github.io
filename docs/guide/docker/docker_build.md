@@ -13,7 +13,7 @@ outline: deep
 - 支持x86_64和ARM架构的服务器
 
 :::tip IPv6 网络模式
-宿主机只有 SLAAC 分配的公网 `/64` 时，安装器会使用与宿主路由不重叠的 ULA 网络并启用 NAT66。此时参数 `independent_ipv6=y` 仅启用容器 IPv6 出站，不会绑定可从互联网直接访问的公网 `/128`。
+安装器使用隔离 ULA 网桥。有可用的本地公网前缀（包括合适的 SLAAC `/64`）时，容器启动后按需附加路由公网 `/128`，上游须支持对应路由/NDP。只有单个公网 `/128` 时使用 NAT66 保留 IPv6 出站，不分配独立公网客体地址。以太网上联需要健康且兼容的 NDP responder，非以太网隧道无需 responder。
 :::
 
 ### 下载脚本
@@ -49,6 +49,8 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 默认不填则是debian
 
+系统输入支持带版本号写法，例如 `debian11`、`debian/11`、`ubuntu20`、`almalinux9`、`rockylinux9`、`openeuler22.03`。脚本会归一到当前维护的镜像族，不表示固定下载任意历史版本。
+
 硬盘大小仅在前面Docker安装时选择了支持限制硬盘大小的选项，这块才可填写数值设置硬盘大小，默认不填时不限制
 
 ```shell
@@ -67,7 +69,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 | SSH端口                 | 25000          |
 | 内外网映射端口一致的区间 | 34975到35000   |
 | 系统                   | debian         |
-| 是否启用 IPv6 出站（NAT66） | N             |
+| 是否请求 IPv6 网络 | N             |
 | 硬盘大小                | 5G            |
 
 ### 相关操作
@@ -119,7 +121,7 @@ curl -L https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/creat
 国内
 
 ```shell
-curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/onedocker.sh -o onedocker.sh && chmod +x onedocker.sh
+curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/create_docker.sh -o create_docker.sh && chmod +x create_docker.sh && bash create_docker.sh
 ```
 
 ### 查询批量开设的信息
@@ -165,7 +167,6 @@ rm -rf /root/create_docker.sh
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/extra_scripts/check-dns.sh -o /usr/local/bin/check-dns.sh && chmod +x /usr/local/bin/check-dns.sh
-curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/config.sh -o /usr/local/bin/config.sh && chmod +x /usr/local/bin/config.sh
 curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/ssh_bash.sh -o /usr/local/bin/ssh_bash.sh && chmod +x /usr/local/bin/ssh_bash.sh
 curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/ssh_sh.sh -o /usr/local/bin/ssh_sh.sh && chmod +x /usr/local/bin/ssh_sh.sh
 curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/onedocker.sh -o /root/onedocker.sh && chmod +x /root/onedocker.sh
@@ -174,23 +175,19 @@ curl -sSL https://raw.githubusercontent.com/oneclickvirt/docker/main/scripts/cre
 
 ## 宿主机重启后重启所有容器
 
-默认容器没有设置停止后自重启，需要执行以下命令启动所有停止的容器
+新建容器使用 `--restart unless-stopped`，Docker 服务启动后会自动恢复未被手动停止的容器。旧容器或已停止容器可手动启动：
 
-```
-docker start $(docker ps -aq)
+```bash
+docker ps -aq -f status=exited | xargs -r docker start
 ```
 
 ## 宿主机重启后启动所有容器的SSH服务
 
-由于容器本身没有守护进程，所以SSH服务无法自启动，需要执行以下命令启动所有容器的SSH进程
+项目自编镜像的 entrypoint 会在容器启动时拉起 SSH。旧镜像或 Docker Hub 回退镜像若未自动启动 SSH，先检查目标容器日志，再进入容器按实际系统启动服务：
 
-```
-container_ids=$(docker ps -q)
-for container_id in $container_ids
-do
-    docker exec -it $container_id bash -c "service ssh start"
-    docker exec -it $container_id bash -c "service sshd restart"
-    docker exec -it $container_id sh -c "service ssh start"
-    docker exec -it $container_id sh -c "/usr/sbin/sshd"
-done
+```bash
+docker logs test
+docker exec -it test sh
+# 以下命令在容器内执行
+service ssh start || service sshd start || /usr/sbin/sshd
 ```

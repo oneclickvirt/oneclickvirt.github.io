@@ -2,54 +2,39 @@
 outline: deep
 ---
 
-# 前言
+# KubeVirt 使用前准备
 
-以下为非自定义部分的介绍，自定义部分有自己对应的介绍，勿弄混了
+## 说明
 
-欢迎给项目一个 ```Star``` 进行免费的支持-->[https://github.com/oneclickvirt/kubevirt](https://github.com/oneclickvirt/kubevirt)
+- 使用 K3s 作为轻量级 Kubernetes，自动安装单节点集群
+- 使用 KubeVirt 提供虚拟机能力（基于 KVM/QEMU）
+- 使用 CDI（Containerized Data Importer）导入云镜像
+- 新建虚拟机通过 Kubernetes NodePort Service 实现稳定的 SSH 及额外 TCP/UDP 端口映射；旧映射可用 `update-port-rules.sh` 迁移
+- 支持系统：Ubuntu 22.04/24.04, Debian 11/12, AlmaLinux 9, RockyLinux 9, CentOS 7, CentOS Stream 8/9, openSUSE Leap 15.5
+- 支持架构：amd64 (x86_64)
+- 宿主机系统支持：Ubuntu 20.04/22.04/24.04，Debian 11/12
 
-## 项目特点
+## 环境要求
 
-基于 KubeVirt 在 Kubernetes 集群（k3s）上一键部署并管理 KVM 虚拟机，通过批量或单独开设 KVM 虚拟机
+- 推荐宿主机支持 KVM 虚拟化（`/dev/kvm` 可用）；加载模块后仍缺少设备时，安装器启用较慢的 QEMU TCG 模拟
+- 最低配置：2 核 CPU，4GB RAM，20GB 可用磁盘
+- root 权限运行
+- 需要联网下载 K3s、KubeVirt 组件和虚拟机镜像，或提前准备对应的本地文件和镜像
 
-- 一键部署 k3s + KubeVirt 全套环境
-- 基于 KubeVirt CRD，在 Kubernetes 环境中管理虚拟机
-- 每台虚拟机自带独立 SSH 端口及端口映射
-- 支持 IPv4/IPv6 自动分配与端口转发
-- 支持批量开设，信息自动记录至日志文件
-- 支持 X86_64 和 ARM64 架构
-- 支持国内 CDN 镜像加速
+## 工作原理
 
-## 支持的系统（宿主机）
-
-| 系统 | amd64 | arm64 |
-|------|-------|-------|
-| Debian 11 | ✓ | ✓ |
-| Debian 12 | ✓ | ✓ |
-| Ubuntu 20.04 | ✓ | ✓ |
-| Ubuntu 22.04 | ✓ | ✓ |
-
-## 配置要求
-
-- 宿主机节点需支持 KVM 硬件虚拟化（`/dev/kvm` 可用）
-- 内核版本：≥ 4.15
-- 架构：x86_64（amd64）或 ARM64
-- 内存：至少 4GB 可用内存（含 k3s + KubeVirt 自身占用）
-- 存储：至少 20GB 可用磁盘空间
-- 系统：Debian 11+、Ubuntu 20.04+
-
-:::warning
-使用本项目前请确保宿主机支持 KVM 虚拟化，可通过以下命令检测：
-
-```bash
-egrep -c '(vmx|svm)' /proc/cpuinfo
+```text
+宿主机：K3s + KubeVirt
+├── KubeVirt Operator：虚拟机生命周期
+├── CDI：导入云镜像到 PVC
+├── virt-launcher Pod：QEMU/KVM 客体
+└── 归属 VM 的 NodePort Service
+    ├── 宿主机:25000 -> vm1 SSH:22
+    └── 宿主机:34975-35000 -> vm1 额外 TCP/UDP 端口
 ```
 
-输出大于 0 即支持 KVM 虚拟化。也可执行 `ls /dev/kvm` 确认设备文件存在。
-:::
+Service 端点跟随替换后的 Pod 更新，避免 VM 重启换地址后映射失效。
 
-:::tip
-本项目会自动部署 k3s，无需提前准备 Kubernetes 集群。
-:::
+## 使用入口与更新
 
-推荐在开设虚拟机前先增加部分 SWAP 虚拟内存，避免突发的内存占用导致宿主机卡死
+继续阅读[环境安装](kubevirt_install.md)和[实例开设](kubevirt_build.md)。版本变更见[更新日志](https://github.com/oneclickvirt/kubevirt/blob/main/CHANGELOG.md)。
