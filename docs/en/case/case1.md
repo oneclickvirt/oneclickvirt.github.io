@@ -189,6 +189,22 @@ docker run --rm spiritlhl/goecs:latest -menu=false -l=en
 
 Docker-based runs are convenient, but hardware-related results and virtualization detection can be less accurate. Direct execution on the host remains the recommended approach.
 
+CNB mirror image: https://cnb.cool/oneclickvirt/ecs/-/packages/docker/ecs
+
+Make sure Docker is already installed before running the examples below.
+
+Privileged mode with host networking:
+
+```shell
+docker run --rm --privileged --network host docker.cnb.cool/oneclickvirt/ecs:latest -menu=false -l=en
+```
+
+Unprivileged mode without host networking:
+
+```shell
+docker run --rm docker.cnb.cool/oneclickvirt/ecs:latest -menu=false -l=en
+```
+
 ## Build From Source
 
 1. Clone the public branch:

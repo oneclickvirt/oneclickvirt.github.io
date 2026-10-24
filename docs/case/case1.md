@@ -336,7 +336,21 @@ docker run --rm --privileged --network host crpi-8tmognxgyb86bm61.cn-guangzhou.p
 docker run --rm crpi-8tmognxgyb86bm61.cn-guangzhou.personal.cr.aliyuncs.com/oneclickvirt/ecs:latest -menu=false -l zh
 ```
 
-实际上还有 CNB 镜像地址 https://cnb.cool/oneclickvirt/ecs/-/packages/docker/ecs ，但由于组织空间不足，目前无法继续推送，因此更推荐直接使用阿里云镜像加速。
+国内 CNB 镜像加速：https://cnb.cool/oneclickvirt/ecs/-/packages/docker/ecs
+
+请确保执行下述命令前本机已安装Docker
+
+特权模式+host网络
+
+```shell
+docker run --rm --privileged --network host docker.cnb.cool/oneclickvirt/ecs:latest -menu=false -l zh
+```
+
+非特权模式+非host网络
+
+```shell
+docker run --rm docker.cnb.cool/oneclickvirt/ecs:latest -menu=false -l zh
+```
 
 </details>
 
