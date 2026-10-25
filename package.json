@@ -23,5 +23,10 @@
   "homepage": "https://github.com/oneclickvirt/oneclickvirt.github.io#readme",
   "devDependencies": {
     "vitepress": "^1.6.4"
+  },
+  "overrides": {
+    "vitepress": {
+      "vite": "^6.4.5"
+    }
   }
 }
