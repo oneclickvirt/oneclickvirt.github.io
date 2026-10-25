@@ -63,6 +63,28 @@ GitHub Actions checks for updates weekly. You can also run the [build workflow](
 
 The [central CNB build repository](https://cnb.cool/oneclickvirt/virtualization-images) also has a manual entry that triggers the same workflow for amd64 PVE 7/8/9 and ARM64 PXVIRT 8/9. Builds use GitHub runners of the corresponding architecture. On amd64, validation runs inside a disposable VM using KVM. ARM64 candidates are transferred to a separate disposable GitHub-hosted ARM VM for validation without publication credentials. A separate job publishes images only after validation passes. Temporary files transferred between jobs are retained for one day and do not use CNB object storage.
 
+### Pull from CNB
+
+The same validated images are also available in [CNB container artifacts](https://cnb.cool/oneclickvirt/pve/-/packages). CNB checks the GitHub Releases hourly and copies each published image by its recorded Docker Hub digest. Image IDs and architectures are verified before Docker pull checks. The version and architecture tags match Docker Hub.
+
+For an X86_64 host, choose `7`, `8` or `9`:
+
+```bash
+PVE_VERSION=9
+PVE_IMAGE="docker.cnb.cool/oneclickvirt/pve/pve:${PVE_VERSION}"
+docker pull "$PVE_IMAGE"
+```
+
+For an ARM64 host, choose `8` or `9`:
+
+```bash
+PVE_VERSION=9
+PVE_IMAGE="docker.cnb.cool/oneclickvirt/pve/pve:${PVE_VERSION}_aarch64"
+docker pull "$PVE_IMAGE"
+```
+
+Then continue with the password and startup commands below, which use `$PVE_IMAGE`. The `7`, `8` and `9` tags remain amd64; use the architecture suffix on ARM64. Pulling an update does not replace an existing container.
+
 ### Set a password and start the container
 
 There is no default password. Create your own root password file first. Run these commands on the host.

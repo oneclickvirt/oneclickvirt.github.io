@@ -31,7 +31,22 @@ The [central CNB build repository](https://cnb.cool/oneclickvirt/virtualization-
 nerdctl pull docker.cnb.cool/oneclickvirt/virtualization-images/containerd:openeuler-22.03
 ```
 
+See [CNB container artifacts](https://cnb.cool/oneclickvirt/virtualization-images/-/packages) for the published tags. On an X86_64 host, create a container directly after installing the runtime:
+
+```bash
+install -d -m 700 /opt/oneclickvirt/containerd-openeuler
+(umask 077; printf 'ROOT_PASSWORD=%s\n' "$(openssl rand -base64 24)" > /opt/oneclickvirt/containerd-openeuler/root.env)
+nerdctl run -d --name containerd-openeuler --restart unless-stopped \
+  --cpus 1 --memory 512m -p 25001:22 \
+  --env-file /opt/oneclickvirt/containerd-openeuler/root.env \
+  docker.cnb.cool/oneclickvirt/virtualization-images/containerd:openeuler-22.03
+```
+
+Connect to the host on SSH port `25001` as `root`; the generated password is in `/opt/oneclickvirt/containerd-openeuler/root.env`. Choose another container name and port if these are already in use. This example provides IPv4 port mapping; use the provisioning instructions for the project's IPv6 network setup.
+
 This tag uses the build runner's architecture; it is not multi-architecture. The existing creation script still uses archives from this repository's GitHub Releases and does not switch to the CNB image automatically. The original GitHub build and publication workflow remains maintained.
+
+NDP responder also has [CNB source and multi-architecture image instructions](../docker/docker_qa.md#ndp-responder-on-cnb). Network tracking in this runtime still uses the CNI or compatible API method described below; the static-address example does not replace the installer.
 
 ## Networking
 

@@ -32,7 +32,22 @@ outline: deep
 podman pull docker.cnb.cool/oneclickvirt/virtualization-images/podman:openeuler-22.03
 ```
 
+[CNB容器制品](https://cnb.cool/oneclickvirt/virtualization-images/-/packages)中可查看已发布标签。宿主机为X86_64且已安装对应运行环境时，也可直接开设：
+
+```bash
+install -d -m 700 /opt/oneclickvirt/podman-openeuler
+(umask 077; printf 'ROOT_PASSWORD=%s\n' "$(openssl rand -base64 24)" > /opt/oneclickvirt/podman-openeuler/root.env)
+podman run -d --name podman-openeuler --restart unless-stopped \
+  --cpus 1 --memory 512m -p 25001:22 \
+  --env-file /opt/oneclickvirt/podman-openeuler/root.env \
+  docker.cnb.cool/oneclickvirt/virtualization-images/podman:openeuler-22.03
+```
+
+SSH连接宿主机```25001```端口，用户名为```root```，密码查看```/opt/oneclickvirt/podman-openeuler/root.env```。已有同名容器或端口占用时需另行修改。本例仅映射IPv4端口，项目的IPv6网络配置仍按开设说明处理。
+
 该标签按构建Runner的架构生成，不是多架构标签。现有开设脚本仍优先使用上面的GHCR镜像，失败后加载GitHub Release离线包，不会自动改用CNB镜像；原GitHub构建和发布工作流继续维护。
+
+NDP responder另有[CNB源码及多架构镜像部署说明](../docker/docker_qa.md#cnb中的ndp-responder)。本运行环境的网络跟踪仍使用下方所述的CNI或兼容API方式，不能直接照搬静态地址示例替代安装器。
 
 ## 网络说明
 

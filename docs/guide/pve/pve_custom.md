@@ -63,6 +63,28 @@ amd64压缩包导入后同时包含```spiritlhl/pve:${PVE_VERSION}```、```spiri
 
 [CNB集中构建仓库](https://cnb.cool/oneclickvirt/virtualization-images)也提供手动入口，触发同一套amd64 PVE 7、8、9和ARM64 PXVIRT 8、9构建与发布流程。实际构建使用对应架构的GitHub Runner。amd64在使用KVM的隔离虚拟机内验证；ARM64将候选镜像传入另一台一次性的GitHub托管ARM虚拟机验证，验证任务不传入发布密钥，通过后由独立任务推送。任务间的临时文件保留1天，不使用CNB对象存储。
 
+### 从CNB拉取
+
+[CNB容器制品](https://cnb.cool/oneclickvirt/pve/-/packages)也提供同一批已验证镜像。CNB每小时检查GitHub Release，按其中记录的Docker Hub摘要同步，核对镜像ID、架构后再验证Docker拉取。版本和架构标签与Docker Hub一致。
+
+X86_64宿主机选择```7```、```8```或```9```：
+
+```bash
+PVE_VERSION=9
+PVE_IMAGE="docker.cnb.cool/oneclickvirt/pve/pve:${PVE_VERSION}"
+docker pull "$PVE_IMAGE"
+```
+
+ARM64宿主机选择```8```或```9```：
+
+```bash
+PVE_VERSION=9
+PVE_IMAGE="docker.cnb.cool/oneclickvirt/pve/pve:${PVE_VERSION}_aarch64"
+docker pull "$PVE_IMAGE"
+```
+
+拉取后继续执行下方设置密码及启动命令，启动时使用上面设置的```$PVE_IMAGE```。```7```、```8```、```9```仍为amd64标签，ARM64需使用架构后缀。拉取更新不会替换已有容器。
+
 ### 设置密码并启动
 
 不再提供默认密码，需要先生成自己的root密码文件。以下命令在宿主机上执行。

@@ -396,6 +396,12 @@ Download Script
 curl -L https://raw.githubusercontent.com/oneclickvirt/6in4/main/6in4.sh -o 6in4.sh && chmod +x 6in4.sh
 ```
 
+The [CNB mirror](https://cnb.cool/oneclickvirt/6in4) is synchronized hourly from the public GitHub main branch. To download the same script from CNB:
+
+```shell
+curl -fL --retry 3 https://cnb.cool/oneclickvirt/6in4/-/git/raw/main/6in4.sh -o 6in4.sh && chmod +x 6in4.sh
+```
+
 Execute it
 
 ```

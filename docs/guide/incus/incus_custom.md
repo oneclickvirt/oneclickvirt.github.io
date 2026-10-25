@@ -372,6 +372,12 @@ systemctl restart networking
 curl -L https://raw.githubusercontent.com/oneclickvirt/6in4/main/6in4.sh -o 6in4.sh && chmod +x 6in4.sh
 ```
 
+[CNB镜像仓库](https://cnb.cool/oneclickvirt/6in4)每小时同步GitHub公开main分支，也可从CNB下载同一脚本：
+
+```shell
+curl -fL --retry 3 https://cnb.cool/oneclickvirt/6in4/-/git/raw/main/6in4.sh -o 6in4.sh && chmod +x 6in4.sh
+```
+
 执行命令
 
 ```
