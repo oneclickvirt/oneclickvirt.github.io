@@ -10,6 +10,15 @@ Install Docker first. The host must run native Linux on X86_64; use ```uname -m`
 
 This method is for experimental environments. The container shares the host kernel and cannot install or switch to a PVE kernel. HA and hardware watchdog services are disabled. Modern ARM images are not provided.
 
+### Choose a version
+
+| PVE version | Container base system | Download page | Imported image name |
+|-------------|-----------------------|---------------|---------------------|
+| PVE 8 | Debian 12 | [docker-pve8](https://github.com/oneclickvirt/pve/releases/tag/docker-pve8) | `oneclickvirt/pve:8` |
+| PVE 9 | Debian 13 | [docker-pve9](https://github.com/oneclickvirt/pve/releases/tag/docker-pve9) | `oneclickvirt/pve:9` |
+
+The two versions are updated separately. Use the archive and checksum file from the same Release. Import the downloaded image with ```docker load```; the local image names above are not Docker Hub download addresses.
+
 ### Download the image
 
 The following example uses PVE 9. For PVE 8, change ```9``` to ```8``` in the first line.
@@ -22,7 +31,9 @@ sha256sum -c SHA256SUMS
 gzip -dc "pve${PVE_VERSION}-amd64.tar.gz" | docker load
 ```
 
-Images are built on GitHub Actions and updated in the corresponding GitHub Release after validation inside a disposable VM, with automatic weekly checks. The Release includes ```build.json``` with the PVE version, source commit and archive checksum.
+GitHub Actions checks for updates weekly. You can also run the [build workflow](https://github.com/oneclickvirt/pve/actions/workflows/pve-docker.yml) manually. The corresponding GitHub Release is updated only after the build and all checks inside a disposable VM pass; a failure retains the previous image. The Release includes ```build.json``` with the PVE version, source commit and archive checksum.
+
+The [central CNB build repository](https://cnb.cool/oneclickvirt/virtualization-images) retains a manual build entry. Its current public runners do not provide ```/dev/kvm```, so scheduled builds for these two PVE Docker images use GitHub runners with KVM support. Downloads remain in the GitHub Releases above.
 
 ### Set a password and start the container
 
@@ -51,7 +62,7 @@ To change the password, run ```docker exec -it pve passwd root```. The password 
 
 Use ```docker exec -it pve bash``` to manage PVE inside the container. The host SSH service continues to manage the host. Configure bridges, gateways and VM port forwarding yourself; the existing one-click configuration for a physical PVE host does not apply directly.
 
-Build checks cover HTTPS/PAM login, VM creation and disk import, VM boot and reboot using TCG, and preservation of passwords, certificates and VM configuration after a container restart. KVM acceleration requires ```/dev/kvm``` on the host. Without this device, disable KVM hardware virtualization in the VM options to use TCG. LXC, PCI passthrough, clustering and migration are outside this image's validation scope.
+Build checks cover HTTPS/PAM login, VM creation and disk import, VM boot and reboot using TCG, and preservation of passwords, certificates and VM configuration after a container restart. The outer disposable VM uses KVM acceleration, while guests managed by PVE inside the container use TCG. Nested KVM inside the PVE container has not been validated. KVM acceleration requires ```/dev/kvm``` on the host. Without this device, disable KVM hardware virtualization in the VM options to use TCG. LXC, PCI passthrough, clustering and migration are outside this image's validation scope.
 
 Stop and start the same container with:
 

@@ -6,7 +6,7 @@ outline: deep
 
 ## Images
 
-GitHub Actions builds the base images with Podman/Buildah and publishes them to Releases and GHCR.
+GitHub Actions builds the regular base images with Podman/Buildah and publishes them to Releases and GHCR.
 
 | Guest system | amd64 archive | arm64 archive |
 | --- | --- | --- |
@@ -24,6 +24,16 @@ GHCR tags:
 - `ghcr.io/oneclickvirt/podman:<os>` (multi-architecture manifest)
 
 Creation pulls `PODMAN_GHCR_IMAGE:<os>-<arch>` first, then downloads `PODMAN_RELEASE_BASE_URL/<os>/spiritlhl_<os>_<arch>.tar.gz` if the pull fails.
+
+### openEuler images on CNB
+
+The [central CNB build repository](https://cnb.cool/oneclickvirt/virtualization-images) also fetches the Dockerfile from this repository's main branch daily to build openEuler. To pull it separately:
+
+```bash
+podman pull docker.cnb.cool/oneclickvirt/virtualization-images/podman:openeuler-22.03
+```
+
+This tag uses the build runner's architecture; it is not multi-architecture. The existing creation script still pulls the GHCR images above first and falls back to GitHub Release archives. It does not switch to CNB automatically. The original GitHub build and publication workflow remains maintained.
 
 ## Networking
 

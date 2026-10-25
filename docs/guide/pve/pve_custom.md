@@ -10,6 +10,15 @@ outline: deep
 
 此方式用于实验环境。容器共用宿主机内核，不能在容器内安装或切换PVE内核；HA和硬件watchdog服务不启用。新版本暂不提供ARM镜像。
 
+### 版本选择
+
+| PVE版本 | 容器基础系统 | 下载页面 | 导入后的镜像名 |
+|---------|-------------|----------|----------------|
+| PVE 8 | Debian 12 | [docker-pve8](https://github.com/oneclickvirt/pve/releases/tag/docker-pve8) | `oneclickvirt/pve:8` |
+| PVE 9 | Debian 13 | [docker-pve9](https://github.com/oneclickvirt/pve/releases/tag/docker-pve9) | `oneclickvirt/pve:9` |
+
+这两个版本分别更新，各自使用对应Release中的镜像和校验文件，不要混用。镜像下载后使用```docker load```导入，不能把上面的本地镜像名直接当成Docker Hub下载地址。
+
 ### 下载镜像
 
 下面以PVE 9为例，需要PVE 8时将第一行的```9```改为```8```即可。
@@ -22,7 +31,9 @@ sha256sum -c SHA256SUMS
 gzip -dc "pve${PVE_VERSION}-amd64.tar.gz" | docker load
 ```
 
-镜像在GitHub Actions中构建，在隔离虚拟机内验证通过后更新到对应的GitHub Release，每周自动检查更新。Release中的```build.json```包含PVE版本、源码提交和镜像校验值。
+镜像在GitHub Actions中构建，每周自动检查更新，也可在[构建工作流](https://github.com/oneclickvirt/pve/actions/workflows/pve-docker.yml)中手动运行。构建和隔离虚拟机内的验证全部通过后才更新对应的GitHub Release，失败时保留原有镜像。Release中的```build.json```包含PVE版本、源码提交和镜像校验值。
+
+[CNB集中构建仓库](https://cnb.cool/oneclickvirt/virtualization-images)保留手动构建入口。当前CNB公共Runner未提供```/dev/kvm```，这两个PVE Docker镜像的定时构建使用支持KVM的GitHub Runner，下载仍使用上面的GitHub Release。
 
 ### 设置密码并启动
 
@@ -51,7 +62,7 @@ docker run -d \
 
 使用```docker exec -it pve bash```进入容器操作PVE，宿主机的SSH仍用于管理宿主机。网桥、网关和虚拟机的端口映射需要自行配置，不直接使用原有针对实体PVE宿主机的一键配置。
 
-构建检查包括HTTPS/PAM登录、创建并导入虚拟机、使用TCG启动和重启虚拟机，以及容器重启后的密码、证书和虚拟机配置保留。KVM加速需要宿主机提供```/dev/kvm```。没有此设备时，需要在虚拟机选项中关闭KVM硬件虚拟化，使用TCG。LXC、PCI直通、集群和迁移不在本镜像的验证范围内。
+构建检查包括HTTPS/PAM登录、创建并导入虚拟机、使用TCG启动和重启虚拟机，以及容器重启后的密码、证书和虚拟机配置保留。隔离测试的外层虚拟机使用KVM加速，PVE容器内的客体使用TCG，尚未验证容器内的嵌套KVM。KVM加速需要宿主机提供```/dev/kvm```。没有此设备时，需要在虚拟机选项中关闭KVM硬件虚拟化，使用TCG。LXC、PCI直通、集群和迁移不在本镜像的验证范围内。
 
 停止和重新启动使用下面的命令：
 

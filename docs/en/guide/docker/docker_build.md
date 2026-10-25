@@ -100,6 +100,32 @@ Container_Name SSH_Port Root_Password Number_of_Cores Memory Start_of_Public_Por
 
 The container IPv6 address can only be checked from inside the container; it is not exposed in the default Docker output here.
 
+## Run the image directly
+
+To run without the creation script, the following Debian example maps only the SSH port. Run it on the host:
+
+```bash
+install -d -m 700 /opt/oneclickvirt/docker-debian
+(umask 077; openssl rand -base64 24 > /opt/oneclickvirt/docker-debian/root-password)
+docker pull ghcr.io/oneclickvirt/docker:debian
+docker run -d --name test-direct --restart unless-stopped \
+  --cpus 1 --memory 512m \
+  -p 25001:22 \
+  --mount type=bind,src=/opt/oneclickvirt/docker-debian/root-password,dst=/run/secrets/root-password,readonly \
+  -e ROOT_PASSWORD_FILE=/run/secrets/root-password \
+  ghcr.io/oneclickvirt/docker:debian
+```
+
+Use ```cat /opt/oneclickvirt/docker-debian/root-password``` to view the initial password, then connect with ```ssh -p 25001 root@HOST_IP```.
+
+Set either ```ROOT_PASSWORD``` or ```ROOT_PASSWORD_FILE```. The password file must contain nonempty single-line text without a colon. It is read only during initial password setup. To change the password inside the container, run:
+
+```bash
+docker exec -it test-direct passwd root
+```
+
+The changed password survives container restarts. Each container generates its own SSH host keys on first startup and retains them across restarts. Use the creation script above when you need a forwarded port range or independent IPv6 configuration.
+
 ## Batch Deployment
 
 - Run inheritance configuration generation multiple times in bulk.

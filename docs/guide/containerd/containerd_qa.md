@@ -6,7 +6,7 @@ outline: deep
 
 ## 镜像说明
 
-本仓库自编镜像通过 GitHub Actions 构建并发布到 Releases：
+本仓库常规镜像通过 GitHub Actions 构建并发布到 Releases：
 
 | 系统 | amd64 | arm64 |
 |------|-------|-------|
@@ -22,6 +22,16 @@ outline: deep
 ```bash
 bash scripts/containerd_manage.sh version-check debian
 ```
+
+### CNB中的openEuler镜像
+
+[CNB集中构建仓库](https://cnb.cool/oneclickvirt/virtualization-images)也会每日拉取本仓库main分支中的Dockerfile构建openEuler，可单独拉取：
+
+```bash
+nerdctl pull docker.cnb.cool/oneclickvirt/virtualization-images/containerd:openeuler-22.03
+```
+
+该标签按构建Runner的架构生成，不是多架构标签。现有开设脚本仍使用本仓库GitHub Release中的离线包，不会自动改用CNB镜像；原GitHub构建和发布工作流继续维护。
 
 ## 网络说明
 

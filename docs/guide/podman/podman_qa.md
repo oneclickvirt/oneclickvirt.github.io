@@ -6,7 +6,7 @@ outline: deep
 
 ## 镜像说明
 
-本仓库自编镜像通过 GitHub Actions 使用 Podman/Buildah 构建，发布到 Releases 及 ghcr.io：
+本仓库常规镜像通过 GitHub Actions 使用 Podman/Buildah 构建，发布到 Releases 及 ghcr.io：
 
 | 系统 | amd64 | arm64 |
 |------|-------|-------|
@@ -23,6 +23,16 @@ outline: deep
 - `ghcr.io/oneclickvirt/podman:<os>`（multi-arch manifest list）
 
 创建容器时会优先拉取 `PODMAN_GHCR_IMAGE:<os>-<arch>`，拉取失败后再下载 `PODMAN_RELEASE_BASE_URL/<os>/spiritlhl_<os>_<arch>.tar.gz` 并加载为本地镜像。
+
+### CNB中的openEuler镜像
+
+[CNB集中构建仓库](https://cnb.cool/oneclickvirt/virtualization-images)也会每日拉取本仓库main分支中的Dockerfile构建openEuler，可单独拉取：
+
+```bash
+podman pull docker.cnb.cool/oneclickvirt/virtualization-images/podman:openeuler-22.03
+```
+
+该标签按构建Runner的架构生成，不是多架构标签。现有开设脚本仍优先使用上面的GHCR镜像，失败后加载GitHub Release离线包，不会自动改用CNB镜像；原GitHub构建和发布工作流继续维护。
 
 ## 网络说明
 

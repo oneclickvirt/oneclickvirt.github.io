@@ -106,6 +106,32 @@ cat 容器名字
 
 docker的ipv6地址只能在容器内自己查询，在docker的配置中是不存在的
 
+## 直接使用镜像开设
+
+不使用开设脚本时，下面以Debian镜像为例，只映射SSH端口。在宿主机上执行：
+
+```bash
+install -d -m 700 /opt/oneclickvirt/docker-debian
+(umask 077; openssl rand -base64 24 > /opt/oneclickvirt/docker-debian/root-password)
+docker pull ghcr.io/oneclickvirt/docker:debian
+docker run -d --name test-direct --restart unless-stopped \
+  --cpus 1 --memory 512m \
+  -p 25001:22 \
+  --mount type=bind,src=/opt/oneclickvirt/docker-debian/root-password,dst=/run/secrets/root-password,readonly \
+  -e ROOT_PASSWORD_FILE=/run/secrets/root-password \
+  ghcr.io/oneclickvirt/docker:debian
+```
+
+使用```cat /opt/oneclickvirt/docker-debian/root-password```查看初始密码，使用```ssh -p 25001 root@宿主机IP```连接。
+
+```ROOT_PASSWORD```和```ROOT_PASSWORD_FILE```只选一种。密码文件需要是非空单行文本，不能包含冒号。文件只在首次设置密码时读取，需要在容器内改密时执行：
+
+```bash
+docker exec -it test-direct passwd root
+```
+
+容器重启后保留修改过的密码。镜像首次启动时生成各自的SSH主机密钥，同一个容器重启保留原密钥。需要开设端口区间或配置独立IPV6时，仍使用上面的开设脚本处理。
+
 ## 批量开设
 
 - 批量多次运行继承配置生成

@@ -6,7 +6,7 @@ outline: deep
 
 ## Images
 
-GitHub Actions builds the base images and publishes archives to GitHub Releases.
+GitHub Actions builds the regular base images and publishes archives to GitHub Releases.
 
 | Guest system | amd64 archive | arm64 archive |
 | --- | --- | --- |
@@ -22,6 +22,16 @@ Check a local image and its remote Releases asset from a repository checkout:
 ```bash
 bash scripts/containerd_manage.sh version-check debian
 ```
+
+### openEuler images on CNB
+
+The [central CNB build repository](https://cnb.cool/oneclickvirt/virtualization-images) also fetches the Dockerfile from this repository's main branch daily to build openEuler. To pull it separately:
+
+```bash
+nerdctl pull docker.cnb.cool/oneclickvirt/virtualization-images/containerd:openeuler-22.03
+```
+
+This tag uses the build runner's architecture; it is not multi-architecture. The existing creation script still uses archives from this repository's GitHub Releases and does not switch to the CNB image automatically. The original GitHub build and publication workflow remains maintained.
 
 ## Networking
 
