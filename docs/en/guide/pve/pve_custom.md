@@ -40,7 +40,7 @@ gzip -dc "pve${PVE_VERSION}-amd64.tar.gz" | docker load
 
 The imported archive includes ```spiritlhl/pve:${PVE_VERSION}```, ```spiritlhl/pve:${PVE_VERSION}_x86_64``` and the previous local tag ```oneclickvirt/pve:${PVE_VERSION}```, all pointing to the same image.
 
-GitHub Actions checks for updates weekly. You can also run the [build workflow](https://github.com/oneclickvirt/pve/actions/workflows/pve-docker.yml) manually. After the build and all checks inside a disposable VM pass, the image is pushed to [Docker Hub](https://hub.docker.com/r/spiritlhl/pve). The remote image is then verified before the corresponding GitHub Release is updated. Failed validation retains the previous published version. The Release includes ```build.json``` with the PVE version, source commit, image ID, Docker Hub digests and archive checksum.
+GitHub Actions checks for updates weekly. You can also run the [build workflow](https://github.com/oneclickvirt/pve/actions/workflows/pve-docker.yml) manually. After the build and all checks inside a disposable VM pass, the image is pushed to [Docker Hub](https://hub.docker.com/r/spiritlhl/pve). The remote image is then verified before the corresponding GitHub Release is updated. Images that fail the runtime checks are not published. The Release includes ```build.json``` with the PVE version, source commit, image ID, Docker Hub digests and archive checksum.
 
 The [central CNB build repository](https://cnb.cool/oneclickvirt/virtualization-images) also has a manual entry that triggers the same PVE 7, 8 and 9 build and publication workflow. Its current public runners do not provide ```/dev/kvm```, so the actual builds and runtime checks use GitHub runners with KVM support.
 

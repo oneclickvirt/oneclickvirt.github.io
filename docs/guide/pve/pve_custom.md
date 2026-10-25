@@ -40,7 +40,7 @@ gzip -dc "pve${PVE_VERSION}-amd64.tar.gz" | docker load
 
 导入后同时包含```spiritlhl/pve:${PVE_VERSION}```、```spiritlhl/pve:${PVE_VERSION}_x86_64```和原有的```oneclickvirt/pve:${PVE_VERSION}```本地标签，指向同一个镜像。
 
-镜像在GitHub Actions中构建，每周自动检查更新，也可在[构建工作流](https://github.com/oneclickvirt/pve/actions/workflows/pve-docker.yml)中手动运行。构建和隔离虚拟机内的验证全部通过后，推送[Docker Hub](https://hub.docker.com/r/spiritlhl/pve)，再校验远端镜像并更新对应GitHub Release。验证失败时保留原有发布版本。Release中的```build.json```包含PVE版本、源码提交、镜像ID、Docker Hub摘要和压缩包校验值。
+镜像在GitHub Actions中构建，每周自动检查更新，也可在[构建工作流](https://github.com/oneclickvirt/pve/actions/workflows/pve-docker.yml)中手动运行。构建和隔离虚拟机内的验证全部通过后，推送[Docker Hub](https://hub.docker.com/r/spiritlhl/pve)，再校验远端镜像并更新对应GitHub Release。运行验证失败时不会推送新镜像。Release中的```build.json```包含PVE版本、源码提交、镜像ID、Docker Hub摘要和压缩包校验值。
 
 [CNB集中构建仓库](https://cnb.cool/oneclickvirt/virtualization-images)也提供手动入口，触发同一套PVE 7、8、9构建和发布流程。当前CNB公共Runner未提供```/dev/kvm```，实际构建和运行检查使用支持KVM的GitHub Runner。
 
