@@ -18,7 +18,7 @@ outline: deep
 每日自动拉取进行编译和修补
 :::
 
-手动修补镜像: https://github.com/oneclickvirt/pve_lxc_images/blob/main/all_images.txt
+手动修补镜像: https://github.com/oneclickvirt/pve_lxc_images/blob/main/fixed_images.txt
 
 :::tip
 其中的部分镜像有缺陷，不保证所有PVE可用，名字为 ```ubuntu16.04```、```debian6```、```centos7```、```opensuse42.2```、```opensuse42.3``` 非必要不要使用。
@@ -37,6 +37,10 @@ outline: deep
 [https://github.com/oneclickvirt/lxc_arm_images/blob/main/all_images.txt](https://github.com/oneclickvirt/lxc_arm_images/blob/main/all_images.txt)
 
 可在上面的文件中查看支持的系统，其中列出的debian和ubuntu系统不要使用里面的别名，使用数字代号即可。
+
+openEuler 24.03也提供ARM64的PVE模板，见[持续维护的模板](https://github.com/oneclickvirt/pve_lxc_images/releases/tag/maintained)。选择文件名以```openeuler_24.03_24.03_arm64_default_```开头、以```_arm64.tar.zst```结尾的文件，供原生ARM64宿主机使用。原有开设脚本仍使用上面的LXC镜像列表。
+
+该模板由[CNB集中构建仓库](https://cnb.cool/oneclickvirt/virtualization-images)每周检查更新，也可手动构建。源文件和重压缩后的模板均检查可执行文件架构及SSH主机身份，并在ARM64隔离环境中验证容器启动、SSH监听、HTTPS/DNS和重启，通过后才上传GitHub Release，不使用CNB对象存储。基础容器运行检查使用Incus，PVE/PXVIRT上的```pct```创建和网络配置仍需在实际宿主机确认。
 
 :::tip
 系统参数一律是小写的系统名字拼接版本号，如：debian11，ubuntu22等。

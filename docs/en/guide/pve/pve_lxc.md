@@ -18,7 +18,7 @@ Auto-patching images: https://github.com/oneclickvirt/lxc_amd64_images/blob/main
 Automated daily pulls for compilation and patching
 :::
 
-Self-patching images: https://github.com/oneclickvirt/pve_lxc_images/blob/main/all_images.txt
+Self-patching images: https://github.com/oneclickvirt/pve_lxc_images/blob/main/fixed_images.txt
 
 :::tip
 Some of these images are flawed and not guaranteed to be available for all PVEs, with names like ```ubuntu16.04```, ```debian6```, ```centos7```, ```opensuse42.2```, ```opensuse42.3``` Don't use them unless necessary.
@@ -38,6 +38,10 @@ The version has been automatically recognized by a script to use the correspondi
 [https://github.com/oneclickvirt/lxc_arm_images/blob/main/all_images.txt](https://github.com/oneclickvirt/lxc_arm_images/blob/main/all_images.txt)
 
 Supported systems can be viewed in the file above, which lists debian and ubuntu systems do not use the aliases in it, just use the numeric designators.
+
+An ARM64 PVE template for openEuler 24.03 is also available in the [maintained release](https://github.com/oneclickvirt/pve_lxc_images/releases/tag/maintained). Select a filename starting with ```openeuler_24.03_24.03_arm64_default_``` and ending with ```_arm64.tar.zst``` for a native ARM64 host. The existing provisioning scripts continue to use the LXC image list above.
+
+The [central CNB build repository](https://cnb.cool/oneclickvirt/virtualization-images) checks for updates weekly and also supports manual builds. The source and recompressed template are checked for executable architecture and inherited SSH host identities, then tested for container boot, the SSH listener, HTTPS/DNS and restart in an isolated ARM64 environment. Only passing templates are uploaded to GitHub Releases; CNB object storage is not used. Basic container runtime checks use Incus. Creation with ```pct``` and network setup on PVE/PXVIRT still need verification on the actual host.
 
 :::tip
 All system parameters are lowercase system names spliced with version numbers, e.g. debian11, ubuntu22, etc.
