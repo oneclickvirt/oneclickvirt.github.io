@@ -49,6 +49,8 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 默认不填则是debian
 
+使用脚本开设时，密码仍使用参数中填写的值。自行用 `docker run` 启动镜像时，请设置 `ROOT_PASSWORD`，或挂载密码文件并用 `ROOT_PASSWORD_FILE` 指定容器内路径。镜像不再内置通用默认密码，未设置时 root 账户保持锁定。初始密码仅设置一次，在容器内自行修改密码后重启不会被覆盖。
+
 系统输入支持带版本号写法，例如 `debian11`、`debian/11`、`ubuntu20`、`almalinux9`、`rockylinux9`、`openeuler22.03`。脚本会归一到当前维护的镜像族，不表示固定下载任意历史版本。
 
 硬盘大小仅在前面Docker安装时选择了支持限制硬盘大小的选项，这块才可填写数值设置硬盘大小，默认不填时不限制

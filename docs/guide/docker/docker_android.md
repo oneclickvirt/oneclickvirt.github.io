@@ -40,7 +40,7 @@ curl -L https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt
 
 默认的用户名 ```onea```
 
-默认密码 ```oneclick```
+密码留空时自动生成随机密码，安装完成后会显示登录信息，也可通过 `/root/android_info` 查询。无人值守时可使用 `ANDROID_WEB_PASSWORD` 指定自己的密码。
 
 远程的桌面点击```H264 Converter```跳转就是了
 

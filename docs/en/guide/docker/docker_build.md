@@ -43,6 +43,8 @@ Currently, the system only supports selecting:
 
 with Debian being the default choice.
 
+The script uses the password supplied in its arguments. When running the image directly with `docker run`, set `ROOT_PASSWORD` or mount a password file and set `ROOT_PASSWORD_FILE` to its container path. Images have no shared default password; without either setting, the root account stays locked. The initial password is applied only once, so password changes inside the container survive restarts.
+
 Version-bearing aliases such as `debian11`, `debian/11`, `ubuntu20`, `almalinux9`, `rockylinux9` and `openeuler22.03` are accepted. They are normalized to the currently maintained image family; they do not pin an arbitrary historical release.
 
 Disk size can be set only if you previously enabled disk-limit support during Docker installation. If omitted, disk size is unlimited by default.

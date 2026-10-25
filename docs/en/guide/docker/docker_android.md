@@ -33,7 +33,7 @@ After executing the command, follow the prompts to input the required informatio
 If you need to check the generated Android information and web login details, execute ```cat /root/android_info``` to retrieve the information.
 
 Default username: ```onea```
-Default password: ```oneclick```
+Leave the password blank to generate a random password. The login details are shown after setup and saved in `/root/android_info`. For unattended setup, set `ANDROID_WEB_PASSWORD` to your own password.
 
 For remote desktop, click on ```H264 Converter``` to initiate the redirection.
 
