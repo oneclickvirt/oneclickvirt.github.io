@@ -4,36 +4,45 @@ outline: deep
 
 # 自定义分区
 
-## 在非Debian系统上通过Docker运行 Proxmox VE 8 / 9
+## 在非Debian系统上通过Docker运行 Proxmox VE 7 / 8 / 9
 
-需要先安装Docker，宿主机使用原生Linux的X86_64架构，使用```uname -m```查询。PVE 8使用Debian 12，PVE 9使用Debian 13，容器内安装官方PVE软件包。
+需要先安装Docker，宿主机使用原生Linux的X86_64架构，使用```uname -m```查询。PVE 7使用Debian 11，PVE 8使用Debian 12，PVE 9使用Debian 13，容器内安装官方PVE软件包。
 
-此方式用于实验环境。容器共用宿主机内核，不能在容器内安装或切换PVE内核；HA和硬件watchdog服务不启用。新版本暂不提供ARM镜像。
+此方式用于实验环境。容器共用宿主机内核，不能在容器内安装或切换PVE内核；HA和硬件watchdog服务不启用。镜像支持amd64架构，原有```7_aarch64```为历史镜像，不随这套流程更新。
 
 ### 版本选择
 
-| PVE版本 | 容器基础系统 | 下载页面 | 导入后的镜像名 |
-|---------|-------------|----------|----------------|
-| PVE 8 | Debian 12 | [docker-pve8](https://github.com/oneclickvirt/pve/releases/tag/docker-pve8) | `oneclickvirt/pve:8` |
-| PVE 9 | Debian 13 | [docker-pve9](https://github.com/oneclickvirt/pve/releases/tag/docker-pve9) | `oneclickvirt/pve:9` |
+| PVE版本 | 容器基础系统 | Docker Hub镜像 | Release下载页面 |
+|---------|-------------|----------------|-----------------|
+| PVE 7 | Debian 11 | `spiritlhl/pve:7` | [docker-pve7](https://github.com/oneclickvirt/pve/releases/tag/docker-pve7) |
+| PVE 8 | Debian 12 | `spiritlhl/pve:8` | [docker-pve8](https://github.com/oneclickvirt/pve/releases/tag/docker-pve8) |
+| PVE 9 | Debian 13 | `spiritlhl/pve:9` | [docker-pve9](https://github.com/oneclickvirt/pve/releases/tag/docker-pve9) |
 
-这两个版本分别更新，各自使用对应Release中的镜像和校验文件，不要混用。镜像下载后使用```docker load```导入，不能把上面的本地镜像名直接当成Docker Hub下载地址。
+三个版本分别更新，也可使用```7_x86_64```、```8_x86_64```、```9_x86_64```标签下载对应版本。PVE 7已结束官方支持，仅用于旧环境兼容，新部署建议选择PVE 9。
 
 ### 下载镜像
 
-下面以PVE 9为例，需要PVE 8时将第一行的```9```改为```8```即可。
+下面以PVE 9为例，需要其他版本时将第一行的```9```改为```7```或```8```即可。
 
 ```bash
 PVE_VERSION=9
+docker pull "spiritlhl/pve:${PVE_VERSION}"
+```
+
+也可从对应GitHub Release下载压缩包，校验后导入。镜像和校验文件需要使用同一个版本的Release。
+
+```bash
 curl -fL --retry 3 "https://github.com/oneclickvirt/pve/releases/download/docker-pve${PVE_VERSION}/pve${PVE_VERSION}-amd64.tar.gz" -o "pve${PVE_VERSION}-amd64.tar.gz"
 curl -fL --retry 3 "https://github.com/oneclickvirt/pve/releases/download/docker-pve${PVE_VERSION}/SHA256SUMS" -o SHA256SUMS
 sha256sum -c SHA256SUMS
 gzip -dc "pve${PVE_VERSION}-amd64.tar.gz" | docker load
 ```
 
-镜像在GitHub Actions中构建，每周自动检查更新，也可在[构建工作流](https://github.com/oneclickvirt/pve/actions/workflows/pve-docker.yml)中手动运行。构建和隔离虚拟机内的验证全部通过后才更新对应的GitHub Release，失败时保留原有镜像。Release中的```build.json```包含PVE版本、源码提交和镜像校验值。
+导入后同时包含```spiritlhl/pve:${PVE_VERSION}```、```spiritlhl/pve:${PVE_VERSION}_x86_64```和原有的```oneclickvirt/pve:${PVE_VERSION}```本地标签，指向同一个镜像。
 
-[CNB集中构建仓库](https://cnb.cool/oneclickvirt/virtualization-images)保留手动构建入口。当前CNB公共Runner未提供```/dev/kvm```，这两个PVE Docker镜像的定时构建使用支持KVM的GitHub Runner，下载仍使用上面的GitHub Release。
+镜像在GitHub Actions中构建，每周自动检查更新，也可在[构建工作流](https://github.com/oneclickvirt/pve/actions/workflows/pve-docker.yml)中手动运行。构建和隔离虚拟机内的验证全部通过后，推送[Docker Hub](https://hub.docker.com/r/spiritlhl/pve)，再校验远端镜像并更新对应GitHub Release。验证失败时保留原有发布版本。Release中的```build.json```包含PVE版本、源码提交、镜像ID、Docker Hub摘要和压缩包校验值。
+
+[CNB集中构建仓库](https://cnb.cool/oneclickvirt/virtualization-images)也提供手动入口，触发同一套PVE 7、8、9构建和发布流程。当前CNB公共Runner未提供```/dev/kvm```，实际构建和运行检查使用支持KVM的GitHub Runner。
 
 ### 设置密码并启动
 
@@ -51,7 +60,7 @@ docker run -d \
   --mount type=bind,src=/opt/pve-docker/root-password,dst=/run/secrets/pve-root,readonly \
   -e PVE_ROOT_PASSWORD_FILE=/run/secrets/pve-root \
   -p 8006:8006 \
-  "oneclickvirt/pve:${PVE_VERSION}"
+  "spiritlhl/pve:${PVE_VERSION}"
 ```
 
 使用```https://宿主机IP:8006```访问面板，选择Linux PAM认证，用户名为```root```。使用```cat /opt/pve-docker/root-password```查看生成的密码。首次启动会生成本容器的证书和SSH主机密钥，面板准备完成需要一些时间。
