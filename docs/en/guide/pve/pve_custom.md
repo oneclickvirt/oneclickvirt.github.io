@@ -4,56 +4,63 @@ outline: deep
 
 # Custom Sections
 
-## Installing Proxmox VE 7 on a non-Debian system
+## Running Proxmox VE 8 / 9 in Docker on a non-Debian system
 
-Minimum local hardware requirements are the same as for the previous normal installation.
+Install Docker first. The host must run native Linux on X86_64; use ```uname -m``` to check. PVE 8 uses Debian 12 and PVE 9 uses Debian 13, with official PVE packages installed inside the container.
 
-You need to install docker first.
+This method is for experimental environments. The container shares the host kernel and cannot install or switch to a PVE kernel. HA and hardware watchdog services are disabled. Modern ARM images are not provided.
 
-```
-curl -sSL https://get.docker.com/ | sh
-curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-linux-$(uname -m)" -o /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
-docker-compose --version
-```
+### Download the image
 
-Then use ```uname -m``` to query the architecture and use the command corresponding to the architecture
-
-The opened PVE panel information is:
-
-The default login username and password are both ``root``. After login, change the password immediately in web SSH to avoid brute-force risk.
-
-When using host SSH, be sure to log into the corresponding ``https://IPv4:8006`` to use SSH on the web panel, do not use the host's port 22 to manipulate the PVE.
-
-Because the SSH on the web panel is inside Docker, it does not support subsequent one-click configurations, so please configure your own gateway, etc. to use it.
-
-X86 architecture
+The following example uses PVE 9. For PVE 8, change ```9``` to ```8``` in the first line.
 
 ```bash
-docker run -idt --network host \
---privileged \
---name pve \
---add-host pve:10.13.14.101 \
---hostname pve \
-spiritlhl/pve:7_x86_64
+PVE_VERSION=9
+curl -fL --retry 3 "https://github.com/oneclickvirt/pve/releases/download/docker-pve${PVE_VERSION}/pve${PVE_VERSION}-amd64.tar.gz" -o "pve${PVE_VERSION}-amd64.tar.gz"
+curl -fL --retry 3 "https://github.com/oneclickvirt/pve/releases/download/docker-pve${PVE_VERSION}/SHA256SUMS" -o SHA256SUMS
+sha256sum -c SHA256SUMS
+gzip -dc "pve${PVE_VERSION}-amd64.tar.gz" | docker load
 ```
 
-ARM architecture
+Images are built on GitHub Actions and updated in the corresponding GitHub Release after validation inside a disposable VM, with automatic weekly checks. The Release includes ```build.json``` with the PVE version, source commit and archive checksum.
+
+### Set a password and start the container
+
+There is no default password. Create your own root password file first. Run these commands on the host.
 
 ```bash
-docker run -idt --network host \
---privileged \
---name pve \
---add-host pve:10.13.14.101 \
---hostname pve \
-spiritlhl/pve:7_aarch64
+install -d -m 700 /opt/pve-docker
+(umask 077; openssl rand -base64 24 > /opt/pve-docker/root-password)
+modprobe -a fuse tun
+docker run -d \
+  --name pve --hostname pve \
+  --privileged --cgroupns=private \
+  --restart unless-stopped \
+  --tmpfs /run --tmpfs /run/lock --tmpfs /tmp \
+  --mount type=bind,src=/opt/pve-docker/root-password,dst=/run/secrets/pve-root,readonly \
+  -e PVE_ROOT_PASSWORD_FILE=/run/secrets/pve-root \
+  -p 8006:8006 \
+  "oneclickvirt/pve:${PVE_VERSION}"
 ```
 
-The web panel runs inside the container, but networking uses host mode, so PVE ports are exposed on host network interfaces.
+Open ```https://HOST_IP:8006```, select Linux PAM authentication and log in as ```root```. Use ```cat /opt/pve-docker/root-password``` to view the generated password. The first start generates this container's certificates and SSH host keys, so allow some time for the panel to become ready.
 
-But here the login username and password become ```root``` and ```root```, if you need to change it please ```docker exec -it pve /bin/bash``` enter and change the password of root, then press ```ctrl``` key and ```A+D``` to exit.
+To change the password, run ```docker exec -it pve passwd root```. The password file is used only during initial setup; passwords changed inside the container survive restarts.
 
-This path is experimental and may contain unresolved bugs. PRs are welcome. It has been validated on Ubuntu hosts to provide an alternative to Debian-only host assumptions in standard workflows.
+### Usage and saved data
+
+Use ```docker exec -it pve bash``` to manage PVE inside the container. The host SSH service continues to manage the host. Configure bridges, gateways and VM port forwarding yourself; the existing one-click configuration for a physical PVE host does not apply directly.
+
+Build checks cover HTTPS/PAM login, VM creation and disk import, VM boot and reboot using TCG, and preservation of passwords, certificates and VM configuration after a container restart. KVM acceleration requires ```/dev/kvm``` on the host. Without this device, disable KVM hardware virtualization in the VM options to use TCG. LXC, PCI passthrough, clustering and migration are outside this image's validation scope.
+
+Stop and start the same container with:
+
+```bash
+docker stop pve
+docker start pve
+```
+
+Restarting the same container preserves its configuration and virtual disks. Before deleting or recreating it, separately back up ```/var/lib/pve-cluster```, ```/var/lib/vz```, networking and account configuration. Do not use ```docker rm``` directly as an upgrade step.
 
 ## Optimizing the memory footprint of Proxmox-VE on low-configuration systems
 

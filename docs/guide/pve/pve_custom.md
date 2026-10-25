@@ -4,56 +4,63 @@ outline: deep
 
 # 自定义分区
 
-## 在非Debian系统上安装 Proxmox VE 7
+## 在非Debian系统上通过Docker运行 Proxmox VE 8 / 9
 
-本机硬件配置的最低要求同先前正常安装的要求一致
+需要先安装Docker，宿主机使用原生Linux的X86_64架构，使用```uname -m```查询。PVE 8使用Debian 12，PVE 9使用Debian 13，容器内安装官方PVE软件包。
 
-需要先安装docker
+此方式用于实验环境。容器共用宿主机内核，不能在容器内安装或切换PVE内核；HA和硬件watchdog服务不启用。新版本暂不提供ARM镜像。
 
-```
-curl -sSL https://get.docker.com/ | sh
-curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-linux-$(uname -m)" -o /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
-docker-compose --version
-```
+### 下载镜像
 
-然后使用```uname -m```查询架构，使用对应架构的命令
-
-开设出的PVE面板信息为：
-
-登录用户名和密码都是```root```，登录后务必使用web的SSH更改密码以免被爆破
-
-用宿主机SSH时务必登录对应```https://IPV4地址:8006```在web面板上使用SSH，不要使用宿主机的22端口操控PVE
-
-因为web面板上的SSH是在Docker内的，所以不支持后续的一键配置，请自行配置网关等进行使用
-
-X86架构
+下面以PVE 9为例，需要PVE 8时将第一行的```9```改为```8```即可。
 
 ```bash
-docker run -idt --network host \
---privileged \
---name pve \
---add-host pve:10.13.14.101 \
---hostname pve \
-spiritlhl/pve:7_x86_64
+PVE_VERSION=9
+curl -fL --retry 3 "https://github.com/oneclickvirt/pve/releases/download/docker-pve${PVE_VERSION}/pve${PVE_VERSION}-amd64.tar.gz" -o "pve${PVE_VERSION}-amd64.tar.gz"
+curl -fL --retry 3 "https://github.com/oneclickvirt/pve/releases/download/docker-pve${PVE_VERSION}/SHA256SUMS" -o SHA256SUMS
+sha256sum -c SHA256SUMS
+gzip -dc "pve${PVE_VERSION}-amd64.tar.gz" | docker load
 ```
 
-ARM架构
+镜像在GitHub Actions中构建，在隔离虚拟机内验证通过后更新到对应的GitHub Release，每周自动检查更新。Release中的```build.json```包含PVE版本、源码提交和镜像校验值。
+
+### 设置密码并启动
+
+不再提供默认密码，需要先生成自己的root密码文件。以下命令在宿主机上执行。
 
 ```bash
-docker run -idt --network host \
---privileged \
---name pve \
---add-host pve:10.13.14.101 \
---hostname pve \
-spiritlhl/pve:7_aarch64
+install -d -m 700 /opt/pve-docker
+(umask 077; openssl rand -base64 24 > /opt/pve-docker/root-password)
+modprobe -a fuse tun
+docker run -d \
+  --name pve --hostname pve \
+  --privileged --cgroupns=private \
+  --restart unless-stopped \
+  --tmpfs /run --tmpfs /run/lock --tmpfs /tmp \
+  --mount type=bind,src=/opt/pve-docker/root-password,dst=/run/secrets/pve-root,readonly \
+  -e PVE_ROOT_PASSWORD_FILE=/run/secrets/pve-root \
+  -p 8006:8006 \
+  "oneclickvirt/pve:${PVE_VERSION}"
 ```
 
-开设出的面板实际是开设在容器内的，但网络已使用host模式，PVE的端口约等于就使用的宿主机的端口
+使用```https://宿主机IP:8006```访问面板，选择Linux PAM认证，用户名为```root```。使用```cat /opt/pve-docker/root-password```查看生成的密码。首次启动会生成本容器的证书和SSH主机密钥，面板准备完成需要一些时间。
 
-但这里登录的用户名和密码就变成了```root```和```root```，如需修改请```docker exec -it pve /bin/bash```进入后修改root的密码，然后按```ctrl```键和```A+D```退出。
+需要修改密码时，执行```docker exec -it pve passwd root```。密码文件只在首次初始化时使用，后续在容器内修改的密码不会被重启覆盖。
 
-有许多错误需要修复，欢迎PR解决问题，实测在Ubuntu系统的宿主机上安装```Proxmox VE```的面板成功，解决了通过网络安装```Proxmox VE```只能使用Debian系统做宿主机的问题
+### 使用和保存
+
+使用```docker exec -it pve bash```进入容器操作PVE，宿主机的SSH仍用于管理宿主机。网桥、网关和虚拟机的端口映射需要自行配置，不直接使用原有针对实体PVE宿主机的一键配置。
+
+构建检查包括HTTPS/PAM登录、创建并导入虚拟机、使用TCG启动和重启虚拟机，以及容器重启后的密码、证书和虚拟机配置保留。KVM加速需要宿主机提供```/dev/kvm```。没有此设备时，需要在虚拟机选项中关闭KVM硬件虚拟化，使用TCG。LXC、PCI直通、集群和迁移不在本镜像的验证范围内。
+
+停止和重新启动使用下面的命令：
+
+```bash
+docker stop pve
+docker start pve
+```
+
+同一个容器重启会保留配置和虚拟磁盘。删除或重建容器前，需要另行备份```/var/lib/pve-cluster```、```/var/lib/vz```、网络配置及账号配置；不能把```docker rm```当作升级步骤直接执行。
 
 ## 在低配置系统中优化Proxmox-VE的内存占用
 
