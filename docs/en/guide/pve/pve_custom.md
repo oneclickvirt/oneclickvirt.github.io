@@ -6,19 +6,21 @@ outline: deep
 
 ## Running Proxmox VE 7 / 8 / 9 in Docker on a non-Debian system
 
-Install Docker first. The host must run native Linux on X86_64; use ```uname -m``` to check. PVE 7 uses Debian 11, PVE 8 uses Debian 12 and PVE 9 uses Debian 13, with official PVE packages installed inside the container.
+Install Docker first. The host must run native Linux on X86_64 or ARM64; use ```uname -m``` to check. X86_64 images use official PVE packages, with Debian 11, 12 and 13 for PVE 7, 8 and 9. ARM64 images use packages from the community fork [PXVIRT](https://github.com/jiangcuo/pxvirt), with Debian 12 and 13 for versions 8 and 9. These are not official Proxmox ARM builds.
 
-This method is for experimental environments. The container shares the host kernel and cannot install or switch to a PVE kernel. HA and hardware watchdog services are disabled. This build provides amd64 images. The existing ```7_aarch64``` tag is a historical image and is not updated by this workflow.
+This method is for experimental environments. The container shares the host kernel and cannot install or switch to a PVE kernel. HA and hardware watchdog services are disabled. X86_64 and ARM64 use separate image tags. The existing ```7_aarch64``` tag is a historical image; its old ARM upstream is no longer maintained and this workflow does not update it.
 
 ### Choose a version
 
-| PVE version | Container base system | Docker Hub image | Release download page |
-|-------------|-----------------------|------------------|-----------------------|
-| PVE 7 | Debian 11 | `spiritlhl/pve:7` | [docker-pve7](https://github.com/oneclickvirt/pve/releases/tag/docker-pve7) |
-| PVE 8 | Debian 12 | `spiritlhl/pve:8` | [docker-pve8](https://github.com/oneclickvirt/pve/releases/tag/docker-pve8) |
-| PVE 9 | Debian 13 | `spiritlhl/pve:9` | [docker-pve9](https://github.com/oneclickvirt/pve/releases/tag/docker-pve9) |
+| Version | Architecture | Container base system | Docker Hub image | Release download page |
+|---------|--------------|-----------------------|------------------|-----------------------|
+| PVE 7 | X86_64 | Debian 11 | `spiritlhl/pve:7` | [docker-pve7](https://github.com/oneclickvirt/pve/releases/tag/docker-pve7) |
+| PVE 8 | X86_64 | Debian 12 | `spiritlhl/pve:8` | [docker-pve8](https://github.com/oneclickvirt/pve/releases/tag/docker-pve8) |
+| PVE 9 | X86_64 | Debian 13 | `spiritlhl/pve:9` | [docker-pve9](https://github.com/oneclickvirt/pve/releases/tag/docker-pve9) |
+| PXVIRT 8 | ARM64 | Debian 12 | `spiritlhl/pve:8_aarch64` | [docker-pve8](https://github.com/oneclickvirt/pve/releases/tag/docker-pve8) |
+| PXVIRT 9 | ARM64 | Debian 13 | `spiritlhl/pve:9_aarch64` | [docker-pve9](https://github.com/oneclickvirt/pve/releases/tag/docker-pve9) |
 
-The three versions are updated separately. The tags ```7_x86_64```, ```8_x86_64``` and ```9_x86_64``` also download the corresponding versions. PVE 7 has reached the end of official support and is provided for older environments. Use PVE 9 for new deployments.
+Each version and architecture is updated separately. X86_64 also has the tags ```7_x86_64```, ```8_x86_64``` and ```9_x86_64```; ARM64 also has ```8_arm64``` and ```9_arm64```. The tags ```7```, ```8``` and ```9``` remain amd64 images. PVE 7 has reached the end of official support and is provided for older environments. Use PVE 9 for new deployments.
 
 ### Download the image
 
@@ -26,23 +28,40 @@ The following example uses PVE 9. For another version, change ```9``` to ```7```
 
 ```bash
 PVE_VERSION=9
-docker pull "spiritlhl/pve:${PVE_VERSION}"
+PVE_IMAGE="spiritlhl/pve:${PVE_VERSION}"
+docker pull "$PVE_IMAGE"
 ```
 
-You can also download the archive from the corresponding GitHub Release, verify it and import it. Use the archive and checksum file from the same version's Release.
+For an ARM64 host, use the following commands and select version ```8``` or ```9```:
 
 ```bash
-curl -fL --retry 3 "https://github.com/oneclickvirt/pve/releases/download/docker-pve${PVE_VERSION}/pve${PVE_VERSION}-amd64.tar.gz" -o "pve${PVE_VERSION}-amd64.tar.gz"
-curl -fL --retry 3 "https://github.com/oneclickvirt/pve/releases/download/docker-pve${PVE_VERSION}/SHA256SUMS" -o SHA256SUMS
-sha256sum -c SHA256SUMS
-gzip -dc "pve${PVE_VERSION}-amd64.tar.gz" | docker load
+PVE_VERSION=9
+PVE_IMAGE="spiritlhl/pve:${PVE_VERSION}_aarch64"
+docker pull "$PVE_IMAGE"
 ```
 
-The imported archive includes ```spiritlhl/pve:${PVE_VERSION}```, ```spiritlhl/pve:${PVE_VERSION}_x86_64``` and the previous local tag ```oneclickvirt/pve:${PVE_VERSION}```, all pointing to the same image.
+You can also download the archive from the corresponding GitHub Release, verify it and import it. Use the archive and checksum file from the same version's Release. The example below uses amd64. For ARM64, change ```PVE_ARCH``` to ```arm64``` and choose version ```8``` or ```9```. The checksum filename and image tag are selected automatically.
 
-GitHub Actions checks for updates weekly. You can also run the [build workflow](https://github.com/oneclickvirt/pve/actions/workflows/pve-docker.yml) manually. After the build and all checks inside a disposable VM pass, the image is pushed to [Docker Hub](https://hub.docker.com/r/spiritlhl/pve). The remote image is then verified before the corresponding GitHub Release is updated. Images that fail the runtime checks are not published. The Release includes ```build.json``` with the PVE version, source commit, image ID, Docker Hub digests and archive checksum.
+```bash
+PVE_VERSION=9
+PVE_ARCH=amd64
+PVE_CHECKSUMS=SHA256SUMS
+PVE_IMAGE="spiritlhl/pve:${PVE_VERSION}"
+if [ "$PVE_ARCH" = arm64 ]; then
+  PVE_CHECKSUMS=SHA256SUMS-arm64
+  PVE_IMAGE="spiritlhl/pve:${PVE_VERSION}_aarch64"
+fi
+curl -fL --retry 3 "https://github.com/oneclickvirt/pve/releases/download/docker-pve${PVE_VERSION}/pve${PVE_VERSION}-${PVE_ARCH}.tar.gz" -o "pve${PVE_VERSION}-${PVE_ARCH}.tar.gz"
+curl -fL --retry 3 "https://github.com/oneclickvirt/pve/releases/download/docker-pve${PVE_VERSION}/${PVE_CHECKSUMS}" -o "$PVE_CHECKSUMS"
+sha256sum -c "$PVE_CHECKSUMS"
+gzip -dc "pve${PVE_VERSION}-${PVE_ARCH}.tar.gz" | docker load
+```
 
-The [central CNB build repository](https://cnb.cool/oneclickvirt/virtualization-images) also has a manual entry that triggers the same PVE 7, 8 and 9 build and publication workflow. Its current public runners do not provide ```/dev/kvm```, so the actual builds and runtime checks use GitHub runners with KVM support.
+The imported amd64 archive includes ```spiritlhl/pve:${PVE_VERSION}```, ```spiritlhl/pve:${PVE_VERSION}_x86_64``` and the previous local tag ```oneclickvirt/pve:${PVE_VERSION}```, all pointing to the same image. The ARM64 archive includes ```spiritlhl/pve:${PVE_VERSION}_aarch64```, ```spiritlhl/pve:${PVE_VERSION}_arm64``` and ```oneclickvirt/pve:${PVE_VERSION}_aarch64```.
+
+GitHub Actions checks for updates weekly. You can also run the [build workflow](https://github.com/oneclickvirt/pve/actions/workflows/pve-docker.yml) manually. After the build and all checks inside a disposable VM pass, the image is pushed to [Docker Hub](https://hub.docker.com/r/spiritlhl/pve). The remote image is then verified before the corresponding GitHub Release is updated. Images that fail the runtime checks are not published. The Release includes ```build.json``` for amd64 and ```build-arm64.json``` for ARM64, recording package versions, source commit, image ID, Docker Hub digests and archive checksum. The ARM8 repository currently lacks ```python3-virt-firmware```, which its latest qemu-server requires. Builds select a compatible qemu-server with complete dependencies and retain an APT version pin. See ```/usr/share/pve-container/build-info.json``` inside the image for the installed versions.
+
+The [central CNB build repository](https://cnb.cool/oneclickvirt/virtualization-images) also has a manual entry that triggers the same workflow for amd64 PVE 7/8/9 and ARM64 PXVIRT 8/9. Builds use GitHub runners of the corresponding architecture. On amd64, validation runs inside a disposable VM using KVM. ARM64 candidates are transferred to a separate disposable GitHub-hosted ARM VM for validation without publication credentials. A separate job publishes images only after validation passes. Temporary files transferred between jobs are retained for one day and do not use CNB object storage.
 
 ### Set a password and start the container
 
@@ -54,16 +73,19 @@ install -d -m 700 /opt/pve-docker
 modprobe -a fuse tun
 docker run -d \
   --name pve --hostname pve \
+  --dns-search=. \
   --privileged --cgroupns=private \
   --restart unless-stopped \
   --tmpfs /run --tmpfs /run/lock --tmpfs /tmp \
   --mount type=bind,src=/opt/pve-docker/root-password,dst=/run/secrets/pve-root,readonly \
   -e PVE_ROOT_PASSWORD_FILE=/run/secrets/pve-root \
   -p 8006:8006 \
-  "spiritlhl/pve:${PVE_VERSION}"
+  "$PVE_IMAGE"
 ```
 
 Open ```https://HOST_IP:8006```, select Linux PAM authentication and log in as ```root```. Use ```cat /opt/pve-docker/root-password``` to view the generated password. The first start generates this container's certificates and SSH host keys, so allow some time for the panel to become ready.
+
+The option ```--dns-search=.``` prevents the container from inheriting the host's DNS search suffix. An overly long suffix can stop PVE from generating its node certificate. DNS servers are still available.
 
 To change the password, run ```docker exec -it pve passwd root```. The password file is used only during initial setup; passwords changed inside the container survive restarts.
 
@@ -71,7 +93,7 @@ To change the password, run ```docker exec -it pve passwd root```. The password 
 
 Use ```docker exec -it pve bash``` to manage PVE inside the container. The host SSH service continues to manage the host. Configure bridges, gateways and VM port forwarding yourself; the existing one-click configuration for a physical PVE host does not apply directly.
 
-Build checks cover HTTPS/PAM login, VM creation and disk import, VM boot and reboot using TCG, and preservation of passwords, certificates and VM configuration after a container restart. The outer disposable VM uses KVM acceleration, while guests managed by PVE inside the container use TCG. Nested KVM inside the PVE container has not been validated. KVM acceleration requires ```/dev/kvm``` on the host. Without this device, disable KVM hardware virtualization in the VM options to use TCG. LXC, PCI passthrough, clustering and migration are outside this image's validation scope.
+Build checks cover signed APT source updates and recorded panel statistics on ARM64, HTTPS/PAM login, VM creation and disk import, VM boot and reboot using TCG, and preservation of passwords, certificates and VM configuration after a container restart. The outer disposable VM uses KVM on amd64; ARM64 validation uses an independent GitHub-hosted ARM VM. Guests managed inside the container use TCG on both architectures. Nested KVM inside the PVE container has not been validated. KVM acceleration requires ```/dev/kvm``` on the host. Without this device, disable KVM hardware virtualization in the VM options to use TCG. LXC, PCI passthrough, clustering and migration are outside this image's validation scope.
 
 Stop and start the same container with:
 

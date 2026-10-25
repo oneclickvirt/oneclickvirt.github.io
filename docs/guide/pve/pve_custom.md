@@ -6,19 +6,21 @@ outline: deep
 
 ## 在非Debian系统上通过Docker运行 Proxmox VE 7 / 8 / 9
 
-需要先安装Docker，宿主机使用原生Linux的X86_64架构，使用```uname -m```查询。PVE 7使用Debian 11，PVE 8使用Debian 12，PVE 9使用Debian 13，容器内安装官方PVE软件包。
+需要先安装Docker，宿主机使用原生Linux的X86_64或ARM64架构，使用```uname -m```查询。X86_64版本使用官方PVE软件包，PVE 7、8、9分别使用Debian 11、12、13。ARM64版本使用社区分支[PXVIRT](https://github.com/jiangcuo/pxvirt)的软件包，8、9分别使用Debian 12、13，并非Proxmox官方ARM版本。
 
-此方式用于实验环境。容器共用宿主机内核，不能在容器内安装或切换PVE内核；HA和硬件watchdog服务不启用。镜像支持amd64架构，原有```7_aarch64```为历史镜像，不随这套流程更新。
+此方式用于实验环境。容器共用宿主机内核，不能在容器内安装或切换PVE内核；HA和硬件watchdog服务不启用。X86_64和ARM64使用不同镜像标签。原有```7_aarch64```为历史镜像，上游旧ARM项目已停止维护，不随这套流程更新。
 
 ### 版本选择
 
-| PVE版本 | 容器基础系统 | Docker Hub镜像 | Release下载页面 |
-|---------|-------------|----------------|-----------------|
-| PVE 7 | Debian 11 | `spiritlhl/pve:7` | [docker-pve7](https://github.com/oneclickvirt/pve/releases/tag/docker-pve7) |
-| PVE 8 | Debian 12 | `spiritlhl/pve:8` | [docker-pve8](https://github.com/oneclickvirt/pve/releases/tag/docker-pve8) |
-| PVE 9 | Debian 13 | `spiritlhl/pve:9` | [docker-pve9](https://github.com/oneclickvirt/pve/releases/tag/docker-pve9) |
+| 版本 | 架构 | 容器基础系统 | Docker Hub镜像 | Release下载页面 |
+|------|------|-------------|----------------|-----------------|
+| PVE 7 | X86_64 | Debian 11 | `spiritlhl/pve:7` | [docker-pve7](https://github.com/oneclickvirt/pve/releases/tag/docker-pve7) |
+| PVE 8 | X86_64 | Debian 12 | `spiritlhl/pve:8` | [docker-pve8](https://github.com/oneclickvirt/pve/releases/tag/docker-pve8) |
+| PVE 9 | X86_64 | Debian 13 | `spiritlhl/pve:9` | [docker-pve9](https://github.com/oneclickvirt/pve/releases/tag/docker-pve9) |
+| PXVIRT 8 | ARM64 | Debian 12 | `spiritlhl/pve:8_aarch64` | [docker-pve8](https://github.com/oneclickvirt/pve/releases/tag/docker-pve8) |
+| PXVIRT 9 | ARM64 | Debian 13 | `spiritlhl/pve:9_aarch64` | [docker-pve9](https://github.com/oneclickvirt/pve/releases/tag/docker-pve9) |
 
-三个版本分别更新，也可使用```7_x86_64```、```8_x86_64```、```9_x86_64```标签下载对应版本。PVE 7已结束官方支持，仅用于旧环境兼容，新部署建议选择PVE 9。
+各版本和架构分别更新。X86_64也可使用```7_x86_64```、```8_x86_64```、```9_x86_64```，ARM64也可使用```8_arm64```、```9_arm64```。```7```、```8```、```9```标签仍为amd64镜像。PVE 7已结束官方支持，仅用于旧环境兼容，新部署建议选择PVE 9。
 
 ### 下载镜像
 
@@ -26,23 +28,40 @@ outline: deep
 
 ```bash
 PVE_VERSION=9
-docker pull "spiritlhl/pve:${PVE_VERSION}"
+PVE_IMAGE="spiritlhl/pve:${PVE_VERSION}"
+docker pull "$PVE_IMAGE"
 ```
 
-也可从对应GitHub Release下载压缩包，校验后导入。镜像和校验文件需要使用同一个版本的Release。
+ARM64宿主机使用下面的命令，版本选择```8```或```9```：
 
 ```bash
-curl -fL --retry 3 "https://github.com/oneclickvirt/pve/releases/download/docker-pve${PVE_VERSION}/pve${PVE_VERSION}-amd64.tar.gz" -o "pve${PVE_VERSION}-amd64.tar.gz"
-curl -fL --retry 3 "https://github.com/oneclickvirt/pve/releases/download/docker-pve${PVE_VERSION}/SHA256SUMS" -o SHA256SUMS
-sha256sum -c SHA256SUMS
-gzip -dc "pve${PVE_VERSION}-amd64.tar.gz" | docker load
+PVE_VERSION=9
+PVE_IMAGE="spiritlhl/pve:${PVE_VERSION}_aarch64"
+docker pull "$PVE_IMAGE"
 ```
 
-导入后同时包含```spiritlhl/pve:${PVE_VERSION}```、```spiritlhl/pve:${PVE_VERSION}_x86_64```和原有的```oneclickvirt/pve:${PVE_VERSION}```本地标签，指向同一个镜像。
+也可从对应GitHub Release下载压缩包，校验后导入。镜像和校验文件需要使用同一个版本的Release。下面以amd64为例，ARM64将```PVE_ARCH```改为```arm64```，版本选择```8```或```9```，校验文件名和镜像标签会自动选择。
 
-镜像在GitHub Actions中构建，每周自动检查更新，也可在[构建工作流](https://github.com/oneclickvirt/pve/actions/workflows/pve-docker.yml)中手动运行。构建和隔离虚拟机内的验证全部通过后，推送[Docker Hub](https://hub.docker.com/r/spiritlhl/pve)，再校验远端镜像并更新对应GitHub Release。运行验证失败时不会推送新镜像。Release中的```build.json```包含PVE版本、源码提交、镜像ID、Docker Hub摘要和压缩包校验值。
+```bash
+PVE_VERSION=9
+PVE_ARCH=amd64
+PVE_CHECKSUMS=SHA256SUMS
+PVE_IMAGE="spiritlhl/pve:${PVE_VERSION}"
+if [ "$PVE_ARCH" = arm64 ]; then
+  PVE_CHECKSUMS=SHA256SUMS-arm64
+  PVE_IMAGE="spiritlhl/pve:${PVE_VERSION}_aarch64"
+fi
+curl -fL --retry 3 "https://github.com/oneclickvirt/pve/releases/download/docker-pve${PVE_VERSION}/pve${PVE_VERSION}-${PVE_ARCH}.tar.gz" -o "pve${PVE_VERSION}-${PVE_ARCH}.tar.gz"
+curl -fL --retry 3 "https://github.com/oneclickvirt/pve/releases/download/docker-pve${PVE_VERSION}/${PVE_CHECKSUMS}" -o "$PVE_CHECKSUMS"
+sha256sum -c "$PVE_CHECKSUMS"
+gzip -dc "pve${PVE_VERSION}-${PVE_ARCH}.tar.gz" | docker load
+```
 
-[CNB集中构建仓库](https://cnb.cool/oneclickvirt/virtualization-images)也提供手动入口，触发同一套PVE 7、8、9构建和发布流程。当前CNB公共Runner未提供```/dev/kvm```，实际构建和运行检查使用支持KVM的GitHub Runner。
+amd64压缩包导入后同时包含```spiritlhl/pve:${PVE_VERSION}```、```spiritlhl/pve:${PVE_VERSION}_x86_64```和原有的```oneclickvirt/pve:${PVE_VERSION}```本地标签，指向同一个镜像。ARM64压缩包包含```spiritlhl/pve:${PVE_VERSION}_aarch64```、```spiritlhl/pve:${PVE_VERSION}_arm64```和```oneclickvirt/pve:${PVE_VERSION}_aarch64```。
+
+镜像在GitHub Actions中构建，每周自动检查更新，也可在[构建工作流](https://github.com/oneclickvirt/pve/actions/workflows/pve-docker.yml)中手动运行。构建和隔离虚拟机内的验证全部通过后，推送[Docker Hub](https://hub.docker.com/r/spiritlhl/pve)，再校验远端镜像并更新对应GitHub Release。运行验证失败时不会推送新镜像。Release中的```build.json```和```build-arm64.json```分别记录amd64、ARM64的软件包版本、源码提交、镜像ID、Docker Hub摘要和压缩包校验值。ARM8源目前缺少最新qemu-server所需的```python3-virt-firmware```，构建使用依赖完整的兼容qemu-server，并保留APT版本约束，具体版本见镜像内```/usr/share/pve-container/build-info.json```。
+
+[CNB集中构建仓库](https://cnb.cool/oneclickvirt/virtualization-images)也提供手动入口，触发同一套amd64 PVE 7、8、9和ARM64 PXVIRT 8、9构建与发布流程。实际构建使用对应架构的GitHub Runner。amd64在使用KVM的隔离虚拟机内验证；ARM64将候选镜像传入另一台一次性的GitHub托管ARM虚拟机验证，验证任务不传入发布密钥，通过后由独立任务推送。任务间的临时文件保留1天，不使用CNB对象存储。
 
 ### 设置密码并启动
 
@@ -54,16 +73,19 @@ install -d -m 700 /opt/pve-docker
 modprobe -a fuse tun
 docker run -d \
   --name pve --hostname pve \
+  --dns-search=. \
   --privileged --cgroupns=private \
   --restart unless-stopped \
   --tmpfs /run --tmpfs /run/lock --tmpfs /tmp \
   --mount type=bind,src=/opt/pve-docker/root-password,dst=/run/secrets/pve-root,readonly \
   -e PVE_ROOT_PASSWORD_FILE=/run/secrets/pve-root \
   -p 8006:8006 \
-  "spiritlhl/pve:${PVE_VERSION}"
+  "$PVE_IMAGE"
 ```
 
 使用```https://宿主机IP:8006```访问面板，选择Linux PAM认证，用户名为```root```。使用```cat /opt/pve-docker/root-password```查看生成的密码。首次启动会生成本容器的证书和SSH主机密钥，面板准备完成需要一些时间。
+
+```--dns-search=.```用于避免继承宿主机的DNS搜索后缀，后缀过长会导致PVE节点证书生成失败，不影响使用DNS服务器。
 
 需要修改密码时，执行```docker exec -it pve passwd root```。密码文件只在首次初始化时使用，后续在容器内修改的密码不会被重启覆盖。
 
@@ -71,7 +93,7 @@ docker run -d \
 
 使用```docker exec -it pve bash```进入容器操作PVE，宿主机的SSH仍用于管理宿主机。网桥、网关和虚拟机的端口映射需要自行配置，不直接使用原有针对实体PVE宿主机的一键配置。
 
-构建检查包括HTTPS/PAM登录、创建并导入虚拟机、使用TCG启动和重启虚拟机，以及容器重启后的密码、证书和虚拟机配置保留。隔离测试的外层虚拟机使用KVM加速，PVE容器内的客体使用TCG，尚未验证容器内的嵌套KVM。KVM加速需要宿主机提供```/dev/kvm```。没有此设备时，需要在虚拟机选项中关闭KVM硬件虚拟化，使用TCG。LXC、PCI直通、集群和迁移不在本镜像的验证范围内。
+构建检查包括ARM64签名软件源更新和面板历史统计、HTTPS/PAM登录、创建并导入虚拟机、使用TCG启动和重启虚拟机，以及容器重启后的密码、证书和虚拟机配置保留。amd64隔离测试的外层虚拟机使用KVM，ARM64使用独立的GitHub托管ARM虚拟机，容器内的客体均使用TCG，尚未验证容器内的嵌套KVM。KVM加速需要宿主机提供```/dev/kvm```。没有此设备时，需要在虚拟机选项中关闭KVM硬件虚拟化，使用TCG。LXC、PCI直通、集群和迁移不在本镜像的验证范围内。
 
 停止和重新启动使用下面的命令：
 
