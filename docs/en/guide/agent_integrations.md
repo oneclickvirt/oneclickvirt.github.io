@@ -63,6 +63,14 @@ Each repository provides an English `SKILL.md` and a Chinese `SKILL_ZH.md`. A da
 | [downloadcounter](https://github.com/oneclickvirt/downloadcounter) · [CNB](https://cnb.cool/oneclickvirt/downloadcounter) | Deploy and troubleshoot the GitHub Release download-counter Cloudflare Worker. | — |
 | [hitscounter](https://github.com/oneclickvirt/hitscounter) · [CNB](https://cnb.cool/oneclickvirt/hitscounter) | Read and troubleshoot existing Cloudflare/D1 visit counters. | Read-only monthly statistics |
 
+## CNB Skills and knowledge bases
+
+Find each project's Skill in the [CNB Skills list](https://cnb.cool/oneclickvirt/-/repos?flags=Skills), then use the installation commands below. The repository-root `SKILL.md` matches the installed entry; existing installation commands remain supported.
+
+The [CNB knowledge-base list](https://cnb.cool/oneclickvirt/-/repos?flags=KnowledgeBase) includes each project's public instructions and Skill. The [documentation knowledge base](https://cnb.cool/oneclickvirt/oneclickvirt.github.io) covers the Chinese and English installation guides, usage, development notes, and practical cases. Use the “使用说明” button on a project page to query that project and the documentation site. Check source links, versions, and architectures before following an answer.
+
+Indexes update incrementally when public source changes. Only explicitly selected public documents are indexed; Issue synchronization is disabled. Private repositories, credentials, runtime logs, and unpublished drafts are excluded. The default ECS branch continues to display compiled Go ECS artifacts; integration source remains on `master` or `public`.
+
 ## Install a Skill
 
 Python 3.9+ is required. This example uses `basics`; replace that repository name with an entry in the table. The source branch is `master` for `ecs` and `virtualizor-docker`, and `main` for the other repositories.

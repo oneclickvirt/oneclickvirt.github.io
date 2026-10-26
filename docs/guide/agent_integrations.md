@@ -63,6 +63,14 @@ OneClickVirt 面板使用自己的 API 和 MCP 服务端，安装方式见 [OneC
 | [downloadcounter](https://github.com/oneclickvirt/downloadcounter) · [CNB](https://cnb.cool/oneclickvirt/downloadcounter) | 部署和排查 GitHub Release 下载数统计的 Cloudflare Worker。 | — |
 | [hitscounter](https://github.com/oneclickvirt/hitscounter) · [CNB](https://cnb.cool/oneclickvirt/hitscounter) | 读取并排查已有 Cloudflare/D1 访问计数器。 | 只读月度统计 |
 
+## CNB Skills 与知识库
+
+可在 [CNB Skills 列表](https://cnb.cool/oneclickvirt/-/repos?flags=Skills) 查找各项目的 Skill，安装方式见下文。仓库首页的 `SKILL.md` 与安装目录中的同名文件保持一致，原有安装命令仍可使用。
+
+[CNB 知识库列表](https://cnb.cool/oneclickvirt/-/repos?flags=KnowledgeBase) 包含各项目的公开说明和 Skill。[文档站知识库](https://cnb.cool/oneclickvirt/oneclickvirt.github.io) 提供中英文安装、使用、开发说明与实践案例；各项目页面的“使用说明”可查询本项目及文档站的内容。回答中应核对来源链接、版本和架构，再按对应说明操作。
+
+知识库随公开源码提交自动增量更新。索引仅包含明确指定的公开文档，关闭 Issue 同步，不接入私有仓库、密钥、运行日志及未发布草稿。ECS 的默认分支继续展示 Go 融合怪产物，集成源码仍使用 `master` 或 `public`。
+
 ## 安装 Skill
 
 需要 Python 3.9 以上版本。以下以 `basics` 为例，其他仓库将地址中的 `basics` 换成上表对应的仓库名即可。`ecs` 的源码分支使用 `master`，`virtualizor-docker` 也使用 `master`，其余仓库使用 `main`。

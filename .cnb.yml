@@ -1,0 +1,21 @@
+main:
+  push:
+  - &id001
+    name: index-public-documentation
+    stages:
+    - name: Index public documentation
+      type: knowledge:update
+      options:
+        include:
+        - docs/index.md
+        - docs/en/index.md
+        - docs/guide/**/*.md
+        - docs/en/guide/**/*.md
+        - docs/case/**/*.md
+        - docs/en/case/**/*.md
+        - docs/developer/**/*.md
+        - docs/en/developer/**/*.md
+        issueSyncEnabled: false
+        ignoreProcessFailures: false
+  api_trigger_knowledge:
+  - *id001
