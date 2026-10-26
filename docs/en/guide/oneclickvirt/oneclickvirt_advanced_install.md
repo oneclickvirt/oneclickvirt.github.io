@@ -642,6 +642,100 @@ docker image rm oneclickvirt:no-db 2>/dev/null || true
 
 These commands retain volumes. For a complete all-in-one removal, also remove `oneclickvirt-data` and `oneclickvirt-storage`. The external-database variant only uses `oneclickvirt-storage` locally; handle its external database separately.
 
+## Skill and MCP
+
+The Skill supplies operating instructions to an AI client. OneClickVirt's built-in MCP server forwards operations to its API. You need an initialized, running OneClickVirt deployment and an administrator API token from the profile page. Installing the Skill does not require reinstalling the panel or database.
+
+### Install or update
+
+The installer requires Python 3.9+. On Linux and Windows amd64/ARM64 it installs the existing standalone backend release binary as `oneclickvirt-mcp`. The `mcp` subcommand does not start the panel service.
+
+Download from GitHub:
+
+```bash
+curl -fL --retry 3 https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/main/scripts/install_skill.py -o install_skill.py
+python3 install_skill.py --client claude
+```
+
+The same installer is available from the CNB public source mirror:
+
+```bash
+curl -fL --retry 3 https://cnb.cool/oneclickvirt/oneclickvirt/-/git/raw/main/scripts/install_skill.py -o install_skill.py
+python3 install_skill.py --client claude
+```
+
+On Windows, download the script and run `py -3 install_skill.py --client claude`. Both entry points resolve a published GitHub Release, verify the matching Skill archive and binary SHA-256 checksums, then install into the current user's directories. CNB mirrors source; GitHub supplies these release archives.
+
+Choose the argument for your client:
+
+| Client | Argument | Default Skill directory |
+| --- | --- | --- |
+| Claude Code | `--client claude` | `~/.claude/skills/oneclickvirt` |
+| Codex | `--client codex` | `~/.agents/skills/oneclickvirt` |
+| OpenClaw | `--client openclaw` | `~/.openclaw/skills/oneclickvirt` |
+
+Use `--skill-dir` for another complete Skill directory and `--bin-dir` to override the default binary directory `~/.local/bin`. `SKILL.md` is installed directly in the Skill directory, without a second nested `oneclickvirt` directory.
+
+To update, download the installer again and repeat the same installation command. The default is the latest stable release. Pass `--version` with an exact [published release](https://github.com/oneclickvirt/oneclickvirt/releases) tag to pin a version or return to it. Skill and binary use the same resolved Release rather than looking up latest separately. `install.json` records the tag and binary checksum. This updates only the local Skill and MCP binary, leaving the running panel under its existing update process.
+
+Reuse a controller binary installed by the project with:
+
+```bash
+python3 install_skill.py --client claude --mcp-command /opt/oneclickvirt/server/oneclickvirt-server
+```
+
+Add `--skip-binary` if you need only Skill files. macOS has no prebuilt controller release asset: use this option and configure an existing native build or the SSH transport below.
+
+### Configure MCP
+
+Merge the `mcpServers` entry from the installed `mcp.example.json` into your client's settings. Keep its absolute binary path and set your API URL/token. The installer does not overwrite existing client settings or tokens. The basic structure is:
+
+```json
+{
+  "mcpServers": {
+    "oneclickvirt": {
+      "command": "/home/your-user/.local/bin/oneclickvirt-mcp",
+      "args": ["mcp"],
+      "env": {
+        "ONE_CLICK_VIRT_API_URL": "https://your-domain.com",
+        "ONE_CLICK_VIRT_API_TOKEN": "YOUR_API_TOKEN"
+      }
+    }
+  }
+}
+```
+
+GUI clients may not inherit the shell's `PATH`, so use an absolute command path. The project's installed server is `/opt/oneclickvirt/server/oneclickvirt-server`, not `/opt/oneclickvirt/server/oneclickvirt`. The API token accesses the running panel and is not needed in download commands.
+
+To use MCP on a Linux controller over SSH from macOS or another client, first save API environment variables in the remote user's `~/.config/oneclickvirt/mcp.env`, owned by that user with mode `600`. Use Shell assignments `export ONE_CLICK_VIRT_API_URL='https://your-domain.com'` and `export ONE_CLICK_VIRT_API_TOKEN='YOUR_API_TOKEN'`. Ensure SSH can authenticate without a prompt, then configure:
+
+```json
+{
+  "mcpServers": {
+    "oneclickvirt": {
+      "command": "ssh",
+      "args": ["-T", "-o", "BatchMode=yes", "your-user@your-linux-host", ". ~/.config/oneclickvirt/mcp.env && exec /opt/oneclickvirt/server/oneclickvirt-server mcp"]
+    }
+  }
+}
+```
+
+Replace the user, host, and binary path with your actual values. Restart the client and confirm tools such as `list_instances` and `get_metrics` appear. Skill files do not register MCP automatically. For a missing command, check the binary path; for `401`, check the API token and administrator permissions.
+
+### Extract a Skill archive manually
+
+For instructions alone, the latest release also supplies a stable archive filename:
+
+```bash
+curl -fL --retry 3 https://github.com/oneclickvirt/oneclickvirt/releases/latest/download/oneclickvirt-skill.tar.gz -o oneclickvirt-skill.tar.gz
+curl -fL --retry 3 https://github.com/oneclickvirt/oneclickvirt/releases/latest/download/oneclickvirt-skill.sha256 -o oneclickvirt-skill.sha256
+sha256sum -c oneclickvirt-skill.sha256 &&\
+mkdir -p ~/.claude/skills &&\
+tar -xzf oneclickvirt-skill.tar.gz -C ~/.claude/skills
+```
+
+The archive already contains a top-level `oneclickvirt/` directory. Extract into `skills`, rather than `skills/oneclickvirt`. These commands install only Skill files; prepare the MCP binary and client configuration separately. Use the installer above for a matching release, version pinning, or binary updates.
+
 ## Initialization After Advanced Installation
 
 Except for Docker Compose and the Dockerfile all-in-one variant, methods on this page usually require MySQL or MariaDB to be prepared first. Create an empty `oneclickvirt` database with the `utf8mb4` character set and a dedicated account, and restrict the database's network exposure.

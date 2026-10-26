@@ -652,6 +652,100 @@ docker image rm oneclickvirt:no-db 2>/dev/null || true
 
 以上命令保留数据卷。彻底删除一体化版本数据时，再删除 `oneclickvirt-data` 和 `oneclickvirt-storage`；独立数据库版本只在本地使用 `oneclickvirt-storage`，外部数据库必须单独处理。
 
+## Skill 与 MCP
+
+Skill 用于向 AI 客户端提供操作说明，实际操作由 OneClickVirt 的 MCP 服务端转发到 API。需要已经运行并完成初始化的 OneClickVirt，以及管理员个人中心生成的 API Token。安装 Skill 不需要重新安装面板或数据库。
+
+### 安装或更新
+
+安装器需要 Python 3.9 以上版本。Linux、Windows 的 amd64 和 ARM64 使用 Release 中已有的独立后端二进制，安装时命名为 `oneclickvirt-mcp`，以 `mcp` 子命令运行，不启动面板服务。
+
+从 GitHub 下载：
+
+```bash
+curl -fL --retry 3 https://raw.githubusercontent.com/oneclickvirt/oneclickvirt/main/scripts/install_skill.py -o install_skill.py
+python3 install_skill.py --client claude
+```
+
+也可从 CNB 的公共源码镜像下载同一个安装器：
+
+```bash
+curl -fL --retry 3 https://cnb.cool/oneclickvirt/oneclickvirt/-/git/raw/main/scripts/install_skill.py -o install_skill.py
+python3 install_skill.py --client claude
+```
+
+Windows 下载该脚本后，使用 `py -3 install_skill.py --client claude` 执行。两个入口都会读取 GitHub 的正式 Release，校验同版本 Skill 压缩包和二进制的 SHA-256，再安装到当前用户目录。CNB 镜像提供源码，Release 压缩包仍由 GitHub 提供。
+
+按客户端选择参数：
+
+| 客户端 | 参数 | 默认 Skill 目录 |
+| --- | --- | --- |
+| Claude Code | `--client claude` | `~/.claude/skills/oneclickvirt` |
+| Codex | `--client codex` | `~/.agents/skills/oneclickvirt` |
+| OpenClaw | `--client openclaw` | `~/.openclaw/skills/oneclickvirt` |
+
+需要其他位置时用 `--skill-dir` 指定完整 Skill 目录；二进制默认放在 `~/.local/bin`，可用 `--bin-dir` 指定位置。`SKILL.md` 会直接放在 Skill 目录内，不会再套一层 `oneclickvirt`。
+
+后续更新时重新下载并执行同一个安装命令即可。默认选择最新正式版，也可用 `--version` 指定[已发布版本](https://github.com/oneclickvirt/oneclickvirt/releases)的完整标签，固定版本或返回到该版本；Skill 和二进制会使用同一个 Release，不会分别取两次最新版。安装目录中的 `install.json` 记录当前标签及二进制校验值。此操作仅更新本地 Skill 和 MCP 程序，不替换正在运行的面板。
+
+已有项目安装的主控二进制时，可以复用：
+
+```bash
+python3 install_skill.py --client claude --mcp-command /opt/oneclickvirt/server/oneclickvirt-server
+```
+
+只需要 Skill 文件时添加 `--skip-binary`。macOS 没有对应的预编译主控产物，应使用此参数，再配置已有的原生编译版本或下方的 SSH 连接。
+
+### 配置 MCP
+
+将安装目录内 `mcp.example.json` 中的 `mcpServers` 配置合并到客户端设置，保留其中的二进制绝对路径，并填写自己的 API 地址和 Token。安装器不会改写已有客户端设置或 Token。基本结构如下：
+
+```json
+{
+  "mcpServers": {
+    "oneclickvirt": {
+      "command": "/home/your-user/.local/bin/oneclickvirt-mcp",
+      "args": ["mcp"],
+      "env": {
+        "ONE_CLICK_VIRT_API_URL": "https://your-domain.com",
+        "ONE_CLICK_VIRT_API_TOKEN": "你的API_TOKEN"
+      }
+    }
+  }
+}
+```
+
+图形界面客户端可能不继承终端的 `PATH`，请使用绝对路径。项目安装的服务端文件为 `/opt/oneclickvirt/server/oneclickvirt-server`，不是 `/opt/oneclickvirt/server/oneclickvirt`。API Token 只用于访问已运行的面板，不需要把 Token 放入下载命令。
+
+从 macOS 等客户端通过 SSH 使用 Linux 主控上的 MCP 时，可先把 API 环境变量保存在远端用户的 `~/.config/oneclickvirt/mcp.env`，权限设为 `600`，内容使用 Shell 的 `export ONE_CLICK_VIRT_API_URL='https://your-domain.com'` 和 `export ONE_CLICK_VIRT_API_TOKEN='自己的Token'`。文件需由该用户持有，SSH 连接必须能无交互登录，然后配置：
+
+```json
+{
+  "mcpServers": {
+    "oneclickvirt": {
+      "command": "ssh",
+      "args": ["-T", "-o", "BatchMode=yes", "your-user@your-linux-host", ". ~/.config/oneclickvirt/mcp.env && exec /opt/oneclickvirt/server/oneclickvirt-server mcp"]
+    }
+  }
+}
+```
+
+将用户名、主机及二进制路径替换为实际值。配置后重启客户端，确认能列出 `list_instances`、`get_metrics` 等工具。Skill 文件本身不会自动注册 MCP；遇到找不到命令时先检查路径，`401` 则检查 API Token 和管理员权限。
+
+### 手动解压 Skill
+
+只安装说明文件时，也可使用固定文件名的最新版压缩包：
+
+```bash
+curl -fL --retry 3 https://github.com/oneclickvirt/oneclickvirt/releases/latest/download/oneclickvirt-skill.tar.gz -o oneclickvirt-skill.tar.gz
+curl -fL --retry 3 https://github.com/oneclickvirt/oneclickvirt/releases/latest/download/oneclickvirt-skill.sha256 -o oneclickvirt-skill.sha256
+sha256sum -c oneclickvirt-skill.sha256 &&\
+mkdir -p ~/.claude/skills &&\
+tar -xzf oneclickvirt-skill.tar.gz -C ~/.claude/skills
+```
+
+压缩包已带 `oneclickvirt/` 顶层目录，解压目标应为 `skills`，不应再指向 `skills/oneclickvirt`。这组命令仅安装 Skill 文件；MCP 二进制和客户端配置仍需单独准备。需要同版本校验、固定版本或更新二进制时，使用上面的安装器。
+
 ## 高级安装后的初始化
 
 除 Docker Compose 和 Dockerfile 一体化版本外，本页方式通常需要先准备 MySQL 或 MariaDB。请创建字符集为 `utf8mb4` 的空数据库 `oneclickvirt` 和专用账户，并限制数据库的网络访问范围。

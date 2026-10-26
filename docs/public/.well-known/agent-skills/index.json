@@ -6,7 +6,7 @@
       "type": "skill-md",
       "description": "Use when an agent needs to help with OneClickVirt, Proxmox VE, Incus, Docker, LXD, Containerd, Podman, QEMU, KubeVirt, or abuse-blocking documentation.",
       "url": "https://www.spiritlhl.net/.well-known/agent-skills/virtualization-guides/SKILL.md",
-      "digest": "sha256:295a92bf567eabac74cdba7226507db6b5833aa72168d30298fcd25673207c35"
+      "digest": "sha256:441c2cc715c577ef9dbc098e8d07cf250b17e32014d0f627f5e5241308f20f6a"
     },
     {
       "name": "practical-cases",

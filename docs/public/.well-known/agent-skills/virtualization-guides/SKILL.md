@@ -24,3 +24,7 @@ Start from the platform precheck page before giving install steps. The main plat
 - Abuse blocking: `/guide/block/block_iptables.html`
 
 When answering deployment questions, keep prerequisites, supported systems, resource requirements, network assumptions, install commands, uninstall commands, and FAQ caveats together. Do not mix instructions from different virtualization platforms unless the user explicitly asks for a comparison.
+
+For Skill/MCP setup, use the release-aware installer and configuration instructions at `https://www.spiritlhl.net/guide/oneclickvirt/oneclickvirt_advanced_install.html#skill-与-mcp` (English: `https://www.spiritlhl.net/en/guide/oneclickvirt/oneclickvirt_advanced_install.html#skill-and-mcp`). Installing a Skill does not configure an MCP server.
+
+For container artifacts, check the platform's current customization or FAQ page before choosing a registry and tag. Use the CNB deployment links in the PVE, Docker, Containerd, Podman, Incus, and LXD pages. Inspect the published platform manifest and linked release metadata rather than assuming a version or `latest` tag supports every architecture; ARM64 PVE uses the community PXVIRT packages. For multi-file installations, resolve one release and verify its matching checksums. Retain an explicitly requested version pin, and consult the current release when the user asks for an update instead of copying a historical tag from a previous answer.
