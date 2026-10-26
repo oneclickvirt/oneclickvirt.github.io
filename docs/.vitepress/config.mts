@@ -9,6 +9,7 @@ type LocalizedText = Record<LocaleKey, string>;
 interface DocLink {
   text: LocalizedText;
   path: string;
+  anchor?: LocalizedText;
 }
 
 interface SidebarSection {
@@ -47,6 +48,11 @@ const guideSections: SidebarSection[] = [
       {
         text: { zh: '高级安装（选其一）', en: 'Advanced installation (choose one)' },
         path: '/guide/oneclickvirt/oneclickvirt_advanced_install',
+      },
+      {
+        text: { zh: 'Skill 与 MCP', en: 'Skill and MCP' },
+        path: '/guide/oneclickvirt/oneclickvirt_advanced_install',
+        anchor: { zh: 'skill-与-mcp', en: 'skill-and-mcp' },
       },
       {
         text: { zh: '使用说明', en: 'Instructions for use' },
@@ -518,9 +524,10 @@ function getLocaleCode(relativePath: string) {
   return relativePath.startsWith('en/') ? 'en_US' : 'zh_CN';
 }
 
-function withLocale(locale: LocaleKey, path: string) {
+function withLocale(locale: LocaleKey, path: string, anchor?: string) {
   const localizedPath = `${locale === 'en' ? '/en' : ''}${path}`;
-  return path.endsWith('/') ? localizedPath : `${localizedPath}.html`;
+  const route = path.endsWith('/') ? localizedPath : `${localizedPath}.html`;
+  return anchor ? `${route}#${anchor}` : route;
 }
 
 function toSidebarSection(section: SidebarSection, locale: LocaleKey): DefaultTheme.SidebarItem {
@@ -529,7 +536,7 @@ function toSidebarSection(section: SidebarSection, locale: LocaleKey): DefaultTh
     collapsed: true,
     items: section.items.map((item) => ({
       text: item.text[locale],
-      link: withLocale(locale, item.path),
+      link: withLocale(locale, item.path, item.anchor?.[locale]),
     })),
   };
 }
@@ -537,7 +544,7 @@ function toSidebarSection(section: SidebarSection, locale: LocaleKey): DefaultTh
 function toNavItem(item: DocLink, locale: LocaleKey): DefaultTheme.NavItemWithLink {
   return {
     text: item.text[locale],
-    link: withLocale(locale, item.path),
+    link: withLocale(locale, item.path, item.anchor?.[locale]),
   };
 }
 

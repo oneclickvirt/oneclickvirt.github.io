@@ -10,6 +10,8 @@ OneClickVirt 分为面板端和受控端。面板端只负责管理，不要求�
 本页和[高级安装](./oneclickvirt_advanced_install)只需要选择其中一页阅读，并从所选页面的表格中选择一种安装方式。不同安装方式不要重复执行。
 :::
 
+面板安装完成后，如需在 Claude Code、Codex 或 OpenClaw 中管理实例，请参阅 [Skill 与 MCP](./oneclickvirt_advanced_install#skill-与-mcp)，按说明安装 Skill、配置 API Token，并进行后续版本更新。
+
 ## 受控端准备
 
 受控端需要先安装并初始化对应的虚拟化环境。SSH 模式需要面板可达节点的 SSH 地址；Agent 模式需要在节点执行面板生成的 Agent 安装命令，并确保 Agent 可达面板的 WebSocket 地址。流量监控也需要 Agent 正常工作。交互与无人值守入口、统一环境变量及网络验收方法见[节点环境的交互与自动化](./environment_modes)。
