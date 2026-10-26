@@ -17,5 +17,7 @@ main:
         - docs/en/developer/**/*.md
         issueSyncEnabled: false
         ignoreProcessFailures: false
+        chunkSize: 900
+        chunkOverlap: 150
   api_trigger_knowledge:
   - *id001
