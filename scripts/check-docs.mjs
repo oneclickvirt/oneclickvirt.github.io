@@ -422,6 +422,10 @@ function validateMcpServerCard() {
     errors.push('docs/public/.well-known/mcp/server-card.json: static site must not advertise executable MCP tools');
   }
 
+  if (serverCard.transport?.endpoint) {
+    errors.push('docs/public/.well-known/mcp/server-card.json: static discovery metadata must not advertise an MCP endpoint');
+  }
+
   if (serverCard.metadata?.serviceType !== 'static-documentation-discovery') {
     errors.push('docs/public/.well-known/mcp/server-card.json: metadata.serviceType must be "static-documentation-discovery"');
   }
@@ -506,7 +510,9 @@ function validateAgentSkillsIndex() {
     if (typeof frontmatter.description !== 'string' || !frontmatter.description.trim()) {
       errors.push(`${toPosix(artifactPath)}: frontmatter description is required`);
     }
-    if (frontmatter.license !== 'ISC') {
+    // The three documentation Skills belong to this ISC-licensed site.
+    // Mirrored repository Skills retain their upstream licensing metadata.
+    if (['virtualization-guides', 'practical-cases', 'developer-docs'].includes(name) && frontmatter.license !== 'ISC') {
       errors.push(`${toPosix(artifactPath)}: frontmatter license must be "ISC"`);
     }
   }

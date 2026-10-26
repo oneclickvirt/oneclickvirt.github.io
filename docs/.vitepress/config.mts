@@ -32,6 +32,10 @@ const guideSections: SidebarSection[] = [
         text: { zh: '准备工作', en: 'Preparation' },
         path: '/guide/dashboard',
       },
+      {
+        text: { zh: '各仓库 Skill 与 MCP', en: 'Repository Skills and MCP' },
+        path: '/guide/agent_integrations',
+      },
     ],
   },
   {

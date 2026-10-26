@@ -6,10 +6,6 @@
     "homepage": "https://www.spiritlhl.net/",
     "logo": "https://raw.githubusercontent.com/spiritlhls/pages/main/logo.png"
   },
-  "transport": {
-    "type": "http",
-    "endpoint": "https://www.spiritlhl.net/.well-known/mcp/server-card.json"
-  },
   "capabilities": {
     "resources": [
       {
@@ -49,8 +45,206 @@
     "license": "ISC",
     "repository": "https://github.com/oneclickvirt/oneclickvirt.github.io",
     "documentation": "https://www.spiritlhl.net/developer/",
-    "supportedLanguages": ["zh-CN", "en-US"],
+    "supportedLanguages": [
+      "zh-CN",
+      "en-US"
+    ],
     "serviceType": "static-documentation-discovery",
-    "note": "This static documentation site exposes public resources and discovery metadata, but no executable MCP tools."
-  }
+    "note": "Static discovery metadata, not an MCP endpoint. Install a listed adapter and connect to its local stdio process. The documentation site does not execute tools."
+  },
+  "kind": "static-integration-catalog",
+  "integrations": [
+    {
+      "repository": "oneclickvirt/pve",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/pve/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/incus",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/incus/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/lxd",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/lxd/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/docker",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/docker/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/containerd",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/containerd/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/podman",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/podman/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/qemu",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/qemu/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/kubevirt",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/kubevirt/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/basics",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/basics/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/backtrace",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/backtrace/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/gostun",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/gostun/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/portchecker",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/portchecker/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/pingtest",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/pingtest/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/nt3",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/nt3/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/speedtest",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/speedtest/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/CommonMediaTests",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/CommonMediaTests/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/UnlockTests",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/UnlockTests/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/cputest",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/cputest/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/memorytest",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/memorytest/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/disktest",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/disktest/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/ecs",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/ecs/master/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/ClawChimera",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/ClawChimera/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/6in4",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/6in4/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/ndpresponder",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/ndpresponder/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/kvm_images",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/kvm_images/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/incus_images",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/incus_images/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/pve_kvm_images",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/pve_kvm_images/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/pve_lxc_images",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/pve_lxc_images/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/lxc_arm_images",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/lxc_arm_images/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/lxc_amd64_images",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/lxc_amd64_images/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/lxd_images",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/lxd_images/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    },
+    {
+      "repository": "oneclickvirt/hitscounter",
+      "transport": "stdio",
+      "manifest": "https://raw.githubusercontent.com/oneclickvirt/hitscounter/main/agent/manifest.json",
+      "documentation": "https://www.spiritlhl.net/guide/agent_integrations.html"
+    }
+  ]
 }

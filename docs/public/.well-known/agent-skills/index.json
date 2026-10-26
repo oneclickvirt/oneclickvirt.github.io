@@ -21,6 +21,342 @@
       "description": "Use when an agent needs to work with this documentation site's developer notes, localization guidance, bilingual structure, or contribution workflow.",
       "url": "https://www.spiritlhl.net/.well-known/agent-skills/developer-docs/SKILL.md",
       "digest": "sha256:2ccbf505787eddc0f9fa73025fe5dc3c39a8ee50cbb664ba43d669546ba7a217"
+    },
+    {
+      "name": "oneclickvirt-pve",
+      "type": "skill-md",
+      "description": "Operate and troubleshoot pve instances deployed with the OneClickVirt scripts.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-pve/SKILL.md",
+      "digest": "sha256:25202166e0573387a014338e97b046217d173f925ee95e698075e753fb0a0c12"
+    },
+    {
+      "name": "oneclickvirt-incus",
+      "type": "skill-md",
+      "description": "Operate and troubleshoot incus instances deployed with the OneClickVirt scripts.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-incus/SKILL.md",
+      "digest": "sha256:4a876c343806f6342670352d8bb827d1159113f7e6d2de9f6d568c368b353d94"
+    },
+    {
+      "name": "oneclickvirt-lxd",
+      "type": "skill-md",
+      "description": "Operate and troubleshoot lxd instances deployed with the OneClickVirt scripts.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-lxd/SKILL.md",
+      "digest": "sha256:f02eb64bf376f370727d0696be0da78339b0ebd7bcd5fa14014f974ca25583dc"
+    },
+    {
+      "name": "oneclickvirt-docker",
+      "type": "skill-md",
+      "description": "Operate and troubleshoot docker instances deployed with the OneClickVirt scripts.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-docker/SKILL.md",
+      "digest": "sha256:e5b43e66a48b28c7f41e1e6f9c2d3ab0c20d3978e6486feeffcc0df39c5d8d81"
+    },
+    {
+      "name": "oneclickvirt-containerd",
+      "type": "skill-md",
+      "description": "Operate and troubleshoot containerd instances deployed with the OneClickVirt scripts.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-containerd/SKILL.md",
+      "digest": "sha256:f7c597783ca25a5b9eb454a31469e3fb30fdeb79c60c8dbebaeca23fd41ef670"
+    },
+    {
+      "name": "oneclickvirt-podman",
+      "type": "skill-md",
+      "description": "Operate and troubleshoot podman instances deployed with the OneClickVirt scripts.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-podman/SKILL.md",
+      "digest": "sha256:de214d5af4bf5cf67b2600fdf628a4feafb2755195e98818a2b0915074faf1af"
+    },
+    {
+      "name": "oneclickvirt-qemu",
+      "type": "skill-md",
+      "description": "Operate and troubleshoot qemu instances deployed with the OneClickVirt scripts.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-qemu/SKILL.md",
+      "digest": "sha256:981b0a05e7894f4c54ccfe34d15c7371841596b60e7cc426d8d1f835fcf29273"
+    },
+    {
+      "name": "oneclickvirt-kubevirt",
+      "type": "skill-md",
+      "description": "Operate and troubleshoot kubevirt instances deployed with the OneClickVirt scripts.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-kubevirt/SKILL.md",
+      "digest": "sha256:0188eb24912c0934ab23b9accb15a0c7f1f18a4fdb9d6389f5e61c5c804c1281"
+    },
+    {
+      "name": "oneclickvirt-basics",
+      "type": "skill-md",
+      "description": "Collect structured hardware/system information without running CPU, memory or disk benchmarks.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-basics/SKILL.md",
+      "digest": "sha256:9be539a7a6cf459b5dd877272d0beeaeae5843576dfb5915c418cc6733fecce3"
+    },
+    {
+      "name": "oneclickvirt-backtrace",
+      "type": "skill-md",
+      "description": "Query RDAP/BGP metadata for an explicit IP; distinguish lookup data from an actual traceroute.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-backtrace/SKILL.md",
+      "digest": "sha256:c077e85bc032b2acd2aaff9163aa6df541d9013ab5a41a7986aabc8875148b32"
+    },
+    {
+      "name": "oneclickvirt-gostun",
+      "type": "skill-md",
+      "description": "Detect NAT behavior using bounded STUN probes. A UDP/network failure is not proof of a NAT type.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-gostun/SKILL.md",
+      "digest": "sha256:4a0f8b919f76dce29630d12ad3b4e905513d75180841f090e200b2e118d213a8"
+    },
+    {
+      "name": "oneclickvirt-portchecker",
+      "type": "skill-md",
+      "description": "Check mail endpoint connectivity; report per-endpoint errors and blocked ports without claiming mail delivery.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-portchecker/SKILL.md",
+      "digest": "sha256:23890704f289ab6056b638d1581d7882c2d74101c7719e7d503c95308a446fff"
+    },
+    {
+      "name": "oneclickvirt-pingtest",
+      "type": "skill-md",
+      "description": "Measure TCP handshake latency for a user-selected endpoint; do not describe it as ICMP latency.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-pingtest/SKILL.md",
+      "digest": "sha256:13ad64ec7b22c872f3b45804d419f1dc926219efb7512e389438378e96329fa4"
+    },
+    {
+      "name": "oneclickvirt-nt3",
+      "type": "skill-md",
+      "description": "Query the built-in province/carrier targets with bounded TCP latency probes; detailed routes require separate explicit testing.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-nt3/SKILL.md",
+      "digest": "sha256:527fd4832e3f89c891229125189b8d0a102583a07851020ed689da3203e7c602"
+    },
+    {
+      "name": "oneclickvirt-speedtest",
+      "type": "skill-md",
+      "description": "Select and probe one speed-test registry node. Registry reachability is not upload/download throughput.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-speedtest/SKILL.md",
+      "digest": "sha256:11e444d4c3da156963b84092c132868a9b645f8eb62bd11dbe7258d3eb7498af"
+    },
+    {
+      "name": "oneclickvirt-commonmediatests",
+      "type": "skill-md",
+      "description": "Check the module's common streaming providers; preserve provider-specific unknown and failure results.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-commonmediatests/SKILL.md",
+      "digest": "sha256:b80bd825eb15a3c748ddb8bd62f9d9f793570f5e92631c372e181f57527e7f78"
+    },
+    {
+      "name": "oneclickvirt-unlocktests",
+      "type": "skill-md",
+      "description": "Run a bounded selected streaming-provider check; reachability and geographic unlock are different results.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-unlocktests/SKILL.md",
+      "digest": "sha256:eae4e4f51f6afbb520c806571ec211622e43f83e89695ef2928555fa0f5470c3"
+    },
+    {
+      "name": "oneclickvirt-cputest",
+      "type": "skill-md",
+      "description": "Run a one-thread, one-second structured CPU sample on an intended benchmark host.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-cputest/SKILL.md",
+      "digest": "sha256:91eadffab32eba1f22a8afc352ffd910d9de6db1096a3d8ca96931f428cdb1e9"
+    },
+    {
+      "name": "oneclickvirt-memorytest",
+      "type": "skill-md",
+      "description": "Run a bounded 8 MiB memory sample; avoid inferring DIMM generation from throughput alone.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-memorytest/SKILL.md",
+      "digest": "sha256:200eeb6b99c8285f594fa559e4de579e938448ed348f4ab8502340916dbf0605"
+    },
+    {
+      "name": "oneclickvirt-disktest",
+      "type": "skill-md",
+      "description": "Run structured disk IO in a dedicated temporary directory with a 16 MiB test file; never point it at a raw block device.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-disktest/SKILL.md",
+      "digest": "sha256:15e3c4ac2fa98b15e909a36a125e55994667d25d915ea43cf7b0d996de1df5f0"
+    },
+    {
+      "name": "oneclickvirt-ecs",
+      "type": "skill-md",
+      "description": "Collect a bounded VPS Fusion Monster system report, interpret results and select explicit follow-up tests.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-ecs/SKILL.md",
+      "digest": "sha256:fb828be9424d7828aa395bb45eeaacaa6a26ba3e1233f031cb1a6f4bcafb8adf"
+    },
+    {
+      "name": "oneclickvirt-clawchimera",
+      "type": "skill-md",
+      "description": "Collect a bounded VPS Fusion Monster system report, interpret results and select explicit follow-up tests.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-clawchimera/SKILL.md",
+      "digest": "sha256:84ff3cb2222674ea85319c54de42ce4656ec77825918aa7a37bb794da47900d5"
+    },
+    {
+      "name": "oneclickvirt-6in4",
+      "type": "skill-md",
+      "description": "Inspect and configure 6in4 IPv6 connectivity on the intended Linux host.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-6in4/SKILL.md",
+      "digest": "sha256:75cbc8d1510df2e84cb8a0d35cdcc5fc69cffdd06cc70f99998e227a7d72ba98"
+    },
+    {
+      "name": "oneclickvirt-ndpresponder",
+      "type": "skill-md",
+      "description": "Inspect and configure ndpresponder IPv6 connectivity on the intended Linux host.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-ndpresponder/SKILL.md",
+      "digest": "sha256:d19bc085243c598b183c288560d003f21b7db573d8fceddb2c77c0526519058e"
+    },
+    {
+      "name": "oneclickvirt-kvm-images",
+      "type": "skill-md",
+      "description": "Find and verify current kvm_images operating-system image release assets for a compatible virtualization runtime.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-kvm-images/SKILL.md",
+      "digest": "sha256:98e4c4447c9f13c7c629974d971ada982e105dfef205b575efd6fbb850fcf9ee"
+    },
+    {
+      "name": "oneclickvirt-incus-images",
+      "type": "skill-md",
+      "description": "Find and verify current incus_images operating-system image release assets for a compatible virtualization runtime.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-incus-images/SKILL.md",
+      "digest": "sha256:5c16382715fcc30f21bb8e390d575ef545f0fe9c60a71b2c2fd8877736f3917b"
+    },
+    {
+      "name": "oneclickvirt-pve-kvm-images",
+      "type": "skill-md",
+      "description": "Find and verify current pve_kvm_images operating-system image release assets for a compatible virtualization runtime.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-pve-kvm-images/SKILL.md",
+      "digest": "sha256:bb6ad460dd46459836695e08d8376849933cd5c2f0b039ce1a82a8cc3b956a37"
+    },
+    {
+      "name": "oneclickvirt-pve-lxc-images",
+      "type": "skill-md",
+      "description": "Find and verify current pve_lxc_images operating-system image release assets for a compatible virtualization runtime.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-pve-lxc-images/SKILL.md",
+      "digest": "sha256:949a76c5818f93d93b1b11b0ad5ab048109e792d4c6905ec6eda777c46fc5bca"
+    },
+    {
+      "name": "oneclickvirt-lxc-arm-images",
+      "type": "skill-md",
+      "description": "Find and verify current lxc_arm_images operating-system image release assets for a compatible virtualization runtime.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-lxc-arm-images/SKILL.md",
+      "digest": "sha256:101c52907b998e6b8bf2d259fdb10c280f41d13e5cc4b3f64b37570b5e7ad1d2"
+    },
+    {
+      "name": "oneclickvirt-lxc-amd64-images",
+      "type": "skill-md",
+      "description": "Find and verify current lxc_amd64_images operating-system image release assets for a compatible virtualization runtime.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-lxc-amd64-images/SKILL.md",
+      "digest": "sha256:6d2ffbd8ce395717a614cad21c5275091eb0ce4f840e874bdaa95ca3b6a4b8ad"
+    },
+    {
+      "name": "oneclickvirt-lxd-images",
+      "type": "skill-md",
+      "description": "Find and verify current lxd_images operating-system image release assets for a compatible virtualization runtime.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-lxd-images/SKILL.md",
+      "digest": "sha256:6694c538fdc2253334630e9d5ec735e772791835c541926cbfbc7f1b5a0ef703"
+    },
+    {
+      "name": "oneclickvirt-convoypanel-scripts",
+      "type": "skill-md",
+      "description": "Deploy and maintain Convoy using this repository's reviewed shell scripts.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-convoypanel-scripts/SKILL.md",
+      "digest": "sha256:24bfe2cce76a6d9e2c318f650f411def6c8109f128d010ae5efae4b2bdb20845"
+    },
+    {
+      "name": "oneclickvirt-pterodactyl",
+      "type": "skill-md",
+      "description": "Deploy Pterodactyl panel/Wings and manage the repository's node import and egg workflows.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-pterodactyl/SKILL.md",
+      "digest": "sha256:26122d4fb0d4660a1a02373eaa4cb121d0af094da147316a4837d3d1aab3df77"
+    },
+    {
+      "name": "oneclickvirt-cockpit",
+      "type": "skill-md",
+      "description": "Install or remove the Cockpit setup maintained in this repository.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-cockpit/SKILL.md",
+      "digest": "sha256:e5d99835496b480cd53edf07cece14b2dc278a474b4c587502938a413379df19"
+    },
+    {
+      "name": "oneclickvirt-virtualizor-docker",
+      "type": "skill-md",
+      "description": "Deploy the Virtualizor Docker setup and diagnose its existing Compose services.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-virtualizor-docker/SKILL.md",
+      "digest": "sha256:02b2db05476b13eac71fd371cb17b935194f353775265a1f7269a7bd99b2f4f7"
+    },
+    {
+      "name": "oneclickvirt-securitycheck",
+      "type": "skill-md",
+      "description": "Install and interpret the public IP-quality checker release without accessing its private implementation.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-securitycheck/SKILL.md",
+      "digest": "sha256:6168cf4b9f3b1091aded247a0b8c5e1b16205a8d22b860b85492b4ea26fe8d8e"
+    },
+    {
+      "name": "oneclickvirt-ecs-gui",
+      "type": "skill-md",
+      "description": "Build, install and troubleshoot the Fyne ECS desktop/mobile application.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-ecs-gui/SKILL.md",
+      "digest": "sha256:ea0900f1493d67331ea5c19fcdeb4329232589975c203f76bead3ccdbb4ff95d"
+    },
+    {
+      "name": "oneclickvirt-images-auto-list",
+      "type": "skill-md",
+      "description": "Generate and verify OneClickVirt's public image seed catalogue.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-images-auto-list/SKILL.md",
+      "digest": "sha256:af4f92d889a1164f8040390080a289a5f57de8284244b0f30982ab15e72afeb3"
+    },
+    {
+      "name": "oneclickvirt-dockerfile-templates",
+      "type": "skill-md",
+      "description": "Build the specific Dockerfile template requested from this repository.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-dockerfile-templates/SKILL.md",
+      "digest": "sha256:93df711bcd1985988151bae284041675d7a48fc689bba96d532720dd5ed79886"
+    },
+    {
+      "name": "oneclickvirt-macos",
+      "type": "skill-md",
+      "description": "Create the offline macOS ISO artifacts maintained by this repository.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-macos/SKILL.md",
+      "digest": "sha256:d516e2dd4512c89d396f0935336b03341821dab3833e540ba606ec2b80dec7a3"
+    },
+    {
+      "name": "oneclickvirt-virttest",
+      "type": "skill-md",
+      "description": "Run and maintain the virtualization installation test harness.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-virttest/SKILL.md",
+      "digest": "sha256:76697cbc33c3294563182128a21f2bb15885f6b09c0bb8d526a7d20dc8eee54b"
+    },
+    {
+      "name": "oneclickvirt-defaultset",
+      "type": "skill-md",
+      "description": "Integrate the shared Go configuration library used by OneClickVirt benchmark modules.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-defaultset/SKILL.md",
+      "digest": "sha256:89121af6e47cd6c6a98ed02288924270c3cf88619b38a55f5d10ddc5843cf55a"
+    },
+    {
+      "name": "oneclickvirt-dd",
+      "type": "skill-md",
+      "description": "Use the Go library that embeds dd dependencies for controlled benchmark workloads.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-dd/SKILL.md",
+      "digest": "sha256:a9cf29091ddcc9479177847f170d41074534da9b1ccc67b53ca4621390da6851"
+    },
+    {
+      "name": "oneclickvirt-fio",
+      "type": "skill-md",
+      "description": "Use the Go library that embeds fio dependencies for controlled disk benchmarks.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-fio/SKILL.md",
+      "digest": "sha256:7bf60e916e7bebf5e660885130f72fcb086682b60e7b3e97b3f506d9165710d5"
+    },
+    {
+      "name": "oneclickvirt-mbw",
+      "type": "skill-md",
+      "description": "Use the Go library that embeds mbw memory-bandwidth dependencies.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-mbw/SKILL.md",
+      "digest": "sha256:cee96e0e3fcda480745b6413b5ec3dd7321bbd01c52710ae2a5d1b57d0a789f6"
+    },
+    {
+      "name": "oneclickvirt-stream",
+      "type": "skill-md",
+      "description": "Use the Go STREAM library for bounded memory-bandwidth testing.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-stream/SKILL.md",
+      "digest": "sha256:2b8ebe75a5bd5883ff26fcba202dd457ac47be59047e36e583e8e0a9a33af05a"
+    },
+    {
+      "name": "oneclickvirt-downloadcounter",
+      "type": "skill-md",
+      "description": "Deploy and troubleshoot the GitHub Release download-counter Cloudflare Worker.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-downloadcounter/SKILL.md",
+      "digest": "sha256:a9ae5eed8d3f0c5207de366f736cfbf6af3a2b8c5900f0465855a55bd6484625"
+    },
+    {
+      "name": "oneclickvirt-hitscounter",
+      "type": "skill-md",
+      "description": "Read and troubleshoot existing Cloudflare/D1 visit counters.",
+      "url": "https://www.spiritlhl.net/.well-known/agent-skills/oneclickvirt-hitscounter/SKILL.md",
+      "digest": "sha256:71bbce9b572cc51b5b0fa4f5a1d480195915253955faca41f9a2befa47bc97a4"
     }
   ]
 }

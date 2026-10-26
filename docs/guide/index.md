@@ -6,6 +6,8 @@ outline: deep
 
 请先阅读[准备工作](./dashboard.md)，确认系统、网络、硬件和基础环境满足要求，再进入具体平台文档。
 
+在 AI 客户端中使用各平台和独立工具，见 [各仓库 Skill 与 MCP](./agent_integrations.md)。
+
 ## 平台入口
 
 - [OneClickVirt](./oneclickvirt/oneclickvirt_precheck.md)

@@ -6,6 +6,8 @@ outline: deep
 
 Start with [Preparation](./dashboard.md) to confirm that your system, network, hardware, and base environment meet the requirements before moving to a platform-specific guide.
 
+To use individual platforms and tools in an AI client, see [Repository Skills and MCP](./agent_integrations.md).
+
 ## Platform Entry Points
 
 - [OneClickVirt](./oneclickvirt/oneclickvirt_precheck.md)

@@ -688,9 +688,22 @@ Add `--skip-binary` if you need only Skill files. macOS has no prebuilt controll
 
 ### Configure MCP
 
-Merge the `mcpServers` entry from the installed `mcp.example.json` into your client's settings. Keep its absolute binary path and set your API URL/token. The installer does not overwrite existing client settings or tokens. The basic structure is:
+The installer generates `mcp.codex.toml`, `mcp.claude.json`, and `mcp.openclaw.json`. Merge the matching file into `~/.codex/config.toml` for Codex, the project `.mcp.json` for Claude Code, or `~/.openclaw/openclaw.json` for OpenClaw. Keep existing entries and the generated absolute binary path, then set your API URL/token. The installer does not overwrite client settings or tokens. `mcp.example.json` remains a Claude-format compatibility example. The client structures are:
 
-```json
+::: code-group
+
+```toml [Codex]
+[mcp_servers.oneclickvirt]
+command = "/home/your-user/.local/bin/oneclickvirt-mcp"
+args = ["mcp"]
+tool_timeout_sec = 180
+
+[mcp_servers.oneclickvirt.env]
+ONE_CLICK_VIRT_API_URL = "https://your-domain.com"
+ONE_CLICK_VIRT_API_TOKEN = "YOUR_API_TOKEN"
+```
+
+```json [Claude Code]
 {
   "mcpServers": {
     "oneclickvirt": {
@@ -705,9 +718,31 @@ Merge the `mcpServers` entry from the installed `mcp.example.json` into your cli
 }
 ```
 
+```json [OpenClaw]
+{
+  "mcp": {
+    "servers": {
+      "oneclickvirt": {
+        "command": "/home/your-user/.local/bin/oneclickvirt-mcp",
+        "args": [
+          "mcp"
+        ],
+        "env": {
+          "ONE_CLICK_VIRT_API_URL": "https://your-domain.com",
+          "ONE_CLICK_VIRT_API_TOKEN": "YOUR_API_TOKEN"
+        },
+        "requestTimeoutMs": 180000
+      }
+    }
+  }
+}
+```
+
+:::
+
 GUI clients may not inherit the shell's `PATH`, so use an absolute command path. The project's installed server is `/opt/oneclickvirt/server/oneclickvirt-server`, not `/opt/oneclickvirt/server/oneclickvirt`. The API token accesses the running panel and is not needed in download commands.
 
-To use MCP on a Linux controller over SSH from macOS or another client, first save API environment variables in the remote user's `~/.config/oneclickvirt/mcp.env`, owned by that user with mode `600`. Use Shell assignments `export ONE_CLICK_VIRT_API_URL='https://your-domain.com'` and `export ONE_CLICK_VIRT_API_TOKEN='YOUR_API_TOKEN'`. Ensure SSH can authenticate without a prompt, then configure:
+To use MCP on a Linux controller over SSH from macOS or another client, first save API environment variables in the remote user's `~/.config/oneclickvirt/mcp.env`, owned by that user with mode `600`. Use Shell assignments `export ONE_CLICK_VIRT_API_URL='https://your-domain.com'` and `export ONE_CLICK_VIRT_API_TOKEN='YOUR_API_TOKEN'`. Ensure SSH can authenticate without a prompt, then set the following `command` and `args` within your client's configuration structure (Claude Code example):
 
 ```json
 {

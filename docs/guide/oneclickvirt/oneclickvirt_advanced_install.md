@@ -698,9 +698,22 @@ python3 install_skill.py --client claude --mcp-command /opt/oneclickvirt/server/
 
 ### 配置 MCP
 
-将安装目录内 `mcp.example.json` 中的 `mcpServers` 配置合并到客户端设置，保留其中的二进制绝对路径，并填写自己的 API 地址和 Token。安装器不会改写已有客户端设置或 Token。基本结构如下：
+安装器会分别生成 `mcp.codex.toml`、`mcp.claude.json` 和 `mcp.openclaw.json`。Codex 合并到 `~/.codex/config.toml`，Claude Code 合并到项目的 `.mcp.json`，OpenClaw 合并到 `~/.openclaw/openclaw.json`；保留已有条目，使用生成的二进制绝对路径，并填写自己的 API 地址和 Token。安装器不会改写客户端配置或 Token。`mcp.example.json` 保留为 Claude 格式的兼容示例。三个客户端的结构如下：
 
-```json
+::: code-group
+
+```toml [Codex]
+[mcp_servers.oneclickvirt]
+command = "/home/your-user/.local/bin/oneclickvirt-mcp"
+args = ["mcp"]
+tool_timeout_sec = 180
+
+[mcp_servers.oneclickvirt.env]
+ONE_CLICK_VIRT_API_URL = "https://your-domain.com"
+ONE_CLICK_VIRT_API_TOKEN = "你的API_TOKEN"
+```
+
+```json [Claude Code]
 {
   "mcpServers": {
     "oneclickvirt": {
@@ -715,9 +728,31 @@ python3 install_skill.py --client claude --mcp-command /opt/oneclickvirt/server/
 }
 ```
 
+```json [OpenClaw]
+{
+  "mcp": {
+    "servers": {
+      "oneclickvirt": {
+        "command": "/home/your-user/.local/bin/oneclickvirt-mcp",
+        "args": [
+          "mcp"
+        ],
+        "env": {
+          "ONE_CLICK_VIRT_API_URL": "https://your-domain.com",
+          "ONE_CLICK_VIRT_API_TOKEN": "你的API_TOKEN"
+        },
+        "requestTimeoutMs": 180000
+      }
+    }
+  }
+}
+```
+
+:::
+
 图形界面客户端可能不继承终端的 `PATH`，请使用绝对路径。项目安装的服务端文件为 `/opt/oneclickvirt/server/oneclickvirt-server`，不是 `/opt/oneclickvirt/server/oneclickvirt`。API Token 只用于访问已运行的面板，不需要把 Token 放入下载命令。
 
-从 macOS 等客户端通过 SSH 使用 Linux 主控上的 MCP 时，可先把 API 环境变量保存在远端用户的 `~/.config/oneclickvirt/mcp.env`，权限设为 `600`，内容使用 Shell 的 `export ONE_CLICK_VIRT_API_URL='https://your-domain.com'` 和 `export ONE_CLICK_VIRT_API_TOKEN='自己的Token'`。文件需由该用户持有，SSH 连接必须能无交互登录，然后配置：
+从 macOS 等客户端通过 SSH 使用 Linux 主控上的 MCP 时，可先把 API 环境变量保存在远端用户的 `~/.config/oneclickvirt/mcp.env`，权限设为 `600`，内容使用 Shell 的 `export ONE_CLICK_VIRT_API_URL='https://your-domain.com'` 和 `export ONE_CLICK_VIRT_API_TOKEN='自己的Token'`。文件需由该用户持有，SSH 连接必须能无交互登录，然后在对应客户端配置结构内设置以下 `command` 与 `args`（下例为 Claude Code）：
 
 ```json
 {
