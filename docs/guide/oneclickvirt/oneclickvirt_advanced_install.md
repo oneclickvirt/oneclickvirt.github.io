@@ -664,9 +664,9 @@ Web 配置：
 dsh plugin --profile web add github:oneclickvirt/oneclickvirt
 ```
 
-Desktop 在 **插件 → 添加 → 安装第三方插件** 中填写 `github:oneclickvirt/oneclickvirt`，或下载 [DSH Release](https://github.com/oneclickvirt/oneclickvirt/releases/tag/dsh-v0.3.1) 中的 `dsh-plugin-oneclickvirt-0.3.1.tgz` 后选择本地文件。Desktop 配置由应用管理，不使用 CLI 修改。Release 同时提供 `DSH-SHA256SUMS` 校验文件。
+Desktop 在 **插件 → 添加 → 安装第三方插件** 中填写 `github:oneclickvirt/oneclickvirt`，或下载 [DSH Release](https://github.com/oneclickvirt/oneclickvirt/releases/latest) 中的 `dsh-plugin-oneclickvirt.tgz` 后选择本地文件。Desktop 配置由应用管理，不使用 CLI 修改。Release 同时提供 `DSH-SHA256SUMS` 校验文件。
 
-更新时重新安装仓库或新版本压缩包，然后重启 DSH。固定当前版本可使用 `github:oneclickvirt/oneclickvirt#dsh-v0.3.1`。插件使用独立的 `dsh-v` 标签；主控继续使用原有的时间戳 Release，安装插件不会升级主控。
+更新时重新安装仓库或新版本压缩包，然后重启 DSH。插件与主控共用时间戳版本和 Release，安装插件不会升级主控。
 
 ### 登录和管理
 

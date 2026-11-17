@@ -654,9 +654,9 @@ For the Web profile:
 dsh plugin --profile web add github:oneclickvirt/oneclickvirt
 ```
 
-In Desktop, open **Plugins → Add → Install third-party plugin** and enter `github:oneclickvirt/oneclickvirt`, or select `dsh-plugin-oneclickvirt-0.3.1.tgz` downloaded from the [DSH Release](https://github.com/oneclickvirt/oneclickvirt/releases/tag/dsh-v0.3.1). Desktop manages its own profile; do not modify it through the CLI. The Release includes `DSH-SHA256SUMS` for verification.
+In Desktop, open **Plugins → Add → Install third-party plugin** and enter `github:oneclickvirt/oneclickvirt`, or select `dsh-plugin-oneclickvirt.tgz` downloaded from the [DSH Release](https://github.com/oneclickvirt/oneclickvirt/releases/latest). Desktop manages its own profile; do not modify it through the CLI. The Release includes `DSH-SHA256SUMS` for verification.
 
-To update, reinstall the repository or a newer package and restart DSH. Use `github:oneclickvirt/oneclickvirt#dsh-v0.3.1` to pin this version. Plugin releases use separate `dsh-v` tags; controller releases retain their timestamp tags. Installing the plugin does not upgrade the controller.
+To update, reinstall the repository or a newer package and restart DSH. The plugin and controller share the timestamp version and Release. Installing the plugin does not upgrade the controller.
 
 ### Sign in and manage instances
 
