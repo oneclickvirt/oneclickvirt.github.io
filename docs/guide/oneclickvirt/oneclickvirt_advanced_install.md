@@ -652,6 +652,40 @@ docker image rm oneclickvirt:no-db 2>/dev/null || true
 
 以上命令保留数据卷。彻底删除一体化版本数据时，再删除 `oneclickvirt-data` 和 `oneclickvirt-storage`；独立数据库版本只在本地使用 `oneclickvirt-storage`，外部数据库必须单独处理。
 
+## DeepSeek Harness Plugin
+
+插件直接连接已部署的 OneClickVirt，无需重新安装主控、数据库或 MCP 程序。支持 macOS、Windows、Linux，DSH `>=0.2.2-rc.1 <0.3.0`，Node.js 22.6 以上版本。
+
+### 安装或更新
+
+Web 配置：
+
+```bash
+dsh plugin --profile web add github:oneclickvirt/oneclickvirt
+```
+
+Desktop 在 **插件 → 添加 → 安装第三方插件** 中填写 `github:oneclickvirt/oneclickvirt`，或下载 [DSH Release](https://github.com/oneclickvirt/oneclickvirt/releases/tag/dsh-v0.3.1) 中的 `dsh-plugin-oneclickvirt-0.3.1.tgz` 后选择本地文件。Desktop 配置由应用管理，不使用 CLI 修改。Release 同时提供 `DSH-SHA256SUMS` 校验文件。
+
+更新时重新安装仓库或新版本压缩包，然后重启 DSH。固定当前版本可使用 `github:oneclickvirt/oneclickvirt#dsh-v0.3.1`。插件使用独立的 `dsh-v` 标签；主控继续使用原有的时间戳 Release，安装插件不会升级主控。
+
+### 登录和管理
+
+从侧栏打开 **OneClickVirt**，填写平台地址并选择账号密码或 API Token 登录。远程部署建议使用 HTTPS；明文 HTTP 需要手动允许。验证码开启时，先加载验证码再登录。
+
+默认保持登录。账号密码登录时会创建设备专用的长期 API Token，退出时清除本地记录并撤销该 Token；使用已有 Token 登录时沿用原有效期，退出只清除本地记录。普通用户最多三个 API Token，达到限制时可改用已有 Token，或关闭保持登录。密码不保存，网络暂时不可用时保留已保存的登录，Token 失效或撤销后需重新登录。
+
+- **实例**：按原名检索，支持开机、关机、重启、详情、监控和备注别名。别名最多 128 个字符，留空恢复原名；不改宿主机标识。删除需要输入完整原名确认。
+- **创建实例**：从节点读取可用镜像。管理员设置 CPU、内存、硬盘等参数；普通用户选择平台提供的资源规格。权限、配额和实例类型仍由平台校验。
+- **节点与任务**：查看可访问节点、任务进度和错误；管理员还可发起节点健康检查及查看节点监控。操作提交后需确认任务和实例最终状态，中断后先查看任务再决定是否重试。客户机内部日志尚无对应 HTTP API，诊断显示实例状态和关联任务错误。
+
+切换 DSH 页面时插件页面保持挂载，隐藏期间停止轮询，重新打开后刷新。界面偏好与创建选项按平台、账号分别保留；登录凭据保存在 DSH 主机的官方凭据服务中，不写入浏览器存储。没有凭据服务的宿主使用插件独立目录中的私有 `session.json`，macOS 位于 `~/Library/Application Support/oneclickvirt-dsh`，Linux 位于 `${XDG_DATA_HOME:-~/.local/share}/oneclickvirt-dsh`，Windows 位于 `%LOCALAPPDATA%/oneclickvirt-dsh`。这些文件包含登录 Token，请勿公开。插件设置可隐藏侧栏入口，隐藏后从侧栏“更多”重新打开。卸载前先退出登录。
+
+### CLI／CI 与自动调用
+
+无页面客户端可在运行 DSH 的主机上配置 `ONE_CLICK_VIRT_API_URL` 和 `ONE_CLICK_VIRT_API_TOKEN`。非本机 HTTP 还需显式设置 `ONE_CLICK_VIRT_ALLOW_HTTP=true`。Token 通过环境或 CI 私密变量注入，请勿填写在聊天或工具参数中。
+
+插件注册 `oneclickvirt_` 前缀的 17 个原生工具，覆盖 Skill 的实例、节点、监控、资源和流程模板，另提供镜像规格查询、备注和任务状态。先调用 `oneclickvirt_guide`，创建前读取 `oneclickvirt_list_providers` 和 `oneclickvirt_catalog`；创建、启停后通过 `oneclickvirt_tasks` 和实例详情确认完成。普通用户只能操作本账号可访问的资源，管理员工具仍需管理员权限。
+
 ## Skill 与 MCP
 
 Skill 用于向 AI 客户端提供操作说明，实际操作由 OneClickVirt 的 MCP 服务端转发到 API。需要已经运行并完成初始化的 OneClickVirt，以及管理员个人中心生成的 API Token。安装 Skill 不需要重新安装面板或数据库。
