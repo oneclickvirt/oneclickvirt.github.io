@@ -33,7 +33,7 @@ const guideSections: SidebarSection[] = [
         path: '/guide/dashboard',
       },
       {
-        text: { zh: '各仓库 Skill 与 MCP', en: 'Repository Skills and MCP' },
+        text: { zh: '各仓库 Skill、MCP 与 DSH 插件', en: 'Repository Skills, MCP and DSH plugins' },
         path: '/guide/agent_integrations',
       },
     ],
@@ -52,6 +52,11 @@ const guideSections: SidebarSection[] = [
       {
         text: { zh: '高级安装（选其一）', en: 'Advanced installation (choose one)' },
         path: '/guide/oneclickvirt/oneclickvirt_advanced_install',
+      },
+      {
+        text: { zh: 'DSH 插件', en: 'DSH Plugin' },
+        path: '/guide/oneclickvirt/oneclickvirt_advanced_install',
+        anchor: { zh: 'deepseek-harness-plugin', en: 'deepseek-harness-plugin' },
       },
       {
         text: { zh: 'Skill 与 MCP', en: 'Skill and MCP' },

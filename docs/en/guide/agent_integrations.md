@@ -6,7 +6,14 @@ outline: deep
 
 Skills describe each repository's scope, source entry points, and operating requirements. MCP makes existing commands or query APIs available to an AI client. Installing these files does not install a virtualization runtime.
 
-The OneClickVirt panel uses its own API and MCP server. See [OneClickVirt: Skill and MCP](./oneclickvirt/oneclickvirt_advanced_install.md#skill-and-mcp) for that installation. The integrations below operate individual platforms and standalone tools.
+For panel API operations, see [OneClickVirt: Skill and MCP](./oneclickvirt/oneclickvirt_advanced_install.md#skill-and-mcp). The repository table below covers Skills and MCP for individual platforms and standalone tools.
+
+## DeepSeek Harness Plugins
+
+| Plugin | Use in DSH | Installation |
+| --- | --- | --- |
+| OneClickVirt | Connect to an existing controller to create and manage VMs or containers and view nodes, tasks and monitoring. | [OneClickVirt plugin](./oneclickvirt/oneclickvirt_advanced_install.md#deepseek-harness-plugin) |
+| GoECS | Test the local machine or an SSH host and read results and saved reports. | [GoECS plugin](../case/case1.md#deepseek-harness-plugin) |
 
 ## Supported repositories
 

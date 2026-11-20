@@ -6,7 +6,14 @@ outline: deep
 
 Skill 提供各仓库的使用范围、源码入口和操作要求，MCP 则将已有命令或查询接口提供给 AI 客户端。安装这些文件不会自动安装虚拟化环境。
 
-OneClickVirt 面板使用自己的 API 和 MCP 服务端，安装方式见 [OneClickVirt：Skill 与 MCP](./oneclickvirt/oneclickvirt_advanced_install.md#skill-与-mcp)。下面的集成用于直接操作各平台或独立工具。
+面板的 Skill 与 API 调用见 [OneClickVirt：Skill 与 MCP](./oneclickvirt/oneclickvirt_advanced_install.md#skill-与-mcp)。各虚拟化平台与独立工具的 Skill、MCP 入口见下方仓库表。
+
+## DeepSeek Harness 插件
+
+| 插件 | 在 DSH 中使用 | 安装说明 |
+| --- | --- | --- |
+| OneClickVirt | 登录已有主控，创建和管理虚拟机或容器，查看节点、任务和监控。 | [OneClickVirt 插件](./oneclickvirt/oneclickvirt_advanced_install.md#deepseek-harness-plugin) |
+| Go 融合怪 | 测试本机或 SSH 主机，阅读结果和历史报告。 | [Go 融合怪插件](../case/case1.md#deepseek-harness-插件) |
 
 ## 仓库支持
 

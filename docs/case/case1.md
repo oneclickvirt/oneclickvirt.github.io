@@ -356,6 +356,33 @@ docker run --rm docker.cnb.cool/oneclickvirt/ecs:latest -menu=false -l zh
 
 ---
 
+### **DeepSeek Harness 插件**
+
+```bash
+dsh plugin --profile web add dsh-plugin-goecs
+```
+
+<details>
+<summary>展开查看插件安装和使用说明</summary>
+
+支持 Linux、macOS 和 Windows 的 DSH 宿主，插件要求 DSH `>=0.2.2-rc.1 <0.3.0-0` 和 Node.js 22.6 以上版本。npm 版 DSH CLI 另有宿主要求，例如 `0.2.2-rc.5` 需 Node.js 24.9 以上版本。
+
+- **Web**：安装后用 `dsh --profile web` 启动，已运行时重启该配置。更新命令为 `dsh plugin --profile web add dsh-plugin-goecs@latest`。用 `dsh plugin --profile web list dsh-plugin-goecs --depth 0` 核对安装版本。安装源暂时返回旧版时，可把 `@latest` 换成 npm 页面上的具体版本号。
+- **Desktop**：打开 **插件 → 添加插件 → 安装第三方插件**，输入 `dsh-plugin-goecs`，安装并启用。本地安装可先执行 `npm pack dsh-plugin-goecs --ignore-scripts`，再选择生成的 `.tgz`。Web 也支持在 `dsh plugin --profile web add` 后填写该本地文件的路径。更新使用 Desktop 插件列表，并按提示重启。
+- **CLI／CI**：在实际使用的 DSH 配置中安装，例如 `dsh plugin --profile headless add dsh-plugin-goecs`。宿主提供 `tools` 服务时可用 `goecs_info`、`goecs_run` 和 `goecs_task`。检测到代理时，在无界面任务中显式选择代理或直连。
+
+从侧栏打开 **Go 融合怪**，先选择本机或 SSH 主机，再选择测试选项。插件会查找已有的 GoECS 程序或已校验缓存，需要时下载对应架构版本。首次连接 SSH 时核对主机指纹，远端找不到可用程序时可通过 SSH 上传已校验的本体。高级参数默认折叠，选项 2 使用并发测试。
+
+本机测试默认先请求管理员权限，可在插件设置中关闭，也可在提示中选择以当前账号运行。检测到代理时按提示选择代理或直连，原生 TCP、ICMP 和路由测试仍按系统路由运行。
+
+测试期间实时显示进度，测试完成或停止后再显示报告。默认公开上传并生成分享链接，可在测试选项中关闭。取得链接时默认使用 Pastebin 模式二，复制时带上解读、比较和排名。未取得链接时默认使用模式一（TXT），Markdown 和 JSON 可通过阅读模式切换。切换 DSH 页面会保留当前任务和已显示的结果。历史记录保存在插件数据目录，可添加备注、查看分享链接、单条或批量删除。
+
+[插件发布包](https://www.npmjs.com/package/dsh-plugin-goecs)
+
+</details>
+
+---
+
 ### 从源码进行编译
 
 <details>

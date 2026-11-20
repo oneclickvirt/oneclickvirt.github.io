@@ -148,6 +148,17 @@ Extremely, you can also create instances with only independent IPv6 addresses. M
 
 Not recommended to modify the mapping method unless you know what this setting does. The default configuration is already the best configuration.
 
+### Adding Addresses to a Pool
+
+Save the node and open **IPv4 Address Pool** or **IPv6 Address Pool / Node Address File** for a network that supports static allocation. Enter one address, CIDR or `start IP - end IP` per line in the controller's pool. You can mix these formats within the matching IPv4 or IPv6 pool.
+
+```text
+192.168.1.1 - 192.168.1.100
+2001:db8::1 - 2001:db8::100
+```
+
+Ranges include both endpoints and accept up to 4096 addresses each. Duplicate entries are skipped. An IPv6 submission accepts up to 5000 entries after expansion. Large CIDRs are stored as prefixes and allocated on demand. With Incus/LXD managed NAT IPv6, the node network assigns addresses. See [Networking FAQ](./oneclickvirt_qa.md) for individual public IPv6 addresses.
+
 ### Bandwidth and Traffic Configuration (Required)
 
 ![](./images/bw1.png)
@@ -303,6 +314,16 @@ After saving the node, after completing the health check, regular users can see 
 After health check, it will display whether the corresponding type of connection status is online and will automatically detect the actual total resources of the entire machine. This total resource amount is the total resource limit for non-overcommitted creation set above.
 
 Whether the API is available does not affect specific usage. Auto-configuring the API is not mandatory.
+
+## Managing Instances
+
+### Display Aliases
+
+Administrators and instance owners can edit the display alias from the instance list or details. An alias can be up to 128 characters. Clear it to display the original name. Searches and host operations, including power actions, reinstall and SSH, use the original instance details. For the API, open `/swagger/index.html` on your controller.
+
+### SSH File Transfer
+
+Open the instance's SSH connection and select **File Transfer**. Choose the destination directory to upload or download files. After an interruption, select the same file and choose to resume or restart when prompted. A replacement with the same name is published after all its chunks have arrived.
 
 ## System Images
 

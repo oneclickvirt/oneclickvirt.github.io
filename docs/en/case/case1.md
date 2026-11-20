@@ -205,6 +205,31 @@ Unprivileged mode without host networking:
 docker run --rm docker.cnb.cool/oneclickvirt/ecs:latest -menu=false -l=en
 ```
 
+## DeepSeek Harness Plugin
+
+```bash
+dsh plugin --profile web add dsh-plugin-goecs
+```
+
+<details>
+<summary>Expand to view installation and usage</summary>
+
+The plugin supports DSH hosts on Linux, macOS and Windows. It requires DSH `>=0.2.2-rc.1 <0.3.0-0` and Node.js 22.6 or newer. The npm CLI also needs the Node.js version required by its DSH release. DSH `0.2.2-rc.5`, for example, requires Node.js 24.9 or newer.
+
+- **Web**: Start with `dsh --profile web` after installation, or restart an existing Web profile. To update, run `dsh plugin --profile web add dsh-plugin-goecs@latest`. Check the installed version with `dsh plugin --profile web list dsh-plugin-goecs --depth 0`. If your registry still resolves an older version, replace `@latest` with the version shown on npm.
+- **Desktop**: Open **Plugins → Add Plugin → Install third-party plugin**, enter `dsh-plugin-goecs`, then install and enable it. For a local install, run `npm pack dsh-plugin-goecs --ignore-scripts` and select the resulting `.tgz`. For a local Web install, pass the file path to `dsh plugin --profile web add`. Use Desktop's plugin list to update and follow any restart prompt.
+- **CLI / CI**: Install in the profile you run, for example `dsh plugin --profile headless add dsh-plugin-goecs`. A host with the `tools` service exposes `goecs_info`, `goecs_run`, and `goecs_task`. Select proxy or direct routing explicitly in a headless run when a proxy is detected.
+
+Open **GoECS** from the sidebar. Choose the local machine or an SSH host, then choose a test preset. The plugin finds an existing executable or a verified cached copy and downloads the matching architecture when needed. Verify the SSH host fingerprint on the first connection. If the remote host has no usable executable, the plugin can upload a verified copy over SSH. Advanced options are collapsed by default. Preset 2 runs concurrently.
+
+Local tests request administrator permission by default. Disable this in the plugin settings or choose to run under the current account when prompted. If a proxy is detected, choose proxy or direct routing. Native TCP, ICMP and route probes follow the system routing table.
+
+The terminal streams progress during the test. Report views become available after the test finishes or stops. Public upload and share links are enabled by default and can be disabled in the test options. With a share link, the default view is Pastebin Mode 2, and copying it includes interpretation, comparisons and rankings. Without a link, the default is Mode 1 (TXT). Markdown and JSON are available from the view selector. Switching DSH pages preserves the current task and its displayed output. The History page keeps reports in the plugin's data directory and supports remarks, share links, and single or batch deletion.
+
+[Published plugin](https://www.npmjs.com/package/dsh-plugin-goecs)
+
+</details>
+
 ## Build From Source
 
 1. Clone the public branch:

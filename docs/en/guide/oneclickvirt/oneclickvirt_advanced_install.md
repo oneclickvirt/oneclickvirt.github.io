@@ -644,25 +644,27 @@ These commands retain volumes. For a complete all-in-one removal, also remove `o
 
 ## DeepSeek Harness Plugin
 
-The plugin connects directly to an existing OneClickVirt deployment. It requires no controller, database or MCP binary installation. It supports macOS, Windows and Linux, DSH `>=0.2.2-rc.1 <0.3.0`, and Node.js 22.6 or newer.
+The plugin connects to an initialized OneClickVirt deployment. It supports macOS, Windows and Linux, and requires DSH `>=0.2.2-rc.1 <0.3.0-0` and Node.js 22.6 or newer. The npm CLI also needs the Node.js version required by the DSH host. DSH `0.2.2-rc.5`, for example, requires Node.js 24.9 or newer.
 
 ### Install or update
 
-For the Web profile:
+Install from npm for the Web profile:
 
 ```bash
-dsh plugin --profile web add github:oneclickvirt/oneclickvirt
+dsh plugin --profile web add dsh-plugin-oneclickvirt
 ```
 
-In Desktop, open **Plugins → Add → Install third-party plugin** and enter `github:oneclickvirt/oneclickvirt`, or select `dsh-plugin-oneclickvirt.tgz` downloaded from the [DSH Release](https://github.com/oneclickvirt/oneclickvirt/releases/latest). Desktop manages its own profile; do not modify it through the CLI. The Release includes `DSH-SHA256SUMS` for verification.
+Start with `dsh --profile web`, or restart the running Web profile. To update, run `dsh plugin --profile web add dsh-plugin-oneclickvirt@latest` and restart that profile. Check the installed version with `dsh plugin --profile web list dsh-plugin-oneclickvirt --depth 0`. If your registry still resolves an older version, replace `@latest` with the version shown on [npm](https://www.npmjs.com/package/dsh-plugin-oneclickvirt).
 
-To update, reinstall the repository or a newer package and restart DSH. The plugin and controller share the timestamp version and Release. Installing the plugin does not upgrade the controller.
+Desktop uses its own plugin installation. Open **Plugins → Add Plugin → Install third-party plugin**, enter `dsh-plugin-oneclickvirt`, then install and enable it. To install a local copy, download `dsh-plugin-oneclickvirt.tgz` from the [GitHub Release](https://github.com/oneclickvirt/oneclickvirt/releases/latest) and select it in the same dialog. The Release includes `DSH-SHA256SUMS`. For a local Web install, run `dsh plugin --profile web add ./dsh-plugin-oneclickvirt.tgz` from the directory containing the package. Use the update action in Desktop's plugin list and follow any restart prompt.
+
+The npm version and controller Release tag use the same timestamp. For controller upgrades, see [Panel Updates, Rollbacks, and Restart](./oneclickvirt_install.md#panel-updates-rollbacks-and-restart).
 
 ### Sign in and manage instances
 
 Open **OneClickVirt** from the sidebar, enter the deployment URL, and choose password or API token sign-in. Use HTTPS for remote deployments; plain HTTP requires explicit permission. Load and complete the captcha when the deployment requires one.
 
-Remember sign-in is enabled by default. Password sign-in creates a permanent API token for this device; signing out clears the local record and revokes that token. Existing tokens keep their original expiry and are only removed locally on sign-out. Ordinary accounts allow up to three API tokens: use an existing token or turn off Remember sign-in if this limit is reached. Passwords are never saved. Temporary network outages preserve the saved login; expired or revoked tokens require sign-in again.
+Remember sign-in is enabled by default. Password sign-in creates a long-lived API token for this device. Signing out clears the local record and attempts to revoke the device token. If the panel is unreachable, revoke that token from your account page. Existing tokens keep their original expiry and are only removed locally on sign-out. Ordinary accounts allow up to three API tokens: use an existing token or turn off Remember sign-in if this limit is reached. Passwords are never saved. Temporary network outages preserve the saved login; expired or revoked tokens require sign-in again.
 
 - **Instances**: search by original name; start, stop, restart, inspect details and monitoring, and edit display aliases. Aliases allow up to 128 characters; clearing one restores the original name. Host identifiers stay unchanged. Deletion requires entering the exact original name.
 - **Create instance**: read available images from the selected node. Administrators choose numeric CPU, memory and disk resources; ordinary users select the platform's specification IDs. OneClickVirt still validates permissions, quotas and instance types.
@@ -672,9 +674,9 @@ The page stays mounted when switching DSH pages. Polling stops while hidden and 
 
 ### CLI / CI and native tools
 
-Clients without a page can set `ONE_CLICK_VIRT_API_URL` and `ONE_CLICK_VIRT_API_TOKEN` on the DSH host. Non-loopback HTTP also requires `ONE_CLICK_VIRT_ALLOW_HTTP=true`. Inject tokens through environment or CI secrets, never chat messages or tool arguments.
+Install the plugin in the profile you run, for example `dsh plugin --profile headless add dsh-plugin-oneclickvirt`. Clients without a page can set `ONE_CLICK_VIRT_API_URL` and `ONE_CLICK_VIRT_API_TOKEN` on the DSH host. Non-loopback HTTP also requires `ONE_CLICK_VIRT_ALLOW_HTTP=true`. Inject tokens through environment or CI secrets, never chat messages or tool arguments.
 
-The plugin registers 17 native tools prefixed with `oneclickvirt_`. They cover the Skill's instance, node, monitoring, resource and workflow capabilities, with catalog, alias and task operations. Start with `oneclickvirt_guide`; read `oneclickvirt_list_providers` and `oneclickvirt_catalog` before creation. Confirm completion through `oneclickvirt_tasks` and instance details after creation or power actions. Ordinary users can access only their authorized resources; administrator tools require administrator permissions.
+The plugin registers native tools prefixed with `oneclickvirt_`. They cover the Skill's instance, node, monitoring, resource and workflow capabilities, with catalog, alias and task operations. Start with `oneclickvirt_guide`; read `oneclickvirt_list_providers` and `oneclickvirt_catalog` before creation. Confirm completion through `oneclickvirt_tasks` and instance details after creation or power actions. Ordinary users can access only their authorized resources; administrator tools require administrator permissions.
 
 ## Skill and MCP
 
