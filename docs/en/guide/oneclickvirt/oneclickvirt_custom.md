@@ -9,8 +9,8 @@ outline: deep
 Agent mode is intended for home broadband, NAT, and private network nodes without a dedicated public IPv4 address.
 
 1. Click **Add Server**, select **Agent Entry**, and click **Next**.
-2. Leave IP address and port empty for home, NAT, or private nodes. Fill them in for a node with a fixed public address.
-3. Save the node. Open **Connection Config** and click **Generate / View Secret** to display the install commands.
+2. Enter the node name and type. To forward ports directly from the node, fill in its public address under **Port IP**. For home, NAT, or private nodes, you can leave it blank.
+3. Save and edit the node. Open **Connection Config** and click **Generate / View Secret** to view the install command.
 4. Run the command on the node server.
 5. Return to **Connection Config** and click **Check Connection** to confirm that the node is online.
 
@@ -18,7 +18,7 @@ Agent mode is intended for home broadband, NAT, and private network nodes withou
 
 ![Enter Agent node information](./images/agent1.jpg)
 
-The node token is generated when the node is saved and cannot be changed separately. Keep it private. If it is exposed, delete the node and add it again.
+The first click generates the node secret. Later clicks show the same secret. Keep the install command and secret private. If the secret is exposed, add the node again to get a new one.
 
 ![Generate or view the Agent secret in Connection Config](./images/agent3.jpg)
 
@@ -47,7 +47,7 @@ This workflow is for containers on Agent-mode nodes. The steps are the same for 
 
 1. Confirm that the node is online and that the container has a reachable IPv4 or IPv6 address and service port.
 2. Point an `A` record to the node IPv4 address and an `AAAA` record to the node IPv6 address. A hostname may have both.
-3. In **Domain Management**, select the instance, enter the domain, container address, and port, then save.
+3. In **Domain Bindings**, select the instance, enter the domain, container address, and port, then save.
 4. For HTTPS/WSS, upload a certificate and private key matching the domain and enable the HTTPS listener.
 5. Test HTTP, HTTPS (when enabled), WS, and WSS separately.
 
@@ -89,11 +89,12 @@ After upgrading the controller, upgrade the node Agent as well. Confirm that no 
 
 1. Install the GPU driver on the host and confirm that `nvidia-smi` works.
 2. Follow the LXD/Incus setup guide, add the node with Agent mode, and pass the health check.
-3. In **Redemption Code Management**, click **Batch Create**, choose the node and **Container**, and select **Enable GPU Passthrough**.
+3. In **Redemption Code Management**, click **Batch Create**. Select the node, container image, and specs, then check **Enable GPU Passthrough**. The panel then checks for GPUs on the node.
+
+   ![Enable GPU passthrough for the container](./images/gpu1.jpg)
+
 4. Install the matching driver inside the container with `--no-kernel-module`.
 5. Run `nvidia-smi` inside the container to verify the shared GPU.
 6. To create more containers, stop this container and use it as the copy template.
-
-![Enable GPU Passthrough in the container redemption form](./images/gpu1.jpg)
 
 See [Install a GPU driver inside a container](https://www.spiritysdx.top/20240513/#%E5%AE%B9%E5%99%A8%E5%86%85%E5%AE%89%E8%A3%85gpu%E9%A9%B1%E5%8A%A8) for a driver installation example.

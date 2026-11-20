@@ -4,6 +4,8 @@ outline: deep
 
 # OneClickVirt Advanced Installation
 
+When you first open the panel, use **English** in the top-right corner if the page is in Chinese. See [Switch to English](./oneclickvirt_usage.md#switch-to-english) to set the default for visitors.
+
 :::tip Choose one installation page
 Read either this page or [Basic Installation](./oneclickvirt_install), then choose one method from that page's table. Do not run multiple installation methods for the same panel.
 :::
@@ -815,13 +817,15 @@ Except for Docker Compose and the Dockerfile all-in-one variant, methods on this
 
 After opening the corresponding frontend page, it will automatically redirect to the initialization interface.
 
-If the setup page opens in Chinese, click **English** in the top-right corner. See [Switch to English](./oneclickvirt_usage.md#switch-to-english) for the administrator's default language setting.
-
 ![Database settings in the initialization wizard](./images/init.jpg)
 
-Enter the database information and click **Test Database Connection**. Click **Next Step**, enter the administrator details, review the optional regular-user settings, and click **Initialize System**.
+Enter the database details and click **Test Database Connection**. Once the test passes, click **Next Step** and enter the administrator details.
 
 ![Administrator settings in the initialization wizard](./images/init-admin.jpg)
+
+Click **Next Step** again. If you also want to create a regular user, turn on **Account Status** and fill in the account details. Otherwise, leave it disabled and click **Initialize System**.
+
+![Regular user settings and the Initialize System button](./images/init-user.jpg)
 
 After completing initialization, it will automatically redirect to the homepage, and you can explore and use it yourself.
 
@@ -833,4 +837,4 @@ During the initialization process, all image seed data is loaded into the databa
 
 If you need additional types of images, you need to search by type, architecture, and version in the system image management interface under administrator privileges and enable them. Windows, Android, macOS, and other non-Linux/BSD images are also imported as preset seeds, but they are disabled by default and have higher CPU, memory, and disk requirements to prevent accidental creation on low-end nodes. Before enabling these images, confirm that the target provider satisfies the required nested virtualization, disk space, KVM, or Docker special runtime conditions.
 
-If you enabled the example `testuser` account in the wizard, manage it from **User Management**.
+If you enabled a regular user during setup, you can find the account in **User Management**.

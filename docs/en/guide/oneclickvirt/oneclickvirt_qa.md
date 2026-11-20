@@ -81,9 +81,11 @@ For example, in an LXD environment, executing ```lxc list``` may result in an er
 internal error, please report: running “lxd.lxc” failed: cannot create transient scope: DBus error “org.freedesktop.DBus.Error.TimedOut”: [Failed to activate service ‘org.freedesktop.systemd1’: timed out (service_start_timeout=25000ms)]
 ```
 
-The root cause is setting too many instances while the provider imposes strict I/O restrictions.
+This is more likely when the node runs too many instances and the provider limits disk I/O.
 
-![](./images/iofailed.png)
+If the provider has throttled disk I/O, its control panel may show a notice like this.
+
+![Disk I/O throttling notice in the hosting provider's panel](./images/iofailed.png)
 
 At this point, only one solution remains: force-reboot the node server.
 

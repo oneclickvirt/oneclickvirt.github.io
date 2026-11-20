@@ -6,6 +6,8 @@ outline: deep
 
 OneClickVirt consists of a panel and controlled nodes. The panel only provides management and does not require a virtualization environment. Each controlled node must have its virtualization environment installed first.
 
+When you first open the panel, use **English** in the top-right corner if the page is in Chinese. See [Switch to English](./oneclickvirt_usage.md#switch-to-english) to set the default for visitors.
+
 :::tip Choose one installation page
 Read either this page or [Advanced Installation](./oneclickvirt_advanced_install), then choose one method from that page's table. Do not run multiple installation methods for the same panel.
 :::
@@ -252,13 +254,17 @@ Both basic methods prepare the database automatically. You do not need to instal
 - Docker all-in-one image: open the page for the first time and complete the administrator and other settings in the initialization form.
 - One-click bare-metal installation: the script attempts automatic initialization. If it reports that automatic initialization failed, open the printed URL and complete the form manually.
 
-Open the panel URL. If the setup page opens in Chinese, click **English** in the top-right corner. See [Switch to English](./oneclickvirt_usage.md#switch-to-english) for the administrator's default language setting.
+Open the panel URL to enter the setup wizard.
 
 ![Database settings in the initialization wizard](./images/init.jpg)
 
-Click **Test Database Connection**, then **Next Step**. Enter the administrator details, review the optional regular-user settings, and click **Initialize System**.
+Enter the database details and click **Test Database Connection**. Once the test passes, click **Next Step** and enter the administrator details.
 
 ![Administrator settings in the initialization wizard](./images/init-admin.jpg)
+
+Click **Next Step** again. If you also want to create a regular user, turn on **Account Status** and fill in the account details. Otherwise, leave it disabled and click **Initialize System**.
+
+![Regular user settings and the Initialize System button](./images/init-user.jpg)
 
 The application opens the home page when initialization completes:
 
@@ -268,4 +274,4 @@ Initial setup imports the system image seeds, but enables only Debian and Alpine
 
 Windows, Android, macOS, and similar images remain disabled by default and have higher CPU, memory, disk, nested virtualization, or KVM/Docker runtime requirements. Confirm the target node meets those requirements before enabling them.
 
-After initialization, make sure the administrator uses a strong password. If you enabled the example `testuser` account, manage it from **User Management**.
+Keep the administrator username and password you entered during setup. If the one-click installer created `testuser`, check its status in **User Management** and disable it if you no longer use it.

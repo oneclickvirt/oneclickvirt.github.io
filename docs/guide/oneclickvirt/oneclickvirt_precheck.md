@@ -34,7 +34,7 @@ outline: deep
 
 ## 平台特点
 
-- 语言国际化，前端支持中英双语切换显示，默认使用中文显示，可切换默认的系统语言
+- 前端支持中英双语切换，管理员可在系统配置中设置默认语言。
 
 - 对接Provider: 支持 ProxmoxVE、Incus、Docker、LXD、Podman、Containerd 6大主流虚拟化平台，更多平台敬请期待
 

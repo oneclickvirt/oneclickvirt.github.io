@@ -4,6 +4,8 @@ outline: deep
 
 # Preface
 
+If the panel opens in Chinese, click **English** in the top-right corner. See [Switch to English](./oneclickvirt_usage.md#switch-to-english) for the system-wide setting.
+
 This is a control panel for interfacing with mainstream virtualization technologies, supplementing features not natively supported by virtualization platforms such as user management, traffic monitoring, NAT port mapping, and custom system images.
 
 Welcome to support the project with a ```Star``` for free --> [https://github.com/oneclickvirt/oneclickvirt](https://github.com/oneclickvirt/oneclickvirt)
@@ -34,7 +36,7 @@ Managed nodes require the host machine's network interface to be directly bound 
 
 ## Platform Features
 
-- Language internationalization: Frontend supports bilingual display in Chinese and English, defaults to Chinese display, with switchable default system language
+- Language settings allow users to switch between Chinese and English and administrators to set the default language.
 
 - Provider Integration: Supports ProxmoxVE、Incus、Docker、LXD、Podman、Containerd - 6 major mainstream virtualization platforms, with more platforms coming soon
 

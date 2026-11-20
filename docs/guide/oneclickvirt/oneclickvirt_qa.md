@@ -82,9 +82,11 @@ docker volume rm oneclickvirt-data oneclickvirt-storage oneclickvirt-config
 internal error, please report: running “lxd.lxc” failed: cannot create transient scope: DBus error “org.freedesktop.DBus.Error.TimedOut”: [Failed to activate service ‘org.freedesktop.systemd1’: timed out (service_start_timeout=25000ms)]
 ```
 
-原因就是设置的实例数量太多了，商家又高度限制IO
+实例开得太多时，如果服务商又限制磁盘 I/O，这种情况更容易出现。
 
-![](./images/iofailed.png)
+如果服务商已经对磁盘 I/O 限速，也可能在其后台看到下面的提示。
+
+![服务商后台的磁盘 I/O 限速提示](./images/iofailed.png)
 
 此时只有一种方法，重启节点服务器，强制重启
 

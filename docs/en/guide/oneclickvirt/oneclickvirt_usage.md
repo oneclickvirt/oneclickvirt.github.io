@@ -8,31 +8,31 @@ This document provides detailed instructions on how to use this panel. If you ha
 
 ## Switch to English
 
-A fresh installation normally opens in Chinese. Click **English** in the top-right corner of the setup, sign-in, or panel page to switch this browser to English. On earlier builds, complete setup and use the sign-in page.
+If the panel opens in Chinese, click **English** in the top-right corner of the setup, sign-in, or panel page. This changes the language in your current browser.
 
 ![OneClickVirt sign-in page after switching to English](./images/language-switch.jpg)
 
-To make English the default for all visitors, sign in as an administrator and open **System Configuration → Other Configuration**. Select **English** under **Default System Language** and click **Save Current Configuration**.
+To make English the default, sign in as an administrator. Go to **System Configuration → Other Configuration**, choose **English** under **Default System Language**, and click **Save Current Configuration**.
 
 ![English selected as the default system language](./images/default-language.jpg)
 
-The new default applies on the next visit or refresh, including in browsers with existing site data. Visitors can switch languages again for their own browser after that.
+Once you change the default, browsers that have already visited the panel also switch on their next visit or refresh. Users can then choose their own language from the top-right corner again.
 
 ## User Management
 
-After signing in as an administrator, open **User Management**. If you need to replace a weak password, select **Reset Password** for the corresponding account. You can keep the strong password you entered during initialization.
+After signing in as an administrator, open **User Management**. If you set a strong password during initialization, you can skip the reset. To change a password, find the account, click **Reset Password**, and confirm.
 
 ![Reset Password dialog](./images/resetuserpassword.jpg)
 
 Resetting the password will automatically generate a strong password, which is displayed only once. Be sure to copy and save it to avoid forgetting it.
 
+To change the account type, click **Edit** for the account, change **User Type**, and save.
+
 ![Edit User form](./images/edituser.jpg)
 
-If you need to change a user's type, click on the corresponding user to edit. The edit popup supports changing the user type.
+Administrators can click on the avatar in the upper right corner, where the dropdown menu has a button to switch between administrator and regular user views. If you need to test any features, you can directly use the administrator user for testing. (Regular users do not have this view switching button)
 
 ![Switch views from the administrator menu](./images/switch.jpg)
-
-Administrators can click on the avatar in the upper right corner, where the dropdown menu has a button to switch between administrator and regular user views. If you need to test any features, you can directly use the administrator user for testing. (Regular users do not have this view switching button)
 
 ## Managing Nodes
 
@@ -40,13 +40,11 @@ Before adding a node, make sure at least one supported virtualization stack is a
 
 From the panel host, test connectivity to the node IP first. A latency below 300 ms with low packet loss is recommended. Otherwise, SSH/API operations may fail intermittently.
 
-The setup process below is divided into required and optional sections. Complete all required sections first, then apply optional settings as needed.
+Go to **Provider Management**, click **Add Server**, choose **SSH Direct Entry**, and click **Next**. Complete the required settings below first. For a node that uses the Agent, see [Manage a node with Agent mode](./oneclickvirt_custom.md#manage-a-node-with-agent-mode).
 
 ### Basic Information (Required)
 
 ![Basic node information](./images/base1.jpg)
-
-![Node architecture and status](./images/base2.jpg)
 
 Use only letters and numbers for the server name, avoid special characters, and keep it short (recommended within 6 characters). This name is used as the default prefix when new instances are created.
 
@@ -56,7 +54,9 @@ For SSH address, enter the node's public IPv4 address or reachable private SSH a
 
 For NAT port mapping, port IP has higher priority. If port IP is empty, the SSH address IP is used. Neither field must be a public IPv4 address.
 
-Node mode can be either a clean node or a node with existing instances. For existing-instance mode, the system detects current instances automatically and generates redemption codes in Redemption Code Management. They are bound to the current admin by default and become visible in regular-user view.
+Choose **Clean Node** for an empty node. If it already has instances, choose **Node with Instances** and enable **Auto Import Instances** to bring them under management. You can choose an owner for the imported instances. Leave it blank to use the current administrator. Check the task list after saving. Agent nodes start discovery when the Agent comes online.
+
+![Node with Instances and import settings](./images/base2.jpg)
 
 In the port field, fill in the port for SSH connection to the node.
 
@@ -65,8 +65,6 @@ Description is optional metadata for admins only.
 Status is enabled by default. After health check passes, regular users can apply for and claim instances.
 
 Architecture must match the node architecture. Currently supported: amd64 and arm64.
-
-(Management for nodes that already contain instances is still limited. Full synchronization and unified management for pre-existing instances is not fully implemented yet.)
 
 ### Connection Configuration (Required)
 
@@ -78,9 +76,9 @@ Password is the SSH login password. Key-based login is also supported.
 
 SSH timeout values are used for connectivity probing and fault tolerance tuning.
 
-![Successful SSH test with recommended timeout](./images/sshtest.jpg)
+After filling in the SSH details, click **Test SSH Connection**. A successful test shows a recommended timeout. Click **Apply Recommended** to use it.
 
-After filling the fields above, click Test to get recommended values, then click Apply if you want to use them.
+![Successful SSH test with recommended timeout](./images/sshtest.jpg)
 
 The latency displayed here reflects command execution round-trip time, not just ICMP ping, so values around 2 seconds can still be normal.
 
@@ -160,7 +158,7 @@ Not recommended to modify the mapping method unless you know what this setting d
 
 ### Adding Addresses to a Pool
 
-Save the node and open **IPv4 Address Pool** or **IPv6 Address Pool / Node Address File** for a network that supports static allocation. Enter one address, CIDR or `start IP - end IP` per line in the controller's pool. You can mix these formats within the matching IPv4 or IPv6 pool.
+Select a network type that supports static allocation and save the node. Edit it again and open **IP Mapping Config**. Enter one address, CIDR, or `start IP - end IP` per line. You can mix the formats in the same address pool.
 
 ```text
 192.168.1.1 - 192.168.1.100
@@ -169,9 +167,13 @@ Save the node and open **IPv4 Address Pool** or **IPv6 Address Pool / Node Addre
 
 Ranges include both endpoints and accept up to 4096 addresses each. Duplicate entries are skipped. An IPv6 submission accepts up to 5000 entries after expansion. Large CIDRs are stored as prefixes and allocated on demand. With Incus/LXD managed NAT IPv6, the node network assigns addresses. See [Networking FAQ](./oneclickvirt_qa.md) for individual public IPv6 addresses.
 
-![IPv4 address pool with addresses, CIDR and a range](./images/ipv4-pool.jpg)
+Enter IPv4 addresses under **IPv4 Address Pool** and click **Add to Pool**.
 
-![IPv6 address pool with an inclusive range](./images/ipv6-pool.jpg)
+![IPv4 address pool with a single address, CIDR and a range](./images/ipv4-pool.jpg)
+
+Enter IPv6 addresses in **Addresses or CIDRs** under **IPv6 Address Pool / Node Address File** and click **Save Addresses**. On Proxmox VE, the pool must fit the guest bridge subnet. Use the detection button in this section to see that subnet.
+
+![IPv6 address pool with a single address, CIDR and a range](./images/ipv6-pool.jpg)
 
 ### Bandwidth and Traffic Configuration (Required)
 
@@ -183,13 +185,13 @@ Simply put, this sets the maximum bandwidth for instances created on the node an
 
 #### agent (Recommended)
 
-Enable **Traffic Statistics** and select **Agent** as the collection method. Save the node, then open **Actions → Monitoring Management → Agent Monitoring** and choose **Deploy Agent**.
+Under **Bandwidth & Traffic**, enable traffic statistics and select **Agent** as the collection method. Save the node, open **Actions → Monitoring Management → Agent Monitoring (Recommended)**, and click **Deploy Agent**.
 
 ![Agent monitoring management](./images/monitor-agent.jpg)
 
 After deployment completes, click **Check Agent Status**.
 
-This method is suitable for nodes running a Linux kernel and supporting iptables or nftables. By default it uses nftables for monitoring. If you need custom iptables monitoring or want to exclude traffic for a specific inbound or outbound IP from monitoring, you need to click Edit Configuration in the current popup and then save and synchronize monitoring before the configuration is actually applied.
+This works on Linux nodes with nftables or iptables and uses nftables by default. To switch to iptables or exclude traffic for specific addresses, click **Edit Config**, save your changes, and click **Sync Monitors**.
 
 ![Agent configuration and exclusions](./images/monitor-config.jpg)
 
@@ -197,7 +199,7 @@ Generally, custom configuration is not needed. The default configuration is suff
 
 #### pmacct (Not Recommended)
 
-PMAcct is the legacy collection method. The Agent supports new Linux deployments with nftables or iptables.
+This section is for nodes still using PMAcct. For new nodes, use the Agent described above.
 
 Enabling pmacct traffic monitoring creates a memory burden because traffic statistics data must be cached. Even after this project is heavily optimized, memory usage still grows with bandwidth, so do not enable traffic statistics if you do not have enough memory.
 
@@ -277,11 +279,11 @@ Node operation mode supports API only, SSH only, and automatic switching. By def
 
 On Proxmox VE, LXD and Incus nodes, save the node and open **Actions → Configure API**. Select **Start Configuration** and use the task history to follow its progress and view logs. When it completes, run **Health Check** again and confirm the API is online.
 
-![API configuration history and start button](./images/api-configuration.jpg)
+![Start API auto-configuration](./images/api-configuration.jpg)
 
 Application and Claim Control:
 
-By default, regular users can choose the system and create instances using configurations within their level. If you enable redemption-code-only claiming, you need to batch-generate redemption codes in Redemption Code Management after the corresponding instances are generated, and then distribute the codes to users for redemption. In short, only enable this feature if you need to batch-create instances or revoke regular users' ability to freely choose the system and configuration.
+Regular users can normally choose an operating system and specs allowed by their level. If you enable **Redeem Code Only**, open **Redemption Code Management**, click **Batch Create**, and select the node, operating system, and specs. Wait for the instances to be created before handing out their codes.
 
 ![Redemption Code Management](./images/redeem-codes.jpg)
 
@@ -309,23 +311,23 @@ On the node row, open **Actions → Health Check**.
 
 ![Node actions including Health Check](./images/node-actions.jpg)
 
-After saving the node, after completing the health check, regular users can see the corresponding server and can apply for creation. If health check is not performed, users cannot apply for creation and claiming.
+Once an SSH node passes the health check and reports its resources, regular users can see it on the application page if claiming is enabled. Agent nodes report resources when they come online.
 
 After health check, it will display whether the corresponding type of connection status is online and will automatically detect the actual total resources of the entire machine. This total resource amount is the total resource limit for non-overcommitted creation set above.
 
-Whether the API is available does not affect specific usage. Auto-configuring the API is not mandatory.
+API configuration is optional when the node uses SSH or automatic switching.
 
 ## Managing Instances
 
 ### Display Aliases
 
-Administrators and instance owners can edit the display alias from the instance list or details. An alias can be up to 128 characters. Clear it to display the original name. Searches and host operations, including power actions, reinstall and SSH, use the original instance details. For the API, open `/swagger/index.html` on your controller.
+Administrators and instance owners can click the edit icon next to the name in the list or on the details page. Enter up to 128 characters or clear the field to display the original name. Search by the original name. Host identifiers, power actions, reinstallation, and SSH work as before. See `/swagger/index.html` on your controller for the API.
 
-![Edit display alias in the instance list](./images/instance-alias.jpg)
+![Edit display alias dialog](./images/instance-alias.jpg)
 
 ### SSH File Transfer
 
-Open the instance's SSH connection and select **File Transfer**. Choose the destination directory to upload or download files. After an interruption, select the same file and choose to resume or restart when prompted. A replacement with the same name is published after all its chunks have arrived.
+Open the instance's SSH connection and click **File Transfer**. Go to the directory where you want to upload or download files. If an upload stops, select the same file again and choose whether to resume or start over. A file with the same name is replaced once the upload finishes.
 
 ## System Images
 
@@ -335,7 +337,7 @@ By default, seed data will include all available images for all virtualization e
 
 If you need images for any system, any virtualization environment, any architecture, please search and enable them yourself, otherwise users cannot select the corresponding images.
 
-Use **Add Image** to register a compatible custom image. Select the node type, instance type, architecture and operating system, then enter the direct image URL.
+To use a custom image, click **Add Image**. Select the node type, instance type, architecture, and operating system, then enter a direct download URL.
 
 ![Add Image form](./images/image-form.jpg)
 
@@ -347,7 +349,9 @@ Administrators can inspect and maintain port mapping records under **Resources >
 
 **Sync Port Mappings** previews and removes stale database records, such as mappings whose instances no longer exist. **Rebuild Forwarding** repairs the opposite direction: selected controller database records are reapplied to the node or controller. The preview separates repairable, restart-required, and skipped records. Execution requires a risk confirmation followed by entering `REBUILD` exactly.
 
-![Forwarding Rebuild Preview](./images/port-rebuild-preview.jpg)
+Expand the skipped records to see why they were skipped. In the example below, the node is offline.
+
+![Forwarding Rebuild Preview showing why a record was skipped](./images/port-rebuild-preview.jpg)
 
 Native container runtime bindings require restarting affected running instances, which causes a brief interruption. The task verifies the actual bindings after restart and reports a clear failure when they do not match the database. This operation does not delete controller database port mapping records.
 
