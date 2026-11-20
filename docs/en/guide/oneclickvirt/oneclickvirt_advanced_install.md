@@ -168,11 +168,13 @@ You can use `nginx` or `caddy` to serve a static website from this directory. Bi
 * `nginx`: Includes `OpenResty`, `1Panel` built-in nginx, etc. Configuration is generally similar.
 * `caddy`: Easier to configure, **automatically obtains HTTPS certificates by default** (requires your domain to point to the server).
 
-After deploying the static files, you need to configure a reverse proxy so the frontend can access the backend. Below is an example using `OpenResty` built into `1Panel`:
+After deploying the static files, configure a reverse proxy so the frontend can reach the backend. In 1Panel's OpenResty proxy settings, use these values for a backend on the same host:
 
-![](./images/proxy.png)
-
-You need to proxy the `/api` path to the backend address `http://127.0.0.1:8888`. If you are using `1Panel`, you only need to fill in these values. The default backend domain `$host` does not need to be modified.
+| Field | Value |
+| --- | --- |
+| Frontend request path | `/api` |
+| Backend proxy address | `http://127.0.0.1:8888` |
+| Backend domain | `$host` |
 
 If you are using `nginx` or `OpenResty`, add the following configuration to your site:
 
@@ -813,15 +815,17 @@ Except for Docker Compose and the Dockerfile all-in-one variant, methods on this
 
 After opening the corresponding frontend page, it will automatically redirect to the initialization interface.
 
-![](./images/init.png)
+If the setup page opens in Chinese, click **English** in the top-right corner. See [Switch to English](./oneclickvirt_usage.md#switch-to-english) for the administrator's default language setting.
 
-Fill in the database information and related user information. If the database connection test is successful, you can click Initialize System.
+![Database settings in the initialization wizard](./images/init.jpg)
 
-![](./images/init_success.png)
+Enter the database information and click **Test Database Connection**. Click **Next Step**, enter the administrator details, review the optional regular-user settings, and click **Initialize System**.
+
+![Administrator settings in the initialization wizard](./images/init-admin.jpg)
 
 After completing initialization, it will automatically redirect to the homepage, and you can explore and use it yourself.
 
-![](./images/home.png)
+![OneClickVirt home page](./images/home.jpg)
 
 The initialization form creates the administrator account. Use a random strong password and save the credentials before submitting the form.
 
@@ -829,4 +833,4 @@ During the initialization process, all image seed data is loaded into the databa
 
 If you need additional types of images, you need to search by type, architecture, and version in the system image management interface under administrator privileges and enable them. Windows, Android, macOS, and other non-Linux/BSD images are also imported as preset seeds, but they are disabled by default and have higher CPU, memory, and disk requirements to prevent accidental creation on low-end nodes. Before enabling these images, confirm that the target provider satisfies the required nested virtualization, disk space, KVM, or Docker special runtime conditions.
 
-After initialization, please immediately change the default administrator username and password, and disable or delete the default enabled test user ```testuser```. This can be done in the administrator's user management page.
+If you enabled the example `testuser` account in the wizard, manage it from **User Management**.

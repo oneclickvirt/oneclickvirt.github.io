@@ -8,40 +8,36 @@ outline: deep
 
 Agent mode is intended for home broadband, NAT, and private network nodes without a dedicated public IPv4 address.
 
-1. Select **Agent mode** when adding the node.
+1. Click **Add Server**, select **Agent Entry**, and click **Next**.
 2. Leave IP address and port empty for home, NAT, or private nodes. Fill them in for a node with a fixed public address.
-3. Save the node and click **Generate install command** in Connection Configuration.
+3. Save the node. Open **Connection Config** and click **Generate / View Secret** to display the install commands.
 4. Run the command on the node server.
-5. Return to the controller and click **Detect** to confirm that the node is online.
+5. Return to **Connection Config** and click **Check Connection** to confirm that the node is online.
 
-![Select Agent mode](./images/agent0.png)
+![Select Agent Entry](./images/agent0.jpg)
 
-![Enter node information](./images/agent1.png)
-
-![Generate the install command](./images/agent2.png)
+![Enter Agent node information](./images/agent1.jpg)
 
 The node token is generated when the node is saved and cannot be changed separately. Keep it private. If it is exposed, delete the node and add it again.
 
-![Connection configuration](./images/agent3.png)
+![Generate or view the Agent secret in Connection Config](./images/agent3.jpg)
 
 After detection succeeds, node and container management uses the same steps as a standard node.
-
-![Detect the node](./images/agent4.png)
 
 ### Intranet port forwarding
 
 For a local or NAT node:
 
-1. Select **No port mapping** as the node network mode.
-2. Open **Port Management** as an administrator and click **Add Port**.
-3. Select **Controller Forwarding (Intranet Penetration)**.
+1. Under **IP Mapping Config**, set **Network Type** to **No Port Mapping**.
+2. Open **Port Mapping Management** as an administrator and click **Add Manual Port**.
+3. Select **Controller Forwarding (NAT Traversal)**.
 4. Enter one TCP port per mapping. Optional fields can be left empty.
 
 The controller must be a Linux server with a public IPv4 address, root access, and a script or bare-metal deployment. Docker, Docker Compose, and non-Linux controllers cannot provide this feature.
 
-![Select the network mode](./images/agent5.png)
+![No Port Mapping selected under Network Type](./images/agent5.jpg)
 
-![Add a port](./images/agent6.png)
+![Add a manual port using controller forwarding](./images/agent6.jpg)
 
 The reverse proxy must allow both WS and WSS. For HTTPS, configure the required certificate and ports first.
 
@@ -93,15 +89,11 @@ After upgrading the controller, upgrade the node Agent as well. Confirm that no 
 
 1. Install the GPU driver on the host and confirm that `nvidia-smi` works.
 2. Follow the LXD/Incus setup guide, add the node with Agent mode, and pass the health check.
-3. Create a GPU-enabled container from the redemption-code page.
+3. In **Redemption Code Management**, click **Batch Create**, choose the node and **Container**, and select **Enable GPU Passthrough**.
 4. Install the matching driver inside the container with `--no-kernel-module`.
 5. Run `nvidia-smi` inside the container to verify the shared GPU.
 6. To create more containers, stop this container and use it as the copy template.
 
-![Create a GPU container](./images/gpu1.jpeg)
-
-![Add an access port](./images/gpu2.jpeg)
-
-![Verify the GPU](./images/gpu3.jpg)
+![Enable GPU Passthrough in the container redemption form](./images/gpu1.jpg)
 
 See [Install a GPU driver inside a container](https://www.spiritysdx.top/20240513/#%E5%AE%B9%E5%99%A8%E5%86%85%E5%AE%89%E8%A3%85gpu%E9%A9%B1%E5%8A%A8) for a driver installation example.

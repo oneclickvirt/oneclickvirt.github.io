@@ -6,21 +6,31 @@ outline: deep
 
 This document provides detailed instructions on how to use this panel. If you have any questions, please join the group for assistance from administrators: https://t.me/oneclickvirt
 
+## Switch to English
+
+A fresh installation normally opens in Chinese. Click **English** in the top-right corner of the setup, sign-in, or panel page to switch this browser to English. On earlier builds, complete setup and use the sign-in page.
+
+![OneClickVirt sign-in page after switching to English](./images/language-switch.jpg)
+
+To make English the default for all visitors, sign in as an administrator and open **System Configuration → Other Configuration**. Select **English** under **Default System Language** and click **Save Current Configuration**.
+
+![English selected as the default system language](./images/default-language.jpg)
+
+The new default applies on the next visit or refresh, including in browsers with existing site data. Visitors can switch languages again for their own browser after that.
+
 ## User Management
 
-After logging into the administrator interface, open the user management page and you must click reset password to ensure the admin account password is a strong password, preventing malicious brute force attacks. If you defined your own password during initialization, you may skip resetting the password.
+After signing in as an administrator, open **User Management**. If you need to replace a weak password, select **Reset Password** for the corresponding account. You can keep the strong password you entered during initialization.
 
-![](./images/resetuserpassword.png)
+![Reset Password dialog](./images/resetuserpassword.jpg)
 
 Resetting the password will automatically generate a strong password, which is displayed only once. Be sure to copy and save it to avoid forgetting it.
 
-![](./images/resetuserpasswordsuccess.png)
-
-![](./images/edituser.png)
+![Edit User form](./images/edituser.jpg)
 
 If you need to change a user's type, click on the corresponding user to edit. The edit popup supports changing the user type.
 
-![](./images/switch.png)
+![Switch views from the administrator menu](./images/switch.jpg)
 
 Administrators can click on the avatar in the upper right corner, where the dropdown menu has a button to switch between administrator and regular user views. If you need to test any features, you can directly use the administrator user for testing. (Regular users do not have this view switching button)
 
@@ -34,9 +44,9 @@ The setup process below is divided into required and optional sections. Complete
 
 ### Basic Information (Required)
 
-![](./images/base1.png)
+![Basic node information](./images/base1.jpg)
 
-![](./images/base2.png)
+![Node architecture and status](./images/base2.jpg)
 
 Use only letters and numbers for the server name, avoid special characters, and keep it short (recommended within 6 characters). This name is used as the default prefix when new instances are created.
 
@@ -60,7 +70,7 @@ Architecture must match the node architecture. Currently supported: amd64 and ar
 
 ### Connection Configuration (Required)
 
-![](./images/connect.png)
+![SSH connection settings](./images/connect.jpg)
 
 Using the root account is recommended because automatic API setup installs required dependencies. Non-root accounts may hit permission issues.
 
@@ -68,7 +78,7 @@ Password is the SSH login password. Key-based login is also supported.
 
 SSH timeout values are used for connectivity probing and fault tolerance tuning.
 
-![](./images/sshtest.png)
+![Successful SSH test with recommended timeout](./images/sshtest.jpg)
 
 After filling the fields above, click Test to get recommended values, then click Apply if you want to use them.
 
@@ -80,7 +90,7 @@ Execution timeout generally doesn't need modification unless your node's perform
 
 ### Location Information (Optional)
 
-![](./images/location.png)
+![Node location settings](./images/location.jpg)
 
 Directly enter a specific country and click to select. Most countries already have presets with corresponding flag icons.
 
@@ -90,7 +100,7 @@ You can optionally fill in the corresponding city. Not filling it in is fine and
 
 ### Instance Type and Quantity Limits (Required)
 
-![](./images/setvirt.png)
+![Container and VM support and instance counts](./images/setvirt.jpg)
 
 For docker type nodes, only containers can be created. Other virtualization types support creating both containers and virtual machines (provided the node itself supports it; forced creation on unsupported nodes will automatically fail).
 
@@ -114,11 +124,11 @@ If you need to overcommit, the values obtained from the above calculation rules 
 
 Overcommitment resource configuration means whether to strictly limit corresponding resources. Removing limits means no checks will be performed and forced creation may occur, which may lead to creation task failures.
 
-![](./images/setct.png)
+![Container resource limits](./images/setct.jpg)
 
 By default, container type doesn't limit total CPU and memory pre-allocation, but limits total pre-allocated disk capacity to achieve optimal resource sharing and maximum number of instances. Generally doesn't need modification.
 
-![](./images/setvm.png)
+![Virtual machine resource limits](./images/setvm.jpg)
 
 By default, virtual machine type limits all resources, with the maximum total pre-allocated resources not exceeding actual resource size.
 
@@ -134,9 +144,9 @@ Not recommended to modify unless you know what this setting does.
 
 ### IP Mapping Configuration (Optional)
 
-![](./images/ipt1.png)
+![NAT network configuration](./images/ipt1.jpg)
 
-![](./images/ipt2.png)
+![Dedicated IPv4 and IPv6 network options](./images/ipt2.jpg)
 
 Generally doesn't need modification. Here you can set the number of port mappings, range, network configuration method, and port mapping method for each instance.
 
@@ -159,35 +169,35 @@ Save the node and open **IPv4 Address Pool** or **IPv6 Address Pool / Node Addre
 
 Ranges include both endpoints and accept up to 4096 addresses each. Duplicate entries are skipped. An IPv6 submission accepts up to 5000 entries after expansion. Large CIDRs are stored as prefixes and allocated on demand. With Incus/LXD managed NAT IPv6, the node network assigns addresses. See [Networking FAQ](./oneclickvirt_qa.md) for individual public IPv6 addresses.
 
+![IPv4 address pool with addresses, CIDR and a range](./images/ipv4-pool.jpg)
+
+![IPv6 address pool with an inclusive range](./images/ipv6-pool.jpg)
+
 ### Bandwidth and Traffic Configuration (Required)
 
-![](./images/bw1.png)
+![Bandwidth and traffic limits](./images/bw1.jpg)
 
-![](./images/bw2.png)
-
-![](./images/bw3.png)
+![Traffic collection method](./images/bw2.jpg)
 
 Simply put, this sets the maximum bandwidth for instances created on the node and the total available traffic quota. Traffic monitoring and traffic statistics are not enabled by default. The traffic cycle follows the natural month by default and resets on the 1st day of each month. You can also choose a monthly reset day in the Expiry Settings section later; if 29, 30, or 31 is selected, shorter months automatically use the last day of that month.
 
 #### agent (Recommended)
 
-A traffic and resource statistics project built with Rust. After enabling traffic monitoring and selecting agent monitoring, choose Deploy in the monitoring management page.
+Enable **Traffic Statistics** and select **Agent** as the collection method. Save the node, then open **Actions → Monitoring Management → Agent Monitoring** and choose **Deploy Agent**.
 
-![](./images/bw4.png)
+![Agent monitoring management](./images/monitor-agent.jpg)
 
-![](./images/bw5.png)
-
-After deployment completes, click Detect Agent Status to check whether it loaded successfully.
+After deployment completes, click **Check Agent Status**.
 
 This method is suitable for nodes running a Linux kernel and supporting iptables or nftables. By default it uses nftables for monitoring. If you need custom iptables monitoring or want to exclude traffic for a specific inbound or outbound IP from monitoring, you need to click Edit Configuration in the current popup and then save and synchronize monitoring before the configuration is actually applied.
 
-![](./images/bw6.png)
+![Agent configuration and exclusions](./images/monitor-config.jpg)
 
 Generally, custom configuration is not needed. The default configuration is sufficient for daily use.
 
 #### pmacct (Not Recommended)
 
-This method is for nodes that do not support nftables or iptables commands, such as Alpine hosts or non-Linux kernels. In those cases only, use this traffic monitoring method. In other scenarios, agent mode is still recommended.
+PMAcct is the legacy collection method. The Agent supports new Linux deployments with nftables or iptables.
 
 Enabling pmacct traffic monitoring creates a memory burden because traffic statistics data must be cached. Even after this project is heavily optimized, memory usage still grows with bandwidth, so do not enable traffic statistics if you do not have enough memory.
 
@@ -207,19 +217,15 @@ If traffic statistics are enabled, note that the bandwidth assigned per level sh
 
 Traffic statistics error margin is about 0.1G deviation per 10G. NAT mapping and instances with independent IPv6 IPs are automatically handled, no manual management needed.
 
-However, if traffic statistics were previously enabled and need to be disabled and monitoring uninstalled later, you need to delete the monitoring in the following place first before disabling traffic statistics. This ensures complete uninstallation, otherwise it will still collect statistics in the background.
+To stop legacy collection, open **Actions → Monitoring Management → PMAcct Monitoring (Legacy)**. Click **Disable Traffic Monitor** before turning off traffic statistics for the node. Use **Detect Traffic Monitor** to check existing monitoring.
 
-![](./images/cz.png)
-
-Only after enabling traffic control will the traffic monitoring management button appear here. After entering, three buttons are visible, mainly for manually synchronizing monitoring situations. Generally, if traffic monitoring is not enabled after some instances are created, manual management is not needed. If needed, just click detect traffic monitoring, which will batch detect the monitoring situation of all instances under the current instance.
-
-![](./images/pcz.png)
+![PMAcct legacy monitoring controls](./images/monitor-pmacct.jpg)
 
 The traffic reset day affects current-cycle statistics, user/instance/provider traffic limit checks, and recovery queueing for instances automatically stopped because of traffic overuse. When a provider reaches its reset day, the system first clears that provider's traffic-limit state, then recalculates user and instance limits. Instances that are no longer over the limit and have no other freeze reason will automatically receive a start task.
 
 ### Level Restrictions (Required)
 
-![](./images/level.png)
+![Node-level resource limits](./images/level.jpg)
 
 Five levels are preset here, and users will be filtered through this restriction configuration when applying and claiming.
 
@@ -229,7 +235,7 @@ This setting is to specialize the configuration limits of instances that users o
 
 ### Expiry Settings (Optional)
 
-![](./images/setmore1.png)
+![Expiry, traffic reset and check-in settings](./images/setmore1.jpg)
 
 Expiration time:
 
@@ -249,7 +255,7 @@ The previous check-in renewal tab has been merged into Expiry Settings. Configur
 
 ### Advanced Settings (Optional)
 
-![](./images/setmore2.png)
+![Advanced node settings](./images/setmore2.jpg)
 
 Task concurrency control:
 
@@ -269,33 +275,29 @@ Operation execution rules:
 
 Node operation mode supports API only, SSH only, and automatic switching. By default, automatic switching mode is used. Generally, there's no need to modify unless there are special requirements.
 
-If you need to enable API operation mode, after successfully saving the node settings, click the auto-configure API button outside to execute background tasks to automatically interface with the virtualization platform API, no manual configuration required. After waiting for about 15-20 seconds, it should have been configured successfully. Click the button to see the configuration history tasks and corresponding logs. After successful configuration, click health check again to ensure the API status is green online status, and you've successfully configured and enabled the API.
+On Proxmox VE, LXD and Incus nodes, save the node and open **Actions → Configure API**. Select **Start Configuration** and use the task history to follow its progress and view logs. When it completes, run **Health Check** again and confirm the API is online.
 
-![](./images/autoapi1.png)
-
-![](./images/autoapi2.png)
-
-![](./images/autoapi3.png)
+![API configuration history and start button](./images/api-configuration.jpg)
 
 Application and Claim Control:
 
 By default, regular users can choose the system and create instances using configurations within their level. If you enable redemption-code-only claiming, you need to batch-generate redemption codes in Redemption Code Management after the corresponding instances are generated, and then distribute the codes to users for redemption. In short, only enable this feature if you need to batch-create instances or revoke regular users' ability to freely choose the system and configuration.
 
-![](./images/duihuan1.jpg)
+![Redemption Code Management](./images/redeem-codes.jpg)
 
-![](./images/duihuan2.png)
+![Batch Create Redemption Codes](./images/redeem-create.jpg)
 
 Hardware Monitoring:
 
 If you want to enable this feature, you must also enable agent monitoring in Monitoring Management. Without deploying the corresponding agent monitoring, hardware monitoring cannot be used. The collection interval and related parameters can be customized on the configuration edit page in Monitoring Management.
 
-![](./images/bw6.png)
+[Agent monitoring settings](#agent-recommended)
 
 By default, the system monitors CPU, memory, and disk usage for instances over the last 24 hours, and only keeps 24 hours of data.
 
 ### Hardware Configuration (Optional)
 
-![](./images/hardwareconfig.png)
+![Incus hardware configuration](./images/hardwareconfig.jpg)
 
 Only lxd and incus support setting default instance parameter configurations. Generally use the defaults unless you need to manually limit certain special hardware resources; otherwise, generally no modification is needed.
 
@@ -303,11 +305,9 @@ If you need to set the maximum percentage of CPU usage or similar parameters, th
 
 ### Health Check (Required)
 
-![](./images/autoapi4.png)
+On the node row, open **Actions → Health Check**.
 
-Click the operation button
-
-![](./images/autoapi45.png)
+![Node actions including Health Check](./images/node-actions.jpg)
 
 After saving the node, after completing the health check, regular users can see the corresponding server and can apply for creation. If health check is not performed, users cannot apply for creation and claiming.
 
@@ -321,27 +321,33 @@ Whether the API is available does not affect specific usage. Auto-configuring th
 
 Administrators and instance owners can edit the display alias from the instance list or details. An alias can be up to 128 characters. Clear it to display the original name. Searches and host operations, including power actions, reinstall and SSH, use the original instance details. For the API, open `/swagger/index.html` on your controller.
 
+![Edit display alias in the instance list](./images/instance-alias.jpg)
+
 ### SSH File Transfer
 
 Open the instance's SSH connection and select **File Transfer**. Choose the destination directory to upload or download files. After an interruption, select the same file and choose to resume or restart when prompted. A replacement with the same name is published after all its chunks have arrived.
 
 ## System Images
 
-![](./images/images.png)
+![System Images list](./images/images.jpg)
 
 By default, seed data will include all available images for all virtualization environments. By default, only alpine and debian images are enabled to avoid too many available images for users.
 
 If you need images for any system, any virtualization environment, any architecture, please search and enable them yourself, otherwise users cannot select the corresponding images.
 
-Custom image addresses are temporarily not supported. The current frontend entry function is not available. Do not manually enter images.
+Use **Add Image** to register a compatible custom image. Select the node type, instance type, architecture and operating system, then enter the direct image URL.
+
+![Add Image form](./images/image-form.jpg)
 
 ## Port Management
 
 Administrators can inspect and maintain port mapping records under **Resources > Port Management**. Node-side mappings are applied by the corresponding virtualization node. Controller forwarding is intended for tunnel access when a node has no public ingress and currently supports one TCP port per record.
 
-![](./images/portmapping-repair.png)
+![Port Mapping Management and rebuild controls](./images/portmapping-repair.jpg)
 
 **Sync Port Mappings** previews and removes stale database records, such as mappings whose instances no longer exist. **Rebuild Forwarding** repairs the opposite direction: selected controller database records are reapplied to the node or controller. The preview separates repairable, restart-required, and skipped records. Execution requires a risk confirmation followed by entering `REBUILD` exactly.
+
+![Forwarding Rebuild Preview](./images/port-rebuild-preview.jpg)
 
 Native container runtime bindings require restarting affected running instances, which causes a brief interruption. The task verifies the actual bindings after restart and reports a clear failure when they do not match the database. This operation does not delete controller database port mapping records.
 
@@ -351,7 +357,7 @@ General options here won't be elaborated on. There are two configurations that n
 
 ### User Level Configuration (Required)
 
-![](./images/userlevel.png)
+![System-wide user levels](./images/userlevel.jpg)
 
 This limits the total account available resources for regular user levels.
 
@@ -359,7 +365,7 @@ When creating instances on corresponding nodes, this global configuration will w
 
 ### Instance Permission Configuration (Required)
 
-![](./images/usercontrol.png)
+![Instance permissions by user level](./images/usercontrol.jpg)
 
 Here you can control the minimum level required for users to perform sensitive operations. You can control the minimum user level required for instance creation, instance deletion, and instance system reset.
 

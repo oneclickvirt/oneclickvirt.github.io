@@ -252,20 +252,20 @@ Both basic methods prepare the database automatically. You do not need to instal
 - Docker all-in-one image: open the page for the first time and complete the administrator and other settings in the initialization form.
 - One-click bare-metal installation: the script attempts automatic initialization. If it reports that automatic initialization failed, open the printed URL and complete the form manually.
 
-Manual initialization opens this page automatically:
+Open the panel URL. If the setup page opens in Chinese, click **English** in the top-right corner. See [Switch to English](./oneclickvirt_usage.md#switch-to-english) for the administrator's default language setting.
 
-![](./images/init.png)
+![Database settings in the initialization wizard](./images/init.jpg)
 
-Make sure the database connection test passes, enter and save the administrator credentials, and initialize the system:
+Click **Test Database Connection**, then **Next Step**. Enter the administrator details, review the optional regular-user settings, and click **Initialize System**.
 
-![](./images/init_success.png)
+![Administrator settings in the initialization wizard](./images/init-admin.jpg)
 
 The application opens the home page when initialization completes:
 
-![](./images/home.png)
+![OneClickVirt home page](./images/home.jpg)
 
 Initial setup imports the system image seeds, but enables only Debian and Alpine images by default. Administrators can search by type, architecture, and version in system image management to enable additional images.
 
 Windows, Android, macOS, and similar images remain disabled by default and have higher CPU, memory, disk, nested virtualization, or KVM/Docker runtime requirements. Confirm the target node meets those requirements before enabling them.
 
-After initialization, make sure the administrator uses a strong password and disable or delete the default `testuser` account.
+After initialization, make sure the administrator uses a strong password. If you enabled the example `testuser` account, manage it from **User Management**.
